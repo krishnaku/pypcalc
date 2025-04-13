@@ -2,61 +2,20 @@ import simpy
 import numpy as np
 import uuid
 import networkx as nx
-from collections import defaultdict
-from dataclasses import dataclass
-from typing import Dict, List, Tuple
+from typing import Dict
+
+from signal_history import SignalHistory
 
 
-@dataclass
-class Signal:
-    timestamp: float
-    entity_id: str
-    signal_type: str  # 'enter', 'exit', optionally 'start_service'
-
-
-class SignalHistory:
-    def __init__(self):
-        self.signals: List[Signal] = []
-
-    def add(self, signal_type: str, timestamp: float, entity_id: str):
-        self.signals.append(Signal(timestamp, entity_id, signal_type))
-
-    def get_signals(self, signal_type: str = None) -> List[Signal]:
-        if signal_type:
-            return [s for s in self.signals if s.signal_type == signal_type]
-        return self.signals
-
-    def sort(self):
-        self.signals.sort(key=lambda s: s.timestamp)
-
-    def __str__(self):
-        if not self.signals:
-            return "SignalHistory: (no signals)"
-
-        from collections import Counter
-
-        types = Counter(s.signal_type for s in self.signals)
-        times = [s.timestamp for s in self.signals]
-        entities = set(s.entity_id for s in self.signals)
-
-        summary = [
-            f"SignalHistory ({len(self.signals)} signals)",
-            f"  Types: " + ", ".join(f"{t}={n}" for t, n in types.items()),
-            f"  Time range: {min(times):.2f} to {max(times):.2f}",
-            f"  Unique entities: {len(entities)}",
-        ]
-        return "\n".join(summary)
-
-
-class GraphQueueSystem:
-    def __init__(self, env, graph: nx.DiGraph, seed=42):
+class QueuingNetworkSimulation:
+    def __init__(self, env, network: nx.DiGraph, simulation_period, seed=42):
         self.env = env
-        self.graph = graph
-        self.queues = {node: simpy.Resource(env, capacity=graph.nodes[node].get("concurrency", 1)) for node in
-                       graph.nodes}
-        self.delay_map = {node: graph.nodes[node].get("delay", 1.0) for node in graph.nodes}
-        self.queue_signal_history: Dict[str, SignalHistory] = {node: SignalHistory() for node in graph.nodes}
-        self.system_signal_history = SignalHistory()
+        self.network = network
+        self.queues = {node: simpy.Resource(env, capacity=network.nodes[node].get("concurrency", 1)) for node in
+                       network.nodes}
+        self.delay_map = {node: network.nodes[node].get("delay", 1.0) for node in network.nodes}
+        self.queue_signal_history: Dict[str, SignalHistory] = {node: SignalHistory(node, simulation_period) for node in network.nodes}
+        self.system_signal_history = SignalHistory("System", simulation_period)
         self.entity_system_state = {}
         self.rng = np.random.default_rng(seed)
 
@@ -84,7 +43,7 @@ class GraphQueueSystem:
         t_exit = self.env.now
         self.queue_signal_history[node].add("exit", t_exit, entity_id)
         state = self.entity_system_state[entity_id]
-        if self.graph.out_degree(node) == 0 and not state["exited"]:
+        if self.network.out_degree(node) == 0 and not state["exited"]:
             self.system_signal_history.add("exit", t_exit, entity_id)
             state["exited"] = True
         return t_exit
@@ -101,8 +60,8 @@ class GraphQueueSystem:
             current_node = self.get_next_node(current_node)
 
     def get_next_node(self, current_node):
-        if self.graph.out_degree(current_node) > 0:
-            edges = list(self.graph.out_edges(current_node, data=True))
+        if self.network.out_degree(current_node) > 0:
+            edges = list(self.network.out_edges(current_node, data=True))
             probs = [e[2].get("prob", 1.0) for e in edges]
             next_nodes = [e[1] for e in edges]
             total = sum(probs)
@@ -113,7 +72,7 @@ class GraphQueueSystem:
         return None
 
     def service(self, current_node, entity_id):
-        if self.graph.nodes[current_node].get("concurrency") is not None:
+        if self.network.nodes[current_node].get("concurrency") is not None:
             with self.queues[current_node].request() as req:
                 yield req
         # if there are no concurrency limits the service has infinite concurrency
@@ -146,10 +105,10 @@ class SimulationResult:
         return self.system_signal_history
 
 
-def run_graph_simulation(graph: nx.DiGraph, T=100, arrival_rate=0.1, concurrency=1, seed=42,
-                         start_node="A") -> SimulationResult:
+def run_simulation(network: nx.DiGraph, T=100, arrival_rate=0.1, seed=42,
+                   start_node="A") -> SimulationResult:
     env = simpy.Environment()
-    system = GraphQueueSystem(env, graph, concurrency=concurrency, seed=seed)
-    env.process(system.arrival_process(arrival_rate, start_node=start_node, T=T))
+    simulation_run = QueuingNetworkSimulation(env, network, T, seed=seed)
+    env.process(simulation_run.arrival_process(arrival_rate, start_node=start_node, T=T))
     env.run(until=T)
-    return SimulationResult(system.queue_signal_history, system.system_signal_history, T)
+    return SimulationResult(simulation_run.queue_signal_history, simulation_run.system_signal_history, T)
