@@ -31,7 +31,7 @@ class SignalHistoryMetric(ABC):
 
 class QueueLength(SignalHistoryMetric):
     def __init__(self, name, measurement_window: int):
-        self.name = name,
+        self.name = name
         self.measurement_window = measurement_window
         self.L = np.zeros(measurement_window, dtype=int)
         self._current_L = 0
