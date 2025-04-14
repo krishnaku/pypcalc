@@ -77,9 +77,9 @@ class DefaultNode(NetworkXNode):
 
 
     def request_service(self, entity_id: str):
-        if self.concurrency:
-            with self.resource.request() as req:
-                yield req
+        if self.resource:
+            req = self.resource.request()
+            yield req
         else:
             return
 
