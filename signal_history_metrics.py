@@ -68,13 +68,13 @@ class QueueLength(SignalHistoryMetric):
         label = "Queue Length"
 
         ax.plot(time_axis, self.L, label=label, **kwargs)
+
+        avg_L = float(np.mean(self.L))
+        ax.axhline(y=avg_L, color='gray', linestyle='--', linewidth=1, label=f"Avg = {avg_L:.2f}")
         ax.set_xlabel("Time")
         ax.set_ylabel("L(t)")
 
         title = f"{self.name}: Queue Length Over Time"
-        if hasattr(self, "queue_name"):
-            title += f": {self.queue_name}"
-            ax.legend()
-
         ax.set_title(title)
+        ax.legend()
         return ax
