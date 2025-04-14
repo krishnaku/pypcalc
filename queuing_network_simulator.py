@@ -9,17 +9,29 @@ from network_node import NetworkNode, DefaultNode
 
 class QueuingNetworkSimulation:
     def __init__(self, env, network: nx.DiGraph, simulation_period,  seed=42):
-        self.env = env
-        self.network = network
-        self.rng = np.random.default_rng(seed)
-        self.nodes: Dict[str, NetworkNode] = {
-            name: DefaultNode(name, graph=network, env=env, rng=self.rng)
-            for name in network.nodes
-        }
+        self._env = env
+        self._network = network
+        self._rng = np.random.default_rng(seed)
         self.queue_signal_history: Dict[str, SignalHistory] = {node: SignalHistory(node, simulation_period) for node in network.nodes}
         self.system_signal_history = SignalHistory("System", simulation_period)
         self.entity_system_state = {}
 
+        self.nodes: Dict[str, NetworkNode] = {
+            name: DefaultNode(name, graph=network, sim_context=self)
+            for name in network.nodes
+        }
+
+    @property
+    def env(self):
+        return self._env
+
+    @property
+    def network(self):
+        return self._network
+
+    @property
+    def rng(self):
+        return self._rng
 
     def signal_enter(self, node: str, entity_id: str):
         t_enter = self.env.now
@@ -48,37 +60,30 @@ class QueuingNetworkSimulation:
         if self.network.out_degree(node) == 0 and not state["exited"]:
             self.system_signal_history.add("exit", t_exit, entity_id)
             state["exited"] = True
+        print(f"Entity {entity_id} exited at time {t_exit}")
         return t_exit
 
     def entity(self, start_node="A"):
         entity_id = str(uuid.uuid4())
+        print(f"ENTITY START: {entity_id}")
         current = start_node
         self.entity_system_state.setdefault(entity_id, {"entered": False, "exited": False})
         while current is not None:
             current_node = self.nodes[current]
             self.signal_enter(current, entity_id)
 
-            # Block until ready
-            yield from current_node.request_service(entity_id)
-            self.signal_start_service(current, entity_id)
-
-            # Do actual work
-            yield from current_node.perform_service(entity_id)
-            self.signal_end_service(current, entity_id)
+            yield from current_node.service(entity_id)
 
             self.signal_exit(current, entity_id)
             current = current_node.choose_next_node(entity_id)
-
-
 
     def arrival_process(self, arrival_rate, start_node=None, T=100):
         if start_node is None:
             raise ValueError("Start node must be specified")
 
         while self.env.now < T:
-            if self.rng.random() < arrival_rate:
-                self.env.process(self.entity(start_node))
-            yield self.env.timeout(1)
+            self.env.process(self.entity(start_node))
+            yield self.env.timeout(1/arrival_rate)
 
 
 class SimulationResult:

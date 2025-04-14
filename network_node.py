@@ -8,9 +8,7 @@
 
 # Author: Krishna Kumar
 from abc import ABC, abstractmethod
-from typing import Any, Optional, Dict, Set
-from xml.dom import ValidationErr
-
+from typing import Any, Optional, Dict
 import networkx as nx
 import simpy
 
@@ -20,12 +18,7 @@ class NetworkNode(ABC):
         self.config: Dict[str, Any] = config
 
     @abstractmethod
-    def request_service(self, entity_id: str) -> Any:
-        """Yield if blocking (e.g. wait for resource)."""
-        pass
-
-    @abstractmethod
-    def perform_service(self, entity_id: str) -> Any:
+    def service(self, entity_id: str) -> Any:
         """Actual service duration once started."""
         pass
 
@@ -35,7 +28,7 @@ class NetworkNode(ABC):
 
 
 class NetworkXNode(NetworkNode, ABC):
-    def __init__(self, name: str, graph: nx.DiGraph, exit_nodes: Set[str]=None) -> None:
+    def __init__(self, name: str, graph: nx.DiGraph) -> None:
         config: Dict[str, Any] = graph.nodes[name]
         super().__init__(name, config)
         self.graph: nx.DiGraph = graph
@@ -43,12 +36,14 @@ class NetworkXNode(NetworkNode, ABC):
 
 
 class DefaultNode(NetworkXNode):
-    def __init__(self, name: str, graph: nx.DiGraph, env, rng ):
+
+    def __init__(self, name: str, graph: nx.DiGraph, sim_context):
         super().__init__(name, graph)
-        self.env = env
-        self.rng = rng
+        self.sim_context = sim_context
+        self.env  = sim_context.env
+        self.rng = sim_context.rng
         self.delay = self.config.get("delay", 1.0)
-        self._init_concurrency(env)
+        self._init_concurrency(self.env)
         self._init_probabilities(graph)
 
     def _init_concurrency(self, env):
@@ -74,15 +69,26 @@ class DefaultNode(NetworkXNode):
             return None
         return self.rng.choice(self.next_nodes, p=self.probs)
 
-
-
-    def request_service(self, entity_id: str):
-        if self.resource:
-            req = self.resource.request()
-            yield req
-        else:
-            return
-
-    def perform_service(self, entity_id: str):
+    def perform_service(self, entity_id: str) -> Any:
         yield self.env.timeout(self.delay)
+
+    def perform_service_when_available(self, entity_id: str) -> Any:
+        with self.resource.request() as req:
+            yield req
+            self.sim_context.signal_start_service(self.name, entity_id)
+            yield from self.perform_service(entity_id)
+            self.sim_context.signal_end_service(self.name, entity_id)
+
+    def perform_service_immediately(self, entity_id: str) -> Any:
+        self.sim_context.signal_start_service(self.name, entity_id)
+        yield from self.perform_service(entity_id)
+        self.sim_context.signal_end_service(self.name, entity_id)
+
+    def service(self, entity_id: str):
+        if self.resource:
+            # Blocking resources have concurrency limits
+            yield from self.perform_service_when_available(entity_id)
+        else:
+            yield from  self.perform_service_immediately(entity_id)
+
 
