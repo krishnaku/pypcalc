@@ -60,12 +60,10 @@ class QueuingNetworkSimulation:
         if self.network.out_degree(node) == 0 and not state["exited"]:
             self.system_signal_history.add("exit", t_exit, entity_id)
             state["exited"] = True
-        print(f"Entity {entity_id} exited at time {t_exit}")
         return t_exit
 
     def entity(self, start_node="A"):
         entity_id = str(uuid.uuid4())
-        print(f"ENTITY START: {entity_id}")
         current = start_node
         self.entity_system_state.setdefault(entity_id, {"entered": False, "exited": False})
         while current is not None:
