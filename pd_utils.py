@@ -1,7 +1,9 @@
 # Auto-generated module
+from typing import Any, Optional, Dict
 
 import numpy as np
 import pandas as pd
+import polars as pl
 import matplotlib.pyplot as plt
 from IPython.display import display, Markdown
 
@@ -17,3 +19,16 @@ def estimate_limits(df, tail_frac=0.2):
         "L_limit": tail["L"].mean(),
         "L_estimated": tail["lambda"].mean() * tail["W"].mean()
     }
+
+# Convert Python types to Polars types
+def map_polars_schema(annotations):
+    type_map = {
+        float: pl.Float64,
+        str: pl.Utf8,
+        dict: pl.Object,
+        Any: pl.Object,
+        Optional[str]: pl.Utf8,
+        Optional[Dict[str, Any]]: pl.Object,
+        Optional[dict]: pl.Object,
+    }
+    return {field: type_map.get(t, pl.Object) for field, t in annotations.items()}

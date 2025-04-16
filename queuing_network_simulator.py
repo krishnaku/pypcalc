@@ -2,36 +2,47 @@ import simpy
 import numpy as np
 import uuid
 import networkx as nx
-from typing import Dict
-
+from typing import Dict, Any
+from simulation import Simulation
 from signal_history import SignalHistory
-from network_node import NetworkNode, DefaultNode
+from base_node import Node
+from network_node import NetworkNode, node_registry
 
-class QueuingNetworkSimulation:
-    def __init__(self, env, network: nx.DiGraph, simulation_period,  seed=42):
-        self._env = env
+
+class QueuingNetworkSimulation(Simulation):
+    def __init__(self, env, network: nx.DiGraph, simulation_period, seed=42):
+        super().__init__(env, seed)
         self._network = network
-        self._rng = np.random.default_rng(seed)
+
         self.queue_signal_history: Dict[str, SignalHistory] = {node: SignalHistory(node, simulation_period) for node in network.nodes}
         self.system_signal_history = SignalHistory("System", simulation_period)
         self.entity_system_state = {}
 
-        self.nodes: Dict[str, NetworkNode] = {
-            name: DefaultNode(name, graph=network, sim_context=self)
-            for name in network.nodes
-        }
+        self.nodes: Dict[str, NetworkNode] = {}
 
-    @property
-    def env(self):
-        return self._env
+    def initialize_nodes(self):
+        for name in self._network.nodes:
+            config = self._network.nodes[name]
+            node_type = config.get("type")
+            if node_type is None:
+                raise ValueError(f"Node {name} has no type defined")
+            self.nodes[name] = node_registry.create(
+                node_type,
+                name=name,
+                graph=self._network,
+                sim_context=self
+            )
+
+
 
     @property
     def network(self):
         return self._network
 
-    @property
-    def rng(self):
-        return self._rng
+
+
+    def get_node(self, name: str) -> Node:
+        return self.nodes[name]
 
     def signal_enter(self, node: str, entity_id: str):
         t_enter = self.env.now
@@ -82,6 +93,7 @@ class QueuingNetworkSimulation:
         while self.env.now < T:
             self.env.process(self.entity(start_node))
             yield self.env.timeout(1/arrival_rate)
+
 
 
 class SimulationResult:
