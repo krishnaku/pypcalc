@@ -11,7 +11,7 @@ from dataclasses import asdict
 from typing import List, Dict, Optional, Any
 import polars as pl
 
-from signal import Signal, SIGNAL_SCHEMA_PL
+from sim.model.signal.signal import Signal, SIGNAL_SCHEMA_PL
 from signal_history_metrics import SignalHistoryMetric, QueueLength
 
 

@@ -9,14 +9,13 @@
 # Author: Krishna Kumar
 from typing import Any, Optional, Dict, Generator
 import networkx as nx
-import simpy
 
-from registry import Registry
-from base_node import Node, Boundary
-from routing import RoutingMixin, router_registry
-from simulation import Simulation
+from sim.core.registry import Registry
+from sim.model.boundary.base_node import Node, Boundary
+from sim.model.routing.routing import RoutingMixin, router_registry
+from analytics.simulation import Simulation
 
-from delay_node import BlockingDelay, PureDelay
+from sim.model.delay.delay_node import BlockingDelay, PureDelay
 
 
 class NetworkNode(RoutingMixin, Node):
@@ -36,7 +35,7 @@ class NetworkNode(RoutingMixin, Node):
             return
         yield from next_node.enter(entity_id, **kwargs)
 
-class SystemNode(Boundary):
+
 
 
 

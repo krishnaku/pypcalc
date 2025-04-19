@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from abc import ABC, abstractmethod
-from typing import Dict, Any, Generator, TypeVar, Callable, Generic, Set
+from typing import Dict, Any, Generator, Set
 
-from signal import Signal
-from signal_history import SignalLog
-from simulation import Simulation
-from registry import Registry
+from sim.model.signal.signal import Signal
+from sim.runtime.signal_history import SignalLog
+from analytics.simulation import Simulation
+
 
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
 

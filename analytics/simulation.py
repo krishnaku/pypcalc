@@ -2,7 +2,7 @@ from abc import abstractmethod
 
 import simpy
 import numpy as np
-from base_node import Boundary
+from sim.model.boundary.base_node import Boundary
 
 
 class Simulation:
