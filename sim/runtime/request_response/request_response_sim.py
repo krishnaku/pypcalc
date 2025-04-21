@@ -9,17 +9,18 @@
 # Author: Krishna Kumar
 from __future__ import annotations
 
+import random
 import threading
 from collections import deque
-
-import simpy
-import random
 from dataclasses import dataclass
+from typing import Callable
 
+
+from IPython.core.display_functions import display
 from matplotlib import pyplot as plt, animation
-from IPython.display import display
 
-from sim.runtime.message_link import MessageLink
+from sim.runtime.request_response.collaborator import Collaborator
+from sim.runtime.simulation import Simulation
 
 
 @dataclass
@@ -27,30 +28,12 @@ class Entity:
     id: str
     payload: dict
 
-
-class SignalLog:
-    def __init__(self):
-        self.records = []
-
-    def record(self, from_system, to_system, entity_id, timestamp):
-        self.records.append({
-            'from': from_system,
-            'to': to_system,
-            'entity_id': entity_id,
-            'timestamp': timestamp
-        })
-
-    def dump(self):
-        print("\n--- Signal Log ---")
-        for r in self.records:
-            print(f"[t={r['timestamp']:>2}] {r['from']} → {r['to']}: {r['entity_id']}")
-
-
-class SystemA(MessageLink):
-    def __init__(self, env, name, signal_log, generation_rate=2):
-        super().__init__(env, name, signal_log, processing_time=0, capacity=None)
+class Requestor(Collaborator):
+    def __init__(self, name:str, sim_context: Simulation,  generation_rate=2):
+        super().__init__(name, sim_context,  processing_time=0, capacity=None)
         self.counter = 0
         self.generation_rate = generation_rate  # mean interarrival time
+
 
     def run(self):
         while True:
@@ -63,22 +46,28 @@ class SystemA(MessageLink):
             yield self.env.timeout(delay)
 
 
+class Responder(Collaborator):
+    def on_receive(self, entity):
+        mean_delay = self.processing_time or 1
+        delay = random.expovariate(1 / mean_delay)
+        print(f"[{self.name} @ t={self.env.now}] processing {entity.id} with processing time {delay}")
+        yield self.env.timeout(delay)
 
 
-class Simulation:
-    def __init__(self, until=20, metrics_poll_interval=0.2, realtime_factor=1):
-        self.env = simpy.rt.RealtimeEnvironment(factor=realtime_factor)
-        self.signal_log = SignalLog()
+class RequestResponseSimulation(Simulation):
+    def __init__(self, requestor: Callable[[Simulation], Requestor], responder: Callable[[Simulation], Responder], until=20, metrics_poll_interval=0.2, realtime_factor=None):
+        super().__init__(realtime_factor)
         self.queue_samples = deque(maxlen=2_000)
         self.sample_lock = threading.Lock()
         self.metrics_poll_interval = metrics_poll_interval
         self.until = until
 
-        self.A = SystemA(self.env, "A", self.signal_log, generation_rate=2)
-        self.B = MessageLink(self.env, "B", self.signal_log, processing_time=1.5, capacity=1)
+        self.requestor = requestor(self)
+        self.responder = responder(self)
 
-        self.A.set_peer(self.B)
-        self.B.set_peer(self.A)
+
+        self.requestor.set_peer(self.responder)
+
 
 
 
@@ -86,7 +75,7 @@ class Simulation:
         """Push (sim_time, queue_len) into queue_samples every *interval*."""
         while True:
             with self.sample_lock:
-                self.queue_samples.append((self.env.now, self.B.entity_count))
+                self.queue_samples.append((self.env.now, self.responder.entity_count))
             yield self.env.timeout(interval)
 
     def plot(self, interval=100):
@@ -120,14 +109,18 @@ class Simulation:
 
 
     def run(self):
-        self.env.process(self.A.run())
-        self.env.process(self.A.receive())
-        self.env.process(self.B.receive())
+        self.env.process(self.requestor.run())
+        self.env.process(self.requestor.receive())
+        self.env.process(self.responder.receive())
         self.env.process(self.queue_monitor(self.metrics_poll_interval))
         self.env.run(until=self.until)
-        self.signal_log.dump()
+
 
 
 if __name__ == "__main__":
-    sim = Simulation(until=20)
+    sim = RequestResponseSimulation(
+        requestor=lambda sim: Requestor(name="A", sim_context=sim, generation_rate=2),
+        responder =  lambda sim: Responder(name="B", sim_context=sim, processing_time=1.5, capacity=1),
+        until=60
+    )
     sim.run()
