@@ -29,6 +29,8 @@ class PresenceMatrix:
         queue_name: str,
         t0: float,
         t1: float,
+        enter_event: str,
+        exit_event: str,
         presence: np.ndarray,
         entity_visits: Dict[str, List[Visit]],
         visits: List[Visit],
@@ -38,6 +40,8 @@ class PresenceMatrix:
         self.queue_name = queue_name
         self.t0 = t0
         self.t1 = t1
+        self.enter_event = enter_event
+        self.exit_event = exit_event
         self.entity_visits = entity_visits
         self.visits = visits
         self.presence = presence
@@ -59,7 +63,7 @@ class PresenceMatrix:
 
 
         # Filter for 'enter' and 'exit' events for the specified source
-        entity_visits, visits = cls.extract_visits(enter_event, exit_event, initial_population, signals, source, t0, t1)
+        entity_visits, visits = cls.extract_visits(signals, source, t0, t1, enter_event, exit_event, initial_population)
 
         presence, time_bins = cls.map_presence(visits, t0, t1, bin_width)
 
@@ -67,6 +71,8 @@ class PresenceMatrix:
             queue_name=source,
             t0=t0,
             t1=t1,
+            enter_event=enter_event,
+            exit_event=exit_event,
             presence=presence,
             entity_visits=entity_visits,
             visits=visits,
@@ -75,7 +81,7 @@ class PresenceMatrix:
         )
 
     @classmethod
-    def extract_visits(cls, enter_event, exit_event, initial_population, signals, source, t0, t1):
+    def extract_visits(cls, signals, source, t0, t1, enter_event, exit_event, initial_population ):
         filtered = [s for s in signals if
                     s.signal in {enter_event, exit_event} and s.source == source and t0 <= s.timestamp <= t1]
         visits: List[Visit] = []
