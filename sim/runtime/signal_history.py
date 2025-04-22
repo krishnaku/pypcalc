@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
-
+from collections import defaultdict
 # Unauthorized use or copying of this file and its contents, via any medium
 # is strictly prohibited. The work product in this file is proprietary and
 # confidential.
@@ -9,6 +9,8 @@
 
 from dataclasses import asdict
 from typing import List, Dict, Optional, Any
+
+import numpy as np
 import polars as pl
 
 from sim.model.signal.signal import Signal, SIGNAL_SCHEMA_PL
@@ -17,32 +19,35 @@ from sim.runtime.signal_history_metrics import SignalHistoryMetric, QueueLength
 
 class SignalLog:
     def __init__(self):
-        self._signal_buffer: List[Signal] = []
-        self.signals = pl.DataFrame(
-            schema=SIGNAL_SCHEMA_PL
-        )
+        self._signals: List[Signal] = []
+
+    @property
+    def signals(self) -> List[Signal]:
+        return self._signals
+
+    def __len__(self):
+        return len(self.signals)
 
     def record(self, source: str, timestamp: float, signal_type: str, entity_id: str, target: Optional[str] = None, tags: Optional[Dict[str, Any]] = None) -> Signal:
         signal = Signal(source, timestamp, signal_type, entity_id, target, tags)
         return self.signal(signal)
 
     def signal(self, signal: Signal) -> Signal:
-        self._signal_buffer.append(signal)
+        self._signals.append(signal)
         return signal
 
-    def flush(self):
-        if not self._signal_buffer:
+    # Transformations
+    def as_polars(self):
+        if not self._signals:
             return
-        batch = [asdict(sig) for sig in self._signal_buffer]
-        self.signals = self.signals.vstack(pl.DataFrame(batch))
-        self._signal_buffer.clear()
+        batch = [asdict(sig) for sig in self._signals]
+        df = pl.DataFrame(
+            schema=SIGNAL_SCHEMA_PL
+        )
+        return df.vstack(pl.DataFrame(batch))
 
-    def get_signals(self) -> pl.DataFrame:
-        self.flush()
-        return self.signals
 
-    def __len__(self):
-        return len(self.signals) + len(self._signal_buffer)
+
 
 
 
@@ -97,3 +102,6 @@ class SignalHistory:
             f"  Unique entities: {len(entities)}",
         ]
         return "\n".join(summary)
+
+
+

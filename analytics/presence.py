@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 def get_entry_exit_times(presence, entity_index, queue_name):
     arrivals = []
     departures = []
@@ -106,3 +107,6 @@ def detect_tail_convergence(delta_df, tail_frac=0.2, epsilon=0.05):
     plt.tight_layout()
     plt.show()
     return delta_df[['window_end', 'tail_size_days', 'delta', 'converged']]
+
+
+
