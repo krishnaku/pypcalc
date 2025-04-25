@@ -83,7 +83,7 @@ class PresenceMatrix:
     @classmethod
     def extract_visits(cls, signals, source, t0, t1, enter_event, exit_event, initial_population ):
         filtered = [s for s in signals if
-                    s.signal in {enter_event, exit_event} and s.source == source and t0 <= s.timestamp <= t1]
+                    s.signal_type in {enter_event, exit_event} and s.source == source and t0 <= s.timestamp <= t1]
         visits: List[Visit] = []
         entity_visits: Dict[str, List[Visit]] = defaultdict(list)
         for entity_id in initial_population or []:
@@ -91,11 +91,11 @@ class PresenceMatrix:
             visits.append(visit)
             entity_visits[entity_id].append(visit)
         for s in sorted(filtered, key=lambda s: s.timestamp):
-            if s.signal == enter_event:
+            if s.signal_type == enter_event:
                 visit = Visit(entity_id=s.entity_id, start=s.timestamp, end=np.inf)
                 visits.append(visit)
                 entity_visits[s.entity_id].append(visit)
-            if s.signal == exit_event:
+            if s.signal_type == exit_event:
                 visit_list = entity_visits[s.entity_id]
                 latest: Visit = visit_list[-1] if len(visit_list) > 0 else None
                 if latest is not None:

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from sim.runtime.signal_history import SignalLog
-
+from core.signal import SignalLog
 
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
 

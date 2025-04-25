@@ -10,7 +10,7 @@
 from typing import Any, Optional, Dict, Generator
 import networkx as nx
 
-from sim.core.registry import Registry
+from core.registry import Registry
 from sim.model.boundary.base_node import Node, Boundary
 from sim.model.routing.routing import RoutingMixin, router_registry
 from analytics.simulation import Simulation

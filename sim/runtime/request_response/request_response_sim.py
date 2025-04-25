@@ -9,48 +9,47 @@
 # Author: Krishna Kumar
 from __future__ import annotations
 
+import logging
 import random
 import threading
 from collections import deque
-from dataclasses import dataclass
 from typing import Callable
-
 
 from IPython.core.display_functions import display
 from matplotlib import pyplot as plt, animation
 
-from sim.runtime.request_response.collaborator import Collaborator
+
+from sim.runtime.request_response.collaborator import Collaborator, Request, Response
 from sim.runtime.simulation import Simulation
 
-
-@dataclass
-class Entity:
-    id: str
-    payload: dict
+log = logging.getLogger(__name__)
 
 class Requestor(Collaborator):
-    def __init__(self, name:str, sim_context: Simulation,  generation_rate=2):
+    def __init__(self, name:str, sim_context: Simulation,  mean_time_between_requests=2):
         super().__init__(name, sim_context,  processing_time=0, capacity=None)
         self.counter = 0
-        self.generation_rate = generation_rate  # mean interarrival time
+        self.mean_time_between_requests = mean_time_between_requests
 
 
     def run(self):
         while True:
-            entity = Entity(f"A-{self.counter}", {"created_by": self.name})
+            request = Request(
+                name=f"A-{self.counter}",
+                metadata={"created_by": self.name}
+            )
             self.counter += 1
-            self.send(entity)
+            self.send(request)
 
-            mean_delay = 1.5
-            delay = random.expovariate(1 / mean_delay)
+
+            delay = random.expovariate(1 / self.mean_time_between_requests)
             yield self.env.timeout(delay)
 
 
 class Responder(Collaborator):
-    def on_receive(self, entity):
+    def on_receive(self, request):
         mean_delay = self.processing_time or 1
         delay = random.expovariate(1 / mean_delay)
-        print(f"[{self.name} @ t={self.env.now}] processing {entity.id} with processing time {delay}")
+        log.debug(f"[{self.name} @ t={self.env.now}] processing {request.name} with processing time {delay}")
         yield self.env.timeout(delay)
 
 
@@ -113,13 +112,17 @@ class RequestResponseSimulation(Simulation):
         self.env.process(self.requestor.receive())
         self.env.process(self.responder.receive())
         self.env.process(self.queue_monitor(self.metrics_poll_interval))
+        print(f"Simulation started at {self.env.now}")
         self.env.run(until=self.until)
+        print(f"simulation ended at {self.env.now}")
+        print(str(self.signal_log))
 
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     sim = RequestResponseSimulation(
-        requestor=lambda sim: Requestor(name="A", sim_context=sim, generation_rate=2),
+        requestor=lambda sim: Requestor(name="A", sim_context=sim, mean_time_between_requests=2),
         responder =  lambda sim: Responder(name="B", sim_context=sim, processing_time=1.5, capacity=1),
         until=60
     )

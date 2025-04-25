@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from typing import Protocol, Any, Optional, Dict, TYPE_CHECKING
 from abc import ABC, abstractmethod
-from sim.core.registry import Registry
+from core.registry import Registry
 
 if TYPE_CHECKING:
     from sim.model.boundary.base_node import Node

@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from typing import Dict, Any, Generator, Set
 
 from sim.model.signal.signal import Signal
-from sim.runtime.signal_history import SignalLog
+from core.signal import SignalLog
 from analytics.simulation import Simulation
 
 
@@ -63,7 +63,7 @@ class Boundary(Node):
         timestamp = self.env.now
         return self.signal_history.signal(
             Signal(
-                signal="enter",
+                signal_type="enter",
                 source=self.name,
                 timestamp=timestamp,
                 entity_id=entity_id,
@@ -83,7 +83,7 @@ class Boundary(Node):
         timestamp = self.env.now
         return self.signal_history.signal(
             Signal(
-                signal="exit",
+                signal_type="exit",
                 source=self.name,
                 timestamp=timestamp,
                 entity_id=entity_id,
@@ -112,7 +112,7 @@ class Service(Boundary):
         timestamp = self.env.now
         return self.signal_history.signal(
             Signal(
-                signal="start_service",
+                signal_type="start_service",
                 source=self.name,
                 timestamp=timestamp,
                 entity_id=entity_id,
@@ -124,7 +124,7 @@ class Service(Boundary):
         timestamp = self.env.now
         return self.signal_history.signal(
             Signal(
-                signal="end_service",
+                signal_type="end_service",
                 source=self.name,
                 timestamp=timestamp,
                 entity_id=entity_id,

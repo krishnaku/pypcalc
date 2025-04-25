@@ -9,18 +9,37 @@
 
 
 from __future__ import annotations
-
-import random
-from abc import ABC, abstractmethod
-
+import logging
+from abc import ABC
+from typing import Any, Dict, Optional
 import simpy
+from core import Entity, Transaction
+from core.node import NodeImpl
 from sim.runtime.simulation import Simulation
 
+log = logging.getLogger(__name__)
 
-class Collaborator(ABC):
+class Request(Entity):
+    def __init__(self, name:str, metadata: Dict[str, Any]=None, transaction: Optional[Transaction]=None) -> None:
+        super().__init__(
+            name, 
+            entity_type="request", 
+            metadata=metadata,
+            transaction=transaction or Transaction()
+        )
+
+class Response(Entity):
+    def __init__(self, entity):
+        super().__init__(
+            entity.name, 
+            entity_type="response", 
+            metadata=entity.metadata,
+            transaction=entity.transaction
+        )
+        
+class Collaborator(NodeImpl, ABC):
     def __init__(self, name, sim_context: Simulation, processing_time=0.0, capacity=None):
-
-        self.name = name
+        super().__init__(name)
         self.processing_time = processing_time
         self.capacity = capacity
 
@@ -46,32 +65,39 @@ class Collaborator(ABC):
     def entity_count(self):
         return self.entities_in_process + len(self.inbox.items)
 
-    def send(self, entity):
-        print(f"[{self.name} @ t={self.env.now}] send → {self.peer.name}: {entity.id}")
-        self.signal_log.record(signal_type="request", source=self.name, target=self.peer.name, entity_id=entity.id, timestamp=self.env.now)
+    def send(self, entity: Request|Response):
+        log.debug(f"[{self.name} @ t={self.env.now}] send → {self.peer.name}: {entity.name}")
+        self.signal_log.record(
+            signal_type="request",
+            source=self,
+            target=self.peer,
+            entity=entity,
+            timestamp=self.env.now,
+            transaction=entity.transaction
+        )
         self.peer.inbox.put(entity)
 
     def receive(self):
         while True:
-            entity = yield self.inbox.get()  # wait for 1 message
+            entity: Request|Response = yield self.inbox.get()  # wait for 1 message
             self.inbox.items.insert(0, entity)  # put it back to drain queue
-            print(f"[{self.name} @ t={self.env.now}] entity count: {self.entity_count}")
+            log.debug(f"[{self.name} @ t={self.env.now}] entity count: {self.entity_count}")
             while self.inbox.items:
-                print(f"[{self.name} @ t={self.env.now}] draining inbox (size={len(self.inbox.items)})")
+                log.debug(f"[{self.name} @ t={self.env.now}] draining inbox (size={len(self.inbox.items)})")
                 entity = self.inbox.items.pop(0)
 
-                if entity.payload['created_by'] != self.name:
+                if entity.entity_type == "request":
                     self.entities_in_process += 1
-                    print(f"[{self.name} @ t={self.env.now}] scheduling process for {entity.id}")
+                    log.debug(f"[{self.name} @ t={self.env.now}] scheduling process for {entity.name}")
                     self.env.process(self.dispatch(entity))
                     yield self.env.timeout(0)
                 else:
-                    print(f"[{self.name} @ t={self.env.now}] received response for {entity.id}")
+                    log.debug(f"[{self.name} @ t={self.env.now}] received response for {entity.name}")
 
     def dispatch(self, entity):
         try:
             if self.resource:
-                print(f"[{self.name} @ t={self.env.now}] acquiring resource for {entity.id}")
+                log.debug(f"[{self.name} @ t={self.env.now}] acquiring resource for {entity.name}")
                 with self.resource.request() as req:
                     yield req
                     yield from self.respond(entity)
@@ -79,18 +105,24 @@ class Collaborator(ABC):
                 yield from self.respond(entity)
         finally:
             self.entities_in_process -= 1
-            print(f"[{self.name} @ t={self.env.now}] entity count: {self.entity_count}")
+            log.debug(f"[{self.name} @ t={self.env.now}] entity count: {self.entity_count}")
 
-    def respond(self, entity):
+    def respond(self, entity: Request):
         yield from self.on_receive(entity)
-        print(f"[{self.name} @ t={self.env.now}] finished processing {entity.id}")
+        log.debug(f"[{self.name} @ t={self.env.now}] finished processing {entity.name}")
         yield from self.send_response(entity)
 
     def send_response(self, entity):
         yield self.env.timeout(0)
-        self.signal_log.record(signal_type="response", source=self.name, target=self.peer.name, entity_id=entity.id,
-                               timestamp=self.env.now)
-        self.send(entity)
+        response = Response(entity)
+        self.signal_log.record(
+            signal_type="response",
+            source=self,
+            target=self.peer,
+            entity=response,
+            timestamp=self.env.now
+        )
+        self.peer.inbox.put(response)
 
     def on_receive(self, entity):
         yield self.env.timeout(0)

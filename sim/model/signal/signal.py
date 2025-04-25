@@ -12,38 +12,23 @@ import polars as pl
 # confidential.
 
 # Author: Krishna Kumar
-@dataclass
-class Signal:
-    source: str
-    timestamp: float
-    signal: str
-    entity_id: str
-    target: Optional[str] = None
-    tags: Optional[Dict[str, Any]] = None
-
-
-SIGNAL_SCHEMA_PL = {
-    "source": pl.Utf8,
-    "timestamp": pl.Float64,
-    "signal": pl.Utf8,
-    "entity_id": pl.Utf8,
-    "target": pl.Utf8,
-    "tags": pl.Object,
-}
+from core import Signal, Entity, Transaction, Node
 
 class Enter(Signal):
-    def __init__(self, source: str, timestamp: float, entity_id: str, **kwargs):
+    def __init__(self, source: Node, timestamp: float, entity: Entity, transaction: Transaction=None, **kwargs):
         self.signal_type = "enter"
         self.source = source
+        self.transaction = transaction
         self.timestamp = timestamp
-        self.entity_id = entity_id
+        self.entity = entity
         self.tags = kwargs
 
 
 class Exit(Signal):
-    def __init__(self, source: str, timestamp: float, entity_id: str, **kwargs):
+    def __init__(self, source: Node , timestamp: float, entity: Entity, transaction:Transaction = None, **kwargs):
         self.signal_type = "exit"
         self.source = source
+        self.transaction = transaction
         self.timestamp = timestamp
-        self.entity_id = entity_id
+        self.entity_id = entity
         self.tags = kwargs
