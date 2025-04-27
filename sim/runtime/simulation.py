@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from core.signal import SignalLog
-
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
 
 # Unauthorized use or copying of this file and its contents, via any medium
@@ -8,9 +6,16 @@ from core.signal import SignalLog
 # confidential.
 
 # Author: Krishna Kumar
-import simpy
 
+from core.signal import SignalLog
+import simpy
+import logging
+import time
 from typing import List
+
+log = logging.getLogger(__name__)
+
+
 class Simulation:
     def __init__(self, until=30, runs=1, realtime_factor: float = None):
         self._env = None
@@ -22,7 +27,7 @@ class Simulation:
         self.until = until
         self.runs = runs
         self.current_run = 0
-
+        self.simulation_start = None
 
 
     def init_sim(self):
@@ -45,17 +50,19 @@ class Simulation:
         pass
 
     def run(self):
-        print(f"Simulation started")
+        self.simulation_start = time.time()
+        log.info(f"Simulation started at 0 seconds")
+
         for self.current_run in range(self.runs):
             self.init_sim()
             self.env.run(until=self.until)
             self.post_run()
 
-        print(f"simulation ended")
-        print(str(self.signal_log))
+        log.info(f"simulation ended at {(time.time() - self.simulation_start)} seconds")
+
 
     def post_run(self):
-        pass
+        log.info(f"Simulation run: {self.current_run} completed @ {time.time() - self.simulation_start}")
 
     @property
     def env(self):

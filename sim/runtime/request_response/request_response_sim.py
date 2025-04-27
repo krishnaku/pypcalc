@@ -17,6 +17,8 @@ import time
 from typing import Callable, List, Tuple
 
 import simpy
+import numpy as np
+
 from IPython.core.display_functions import display
 from matplotlib import pyplot as plt, animation
 
@@ -69,6 +71,10 @@ class RequestResponseSimulation(Simulation):
         self.responder_factory = responder
         self.requestor = None
         self.responder = None
+        # animation support
+        self._ani = None
+        self._needs_update = False
+
 
         # init the simulation parameters and model
         super().__init__(
@@ -88,80 +94,88 @@ class RequestResponseSimulation(Simulation):
         env.process(self.responder.receive())
         env.process(self.queue_monitor(self.metrics_poll_interval))
 
-    def queue_monitor(self, interval=0.1):
+    def post_run(self):
+        super().post_run()
+        self._needs_update = True
+
+
+
+    def queue_monitor(self, interval=1.0):
         while True:
             with self.sample_lock:
                 self.queue_samples[self.current_run].append((self.env.now, self.responder.entity_count))
             yield self.env.timeout(interval)
 
-    def plot(self, interval=30, arrival_rate=None, service_rate=None):
-        fig, ax = plt.subplots(figsize=(8, 4))
-        (ax_line,) = ax.plot([], [], lw=2)
-        (avg_line,) = ax.plot([], [], lw=1, linestyle='--', label="Cumulative Avg")
-        (target_line,) = ax.plot([], [], lw=1, color='red', linestyle=':', label="Theoretical Avg")
+    def plot(self, arrival_rate=None, service_rate=None):
+        log.info(f"plotting {len(self.queue_samples[self.current_run])} requests")
+        fig, (ax_current, ax_avg) = plt.subplots(
+            2, 1, figsize=(10, 8), sharex=True, gridspec_kw={'height_ratios': [2, 1]}
+        )
 
-        ax.set_xlabel("simulation‑time")
-        ax.set_ylabel("queue length")
-        ax.legend()
-
+        # Theoretical average
         target_average = None
-        if arrival_rate is not None and service_rate is not None:
-            utilization = arrival_rate / service_rate
-            if utilization < 1:
-                # if utilization > 1 the system is unstable and there is no target average.
-                target_average = (utilization * utilization) / (1 - utilization)
+        if arrival_rate and service_rate:
+            rho = arrival_rate / service_rate
+            if rho < 1:
+                target_average = (rho ** 2) / (1 - rho)
 
-        def init():
-            ax.set_xlim(0, self.until)
-            ax.set_ylim(0, target_average * 2)
-            return ax_line, avg_line, target_line
+        # --- Upper plot: last run (live detail view) ---
+        last_run = self.queue_samples[-1] if self.queue_samples else []
+        if len(last_run) >= 2:
+            t, q = zip(*last_run)
+            cumulative_avg = [sum(q[:j + 1]) / (j + 1) for j in range(len(q))]
+            ax_current.plot(t, q, lw=1.5, label="Queue Length")
+            ax_current.plot(t, cumulative_avg, lw=1, linestyle='--', label="Cumulative Avg")
 
-        def update(frame):
-            with self.sample_lock:
-                if not self.queue_samples[self.current_run]:
-                    print(f"Nothing to plot")
-                    return ax_line, avg_line, target_line
-
-                xs, ys = zip(*(self.queue_samples[self.current_run]))
-
-            # main queue length line
-            ax_line.set_data(xs, ys)
-            # cumulative average
-            cumulative_avg = [sum(ys[:i + 1]) / (i + 1) for i in range(len(ys))]
-            avg_line.set_data(xs, cumulative_avg)
-
-            # Theoretical average line
             if target_average is not None:
-                target_line.set_data([xs[0], xs[-1]], [target_average, target_average])
+                ax_current.axhline(y=target_average, color='red', linestyle=':', label="Theoretical Avg")
 
-            ax.set_ylim(0, max(5, max(list(ys) + cumulative_avg + [target_average]) + 1))
-            return ax_line, avg_line, target_line
+            ax_current.set_ylim(0, max(5, max(list(q) + cumulative_avg + ([target_average] if target_average else [])) + 1))
 
-        ani = animation.FuncAnimation(fig, update, init_func=init,
-                                      interval=interval, blit=False, cache_frame_data=False)
-        fig._ani = ani
+        ax_current.set_ylabel("Queue Length (Last Run)")
+        ax_current.legend()
+        ax_current.set_title("Final Run and Cumulative Averages Across Runs")
 
-        return ani
+        # --- Lower plot: cumulative avg curves from all runs ---
+        max_y = 0
+        for i, run in enumerate(self.queue_samples):
+            if len(run) < 2:
+                continue
+            t, q = zip(*run)
+            cumulative_avg = [sum(q[:j + 1]) / (j + 1) for j in range(len(q))]
+            ax_avg.plot(t, cumulative_avg, lw=1, alpha=0.5, label=f"Run {i + 1}")
+            max_y = max(max_y, max(cumulative_avg))
 
+        if target_average is not None:
+            ax_avg.axhline(y=target_average, color='red', linestyle=':', label="Theoretical Avg")
+            max_y = max(max_y, target_average)
+
+        ax_avg.set_ylim(0, max(5, max_y + 1))
+        ax_avg.set_ylabel("Queue Length (Cumulative Averages)")
+        ax_avg.set_xlabel("Simulation Time")
+        ax_avg.legend(loc="upper right")
+
+        plt.tight_layout()
 
 
 
 
 
 if __name__ == "__main__":
-    import matplotlib
-
-    matplotlib.use('MacOSX')
-
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s [%(levelname)s] %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
     sim = RequestResponseSimulation(
-        requestor=lambda sim: Requestor(name="A", sim_context=sim, mean_time_between_requests=2),
+        requestor=lambda sim: Requestor(name="A", sim_context=sim, mean_time_between_requests=3),
         responder=lambda sim: Responder(name="B", sim_context=sim, processing_time=1.5, capacity=1),
         until=3000,
+        runs=4,
         realtime_factor=None
     )
-    #sim.run()
+    sim.run()
 
-    ani = sim.plot(interval=10, arrival_rate=0.5, service_rate=1 / 1.5)
-    threading.Thread(target=sim.run, daemon=True).start()
+    sim.plot(arrival_rate=1/3, service_rate=1 / 1.5)
+
     plt.show()

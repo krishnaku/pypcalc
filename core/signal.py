@@ -219,10 +219,16 @@ class SignalLog:
             f"  • Avg Entity span   : {avg_entity_duration:.3f}"
         )
 
-    def __str__(self):
+    def display(self):
         summary = self.summarize()
         details = "\n".join([
             f"{sig.timestamp:.3f}: {sig.signal_type}: {sig.source.name} -> {sig.target.name if sig.target is not None else None} :: {sig.entity.name} ({sig.transaction.id[-8:] if sig.transaction else ' '})"
             for sig in self._signals
         ])
         return f"{summary}\n-------Detailed Log-----------\n{details}"
+
+    def __str__(self):
+        return self.summarize()
+
+    def __repr__(self):
+        return self.display()
