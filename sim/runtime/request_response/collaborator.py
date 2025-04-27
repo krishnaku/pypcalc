@@ -11,7 +11,7 @@
 from __future__ import annotations
 import logging
 from abc import ABC
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Set
 import simpy
 from core import Entity, Transaction
 from core.node import NodeImpl
@@ -50,6 +50,7 @@ class Collaborator(NodeImpl, ABC):
         self.inbox = simpy.Store(self._env)
         self.resource = simpy.Resource(self._env, capacity) if capacity else None
         self.entities_in_process: int = 0
+        self.transactions_in_process: Set = set()
 
         self.peer = None
 
@@ -93,6 +94,7 @@ class Collaborator(NodeImpl, ABC):
                     yield self.env.timeout(0)
                 else:
                     log.debug(f"[{self.name} @ t={self.env.now}] received response for {entity.name}")
+                    yield from self.on_receive_response(entity)
 
     def dispatch(self, entity):
         try:
@@ -108,7 +110,7 @@ class Collaborator(NodeImpl, ABC):
             log.debug(f"[{self.name} @ t={self.env.now}] entity count: {self.entity_count}")
 
     def respond(self, entity: Request):
-        yield from self.on_receive(entity)
+        yield from self.on_receive_request(entity)
         log.debug(f"[{self.name} @ t={self.env.now}] finished processing {entity.name}")
         yield from self.send_response(entity)
 
@@ -124,5 +126,8 @@ class Collaborator(NodeImpl, ABC):
         )
         self.peer.inbox.put(response)
 
-    def on_receive(self, entity):
+    def on_receive_request(self, request: Request):
+        yield self.env.timeout(0)
+
+    def on_receive_response(self, response: Response):
         yield self.env.timeout(0)

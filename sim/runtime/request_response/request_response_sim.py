@@ -31,7 +31,7 @@ log = logging.getLogger(__name__)
 class Requestor(Collaborator):
     def __init__(self, name: str, sim_context: Simulation, mean_time_between_requests=2):
         super().__init__(name, sim_context, processing_time=0, capacity=None)
-        self.counter = 0
+        self.counter: int = 0
         self.mean_time_between_requests = mean_time_between_requests
 
     def run(self):
@@ -40,15 +40,20 @@ class Requestor(Collaborator):
                 name=f"A-{self.counter}",
                 metadata={"created_by": self.name}
             )
-            self.counter += 1
+            self.transactions_in_process.add(request.transaction.id)
             self.send(request)
-
+            self.counter += 1
             delay = random.expovariate(1 / self.mean_time_between_requests)
             yield self.env.timeout(delay)
 
+    def on_receive_response(self, response: Response):
+        self.transactions_in_process.remove(response.transaction.id)
+        yield self.env.timeout(0)
+
+
 
 class Responder(Collaborator):
-    def on_receive(self, request):
+    def on_receive_request(self, request):
         mean_delay = self.processing_time or 1
         delay = random.expovariate(1 / mean_delay)
         log.debug(f"[{self.name} @ t={self.env.now}] processing {request.name} with processing time {delay}")
@@ -103,7 +108,7 @@ class RequestResponseSimulation(Simulation):
     def queue_monitor(self):
         while True:
             with self.sample_lock:
-                self.queue_samples[self.current_run].append((self.env.now, self.responder.entity_count))
+                self.queue_samples[self.current_run].append((self.env.now, len(self.requestor.transactions_in_process)))
             yield self.env.timeout(self.metrics_poll_interval)
 
     def plot(self, arrival_rate=None, service_rate=None):
@@ -117,7 +122,7 @@ class RequestResponseSimulation(Simulation):
         if arrival_rate and service_rate:
             rho = arrival_rate / service_rate
             if rho < 1:
-                target_average = (rho ** 2) / (1 - rho)
+                target_average = rho / (1 - rho)
 
         # --- Upper plot: last run (live detail view) ---
         last_run = self.queue_samples[-1] if self.queue_samples else []
@@ -143,7 +148,7 @@ class RequestResponseSimulation(Simulation):
                 continue
             t, q = zip(*run)
             cumulative_avg = [sum(q[:j + 1]) / (j + 1) for j in range(len(q))]
-            ax_avg.plot(t, cumulative_avg, lw=1, alpha=0.5, label=f"Run {i + 1}")
+            ax_avg.plot(t, cumulative_avg, lw=1, alpha=0.5, label=f"Run {i + 1}" if i >= len(self.queue_samples) - 5 else None)
             max_y = max(max_y, max(cumulative_avg))
 
         if target_average is not None:
@@ -172,7 +177,7 @@ if __name__ == "__main__":
         requestor=lambda sim: Requestor(name="A", sim_context=sim, mean_time_between_requests=3),
         responder=lambda sim: Responder(name="B", sim_context=sim, processing_time=1.5, capacity=1),
         until=3000,
-        runs=4,
+        runs=100,
         realtime_factor=None
     )
     sim.run()
