@@ -22,7 +22,7 @@ import numpy as np
 from IPython.core.display_functions import display
 from matplotlib import pyplot as plt, animation
 
-from sim.runtime.request_response.collaborator import Collaborator, Request, Response
+from sim.runtime.request_response.collaborator import Collaborator, Request, Response, Generator
 from sim.runtime.simulation import Simulation
 
 log = logging.getLogger(__name__)
@@ -34,7 +34,7 @@ class Requestor(Collaborator):
         self.counter: int = 0
         self.mean_time_between_requests = mean_time_between_requests
 
-    def run(self):
+    def run(self) -> Generator[simpy.events.Event, None, None]:
         while True:
             request = Request(
                 name=f"A-{self.counter}",
@@ -46,14 +46,14 @@ class Requestor(Collaborator):
             delay = random.expovariate(1 / self.mean_time_between_requests)
             yield self.env.timeout(delay)
 
-    def on_receive_response(self, response: Response):
+    def on_receive_response(self, response: Response) -> Generator[simpy.events.Event, None, None]:
         self.transactions_in_process.remove(response.transaction.id)
         yield self.env.timeout(0)
 
 
 
 class Responder(Collaborator):
-    def on_receive_request(self, request):
+    def on_receive_request(self, request) -> Generator[simpy.events.Event, None, None]:
         mean_delay = self.processing_time or 1
         delay = random.expovariate(1 / mean_delay)
         log.debug(f"[{self.name} @ t={self.env.now}] processing {request.name} with processing time {delay}")

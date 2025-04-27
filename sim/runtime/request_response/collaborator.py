@@ -11,7 +11,7 @@
 from __future__ import annotations
 import logging
 from abc import ABC
-from typing import Any, Dict, Optional, Set
+from typing import Any, Dict, Optional, Set, Generator
 import simpy
 from core import Entity, Transaction
 from core.node import NodeImpl
@@ -66,7 +66,7 @@ class Collaborator(NodeImpl, ABC):
     def entity_count(self):
         return self.entities_in_process + len(self.inbox.items)
 
-    def send(self, entity: Request|Response):
+    def send(self, entity: Request|Response) -> None:
         log.debug(f"[{self.name} @ t={self.env.now}] send → {self.peer.name}: {entity.name}")
         self.signal_log.record(
             signal_type="request",
@@ -78,9 +78,9 @@ class Collaborator(NodeImpl, ABC):
         )
         self.peer.inbox.put(entity)
 
-    def receive(self):
+    def receive(self) -> Generator[simpy.events.Event, None, None]:
         while True:
-            entity: Request|Response = yield self.inbox.get()  # wait for 1 message
+            entity: Request|Response = yield self.inbox.get()  # type: ignore
             self.inbox.items.insert(0, entity)  # put it back to drain queue
             log.debug(f"[{self.name} @ t={self.env.now}] entity count: {self.entity_count}")
             while self.inbox.items:
@@ -96,7 +96,7 @@ class Collaborator(NodeImpl, ABC):
                     log.debug(f"[{self.name} @ t={self.env.now}] received response for {entity.name}")
                     yield from self.on_receive_response(entity)
 
-    def dispatch(self, entity):
+    def dispatch(self, entity) -> Generator[simpy.events.Event, None, None]:
         try:
             if self.resource:
                 log.debug(f"[{self.name} @ t={self.env.now}] acquiring resource for {entity.name}")
@@ -109,12 +109,12 @@ class Collaborator(NodeImpl, ABC):
             self.entities_in_process -= 1
             log.debug(f"[{self.name} @ t={self.env.now}] entity count: {self.entity_count}")
 
-    def respond(self, entity: Request):
+    def respond(self, entity: Request) -> Generator[simpy.events.Event, None, None]:
         yield from self.on_receive_request(entity)
         log.debug(f"[{self.name} @ t={self.env.now}] finished processing {entity.name}")
         yield from self.send_response(entity)
 
-    def send_response(self, entity):
+    def send_response(self, entity) -> Generator[simpy.events.Event, None, None]:
         yield self.env.timeout(0)
         response = Response(entity)
         self.signal_log.record(
@@ -126,8 +126,8 @@ class Collaborator(NodeImpl, ABC):
         )
         self.peer.inbox.put(response)
 
-    def on_receive_request(self, request: Request):
+    def on_receive_request(self, request: Request) -> Generator[simpy.events.Event, None, None]:
         yield self.env.timeout(0)
 
-    def on_receive_response(self, response: Response):
+    def on_receive_response(self, response: Response) -> Generator[simpy.events.Event, None, None]:
         yield self.env.timeout(0)
