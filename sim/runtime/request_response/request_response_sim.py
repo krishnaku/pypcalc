@@ -62,7 +62,7 @@ class RequestResponseSimulation(Simulation):
             responder: Callable[[Simulation], Responder],
             runs=1,
             until=20,
-            metrics_poll_interval=0.2,
+            metrics_poll_interval=1.0,
             realtime_factor=None):
         self.queue_samples: List[List[Tuple[float, int]]] = [[] for run in range(runs)]
         self.sample_lock = threading.Lock()
@@ -92,7 +92,7 @@ class RequestResponseSimulation(Simulation):
         env.process(self.requestor.run())
         env.process(self.requestor.receive())
         env.process(self.responder.receive())
-        env.process(self.queue_monitor(self.metrics_poll_interval))
+        env.process(self.queue_monitor())
 
     def post_run(self):
         super().post_run()
@@ -100,14 +100,14 @@ class RequestResponseSimulation(Simulation):
 
 
 
-    def queue_monitor(self, interval=1.0):
+    def queue_monitor(self):
         while True:
             with self.sample_lock:
                 self.queue_samples[self.current_run].append((self.env.now, self.responder.entity_count))
-            yield self.env.timeout(interval)
+            yield self.env.timeout(self.metrics_poll_interval)
 
     def plot(self, arrival_rate=None, service_rate=None):
-        log.info(f"plotting {len(self.queue_samples[self.current_run])} requests")
+        log.info(f"plotting {len(self.queue_samples[self.current_run])} samples")
         fig, (ax_current, ax_avg) = plt.subplots(
             2, 1, figsize=(10, 8), sharex=True, gridspec_kw={'height_ratios': [2, 1]}
         )
@@ -156,6 +156,7 @@ class RequestResponseSimulation(Simulation):
         ax_avg.legend(loc="upper right")
 
         plt.tight_layout()
+        log.info(f"plotted {len(self.queue_samples[self.current_run])} samples")
 
 
 
