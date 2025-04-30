@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+from typing import List
+
+import simpy
+
+from sim.runtime.simulation import Simulation
+
 
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
 
@@ -7,11 +13,9 @@
 # confidential.
 
 # Author: Krishna Kumar
-from .protocol import DelayBehavior
-from .registry import delay_behavior_registry
+class MockSimulation(Simulation):
+    def start_processes(self) -> List[simpy.events.Process]:
+        pass
 
-#trigger registration of concrete behaviors
-import sim.model.delay.behavior
-
-
-
+    def bind_environment(self):
+        pass

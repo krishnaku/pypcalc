@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from core import Registry
+from sim.model.delay.protocol import DelayBehavior
 
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
 
@@ -7,11 +9,6 @@
 # confidential.
 
 # Author: Krishna Kumar
-from .protocol import DelayBehavior
-from .registry import delay_behavior_registry
-
-#trigger registration of concrete behaviors
-import sim.model.delay.behavior
 
 
-
+delay_behavior_registry: Registry[DelayBehavior]= Registry()

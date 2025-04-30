@@ -7,11 +7,7 @@
 # confidential.
 
 # Author: Krishna Kumar
-from .protocol import DelayBehavior
-from .registry import delay_behavior_registry
+from core import Registry
+from .collaborator import Collaborator
 
-#trigger registration of concrete behaviors
-import sim.model.delay.behavior
-
-
-
+collaborator_registry: Registry[Collaborator] = Registry()

@@ -7,11 +7,7 @@
 # confidential.
 
 # Author: Krishna Kumar
-from .protocol import DelayBehavior
-from .registry import delay_behavior_registry
+from typing import Dict, List, Any
 
-#trigger registration of concrete behaviors
-import sim.model.delay.behavior
-
-
-
+def without_keys(d: Dict[str,Any], *keys) -> Dict[str, Any]:
+    return {k: v for k, v in d.items() if k not in keys}

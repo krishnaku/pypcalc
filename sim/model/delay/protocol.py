@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+from typing import Generator
+
+import simpy
+
+from core import Behavior
+
 
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
 
@@ -7,11 +13,5 @@
 # confidential.
 
 # Author: Krishna Kumar
-from .protocol import DelayBehavior
-from .registry import delay_behavior_registry
-
-#trigger registration of concrete behaviors
-import sim.model.delay.behavior
-
-
-
+class DelayBehavior(Behavior):
+    def delay(self) -> Generator[simpy.Event, None, None]:...

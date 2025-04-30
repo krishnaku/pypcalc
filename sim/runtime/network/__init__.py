@@ -7,11 +7,3 @@
 # confidential.
 
 # Author: Krishna Kumar
-from .protocol import DelayBehavior
-from .registry import delay_behavior_registry
-
-#trigger registration of concrete behaviors
-import sim.model.delay.behavior
-
-
-

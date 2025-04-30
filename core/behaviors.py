@@ -12,3 +12,4 @@ from typing import Protocol
 class Behavior(Protocol):
     """Marker protocol for all signal-triggered behaviors."""
     ...
+

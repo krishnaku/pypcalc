@@ -10,54 +10,15 @@
 from __future__ import annotations
 
 import logging
-import random
 import threading
-from collections import deque
-import time
 from typing import Callable, List, Tuple
 
-import simpy
-import numpy as np
+from matplotlib import pyplot as plt
 
-from IPython.core.display_functions import display
-from matplotlib import pyplot as plt, animation
-
-from sim.runtime.request_response.collaborator import Collaborator, Request, Response, Generator
+from sim.model.collaborator.request_response_collaborator import Requestor, Responder
 from sim.runtime.simulation import Simulation
 
 log = logging.getLogger(__name__)
-
-
-class Requestor(Collaborator):
-    def __init__(self, name: str, sim_context: Simulation, mean_time_between_requests=2):
-        super().__init__(name, sim_context, processing_time=0, capacity=None)
-        self.counter: int = 0
-        self.mean_time_between_requests = mean_time_between_requests
-
-    def run(self) -> Generator[simpy.events.Event, None, None]:
-        while True:
-            request = Request(
-                name=f"A-{self.counter}",
-                metadata={"created_by": self.name}
-            )
-            self.transactions_in_process.add(request.transaction.id)
-            self.send(request)
-            self.counter += 1
-            delay = random.expovariate(1 / self.mean_time_between_requests)
-            yield self.env.timeout(delay)
-
-    def on_receive_response(self, response: Response) -> Generator[simpy.events.Event, None, None]:
-        self.transactions_in_process.remove(response.transaction.id)
-        yield self.env.timeout(0)
-
-
-
-class Responder(Collaborator):
-    def on_receive_request(self, request) -> Generator[simpy.events.Event, None, None]:
-        mean_delay = self.processing_time or 1
-        delay = random.expovariate(1 / mean_delay)
-        log.debug(f"[{self.name} @ t={self.env.now}] processing {request.name} with processing time {delay}")
-        yield self.env.timeout(delay)
 
 
 class RequestResponseSimulation(Simulation):
@@ -88,16 +49,16 @@ class RequestResponseSimulation(Simulation):
             realtime_factor
         )
 
-    def bind_environment(self, env: simpy.Environment):
+    def bind_environment(self):
         # this is called every time the simulation environment is reset
         self.requestor = self.requestor_factory(self)
         self.responder = self.responder_factory(self)
         self.requestor.set_peer(self.responder)
 
-        env.process(self.requestor.run())
-        env.process(self.requestor.receive())
-        env.process(self.responder.receive())
-        env.process(self.queue_monitor())
+        self.process(self.requestor.run())
+        self.process(self.requestor.receive())
+        self.process(self.responder.receive())
+        self.process(self.queue_monitor())
 
     def post_run(self):
         super().post_run()
@@ -108,8 +69,8 @@ class RequestResponseSimulation(Simulation):
     def queue_monitor(self):
         while True:
             with self.sample_lock:
-                self.queue_samples[self.current_run].append((self.env.now, len(self.requestor.transactions_in_process)))
-            yield self.env.timeout(self.metrics_poll_interval)
+                self.queue_samples[self.current_run].append((self.now, len(self.requestor.transactions_in_process)))
+            yield self.timeout(self.metrics_poll_interval)
 
     def plot(self):
         import matplotlib.pyplot as plt
@@ -201,7 +162,7 @@ if __name__ == "__main__":
         datefmt='%Y-%m-%d %H:%M:%S'
     )
     sim = RequestResponseSimulation(
-        requestor=lambda sim: Requestor(name="A", sim_context=sim, mean_time_between_requests=1.4),
+        requestor=lambda sim: Requestor(name="A", sim_context=sim, mean_time_between_requests=2),
         responder=lambda sim: Responder(name="B", sim_context=sim, processing_time=1.5, capacity=1),
         until=20000,
         runs=5,

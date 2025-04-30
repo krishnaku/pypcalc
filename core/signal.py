@@ -7,11 +7,13 @@
 
 # Author: Krishna Kumar
 from __future__ import annotations
+import polars as pl
+import fnmatch
 
 from dataclasses import dataclass
-from typing import Dict, Any, Optional, List, Literal, Union
+from typing import Dict, Any, Optional, List, Literal, Union, Iterable
 
-import polars as pl
+
 
 from .entity import Entity
 from .node import Node
@@ -49,7 +51,7 @@ class Signal:
         # Necessary because Signal include non-serializable field (signal_log)
         return {
             "source_id": self.source_id,
-            "timestamp": self.timestamp,
+            "timestamp": float(self.timestamp),
             "signal": self.signal_type,
             "transaction_id": self.transaction_id,
             "entity_id": self.entity_id,
@@ -107,6 +109,18 @@ class SignalLog:
 
     def __iter__(self):
         return iter(self._signals)
+
+    @property
+    def transactions(self) -> Iterable[tuple[str, Transaction]]:
+        return self._transactions.items()
+
+    @property
+    def entities(self) -> Iterable[tuple[str, Entity]]:
+        return self._entities.items()
+
+    @property
+    def nodes(self) -> Iterable[tuple[str, Node]]:
+        return self._nodes.items()
 
     # Transformations
     def as_polars(self):
