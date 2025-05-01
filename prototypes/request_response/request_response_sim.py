@@ -15,7 +15,7 @@ from typing import Callable, List, Tuple
 
 from matplotlib import pyplot as plt
 
-from sim.model.collaborator.request_response_collaborator import Requestor, Responder
+from sim.model.collaborator.request_response import Requestor, Responder
 from sim.runtime.simulation import Simulation
 
 log = logging.getLogger(__name__)

@@ -11,11 +11,11 @@ from typing import Any, Optional, Dict, Generator
 import networkx as nx
 
 from core.registry import Registry
-from sim.model.boundary.base_node import Node, Boundary
-from sim.model.routing.routing import RoutingMixin, router_registry
-from analytics.simulation import Simulation
+from prototypes.queueing_network.base_node import Node, Boundary
+from prototypes.queueing_network.routing import RoutingMixin, router_registry
+from prototypes.queueing_network.simulation import Simulation
 
-from sim.model.delay.delay_node import BlockingDelay, PureDelay
+from prototypes.queueing_network.delay_node import BlockingDelay, PureDelay
 
 
 class NetworkNode(RoutingMixin, Node):

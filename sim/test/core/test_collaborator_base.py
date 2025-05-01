@@ -9,9 +9,8 @@
 # Author: Krishna Kumar
 
 import pytest
-import simpy
-from test.mocks import MockSimulation
-from test.assertions import sim_log, SignalAssertion, SignalLogAssertion
+from sim.test.mocks import MockSimulation
+from sim.test.assertions import sim_log, SignalAssertion, SignalLogAssertion
 from sim.model.collaborator.collaborator import Collaborator, Request, Response
 
 

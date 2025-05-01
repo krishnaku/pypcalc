@@ -9,7 +9,7 @@
 # Author: Krishna Kumar
 
 from sim.model.collaborator import collaborator_registry, Requestor, Responder
-from test.mocks import MockSimulation
+from sim.test.mocks import MockSimulation
 
 def test_requestor_and_responder_are_registered():
     assert "Requestor" in collaborator_registry._registry

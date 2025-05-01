@@ -2,7 +2,7 @@ from abc import abstractmethod
 
 import simpy
 import numpy as np
-from sim.model.boundary.base_node import Boundary
+from prototypes.queueing_network.base_node import Boundary
 
 
 class Simulation:

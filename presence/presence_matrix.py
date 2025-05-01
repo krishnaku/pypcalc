@@ -3,8 +3,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional
 
 import numpy as np
-
-from sim.model.signal.signal import Signal
+from core import Signal
 
 
 @dataclass

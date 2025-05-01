@@ -14,7 +14,7 @@ from abc import ABC, abstractmethod
 from core.registry import Registry
 
 if TYPE_CHECKING:
-    from sim.model.boundary.base_node import Node
+    from prototypes.queueing_network.base_node import Node
 
 
 # ---- Protocol: Routing Function Type ----

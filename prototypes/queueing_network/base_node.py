@@ -1,12 +1,4 @@
 # -*- coding: utf-8 -*-
-from abc import ABC, abstractmethod
-from typing import Dict, Any, Generator, Set
-
-from sim.model.signal.signal import Signal
-from core.signal import SignalLog
-from analytics.simulation import Simulation
-
-
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
 
 # Unauthorized use or copying of this file and its contents, via any medium
@@ -14,6 +6,14 @@ from analytics.simulation import Simulation
 # confidential.
 
 # Author: Krishna Kumar
+
+from abc import ABC, abstractmethod
+from typing import Dict, Any, Generator, Set
+
+from sim.model.signal.signal import Signal
+from core.signal import SignalLog
+from prototypes.queueing_network.simulation import Simulation
+
 class Node(ABC):
     def __init__(self, name: str, config: Dict[str, Any], sim_context: Simulation) -> None:
         self._name: str = name

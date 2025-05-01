@@ -11,9 +11,9 @@ from .collaborator import Collaborator
 from .registry import collaborator_registry
 
 # Force import to trigger registration of concrete classes in registry
-import sim.model.collaborator.request_response_collaborator
+import sim.model.collaborator.request_response
 
-from .request_response_collaborator import Request, Response, Responder, Requestor
+from .request_response import Request, Response, Responder, Requestor
 
 __all__ = [
     'Collaborator',

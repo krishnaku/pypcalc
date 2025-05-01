@@ -3,8 +3,8 @@ from typing import Dict, Any
 
 import simpy
 
-from sim.model.boundary.base_node import NonBlockingService, BlockingService
-from analytics.simulation import Simulation
+from prototypes.queueing_network.base_node import NonBlockingService, BlockingService
+from prototypes.queueing_network.simulation import Simulation
 
 
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved

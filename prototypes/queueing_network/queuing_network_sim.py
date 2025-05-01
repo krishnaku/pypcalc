@@ -2,10 +2,10 @@ import simpy
 import uuid
 import networkx as nx
 from typing import Dict
-from analytics.simulation import Simulation
-from sim.runtime.signal_history import SignalHistory
-from sim.model.boundary.base_node import Node
-from sim.model.network.network_node import NetworkNode, node_registry
+from prototypes.queueing_network.simulation import Simulation
+from prototypes.queueing_network.signal_history import SignalHistory
+from prototypes.queueing_network.base_node import Node
+from prototypes.queueing_network.network_node import NetworkNode, node_registry
 
 
 class QueuingNetworkSimulation(Simulation):
@@ -45,7 +45,7 @@ class QueuingNetworkSimulation(Simulation):
 
     def signal_enter(self, node: str, entity_id: str):
         t_enter = self.env.now
-        self.queue_signal_history[node].add(source=self.get_node(node), "enter", t_enter, entity_id)
+        self.queue_signal_history[node].add(source=self.get_node(node), signal_type="enter", timestamp=t_enter, entity_id=entity_id)
         state = self.entity_system_state[entity_id]
         if not state["entered"]:
             self.system_signal_history.add("enter", t_enter, entity_id)
