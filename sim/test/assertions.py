@@ -47,7 +47,7 @@ class SignalLogAssertion:
         self.df: Optional[pl.DataFrame] = None
 
     def _lookup_node_id(self, source_name: str) -> Optional[str]:
-        for id, node in self.log.nodes:
+        for id, node in self.log.entities:
             if node.name == source_name:
                 return id
 

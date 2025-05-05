@@ -31,11 +31,11 @@ class SignalEvent:
 
     @property
     def source(self) -> Entity:
-        return self.signal_log.node(self.source_id)
+        return self.signal_log.entity(self.source_id)
 
     @property
     def target(self) -> Entity:
-        return self.signal_log.node(self.target_id)
+        return self.signal_log.entity(self.target_id)
 
     @property
     def signal(self) -> Signal:
@@ -72,8 +72,8 @@ class SignalLog:
     def signal_events(self) -> List[SignalEvent]:
         return self._signal_events
 
-    def node(self, node_id) -> Entity:
-        return self._entities.get(node_id)
+    def entity(self, entity_id) -> Entity:
+        return self._entities.get(entity_id)
 
     def signal(self, signal_id) -> Signal:
         return self._signals.get(signal_id)
@@ -116,11 +116,11 @@ class SignalLog:
         return self._transactions.items()
 
     @property
-    def entities(self) -> Iterable[tuple[str, Signal]]:
+    def signals(self) -> Iterable[tuple[str, Signal]]:
         return self._signals.items()
 
     @property
-    def nodes(self) -> Iterable[tuple[str, Entity]]:
+    def entities(self) -> Iterable[tuple[str, Entity]]:
         return self._entities.items()
 
     # Transformations
