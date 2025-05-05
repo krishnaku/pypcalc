@@ -16,7 +16,7 @@ from typing import List, Generator, Optional, Any, Protocol, Dict
 from simpy.events import Event, Timeout
 
 from core import Node, Entity
-from core.signal import Signal, SignalLog, SignalListener
+from core.signal import SignalEvent, SignalLog, SignalListener
 from core.simulation_context import SimulationContext
 
 log = logging.getLogger(__name__)
@@ -33,11 +33,11 @@ class SimpyProxy(Protocol):
     """Start a new process from a generator."""
 
 
-    def event(self) -> Event:...
+    def event(self) -> SignalEvent:...
     """Create a new, untriggered event."""
 
 
-    def schedule(self, event: Event, delay: float = 0) -> None:...
+    def schedule(self, event: SignalEvent, delay: float = 0) -> None:...
     """Manually schedule an event after a delay."""
 
     def get_store(self) -> simpy.Store:...
@@ -132,9 +132,9 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         self._signal_listeners.append(listener)
 
     def record_signal(self, source: Node, timestamp: float, signal_type: str, entity: Entity, transaction=None,
-               target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> Signal:
+               target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         """Write access to the global signal log is via this method."""
-        signal:Signal =  self._signal_log.record(
+        signal:SignalEvent =  self._signal_log.record(
             source=source,
             timestamp=timestamp,
             signal_type=signal_type,
@@ -146,7 +146,7 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         self.notify_listeners(signal)
         return signal
 
-    def notify_listeners(self, signal: Signal) -> None:
+    def notify_listeners(self, signal: SignalEvent) -> None:
         for listener in self._signal_listeners:
             if signal.source != listener:
                 listener.on_signal(signal)
@@ -177,11 +177,11 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         """Start a new process from a generator."""
         return self._env.process(generator)
 
-    def event(self) -> Event:
+    def event(self) -> SignalEvent:
         """Create a new, un-triggered event."""
         return self._env.event()
 
-    def schedule(self, event: Event, delay: float = 0) -> None:
+    def schedule(self, event: SignalEvent, delay: float = 0) -> None:
         """Manually schedule an event after a delay."""
         self._env.schedule(event, delay=delay)
 

@@ -10,7 +10,7 @@
 from abc import abstractmethod
 from typing import Dict, Any, Set, Protocol
 
-from .signal import SignalLog, SignalListener, Signal
+from .signal import SignalLog, SignalListener, SignalEvent
 
 from .node import Node
 
@@ -26,7 +26,7 @@ class Boundary(Node, SignalListener, Protocol):
     def tenants(self) -> Set[str]:...
 
 
-    def on_signal(self, signal: Signal) -> None:
+    def on_signal(self, signal: SignalEvent) -> None:
         pass
 
 

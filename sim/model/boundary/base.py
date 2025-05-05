@@ -13,7 +13,7 @@ from typing import Dict, Any, Optional, Set
 from abc import ABC, abstractmethod
 
 from core import Boundary
-from core.signal import Signal, SignalLog
+from core.signal import SignalEvent, SignalLog
 from sim.model.node import NodeBase
 from sim.runtime.simulation import Simulation
 
@@ -41,4 +41,4 @@ class BoundaryBase(NodeBase, Boundary, ABC):
         return self._tenants
 
     @abstractmethod
-    def on_signal(self, signal: Signal) -> None:...
+    def on_signal(self, signal: SignalEvent) -> None:...

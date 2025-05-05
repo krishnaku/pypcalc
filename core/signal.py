@@ -19,7 +19,7 @@ from .transaction import Transaction
 
 
 @dataclass(frozen=True)
-class Signal:
+class SignalEvent:
     source_id: str
     timestamp: float
     signal_type: str
@@ -45,7 +45,7 @@ class Signal:
     def transaction(self) -> Transaction:
         return self.signal_log.transaction(self.transaction_id)
 
-    def as_dict(self: Signal) -> dict:
+    def as_dict(self: SignalEvent) -> dict:
         # Necessary because Signal include non-serializable field (signal_log)
         return {
             "source_id": self.source_id,
@@ -59,17 +59,17 @@ class Signal:
 
 class SignalListener(Protocol):
 
-    def on_signal(self, signal: Signal) -> None:...
+    def on_signal(self, signal: SignalEvent) -> None:...
 
 class SignalLog:
     def __init__(self):
-        self._signals: List[Signal] = []
+        self._signals: List[SignalEvent] = []
         self._transactions: Dict[str, Transaction] = {}
         self._entities: Dict[str, Entity] = {}
         self._nodes: Dict[str, Node] = {}
 
     @property
-    def signals(self) -> List[Signal]:
+    def signals(self) -> List[SignalEvent]:
         return self._signals
 
     def node(self, node_id) -> Node:
@@ -85,7 +85,7 @@ class SignalLog:
         return len(self.signals)
 
     def record(self, source: Node, timestamp: float, signal_type: str, entity: Entity, transaction=None,
-               target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> Signal:
+               target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         self._nodes[source.id] = source
         self._entities[entity.id] = entity
         tx = transaction or entity.transaction
@@ -95,7 +95,7 @@ class SignalLog:
         if target is not None:
             self._nodes[target.id] = target
 
-        signal = Signal(
+        signal = SignalEvent(
             source_id=source.id,
             timestamp=timestamp,
             signal_type=signal_type,

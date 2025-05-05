@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional
 
 import numpy as np
-from core import Signal
+from core import SignalEvent
 
 
 @dataclass
@@ -50,7 +50,7 @@ class PresenceMatrix:
     @classmethod
     def from_signals(
         cls,
-        signals: List[Signal],
+        signals: List[SignalEvent],
         source: str,
         t0: float,
         t1: float,
