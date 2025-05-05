@@ -24,7 +24,7 @@ class Registry(Generic[T]):
             return factory
         return wrapper
 
-    def create(self, kind: str, **kwargs) -> T:
+    def create(self, kind: str = None, **kwargs) -> T:
         if kind not in self._registry:
             raise ValueError(f"Unknown kind: {kind}")
         return self._registry[kind](**kwargs)
