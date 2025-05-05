@@ -13,7 +13,7 @@ import fnmatch
 from dataclasses import dataclass
 from typing import Dict, Any, Optional, List, Literal, Union, Iterable, Protocol
 
-from .entity import Entity
+from .signal import Signal
 from .node import Node
 from .transaction import Transaction
 
@@ -23,7 +23,7 @@ class SignalEvent:
     source_id: str
     timestamp: float
     signal_type: str
-    entity_id: str
+    signal_id: str
     transaction_id: Optional[str] = None
     target_id: Optional[str] = None
     tags: Optional[Dict[str, Any]] = None
@@ -38,8 +38,8 @@ class SignalEvent:
         return self.signal_log.node(self.target_id)
 
     @property
-    def entity(self) -> Entity:
-        return self.signal_log.entity(self.entity_id)
+    def signal(self) -> Signal:
+        return self.signal_log.entity(self.signal_id)
 
     @property
     def transaction(self) -> Transaction:
@@ -52,7 +52,7 @@ class SignalEvent:
             "timestamp": float(self.timestamp),
             "signal": self.signal_type,
             "transaction_id": self.transaction_id,
-            "entity_id": self.entity_id,
+            "signal_id": self.signal_id,
             "target_id": self.target_id,
             "tags": self.tags,
         }
@@ -65,7 +65,7 @@ class SignalLog:
     def __init__(self):
         self._signal_events: List[SignalEvent] = []
         self._transactions: Dict[str, Transaction] = {}
-        self._entities: Dict[str, Entity] = {}
+        self._entities: Dict[str, Signal] = {}
         self._nodes: Dict[str, Node] = {}
 
     @property
@@ -75,8 +75,8 @@ class SignalLog:
     def node(self, node_id) -> Node:
         return self._nodes.get(node_id)
 
-    def entity(self, entity_id) -> Entity:
-        return self._entities.get(entity_id)
+    def entity(self, signal_id) -> Signal:
+        return self._entities.get(signal_id)
 
     def transaction(self, transaction_id) -> Transaction:
         return self._transactions.get(transaction_id)
@@ -84,7 +84,7 @@ class SignalLog:
     def __len__(self):
         return len(self.signals)
 
-    def record(self, source: Node, timestamp: float, signal_type: str, entity: Entity, transaction=None,
+    def record(self, source: Node, timestamp: float, signal_type: str, entity: Signal, transaction=None,
                target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         self._nodes[source.id] = source
         self._entities[entity.id] = entity
@@ -100,7 +100,7 @@ class SignalLog:
             timestamp=timestamp,
             signal_type=signal_type,
             transaction_id=tx.id if tx is not None else None,
-            entity_id=entity.id,
+            signal_id=entity.id,
             target_id=target.id if target is not None else None,
             tags=tags,
             signal_log=self
@@ -116,7 +116,7 @@ class SignalLog:
         return self._transactions.items()
 
     @property
-    def entities(self) -> Iterable[tuple[str, Entity]]:
+    def entities(self) -> Iterable[tuple[str, Signal]]:
         return self._entities.items()
 
     @property
@@ -134,7 +134,7 @@ class SignalLog:
                 "timestamp": pl.Float64,
                 "signal": pl.Utf8,
                 "transaction_id": pl.Utf8,
-                "entity_id": pl.Utf8,
+                "signal_id": pl.Utf8,
                 "target_id": pl.Utf8,
                 "tags": pl.Object,
             })
@@ -157,9 +157,9 @@ class SignalLog:
             return "📊 Signal Log Summary\n  • No signals recorded."
 
         num_entries: int = df.height
-        tmin: float = df["timestamp"].min()
-        tmax: float = df["timestamp"].max()
-        timespan: float = tmax - tmin
+        t_min: float = df["timestamp"].min()
+        t_max: float = df["timestamp"].max()
+        timespan: float = t_max - t_min
 
         num_transactions: int = df["transaction_id"].drop_nulls().unique().len()
 
@@ -169,19 +169,19 @@ class SignalLog:
         ]).drop_nulls().unique().height
 
         num_entity_types = pl.Series([
-            entity.entity_type for entity in self._entities.values()
+            entity.signal_type for entity in self._entities.values()
         ]).unique().len()
 
         # 2. Count by entity_type
         entity_type_counts = pl.Series([
-            entity.entity_type for entity in self._entities.values()
+            entity.signal_type for entity in self._entities.values()
         ]).value_counts()
 
         entity_type_lines = "\n".join(
             f"    - {entity_type.ljust(10)}: {count}" for entity_type, count in entity_type_counts.rows()
         )
 
-        num_entities: int = df["entity_id"].unique().len()
+        num_entities: int = df["signal_id"].unique().len()
 
         tx_span = (
             df.filter(pl.col("transaction_id").is_not_null())
@@ -195,7 +195,7 @@ class SignalLog:
         avg_tx_duration: float = tx_span["tx_duration"].mean()
 
         entity_span = (
-            df.group_by("entity_id")
+            df.group_by("signal_id")
             .agg([
                 pl.col("timestamp").min().alias("t_start"),
                 pl.col("timestamp").max().alias("t_end")
@@ -207,8 +207,8 @@ class SignalLog:
         summary_dict: Dict[str, Union[int, float, str]] = {
             "log_entries": num_entries,
             "time_span": timespan,
-            "start_time": tmin,
-            "end_time": tmax,
+            "start_time": t_min,
+            "end_time": t_max,
             "transactions": num_transactions,
             "nodes": num_nodes,
             "entity_types": num_entity_types,
@@ -224,7 +224,7 @@ class SignalLog:
         return (
             "📊 Signal Log Summary\n"
             f"  • Log entries       : {num_entries}\n"
-            f"  • Time span         : {timespan:.3f} time units (from t={tmin:.3f} to t={tmax:.3f})\n"
+            f"  • Time span         : {timespan:.3f} time units (from t={t_min:.3f} to t={t_max:.3f})\n"
             f"  • Transactions      : {num_transactions}\n"
             f"  • Avg Tx duration   : {avg_tx_duration:.3f}\n"
             f"  • Nodes             : {num_nodes}\n"
@@ -237,7 +237,7 @@ class SignalLog:
     def display(self):
         summary = self.summarize()
         details = "\n".join([
-            f"{sig.timestamp:.3f}: {sig.signal_type}: {sig.source.name} -> {sig.target.name if sig.target is not None else None} :: {sig.entity.name} ({sig.transaction.id[-8:] if sig.transaction else ' '})"
+            f"{sig.timestamp:.3f}: {sig.signal_type}: {sig.source.name} -> {sig.target.name if sig.target is not None else None} :: {sig.signal.name} ({sig.transaction.id[-8:] if sig.transaction else ' '})"
             for sig in self._signal_events
         ])
         return f"{summary}\n-------Detailed Log-----------\n{details}"

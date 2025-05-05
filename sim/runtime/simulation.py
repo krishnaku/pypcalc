@@ -15,7 +15,7 @@ import time
 from typing import List, Generator, Optional, Any, Protocol, Dict
 from simpy.events import Event, Timeout
 
-from core import Node, Entity
+from core import Node, Signal
 from core.signal_log import SignalEvent, SignalLog, SignalListener
 from core.simulation_context import SimulationContext
 
@@ -131,8 +131,8 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
     def register_listener(self, listener: SignalListener) -> None:
         self._signal_listeners.append(listener)
 
-    def record_signal(self, source: Node, timestamp: float, signal_type: str, entity: Entity, transaction=None,
-               target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
+    def record_signal(self, source: Node, timestamp: float, signal_type: str, entity: Signal, transaction=None,
+                      target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         """Write access to the global signal log is via this method."""
         signal:SignalEvent =  self._signal_log.record(
             source=source,

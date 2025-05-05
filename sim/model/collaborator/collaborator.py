@@ -11,13 +11,13 @@ import logging
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Set, Generator
 import simpy
-from core import Entity, Transaction, Registry
+from core import Signal, Transaction, Registry
 from sim.model.node.base import NodeBase
 from sim.runtime.simulation import Simulation
 
 log = logging.getLogger(__name__)
 
-class Request(Entity):
+class Request(Signal):
     def __init__(self, name:str, metadata: Dict[str, Any]=None, transaction: Optional[Transaction]=None) -> None:
         super().__init__(
             name, 
@@ -26,7 +26,7 @@ class Request(Entity):
             transaction=transaction or Transaction()
         )
 
-class Response(Entity):
+class Response(Signal):
     def __init__(self, entity):
         super().__init__(
             entity.name, 
@@ -75,7 +75,7 @@ class Collaborator(NodeBase, ABC):
                 log.debug(f"[{self.name} @ t={self.sim_context.now}] draining inbox (size={len(self.inbox.items)})")
                 entity = self.inbox.items.pop(0)
 
-                if entity.entity_type == "request":
+                if entity.signal_type == "request":
                     self.entities_in_process += 1
                     log.debug(f"[{self.name} @ t={self.sim_context.now}] scheduling process for {entity.name}")
                     self.sim_context.process(self.dispatch(entity))

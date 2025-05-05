@@ -13,16 +13,16 @@ from typing import Optional, Dict, Any
 from .transaction import Transaction
 
 @dataclass
-class Entity:
+class Signal:
     id: str
     name: str
-    entity_type: Optional[str] = None
+    signal_type: Optional[str] = None
     transaction: Optional[Transaction] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
 
     def __init__(self, name: str, entity_type: Optional[str], metadata: Dict[str, Any] = None, transaction: Optional[Transaction]=None):
         self.id = str(uuid.uuid4())
         self.name = name
-        self.entity_type = entity_type
+        self.signal_type = entity_type
         self.metadata = metadata
         self.transaction = transaction

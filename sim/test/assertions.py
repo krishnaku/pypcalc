@@ -121,8 +121,8 @@ class SignalAssertion:
         return self
 
     def has_entity(self, expected: str) -> SignalAssertion:
-        assert self.signal.entity.name == expected, \
-            f"Expected entity_id '{expected}', got '{self.signal.entity.name}'"
+        assert self.signal.signal.name == expected, \
+            f"Expected signal_id '{expected}', got '{self.signal.signal.name}'"
         return self
 
     def has_tag(self, key: str, value: str) -> SignalAssertion:
@@ -144,7 +144,7 @@ class SignalAssertion:
             "type": self.signal.signal_type,
             "source": self.signal.source_id,
             "target": self.signal.target_id,
-            "entity": self.signal.entity_id,
+            "entity": self.signal.signal_id,
             "transaction": self.signal.transaction_id,
             "tags": self.signal.tags,
             "timestamp": self.signal.timestamp,

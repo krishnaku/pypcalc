@@ -8,7 +8,7 @@ from core import SignalEvent
 
 @dataclass
 class Visit:
-    entity_id: str
+    signal_id: str
     start: float
     end: float
     presence_row: int = -1
@@ -85,24 +85,24 @@ class PresenceMatrix:
                     s.signal_type in {enter_event, exit_event} and s.source == source and t0 <= s.timestamp <= t1]
         visits: List[Visit] = []
         entity_visits: Dict[str, List[Visit]] = defaultdict(list)
-        for entity_id in initial_population or []:
-            visit = Visit(entity_id=entity_id, start=0, end=np.inf)
+        for signal_id in initial_population or []:
+            visit = Visit(signal_id=signal_id, start=0, end=np.inf)
             visits.append(visit)
-            entity_visits[entity_id].append(visit)
+            entity_visits[signal_id].append(visit)
         for s in sorted(filtered, key=lambda s: s.timestamp):
             if s.signal_type == enter_event:
-                visit = Visit(entity_id=s.entity_id, start=s.timestamp, end=np.inf)
+                visit = Visit(signal_id=s.signal_id, start=s.timestamp, end=np.inf)
                 visits.append(visit)
-                entity_visits[s.entity_id].append(visit)
+                entity_visits[s.signal_id].append(visit)
             if s.signal_type == exit_event:
-                visit_list = entity_visits[s.entity_id]
+                visit_list = entity_visits[s.signal_id]
                 latest: Visit = visit_list[-1] if len(visit_list) > 0 else None
                 if latest is not None:
                     latest.end = s.timestamp
                 else:
-                    visit = Visit(entity_id=s.entity_id, start=0, end=s.timestamp)
+                    visit = Visit(signal_id=s.signal_id, start=0, end=s.timestamp)
                     visits.append(visit)
-                    entity_visits[s.entity_id].append(visit)
+                    entity_visits[s.signal_id].append(visit)
         return entity_visits, visits
 
     @classmethod

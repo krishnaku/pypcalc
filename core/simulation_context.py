@@ -12,7 +12,7 @@ from __future__ import annotations
 from typing import List, Dict, Optional, Protocol, Any
 
 
-from .entity import Entity
+from .signal import Signal
 from .transaction import Transaction
 from .boundary import Boundary
 from .signal_log import SignalEvent, SignalLog, SignalListener
@@ -24,14 +24,14 @@ class SimulationContext(Protocol):
     # -------- Accessors-------------------------
     def nodes(self, name: str) -> List[Node]:...
 
-    def entities(self, name: str) -> List[Entity]:...
+    def entities(self, name: str) -> List[Signal]:...
 
     def transactions(self, name: str) -> List[Transaction]:...
 
     def boundaries(self, name: str) -> List[Boundary]:...
 
     # --------Signal Interface ------------------
-    def record_signal(self, source: Node, timestamp: float, signal_type: str, entity: Entity, transaction=None,
+    def record_signal(self, source: Node, timestamp: float, signal_type: str, entity: Signal, transaction=None,
                       target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:...
 
     def register_listener(self, listener: SignalListener) -> None:...

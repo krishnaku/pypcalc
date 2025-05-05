@@ -8,7 +8,7 @@
 
 # Author: Krishna Kumar
 from .node import Node
-from .entity import Entity
+from .signal import Signal
 from .transaction import Transaction
 from .affordances import Affordance
 from .behaviors import Behavior

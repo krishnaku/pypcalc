@@ -37,33 +37,33 @@ class Node(ABC):
 
 
 class Service(Boundary):
-    def on_enter(self, entity_id: str, **kwargs) -> Generator:
-        yield from self.perform_service(entity_id, **kwargs)
-        yield from self.exit(entity_id, **kwargs)
+    def on_enter(self, signal_id: str, **kwargs) -> Generator:
+        yield from self.perform_service(signal_id, **kwargs)
+        yield from self.exit(signal_id, **kwargs)
 
-    def on_exit(self, entity_id: str, **kwargs) -> Generator:
+    def on_exit(self, signal_id: str, **kwargs) -> Generator:
         yield from ()
 
-    def signal_start_service(self, entity_id:str, **kwargs) -> Signal:
+    def signal_start_service(self, signal_id:str, **kwargs) -> Signal:
         timestamp = self.env.now
         return self.signal_history.signal(
             Signal(
                 signal_type="start_service",
                 source=self.name,
                 timestamp=timestamp,
-                entity_id=entity_id,
+                signal_id=signal_id,
                 **kwargs
             )
         )
 
-    def signal_end_service(self, entity_id:str, **kwargs) -> Signal:
+    def signal_end_service(self, signal_id:str, **kwargs) -> Signal:
         timestamp = self.env.now
         return self.signal_history.signal(
             Signal(
                 signal_type="end_service",
                 source=self.name,
                 timestamp=timestamp,
-                entity_id=entity_id,
+                signal_id=signal_id,
                 **kwargs
             )
         )
@@ -71,7 +71,7 @@ class Service(Boundary):
 
 
     @abstractmethod
-    def perform_service(self, entity_id: str, **kwargs) -> Generator:
+    def perform_service(self, signal_id: str, **kwargs) -> Generator:
        pass
 
 

@@ -17,16 +17,16 @@ class Affordance(Protocol):
 @runtime_checkable
 class Enter(Affordance, Protocol):
     """Accepts enter signals"""
-    def enter(self, entity_id: str, **kwargs) -> Generator:...
+    def enter(self, signal_id: str, **kwargs) -> Generator:...
 
 
 @runtime_checkable
 class Exit(Affordance, Protocol):
     """Accepts exit signals"""
-    def exit(self, entity_id: str, **kwargs) -> Generator: ...
+    def exit(self, signal_id: str, **kwargs) -> Generator: ...
 
 @runtime_checkable
 class Perform(Affordance, Protocol):
     """Performs actions"""
-    def perform(self, entity_id: str, **kwargs) -> Generator: ...
+    def perform(self, signal_id: str, **kwargs) -> Generator: ...
 

@@ -31,18 +31,18 @@ class SignalLog:
     def __init__(self):
         self.records = []
 
-    def record(self, from_system, to_system, entity_id, timestamp):
+    def record(self, from_system, to_system, signal_id, timestamp):
         self.records.append({
             'from': from_system,
             'to': to_system,
-            'entity_id': entity_id,
+            'signal_id': signal_id,
             'timestamp': timestamp
         })
 
     def dump(self):
         print("\n--- Signal Log ---")
         for r in self.records:
-            print(f"[t={r['timestamp']:>2}] {r['from']} → {r['to']}: {r['entity_id']}")
+            print(f"[t={r['timestamp']:>2}] {r['from']} → {r['to']}: {r['signal_id']}")
 
 
 # ---------- Base Class for A and B ----------

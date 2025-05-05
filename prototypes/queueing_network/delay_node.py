@@ -23,11 +23,11 @@ class PureDelay(NonBlockingService):
         if not callable(self.delay_fn):
             raise ValueError(f"Delay must be a callable in node {self.name}")
 
-    def perform_service(self, entity_id: str, **kwargs):
-        self.signal_start_service(entity_id, **kwargs)
-        delay = self.delay_fn(entity_id, **kwargs)
+    def perform_service(self, signal_id: str, **kwargs):
+        self.signal_start_service(signal_id, **kwargs)
+        delay = self.delay_fn(signal_id, **kwargs)
         yield self.env.timeout(delay)
-        self.signal_end_service(entity_id, **kwargs)
+        self.signal_end_service(signal_id, **kwargs)
 
 
 class BlockingDelay(BlockingService):
@@ -48,10 +48,10 @@ class BlockingDelay(BlockingService):
         else:
             self.resource = None
 
-    def perform_service(self, entity_id: str, **kwargs):
+    def perform_service(self, signal_id: str, **kwargs):
         with self.resource.request() as req:
             yield req
-            self.signal_start_service(entity_id, **kwargs)
-            delay = self.delay_fn(entity_id, **kwargs)
+            self.signal_start_service(signal_id, **kwargs)
+            delay = self.delay_fn(signal_id, **kwargs)
             yield self.env.timeout(delay)
-            self.signal_end_service(entity_id, **kwargs)
+            self.signal_end_service(signal_id, **kwargs)
