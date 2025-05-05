@@ -16,7 +16,7 @@ from sim.model.collaborator.collaborator import Collaborator, Request, Response
 
 class MockCollaborator(Collaborator):
     def __init__(self, name, sim_context, concurrency=None):
-        super().__init__("mock", name, sim_context, concurrency)
+        super().__init__(name, sim_context, concurrency)
         self.received_requests = []
         self.received_responses = []
         self.start_process_called = False

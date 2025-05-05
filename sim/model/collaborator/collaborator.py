@@ -36,8 +36,8 @@ class Response(Signal):
         )
         
 class Collaborator(EntityBase, ABC):
-    def __init__(self, kind:str, name:str, sim_context: Simulation, concurrency=None):
-        super().__init__(kind, name, sim_context)
+    def __init__(self, name:str, sim_context: Simulation, concurrency=None, **kwargs):
+        super().__init__(name, sim_context, concurrency=concurrency, **kwargs)
         self.inbox = sim_context.get_store()
         self.resource = sim_context.get_resource(capacity=concurrency) if concurrency else None
         self.signals_in_process: int = 0

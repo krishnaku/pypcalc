@@ -15,12 +15,11 @@ from sim.runtime.simulation import Simulation
 
 class EntityBase(Entity):
     """Base for a concrete system component."""
-    def __init__(self, kind, name, sim_context: Simulation, id:Optional[str]=None) -> None:
+    def __init__(self, name, sim_context: Simulation, id:Optional[str]=None, **kwargs) -> None:
         self._id: str =str(uuid.uuid4()) if id is None else id
         self._name: str = name
-        self._kind: str = kind
         self._sim_context: Simulation = sim_context
-
+        self._metadata: Optional[Dict[str, Any]] = kwargs
 
     @property
     def id(self) -> str:
@@ -31,9 +30,9 @@ class EntityBase(Entity):
         return self._name
 
     @property
-    def sim_context(self) -> Simulation:
-        return self._sim_context
+    def metadata(self) -> Dict[str, Any]:
+        return self._metadata
 
     @property
-    def config(self) -> Dict[str, Any]:
-        return self._config
+    def sim_context(self) -> Simulation:
+        return self._sim_context

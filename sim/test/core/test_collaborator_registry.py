@@ -20,19 +20,27 @@ def test_create_requestor_and_responder():
     sim = MockSimulation()
 
     requestor = collaborator_registry.create(
-        "Requestor",
+        kind="Requestor",
         name="req1",
         sim_context=sim,
-        delay_behavior=dict(type="Deterministic", avg_delay=0.0)
+        delay_behavior=dict(kind="Deterministic", avg_delay=0.0)
     )
     assert isinstance(requestor, Requestor)
     assert requestor.name == "req1"
+    assert requestor.metadata == dict(
+        concurrency=None,
+        delay_behavior=dict(kind="Deterministic", avg_delay=0.0)
+    )
 
     responder = collaborator_registry.create(
-        "Responder",
+        kind="Responder",
         name="res1",
         sim_context=sim,
-        delay_behavior=dict(type="Deterministic", avg_delay=0.0)
+        delay_behavior=dict(kind="Deterministic", avg_delay=0.0)
     )
     assert isinstance(responder, Responder)
     assert responder.name == "res1"
+    assert responder.metadata == dict(
+        concurrency=None,
+        delay_behavior=dict(kind="Deterministic", avg_delay=0.0)
+    )

@@ -57,7 +57,9 @@ class NetworkSimulation(Simulation):
             self.config[node] = config
 
             if 'kind' in config:
-                self.collaborators[node] = collaborator_registry.create(config['kind'], sim_context=self, **without_keys(config, 'kind'))
+                self.collaborators[node] = collaborator_registry.create(sim_context=self, **config)
+            else:
+                raise ValueError(f"Collaborator {node} must specify 'kind' in config ")
 
     def bind_environment(self):
         self.int_collaborators()
@@ -82,8 +84,8 @@ if __name__ == "__main__":
     )
 
     G = nx.DiGraph()
-    G.add_node("A", name="A", kind="Requestor", delay_behavior=dict(type="Markov", mean_time_between_requests=2))
-    G.add_node("B", name="B", kind="Responder", peer="A",  delay_behavior=dict(type="Markov", avg_processing_time=1.5))
+    G.add_node("A", name="A", kind="Requestor", delay_behavior=dict(kind="Markov", mean_time_between_requests=2))
+    G.add_node("B", name="B", kind="Responder", peer="A",  delay_behavior=dict(kind="Markov", avg_processing_time=1.5))
 
     sim=NetworkSimulation(G)
 
