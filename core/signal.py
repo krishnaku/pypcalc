@@ -59,18 +59,18 @@ class SignalEvent:
 
 class SignalListener(Protocol):
 
-    def on_signal(self, signal: SignalEvent) -> None:...
+    def on_signal_event(self, event: SignalEvent) -> None:...
 
 class SignalLog:
     def __init__(self):
-        self._signals: List[SignalEvent] = []
+        self._signal_events: List[SignalEvent] = []
         self._transactions: Dict[str, Transaction] = {}
         self._entities: Dict[str, Entity] = {}
         self._nodes: Dict[str, Node] = {}
 
     @property
     def signals(self) -> List[SignalEvent]:
-        return self._signals
+        return self._signal_events
 
     def node(self, node_id) -> Node:
         return self._nodes.get(node_id)
@@ -105,11 +105,11 @@ class SignalLog:
             tags=tags,
             signal_log=self
         )
-        self._signals.append(signal)
+        self._signal_events.append(signal)
         return signal
 
     def __iter__(self):
-        return iter(self._signals)
+        return iter(self._signal_events)
 
     @property
     def transactions(self) -> Iterable[tuple[str, Transaction]]:
@@ -125,9 +125,9 @@ class SignalLog:
 
     # Transformations
     def as_polars(self):
-        if not self._signals:
+        if not self._signal_events:
             return
-        batch = [sig.as_dict() for sig in self._signals]
+        batch = [sig.as_dict() for sig in self._signal_events]
         df = pl.DataFrame(
             schema={
                 "source_id": pl.Utf8,
@@ -238,7 +238,7 @@ class SignalLog:
         summary = self.summarize()
         details = "\n".join([
             f"{sig.timestamp:.3f}: {sig.signal_type}: {sig.source.name} -> {sig.target.name if sig.target is not None else None} :: {sig.entity.name} ({sig.transaction.id[-8:] if sig.transaction else ' '})"
-            for sig in self._signals
+            for sig in self._signal_events
         ])
         return f"{summary}\n-------Detailed Log-----------\n{details}"
 

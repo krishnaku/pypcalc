@@ -26,7 +26,7 @@ class Boundary(Node, SignalListener, Protocol):
     def tenants(self) -> Set[str]:...
 
 
-    def on_signal(self, signal: SignalEvent) -> None:
+    def on_signal_event(self, event: SignalEvent) -> None:
         pass
 
 
