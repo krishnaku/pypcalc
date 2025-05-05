@@ -9,7 +9,7 @@
 from typing import Dict
 
 import polars as pl
-from core import Signal, Node
+from core import Signal, Entity
 from core.signal_log import SignalLog
 
 
@@ -31,7 +31,7 @@ class SignalHistory:
     def signals(self) -> SignalLog:
         return self._signals
 
-    def add(self, source: Node, timestamp: float, signal_type: str, signal: Signal, transaction=None, target=None, **kwargs):
+    def add(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None, target=None, **kwargs):
         self._signals.record(
             source=source,
             timestamp=timestamp,

@@ -12,9 +12,9 @@ from typing import Dict, Any, Set, Protocol
 
 from .signal_log import SignalLog, SignalListener, SignalEvent
 
-from .node import Node
+from .entity import Entity
 
-class Boundary(Node, SignalListener, Protocol):
+class Boundary(Entity, SignalListener, Protocol):
 
     @property
     def signal_history(self) -> SignalLog:...

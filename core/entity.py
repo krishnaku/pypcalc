@@ -9,7 +9,7 @@
 # Author: Krishna Kumar
 from typing import Protocol, Dict, Any
 
-class Node(Protocol):
+class Entity(Protocol):
     """Marker protocol for a concrete system component."""
     @property
     def id(self) -> str:...

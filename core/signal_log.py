@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from typing import Dict, Any, Optional, List, Literal, Union, Iterable, Protocol
 
 from .signal import Signal
-from .node import Node
+from .entity import Entity
 from .transaction import Transaction
 
 
@@ -30,11 +30,11 @@ class SignalEvent:
     signal_log: SignalLog = None
 
     @property
-    def source(self) -> Node:
+    def source(self) -> Entity:
         return self.signal_log.node(self.source_id)
 
     @property
-    def target(self) -> Node:
+    def target(self) -> Entity:
         return self.signal_log.node(self.target_id)
 
     @property
@@ -66,13 +66,13 @@ class SignalLog:
         self._signal_events: List[SignalEvent] = []
         self._transactions: Dict[str, Transaction] = {}
         self._entities: Dict[str, Signal] = {}
-        self._nodes: Dict[str, Node] = {}
+        self._nodes: Dict[str, Entity] = {}
 
     @property
     def signals(self) -> List[SignalEvent]:
         return self._signal_events
 
-    def node(self, node_id) -> Node:
+    def node(self, node_id) -> Entity:
         return self._nodes.get(node_id)
 
     def signal(self, signal_id) -> Signal:
@@ -84,8 +84,8 @@ class SignalLog:
     def __len__(self):
         return len(self.signals)
 
-    def record(self, source: Node, timestamp: float, signal_type: str, signal: Signal, transaction=None,
-               target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
+    def record(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None,
+               target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         self._nodes[source.id] = source
         self._entities[signal.id] = signal
         tx = transaction or signal.transaction
@@ -120,7 +120,7 @@ class SignalLog:
         return self._entities.items()
 
     @property
-    def nodes(self) -> Iterable[tuple[str, Node]]:
+    def nodes(self) -> Iterable[tuple[str, Entity]]:
         return self._nodes.items()
 
     # Transformations

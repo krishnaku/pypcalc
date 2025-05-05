@@ -10,7 +10,7 @@
 from __future__ import annotations
 from typing import Optional
 import polars as pl
-from core import Node
+from core import Entity
 
 from core.signal_log import SignalLog, SignalEvent
 from sim.runtime.simulation import Simulation
