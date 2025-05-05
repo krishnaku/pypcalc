@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def get_entry_exit_times(presence, entity_index, queue_name):
+def get_entry_exit_times(presence, signal_index, queue_name):
     arrivals = []
     departures = []
     mat = presence[queue_name]
@@ -20,11 +20,11 @@ def compute_cumulative_arrival_rate(arrival_index, presence, t0, t1):
     """Cumulative arrival rate over [t0, t1): arrivals + number in system at t0, divided by window length."""
     in_system_at_t0 = np.sum(presence[:, t0 - 1]) if t0 > 0 else 0
     arrivals_during_window = np.sum(arrival_index[t0:t1])
-    total_entities = in_system_at_t0 + arrivals_during_window
-    return total_entities / (t1 - t0) if t1 > t0 else 0.0
+    total_signals = in_system_at_t0 + arrivals_during_window
+    return total_signals / (t1 - t0) if t1 > t0 else 0.0
 
 def compute_average_residence_time(visit_index, presence, t0, t1):
-    """Average time in system for entities present during [t0, t1)."""
+    """Average time in system for signals present during [t0, t1)."""
     window = presence[:, t0:t1]
     total_time = np.sum(window)
     total_visits = 0
@@ -35,7 +35,7 @@ def compute_average_residence_time(visit_index, presence, t0, t1):
 
 
 def compute_average_number_in_queue(presence, t0, t1):
-    """Average number of entities present during [t0, t1)."""
+    """Average number of signals present during [t0, t1)."""
     window = presence[:, t0:t1]
     count_per_time = np.sum(window, axis=0)
     return np.mean(count_per_time)
@@ -43,10 +43,10 @@ def compute_average_number_in_queue(presence, t0, t1):
 def compute_operator_flow_metrics(presence, arrival_index, visit_index, t0, t1):
     return {'lambda': compute_cumulative_arrival_rate(arrival_index, presence, t0, t1), 'L': compute_average_number_in_queue(presence, t0, t1), 'W': compute_average_residence_time(visit_index, presence, t0, t1), 'window': (t0, t1)}
 
-def compute_entity_flow_metrics(presence, arrival_index, visit_index, t0, t1):
-    active_entities = np.any(presence[:, t0:t1], axis=1)
-    entity_rows = presence[active_entities]
-    time_presence = np.any(entity_rows, axis=0)
+def compute_signal_flow_metrics(presence, arrival_index, visit_index, t0, t1):
+    active_signals = np.any(presence[:, t0:t1], axis=1)
+    signal_rows = presence[active_signals]
+    time_presence = np.any(signal_rows, axis=0)
     t_indices = np.where(time_presence)[0]
     if len(t_indices) == 0:
         return {'lambda': 0, 'L': 0, 'W': 0, 'span': (t0, t1)}

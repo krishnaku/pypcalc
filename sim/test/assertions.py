@@ -10,9 +10,9 @@
 from __future__ import annotations
 from typing import Optional
 import polars as pl
-from core import Node
+from core import Entity
 
-from core.signal import SignalLog, Signal
+from core.signal_log import SignalLog, SignalEvent
 from sim.runtime.simulation import Simulation
 
 
@@ -46,17 +46,17 @@ class SignalLogAssertion:
         self.log = log
         self.df: Optional[pl.DataFrame] = None
 
-    def _lookup_node_id(self, source_name: str) -> Optional[str]:
-        for id, node in self.log.nodes:
-            if node.name == source_name:
+    def _lookup_entity_id(self, source_name: str) -> Optional[str]:
+        for id, entity in self.log.entities:
+            if entity.name == source_name:
                 return id
 
     def has_length(self, expected: int) -> SignalLogAssertion:
-        actual = len(self.log.signals)
+        actual = len(self.log.signal_events)
         assert actual == expected, f"Expected {expected} signals, got {actual}"
         return self
 
-    # note: tests look up everything by name of the nodes, enitities etc.
+    # note: tests look up everything by name of the entities.
     def contains_signal(self, signal_type: str, source: str = None, target: str = None, count: int = None) -> SignalLogAssertion:
         if self.df is None:
             self.df = self.log.as_polars()
@@ -64,10 +64,10 @@ class SignalLogAssertion:
         filtered = self.df.filter(pl.col("signal") == signal_type)
 
         if source is not None:
-            filtered = filtered.filter(pl.col("source_id") == self._lookup_node_id(source))
+            filtered = filtered.filter(pl.col("source_id") == self._lookup_entity_id(source))
 
         if target is not None:
-            filtered = filtered.filter(pl.col("target_id") == self._lookup_node_id(target))
+            filtered = filtered.filter(pl.col("target_id") == self._lookup_entity_id(target))
 
         if count is not None:
             assert filtered.height == count, \
@@ -88,16 +88,16 @@ class SignalLogAssertion:
 
     # chain to signal assertions
     def signal_at(self, index: int) -> SignalAssertion:
-        n = len(self.log.signals)
+        n = len(self.log.signal_events)
         assert -n <= index < n, f"index {index} out of range for signal of length {n}"
-        return SignalAssertion(self.log.signals[index])
+        return SignalAssertion(self.log.signal_events[index])
 
     def __bool__(self) -> bool:
         return True  # all prior assertions passed, object is valid
 
 
 class SignalAssertion:
-    def __init__(self, signal: Signal):
+    def __init__(self, signal: SignalEvent):
         self.signal = signal
 
     def has_type(self, expected: str) -> SignalAssertion:
@@ -120,9 +120,9 @@ class SignalAssertion:
             f"Expected transaction_id '{expected}', got '{self.signal.transaction_id}'"
         return self
 
-    def has_entity(self, expected: str) -> SignalAssertion:
-        assert self.signal.entity.name == expected, \
-            f"Expected entity_id '{expected}', got '{self.signal.entity.name}'"
+    def has_signal(self, expected: str) -> SignalAssertion:
+        assert self.signal.signal.name == expected, \
+            f"Expected signal_id '{expected}', got '{self.signal.signal.name}'"
         return self
 
     def has_tag(self, key: str, value: str) -> SignalAssertion:
@@ -144,7 +144,7 @@ class SignalAssertion:
             "type": self.signal.signal_type,
             "source": self.signal.source_id,
             "target": self.signal.target_id,
-            "entity": self.signal.entity_id,
+            "signal": self.signal.signal_id,
             "transaction": self.signal.transaction_id,
             "tags": self.signal.tags,
             "timestamp": self.signal.timestamp,

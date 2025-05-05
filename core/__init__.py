@@ -7,11 +7,11 @@
 # confidential.
 
 # Author: Krishna Kumar
-from .node import Node
 from .entity import Entity
+from .signal import Signal
 from .transaction import Transaction
 from .affordances import Affordance
 from .behaviors import Behavior
 from .registry import Registry
-from .signal import Signal
+from .signal_log import SignalEvent
 from .boundary import Boundary

@@ -16,7 +16,7 @@ from sim.model.collaborator.collaborator import Collaborator, Request, Response
 
 class MockCollaborator(Collaborator):
     def __init__(self, name, sim_context, concurrency=None):
-        super().__init__(name, sim_context, concurrency)
+        super().__init__("mock", name, sim_context, concurrency)
         self.received_requests = []
         self.received_responses = []
         self.start_process_called = False
@@ -83,7 +83,7 @@ def test_send_logs_signal(sim):
     sig: SignalAssertion = sim_log(sim).latest_log().signal_at(0)
     assert sig.has_source("A")
     assert sig.has_target("B")
-    assert sig.has_entity("req-1")
+    assert sig.has_signal("req-1")
 
 
 
@@ -125,4 +125,4 @@ def test_concurrency_tracking(sim):
     sim.process(gen)
     sim.run(until=1)
 
-    assert c.entities_in_process == 0  # properly decremented after dispatch
+    assert c.signals_in_process == 0  # properly decremented after dispatch

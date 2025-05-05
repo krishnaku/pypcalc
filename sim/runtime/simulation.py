@@ -15,8 +15,8 @@ import time
 from typing import List, Generator, Optional, Any, Protocol, Dict
 from simpy.events import Event, Timeout
 
-from core import Node, Entity
-from core.signal import Signal, SignalLog, SignalListener
+from core import Entity, Signal
+from core.signal_log import SignalEvent, SignalLog, SignalEventListener
 from core.simulation_context import SimulationContext
 
 log = logging.getLogger(__name__)
@@ -33,11 +33,11 @@ class SimpyProxy(Protocol):
     """Start a new process from a generator."""
 
 
-    def event(self) -> Event:...
+    def event(self) -> SignalEvent:...
     """Create a new, untriggered event."""
 
 
-    def schedule(self, event: Event, delay: float = 0) -> None:...
+    def schedule(self, event: SignalEvent, delay: float = 0) -> None:...
     """Manually schedule an event after a delay."""
 
     def get_store(self) -> simpy.Store:...
@@ -58,7 +58,7 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         self._signal_log = None
         # preserve separate signal logs per simulation run
         self._all_logs: List[SignalLog] = []
-        self._signal_listeners: List[SignalListener] = []
+        self._signal_listeners: List[SignalEventListener] = []
 
         # simpy proxy parameters
         # NOTE: _env is intentionally private — do NOT expose or pass it around.
@@ -128,17 +128,17 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         log.info(f"simulation ended at {(time.time() - self.simulation_start)} seconds")
 
     # ------------- Signal Management Interface -------------------------------------
-    def register_listener(self, listener: SignalListener) -> None:
+    def register_listener(self, listener: SignalEventListener) -> None:
         self._signal_listeners.append(listener)
 
-    def record_signal(self, source: Node, timestamp: float, signal_type: str, entity: Entity, transaction=None,
-               target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> Signal:
+    def record_signal(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None,
+                      target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         """Write access to the global signal log is via this method."""
-        signal:Signal =  self._signal_log.record(
+        signal:SignalEvent =  self._signal_log.record(
             source=source,
             timestamp=timestamp,
             signal_type=signal_type,
-            entity=entity,
+            signal=signal,
             transaction=transaction,
             target=target,
             tags=tags
@@ -146,10 +146,10 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         self.notify_listeners(signal)
         return signal
 
-    def notify_listeners(self, signal: Signal) -> None:
+    def notify_listeners(self, signal: SignalEvent) -> None:
         for listener in self._signal_listeners:
             if signal.source != listener:
-                listener.on_signal(signal)
+                listener.on_signal_event(signal)
 
 
     @property
@@ -177,11 +177,11 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         """Start a new process from a generator."""
         return self._env.process(generator)
 
-    def event(self) -> Event:
+    def event(self) -> SignalEvent:
         """Create a new, un-triggered event."""
         return self._env.event()
 
-    def schedule(self, event: Event, delay: float = 0) -> None:
+    def schedule(self, event: SignalEvent, delay: float = 0) -> None:
         """Manually schedule an event after a delay."""
         self._env.schedule(event, delay=delay)
 

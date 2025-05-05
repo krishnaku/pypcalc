@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 # ---- Protocol: Routing Function Type ----
 class RouterProtocol(Protocol):
     def __init__(self, node: Node, **params: Any): ...
-    def __call__(self, entity_id: str, node: Node, **kwargs: Any) -> Optional[str]: ...
+    def __call__(self, signal_id: str, node: Node, **kwargs: Any) -> Optional[str]: ...
 
 # ---- Mixin: Routing Initialization and Dispatch ----
 class RoutingMixin(ABC):
@@ -31,7 +31,7 @@ class RoutingMixin(ABC):
         self.routing_fn = resolve_routing(config, node)
 
     @abstractmethod
-    def route(self, entity_id: str, **kwargs) -> Node:
+    def route(self, signal_id: str, **kwargs) -> Node:
         pass
 
 

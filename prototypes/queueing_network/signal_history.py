@@ -9,8 +9,8 @@
 from typing import Dict
 
 import polars as pl
-from core import Entity, Node
-from core.signal import SignalLog
+from core import Signal, Entity
+from core.signal_log import SignalLog
 
 
 from prototypes.queueing_network.signal_history_metrics import SignalHistoryMetric, QueueLength
@@ -31,17 +31,17 @@ class SignalHistory:
     def signals(self) -> SignalLog:
         return self._signals
 
-    def add(self, source: Node, timestamp: float, signal_type: str, entity: Entity, transaction=None,target=None, **kwargs):
+    def add(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None, target=None, **kwargs):
         self._signals.record(
             source=source,
             timestamp=timestamp,
             signal_type=signal_type,
-            entity=entity,
+            signal=signal,
             transaction=transaction,
             target=target,
             tags=kwargs
         )
-        self.queue_length.update(signal_type, timestamp, entity.id)
+        self.queue_length.update(signal_type, timestamp, signal.id)
 
     def get_signals(self, signal_type: str = None) -> pl.DataFrame:
         df = self._signals.as_polars()
@@ -60,13 +60,13 @@ class SignalHistory:
 
         types = df.group_by("signal").count()
         times = df["timestamp"].to_list()
-        entities = df["entity_id"].unique()
+        signals = df["signal_id"].unique()
 
         summary = [
             f"SignalHistory for {self.node}:({len(df)} signals)",
             f"  Types: " + ", ".join(f"{row['signal']}={row['count']}" for row in types.iter_rows()),
             f"  Time range: {min(times):.2f} to {max(times):.2f}",
-            f"  Unique entities: {len(entities)}",
+            f"  Unique signals: {len(signals)}",
         ]
         return "\n".join(summary)
 

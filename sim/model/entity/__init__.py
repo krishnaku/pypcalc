@@ -7,4 +7,4 @@
 # confidential.
 
 # Author: Krishna Kumar
-from .base import NodeBase
+from .base import EntityBase

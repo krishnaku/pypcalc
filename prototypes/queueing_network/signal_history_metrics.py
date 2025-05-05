@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 class SignalHistoryMetric(ABC):
     @abstractmethod
-    def update(self, signal_type: str, timestamp: float, entity_id: str):
+    def update(self, signal_type: str, timestamp: float, signal_id: str):
         pass
 
     @abstractmethod
@@ -43,7 +43,7 @@ class QueueLength(SignalHistoryMetric):
     def get_current_value(self):
         return self._current_L
 
-    def update(self, signal_type: str, timestamp: float, entity_id: str=None):
+    def update(self, signal_type: str, timestamp: float, signal_id: str=None):
         t = int(timestamp)
 
         # Fill in L from last_t to t

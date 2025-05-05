@@ -18,12 +18,12 @@ class Signal:
     source: str
     timestamp: float
     signal: str
-    entity_id: str
+    signal_id: str
     target: Optional[str] = None
 
 # Factory to simplify signal creation
-def make_signal(source, signal_type, timestamp, entity_id, target=None):
-    return Signal(source=source, signal=signal_type, timestamp=timestamp, entity_id=entity_id, target=target)
+def make_signal(source, signal_type, timestamp, signal_id, target=None):
+    return Signal(source=source, signal=signal_type, timestamp=timestamp, signal_id=signal_id, target=target)
 
 # Placeholder for setup_presence_matrix (would call PresenceMatrix.from_signals in real use)
 def setup_presence_matrix(signals: List[Signal], t0=0.0, t1=10.0, bin_width=1.0, enter_event="enter", exit_event="exit", initial_population=None):

@@ -3,12 +3,12 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional
 
 import numpy as np
-from core import Signal
+from core import SignalEvent
 
 
 @dataclass
 class Visit:
-    entity_id: str
+    signal_id: str
     start: float
     end: float
     presence_row: int = -1
@@ -31,7 +31,7 @@ class PresenceMatrix:
         enter_event: str,
         exit_event: str,
         presence: np.ndarray,
-        entity_visits: Dict[str, List[Visit]],
+        signal_visits: Dict[str, List[Visit]],
         visits: List[Visit],
         time_bins: np.ndarray,
         bin_width: float
@@ -41,16 +41,16 @@ class PresenceMatrix:
         self.t1 = t1
         self.enter_event = enter_event
         self.exit_event = exit_event
-        self.entity_visits = entity_visits
+        self.signal_visits = signal_visits
         self.visits = visits
         self.presence = presence
         self.time_bins = time_bins
         self.bin_width = bin_width
 
     @classmethod
-    def from_signals(
+    def from_signal_events(
         cls,
-        signals: List[Signal],
+        signals: List[SignalEvent],
         source: str,
         t0: float,
         t1: float,
@@ -62,7 +62,7 @@ class PresenceMatrix:
 
 
         # Filter for 'enter' and 'exit' events for the specified source
-        entity_visits, visits = cls.extract_visits(signals, source, t0, t1, enter_event, exit_event, initial_population)
+        signal_visits, visits = cls.extract_visits(signals, source, t0, t1, enter_event, exit_event, initial_population)
 
         presence, time_bins = cls.map_presence(visits, t0, t1, bin_width)
 
@@ -73,7 +73,7 @@ class PresenceMatrix:
             enter_event=enter_event,
             exit_event=exit_event,
             presence=presence,
-            entity_visits=entity_visits,
+            signal_visits=signal_visits,
             visits=visits,
             time_bins=time_bins,
             bin_width=bin_width,
@@ -84,26 +84,26 @@ class PresenceMatrix:
         filtered = [s for s in signals if
                     s.signal_type in {enter_event, exit_event} and s.source == source and t0 <= s.timestamp <= t1]
         visits: List[Visit] = []
-        entity_visits: Dict[str, List[Visit]] = defaultdict(list)
-        for entity_id in initial_population or []:
-            visit = Visit(entity_id=entity_id, start=0, end=np.inf)
+        signal_visits: Dict[str, List[Visit]] = defaultdict(list)
+        for signal_id in initial_population or []:
+            visit = Visit(signal_id=signal_id, start=0, end=np.inf)
             visits.append(visit)
-            entity_visits[entity_id].append(visit)
+            signal_visits[signal_id].append(visit)
         for s in sorted(filtered, key=lambda s: s.timestamp):
             if s.signal_type == enter_event:
-                visit = Visit(entity_id=s.entity_id, start=s.timestamp, end=np.inf)
+                visit = Visit(signal_id=s.signal_id, start=s.timestamp, end=np.inf)
                 visits.append(visit)
-                entity_visits[s.entity_id].append(visit)
+                signal_visits[s.signal_id].append(visit)
             if s.signal_type == exit_event:
-                visit_list = entity_visits[s.entity_id]
+                visit_list = signal_visits[s.signal_id]
                 latest: Visit = visit_list[-1] if len(visit_list) > 0 else None
                 if latest is not None:
                     latest.end = s.timestamp
                 else:
-                    visit = Visit(entity_id=s.entity_id, start=0, end=s.timestamp)
+                    visit = Visit(signal_id=s.signal_id, start=0, end=s.timestamp)
                     visits.append(visit)
-                    entity_visits[s.entity_id].append(visit)
-        return entity_visits, visits
+                    signal_visits[s.signal_id].append(visit)
+        return signal_visits, visits
 
     @classmethod
     def map_presence(cls, visits, t0, t1, bin_width):

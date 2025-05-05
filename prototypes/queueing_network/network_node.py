@@ -26,15 +26,15 @@ class NetworkNode(RoutingMixin, Node):
         self.graph: nx.DiGraph = graph
         self.setup_routing(config, node=self)
 
-    def route(self, entity_id: str, **kwargs) -> Optional[Boundary]:
-        next_name = self.routing_fn(entity_id=entity_id, node=self, **kwargs)
+    def route(self, signal_id: str, **kwargs) -> Optional[Boundary]:
+        next_name = self.routing_fn(signal_id=signal_id, node=self, **kwargs)
         return self.sim_context.get_node(next_name)
 
-    def on_exit(self, entity_id: str, **kwargs) -> Generator:
-        next_node = self.route(entity_id, **kwargs)
+    def on_exit(self, signal_id: str, **kwargs) -> Generator:
+        next_node = self.route(signal_id, **kwargs)
         if next_node is None:
             return
-        yield from next_node.enter(entity_id, **kwargs)
+        yield from next_node.enter(signal_id, **kwargs)
 
 
 
@@ -77,7 +77,7 @@ class ProbabilisticRouter:
         if abs(sum(self.probs) - 1.0) > 1e-6:
             raise ValueError(f"Probabilities at {self.node.name} don't sum to 1.")
 
-    def __call__(self, entity_id: str, node: NetworkNode, **kwargs) -> Optional[str]:
+    def __call__(self, signal_id: str, node: NetworkNode, **kwargs) -> Optional[str]:
         if not self.next_nodes:
             return None
         return self.rng.choice(self.next_nodes, p=self.probs)
