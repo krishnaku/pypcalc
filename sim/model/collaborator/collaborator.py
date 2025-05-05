@@ -31,7 +31,7 @@ class Response(Signal):
         super().__init__(
             entity.name, 
             signal_type="response",
-            metadata=entity.metadata,
+            metadata=entity.payload,
             transaction=entity.transaction
         )
         

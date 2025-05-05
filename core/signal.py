@@ -18,11 +18,11 @@ class Signal:
     name: str
     signal_type: Optional[str] = None
     transaction: Optional[Transaction] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    payload: Dict[str, Any] = field(default_factory=dict)
 
     def __init__(self, name: str, signal_type: Optional[str], metadata: Dict[str, Any] = None, transaction: Optional[Transaction]=None):
         self.id = str(uuid.uuid4())
         self.name = name
         self.signal_type = signal_type
-        self.metadata = metadata
+        self.payload = metadata
         self.transaction = transaction
