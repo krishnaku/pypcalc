@@ -14,10 +14,10 @@ from abc import ABC, abstractmethod
 
 from core import Boundary
 from core.signal_log import SignalEvent, SignalLog
-from sim.model.node import NodeBase
+from sim.model.entity import EntityBase
 from sim.runtime.simulation import Simulation
 
-class BoundaryBase(NodeBase, Boundary, ABC):
+class BoundaryBase(EntityBase, Boundary, ABC):
 
     def __init__(self, kind, name, config: Dict[str,Any], sim_context: Simulation, id:Optional[str]=None ):
         super().__init__(kind, name, config, sim_context, id)

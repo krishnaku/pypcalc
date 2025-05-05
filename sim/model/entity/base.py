@@ -13,7 +13,7 @@ from typing import Dict, Any, Optional
 from core import Entity
 from sim.runtime.simulation import Simulation
 
-class NodeBase(Entity):
+class EntityBase(Entity):
     """Base for a concrete system component."""
     def __init__(self, kind, name, sim_context: Simulation, id:Optional[str]=None) -> None:
         self._id: str =str(uuid.uuid4()) if id is None else id
