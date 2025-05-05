@@ -66,14 +66,14 @@ class SignalLog:
         self._signal_events: List[SignalEvent] = []
         self._transactions: Dict[str, Transaction] = {}
         self._signals: Dict[str, Signal] = {}
-        self._nodes: Dict[str, Entity] = {}
+        self._entities: Dict[str, Entity] = {}
 
     @property
     def signal_events(self) -> List[SignalEvent]:
         return self._signal_events
 
     def node(self, node_id) -> Entity:
-        return self._nodes.get(node_id)
+        return self._entities.get(node_id)
 
     def signal(self, signal_id) -> Signal:
         return self._signals.get(signal_id)
@@ -86,14 +86,14 @@ class SignalLog:
 
     def record(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None,
                target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
-        self._nodes[source.id] = source
+        self._entities[source.id] = source
         self._signals[signal.id] = signal
         tx = transaction or signal.transaction
         if tx is not None:
             self._transactions[tx.id] = tx
 
         if target is not None:
-            self._nodes[target.id] = target
+            self._entities[target.id] = target
 
         signal = SignalEvent(
             source_id=source.id,
@@ -121,7 +121,7 @@ class SignalLog:
 
     @property
     def nodes(self) -> Iterable[tuple[str, Entity]]:
-        return self._nodes.items()
+        return self._entities.items()
 
     # Transformations
     def as_polars(self):
