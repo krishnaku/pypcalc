@@ -16,7 +16,8 @@ from typing import List, Generator, Optional, Any, Protocol, Dict
 from simpy.events import Event, Timeout
 
 from core import Node, Entity
-from core.signal import Signal, SignalLog
+from core.signal import Signal, SignalLog, SignalListener
+from core.simulation_context import SimulationContext
 
 log = logging.getLogger(__name__)
 
@@ -50,15 +51,19 @@ class SimpyProxy(Protocol):
 # in the simpy environment outside this class
 # Route all calls to simpy.env through the simulation class and hand only this context
 # to all other parts of the code.
-class Simulation(SimpyProxy, ABC):
+class Simulation(SimpyProxy, SimulationContext, ABC):
     def __init__(self, until=30, runs=1, realtime_factor: float = None):
-        # NOTE: _env is intentionally private — do NOT expose or pass it around.
-        # All access to the environment must go through this context.
-        self._env = None
+
+        # Signal management parameters
         self._signal_log = None
         # preserve separate signal logs per simulation run
         self._all_logs: List[SignalLog] = []
+        self._signal_listeners: List[SignalListener] = []
 
+        # simpy proxy parameters
+        # NOTE: _env is intentionally private — do NOT expose or pass it around.
+        # All access to the environment must go through this context.
+        self._env = None
         self.realtime_factor = realtime_factor
         self.until = until
         self.runs = runs
@@ -84,37 +89,16 @@ class Simulation(SimpyProxy, ABC):
 
         self._signal_log = SignalLog()
 
-
-    def record_signal(self, source: Node, timestamp: float, signal_type: str, entity: Entity, transaction=None,
-               target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> Signal:
-        """Write access to the global signal log is via this method."""
-        return self._signal_log.record(
-            source=source,
-            timestamp=timestamp,
-            signal_type=signal_type,
-            entity=entity,
-            transaction=transaction,
-            target=target,
-            tags=tags
-        )
-
-    @property
-    def all_logs(self) -> List[SignalLog]:
-        """Read access to signal logs is via the all_logs property."""
-        return self._all_logs + ([self._signal_log] if self._signal_log and self.current_run < self.runs  else [])
-
-    @property
-    def latest_log(self) -> SignalLog:
-        """Read access to signal logs is via the all_logs property."""
-        return self.all_logs[-1] if len(self.all_logs) > 0 else None
-
     @abstractmethod
     def bind_environment(self):
         ...
+
     """Subclasses initialize all the simulation objects that require access to the simulation environment"""
 
     @abstractmethod
-    def start_processes(self) -> List[simpy.events.Process]:...
+    def start_processes(self) -> List[simpy.events.Process]:
+        ...
+
     """Nodes call self.process to create all the running processes in the simulation"""
 
     def post_run(self):
@@ -122,7 +106,6 @@ class Simulation(SimpyProxy, ABC):
 
     def run_simulation(self, until=None):
         """Single run of the simulation """
-
         self.until = until
         self.bind_environment()
         self.start_processes()
@@ -137,14 +120,50 @@ class Simulation(SimpyProxy, ABC):
         self._all_logs = []
         self.simulation_start = time.time()
         log.info(f"Simulation started at 0 seconds")
-        self.runs=runs
+        self.runs = runs
         for self.current_run in range(self.runs):
             self.run_simulation(until=until)
             self.init_sim()
 
         log.info(f"simulation ended at {(time.time() - self.simulation_start)} seconds")
 
-    # ----- SimpyProxy implementation
+    # ------------- Signal Management Interface -------------------------------------
+    def register_listener(self, listener: SignalListener) -> None:
+        self._signal_listeners.append(listener)
+
+    def record_signal(self, source: Node, timestamp: float, signal_type: str, entity: Entity, transaction=None,
+               target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> Signal:
+        """Write access to the global signal log is via this method."""
+        signal:Signal =  self._signal_log.record(
+            source=source,
+            timestamp=timestamp,
+            signal_type=signal_type,
+            entity=entity,
+            transaction=transaction,
+            target=target,
+            tags=tags
+        )
+        self.notify_listeners(signal)
+        return signal
+
+    def notify_listeners(self, signal: Signal) -> None:
+        for listener in self._signal_listeners:
+            if signal.source != listener:
+                listener.on_signal(signal)
+
+
+    @property
+    def all_logs(self) -> List[SignalLog]:
+        """Read access to signal logs is via the all_logs property."""
+        return self._all_logs + ([self._signal_log] if self._signal_log and self.current_run < self.runs  else [])
+
+    @property
+    def latest_log(self) -> SignalLog:
+        """Access the latest signal log across runs."""
+        return self.all_logs[-1] if len(self.all_logs) > 0 else None
+
+
+    # ----- SimpyProxy implementation - concrete binding to simulation infra.
     @property
     def now(self) -> float:
         """Get the current simulation time."""

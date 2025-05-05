@@ -22,7 +22,7 @@ from .registry import collaborator_registry
 @collaborator_registry.register("Requestor")
 class Requestor(Collaborator):
     def __init__(self, name: str, sim_context: Simulation, delay_behavior: Dict[str,Any]=None,  **kwargs):
-        super().__init__(name, sim_context)
+        super().__init__('requestor', name, sim_context)
         self.counter: int = 0
         self.delay_behavior: Optional[DelayBehavior] = None
         if delay_behavior is not None:
@@ -58,7 +58,7 @@ class Requestor(Collaborator):
 @collaborator_registry.register("Responder")
 class Responder(Collaborator):
     def __init__(self, name: str, sim_context: Simulation, concurrency=None, delay_behavior:Dict[str,Any] = None, **kwargs):
-        super().__init__(name, sim_context, concurrency=concurrency)
+        super().__init__('responder', name, sim_context, concurrency=concurrency)
         self.counter: int = 0
         self.delay_behavior: Optional[DelayBehavior] = None
         if delay_behavior is not None:

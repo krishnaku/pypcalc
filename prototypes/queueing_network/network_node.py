@@ -11,15 +11,16 @@ from typing import Any, Optional, Dict, Generator
 import networkx as nx
 
 from core.registry import Registry
-from prototypes.queueing_network.base_node import Node, Boundary
+from prototypes.queueing_network.base_node import Node
+from core.boundary import Boundary
 from prototypes.queueing_network.routing import RoutingMixin, router_registry
-from prototypes.queueing_network.simulation import Simulation
+from core.simulation_context import SimulationContext
 
 from prototypes.queueing_network.delay_node import BlockingDelay, PureDelay
 
 
 class NetworkNode(RoutingMixin, Node):
-    def __init__(self, name: str, graph: nx.DiGraph, sim_context: Simulation ) -> None:
+    def __init__(self, name: str, graph: nx.DiGraph, sim_context: SimulationContext) -> None:
         config: Dict[str, Any] = graph.nodes[name]
         super().__init__(name, config, sim_context)
         self.graph: nx.DiGraph = graph
@@ -45,14 +46,14 @@ node_registry: Registry[NetworkNode] = Registry()
 
 @node_registry.register("pure_delay")
 class NPureDelay(PureDelay, NetworkNode):
-    def __init__(self, name: str, graph: nx.DiGraph, sim_context: Simulation) -> None:
+    def __init__(self, name: str, graph: nx.DiGraph, sim_context: SimulationContext) -> None:
         config = graph.nodes[name]
         PureDelay.__init__(self, name, config, sim_context)
         NetworkNode.__init__(self, name, graph, sim_context)
 
 @node_registry.register("blocking_delay")
 class NBlockingDelay(BlockingDelay, NetworkNode):
-    def __init__(self, name: str, graph: nx.DiGraph, sim_context: Simulation) -> None:
+    def __init__(self, name: str, graph: nx.DiGraph, sim_context: SimulationContext) -> None:
         config = graph.nodes[name]
         BlockingDelay.__init__(self, name, config, sim_context)
         NetworkNode.__init__(self, name, graph, sim_context)

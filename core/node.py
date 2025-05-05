@@ -7,8 +7,7 @@
 # confidential.
 
 # Author: Krishna Kumar
-import uuid
-from typing import Protocol, Optional
+from typing import Protocol, Dict, Any
 
 class Node(Protocol):
     """Marker protocol for a concrete system component."""
@@ -16,18 +15,9 @@ class Node(Protocol):
     def id(self) -> str:...
 
     @property
+    def kind(self) -> str:...
+
+    @property
     def name(self) -> str:...
 
-class NodeImpl(Node):
-    """Marker implementation for a concrete system component."""
-    def __init__(self, name, id:Optional[str]=None) -> None:
-        self._id: str =str(uuid.uuid4()) if id is None else id
-        self._name: str = name
 
-    @property
-    def id(self) -> str:
-        return self._id
-
-    @property
-    def name(self) -> str:
-        return self._name

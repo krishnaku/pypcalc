@@ -11,9 +11,7 @@ import polars as pl
 import fnmatch
 
 from dataclasses import dataclass
-from typing import Dict, Any, Optional, List, Literal, Union, Iterable
-
-
+from typing import Dict, Any, Optional, List, Literal, Union, Iterable, Protocol
 
 from .entity import Entity
 from .node import Node
@@ -59,6 +57,9 @@ class Signal:
             "tags": self.tags,
         }
 
+class SignalListener(Protocol):
+
+    def on_signal(self, signal: Signal) -> None:...
 
 class SignalLog:
     def __init__(self):

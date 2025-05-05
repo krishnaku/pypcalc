@@ -12,7 +12,7 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Set, Generator
 import simpy
 from core import Entity, Transaction, Registry
-from core.node import NodeImpl
+from sim.model.node.base import NodeBase
 from sim.runtime.simulation import Simulation
 
 log = logging.getLogger(__name__)
@@ -35,12 +35,9 @@ class Response(Entity):
             transaction=entity.transaction
         )
         
-class Collaborator(NodeImpl, ABC):
-    def __init__(self, name, sim_context: Simulation, concurrency=None):
-        super().__init__(name)
-        self.sim_context = sim_context
-
-
+class Collaborator(NodeBase, ABC):
+    def __init__(self, kind:str, name:str, sim_context: Simulation, concurrency=None):
+        super().__init__(kind, name, sim_context)
         self.inbox = sim_context.get_store()
         self.resource = sim_context.get_resource(capacity=concurrency) if concurrency else None
         self.entities_in_process: int = 0

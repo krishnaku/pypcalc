@@ -8,14 +8,15 @@
 # Author: Krishna Kumar
 
 from abc import ABC, abstractmethod
-from typing import Dict, Any, Generator, Set
+from typing import Dict, Any, Generator
 
 from sim.model.signal.signal import Signal
-from core.signal import SignalLog
-from prototypes.queueing_network.simulation import Simulation
+
+from core.boundary import Boundary
+from core.simulation_context import SimulationContext
 
 class Node(ABC):
-    def __init__(self, name: str, config: Dict[str, Any], sim_context: Simulation) -> None:
+    def __init__(self, name: str, config: Dict[str, Any], sim_context: SimulationContext) -> None:
         self._name: str = name
         self._config: Dict[str, Any] = config
         self._sim_context = sim_context
@@ -31,73 +32,8 @@ class Node(ABC):
         return self._config
 
     @property
-    def sim_context(self) -> Simulation:
+    def sim_context(self) -> SimulationContext:
         return self._sim_context
-
-
-class Boundary(Node):
-
-    def __init__(self, name: str, config: Dict[str, Any], sim_context: Simulation) -> None:
-        super().__init__(name, config, sim_context)
-        self._signal_history: SignalLog = SignalLog()
-        self._tenants: Set[str] = set()
-
-    @property
-    def signal_history(self) -> SignalLog:
-        return self._signal_history
-
-    @property
-    def population(self) -> int:
-        return len(self._tenants)
-
-    @property
-    def tenants(self) -> Set[str]:
-        return self._tenants
-
-    def enter(self, entity_id: str, **kwargs) -> Generator:
-        self._tenants.add(entity_id)
-        self.signal_enter(entity_id, **kwargs)
-        yield from self.on_enter(entity_id, **kwargs)
-
-    def signal_enter(self, entity_id: str, **kwargs) -> Signal:
-        timestamp = self.env.now
-        return self.signal_history.signal(
-            Signal(
-                signal_type="enter",
-                source=self.name,
-                timestamp=timestamp,
-                entity_id=entity_id,
-                tags=kwargs
-            )
-        )
-
-
-
-    def exit(self,entity_id: str, **kwargs) -> Generator:
-        self._tenants.remove(entity_id)
-        self.signal_exit(entity_id, **kwargs)
-        yield from self.on_exit(entity_id, **kwargs)
-
-    def signal_exit(self, entity_id:str, **kwargs) -> Signal:
-
-        timestamp = self.env.now
-        return self.signal_history.signal(
-            Signal(
-                signal_type="exit",
-                source=self.name,
-                timestamp=timestamp,
-                entity_id=entity_id,
-                tags=kwargs
-            )
-        )
-
-    @abstractmethod
-    def on_enter(self, entity_id: str, **kwargs) -> Generator:
-        pass
-
-    @abstractmethod
-    def on_exit(self, entity_id: str, **kwargs) -> None:
-        pass
 
 
 class Service(Boundary):

@@ -1,0 +1,39 @@
+# -*- coding: utf-8 -*-
+# Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
+
+# Unauthorized use or copying of this file and its contents, via any medium
+# is strictly prohibited. The work product in this file is proprietary and
+# confidential.
+
+# Author: Krishna Kumar
+
+import uuid
+from typing import Dict, Any, Optional
+
+from core import Node
+from sim.runtime.simulation import Simulation
+
+class NodeBase(Node):
+    """Base for a concrete system component."""
+    def __init__(self, kind, name, sim_context: Simulation, id:Optional[str]=None) -> None:
+        self._id: str =str(uuid.uuid4()) if id is None else id
+        self._name: str = name
+        self._kind: str = kind
+        self._sim_context: Simulation = sim_context
+
+
+    @property
+    def id(self) -> str:
+        return self._id
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @property
+    def sim_context(self) -> Simulation:
+        return self._sim_context
+
+    @property
+    def config(self) -> Dict[str, Any]:
+        return self._config

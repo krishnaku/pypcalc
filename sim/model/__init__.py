@@ -7,3 +7,5 @@
 # confidential.
 
 # Author: Krishna Kumar
+
+from .node import NodeBase
