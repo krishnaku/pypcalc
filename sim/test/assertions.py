@@ -56,7 +56,7 @@ class SignalLogAssertion:
         assert actual == expected, f"Expected {expected} signals, got {actual}"
         return self
 
-    # note: tests look up everything by name of the nodes, enitities etc.
+    # note: tests look up everything by name of the entities.
     def contains_signal(self, signal_type: str, source: str = None, target: str = None, count: int = None) -> SignalLogAssertion:
         if self.df is None:
             self.df = self.log.as_polars()

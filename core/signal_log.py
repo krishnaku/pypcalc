@@ -148,7 +148,7 @@ class SignalLog:
                     "log_entries": 0,
                     "time_span": 0.0,
                     "transactions": 0,
-                    "nodes": 0,
+                    "entities": 0,
                     "signal_types": 0,
                     "signals": 0,
                     "avg_transaction_duration": 0.0,
