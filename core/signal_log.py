@@ -65,7 +65,7 @@ class SignalLog:
     def __init__(self):
         self._signal_events: List[SignalEvent] = []
         self._transactions: Dict[str, Transaction] = {}
-        self._entities: Dict[str, Signal] = {}
+        self._signals: Dict[str, Signal] = {}
         self._nodes: Dict[str, Entity] = {}
 
     @property
@@ -76,7 +76,7 @@ class SignalLog:
         return self._nodes.get(node_id)
 
     def signal(self, signal_id) -> Signal:
-        return self._entities.get(signal_id)
+        return self._signals.get(signal_id)
 
     def transaction(self, transaction_id) -> Transaction:
         return self._transactions.get(transaction_id)
@@ -87,7 +87,7 @@ class SignalLog:
     def record(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None,
                target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         self._nodes[source.id] = source
-        self._entities[signal.id] = signal
+        self._signals[signal.id] = signal
         tx = transaction or signal.transaction
         if tx is not None:
             self._transactions[tx.id] = tx
@@ -117,7 +117,7 @@ class SignalLog:
 
     @property
     def entities(self) -> Iterable[tuple[str, Signal]]:
-        return self._entities.items()
+        return self._signals.items()
 
     @property
     def nodes(self) -> Iterable[tuple[str, Entity]]:
@@ -169,12 +169,12 @@ class SignalLog:
         ]).drop_nulls().unique().height
 
         num_signal_types = pl.Series([
-            signal.signal_type for signal in self._entities.values()
+            signal.signal_type for signal in self._signals.values()
         ]).unique().len()
 
         # 2. Count by signal_type
         signal_type_counts = pl.Series([
-            signal.signal_type for signal in self._entities.values()
+            signal.signal_type for signal in self._signals.values()
         ]).value_counts()
 
         signal_type_lines = "\n".join(
