@@ -21,7 +21,7 @@ class Request(Signal):
     def __init__(self, name:str, metadata: Dict[str, Any]=None, transaction: Optional[Transaction]=None) -> None:
         super().__init__(
             name, 
-            entity_type="request", 
+            signal_type="request",
             metadata=metadata,
             transaction=transaction or Transaction()
         )
@@ -30,7 +30,7 @@ class Response(Signal):
     def __init__(self, entity):
         super().__init__(
             entity.name, 
-            entity_type="response", 
+            signal_type="response",
             metadata=entity.metadata,
             transaction=entity.transaction
         )

@@ -149,7 +149,7 @@ class SignalLog:
                     "time_span": 0.0,
                     "transactions": 0,
                     "nodes": 0,
-                    "entity_types": 0,
+                    "signal_types": 0,
                     "entities": 0,
                     "avg_transaction_duration": 0.0,
                     "avg_entity_span": 0.0,
@@ -168,17 +168,17 @@ class SignalLog:
             df["target_id"]
         ]).drop_nulls().unique().height
 
-        num_entity_types = pl.Series([
+        num_signal_types = pl.Series([
             entity.signal_type for entity in self._entities.values()
         ]).unique().len()
 
-        # 2. Count by entity_type
-        entity_type_counts = pl.Series([
+        # 2. Count by signal_type
+        signal_type_counts = pl.Series([
             entity.signal_type for entity in self._entities.values()
         ]).value_counts()
 
-        entity_type_lines = "\n".join(
-            f"    - {entity_type.ljust(10)}: {count}" for entity_type, count in entity_type_counts.rows()
+        signal_type_lines = "\n".join(
+            f"    - {signal_type.ljust(10)}: {count}" for signal_type, count in signal_type_counts.rows()
         )
 
         num_entities: int = df["signal_id"].unique().len()
@@ -211,8 +211,8 @@ class SignalLog:
             "end_time": t_max,
             "transactions": num_transactions,
             "nodes": num_nodes,
-            "entity_types": num_entity_types,
-            "entity_type_count": entity_type_counts,
+            "signal_types": num_signal_types,
+            "signal_type_count": signal_type_counts,
             "entities": num_entities,
             "avg_transaction_duration": avg_tx_duration,
             "avg_entity_span": avg_entity_duration,
@@ -228,8 +228,8 @@ class SignalLog:
             f"  • Transactions      : {num_transactions}\n"
             f"  • Avg Tx duration   : {avg_tx_duration:.3f}\n"
             f"  • Nodes             : {num_nodes}\n"
-            f"  • Entity Types         : {num_entity_types}\n"
-            f"{entity_type_lines}\n"
+            f"  • Entity Types         : {num_signal_types}\n"
+            f"{signal_type_lines}\n"
             f"  • Entities          : {num_entities}\n"
             f"  • Avg Entity span   : {avg_entity_duration:.3f}"
         )
