@@ -53,7 +53,7 @@ class SystemProcess:
         self.name = name
         self.sim = sim
         self.signal_log = sim.signal_log
-        self.entities = sim.entities
+        self.signals = sim.signals
         self.inbox = simpy.Store(env)
         self.peer = None
 
@@ -89,7 +89,7 @@ class SystemA(SystemProcess):
         mean_delay = 2
         while True:
             signal = Entity(f"A-{self.counter}", created_by=self.name, payload=dict())
-            self.entities.append(signal)
+            self.signals.append(signal)
             self.counter += 1
             signal.sent = self.env.now
             self.send(signal)
@@ -122,7 +122,7 @@ class Simulation:
     def __init__(self, until=20):
         self.env = simpy.Environment()
         self.signal_log = SignalLog()
-        self.entities = []
+        self.signals = []
 
         self.A = SystemA(self.env, "A", self)
         self.B = SystemB(self.env, "B", self)
@@ -130,7 +130,7 @@ class Simulation:
         self.A.set_peer(self.B)
         self.B.set_peer(self.A)
 
-        self.env.process(self.A.run())            # A generates entities
+        self.env.process(self.A.run())            # A generates signals
         self.env.process(self.A.receive_loop())   # A listens for responses
         self.env.process(self.B.receive_loop())   # B reacts to A
 
@@ -139,8 +139,8 @@ class Simulation:
     def run(self):
         self.env.run(until=self.until)
         self.signal_log.dump()
-        if len(self.entities) > 0:
-            print(f"Average cycle time: {sum(obj.cycle_time() for obj in self.entities) / len(self.entities)}")
+        if len(self.signals) > 0:
+            print(f"Average cycle time: {sum(obj.cycle_time() for obj in self.signals) / len(self.signals)}")
 
 # ---------- Run Simulation ----------
 

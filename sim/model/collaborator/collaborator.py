@@ -40,7 +40,7 @@ class Collaborator(EntityBase, ABC):
         super().__init__(kind, name, sim_context)
         self.inbox = sim_context.get_store()
         self.resource = sim_context.get_resource(capacity=concurrency) if concurrency else None
-        self.entities_in_process: int = 0
+        self.signals_in_process: int = 0
         self.transactions_in_process: Set = set()
         self.concurrency = concurrency
         self.peer = None
@@ -52,7 +52,7 @@ class Collaborator(EntityBase, ABC):
 
     @property
     def signal_count(self):
-        return self.entities_in_process + len(self.inbox.items)
+        return self.signals_in_process + len(self.inbox.items)
 
     def send(self, signal: Request|Response) -> None:
         log.debug(f"[{self.name} @ t={self.sim_context.now}] send → {self.peer.name}: {signal.name}")
@@ -76,7 +76,7 @@ class Collaborator(EntityBase, ABC):
                 signal = self.inbox.items.pop(0)
 
                 if signal.signal_type == "request":
-                    self.entities_in_process += 1
+                    self.signals_in_process += 1
                     log.debug(f"[{self.name} @ t={self.sim_context.now}] scheduling process for {signal.name}")
                     self.sim_context.process(self.dispatch(signal))
                     yield self.sim_context.timeout(0)
@@ -94,7 +94,7 @@ class Collaborator(EntityBase, ABC):
             else:
                 yield from self.respond(signal)
         finally:
-            self.entities_in_process -= 1
+            self.signals_in_process -= 1
             log.debug(f"[{self.name} @ t={self.sim_context.now}] signal count: {self.signal_count}")
 
     def respond(self, signal: Request) -> Generator[simpy.events.Event, None, None]:

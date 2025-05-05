@@ -150,7 +150,7 @@ class SignalLog:
                     "transactions": 0,
                     "nodes": 0,
                     "signal_types": 0,
-                    "entities": 0,
+                    "signals": 0,
                     "avg_transaction_duration": 0.0,
                     "avg_signal_span": 0.0,
                 }
@@ -163,7 +163,7 @@ class SignalLog:
 
         num_transactions: int = df["transaction_id"].drop_nulls().unique().len()
 
-        num_nodes: int = df.select([
+        num_entities: int = df.select([
             df["source_id"],
             df["target_id"]
         ]).drop_nulls().unique().height
@@ -181,7 +181,7 @@ class SignalLog:
             f"    - {signal_type.ljust(10)}: {count}" for signal_type, count in signal_type_counts.rows()
         )
 
-        num_entities: int = df["signal_id"].unique().len()
+        num_signals: int = df["signal_id"].unique().len()
 
         tx_span = (
             df.filter(pl.col("transaction_id").is_not_null())
@@ -210,10 +210,10 @@ class SignalLog:
             "start_time": t_min,
             "end_time": t_max,
             "transactions": num_transactions,
-            "nodes": num_nodes,
+            "entities": num_entities,
             "signal_types": num_signal_types,
             "signal_type_count": signal_type_counts,
-            "entities": num_entities,
+            "signals": num_signals,
             "avg_transaction_duration": avg_tx_duration,
             "avg_signal_span": avg_signal_duration,
         }
@@ -227,11 +227,11 @@ class SignalLog:
             f"  • Time span         : {timespan:.3f} time units (from t={t_min:.3f} to t={t_max:.3f})\n"
             f"  • Transactions      : {num_transactions}\n"
             f"  • Avg Tx duration   : {avg_tx_duration:.3f}\n"
-            f"  • Nodes             : {num_nodes}\n"
-            f"  • Entity Types         : {num_signal_types}\n"
+            f"  • Entities             : {num_entities}\n"
+            f"  • Signal Types         : {num_signal_types}\n"
             f"{signal_type_lines}\n"
-            f"  • Entities          : {num_entities}\n"
-            f"  • Avg Entity span   : {avg_signal_duration:.3f}"
+            f"  • Signals          : {num_signals}\n"
+            f"  • Avg Signal duration   : {avg_signal_duration:.3f}"
         )
 
     def display(self):

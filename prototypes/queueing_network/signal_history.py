@@ -60,13 +60,13 @@ class SignalHistory:
 
         types = df.group_by("signal").count()
         times = df["timestamp"].to_list()
-        entities = df["signal_id"].unique()
+        signals = df["signal_id"].unique()
 
         summary = [
             f"SignalHistory for {self.node}:({len(df)} signals)",
             f"  Types: " + ", ".join(f"{row['signal']}={row['count']}" for row in types.iter_rows()),
             f"  Time range: {min(times):.2f} to {max(times):.2f}",
-            f"  Unique entities: {len(entities)}",
+            f"  Unique signals: {len(signals)}",
         ]
         return "\n".join(summary)
 

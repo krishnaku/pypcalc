@@ -46,9 +46,9 @@ class SignalLogAssertion:
         self.log = log
         self.df: Optional[pl.DataFrame] = None
 
-    def _lookup_node_id(self, source_name: str) -> Optional[str]:
-        for id, node in self.log.entities:
-            if node.name == source_name:
+    def _lookup_entity_id(self, source_name: str) -> Optional[str]:
+        for id, entity in self.log.entities:
+            if entity.name == source_name:
                 return id
 
     def has_length(self, expected: int) -> SignalLogAssertion:
@@ -64,10 +64,10 @@ class SignalLogAssertion:
         filtered = self.df.filter(pl.col("signal") == signal_type)
 
         if source is not None:
-            filtered = filtered.filter(pl.col("source_id") == self._lookup_node_id(source))
+            filtered = filtered.filter(pl.col("source_id") == self._lookup_entity_id(source))
 
         if target is not None:
-            filtered = filtered.filter(pl.col("target_id") == self._lookup_node_id(target))
+            filtered = filtered.filter(pl.col("target_id") == self._lookup_entity_id(target))
 
         if count is not None:
             assert filtered.height == count, \

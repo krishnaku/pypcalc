@@ -125,4 +125,4 @@ def test_concurrency_tracking(sim):
     sim.process(gen)
     sim.run(until=1)
 
-    assert c.entities_in_process == 0  # properly decremented after dispatch
+    assert c.signals_in_process == 0  # properly decremented after dispatch
