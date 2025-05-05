@@ -15,7 +15,7 @@ from typing import List, Dict, Optional, Protocol, Any
 from .signal import Signal
 from .transaction import Transaction
 from .boundary import Boundary
-from .signal_log import SignalEvent, SignalLog, SignalListener
+from .signal_log import SignalEvent, SignalLog, SignalEventListener
 
 
 class SimulationContext(Protocol):
@@ -34,7 +34,7 @@ class SimulationContext(Protocol):
     def record_signal(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None,
                       target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:...
 
-    def register_listener(self, listener: SignalListener) -> None:...
+    def register_listener(self, listener: SignalEventListener) -> None:...
 
     @property
     def all_logs(self) -> List[SignalLog]:...

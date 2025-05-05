@@ -10,11 +10,11 @@
 from abc import abstractmethod
 from typing import Dict, Any, Set, Protocol
 
-from .signal_log import SignalLog, SignalListener, SignalEvent
+from .signal_log import SignalLog, SignalEventListener, SignalEvent
 
 from .entity import Entity
 
-class Boundary(Entity, SignalListener, Protocol):
+class Boundary(Entity, SignalEventListener, Protocol):
 
     @property
     def signal_history(self) -> SignalLog:...

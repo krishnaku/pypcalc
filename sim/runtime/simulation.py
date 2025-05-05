@@ -16,7 +16,7 @@ from typing import List, Generator, Optional, Any, Protocol, Dict
 from simpy.events import Event, Timeout
 
 from core import Entity, Signal
-from core.signal_log import SignalEvent, SignalLog, SignalListener
+from core.signal_log import SignalEvent, SignalLog, SignalEventListener
 from core.simulation_context import SimulationContext
 
 log = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         self._signal_log = None
         # preserve separate signal logs per simulation run
         self._all_logs: List[SignalLog] = []
-        self._signal_listeners: List[SignalListener] = []
+        self._signal_listeners: List[SignalEventListener] = []
 
         # simpy proxy parameters
         # NOTE: _env is intentionally private — do NOT expose or pass it around.
@@ -128,7 +128,7 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         log.info(f"simulation ended at {(time.time() - self.simulation_start)} seconds")
 
     # ------------- Signal Management Interface -------------------------------------
-    def register_listener(self, listener: SignalListener) -> None:
+    def register_listener(self, listener: SignalEventListener) -> None:
         self._signal_listeners.append(listener)
 
     def record_signal(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None,

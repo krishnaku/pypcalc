@@ -57,7 +57,7 @@ class SignalEvent:
             "tags": self.tags,
         }
 
-class SignalListener(Protocol):
+class SignalEventListener(Protocol):
 
     def on_signal_event(self, event: SignalEvent) -> None:...
 
