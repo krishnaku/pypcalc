@@ -48,7 +48,7 @@ class PresenceMatrix:
         self.bin_width = bin_width
 
     @classmethod
-    def from_signals(
+    def from_signal_events(
         cls,
         signals: List[SignalEvent],
         source: str,
