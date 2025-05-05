@@ -131,14 +131,14 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
     def register_listener(self, listener: SignalListener) -> None:
         self._signal_listeners.append(listener)
 
-    def record_signal(self, source: Node, timestamp: float, signal_type: str, entity: Signal, transaction=None,
+    def record_signal(self, source: Node, timestamp: float, signal_type: str, signal: Signal, transaction=None,
                       target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         """Write access to the global signal log is via this method."""
         signal:SignalEvent =  self._signal_log.record(
             source=source,
             timestamp=timestamp,
             signal_type=signal_type,
-            entity=entity,
+            signal=signal,
             transaction=transaction,
             target=target,
             tags=tags

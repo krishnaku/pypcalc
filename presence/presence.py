@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def get_entry_exit_times(presence, entity_index, queue_name):
+def get_entry_exit_times(presence, signal_index, queue_name):
     arrivals = []
     departures = []
     mat = presence[queue_name]
@@ -43,10 +43,10 @@ def compute_average_number_in_queue(presence, t0, t1):
 def compute_operator_flow_metrics(presence, arrival_index, visit_index, t0, t1):
     return {'lambda': compute_cumulative_arrival_rate(arrival_index, presence, t0, t1), 'L': compute_average_number_in_queue(presence, t0, t1), 'W': compute_average_residence_time(visit_index, presence, t0, t1), 'window': (t0, t1)}
 
-def compute_entity_flow_metrics(presence, arrival_index, visit_index, t0, t1):
+def compute_signal_flow_metrics(presence, arrival_index, visit_index, t0, t1):
     active_entities = np.any(presence[:, t0:t1], axis=1)
-    entity_rows = presence[active_entities]
-    time_presence = np.any(entity_rows, axis=0)
+    signal_rows = presence[active_entities]
+    time_presence = np.any(signal_rows, axis=0)
     t_indices = np.where(time_presence)[0]
     if len(t_indices) == 0:
         return {'lambda': 0, 'L': 0, 'W': 0, 'span': (t0, t1)}

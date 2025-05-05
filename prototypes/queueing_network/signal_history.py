@@ -31,17 +31,17 @@ class SignalHistory:
     def signals(self) -> SignalLog:
         return self._signals
 
-    def add(self, source: Node, timestamp: float, signal_type: str, entity: Signal, transaction=None, target=None, **kwargs):
+    def add(self, source: Node, timestamp: float, signal_type: str, signal: Signal, transaction=None, target=None, **kwargs):
         self._signals.record(
             source=source,
             timestamp=timestamp,
             signal_type=signal_type,
-            entity=entity,
+            signal=signal,
             transaction=transaction,
             target=target,
             tags=kwargs
         )
-        self.queue_length.update(signal_type, timestamp, entity.id)
+        self.queue_length.update(signal_type, timestamp, signal.id)
 
     def get_signals(self, signal_type: str = None) -> pl.DataFrame:
         df = self._signals.as_polars()

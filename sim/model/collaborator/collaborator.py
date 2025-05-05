@@ -27,12 +27,12 @@ class Request(Signal):
         )
 
 class Response(Signal):
-    def __init__(self, entity):
+    def __init__(self, signal):
         super().__init__(
-            entity.name, 
+            signal.name,
             signal_type="response",
-            metadata=entity.payload,
-            transaction=entity.transaction
+            metadata=signal.payload,
+            transaction=signal.transaction
         )
         
 class Collaborator(NodeBase, ABC):
@@ -51,65 +51,65 @@ class Collaborator(NodeBase, ABC):
         peer.peer = self
 
     @property
-    def entity_count(self):
+    def signal_count(self):
         return self.entities_in_process + len(self.inbox.items)
 
-    def send(self, entity: Request|Response) -> None:
-        log.debug(f"[{self.name} @ t={self.sim_context.now}] send → {self.peer.name}: {entity.name}")
+    def send(self, signal: Request|Response) -> None:
+        log.debug(f"[{self.name} @ t={self.sim_context.now}] send → {self.peer.name}: {signal.name}")
         self.sim_context.record_signal(
             signal_type="request",
             source=self,
             target=self.peer,
-            entity=entity,
+            signal=signal,
             timestamp=self.sim_context.now,
-            transaction=entity.transaction
+            transaction=signal.transaction
         )
-        self.peer.inbox.put(entity)
+        self.peer.inbox.put(signal)
 
     def receive(self) -> Generator[simpy.events.Event, None, None]:
         while True:
-            entity: Request|Response = yield self.inbox.get()  # type: ignore
-            self.inbox.items.insert(0, entity)  # put it back to drain queue
-            log.debug(f"[{self.name} @ t={self.sim_context.now}] entity count: {self.entity_count}")
+            signal: Request|Response = yield self.inbox.get()  # type: ignore
+            self.inbox.items.insert(0, signal)  # put it back to drain queue
+            log.debug(f"[{self.name} @ t={self.sim_context.now}] signal count: {self.signal_count}")
             while self.inbox.items:
                 log.debug(f"[{self.name} @ t={self.sim_context.now}] draining inbox (size={len(self.inbox.items)})")
-                entity = self.inbox.items.pop(0)
+                signal = self.inbox.items.pop(0)
 
-                if entity.signal_type == "request":
+                if signal.signal_type == "request":
                     self.entities_in_process += 1
-                    log.debug(f"[{self.name} @ t={self.sim_context.now}] scheduling process for {entity.name}")
-                    self.sim_context.process(self.dispatch(entity))
+                    log.debug(f"[{self.name} @ t={self.sim_context.now}] scheduling process for {signal.name}")
+                    self.sim_context.process(self.dispatch(signal))
                     yield self.sim_context.timeout(0)
                 else:
-                    log.debug(f"[{self.name} @ t={self.sim_context.now}] received response for {entity.name}")
-                    yield from self.on_receive_response(entity)
+                    log.debug(f"[{self.name} @ t={self.sim_context.now}] received response for {signal.name}")
+                    yield from self.on_receive_response(signal)
 
-    def dispatch(self, entity) -> Generator[simpy.events.Event, None, None]:
+    def dispatch(self, signal) -> Generator[simpy.events.Event, None, None]:
         try:
             if self.resource:
-                log.debug(f"[{self.name} @ t={self.sim_context.now}] acquiring resource for {entity.name}")
+                log.debug(f"[{self.name} @ t={self.sim_context.now}] acquiring resource for {signal.name}")
                 with self.resource.request() as req:
                     yield req
-                    yield from self.respond(entity)
+                    yield from self.respond(signal)
             else:
-                yield from self.respond(entity)
+                yield from self.respond(signal)
         finally:
             self.entities_in_process -= 1
-            log.debug(f"[{self.name} @ t={self.sim_context.now}] entity count: {self.entity_count}")
+            log.debug(f"[{self.name} @ t={self.sim_context.now}] signal count: {self.signal_count}")
 
-    def respond(self, entity: Request) -> Generator[simpy.events.Event, None, None]:
-        yield from self.on_receive_request(entity)
-        log.debug(f"[{self.name} @ t={self.sim_context.now}] finished processing {entity.name}")
-        yield from self.send_response(entity)
+    def respond(self, signal: Request) -> Generator[simpy.events.Event, None, None]:
+        yield from self.on_receive_request(signal)
+        log.debug(f"[{self.name} @ t={self.sim_context.now}] finished processing {signal.name}")
+        yield from self.send_response(signal)
 
-    def send_response(self, entity) -> Generator[simpy.events.Event, None, None]:
+    def send_response(self, signal) -> Generator[simpy.events.Event, None, None]:
         yield self.sim_context.timeout(0)
-        response = Response(entity)
+        response = Response(signal)
         self.sim_context.record_signal(
             signal_type="response",
             source=self,
             target=self.peer,
-            entity=response,
+            signal=response,
             timestamp=self.sim_context.now
         )
         self.peer.inbox.put(response)

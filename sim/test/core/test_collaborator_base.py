@@ -83,7 +83,7 @@ def test_send_logs_signal(sim):
     sig: SignalAssertion = sim_log(sim).latest_log().signal_at(0)
     assert sig.has_source("A")
     assert sig.has_target("B")
-    assert sig.has_entity("req-1")
+    assert sig.has_signal("req-1")
 
 
 

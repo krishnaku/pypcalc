@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
 
 from pd_utils import estimate_limits
-from presence import compute_cumulative_arrival_rate, compute_entity_flow_metrics, compute_operator_flow_metrics, \
+from presence import compute_cumulative_arrival_rate, compute_signal_flow_metrics, compute_operator_flow_metrics, \
     compute_average_residence_time, compute_average_number_in_queue, get_entry_exit_times
 
 
@@ -15,12 +15,12 @@ def plot_residence_time_convergence(presence, arrival_index, visit_index):
     data = []
     for t in range(1, T):
         op_metrics = compute_operator_flow_metrics(presence, arrival_index, visit_index, 0, t)
-        ent_metrics = compute_entity_flow_metrics(presence, arrival_index, visit_index, 0, t)
-        data.append({'window_end': t, 'W_operator': op_metrics['W'], 'W_entity': ent_metrics['W']})
+        ent_metrics = compute_signal_flow_metrics(presence, arrival_index, visit_index, 0, t)
+        data.append({'window_end': t, 'W_operator': op_metrics['W'], 'W_signal': ent_metrics['W']})
     df = pd.DataFrame(data)
     plt.figure(figsize=(10, 6))
     plt.plot(df['window_end'], df['W_operator'], label='Operator Perspective W', linewidth=2)
-    plt.plot(df['window_end'], df['W_entity'], label='Entity Perspective W', linewidth=2, linestyle='--')
+    plt.plot(df['window_end'], df['W_signal'], label='Entity Perspective W', linewidth=2, linestyle='--')
     plt.xlabel('Window End Time')
     plt.ylabel('Average Residence Time (W)')
     plt.title('Convergence of Residence Time from Operator and Entity Perspectives')
@@ -36,23 +36,23 @@ def plot_tail_convergence_of_residence_time(presence, arrival_index, visit_index
     data = []
     for t in range(1, T):
         op_metrics = compute_operator_flow_metrics(presence, arrival_index, visit_index, 0, t)
-        ent_metrics = compute_entity_flow_metrics(presence, arrival_index, visit_index, 0, t)
-        data.append({'window_end': t, 'W_operator': op_metrics['W'], 'W_entity': ent_metrics['W']})
+        ent_metrics = compute_signal_flow_metrics(presence, arrival_index, visit_index, 0, t)
+        data.append({'window_end': t, 'W_operator': op_metrics['W'], 'W_signal': ent_metrics['W']})
     df = pd.DataFrame(data)
     tail_deltas = []
     for i in range(1, len(df)):
         tail_size = max(1, int(tail_frac * i))
         tail = df.iloc[i - tail_size + 1:i + 1]
         W_op_tail = tail['W_operator'].mean()
-        W_ent_tail = tail['W_entity'].mean()
+        W_ent_tail = tail['W_signal'].mean()
         delta = abs(W_op_tail - W_ent_tail)
         tail_deltas.append(
-            {'window_end': df['window_end'].iloc[i], 'W_operator_tail': W_op_tail, 'W_entity_tail': W_ent_tail,
+            {'window_end': df['window_end'].iloc[i], 'W_operator_tail': W_op_tail, 'W_signal_tail': W_ent_tail,
              'delta': delta})
     delta_df = pd.DataFrame(tail_deltas)
     plt.figure(figsize=(10, 6))
     plt.plot(delta_df['window_end'], delta_df['W_operator_tail'], label='W_operator (tail avg)', linewidth=2)
-    plt.plot(delta_df['window_end'], delta_df['W_entity_tail'], label='W_entity (tail avg)', linewidth=2,
+    plt.plot(delta_df['window_end'], delta_df['W_signal_tail'], label='W_signal (tail avg)', linewidth=2,
              linestyle='--')
     plt.xlabel('Window End Time')
     plt.ylabel('Tail-Averaged Residence Time (W)')
@@ -64,8 +64,8 @@ def plot_tail_convergence_of_residence_time(presence, arrival_index, visit_index
     return delta_df
 
 
-def plot_cumulative_flow(queue_name, presence, entity_index, T=200):
-    entry_times, exit_times = get_entry_exit_times(presence, entity_index, queue_name)
+def plot_cumulative_flow(queue_name, presence, signal_index, T=200):
+    entry_times, exit_times = get_entry_exit_times(presence, signal_index, queue_name)
     arrivals = np.zeros(T)
     departures = np.zeros(T)
     for t in entry_times:

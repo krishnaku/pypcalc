@@ -15,7 +15,7 @@ class QueuingNetworkSimulation(SimulationContext):
 
         self.queue_signal_history: Dict[str, SignalHistory] = {node: SignalHistory(node, simulation_period) for node in network.nodes}
         self.system_signal_history = SignalHistory("System", simulation_period)
-        self.entity_system_state = {}
+        self.signal_system_state = {}
 
         self.nodes: Dict[str, NetworkNode] = {}
 
@@ -46,7 +46,7 @@ class QueuingNetworkSimulation(SimulationContext):
     def signal_enter(self, node: str, signal_id: str):
         t_enter = self.env.now
         self.queue_signal_history[node].add(source=self.get_node(node), signal_type="enter", timestamp=t_enter, signal_id=signal_id)
-        state = self.entity_system_state[signal_id]
+        state = self.signal_system_state[signal_id]
         if not state["entered"]:
             self.system_signal_history.add("enter", t_enter, signal_id)
             state["entered"] = True
@@ -66,16 +66,16 @@ class QueuingNetworkSimulation(SimulationContext):
     def signal_exit(self, node: str, signal_id: str):
         t_exit = self.env.now
         self.queue_signal_history[node].add("exit", t_exit, signal_id)
-        state = self.entity_system_state[signal_id]
+        state = self.signal_system_state[signal_id]
         if self.network.out_degree(node) == 0 and not state["exited"]:
             self.system_signal_history.add("exit", t_exit, signal_id)
             state["exited"] = True
         return t_exit
 
-    def entity(self, start_node="A"):
+    def signal(self, start_node="A"):
         signal_id = str(uuid.uuid4())
         current = start_node
-        self.entity_system_state.setdefault(signal_id, {"entered": False, "exited": False})
+        self.signal_system_state.setdefault(signal_id, {"entered": False, "exited": False})
         while current is not None:
             current_node = self.nodes[current]
             self.signal_enter(current, signal_id)
@@ -90,7 +90,7 @@ class QueuingNetworkSimulation(SimulationContext):
             raise ValueError("Start node must be specified")
 
         while self.env.now < T:
-            self.env.process(self.entity(start_node))
+            self.env.process(self.signal(start_node))
             yield self.env.timeout(1/arrival_rate)
 
 

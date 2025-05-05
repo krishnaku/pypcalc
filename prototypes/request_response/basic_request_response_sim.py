@@ -60,16 +60,16 @@ class SystemProcess:
     def set_peer(self, peer):
         self.peer = peer
 
-    def send(self, entity):
-        self.signal_log.record(self.name, self.peer.name, entity.id, self.env.now)
-        self.peer.inbox.put(entity)
+    def send(self, signal):
+        self.signal_log.record(self.name, self.peer.name, signal.id, self.env.now)
+        self.peer.inbox.put(signal)
 
     def receive_loop(self):
         while True:
-            entity = yield self.inbox.get()
-            self.env.process(self.on_receive(entity))
+            signal = yield self.inbox.get()
+            self.env.process(self.on_receive(signal))
 
-    def on_receive(self, entity):
+    def on_receive(self, signal):
         # Override in subclass
         pass
 
@@ -88,32 +88,32 @@ class SystemA(SystemProcess):
     def run(self):
         mean_delay = 2
         while True:
-            entity = Entity(f"A-{self.counter}", created_by=self.name, payload=dict())
-            self.entities.append(entity)
+            signal = Entity(f"A-{self.counter}", created_by=self.name, payload=dict())
+            self.entities.append(signal)
             self.counter += 1
-            entity.sent = self.env.now
-            self.send(entity)
+            signal.sent = self.env.now
+            self.send(signal)
 
             delay = random.expovariate(1 / mean_delay)
             yield self.env.timeout(delay)
 
-    def on_receive(self, entity):
-        entity.payload['responded_to_by_A'] = self.name
-        entity.received = self.env.now
-        print(f"[A @ t={self.env.now}] handled response: {entity.id}: cycle time: {entity.received - entity.sent}")
+    def on_receive(self, signal):
+        signal.payload['responded_to_by_A'] = self.name
+        signal.received = self.env.now
+        print(f"[A @ t={self.env.now}] handled response: {signal.id}: cycle time: {signal.received - signal.sent}")
         yield self.env.timeout(0)
 
 # ---------- System B: Reacts and Responds ----------
 
 class SystemB(SystemProcess):
-    def on_receive(self, entity):
-        entity.payload['processed_by'] = self.name
-        print(f"[B @ t={self.env.now}] processing: {entity.id}")
+    def on_receive(self, signal):
+        signal.payload['processed_by'] = self.name
+        print(f"[B @ t={self.env.now}] processing: {signal.id}")
         mean_delay = 1.5
         delay = random.expovariate(1 / mean_delay)
         yield self.env.timeout(delay)
 
-        self.send(entity)
+        self.send(signal)
 
 
 # ---------- Simulation Orchestrator ----------

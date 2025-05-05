@@ -39,7 +39,7 @@ class SignalEvent:
 
     @property
     def signal(self) -> Signal:
-        return self.signal_log.entity(self.signal_id)
+        return self.signal_log.signal(self.signal_id)
 
     @property
     def transaction(self) -> Transaction:
@@ -75,7 +75,7 @@ class SignalLog:
     def node(self, node_id) -> Node:
         return self._nodes.get(node_id)
 
-    def entity(self, signal_id) -> Signal:
+    def signal(self, signal_id) -> Signal:
         return self._entities.get(signal_id)
 
     def transaction(self, transaction_id) -> Transaction:
@@ -84,11 +84,11 @@ class SignalLog:
     def __len__(self):
         return len(self.signals)
 
-    def record(self, source: Node, timestamp: float, signal_type: str, entity: Signal, transaction=None,
+    def record(self, source: Node, timestamp: float, signal_type: str, signal: Signal, transaction=None,
                target: Optional[Node] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         self._nodes[source.id] = source
-        self._entities[entity.id] = entity
-        tx = transaction or entity.transaction
+        self._entities[signal.id] = signal
+        tx = transaction or signal.transaction
         if tx is not None:
             self._transactions[tx.id] = tx
 
@@ -100,7 +100,7 @@ class SignalLog:
             timestamp=timestamp,
             signal_type=signal_type,
             transaction_id=tx.id if tx is not None else None,
-            signal_id=entity.id,
+            signal_id=signal.id,
             target_id=target.id if target is not None else None,
             tags=tags,
             signal_log=self
@@ -152,7 +152,7 @@ class SignalLog:
                     "signal_types": 0,
                     "entities": 0,
                     "avg_transaction_duration": 0.0,
-                    "avg_entity_span": 0.0,
+                    "avg_signal_span": 0.0,
                 }
             return "📊 Signal Log Summary\n  • No signals recorded."
 
@@ -169,12 +169,12 @@ class SignalLog:
         ]).drop_nulls().unique().height
 
         num_signal_types = pl.Series([
-            entity.signal_type for entity in self._entities.values()
+            signal.signal_type for signal in self._entities.values()
         ]).unique().len()
 
         # 2. Count by signal_type
         signal_type_counts = pl.Series([
-            entity.signal_type for entity in self._entities.values()
+            signal.signal_type for signal in self._entities.values()
         ]).value_counts()
 
         signal_type_lines = "\n".join(
@@ -194,15 +194,15 @@ class SignalLog:
         )
         avg_tx_duration: float = tx_span["tx_duration"].mean()
 
-        entity_span = (
+        signal_span = (
             df.group_by("signal_id")
             .agg([
                 pl.col("timestamp").min().alias("t_start"),
                 pl.col("timestamp").max().alias("t_end")
             ])
-            .with_columns((pl.col("t_end") - pl.col("t_start")).alias("entity_duration"))
+            .with_columns((pl.col("t_end") - pl.col("t_start")).alias("signal_duration"))
         )
-        avg_entity_duration: float = entity_span["entity_duration"].mean()
+        avg_signal_duration: float = signal_span["signal_duration"].mean()
 
         summary_dict: Dict[str, Union[int, float, str]] = {
             "log_entries": num_entries,
@@ -215,7 +215,7 @@ class SignalLog:
             "signal_type_count": signal_type_counts,
             "entities": num_entities,
             "avg_transaction_duration": avg_tx_duration,
-            "avg_entity_span": avg_entity_duration,
+            "avg_signal_span": avg_signal_duration,
         }
 
         if output == "dict":
@@ -231,7 +231,7 @@ class SignalLog:
             f"  • Entity Types         : {num_signal_types}\n"
             f"{signal_type_lines}\n"
             f"  • Entities          : {num_entities}\n"
-            f"  • Avg Entity span   : {avg_entity_duration:.3f}"
+            f"  • Avg Entity span   : {avg_signal_duration:.3f}"
         )
 
     def display(self):
