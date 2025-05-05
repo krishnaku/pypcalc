@@ -13,7 +13,7 @@ from typing import Dict, Any, Optional, Set
 from abc import ABC, abstractmethod
 
 from core import Boundary
-from core.signal import SignalEvent, SignalLog
+from core.signal_log import SignalEvent, SignalLog
 from sim.model.node import NodeBase
 from sim.runtime.simulation import Simulation
 

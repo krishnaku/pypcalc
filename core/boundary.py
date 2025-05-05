@@ -10,7 +10,7 @@
 from abc import abstractmethod
 from typing import Dict, Any, Set, Protocol
 
-from .signal import SignalLog, SignalListener, SignalEvent
+from .signal_log import SignalLog, SignalListener, SignalEvent
 
 from .node import Node
 

@@ -10,7 +10,7 @@ from typing import Dict
 
 import polars as pl
 from core import Entity, Node
-from core.signal import SignalLog
+from core.signal_log import SignalLog
 
 
 from prototypes.queueing_network.signal_history_metrics import SignalHistoryMetric, QueueLength

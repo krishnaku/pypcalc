@@ -15,7 +15,7 @@ from typing import List, Dict, Optional, Protocol, Any
 from .entity import Entity
 from .transaction import Transaction
 from .boundary import Boundary
-from .signal import SignalEvent, SignalLog, SignalListener
+from .signal_log import SignalEvent, SignalLog, SignalListener
 
 
 class SimulationContext(Protocol):
