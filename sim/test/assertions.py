@@ -52,7 +52,7 @@ class SignalLogAssertion:
                 return id
 
     def has_length(self, expected: int) -> SignalLogAssertion:
-        actual = len(self.log.signals)
+        actual = len(self.log.signal_events)
         assert actual == expected, f"Expected {expected} signals, got {actual}"
         return self
 
@@ -88,9 +88,9 @@ class SignalLogAssertion:
 
     # chain to signal assertions
     def signal_at(self, index: int) -> SignalAssertion:
-        n = len(self.log.signals)
+        n = len(self.log.signal_events)
         assert -n <= index < n, f"index {index} out of range for signal of length {n}"
-        return SignalAssertion(self.log.signals[index])
+        return SignalAssertion(self.log.signal_events[index])
 
     def __bool__(self) -> bool:
         return True  # all prior assertions passed, object is valid

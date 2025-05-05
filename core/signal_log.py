@@ -69,7 +69,7 @@ class SignalLog:
         self._nodes: Dict[str, Entity] = {}
 
     @property
-    def signals(self) -> List[SignalEvent]:
+    def signal_events(self) -> List[SignalEvent]:
         return self._signal_events
 
     def node(self, node_id) -> Entity:
@@ -82,7 +82,7 @@ class SignalLog:
         return self._transactions.get(transaction_id)
 
     def __len__(self):
-        return len(self.signals)
+        return len(self.signal_events)
 
     def record(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None,
                target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
