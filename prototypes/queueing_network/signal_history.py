@@ -35,7 +35,7 @@ class SignalHistory:
         self._signals.record(
             source=source,
             timestamp=timestamp,
-            signal_type=signal_type,
+            event_type=signal_type,
             signal=signal,
             transaction=transaction,
             target=target,

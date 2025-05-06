@@ -57,7 +57,7 @@ class Collaborator(EntityBase, ABC):
     def send(self, signal: Request|Response) -> None:
         log.debug(f"[{self.name} @ t={self.sim_context.now}] send → {self.peer.name}: {signal.name}")
         self.sim_context.record_signal(
-            signal_type="request",
+            event_type="request",
             source=self,
             target=self.peer,
             signal=signal,
@@ -106,7 +106,7 @@ class Collaborator(EntityBase, ABC):
         yield self.sim_context.timeout(0)
         response = Response(signal)
         self.sim_context.record_signal(
-            signal_type="response",
+            event_type="response",
             source=self,
             target=self.peer,
             signal=response,

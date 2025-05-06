@@ -22,7 +22,7 @@ from .transaction import Transaction
 class SignalEvent:
     source_id: str
     timestamp: float
-    signal_type: str
+    event_type: str
     signal_id: str
     transaction_id: Optional[str] = None
     target_id: Optional[str] = None
@@ -50,7 +50,7 @@ class SignalEvent:
         return {
             "source_id": self.source_id,
             "timestamp": float(self.timestamp),
-            "signal": self.signal_type,
+            "event_type": self.event_type,
             "transaction_id": self.transaction_id,
             "signal_id": self.signal_id,
             "target_id": self.target_id,
@@ -84,7 +84,7 @@ class SignalLog:
     def __len__(self):
         return len(self.signal_events)
 
-    def record(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None,
+    def record(self, source: Entity, timestamp: float, event_type: str, signal: Signal, transaction=None,
                target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         self._entities[source.id] = source
         self._signals[signal.id] = signal
@@ -98,7 +98,7 @@ class SignalLog:
         signal = SignalEvent(
             source_id=source.id,
             timestamp=timestamp,
-            signal_type=signal_type,
+            event_type=event_type,
             transaction_id=tx.id if tx is not None else None,
             signal_id=signal.id,
             target_id=target.id if target is not None else None,
@@ -132,7 +132,7 @@ class SignalLog:
             schema={
                 "source_id": pl.Utf8,
                 "timestamp": pl.Float64,
-                "signal": pl.Utf8,
+                "event_type": pl.Utf8,
                 "transaction_id": pl.Utf8,
                 "signal_id": pl.Utf8,
                 "target_id": pl.Utf8,
@@ -237,7 +237,7 @@ class SignalLog:
     def display(self):
         summary = self.summarize()
         details = "\n".join([
-            f"{sig.timestamp:.3f}: {sig.signal_type}: {sig.source.name} -> {sig.target.name if sig.target is not None else None} :: {sig.signal.name} ({sig.transaction.id[-8:] if sig.transaction else ' '})"
+            f"{sig.timestamp:.3f}: {sig.event_type}: {sig.source.name} -> {sig.target.name if sig.target is not None else None} :: {sig.signal.name} ({sig.transaction.id[-8:] if sig.transaction else ' '})"
             for sig in self._signal_events
         ])
         return f"{summary}\n-------Detailed Log-----------\n{details}"

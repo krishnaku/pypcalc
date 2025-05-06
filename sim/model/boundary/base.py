@@ -55,7 +55,7 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
 
 
         for s in signals:
-            if s.signal_type == enter_event:
+            if s.event_type == enter_event:
                 visit = Visit(signal_id=s.signal_id, start=s.timestamp, end=np.inf)
                 open_visits[s.signal_id] = visit
 
@@ -64,7 +64,7 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
                     visits.append(visit)
                     signal_visits[s.signal_id].append(visit)
 
-            elif s.signal_type == exit_event:
+            elif s.event_type == exit_event:
                 visit = open_visits.pop(s.signal_id, None)
                 if visit:
                     visit.end = s.timestamp

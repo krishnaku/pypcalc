@@ -112,8 +112,8 @@ def test_request_response_is_logged(sim):
     assert logs.has_length(2)
 
     # There should be two signals: 1 request A->B, 1 response B->A
-    assert logs.contains_signal("request",source='B', target='A', count=1)
-    assert logs.contains_signal("response", source='A', target='B', count=1)
+    assert logs.contains_event("request", source='B', target='A', count=1)
+    assert logs.contains_event("response", source='A', target='B', count=1)
 
 
 def test_concurrency_tracking(sim):

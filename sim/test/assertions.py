@@ -57,11 +57,11 @@ class SignalLogAssertion:
         return self
 
     # note: tests look up everything by name of the entities.
-    def contains_signal(self, signal_type: str, source: str = None, target: str = None, count: int = None) -> SignalLogAssertion:
+    def contains_event(self, event_type: str, source: str = None, target: str = None, count: int = None) -> SignalLogAssertion:
         if self.df is None:
             self.df = self.log.as_polars()
 
-        filtered = self.df.filter(pl.col("signal") == signal_type)
+        filtered = self.df.filter(pl.col("event_type") == event_type)
 
         if source is not None:
             filtered = filtered.filter(pl.col("source_id") == self._lookup_entity_id(source))
@@ -71,10 +71,10 @@ class SignalLogAssertion:
 
         if count is not None:
             assert filtered.height == count, \
-                f"Expected {count} '{signal_type}' signals (source={source}, target={target}), got {filtered.height}"
+                f"Expected {count} '{event_type}' signals (source={source}, target={target}), got {filtered.height}"
         else:
             assert filtered.height > 0, \
-                f"No signals of type '{signal_type}' (source={source}, target={target}) found"
+                f"No signals of type '{event_type}' (source={source}, target={target}) found"
 
         return self
 
@@ -101,8 +101,8 @@ class SignalAssertion:
         self.signal = signal
 
     def has_type(self, expected: str) -> SignalAssertion:
-        assert self.signal.signal_type == expected, \
-            f"Expected signal_type '{expected}', got '{self.signal.signal_type}'"
+        assert self.signal.event_type == expected, \
+            f"Expected signal_type '{expected}', got '{self.signal.event_type}'"
         return self
 
     def has_source(self, expected: str) -> SignalAssertion:
@@ -141,7 +141,7 @@ class SignalAssertion:
 
     def describe(self):
         return {
-            "type": self.signal.signal_type,
+            "type": self.signal.event_type,
             "source": self.signal.source_id,
             "target": self.signal.target_id,
             "signal": self.signal.signal_id,
