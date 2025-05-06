@@ -6,27 +6,24 @@
 # confidential.
 
 # Author: Krishna Kumar
+from __future__ import annotations
 
-from abc import abstractmethod
-from typing import Dict, Any, Set, Protocol
+from typing import List, Protocol, TYPE_CHECKING
 
-from .signal_log import SignalLog, SignalEventListener, SignalEvent
+from .presence_matrix import Visit, PresenceMatrix
 
+if TYPE_CHECKING:
+    pass
+
+from .signal_log import SignalLog
 from .entity import Entity
 
-class Boundary(Entity, SignalEventListener, Protocol):
+class Boundary(Entity, Protocol):
 
     @property
-    def signal_history(self) -> SignalLog:...
+    def signal_log(self) -> SignalLog:...
 
-    @property
-    def population(self) -> int: ...
+    def get_presence_matrix(self, start_time: float, end_time: float, bin_width: float) -> PresenceMatrix:...
 
-    @property
-    def tenants(self) -> Set[str]:...
-
-
-    def on_signal_event(self, event: SignalEvent) -> None:
-        pass
 
 
