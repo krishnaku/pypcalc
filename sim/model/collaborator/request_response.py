@@ -13,14 +13,14 @@ from typing import Generator, Dict, Any, Optional
 
 import simpy
 
-from sim.model.collaborator.collaborator import Collaborator, Request, Response
+from sim.model.collaborator.base import CollaboratorBase, Request, Response
 from sim.model.delay import DelayBehavior, delay_behavior_registry
 from sim.runtime.simulation import Simulation
 from misc.collection_utils import without_keys
 from .registry import collaborator_registry
 
 @collaborator_registry.register("Requestor")
-class Requestor(Collaborator):
+class Requestor(CollaboratorBase):
     def __init__(self, name: str, sim_context: Simulation, delay_behavior: Dict[str,Any]=None,  **kwargs):
         super().__init__(name, sim_context, delay_behavior=delay_behavior, **kwargs)
         self.counter: int = 0
@@ -56,7 +56,7 @@ class Requestor(Collaborator):
 
 
 @collaborator_registry.register("Responder")
-class Responder(Collaborator):
+class Responder(CollaboratorBase):
     def __init__(self, name: str, sim_context: Simulation, concurrency=None, delay_behavior:Dict[str,Any] = None, **kwargs):
         super().__init__(name, sim_context, concurrency=concurrency, delay_behavior=delay_behavior, **kwargs)
         self.counter: int = 0

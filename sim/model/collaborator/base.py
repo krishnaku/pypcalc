@@ -35,7 +35,7 @@ class Response(Signal):
             transaction=signal.transaction
         )
         
-class Collaborator(EntityBase, ABC):
+class CollaboratorBase(EntityBase, ABC):
     def __init__(self, name:str, sim_context: Simulation, concurrency=None, **kwargs):
         super().__init__(name, sim_context, concurrency=concurrency, **kwargs)
         self.inbox = sim_context.get_store()
@@ -46,7 +46,7 @@ class Collaborator(EntityBase, ABC):
         self.peer = None
 
 
-    def set_peer(self, peer: Collaborator):
+    def set_peer(self, peer: CollaboratorBase):
         self.peer = peer
         peer.peer = self
 

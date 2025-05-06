@@ -8,6 +8,6 @@
 
 # Author: Krishna Kumar
 from core import Registry
-from .collaborator import Collaborator
+from .base import CollaboratorBase
 
-collaborator_registry: Registry[Collaborator] = Registry()
+collaborator_registry: Registry[CollaboratorBase] = Registry()

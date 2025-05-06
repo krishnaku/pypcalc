@@ -11,7 +11,7 @@ from typing import Dict, Any
 
 import networkx as nx
 
-from sim.model.collaborator import Collaborator, collaborator_registry
+from sim.model.collaborator import CollaboratorBase, collaborator_registry
 from sim.runtime.simulation import Simulation
 from misc.collection_utils import without_keys
 
@@ -32,7 +32,7 @@ class NetworkSimulation(Simulation):
         )
         self.network: nx.DiGraph = network
         self.config: Dict[str, Dict[str, Any]] = {}
-        self.collaborators: Dict[str, Collaborator] = {}
+        self.collaborators: Dict[str, CollaboratorBase] = {}
 
     def load_node_config(self, node: str, defaults: dict[str, Any] = None) -> dict[str, Any]:
         config = dict(self.network.nodes[node])

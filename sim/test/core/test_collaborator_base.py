@@ -11,10 +11,10 @@
 import pytest
 from sim.test.mocks import MockSimulation
 from sim.test.assertions import sim_log, SignalAssertion, SignalLogAssertion
-from sim.model.collaborator.collaborator import Collaborator, Request, Response
+from sim.model.collaborator.base import CollaboratorBase, Request, Response
 
 
-class MockCollaborator(Collaborator):
+class MockCollaborator(CollaboratorBase):
     def __init__(self, name, sim_context, concurrency=None):
         super().__init__(name, sim_context, concurrency)
         self.received_requests = []

@@ -7,7 +7,7 @@
 # confidential.
 
 # Author: Krishna Kumar
-from .collaborator import Collaborator
+from .base import CollaboratorBase
 from .registry import collaborator_registry
 
 # Force import to trigger registration of concrete classes in registry
@@ -16,7 +16,7 @@ import sim.model.collaborator.request_response
 from .request_response import Request, Response, Responder, Requestor
 
 __all__ = [
-    'Collaborator',
+    'CollaboratorBase',
     "collaborator_registry",
     "Request",
     "Response",
