@@ -57,9 +57,11 @@ class SignalEvent:
             "tags": self.tags,
         }
 
+
 class SignalEventListener(Protocol):
 
-    def on_signal_event(self, event: SignalEvent) -> None:...
+    def on_signal_event(self, event: SignalEvent) -> None: ...
+
 
 class SignalLog:
     def __init__(self):
@@ -124,12 +126,12 @@ class SignalLog:
         return self._entities.items()
 
     # Transformations
-    def as_polars(self):
+    def as_polars(self, with_entity_attributes=False, with_signal_attributes=False):
         if not self._signal_events:
             return
         batch = [sig.as_dict() for sig in self._signal_events]
-        df = pl.DataFrame(
-            schema={
+        df = pl.DataFrame(batch).cast(
+            dtypes={
                 "source_id": pl.Utf8,
                 "timestamp": pl.Float64,
                 "event_type": pl.Utf8,
@@ -137,8 +139,35 @@ class SignalLog:
                 "signal_id": pl.Utf8,
                 "target_id": pl.Utf8,
                 "tags": pl.Object,
-            })
-        return df.vstack(pl.DataFrame(batch))
+            }
+        )
+
+        columns = []
+
+        if with_entity_attributes:
+            columns += [
+                pl.col("source_id").map_elements(
+                    lambda sid: self.entity(sid).name
+                ).alias("source_name"),
+                pl.col("target_id").map_elements(
+                    lambda tid: self.entity(tid).name
+                ).alias("target_name"),
+            ]
+
+        if with_signal_attributes:
+            columns += [
+                pl.col("signal_id").map_elements(
+                    lambda sid: self.signal(sid).name
+                ).alias("signal_name"),
+                pl.col("signal_id").map_elements(
+                    lambda sid: self.signal(sid).signal_type
+                ).alias("signal_type"),
+            ]
+
+        if columns:
+            df = df.with_columns(columns)
+
+        return df
 
     def summarize(self, output: Literal["str", "dict"] = "str") -> Union[str, Dict[str, Union[int, float, str]]]:
         df = self.as_polars()
@@ -237,7 +266,7 @@ class SignalLog:
     def display(self):
         summary = self.summarize()
         details = "\n".join([
-            f"{sig.timestamp:.3f}: {sig.event_type}: {sig.source.name} -> {sig.target.name if sig.target is not None else None} :: {sig.signal.name} ({sig.transaction.id[-8:] if sig.transaction else ' '})"
+            f"{sig.timestamp:.3f}: {sig.event_type}: {sig.source.name} , {sig.target.name if sig.target is not None else None} :: {sig.signal.signal_type} {sig.signal.name} ({sig.transaction.id[-8:] if sig.transaction else ' '})"
             for sig in self._signal_events
         ])
         return f"{summary}\n-------Detailed Log-----------\n{details}"

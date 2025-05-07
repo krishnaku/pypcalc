@@ -109,11 +109,12 @@ def test_request_response_is_logged(sim):
 
     # Inspect the signal log
     logs: SignalLogAssertion = sim_log(sim).latest_log()
-    assert logs.has_length(2)
+    assert logs.has_length(3)
 
-    # There should be two signals: 1 request A->B, 1 response B->A
-    assert logs.contains_event("request", source='B', target='A', count=1)
-    assert logs.contains_event("response", source='A', target='B', count=1)
+    # Collaboration protocol
+    assert logs.contains_event( signal_type="request", signal_name="req-1",  event_type="send", source='B', target='A', count=1)
+    assert logs.contains_event( signal_type="request", signal_name="req-1", event_type="receive", source='A', target='B', count=1)
+    assert logs.contains_event( signal_type="response", signal_name="req-1",  event_type="send", source='A', target='B', count=1)
 
 
 def test_concurrency_tracking(sim):

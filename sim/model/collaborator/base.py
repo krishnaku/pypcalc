@@ -57,7 +57,7 @@ class CollaboratorBase(EntityBase, ABC):
     def send(self, signal: Request|Response) -> None:
         log.debug(f"[{self.name} @ t={self.sim_context.now}] send → {self.peer.name}: {signal.name}")
         self.sim_context.record_signal(
-            event_type="request",
+            event_type="send",
             source=self,
             target=self.peer,
             signal=signal,
@@ -74,6 +74,14 @@ class CollaboratorBase(EntityBase, ABC):
             while self.inbox.items:
                 log.debug(f"[{self.name} @ t={self.sim_context.now}] draining inbox (size={len(self.inbox.items)})")
                 signal = self.inbox.items.pop(0)
+
+                self.sim_context.record_signal(
+                    event_type="receive",
+                    source=self,
+                    target=self.peer,
+                    signal=signal,
+                    timestamp=self.sim_context.now
+                )
 
                 if signal.signal_type == "request":
                     self.signals_in_process += 1
@@ -106,7 +114,7 @@ class CollaboratorBase(EntityBase, ABC):
         yield self.sim_context.timeout(0)
         response = Response(signal)
         self.sim_context.record_signal(
-            event_type="response",
+            event_type="send",
             source=self,
             target=self.peer,
             signal=response,

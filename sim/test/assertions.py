@@ -46,32 +46,33 @@ class SignalLogAssertion:
         self.log = log
         self.df: Optional[pl.DataFrame] = None
 
-    def _lookup_entity_id(self, source_name: str) -> Optional[str]:
-        for id, entity in self.log.entities:
-            if entity.name == source_name:
-                return id
-
     def has_length(self, expected: int) -> SignalLogAssertion:
         actual = len(self.log.signal_events)
         assert actual == expected, f"Expected {expected} signals, got {actual}"
         return self
 
     # note: tests look up everything by name of the entities.
-    def contains_event(self, event_type: str, source: str = None, target: str = None, count: int = None) -> SignalLogAssertion:
+    def contains_event(self, event_type: str, source: str = None, target: str = None, signal_type=None, signal_name=None, count: int = None) -> SignalLogAssertion:
         if self.df is None:
-            self.df = self.log.as_polars()
+            self.df = self.log.as_polars(with_signal_attributes=True, with_entity_attributes=True)
 
         filtered = self.df.filter(pl.col("event_type") == event_type)
 
         if source is not None:
-            filtered = filtered.filter(pl.col("source_id") == self._lookup_entity_id(source))
+            filtered = filtered.filter(pl.col("source_name") == source)
 
         if target is not None:
-            filtered = filtered.filter(pl.col("target_id") == self._lookup_entity_id(target))
+            filtered = filtered.filter(pl.col("target_name") == target)
+
+        if signal_type is not None:
+            filtered = filtered.filter(pl.col("signal_type") == signal_type)
+
+        if signal_name is not None:
+            filtered = filtered.filter(pl.col("signal_name") == signal_name)
 
         if count is not None:
             assert filtered.height == count, \
-                f"Expected {count} '{event_type}' signals (source={source}, target={target}), got {filtered.height}"
+                f"Expected {count} '{event_type}' signals (source={source}, target={target}), got {filtered.height}: \n {filtered}"
         else:
             assert filtered.height > 0, \
                 f"No signals of type '{event_type}' (source={source}, target={target}) found"
