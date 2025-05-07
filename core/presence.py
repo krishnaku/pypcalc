@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 from typing import List, Optional
 
 import numpy as np
-
+from core import Signal
 
 @dataclass
 class Visit:
@@ -23,8 +23,8 @@ class Visit:
     Visits.
     """
 
-    signal_id: str
-    """The ID of the signal this visit corresponds to."""
+    signal: Signal
+    """The signal this visit corresponds to."""
 
     start: float
     """Start time of the visit interval."""

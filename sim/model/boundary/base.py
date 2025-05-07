@@ -56,7 +56,7 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
 
         for s in signals:
             if s.event_type == enter_event:
-                visit = Visit(signal_id=s.signal_id, start=s.timestamp, end=np.inf)
+                visit = Visit(signal=s, start=s.timestamp, end=np.inf)
                 open_visits[s.signal_id] = visit
 
                 # Track visit if it starts within window
@@ -75,7 +75,7 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
                         signal_visits[s.signal_id].append(visit)
                 else:
                     # Exit without entry: assume it was open from time 0
-                    visit = Visit(signal_id=s.signal_id, start=0, end=s.timestamp)
+                    visit = Visit(signal=s, start=0, end=s.timestamp)
                     if s.timestamp >= t0:
                         visits.append(visit)
                         signal_visits[s.signal_id].append(visit)
