@@ -1,4 +1,4 @@
-
+import numpy as np
 import pytest
 from typing import Optional, Dict, Any
 from dataclasses import dataclass
@@ -50,14 +50,15 @@ def test_as_polars_basic():
     log = create_mock_signal_log()
     df = log.as_polars()
     assert df.shape[0] == 4
-    assert "source_id" in df.columns
+    assert df.columns == ['source_id', 'timestamp', 'event_type', 'transaction_id', 'signal_id', 'target_id', 'tags']
 
 def test_as_polars_with_entity_and_signal_attrs():
     log = create_mock_signal_log()
     df = log.as_polars(with_entity_attributes=True, with_signal_attributes=True)
-    assert "source_name" in df.columns
-    assert "signal_name" in df.columns
-    assert df["source_name"].unique().to_list() == ["Source", "Target"]
+    for column in ['source_name', 'target_name', 'signal_name', 'signal_type']:
+        assert column in df.columns
+
+    assert set(df["source_name"].unique().to_list()) == {"Source", "Target"}
 
 def test_summarize_str_output():
     log = create_mock_signal_log()
