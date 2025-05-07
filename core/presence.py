@@ -128,7 +128,9 @@ class PresenceMatrix:
         num_bins = len(time_bins) - 1
         num_rows = len(visits)
 
-        presence = np.zeros((num_rows, num_bins), dtype=int)
+        # we use float here because a presence matrix in general can be
+        # transformed by arbitrary presence functions.
+        presence = np.zeros((num_rows, num_bins), dtype=float)
 
         for i, visit in enumerate(visits):
             visit.presence_row = i
