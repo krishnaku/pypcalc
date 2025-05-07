@@ -18,11 +18,11 @@ from sim.runtime.simulation import Simulation
 log = logging.getLogger(__name__)
 
 class Request(Signal):
-    def __init__(self, name:str, metadata: Dict[str, Any]=None, transaction: Optional[Transaction]=None) -> None:
+    def __init__(self, name:str, payload: Dict[str, Any]=None, transaction: Optional[Transaction]=None) -> None:
         super().__init__(
             name, 
             signal_type="request",
-            metadata=metadata,
+            payload=payload,
             transaction=transaction or Transaction()
         )
 
@@ -31,7 +31,7 @@ class Response(Signal):
         super().__init__(
             signal.name,
             signal_type="response",
-            metadata=signal.payload,
+            payload=signal.payload,
             transaction=signal.transaction
         )
         

@@ -9,14 +9,52 @@
 # Author: Krishna Kumar
 from typing import Protocol, Dict, Any
 
+""""""
+from typing import Protocol, Dict, Any
+
 class Entity(Protocol):
-    """Marker protocol for a concrete system component."""
-    @property
-    def id(self) -> str:...
+    """
+    Marker protocol for actants in the system.
+
+    An `Entity` is any named participant in a system that can emit or receive signals.
+    This protocol defines the minimal interface required for an object to be treated as an entity:
+    a stable identifier, a human-readable name, and optional metadata.
+
+    This abstraction is useful for modeling agents, nodes, resources, devices, constraints or participants in a networked or simulated system.
+
+    ### Example
+
+    ```python
+    class User(Entity):
+        def __init__(self, user_id: str, name: str):
+            self._id = user_id
+            self._name = name
+
+        @property
+        def id(self) -> str:
+            return self._id
+
+        @property
+        def name(self) -> str:
+            return self._name
+
+        @property
+        def metadata(self) -> Dict[str, Any]:
+            return {"role": "user"}
+    ```
+    """
 
     @property
-    def name(self) -> str:...
-
+    def id(self) -> str:
+        """A stable unique identifier for the entity (used for indexing and lookup)."""
+        ...
 
     @property
-    def metadata(self) -> Dict[str, Any]: ...
+    def name(self) -> str:
+        """A human-readable name for display or debugging."""
+        ...
+
+    @property
+    def metadata(self) -> Dict[str, Any]:
+        """Optional key-value metadata associated with the entity."""
+        ...

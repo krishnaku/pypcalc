@@ -17,7 +17,7 @@ import numpy as np
 
 from core import Boundary, SignalEvent, Signal
 from core.signal_log import  SignalLog, SignalEventListener
-from core.presence_matrix import Visit, PresenceMatrix
+from core.presence import Visit, PresenceMatrix
 from sim.runtime.simulation import Simulation
 
 class BoundaryBase(Boundary, SignalEventListener, ABC):

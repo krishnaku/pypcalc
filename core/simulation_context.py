@@ -16,26 +16,103 @@ from .signal import Signal
 from .transaction import Transaction
 from .boundary import Boundary
 from .signal_log import SignalEvent, SignalLog, SignalEventListener
-
+from .entity import Entity
 
 class SimulationContext(Protocol):
-    from .entity import Entity
+    """
+    Abstract interface for interacting with the simulation runtime.
 
-    # -------- Accessors-------------------------
-    def entities(self, name: str) -> List[Entity]:...
+    A `SimulationContext` provides all entities in the system with access to simulation-wide state including other
+    entities, signals, transactions, and boundaries. It also exposes methods for recording signal events and
+    subscribing to changes in the system's execution history. All entities in the simulation use the global signal logs
+    in the SimulationContext to record :class: `SignalEvents`.
 
-    def signals(self, name: str) -> List[Signal]:...
+    Other classes such as boundaries also maintain signal logs, but they are expected to register for SignalEvents with
+    the global signal log.
 
-    def transactions(self, name: str) -> List[Transaction]:...
+    Concrete simulation classes are expected to implement this interface to support analysis,
+    monitoring, and coordination across subsystems. See :class:`sim.runtime.Simulation` for a concrete
+    implementation.
 
-    def boundaries(self, name: str) -> List[Boundary]:...
+    ### Example
 
-    # --------Signal Interface ------------------
-    def record_signal(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None,
-                      target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:...
+    ```python
+    class MySim(SimulationContext):
+        def entities(self, name: str) -> List[Entity]:
+            return self.entity_registry.get(name, [])
 
-    def register_listener(self, listener: SignalEventListener) -> None:...
+        def record_signal(self, source, timestamp, signal_type, signal, transaction=None, target=None, tags=None):
+            return self.signal_log.record(source, timestamp, signal_type, signal, transaction, target, tags)
+
+        @property
+        def all_logs(self) -> List[SignalLog]:
+            return [self.signal_log]
+    ```
+    """
+
+
+
+    # -------- Accessors -------------------------
+
+    def entities(self, name: str) -> List[Entity]:
+        """Return a list of `Entity` objects with the given name (or matching key)."""
+        ...
+
+    def signals(self, name: str) -> List[Signal]:
+        """Return a list of `Signal` instances with the given name (or type label)."""
+        ...
+
+    def transactions(self, name: str) -> List[Transaction]:
+        """Return a list of `Transaction` objects with the given ID or tag."""
+        ...
+
+    def boundaries(self, name: str) -> List[Boundary]:
+        """Return a list of `Boundary` instances matching the provided name or identifier."""
+        ...
+
+    # -------- Signal Interface ------------------
+
+    def record_signal(
+        self,
+        source: Entity,
+        timestamp: float,
+        signal_type: str,
+        signal: Signal,
+        transaction: Optional[Transaction] = None,
+        target: Optional[Entity] = None,
+        tags: Optional[Dict[str, Any]] = None
+    ) -> SignalEvent:
+        """
+        Record a signal event in the simulation.
+
+        Args:
+            source: The entity emitting or processing the signal.
+            timestamp: The time at which the event occurred.
+            signal_type: The type of event (e.g., 'send', 'receive').
+            signal: The signal being recorded.
+            transaction: Optional transaction context.
+            target: Optional receiving entity.
+            tags: Optional metadata tags.
+
+        Returns:
+            The created `SignalEvent` instance.
+        """
+        ...
+
+    def register_listener(self, listener: SignalEventListener) -> None:
+        """
+        Register a listener that will be notified when a new signal event is recorded.
+
+        Args:
+            listener: An object implementing the `SignalEventListener` protocol.
+        """
+        ...
 
     @property
-    def all_logs(self) -> List[SignalLog]:...
-    """Read access to signal logs is via the all_logs property."""
+    def all_logs(self) -> List[SignalLog]:
+        """
+        Access the complete set of `SignalLog` instances tracked by the simulation.
+
+        This includes logs from all boundaries or subsystems that emit signals.
+        """
+        ...
