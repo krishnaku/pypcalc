@@ -24,7 +24,7 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
     def __init__(self, kind, name, enter_event: str, exit_event: str, config: Dict[str,Any], sim_context: Simulation, id:Optional[str]=None ):
         super().__init__(kind, name, config, sim_context, id)
 
-        self._signal_log: Timeline = Timeline()
+        self._timeline: Timeline = Timeline()
         self._sim_context = sim_context
         self._enter_event = enter_event
         self._exit_event = exit_event
@@ -33,7 +33,7 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
 
     @property
     def timeline(self) -> Timeline:
-        return self._signal_log
+        return self._timeline
 
     def get_presence_matrix(self, start_time: float, end_time: float, bin_width: float, match: Optional[Callable[[SignalEvent], bool]] = None) -> PresenceMatrix:
         presences = self.extract_presences(start_time, end_time, match)

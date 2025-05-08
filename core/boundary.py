@@ -41,7 +41,7 @@ class Boundary(Entity, Protocol):
     While the mechanism for defining the partition is context-specific and implemented by concrete classes, the behavior
     of a boundary is formally expressed as protocol - a mapping from a `SignalLog` to a `PresenceMatrix`.
 
-    Given a sequence of point-in-time `core.signal_log.SignalEvent` records in  `core.signal_log.SignalLog` and a finite observation window,
+    Given a sequence of point-in-time `core.timeline.SignalEvent` records in  `core.timeline.SignalLog` and a finite observation window,
     a boundary produces a boolean `core.presence.PresenceMatrix` that records continuous intervals during which a signal is
     considered present within the boundary.
 

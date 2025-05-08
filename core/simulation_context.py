@@ -42,11 +42,11 @@ class SimulationContext(Protocol):
             return self.entity_registry.get(name, [])
 
         def record_signal(self, source, timestamp, signal_type, signal, transaction=None, target=None, tags=None):
-            return self.signal_log.record(source, timestamp, signal_type, signal, transaction, target, tags)
+            return self.timeline.record(source, timestamp, signal_type, signal, transaction, target, tags)
 
         @property
         def all_logs(self) -> List[SignalLog]:
-            return [self.signal_log]
+            return [self.timeline]
     ```
     """
 

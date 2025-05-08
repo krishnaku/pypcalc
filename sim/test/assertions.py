@@ -37,7 +37,7 @@ class SimulationLogAssertion:
         return True  # all prior assertions passed, object is valid
 
 
-def signal_log(log: Timeline) -> SignalLogAssertion:
+def timeline(log: Timeline) -> SignalLogAssertion:
     return SignalLogAssertion(log)
 
 

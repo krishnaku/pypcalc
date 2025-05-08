@@ -55,7 +55,7 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
     def __init__(self, until=30, runs=1, realtime_factor: float = None):
 
         # Signal management parameters
-        self._signal_log = None
+        self._timeline = None
         # preserve separate signal logs per simulation run
         self._all_logs: List[Timeline] = []
         self._signal_listeners: List[SignalEventListener] = []
@@ -81,13 +81,13 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         else:
             self._env = simpy.Environment()
 
-        self.reset_signal_log()
+        self.reset_timeline()
 
-    def reset_signal_log(self):
-        if self._signal_log is not None:
-            self._all_logs.append(self._signal_log)
+    def reset_timeline(self):
+        if self._timeline is not None:
+            self._all_logs.append(self._timeline)
 
-        self._signal_log = Timeline()
+        self._timeline = Timeline()
 
     @abstractmethod
     def bind_environment(self):
@@ -134,7 +134,7 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
     def record_signal(self, source: Entity, timestamp: float, event_type: str, signal: Signal, transaction=None,
                       target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         """Write access to the global signal log is via this method."""
-        signal:SignalEvent =  self._signal_log.record(
+        signal:SignalEvent =  self._timeline.record(
             source=source,
             timestamp=timestamp,
             event_type=event_type,
@@ -155,7 +155,7 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
     @property
     def all_logs(self) -> List[Timeline]:
         """Read access to signal logs is via the all_logs property."""
-        return self._all_logs + ([self._signal_log] if self._signal_log and self.current_run < self.runs  else [])
+        return self._all_logs + ([self._timeline] if self._timeline and self.current_run < self.runs  else [])
 
     @property
     def latest_log(self) -> Timeline:

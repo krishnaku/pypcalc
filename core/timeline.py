@@ -79,7 +79,7 @@ class SignalEvent:
         return self.timeline.transaction(self.transaction_id)
 
     def as_dict(self) -> dict:
-        """Convert the event into a serializable dictionary (excluding signal_log)."""
+        """Convert the event into a serializable dictionary (excluding timeline)."""
         return {
             "source_id": self.source_id,
             "timestamp": float(self.timestamp),
