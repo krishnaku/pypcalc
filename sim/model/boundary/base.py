@@ -16,7 +16,7 @@ from collections import defaultdict
 import numpy as np
 
 from core import Boundary, SignalEvent, Signal
-from core.signal_log import  SignalLog, SignalEventListener
+from core.signal_log import  Timeline, SignalEventListener
 from core.presence import Presence, PresenceMatrix
 from sim.runtime.simulation import Simulation
 
@@ -24,7 +24,7 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
     def __init__(self, kind, name, enter_event: str, exit_event: str, config: Dict[str,Any], sim_context: Simulation, id:Optional[str]=None ):
         super().__init__(kind, name, config, sim_context, id)
 
-        self._signal_log: SignalLog = SignalLog()
+        self._signal_log: Timeline = Timeline()
         self._sim_context = sim_context
         self._enter_event = enter_event
         self._exit_event = exit_event
@@ -32,7 +32,7 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
         self._sim_context.register_listener(self)
 
     @property
-    def signal_log(self) -> SignalLog:
+    def signal_log(self) -> Timeline:
         return self._signal_log
 
     def get_presence_matrix(self, start_time: float, end_time: float, bin_width: float, match: Optional[Callable[[SignalEvent], bool]] = None) -> PresenceMatrix:

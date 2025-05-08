@@ -15,7 +15,7 @@ from .presence import Presence, PresenceMatrix
 if TYPE_CHECKING:
     pass
 
-from .signal_log import SignalLog, SignalEvent
+from .signal_log import Timeline, SignalEvent
 from .entity import Entity
 
 
@@ -55,7 +55,7 @@ class Boundary(Entity, Protocol):
     """
 
     @property
-    def signal_log(self) -> SignalLog:
+    def signal_log(self) -> Timeline:
         """The `SignalLog` associated with this boundary, capturing events that crossed it."""
         ...
 

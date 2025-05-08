@@ -52,7 +52,7 @@ class SignalEvent:
     tags: Optional[Dict[str, Any]] = None
     """Optional dictionary of additional metadata tags."""
 
-    signal_log: SignalLog = None
+    signal_log: Timeline = None
     """Back-reference to the log that recorded this event (used for resolving IDs)."""
 
     @property
@@ -96,7 +96,7 @@ class SignalEventListener(Protocol):
         ...
 
 
-class SignalLog:
+class Timeline:
     """Captures and manages all signal events emitted during simulation or execution."""
 
     def __init__(self):

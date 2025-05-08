@@ -15,7 +15,7 @@ from typing import List, Dict, Optional, Protocol, Any
 from .signal import Signal
 from .transaction import Transaction
 from .boundary import Boundary
-from .signal_log import SignalEvent, SignalLog, SignalEventListener
+from .signal_log import SignalEvent, Timeline, SignalEventListener
 from .entity import Entity
 
 class SimulationContext(Protocol):
@@ -109,7 +109,7 @@ class SimulationContext(Protocol):
         ...
 
     @property
-    def all_logs(self) -> List[SignalLog]:
+    def all_logs(self) -> List[Timeline]:
         """
         Access the complete set of `SignalLog` instances tracked by the simulation.
 

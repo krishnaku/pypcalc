@@ -5,14 +5,14 @@ from dataclasses import dataclass
 import polars as pl
 
 from core import Entity, Signal, Transaction
-from core.signal_log import SignalLog
+from core.signal_log import Timeline
 from sim.test.mocks import MockEntity, MockSimulation
 from core import Transaction
 
 
 def create_mock_signal_log():
 
-    log = SignalLog()
+    log = Timeline()
     sim = MockSimulation()
     e1 = MockEntity(id="E1", name="Source", sim_context=sim)
     e2 = MockEntity(id="E2", name="Target", sim_context=sim)
@@ -100,7 +100,7 @@ def test_display_formatting():
 
 def test_empty_log_summary_and_display():
 
-    log = SignalLog()
+    log = Timeline()
     assert log.summarize(output="dict")["log_entries"] == 0
     assert "No signals recorded" in log.summarize()
     assert "No signals recorded" in log.display()

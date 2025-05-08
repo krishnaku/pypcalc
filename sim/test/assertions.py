@@ -12,7 +12,7 @@ from typing import Optional
 import polars as pl
 from core import Entity
 
-from core.signal_log import SignalLog, SignalEvent
+from core.signal_log import Timeline, SignalEvent
 from sim.runtime.simulation import Simulation
 
 
@@ -37,12 +37,12 @@ class SimulationLogAssertion:
         return True  # all prior assertions passed, object is valid
 
 
-def signal_log(log: SignalLog) -> SignalLogAssertion:
+def signal_log(log: Timeline) -> SignalLogAssertion:
     return SignalLogAssertion(log)
 
 
 class SignalLogAssertion:
-    def __init__(self, log: SignalLog):
+    def __init__(self, log: Timeline):
         self.log = log
         self.df: Optional[pl.DataFrame] = None
 

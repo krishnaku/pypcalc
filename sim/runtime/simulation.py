@@ -16,7 +16,7 @@ from typing import List, Generator, Optional, Any, Protocol, Dict
 from simpy.events import Event, Timeout
 
 from core import Entity, Signal
-from core.signal_log import SignalEvent, SignalLog, SignalEventListener
+from core.signal_log import SignalEvent, Timeline, SignalEventListener
 from core.simulation_context import SimulationContext
 
 log = logging.getLogger(__name__)
@@ -57,7 +57,7 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         # Signal management parameters
         self._signal_log = None
         # preserve separate signal logs per simulation run
-        self._all_logs: List[SignalLog] = []
+        self._all_logs: List[Timeline] = []
         self._signal_listeners: List[SignalEventListener] = []
 
         # simpy proxy parameters
@@ -87,7 +87,7 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         if self._signal_log is not None:
             self._all_logs.append(self._signal_log)
 
-        self._signal_log = SignalLog()
+        self._signal_log = Timeline()
 
     @abstractmethod
     def bind_environment(self):
@@ -153,12 +153,12 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
 
 
     @property
-    def all_logs(self) -> List[SignalLog]:
+    def all_logs(self) -> List[Timeline]:
         """Read access to signal logs is via the all_logs property."""
         return self._all_logs + ([self._signal_log] if self._signal_log and self.current_run < self.runs  else [])
 
     @property
-    def latest_log(self) -> SignalLog:
+    def latest_log(self) -> Timeline:
         """Access the latest signal log across runs."""
         return self.all_logs[-1] if len(self.all_logs) > 0 else None
 
