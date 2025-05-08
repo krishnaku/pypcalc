@@ -40,56 +40,45 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
         return PresenceMatrix(visits=visits,t0=start_time, t1=end_time, bin_width=bin_width)
 
     def extract_visits(self, t0, t1, match: Optional[Callable[[SignalEvent], bool]] = None) -> List[Visit]:
-        signals = self.signal_log.signal_events
+        signal_events = self.signal_log.signal_events
         enter_event = self._enter_event
         exit_event = self._exit_event
 
         if match is not None:
-             signals = filter(match, signals)
+             signal_events = filter(match, signal_events)
 
-        signals = sorted(signals, key=lambda s: s.timestamp)
+        signal_events = sorted(signal_events, key=lambda s: s.timestamp)
 
         visits: List[Visit] = []
-        signal_visits: Dict[str, List[Visit]] = defaultdict(list)
         open_visits: Dict[str, Visit] = {}
 
-
-        for s in signals:
-            if s.event_type == enter_event:
-                visit = Visit(signal=s, start=s.timestamp, end=np.inf)
-                open_visits[s.signal_id] = visit
-
-                # Track visit if it starts within window
-                if t0 <= s.timestamp <= t1:
-                    visits.append(visit)
-                    signal_visits[s.signal_id].append(visit)
-
-            elif s.event_type == exit_event:
-                visit = open_visits.pop(s.signal_id, None)
-                if visit:
-                    visit.end = s.timestamp
-
-                    # If it ends within window, include it
-                    if visit.start < t1 and s.timestamp >= t0:
-                        visits.append(visit)
-                        signal_visits[s.signal_id].append(visit)
-                else:
-                    # Exit without entry: assume it was open from time 0
-                    visit = Visit(signal=s, start=0, end=s.timestamp)
-                    if s.timestamp >= t0:
-                        visits.append(visit)
-                        signal_visits[s.signal_id].append(visit)
-
+        for e in signal_events:
             # Once we hit t1, we don't care about later events
-            if s.timestamp > t1:
+            if e.timestamp > t1:
                 break
 
-        # After scan, extract visits open at t0 (entered before t0, not exited)
+            if e.event_type == enter_event:
+                # clip the visit so that it never starts before t0.
+                visit = Visit(signal=e.signal, start=max(e.timestamp,t0), end=np.inf)
+                open_visits[e.signal_id] = visit
+
+            elif e.event_type == exit_event:
+                visit = open_visits.pop(e.signal_id, None)
+                if visit:
+                    visit.end = e.timestamp
+                    # If it ends within window, include it
+                    if visit.end >= t0:
+                        visits.append(visit)
+                else:
+                    # Exit without entry: assume it was open from time t0
+                    visit = Visit(signal=e.signal, start=t0, end=e.timestamp)
+                    visits.append(visit)
+
+        # After scan, extract visits open at t0 but not exited
         for sid, visit in open_visits.items():
-            if visit.start < t0:
-                # Also record the open visit for presence accounting
-                visits.append(visit)
-                signal_visits[sid].append(visit)
+            # clip the visit to end at t1.
+            visit.end = t1
+            visits.append(visit)
 
         return visits
 
