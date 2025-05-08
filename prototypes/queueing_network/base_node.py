@@ -13,7 +13,7 @@ from typing import Dict, Any, Generator
 from sim.model.signal.signal import Signal
 
 from core.boundary import Boundary
-from core.simulation_context import DomainModel
+from core.domain import DomainModel
 
 class Node(ABC):
     def __init__(self, name: str, config: Dict[str, Any], sim_context: DomainModel) -> None:

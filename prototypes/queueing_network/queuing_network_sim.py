@@ -2,7 +2,7 @@ import simpy
 import uuid
 import networkx as nx
 from typing import Dict
-from core.simulation_context import DomainModel
+from core.domain import DomainModel
 from prototypes.queueing_network.signal_history import SignalHistory
 from prototypes.queueing_network.base_node import Node
 from prototypes.queueing_network.network_node import NetworkNode, node_registry

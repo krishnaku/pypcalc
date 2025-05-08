@@ -4,7 +4,7 @@ from typing import Dict, Any
 import simpy
 
 from prototypes.queueing_network.base_node import NonBlockingService, BlockingService
-from core.simulation_context import DomainModel
+from core.domain import DomainModel
 
 
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved

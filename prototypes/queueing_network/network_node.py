@@ -14,7 +14,7 @@ from core.registry import Registry
 from prototypes.queueing_network.base_node import Node
 from core.boundary import Boundary
 from prototypes.queueing_network.routing import RoutingMixin, router_registry
-from core.simulation_context import DomainModel
+from core.domain import DomainModel
 
 from prototypes.queueing_network.delay_node import BlockingDelay, PureDelay
 

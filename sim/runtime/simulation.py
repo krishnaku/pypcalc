@@ -17,7 +17,7 @@ from simpy.events import Event, Timeout
 
 from core import Entity, Signal
 from core.timeline import DomainEvent, Timeline, SignalEventListener
-from core.simulation_context import DomainModel
+from core.domain import DomainModel
 
 log = logging.getLogger(__name__)
 
