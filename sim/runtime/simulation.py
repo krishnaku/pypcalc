@@ -16,7 +16,7 @@ from typing import List, Generator, Optional, Any, Protocol, Dict
 from simpy.events import Event, Timeout
 
 from core import Entity, Signal
-from core.timeline import SignalEvent, Timeline, SignalEventListener
+from core.timeline import DomainEvent, Timeline, SignalEventListener
 from core.simulation_context import SimulationContext
 
 log = logging.getLogger(__name__)
@@ -33,11 +33,11 @@ class SimpyProxy(Protocol):
     """Start a new process from a generator."""
 
 
-    def event(self) -> SignalEvent:...
+    def event(self) -> DomainEvent:...
     """Create a new, untriggered event."""
 
 
-    def schedule(self, event: SignalEvent, delay: float = 0) -> None:...
+    def schedule(self, event: DomainEvent, delay: float = 0) -> None:...
     """Manually schedule an event after a delay."""
 
     def get_store(self) -> simpy.Store:...
@@ -132,9 +132,9 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         self._signal_listeners.append(listener)
 
     def record_signal(self, source: Entity, timestamp: float, event_type: str, signal: Signal, transaction=None,
-                      target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
+                      target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> DomainEvent:
         """Write access to the global signal log is via this method."""
-        signal:SignalEvent =  self._timeline.record(
+        signal:DomainEvent =  self._timeline.record(
             source=source,
             timestamp=timestamp,
             event_type=event_type,
@@ -146,7 +146,7 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         self.notify_listeners(signal)
         return signal
 
-    def notify_listeners(self, signal: SignalEvent) -> None:
+    def notify_listeners(self, signal: DomainEvent) -> None:
         for listener in self._signal_listeners:
             if signal.source != listener:
                 listener.on_signal_event(signal)
@@ -177,11 +177,11 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         """Start a new process from a generator."""
         return self._env.process(generator)
 
-    def event(self) -> SignalEvent:
+    def event(self) -> DomainEvent:
         """Create a new, un-triggered event."""
         return self._env.event()
 
-    def schedule(self, event: SignalEvent, delay: float = 0) -> None:
+    def schedule(self, event: DomainEvent, delay: float = 0) -> None:
         """Manually schedule an event after a delay."""
         self._env.schedule(event, delay=delay)
 

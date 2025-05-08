@@ -15,7 +15,7 @@ from typing import List, Dict, Optional, Protocol, Any
 from .signal import Signal
 from .transaction import Transaction
 from .boundary import Boundary
-from .timeline import SignalEvent, Timeline, SignalEventListener
+from .timeline import DomainEvent, Timeline, SignalEventListener
 from .entity import Entity
 
 class SimulationContext(Protocol):
@@ -81,7 +81,7 @@ class SimulationContext(Protocol):
         transaction: Optional[Transaction] = None,
         target: Optional[Entity] = None,
         tags: Optional[Dict[str, Any]] = None
-    ) -> SignalEvent:
+    ) -> DomainEvent:
         """
         Record a signal event in the simulation.
 

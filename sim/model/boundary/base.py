@@ -15,7 +15,7 @@ from collections import defaultdict
 
 import numpy as np
 
-from core import Boundary, SignalEvent, Signal
+from core import Boundary, DomainEvent, Signal
 from core.timeline import  Timeline, SignalEventListener
 from core.presence import Presence, PresenceMatrix
 from sim.runtime.simulation import Simulation
@@ -35,11 +35,11 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
     def timeline(self) -> Timeline:
         return self._timeline
 
-    def get_presence_matrix(self, start_time: float, end_time: float, bin_width: float, match: Optional[Callable[[SignalEvent], bool]] = None) -> PresenceMatrix:
+    def get_presence_matrix(self, start_time: float, end_time: float, bin_width: float, match: Optional[Callable[[DomainEvent], bool]] = None) -> PresenceMatrix:
         presences = self.extract_presences(start_time, end_time, match)
         return PresenceMatrix(presences=presences,t0=start_time, t1=end_time, bin_width=bin_width)
 
-    def extract_presences(self, t0, t1, match: Optional[Callable[[SignalEvent], bool]] = None) -> List[Presence]:
+    def extract_presences(self, t0, t1, match: Optional[Callable[[DomainEvent], bool]] = None) -> List[Presence]:
         signal_events = self.timeline.signal_events
         enter_event = self._enter_event
         exit_event = self._exit_event
@@ -85,4 +85,4 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
 
 
     @abstractmethod
-    def on_signal_event(self, event: SignalEvent) -> None:...
+    def on_signal_event(self, event: DomainEvent) -> None:...

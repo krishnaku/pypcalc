@@ -31,7 +31,7 @@ from .transaction import Transaction
 
 
 @dataclass(frozen=True)
-class SignalEvent:
+class DomainEvent:
     """A timestamped event representing the emission or receipt of a signal."""
 
     source_id: str
@@ -94,7 +94,7 @@ class SignalEvent:
 class SignalEventListener(Protocol):
     """Protocol for subscribers that react to new signal events."""
 
-    def on_signal_event(self, event: SignalEvent) -> None:
+    def on_signal_event(self, event: DomainEvent) -> None:
         """Called when a new `SignalEvent` is recorded."""
         ...
 
@@ -104,13 +104,13 @@ class Timeline:
 
     def __init__(self):
         """Initialize an empty signal log."""
-        self._signal_events: List[SignalEvent] = []
+        self._signal_events: List[DomainEvent] = []
         self._transactions: Dict[str, Transaction] = {}
         self._signals: Dict[str, Signal] = {}
         self._entities: Dict[str, Entity] = {}
 
     @property
-    def signal_events(self) -> List[SignalEvent]:
+    def signal_events(self) -> List[DomainEvent]:
         """Return the full list of recorded signal events."""
         return self._signal_events
 
@@ -131,7 +131,7 @@ class Timeline:
         return len(self.signal_events)
 
     def record(self, source: Entity, timestamp: float, event_type: str, signal: Signal, transaction=None,
-               target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
+               target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> DomainEvent:
         """Add a new signal event to the log and return it."""
         self._entities[source.id] = source
         self._signals[signal.id] = signal
@@ -141,7 +141,7 @@ class Timeline:
         if target is not None:
             self._entities[target.id] = target
 
-        signal_event = SignalEvent(
+        signal_event = DomainEvent(
             source_id=source.id,
             timestamp=timestamp,
             event_type=event_type,

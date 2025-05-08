@@ -13,5 +13,5 @@ from .transaction import Transaction
 from .affordances import Affordance
 from .behaviors import Behavior
 from .registry import Registry
-from .timeline import SignalEvent
+from .timeline import DomainEvent
 from .boundary import Boundary

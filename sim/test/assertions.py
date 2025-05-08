@@ -12,7 +12,7 @@ from typing import Optional
 import polars as pl
 from core import Entity
 
-from core.timeline import Timeline, SignalEvent
+from core.timeline import Timeline, DomainEvent
 from sim.runtime.simulation import Simulation
 
 
@@ -98,7 +98,7 @@ class SignalLogAssertion:
 
 
 class SignalAssertion:
-    def __init__(self, signal: SignalEvent):
+    def __init__(self, signal: DomainEvent):
         self.signal = signal
 
     def has_type(self, expected: str) -> SignalAssertion:
