@@ -18,9 +18,9 @@ from .boundary import Boundary
 from .timeline import DomainEvent, Timeline, SignalEventListener
 from .entity import Entity
 
-class SimulationContext(Protocol):
+class DomainModel(Protocol):
     """
-    Abstract interface for interacting with the simulation runtime.
+    Abstract interface for domain model.
 
     A `SimulationContext` provides all entities in the system with access to simulation-wide state including other
     entities, signals, transactions, and boundaries. It also exposes methods for recording signal events and
