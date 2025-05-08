@@ -30,7 +30,7 @@ from .signal import Signal
 from .transaction import Transaction
 
 
-@dataclass(frozen=True)
+@dataclass
 class DomainEvent:
     """A timestamped event representing the emission or receipt of a signal."""
 
