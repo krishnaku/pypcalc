@@ -22,22 +22,18 @@ class DomainModel(Protocol):
     """
     Abstract interface for domain model.
 
-    A `SimulationContext` provides all entities in the system with access to simulation-wide state including other
-    entities, signals, transactions, and boundaries. It also exposes methods for recording signal events and
-    subscribing to changes in the system's execution history. All entities in the simulation use the global signal logs
-    in the SimulationContext to record :class: `SignalEvents`.
+    A `DomainModel` is the global context of all entities, signals, transactions, and boundaries. It also exposes
+    methods for recording signal events and subscribing to changes in the domain's execution history.
+    All entities in the simulation use the global signal logs in the DomainModel to record `DomainEvents`.
 
-    Other classes such as boundaries also maintain signal logs, but they are expected to register for SignalEvents with
-    the global signal log.
-
-    Concrete simulation classes are expected to implement this interface to support analysis,
-    monitoring, and coordination across subsystems. See :class:`sim.runtime.Simulation` for a concrete
+    Concrete classes are expected to implement this interface to support simulation, analysis,
+    monitoring, and coordination across subdomains. See :class:`sim.runtime.Simulation` for a concrete
     implementation.
 
     ### Example
 
     ```python
-    class MySim(SimulationContext):
+    class MyDomain(DomainModel):
         def entities(self, name: str) -> List[Entity]:
             return self.entity_registry.get(name, [])
 
@@ -109,10 +105,10 @@ class DomainModel(Protocol):
         ...
 
     @property
-    def all_logs(self) -> List[Timeline]:
+    def all_timelines(self) -> List[Timeline]:
         """
         Access the complete set of `SignalLog` instances tracked by the simulation.
 
-        This includes logs from all boundaries or subsystems that emit signals.
+        This includes logs from all boundaries or subdomains that emit signals.
         """
         ...

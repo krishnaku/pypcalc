@@ -12,7 +12,7 @@ This module defines the `Timeline`, a runtime record of events in a domain.
 The timeline captures event history for a domain including signals, timestamps,
 source/target entities, and any associated transaction.
 
-The `SimulationContext` is the canonical source of truth for the Timeline of a domain.
+The `DomainModel` is the canonical source of truth for the Timeline of a domain.
 However, every `Boundary` in the domain has its own timeline that may observe only a
 subset of events that occur in the domain.
 

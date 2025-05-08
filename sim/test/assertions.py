@@ -23,15 +23,15 @@ def sim_log(self: Simulation) -> SimulationLogAssertion:
 class SimulationLogAssertion:
     def __init__(self, sim: Simulation):
         self.sim = sim
-        self.all_logs = sim.all_logs
+        self.all_timelines = sim.all_timelines
 
-    def log_at(self, index):
-        n = len(self.all_logs)
+    def timeline_at(self, index):
+        n = len(self.all_timelines)
         assert -n <= index < n, f"index {index} out of range for simulation logs of length {n}"
-        return SignalLogAssertion(self.all_logs[index])
+        return SignalLogAssertion(self.all_timelines[index])
 
-    def latest_log(self) -> SignalLogAssertion:
-        return self.log_at(-1)
+    def latest_timeline(self) -> SignalLogAssertion:
+        return self.timeline_at(-1)
 
     def __bool__(self) -> bool:
         return True  # all prior assertions passed, object is valid

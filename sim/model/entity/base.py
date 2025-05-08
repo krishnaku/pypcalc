@@ -14,7 +14,7 @@ from core import Entity
 from sim.runtime.simulation import Simulation
 
 class EntityBase(Entity):
-    """Base for a concrete system component."""
+    """Base for a concrete domain component."""
     def __init__(self, name, sim_context: Simulation, id:Optional[str]=None, **kwargs) -> None:
         self._id: str =str(uuid.uuid4()) if id is None else id
         self._name: str = name

@@ -80,7 +80,7 @@ def test_send_logs_signal(sim):
 
     sim.run(until=1)
 
-    sig: SignalAssertion = sim_log(sim).latest_log().signal_at(0)
+    sig: SignalAssertion = sim_log(sim).latest_timeline().signal_at(0)
     assert sig.has_source("A")
     assert sig.has_target("B")
     assert sig.has_signal("req-1")
@@ -108,7 +108,7 @@ def test_request_response_is_logged(sim):
     sim.run(until=5)
 
     # Inspect the signal log
-    logs: SignalLogAssertion = sim_log(sim).latest_log()
+    logs: SignalLogAssertion = sim_log(sim).latest_timeline()
     assert logs.has_length(3)
 
     # Collaboration protocol

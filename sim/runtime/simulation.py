@@ -153,14 +153,14 @@ class Simulation(SimpyProxy, DomainModel, ABC):
 
 
     @property
-    def all_logs(self) -> List[Timeline]:
+    def all_timelines(self) -> List[Timeline]:
         """Read access to signal logs is via the all_logs property."""
         return self._all_logs + ([self._timeline] if self._timeline and self.current_run < self.runs  else [])
 
     @property
     def latest_log(self) -> Timeline:
         """Access the latest signal log across runs."""
-        return self.all_logs[-1] if len(self.all_logs) > 0 else None
+        return self.all_timelines[-1] if len(self.all_timelines) > 0 else None
 
 
     # ----- SimpyProxy implementation - concrete binding to simulation infra.
