@@ -38,9 +38,9 @@ def test_entities_and_signals_tracking():
     assert len(dict(log.signals)) == 2
     assert len(dict(log.transactions)) == 1
 
-def test_signal_event_properties():
+def test_domain_event_properties():
     log = create_mock_timeline()
-    event = log.signal_events[0]
+    event = log.domain_events[0]
     assert event.source.name == "Source"
     assert event.target.name == "Target"
     assert event.signal.name == "Sig1"

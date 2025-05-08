@@ -94,7 +94,7 @@ class DomainEvent:
 class SignalEventListener(Protocol):
     """Protocol for subscribers that react to new signal events."""
 
-    def on_signal_event(self, event: DomainEvent) -> None:
+    def on_domain_event(self, event: DomainEvent) -> None:
         """Called when a new `SignalEvent` is recorded."""
         ...
 
@@ -104,15 +104,15 @@ class Timeline:
 
     def __init__(self):
         """Initialize an empty signal log."""
-        self._signal_events: List[DomainEvent] = []
+        self._domain_events: List[DomainEvent] = []
         self._transactions: Dict[str, Transaction] = {}
         self._signals: Dict[str, Signal] = {}
         self._entities: Dict[str, Entity] = {}
 
     @property
-    def signal_events(self) -> List[DomainEvent]:
+    def domain_events(self) -> List[DomainEvent]:
         """Return the full list of recorded signal events."""
-        return self._signal_events
+        return self._domain_events
 
     def entity(self, entity_id) -> Entity:
         """Look up an entity by ID."""
@@ -128,7 +128,7 @@ class Timeline:
 
     def __len__(self):
         """Return the number of recorded signal events."""
-        return len(self.signal_events)
+        return len(self.domain_events)
 
     def record(self, source: Entity, timestamp: float, event_type: str, signal: Signal, transaction=None,
                target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> DomainEvent:
@@ -141,7 +141,7 @@ class Timeline:
         if target is not None:
             self._entities[target.id] = target
 
-        signal_event = DomainEvent(
+        domain_event = DomainEvent(
             source_id=source.id,
             timestamp=timestamp,
             event_type=event_type,
@@ -151,12 +151,12 @@ class Timeline:
             tags=tags,
             timeline=self
         )
-        self._signal_events.append(signal_event)
-        return signal_event
+        self._domain_events.append(domain_event)
+        return domain_event
 
     def __iter__(self):
         """Iterate over all signal events in the log."""
-        return iter(self._signal_events)
+        return iter(self._domain_events)
 
     @property
     def transactions(self) -> Iterable[tuple[str, Transaction]]:
@@ -175,9 +175,9 @@ class Timeline:
 
     def as_polars(self, with_entity_attributes=False, with_signal_attributes=False):
         """Convert the log into a Polars dataframe. Schema in source"""
-        if not self._signal_events:
+        if not self._domain_events:
             return
-        batch = [sig.as_dict() for sig in self._signal_events]
+        batch = [sig.as_dict() for sig in self._domain_events]
         df = pl.DataFrame(batch).cast(
             dtypes={
                 "source_id": pl.Utf8,
@@ -317,7 +317,7 @@ class Timeline:
         summary = self.summarize()
         details = "\n".join([
             f"{sig.timestamp:.3f}: {sig.event_type}: {sig.source.name} , {sig.target.name if sig.target is not None else None} :: {sig.signal.signal_type} {sig.signal.name} ({sig.transaction.id[-8:] if sig.transaction else ' '})"
-            for sig in self._signal_events
+            for sig in self._domain_events
         ])
         return f"{summary}\n-------Detailed Log-----------\n{details}"
 

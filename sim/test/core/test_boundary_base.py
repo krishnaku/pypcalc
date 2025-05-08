@@ -13,7 +13,7 @@ from sim.model.boundary.base import BoundaryBase
 from sim.test.mocks import MockEntity, MockSimulation
 
 class TestBoundary(BoundaryBase):
-    def on_signal_event(self, event: DomainEvent) -> None:
+    def on_domain_event(self, event: DomainEvent) -> None:
         pass
 
 def make_signal(signal_id: str) -> Signal:

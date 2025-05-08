@@ -149,7 +149,7 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
     def notify_listeners(self, signal: DomainEvent) -> None:
         for listener in self._signal_listeners:
             if signal.source != listener:
-                listener.on_signal_event(signal)
+                listener.on_domain_event(signal)
 
 
     @property

@@ -40,19 +40,19 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
         return PresenceMatrix(presences=presences,t0=start_time, t1=end_time, bin_width=bin_width)
 
     def extract_presences(self, t0, t1, match: Optional[Callable[[DomainEvent], bool]] = None) -> List[Presence]:
-        signal_events = self.timeline.signal_events
+        domain_events = self.timeline.domain_events
         enter_event = self._enter_event
         exit_event = self._exit_event
 
         if match is not None:
-             signal_events = filter(match, signal_events)
+             domain_events = filter(match, domain_events)
 
-        signal_events = sorted(signal_events, key=lambda s: s.timestamp)
+        domain_events = sorted(domain_events, key=lambda s: s.timestamp)
 
         presences: List[Presence] = []
         open_presences: Dict[str, Presence] = {}
 
-        for e in signal_events:
+        for e in domain_events:
             # Once we hit t1, we don't care about later events
             if e.timestamp > t1:
                 break
@@ -85,4 +85,4 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
 
 
     @abstractmethod
-    def on_signal_event(self, event: DomainEvent) -> None:...
+    def on_domain_event(self, event: DomainEvent) -> None:...
