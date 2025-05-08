@@ -15,8 +15,8 @@ from sim.model.collaborator.base import CollaboratorBase, Request, Response
 
 
 class MockCollaborator(CollaboratorBase):
-    def __init__(self, name, sim_context, concurrency=None):
-        super().__init__(name, sim_context, concurrency)
+    def __init__(self, name, domain_context, concurrency=None):
+        super().__init__(name, domain_context, concurrency)
         self.received_requests = []
         self.received_responses = []
         self.start_process_called = False
@@ -28,12 +28,12 @@ class MockCollaborator(CollaboratorBase):
     def on_receive_request(self, request: Request):
         self.received_requests.append(request)
         self.transactions_in_process.add(request.transaction.id)
-        yield self.sim_context.timeout(1)
+        yield self.domain_context.timeout(1)
 
     def on_receive_response(self, response: Response):
         self.received_responses.append(response)
         self.transactions_in_process.remove(response.transaction.id)
-        yield self.sim_context.timeout(0)
+        yield self.domain_context.timeout(0)
 
 
 @pytest.fixture

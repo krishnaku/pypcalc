@@ -22,7 +22,7 @@ def test_create_requestor_and_responder():
     requestor = collaborator_registry.create(
         kind="Requestor",
         name="req1",
-        sim_context=sim,
+        domain_context=sim,
         delay_behavior=dict(kind="Deterministic", avg_delay=0.0)
     )
     assert isinstance(requestor, Requestor)
@@ -35,7 +35,7 @@ def test_create_requestor_and_responder():
     responder = collaborator_registry.create(
         kind="Responder",
         name="res1",
-        sim_context=sim,
+        domain_context=sim,
         delay_behavior=dict(kind="Deterministic", avg_delay=0.0)
     )
     assert isinstance(responder, Responder)

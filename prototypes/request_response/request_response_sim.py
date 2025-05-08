@@ -162,8 +162,8 @@ if __name__ == "__main__":
         datefmt='%Y-%m-%d %H:%M:%S'
     )
     sim = RequestResponseSimulation(
-        requestor=lambda sim: Requestor(name="A", sim_context=sim, mean_time_between_requests=2),
-        responder=lambda sim: Responder(name="B", sim_context=sim, processing_time=1.5, capacity=1),
+        requestor=lambda sim: Requestor(name="A", domain_context=sim, mean_time_between_requests=2),
+        responder=lambda sim: Responder(name="B", domain_context=sim, processing_time=1.5, capacity=1),
         until=20000,
         runs=5,
         realtime_factor=None

@@ -14,8 +14,8 @@ def create_mock_timeline():
 
     log = Timeline()
     sim = MockSimulation()
-    e1 = MockEntity(id="E1", name="Source", sim_context=sim)
-    e2 = MockEntity(id="E2", name="Target", sim_context=sim)
+    e1 = MockEntity(id="E1", name="Source", domain_context=sim)
+    e2 = MockEntity(id="E2", name="Target", domain_context=sim)
 
     tx = Transaction()
     #forcing this so that display test is repeatable

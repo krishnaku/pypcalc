@@ -21,21 +21,21 @@ from .registry import collaborator_registry
 
 @collaborator_registry.register("Requestor")
 class Requestor(CollaboratorBase):
-    def __init__(self, name: str, sim_context: Simulation, delay_behavior: Dict[str,Any]=None,  **kwargs):
-        super().__init__(name, sim_context, delay_behavior=delay_behavior, **kwargs)
+    def __init__(self, name: str, domain_context: Simulation, delay_behavior: Dict[str,Any]=None, **kwargs):
+        super().__init__(name, domain_context, delay_behavior=delay_behavior, **kwargs)
         self.counter: int = 0
         self.delay_behavior: Optional[DelayBehavior] = None
         if delay_behavior is not None:
-            self.delay_behavior = delay_behavior_registry.create(sim_context=sim_context, **delay_behavior)
+            self.delay_behavior = delay_behavior_registry.create(sim_context=domain_context, **delay_behavior)
         else:
             raise ValueError(f"Request behavior not specified for Requestor {name}")
 
 
     def start_processes(self):
-        if self.sim_context is None:
+        if self.domain_context is None:
             raise RuntimeError(f"Simulation Context for Requestor {self.name} has not been initialized")
-        self.sim_context.process(self.send_requests())
-        self.sim_context.process(self.receive())
+        self.domain_context.process(self.send_requests())
+        self.domain_context.process(self.receive())
 
 
     def send_requests(self):
@@ -52,24 +52,24 @@ class Requestor(CollaboratorBase):
 
     def on_receive_response(self, response: Response) -> Generator[simpy.events.Event, None, None]:
         self.transactions_in_process.remove(response.transaction.id)
-        yield self.sim_context.timeout(0)
+        yield self.domain_context.timeout(0)
 
 
 @collaborator_registry.register("Responder")
 class Responder(CollaboratorBase):
-    def __init__(self, name: str, sim_context: Simulation, concurrency=None, delay_behavior:Dict[str,Any] = None, **kwargs):
-        super().__init__(name, sim_context, concurrency=concurrency, delay_behavior=delay_behavior, **kwargs)
+    def __init__(self, name: str, domain_context: Simulation, concurrency=None, delay_behavior:Dict[str,Any] = None, **kwargs):
+        super().__init__(name, domain_context, concurrency=concurrency, delay_behavior=delay_behavior, **kwargs)
         self.counter: int = 0
         self.delay_behavior: Optional[DelayBehavior] = None
         if delay_behavior is not None:
-            self.delay_behavior = delay_behavior_registry.create(sim_context=sim_context, **delay_behavior)
+            self.delay_behavior = delay_behavior_registry.create(sim_context=domain_context, **delay_behavior)
         else:
             raise ValueError(f"Response behavior not specified for Responder {name}")
 
     def start_processes(self):
-        if self.sim_context is None:
+        if self.domain_context is None:
             raise RuntimeError(f"Simulation Context for Responder {self.name} has not been initialized")
-        self.sim_context.process(self.receive())
+        self.domain_context.process(self.receive())
 
     def on_receive_request(self, request) -> Generator[simpy.events.Event, None, None]:
         yield from self.delay_behavior.delay()

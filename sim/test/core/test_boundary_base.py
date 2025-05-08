@@ -20,7 +20,7 @@ def make_signal(name: str) -> Signal:
     return Signal(name=name, signal_type="test")
 
 def make_entity(entity_id: str) -> MockEntity:
-    return MockEntity(id=entity_id, name=entity_id.capitalize(), sim_context=MockSimulation())
+    return MockEntity(id=entity_id, name=entity_id.capitalize(), domain_context=MockSimulation())
 
 # --- Test cases ---
 def test_extract_presences_basic():
