@@ -45,11 +45,6 @@ class Entity(Protocol):
     """
 
     @property
-    def id(self) -> str:
-        """A stable unique identifier for the entity (used for indexing and lookup)."""
-        ...
-
-    @property
     def name(self) -> str:
         """A human-readable name for display or debugging."""
         ...

@@ -2,13 +2,13 @@ import simpy
 import uuid
 import networkx as nx
 from typing import Dict
-from core.domain import DomainModel
+from core.domain import DomainContext
 from prototypes.queueing_network.signal_history import SignalHistory
 from prototypes.queueing_network.base_node import Node
 from prototypes.queueing_network.network_node import NetworkNode, node_registry
 
 
-class QueuingNetworkSimulation(DomainModel):
+class QueuingNetworkSimulation(DomainContext):
     def __init__(self, env, network: nx.DiGraph, simulation_period, seed=42):
         super().__init__(env, seed)
         self._network = network

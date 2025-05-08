@@ -17,7 +17,7 @@ from simpy.events import Event, Timeout
 
 from core import Entity, Signal
 from core.timeline import DomainEvent, Timeline, SignalEventListener
-from core.domain import DomainModel
+from core.domain import DomainContext
 
 log = logging.getLogger(__name__)
 
@@ -51,7 +51,7 @@ class SimpyProxy(Protocol):
 # in the simpy environment outside this class
 # Route all calls to simpy.env through the simulation class and hand only this context
 # to all other parts of the code.
-class Simulation(SimpyProxy, DomainModel, ABC):
+class Simulation(SimpyProxy, DomainContext, ABC):
     def __init__(self, until=30, runs=1, realtime_factor: float = None):
 
         # Signal management parameters

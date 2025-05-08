@@ -18,16 +18,24 @@ from .boundary import Boundary
 from .timeline import DomainEvent, Timeline, SignalEventListener
 from .entity import Entity
 
-class DomainModel(Protocol):
+
+class Element(Protocol):
+    """Identifiable members of a domain."""
+
+    @property
+    def id(self) -> str:
+        """A stable unique identifier for the element (used for indexing and lookup)."""
+        ...
+
+class DomainContext(Protocol):
     """
     Abstract interface for domain model.
 
-    A `DomainModel` is the global context of all entities, signals, transactions, and boundaries. It also exposes
-    methods for recording signal events and subscribing to changes in the domain's execution history.
-    All entities in the simulation use the global signal logs in the DomainModel to record `DomainEvents`.
+    A `DomainContext` is the global context of all domain elements: entities, signals, transactions, and boundaries.
+    It also exposes methods for recording signal events and subscribing to changes in the domain's execution history.
 
     Concrete classes are expected to implement this interface to support simulation, analysis,
-    monitoring, and coordination across subdomains. See :class:`sim.runtime.Simulation` for a concrete
+    monitoring, and coordination in concrete domain models. See :class:`sim.runtime.Simulation` for a concrete
     implementation.
 
     ### Example
