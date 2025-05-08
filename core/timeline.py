@@ -7,13 +7,16 @@
 
 # Author: Krishna Kumar
 
-"""Signal logging infrastructure for capturing, summarizing, and analyzing signal flows.
+"""
+This module defines the `Timeline`, a runtime record of events in a domain.
+Each `SignalEvent` captures metadata about a single signal event including timestamps,
+source/target entities, and any associated transaction.
 
-This module defines the `SignalLog`, a runtime record of all signal exchange events.
-Each `SignalEvent` captures metadata about a single signal event including timing,
-source/target, and any associated transaction. The `SignalLog` also supports
-summarization, conversion to Polars DataFrames, and structured inspection for
-flow analysis or debugging purposes.
+The `SimulationContext` is the normative, global source of truth for the canonical
+Timeline of a domain.  However, every `Boundary` in the domain has its own timeline that may observe only a
+subset of events that occur in the domain.
+
+Analyzing how events propagate across timelines is a first class analysis concern for us.
 """
 from __future__ import annotations
 
