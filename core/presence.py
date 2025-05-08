@@ -1,15 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    pass
-
 from typing import List, Optional
 
 import numpy as np
+
 from core import Signal
+
 
 @dataclass
 class Presence:
@@ -97,7 +94,7 @@ class PresenceMatrix:
         Construct a presence matrix from a list of Presences and time window configuration.
 
         Args:
-            Presences: A list of `Presence` instances, one per signal of interest.
+            presences: A list of `Presence` instances, one per signal of interest.
             t0: Start of the observation window.
             t1: End of the observation window.
             bin_width: Width of each time bin for discretization.

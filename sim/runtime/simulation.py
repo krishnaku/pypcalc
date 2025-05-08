@@ -16,7 +16,7 @@ from typing import List, Generator, Optional, Any, Protocol, Dict
 from simpy.events import Event, Timeout
 
 from core import Entity, Signal
-from core.timeline import DomainEvent, Timeline, SignalEventListener
+from core.timeline import DomainEvent, Timeline, DomainEventListener
 from core.domain import DomainContext
 
 log = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ class Simulation(SimpyProxy, DomainContext, ABC):
         self._timeline = None
         # preserve separate signal logs per simulation run
         self._all_logs: List[Timeline] = []
-        self._signal_listeners: List[SignalEventListener] = []
+        self._signal_listeners: List[DomainEventListener] = []
 
         # simpy proxy parameters
         # NOTE: _env is intentionally private — do NOT expose or pass it around.
@@ -128,7 +128,7 @@ class Simulation(SimpyProxy, DomainContext, ABC):
         log.info(f"simulation ended at {(time.time() - self.simulation_start)} seconds")
 
     # ------------- Signal Management Interface -------------------------------------
-    def register_listener(self, listener: SignalEventListener) -> None:
+    def register_listener(self, listener: DomainEventListener) -> None:
         self._signal_listeners.append(listener)
 
     def record_signal(self, source: Entity, timestamp: float, event_type: str, signal: Signal, transaction=None,

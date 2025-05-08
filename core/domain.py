@@ -15,17 +15,9 @@ from typing import List, Dict, Optional, Protocol, Any
 from .signal import Signal
 from .transaction import Transaction
 from .boundary import Boundary
-from .timeline import DomainEvent, Timeline, SignalEventListener
+from .timeline import DomainEvent, Timeline, DomainEventListener
 from .entity import Entity
 
-
-class Element(Protocol):
-    """Identifiable members of a domain."""
-
-    @property
-    def id(self) -> str:
-        """A stable unique identifier for the element (used for indexing and lookup)."""
-        ...
 
 class DomainContext(Protocol):
     """
@@ -103,7 +95,7 @@ class DomainContext(Protocol):
         """
         ...
 
-    def register_listener(self, listener: SignalEventListener) -> None:
+    def register_listener(self, listener: DomainEventListener) -> None:
         """
         Register a listener that will be notified when a new signal event is recorded.
 

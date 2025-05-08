@@ -16,11 +16,11 @@ from collections import defaultdict
 import numpy as np
 
 from core import Boundary, DomainEvent, Signal
-from core.timeline import  Timeline, SignalEventListener
+from core.timeline import  Timeline, DomainEventListener
 from core.presence import Presence, PresenceMatrix
 from sim.runtime.simulation import Simulation
 
-class BoundaryBase(Boundary, SignalEventListener, ABC):
+class BoundaryBase(Boundary, DomainEventListener, ABC):
     def __init__(self, kind, name, enter_event: str, exit_event: str, config: Dict[str,Any], sim_context: Simulation, id:Optional[str]=None ):
         super().__init__(kind, name, config, sim_context, id)
 

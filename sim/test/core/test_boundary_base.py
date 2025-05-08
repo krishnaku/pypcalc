@@ -16,8 +16,8 @@ class TestBoundary(BoundaryBase):
     def on_domain_event(self, event: DomainEvent) -> None:
         pass
 
-def make_signal(signal_id: str) -> Signal:
-    return Signal(id=signal_id, name=signal_id.upper(), signal_type="test")
+def make_signal(name: str) -> Signal:
+    return Signal(name=name, signal_type="test")
 
 def make_entity(entity_id: str) -> MockEntity:
     return MockEntity(id=entity_id, name=entity_id.capitalize(), sim_context=MockSimulation())
@@ -165,6 +165,6 @@ def test_extract_presences_with_filter():
     log.record(entity, 3.0, "exit", s1)
     log.record(entity, 4.0, "exit", s2)
 
-    presences = boundary.extract_presences(0.0, 5.0, match=lambda e: e.signal_id == "s1")
+    presences = boundary.extract_presences(0.0, 5.0, match=lambda e: e.signal.name == "s1")
     assert len(presences) == 1
-    assert presences[0].signal.id == "s1"
+    assert presences[0].signal.name == "s1"

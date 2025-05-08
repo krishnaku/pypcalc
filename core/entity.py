@@ -11,16 +11,18 @@ from typing import Protocol, Dict, Any
 
 """"""
 from typing import Protocol, Dict, Any
+from .element import Element
 
-class Entity(Protocol):
+
+class Entity(Element, Protocol):
     """
-    Marker protocol for actants in the domain.
+    An `Entity` is any named element in the domain.
 
-    An `Entity` is any named participant in a domain that can emit or receive signals.
     This protocol defines the minimal interface required for an object to be treated as an entity:
-    a stable identifier, a human-readable name, and optional metadata.
+    a stable identifier (as an element), a human-readable name, and optional metadata.
 
-    This abstraction is useful for modeling agents, nodes, resources, devices, constraints or participants in a networked or simulated domain.
+    This abstraction is useful for modeling agents, nodes, resources, boundaries. devices, constraints
+    or participants in a networked or simulated domain.
 
     ### Example
 

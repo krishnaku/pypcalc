@@ -19,19 +19,22 @@ subset of events that occur in the domain.
 Analyzing how events propagate across timelines is a first class analysis concern for us.
 """
 from __future__ import annotations
+import polars as pl
+import uuid
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, Any, Optional, List, Literal, Union, Iterable, Protocol
 
-import polars as pl
+
 
 from .entity import Entity
 from .signal import Signal
 from .transaction import Transaction
+from .element import Element
 
 
 @dataclass
-class DomainEvent:
+class DomainEvent(Element):
     """A timestamped event representing the emission or receipt of a signal."""
 
     source_id: str
@@ -57,6 +60,14 @@ class DomainEvent:
 
     timeline: Timeline = None
     """Back-reference to the timeline where this event was recorded (used for resolving IDs)."""
+
+    # Element implementation
+    _id: str = field(default_factory=lambda: str(uuid.uuid4()))
+
+    @property
+    def id(self) -> str:
+        """The unique ID of the signal (auto-assigned)."""
+        return self._id
 
     @property
     def source(self) -> Entity:
@@ -91,7 +102,7 @@ class DomainEvent:
         }
 
 
-class SignalEventListener(Protocol):
+class DomainEventListener(Protocol):
     """Protocol for subscribers that react to new signal events."""
 
     def on_domain_event(self, event: DomainEvent) -> None:
@@ -99,15 +110,20 @@ class SignalEventListener(Protocol):
         ...
 
 
-class Timeline:
+class Timeline(Element):
     """Captures and manages all signal events emitted during simulation or execution."""
 
     def __init__(self):
-        """Initialize an empty signal log."""
+        """Initialize an empty timeline"""
+        self._id = str(uuid.uuid4())
         self._domain_events: List[DomainEvent] = []
         self._transactions: Dict[str, Transaction] = {}
         self._signals: Dict[str, Signal] = {}
         self._entities: Dict[str, Entity] = {}
+
+    @property
+    def id(self) -> str:
+        return self._id
 
     @property
     def domain_events(self) -> List[DomainEvent]:

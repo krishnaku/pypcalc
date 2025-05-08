@@ -7,14 +7,16 @@
 
 # Author: Krishna Kumar
 from __future__ import annotations
+
 import uuid
 from dataclasses import dataclass, field
 from typing import Optional, Dict, Any
-from .transaction import Transaction
 
+from .transaction import Transaction
+from .element import Element
 
 @dataclass
-class Signal:
+class Signal(Element):
     """
     Signals represent information flows between entities in a domain.
 
@@ -28,14 +30,19 @@ class Signal:
     signal_type: str
     """A label categorizing the signal (e.g., "request", "response")"""
 
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    """The unique ID of the signal (auto-assigned)."""
-
     payload: Dict[str, Any] = field(default_factory=dict)
     """Optional key-value data payload carried with the signal."""
 
     transaction: Optional[Transaction] = None
     """An optional reference to a transaction object that this signal is part of."""
 
+    # Element implementation
+    _id: str = field(default_factory=lambda: str(uuid.uuid4()))
+
+
+    @property
+    def id(self) -> str:
+        """The unique ID of the signal (auto-assigned)."""
+        return self._id
 
 

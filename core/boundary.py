@@ -12,8 +12,7 @@ from typing import List, Protocol, TYPE_CHECKING
 
 from .presence import Presence, PresenceMatrix
 
-if TYPE_CHECKING:
-    pass
+
 
 from .timeline import Timeline, DomainEvent
 from .entity import Entity

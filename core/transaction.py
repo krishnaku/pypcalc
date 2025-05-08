@@ -10,13 +10,15 @@ import uuid
 from typing import Optional
 from dataclasses import dataclass
 
-
+import uuid
 from dataclasses import dataclass
 from typing import Optional
-import uuid
+
+from .element import Element
+
 
 @dataclass
-class Transaction:
+class Transaction(Element):
     """
     Represents a transactional context for a signal or series of signal exchanges.
 
@@ -39,10 +41,9 @@ class Transaction:
     ```
     """
 
-    id: str  # UUID or hash identifying the transaction
     parent: Optional["Transaction"] = None  # Optional parent transaction for nesting
 
-    def __init__(self, id: Optional[str] = None, parent: Optional["Transaction"] = None):
+    def __init__(self, parent: Optional["Transaction"] = None):
         """
         Create a new transaction.
 
@@ -50,5 +51,10 @@ class Transaction:
             id: Optional explicit transaction ID (e.g., UUID or hash). If not provided, one is generated.
             parent: Optional parent transaction to support nesting or chaining.
         """
-        self.id = id or str(uuid.uuid4())
-        self.parent = parent
+        self._id = str(uuid.uuid4())
+        self._parent = parent
+
+    @property
+    def id(self) -> str:
+        return self._id
+
