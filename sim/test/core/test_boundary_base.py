@@ -23,7 +23,7 @@ def make_entity(entity_id: str) -> MockEntity:
     return MockEntity(id=entity_id, name=entity_id.capitalize(), sim_context=MockSimulation())
 
 # --- Test cases ---
-def test_extract_visits_basic():
+def test_extract_presences_basic():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
     log = boundary.signal_log
@@ -35,10 +35,10 @@ def test_extract_visits_basic():
     log.record(entity, 2.0, "enter", s2)
     log.record(entity, 4.0, "exit", s2)
 
-    visits = boundary.extract_visits(0.0, 5.0)
-    assert len(visits) == 2
-    assert visits[0].start == 1.0 and visits[0].end == 3.0
-    assert visits[1].start == 2.0 and visits[1].end == 4.0
+    presences = boundary.extract_presences(0.0, 5.0)
+    assert len(presences) == 2
+    assert presences[0].start == 1.0 and presences[0].end == 3.0
+    assert presences[1].start == 2.0 and presences[1].end == 4.0
 
 def test_visit_ending_before_t0():
     sim = MockSimulation()
@@ -48,8 +48,8 @@ def test_visit_ending_before_t0():
     s1 = make_signal("s1")
     log.record(entity, 1.0, "enter", s1)
     log.record(entity, 2.0, "exit", s1)
-    visits = boundary.extract_visits(3.0, 4.0)
-    assert len(visits) == 0
+    presences = boundary.extract_presences(3.0, 4.0)
+    assert len(presences) == 0
 
 def test_visit_starting_after_t1():
     sim = MockSimulation()
@@ -59,8 +59,8 @@ def test_visit_starting_after_t1():
     s1 = make_signal("s1")
     log.record(entity, 3.0, "enter", s1)
     log.record(entity, 4.0, "exit", s1)
-    visits = boundary.extract_visits(1.0, 2.0)
-    assert len(visits) == 0
+    presences = boundary.extract_presences(1.0, 2.0)
+    assert len(presences) == 0
 
 def test_visit_in_window():
     sim = MockSimulation()
@@ -70,9 +70,9 @@ def test_visit_in_window():
     s1 = make_signal("s1")
     log.record(entity, 2.0, "enter", s1)
     log.record(entity, 3.0, "exit", s1)
-    visits = boundary.extract_visits(1.0, 4.0)
-    assert len(visits) == 1
-    assert visits[0].start == 2.0 and visits[0].end == 3.0
+    presences = boundary.extract_presences(1.0, 4.0)
+    assert len(presences) == 1
+    assert presences[0].start == 2.0 and presences[0].end == 3.0
 
 def test_visit_starts_before_end_during_window():
     sim = MockSimulation()
@@ -82,10 +82,10 @@ def test_visit_starts_before_end_during_window():
     s1 = make_signal("s1")
     log.record(entity, 1.0, "enter", s1)
     log.record(entity, 3.0, "exit", s1)
-    visits = boundary.extract_visits(2.0, 4.0)
-    assert len(visits) == 1
+    presences = boundary.extract_presences(2.0, 4.0)
+    assert len(presences) == 1
     # this is clipped to the window
-    assert visits[0].start == 2.0 and visits[0].end == 3.0
+    assert presences[0].start == 2.0 and presences[0].end == 3.0
 
 def test_visit_starts_during_ends_after_window():
     sim = MockSimulation()
@@ -95,10 +95,10 @@ def test_visit_starts_during_ends_after_window():
     s1 = make_signal("s1")
     log.record(entity, 3.0, "enter", s1)
     log.record(entity, 5.0, "exit", s1)
-    visits = boundary.extract_visits(2.0, 4.0)
-    assert len(visits) == 1
+    presences = boundary.extract_presences(2.0, 4.0)
+    assert len(presences) == 1
     # this is clipped to the window
-    assert visits[0].start == 3.0 and visits[0].end == 4.0
+    assert presences[0].start == 3.0 and presences[0].end == 4.0
 
 def test_visit_starts_before_ends_after_window():
     sim = MockSimulation()
@@ -108,10 +108,10 @@ def test_visit_starts_before_ends_after_window():
     s1 = make_signal("s1")
     log.record(entity, 1.0, "enter", s1)
     log.record(entity, 5.0, "exit", s1)
-    visits = boundary.extract_visits(2.0, 4.0)
-    assert len(visits) == 1
+    presences = boundary.extract_presences(2.0, 4.0)
+    assert len(presences) == 1
     # this is clipped to the window
-    assert visits[0].start == 2.0 and visits[0].end == 4.0
+    assert presences[0].start == 2.0 and presences[0].end == 4.0
 
 def test_enter_without_exit():
     sim = MockSimulation()
@@ -121,10 +121,10 @@ def test_enter_without_exit():
     s1 = make_signal("s1")
     log.record(entity, 3.0, "enter", s1)
     # no exit
-    visits = boundary.extract_visits(2.0, 4.0)
-    assert len(visits) == 1
-    assert visits[0].start == 3.0
-    assert visits[0].end == 4.0  # clipped to t1
+    presences = boundary.extract_presences(2.0, 4.0)
+    assert len(presences) == 1
+    assert presences[0].start == 3.0
+    assert presences[0].end == 4.0  # clipped to t1
 
 def test_exit_without_enter():
     sim = MockSimulation()
@@ -133,10 +133,10 @@ def test_exit_without_enter():
     entity = make_entity("E1")
     s1 = make_signal("s1")
     log.record(entity, 3.0, "exit", s1)
-    visits = boundary.extract_visits(2.0, 4.0)
-    assert len(visits) == 1
-    assert visits[0].start == 2.0  # t0 default
-    assert visits[0].end == 3.0
+    presences = boundary.extract_presences(2.0, 4.0)
+    assert len(presences) == 1
+    assert presences[0].start == 2.0  # t0 default
+    assert presences[0].end == 3.0
 
 
 def test_zero_duration_visit():
@@ -147,13 +147,13 @@ def test_zero_duration_visit():
     s1 = make_signal("s1")
     log.record(entity, 3.0, "enter", s1)
     log.record(entity, 3.0, "exit", s1)
-    visits = boundary.extract_visits(2.0, 4.0)
-    assert len(visits) == 1
+    presences = boundary.extract_presences(2.0, 4.0)
+    assert len(presences) == 1
     # this is clipped to the window
-    assert visits[0].start == 3.0 and visits[0].end == 3.0
+    assert presences[0].start == 3.0 and presences[0].end == 3.0
 
 
-def test_extract_visits_with_filter():
+def test_extract_presences_with_filter():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
     log = boundary.signal_log
@@ -165,6 +165,6 @@ def test_extract_visits_with_filter():
     log.record(entity, 3.0, "exit", s1)
     log.record(entity, 4.0, "exit", s2)
 
-    visits = boundary.extract_visits(0.0, 5.0, match=lambda e: e.signal_id == "s1")
-    assert len(visits) == 1
-    assert visits[0].signal.id == "s1"
+    presences = boundary.extract_presences(0.0, 5.0, match=lambda e: e.signal_id == "s1")
+    assert len(presences) == 1
+    assert presences[0].signal.id == "s1"

@@ -27,10 +27,10 @@ def compute_average_residence_time(visit_index, presence, t0, t1):
     """Average time in system for signals present during [t0, t1)."""
     window = presence[:, t0:t1]
     total_time = np.sum(window)
-    total_visits = 0
-    for row_visits in visit_index:
-        total_visits += sum((t0 <= t < t1 for t in row_visits))
-    return total_time / total_visits if total_visits > 0 else 0.0
+    total_presences = 0
+    for row_presences in visit_index:
+        total_presences += sum((t0 <= t < t1 for t in row_presences))
+    return total_time / total_presences if total_presences > 0 else 0.0
 
 
 

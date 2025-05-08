@@ -17,7 +17,7 @@ import numpy as np
 
 from core import Boundary, SignalEvent, Signal
 from core.signal_log import  SignalLog, SignalEventListener
-from core.presence import Visit, PresenceMatrix
+from core.presence import Presence, PresenceMatrix
 from sim.runtime.simulation import Simulation
 
 class BoundaryBase(Boundary, SignalEventListener, ABC):
@@ -36,10 +36,10 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
         return self._signal_log
 
     def get_presence_matrix(self, start_time: float, end_time: float, bin_width: float, match: Optional[Callable[[SignalEvent], bool]] = None) -> PresenceMatrix:
-        visits = self.extract_visits(start_time, end_time, match)
-        return PresenceMatrix(visits=visits,t0=start_time, t1=end_time, bin_width=bin_width)
+        presences = self.extract_presences(start_time, end_time, match)
+        return PresenceMatrix(presences=presences,t0=start_time, t1=end_time, bin_width=bin_width)
 
-    def extract_visits(self, t0, t1, match: Optional[Callable[[SignalEvent], bool]] = None) -> List[Visit]:
+    def extract_presences(self, t0, t1, match: Optional[Callable[[SignalEvent], bool]] = None) -> List[Presence]:
         signal_events = self.signal_log.signal_events
         enter_event = self._enter_event
         exit_event = self._exit_event
@@ -49,8 +49,8 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
 
         signal_events = sorted(signal_events, key=lambda s: s.timestamp)
 
-        visits: List[Visit] = []
-        open_visits: Dict[str, Visit] = {}
+        presences: List[Presence] = []
+        open_presences: Dict[str, Presence] = {}
 
         for e in signal_events:
             # Once we hit t1, we don't care about later events
@@ -58,29 +58,29 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
                 break
 
             if e.event_type == enter_event:
-                # clip the visit so that it never starts before t0.
-                visit = Visit(signal=e.signal, start=max(e.timestamp,t0), end=np.inf)
-                open_visits[e.signal_id] = visit
+                # clip the presence so that it never starts before t0.
+                presence = Presence(signal=e.signal, start=max(e.timestamp, t0), end=np.inf)
+                open_presences[e.signal_id] = presence
 
             elif e.event_type == exit_event:
-                visit = open_visits.pop(e.signal_id, None)
-                if visit:
-                    visit.end = e.timestamp
+                presence = open_presences.pop(e.signal_id, None)
+                if presence:
+                    presence.end = e.timestamp
                     # If it ends within window, include it
-                    if visit.end >= t0:
-                        visits.append(visit)
+                    if presence.end >= t0:
+                        presences.append(presence)
                 else:
                     # Exit without entry: assume it was open from time t0
-                    visit = Visit(signal=e.signal, start=t0, end=e.timestamp)
-                    visits.append(visit)
+                    presence = Presence(signal=e.signal, start=t0, end=e.timestamp)
+                    presences.append(presence)
 
-        # After scan, extract visits open at t0 but not exited
-        for sid, visit in open_visits.items():
-            # clip the visit to end at t1.
-            visit.end = t1
-            visits.append(visit)
+        # After scan, extract presences open at t0 but not exited
+        for sid, presence in open_presences.items():
+            # clip the presence to end at t1.
+            presence.end = t1
+            presences.append(presence)
 
-        return visits
+        return presences
 
 
 

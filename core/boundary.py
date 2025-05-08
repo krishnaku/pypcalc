@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from typing import List, Protocol, TYPE_CHECKING
 
-from .presence import Visit, PresenceMatrix
+from .presence import Presence, PresenceMatrix
 
 if TYPE_CHECKING:
     pass
