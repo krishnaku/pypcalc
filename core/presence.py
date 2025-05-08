@@ -19,7 +19,7 @@ class Presence:
     A `Presence` captures a presence interval for a single `signal_id`, including start and end times,
     and internal metadata used to locate it within a `PresenceMatrix` row and time bins.
 
-    A `core.boundary.Boundary` is responsible for mapping a set of point in time `core.signal_log.SignalEvents` into
+    A `core.boundary.Boundary` is responsible for mapping a set of point in time `core.timeline.SignalEvents` into
     Presences.
     """
 

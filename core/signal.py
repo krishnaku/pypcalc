@@ -16,11 +16,11 @@ from .transaction import Transaction
 @dataclass
 class Signal:
     """
-    Signals represent information flows between entities in a system.
+    Signals represent information flows between entities in a domain.
 
     A signal is a named message or unit of communication, optionally tied to a transaction
     and carrying a payload of metadata. Each signal has a unique ID, a type (e.g., request, response),
-    and optional metadata that may be acted on by entities in the system.
+    and optional metadata that may be acted on by entities in the domain.
     """
     name: str
     """The name of the signal (e.g., "GET", "ACK", "CommitRequest")."""

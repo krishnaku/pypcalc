@@ -7,13 +7,16 @@
 
 # Author: Krishna Kumar
 
-"""Signal logging infrastructure for capturing, summarizing, and analyzing signal flows.
+"""
+This module defines the `Timeline`, a runtime record of events in a domain.
+The timeline captures event history for a domain including signals, timestamps,
+source/target entities, and any associated transaction.
 
-This module defines the `SignalLog`, a runtime record of all signal exchange events.
-Each `SignalEvent` captures metadata about a single signal event including timing,
-source/target, and any associated transaction. The `SignalLog` also supports
-summarization, conversion to Polars DataFrames, and structured inspection for
-flow analysis or debugging purposes.
+The `DomainModel` is the canonical source of truth for the Timeline of a domain.
+However, every `Boundary` in the domain has its own timeline that may observe only a
+subset of events that occur in the domain.
+
+Analyzing how events propagate across timelines is a first class analysis concern for us.
 """
 from __future__ import annotations
 
@@ -27,8 +30,8 @@ from .signal import Signal
 from .transaction import Transaction
 
 
-@dataclass(frozen=True)
-class SignalEvent:
+@dataclass
+class DomainEvent:
     """A timestamped event representing the emission or receipt of a signal."""
 
     source_id: str
@@ -52,31 +55,31 @@ class SignalEvent:
     tags: Optional[Dict[str, Any]] = None
     """Optional dictionary of additional metadata tags."""
 
-    signal_log: SignalLog = None
-    """Back-reference to the log that recorded this event (used for resolving IDs)."""
+    timeline: Timeline = None
+    """Back-reference to the timeline where this event was recorded (used for resolving IDs)."""
 
     @property
     def source(self) -> Entity:
         """Returns the `Entity` corresponding to the source ID."""
-        return self.signal_log.entity(self.source_id)
+        return self.timeline.entity(self.source_id)
 
     @property
     def target(self) -> Entity:
         """Returns the `Entity` corresponding to the target ID, if present."""
-        return self.signal_log.entity(self.target_id)
+        return self.timeline.entity(self.target_id)
 
     @property
     def signal(self) -> Signal:
         """Returns the full `Signal` object referenced by this event."""
-        return self.signal_log.signal(self.signal_id)
+        return self.timeline.signal(self.signal_id)
 
     @property
     def transaction(self) -> Transaction:
         """Returns the `Transaction` this signal is part of, if any."""
-        return self.signal_log.transaction(self.transaction_id)
+        return self.timeline.transaction(self.transaction_id)
 
     def as_dict(self) -> dict:
-        """Convert the event into a serializable dictionary (excluding signal_log)."""
+        """Convert the event into a serializable dictionary (excluding timeline)."""
         return {
             "source_id": self.source_id,
             "timestamp": float(self.timestamp),
@@ -91,25 +94,25 @@ class SignalEvent:
 class SignalEventListener(Protocol):
     """Protocol for subscribers that react to new signal events."""
 
-    def on_signal_event(self, event: SignalEvent) -> None:
+    def on_domain_event(self, event: DomainEvent) -> None:
         """Called when a new `SignalEvent` is recorded."""
         ...
 
 
-class SignalLog:
+class Timeline:
     """Captures and manages all signal events emitted during simulation or execution."""
 
     def __init__(self):
         """Initialize an empty signal log."""
-        self._signal_events: List[SignalEvent] = []
+        self._domain_events: List[DomainEvent] = []
         self._transactions: Dict[str, Transaction] = {}
         self._signals: Dict[str, Signal] = {}
         self._entities: Dict[str, Entity] = {}
 
     @property
-    def signal_events(self) -> List[SignalEvent]:
+    def domain_events(self) -> List[DomainEvent]:
         """Return the full list of recorded signal events."""
-        return self._signal_events
+        return self._domain_events
 
     def entity(self, entity_id) -> Entity:
         """Look up an entity by ID."""
@@ -125,10 +128,10 @@ class SignalLog:
 
     def __len__(self):
         """Return the number of recorded signal events."""
-        return len(self.signal_events)
+        return len(self.domain_events)
 
     def record(self, source: Entity, timestamp: float, event_type: str, signal: Signal, transaction=None,
-               target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
+               target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> DomainEvent:
         """Add a new signal event to the log and return it."""
         self._entities[source.id] = source
         self._signals[signal.id] = signal
@@ -138,7 +141,7 @@ class SignalLog:
         if target is not None:
             self._entities[target.id] = target
 
-        signal_event = SignalEvent(
+        domain_event = DomainEvent(
             source_id=source.id,
             timestamp=timestamp,
             event_type=event_type,
@@ -146,14 +149,14 @@ class SignalLog:
             signal_id=signal.id,
             target_id=target.id if target else None,
             tags=tags,
-            signal_log=self
+            timeline=self
         )
-        self._signal_events.append(signal_event)
-        return signal_event
+        self._domain_events.append(domain_event)
+        return domain_event
 
     def __iter__(self):
         """Iterate over all signal events in the log."""
-        return iter(self._signal_events)
+        return iter(self._domain_events)
 
     @property
     def transactions(self) -> Iterable[tuple[str, Transaction]]:
@@ -172,9 +175,9 @@ class SignalLog:
 
     def as_polars(self, with_entity_attributes=False, with_signal_attributes=False):
         """Convert the log into a Polars dataframe. Schema in source"""
-        if not self._signal_events:
+        if not self._domain_events:
             return
-        batch = [sig.as_dict() for sig in self._signal_events]
+        batch = [sig.as_dict() for sig in self._domain_events]
         df = pl.DataFrame(batch).cast(
             dtypes={
                 "source_id": pl.Utf8,
@@ -314,7 +317,7 @@ class SignalLog:
         summary = self.summarize()
         details = "\n".join([
             f"{sig.timestamp:.3f}: {sig.event_type}: {sig.source.name} , {sig.target.name if sig.target is not None else None} :: {sig.signal.signal_type} {sig.signal.name} ({sig.transaction.id[-8:] if sig.transaction else ' '})"
-            for sig in self._signal_events
+            for sig in self._domain_events
         ])
         return f"{summary}\n-------Detailed Log-----------\n{details}"
 

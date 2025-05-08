@@ -8,12 +8,12 @@
 
 # Author: Krishna Kumar
 
-from core import Signal, SignalEvent
+from core import Signal, DomainEvent
 from sim.model.boundary.base import BoundaryBase
 from sim.test.mocks import MockEntity, MockSimulation
 
 class TestBoundary(BoundaryBase):
-    def on_signal_event(self, event: SignalEvent) -> None:
+    def on_domain_event(self, event: DomainEvent) -> None:
         pass
 
 def make_signal(signal_id: str) -> Signal:
@@ -26,7 +26,7 @@ def make_entity(entity_id: str) -> MockEntity:
 def test_extract_presences_basic():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
-    log = boundary.signal_log
+    log = boundary.timeline
     entity = make_entity("E1")
     s1 = make_signal("s1")
     s2 = make_signal("s2")
@@ -43,7 +43,7 @@ def test_extract_presences_basic():
 def test_visit_ending_before_t0():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
-    log = boundary.signal_log
+    log = boundary.timeline
     entity = make_entity("E1")
     s1 = make_signal("s1")
     log.record(entity, 1.0, "enter", s1)
@@ -54,7 +54,7 @@ def test_visit_ending_before_t0():
 def test_visit_starting_after_t1():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
-    log = boundary.signal_log
+    log = boundary.timeline
     entity = make_entity("E1")
     s1 = make_signal("s1")
     log.record(entity, 3.0, "enter", s1)
@@ -65,7 +65,7 @@ def test_visit_starting_after_t1():
 def test_visit_in_window():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
-    log = boundary.signal_log
+    log = boundary.timeline
     entity = make_entity("E1")
     s1 = make_signal("s1")
     log.record(entity, 2.0, "enter", s1)
@@ -77,7 +77,7 @@ def test_visit_in_window():
 def test_visit_starts_before_end_during_window():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
-    log = boundary.signal_log
+    log = boundary.timeline
     entity = make_entity("E1")
     s1 = make_signal("s1")
     log.record(entity, 1.0, "enter", s1)
@@ -90,7 +90,7 @@ def test_visit_starts_before_end_during_window():
 def test_visit_starts_during_ends_after_window():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
-    log = boundary.signal_log
+    log = boundary.timeline
     entity = make_entity("E1")
     s1 = make_signal("s1")
     log.record(entity, 3.0, "enter", s1)
@@ -103,7 +103,7 @@ def test_visit_starts_during_ends_after_window():
 def test_visit_starts_before_ends_after_window():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
-    log = boundary.signal_log
+    log = boundary.timeline
     entity = make_entity("E1")
     s1 = make_signal("s1")
     log.record(entity, 1.0, "enter", s1)
@@ -116,7 +116,7 @@ def test_visit_starts_before_ends_after_window():
 def test_enter_without_exit():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
-    log = boundary.signal_log
+    log = boundary.timeline
     entity = make_entity("E1")
     s1 = make_signal("s1")
     log.record(entity, 3.0, "enter", s1)
@@ -129,7 +129,7 @@ def test_enter_without_exit():
 def test_exit_without_enter():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
-    log = boundary.signal_log
+    log = boundary.timeline
     entity = make_entity("E1")
     s1 = make_signal("s1")
     log.record(entity, 3.0, "exit", s1)
@@ -142,7 +142,7 @@ def test_exit_without_enter():
 def test_zero_duration_visit():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
-    log = boundary.signal_log
+    log = boundary.timeline
     entity = make_entity("E1")
     s1 = make_signal("s1")
     log.record(entity, 3.0, "enter", s1)
@@ -156,7 +156,7 @@ def test_zero_duration_visit():
 def test_extract_presences_with_filter():
     sim = MockSimulation()
     boundary = TestBoundary("test", "B", "enter", "exit", {}, sim)
-    log = boundary.signal_log
+    log = boundary.timeline
     entity = make_entity("E1")
     s1 = make_signal("s1")
     s2 = make_signal("s2")

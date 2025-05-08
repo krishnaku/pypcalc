@@ -5,14 +5,14 @@ from dataclasses import dataclass
 import polars as pl
 
 from core import Entity, Signal, Transaction
-from core.signal_log import SignalLog
+from core.timeline import Timeline
 from sim.test.mocks import MockEntity, MockSimulation
 from core import Transaction
 
 
-def create_mock_signal_log():
+def create_mock_timeline():
 
-    log = SignalLog()
+    log = Timeline()
     sim = MockSimulation()
     e1 = MockEntity(id="E1", name="Source", sim_context=sim)
     e2 = MockEntity(id="E2", name="Target", sim_context=sim)
@@ -29,31 +29,31 @@ def create_mock_signal_log():
     return log
 
 def test_record_and_length():
-    log = create_mock_signal_log()
+    log = create_mock_timeline()
     assert len(log) == 4
 
 def test_entities_and_signals_tracking():
-    log = create_mock_signal_log()
+    log = create_mock_timeline()
     assert len(dict(log.entities)) == 2
     assert len(dict(log.signals)) == 2
     assert len(dict(log.transactions)) == 1
 
-def test_signal_event_properties():
-    log = create_mock_signal_log()
-    event = log.signal_events[0]
+def test_domain_event_properties():
+    log = create_mock_timeline()
+    event = log.domain_events[0]
     assert event.source.name == "Source"
     assert event.target.name == "Target"
     assert event.signal.name == "Sig1"
     assert event.transaction.id == "TX1"
 
 def test_as_polars_basic():
-    log = create_mock_signal_log()
+    log = create_mock_timeline()
     df = log.as_polars()
     assert df.shape[0] == 4
     assert df.columns == ['source_id', 'timestamp', 'event_type', 'transaction_id', 'signal_id', 'target_id', 'tags']
 
 def test_as_polars_with_entity_and_signal_attrs():
-    log = create_mock_signal_log()
+    log = create_mock_timeline()
     df = log.as_polars(with_entity_attributes=True, with_signal_attributes=True)
     for column in ['source_name', 'target_name', 'signal_name', 'signal_type']:
         assert column in df.columns
@@ -61,13 +61,13 @@ def test_as_polars_with_entity_and_signal_attrs():
     assert set(df["source_name"].unique().to_list()) == {"Source", "Target"}
 
 def test_summarize_str_output():
-    log = create_mock_signal_log()
+    log = create_mock_timeline()
     summary = log.summarize()
     assert isinstance(summary, str)
     assert "Signal Log Summary" in summary
 
 def test_summarize_dict_output():
-    log = create_mock_signal_log()
+    log = create_mock_timeline()
     summary = log.summarize(output="dict")
     assert isinstance(summary, dict)
     assert summary["log_entries"] == 4
@@ -79,7 +79,7 @@ def test_summarize_dict_output():
     assert summary["avg_signal_span"] > 0
 
 def test_display_formatting():
-    log = create_mock_signal_log()
+    log = create_mock_timeline()
     display = log.display()
     assert display == """📊 Signal Log Summary
   • Log entries       : 4
@@ -100,7 +100,7 @@ def test_display_formatting():
 
 def test_empty_log_summary_and_display():
 
-    log = SignalLog()
+    log = Timeline()
     assert log.summarize(output="dict")["log_entries"] == 0
     assert "No signals recorded" in log.summarize()
     assert "No signals recorded" in log.display()

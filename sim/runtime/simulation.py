@@ -16,8 +16,8 @@ from typing import List, Generator, Optional, Any, Protocol, Dict
 from simpy.events import Event, Timeout
 
 from core import Entity, Signal
-from core.signal_log import SignalEvent, SignalLog, SignalEventListener
-from core.simulation_context import SimulationContext
+from core.timeline import DomainEvent, Timeline, SignalEventListener
+from core.domain import DomainModel
 
 log = logging.getLogger(__name__)
 
@@ -33,11 +33,11 @@ class SimpyProxy(Protocol):
     """Start a new process from a generator."""
 
 
-    def event(self) -> SignalEvent:...
+    def event(self) -> DomainEvent:...
     """Create a new, untriggered event."""
 
 
-    def schedule(self, event: SignalEvent, delay: float = 0) -> None:...
+    def schedule(self, event: DomainEvent, delay: float = 0) -> None:...
     """Manually schedule an event after a delay."""
 
     def get_store(self) -> simpy.Store:...
@@ -51,13 +51,13 @@ class SimpyProxy(Protocol):
 # in the simpy environment outside this class
 # Route all calls to simpy.env through the simulation class and hand only this context
 # to all other parts of the code.
-class Simulation(SimpyProxy, SimulationContext, ABC):
+class Simulation(SimpyProxy, DomainModel, ABC):
     def __init__(self, until=30, runs=1, realtime_factor: float = None):
 
         # Signal management parameters
-        self._signal_log = None
+        self._timeline = None
         # preserve separate signal logs per simulation run
-        self._all_logs: List[SignalLog] = []
+        self._all_logs: List[Timeline] = []
         self._signal_listeners: List[SignalEventListener] = []
 
         # simpy proxy parameters
@@ -81,13 +81,13 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         else:
             self._env = simpy.Environment()
 
-        self.reset_signal_log()
+        self.reset_timeline()
 
-    def reset_signal_log(self):
-        if self._signal_log is not None:
-            self._all_logs.append(self._signal_log)
+    def reset_timeline(self):
+        if self._timeline is not None:
+            self._all_logs.append(self._timeline)
 
-        self._signal_log = SignalLog()
+        self._timeline = Timeline()
 
     @abstractmethod
     def bind_environment(self):
@@ -132,9 +132,9 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         self._signal_listeners.append(listener)
 
     def record_signal(self, source: Entity, timestamp: float, event_type: str, signal: Signal, transaction=None,
-                      target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
+                      target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> DomainEvent:
         """Write access to the global signal log is via this method."""
-        signal:SignalEvent =  self._signal_log.record(
+        signal:DomainEvent =  self._timeline.record(
             source=source,
             timestamp=timestamp,
             event_type=event_type,
@@ -146,21 +146,21 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         self.notify_listeners(signal)
         return signal
 
-    def notify_listeners(self, signal: SignalEvent) -> None:
+    def notify_listeners(self, signal: DomainEvent) -> None:
         for listener in self._signal_listeners:
             if signal.source != listener:
-                listener.on_signal_event(signal)
+                listener.on_domain_event(signal)
 
 
     @property
-    def all_logs(self) -> List[SignalLog]:
+    def all_timelines(self) -> List[Timeline]:
         """Read access to signal logs is via the all_logs property."""
-        return self._all_logs + ([self._signal_log] if self._signal_log and self.current_run < self.runs  else [])
+        return self._all_logs + ([self._timeline] if self._timeline and self.current_run < self.runs  else [])
 
     @property
-    def latest_log(self) -> SignalLog:
+    def latest_log(self) -> Timeline:
         """Access the latest signal log across runs."""
-        return self.all_logs[-1] if len(self.all_logs) > 0 else None
+        return self.all_timelines[-1] if len(self.all_timelines) > 0 else None
 
 
     # ----- SimpyProxy implementation - concrete binding to simulation infra.
@@ -177,11 +177,11 @@ class Simulation(SimpyProxy, SimulationContext, ABC):
         """Start a new process from a generator."""
         return self._env.process(generator)
 
-    def event(self) -> SignalEvent:
+    def event(self) -> DomainEvent:
         """Create a new, un-triggered event."""
         return self._env.event()
 
-    def schedule(self, event: SignalEvent, delay: float = 0) -> None:
+    def schedule(self, event: DomainEvent, delay: float = 0) -> None:
         """Manually schedule an event after a delay."""
         self._env.schedule(event, delay=delay)
 

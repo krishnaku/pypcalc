@@ -4,7 +4,7 @@ from typing import Dict, Any
 import simpy
 
 from prototypes.queueing_network.base_node import NonBlockingService, BlockingService
-from core.simulation_context import SimulationContext
+from core.domain import DomainModel
 
 
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
@@ -15,7 +15,7 @@ from core.simulation_context import SimulationContext
 
 # Author: Krishna Kumar
 class PureDelay(NonBlockingService):
-    def __init__(self, name: str, config: Dict[str, Any], sim_context: SimulationContext) -> None:
+    def __init__(self, name: str, config: Dict[str, Any], sim_context: DomainModel) -> None:
         super().__init__(name, config, sim_context)
         self.delay_fn = config.get("delay")
         if self.delay_fn is None:
@@ -31,7 +31,7 @@ class PureDelay(NonBlockingService):
 
 
 class BlockingDelay(BlockingService):
-    def __init__(self, name: str, config: Dict[str, Any], sim_context: SimulationContext) -> None:
+    def __init__(self, name: str, config: Dict[str, Any], sim_context: DomainModel) -> None:
         super().__init__(name, config, sim_context)
         self.delay_fn = config.get("delay")
         if self.delay_fn is None:

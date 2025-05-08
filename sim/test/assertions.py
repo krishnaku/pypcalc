@@ -12,7 +12,7 @@ from typing import Optional
 import polars as pl
 from core import Entity
 
-from core.signal_log import SignalLog, SignalEvent
+from core.timeline import Timeline, DomainEvent
 from sim.runtime.simulation import Simulation
 
 
@@ -23,31 +23,31 @@ def sim_log(self: Simulation) -> SimulationLogAssertion:
 class SimulationLogAssertion:
     def __init__(self, sim: Simulation):
         self.sim = sim
-        self.all_logs = sim.all_logs
+        self.all_timelines = sim.all_timelines
 
-    def log_at(self, index):
-        n = len(self.all_logs)
+    def timeline_at(self, index):
+        n = len(self.all_timelines)
         assert -n <= index < n, f"index {index} out of range for simulation logs of length {n}"
-        return SignalLogAssertion(self.all_logs[index])
+        return SignalLogAssertion(self.all_timelines[index])
 
-    def latest_log(self) -> SignalLogAssertion:
-        return self.log_at(-1)
+    def latest_timeline(self) -> SignalLogAssertion:
+        return self.timeline_at(-1)
 
     def __bool__(self) -> bool:
         return True  # all prior assertions passed, object is valid
 
 
-def signal_log(log: SignalLog) -> SignalLogAssertion:
+def timeline(log: Timeline) -> SignalLogAssertion:
     return SignalLogAssertion(log)
 
 
 class SignalLogAssertion:
-    def __init__(self, log: SignalLog):
+    def __init__(self, log: Timeline):
         self.log = log
         self.df: Optional[pl.DataFrame] = None
 
     def has_length(self, expected: int) -> SignalLogAssertion:
-        actual = len(self.log.signal_events)
+        actual = len(self.log.domain_events)
         assert actual == expected, f"Expected {expected} signals, got {actual}"
         return self
 
@@ -89,16 +89,16 @@ class SignalLogAssertion:
 
     # chain to signal assertions
     def signal_at(self, index: int) -> SignalAssertion:
-        n = len(self.log.signal_events)
+        n = len(self.log.domain_events)
         assert -n <= index < n, f"index {index} out of range for signal of length {n}"
-        return SignalAssertion(self.log.signal_events[index])
+        return SignalAssertion(self.log.domain_events[index])
 
     def __bool__(self) -> bool:
         return True  # all prior assertions passed, object is valid
 
 
 class SignalAssertion:
-    def __init__(self, signal: SignalEvent):
+    def __init__(self, signal: DomainEvent):
         self.signal = signal
 
     def has_type(self, expected: str) -> SignalAssertion:

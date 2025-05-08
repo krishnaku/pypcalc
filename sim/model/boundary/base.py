@@ -15,8 +15,8 @@ from collections import defaultdict
 
 import numpy as np
 
-from core import Boundary, SignalEvent, Signal
-from core.signal_log import  SignalLog, SignalEventListener
+from core import Boundary, DomainEvent, Signal
+from core.timeline import  Timeline, SignalEventListener
 from core.presence import Presence, PresenceMatrix
 from sim.runtime.simulation import Simulation
 
@@ -24,7 +24,7 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
     def __init__(self, kind, name, enter_event: str, exit_event: str, config: Dict[str,Any], sim_context: Simulation, id:Optional[str]=None ):
         super().__init__(kind, name, config, sim_context, id)
 
-        self._signal_log: SignalLog = SignalLog()
+        self._timeline: Timeline = Timeline()
         self._sim_context = sim_context
         self._enter_event = enter_event
         self._exit_event = exit_event
@@ -32,27 +32,27 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
         self._sim_context.register_listener(self)
 
     @property
-    def signal_log(self) -> SignalLog:
-        return self._signal_log
+    def timeline(self) -> Timeline:
+        return self._timeline
 
-    def get_presence_matrix(self, start_time: float, end_time: float, bin_width: float, match: Optional[Callable[[SignalEvent], bool]] = None) -> PresenceMatrix:
+    def get_presence_matrix(self, start_time: float, end_time: float, bin_width: float, match: Optional[Callable[[DomainEvent], bool]] = None) -> PresenceMatrix:
         presences = self.extract_presences(start_time, end_time, match)
         return PresenceMatrix(presences=presences,t0=start_time, t1=end_time, bin_width=bin_width)
 
-    def extract_presences(self, t0, t1, match: Optional[Callable[[SignalEvent], bool]] = None) -> List[Presence]:
-        signal_events = self.signal_log.signal_events
+    def extract_presences(self, t0, t1, match: Optional[Callable[[DomainEvent], bool]] = None) -> List[Presence]:
+        domain_events = self.timeline.domain_events
         enter_event = self._enter_event
         exit_event = self._exit_event
 
         if match is not None:
-             signal_events = filter(match, signal_events)
+             domain_events = filter(match, domain_events)
 
-        signal_events = sorted(signal_events, key=lambda s: s.timestamp)
+        domain_events = sorted(domain_events, key=lambda s: s.timestamp)
 
         presences: List[Presence] = []
         open_presences: Dict[str, Presence] = {}
 
-        for e in signal_events:
+        for e in domain_events:
             # Once we hit t1, we don't care about later events
             if e.timestamp > t1:
                 break
@@ -85,4 +85,4 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
 
 
     @abstractmethod
-    def on_signal_event(self, event: SignalEvent) -> None:...
+    def on_domain_event(self, event: DomainEvent) -> None:...

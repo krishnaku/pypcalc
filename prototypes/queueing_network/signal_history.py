@@ -10,7 +10,7 @@ from typing import Dict
 
 import polars as pl
 from core import Signal, Entity
-from core.signal_log import SignalLog
+from core.timeline import Timeline
 
 
 from prototypes.queueing_network.signal_history_metrics import SignalHistoryMetric, QueueLength
@@ -20,7 +20,7 @@ class SignalHistory:
     def __init__(self, node, measurement_window: int):
         self.node = node
         self.measurement_window = measurement_window
-        self._signals = SignalLog()
+        self._signals = Timeline()
 
         self.metrics: Dict[str, SignalHistoryMetric] = {
             "queue_length": QueueLength(node, measurement_window),
@@ -28,7 +28,7 @@ class SignalHistory:
         self.queue_length = self.metrics["queue_length"]
 
     @property
-    def signals(self) -> SignalLog:
+    def signals(self) -> Timeline:
         return self._signals
 
     def add(self, source: Entity, timestamp: float, signal_type: str, signal: Signal, transaction=None, target=None, **kwargs):
