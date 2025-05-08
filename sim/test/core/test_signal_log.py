@@ -5,7 +5,7 @@ from dataclasses import dataclass
 import polars as pl
 
 from core import Entity, Signal, Transaction
-from core.signal_log import Timeline
+from core.timeline import Timeline
 from sim.test.mocks import MockEntity, MockSimulation
 from core import Transaction
 

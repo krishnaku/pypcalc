@@ -16,7 +16,7 @@ from typing import List, Generator, Optional, Any, Protocol, Dict
 from simpy.events import Event, Timeout
 
 from core import Entity, Signal
-from core.signal_log import SignalEvent, Timeline, SignalEventListener
+from core.timeline import SignalEvent, Timeline, SignalEventListener
 from core.simulation_context import SimulationContext
 
 log = logging.getLogger(__name__)

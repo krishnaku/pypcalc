@@ -16,7 +16,7 @@ from collections import defaultdict
 import numpy as np
 
 from core import Boundary, SignalEvent, Signal
-from core.signal_log import  Timeline, SignalEventListener
+from core.timeline import  Timeline, SignalEventListener
 from core.presence import Presence, PresenceMatrix
 from sim.runtime.simulation import Simulation
 

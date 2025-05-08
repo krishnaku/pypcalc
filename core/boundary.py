@@ -15,7 +15,7 @@ from .presence import Presence, PresenceMatrix
 if TYPE_CHECKING:
     pass
 
-from .signal_log import Timeline, SignalEvent
+from .timeline import Timeline, SignalEvent
 from .entity import Entity
 
 

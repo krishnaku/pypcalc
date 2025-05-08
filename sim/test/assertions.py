@@ -12,7 +12,7 @@ from typing import Optional
 import polars as pl
 from core import Entity
 
-from core.signal_log import Timeline, SignalEvent
+from core.timeline import Timeline, SignalEvent
 from sim.runtime.simulation import Simulation
 
 
