@@ -16,15 +16,16 @@ summarization, conversion to Polars DataFrames, and structured inspection for
 flow analysis or debugging purposes.
 """
 from __future__ import annotations
-import polars as pl
-import fnmatch
 
 from dataclasses import dataclass
 from typing import Dict, Any, Optional, List, Literal, Union, Iterable, Protocol
 
-from .signal import Signal
+import polars as pl
+
 from .entity import Entity
+from .signal import Signal
 from .transaction import Transaction
+
 
 @dataclass(frozen=True)
 class SignalEvent:
@@ -51,26 +52,26 @@ class SignalEvent:
     tags: Optional[Dict[str, Any]] = None
     """Optional dictionary of additional metadata tags."""
 
-    signal_log: "SignalLog" = None
+    signal_log: SignalLog = None
     """Back-reference to the log that recorded this event (used for resolving IDs)."""
 
     @property
-    def source(self) -> "Entity":
+    def source(self) -> Entity:
         """Returns the `Entity` corresponding to the source ID."""
         return self.signal_log.entity(self.source_id)
 
     @property
-    def target(self) -> "Entity":
+    def target(self) -> Entity:
         """Returns the `Entity` corresponding to the target ID, if present."""
         return self.signal_log.entity(self.target_id)
 
     @property
-    def signal(self) -> "Signal":
+    def signal(self) -> Signal:
         """Returns the full `Signal` object referenced by this event."""
         return self.signal_log.signal(self.signal_id)
 
     @property
-    def transaction(self) -> "Transaction":
+    def transaction(self) -> Transaction:
         """Returns the `Transaction` this signal is part of, if any."""
         return self.signal_log.transaction(self.transaction_id)
 
@@ -101,24 +102,24 @@ class SignalLog:
     def __init__(self):
         """Initialize an empty signal log."""
         self._signal_events: List[SignalEvent] = []
-        self._transactions: Dict[str, "Transaction"] = {}
-        self._signals: Dict[str, "Signal"] = {}
-        self._entities: Dict[str, "Entity"] = {}
+        self._transactions: Dict[str, Transaction] = {}
+        self._signals: Dict[str, Signal] = {}
+        self._entities: Dict[str, Entity] = {}
 
     @property
     def signal_events(self) -> List[SignalEvent]:
         """Return the full list of recorded signal events."""
         return self._signal_events
 
-    def entity(self, entity_id) -> "Entity":
+    def entity(self, entity_id) -> Entity:
         """Look up an entity by ID."""
         return self._entities.get(entity_id)
 
-    def signal(self, signal_id) -> "Signal":
+    def signal(self, signal_id) -> Signal:
         """Look up a signal by ID."""
         return self._signals.get(signal_id)
 
-    def transaction(self, transaction_id) -> "Transaction":
+    def transaction(self, transaction_id) -> Transaction:
         """Look up a transaction by ID."""
         return self._transactions.get(transaction_id)
 
@@ -126,8 +127,8 @@ class SignalLog:
         """Return the number of recorded signal events."""
         return len(self.signal_events)
 
-    def record(self, source: "Entity", timestamp: float, event_type: str, signal: "Signal", transaction=None,
-               target: Optional["Entity"] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
+    def record(self, source: Entity, timestamp: float, event_type: str, signal: Signal, transaction=None,
+               target: Optional[Entity] = None, tags: Optional[Dict[str, Any]] = None) -> SignalEvent:
         """Add a new signal event to the log and return it."""
         self._entities[source.id] = source
         self._signals[signal.id] = signal
@@ -155,17 +156,17 @@ class SignalLog:
         return iter(self._signal_events)
 
     @property
-    def transactions(self) -> Iterable[tuple[str, "Transaction"]]:
+    def transactions(self) -> Iterable[tuple[str, Transaction]]:
         """All known transactions referenced in the log."""
         return self._transactions.items()
 
     @property
-    def signals(self) -> Iterable[tuple[str, "Signal"]]:
+    def signals(self) -> Iterable[tuple[str, Signal]]:
         """All known signals referenced in the log."""
         return self._signals.items()
 
     @property
-    def entities(self) -> Iterable[tuple[str, "Entity"]]:
+    def entities(self) -> Iterable[tuple[str, Entity]]:
         """All known entities that emitted or received signals."""
         return self._entities.items()
 
@@ -247,9 +248,9 @@ class SignalLog:
         ]).unique().len()
 
         # 2. Count by signal_type
-        signal_type_counts = pl.Series([
+        signal_type_counts = pl.Series("signal_type", [
             signal.signal_type for signal in self._signals.values()
-        ]).value_counts()
+        ]).value_counts().sort("signal_type")
 
         signal_type_lines = "\n".join(
             f"    - {signal_type.ljust(10)}: {count}" for signal_type, count in signal_type_counts.rows()
