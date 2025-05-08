@@ -9,11 +9,11 @@
 
 """
 This module defines the `Timeline`, a runtime record of events in a domain.
-Each `SignalEvent` captures metadata about a single signal event including timestamps,
+The timeline captures event history for a domain including signals, timestamps,
 source/target entities, and any associated transaction.
 
-The `SimulationContext` is the normative, global source of truth for the canonical
-Timeline of a domain.  However, every `Boundary` in the domain has its own timeline that may observe only a
+The `SimulationContext` is the canonical source of truth for the Timeline of a domain.
+However, every `Boundary` in the domain has its own timeline that may observe only a
 subset of events that occur in the domain.
 
 Analyzing how events propagate across timelines is a first class analysis concern for us.
@@ -55,28 +55,28 @@ class SignalEvent:
     tags: Optional[Dict[str, Any]] = None
     """Optional dictionary of additional metadata tags."""
 
-    signal_log: Timeline = None
-    """Back-reference to the log that recorded this event (used for resolving IDs)."""
+    timeline: Timeline = None
+    """Back-reference to the timeline where this event was recorded (used for resolving IDs)."""
 
     @property
     def source(self) -> Entity:
         """Returns the `Entity` corresponding to the source ID."""
-        return self.signal_log.entity(self.source_id)
+        return self.timeline.entity(self.source_id)
 
     @property
     def target(self) -> Entity:
         """Returns the `Entity` corresponding to the target ID, if present."""
-        return self.signal_log.entity(self.target_id)
+        return self.timeline.entity(self.target_id)
 
     @property
     def signal(self) -> Signal:
         """Returns the full `Signal` object referenced by this event."""
-        return self.signal_log.signal(self.signal_id)
+        return self.timeline.signal(self.signal_id)
 
     @property
     def transaction(self) -> Transaction:
         """Returns the `Transaction` this signal is part of, if any."""
-        return self.signal_log.transaction(self.transaction_id)
+        return self.timeline.transaction(self.transaction_id)
 
     def as_dict(self) -> dict:
         """Convert the event into a serializable dictionary (excluding signal_log)."""
@@ -149,7 +149,7 @@ class Timeline:
             signal_id=signal.id,
             target_id=target.id if target else None,
             tags=tags,
-            signal_log=self
+            timeline=self
         )
         self._signal_events.append(signal_event)
         return signal_event
