@@ -55,7 +55,7 @@ class Boundary(Entity, Protocol):
     """
 
     @property
-    def signal_log(self) -> Timeline:
+    def timeline(self) -> Timeline:
         """The `SignalLog` associated with this boundary, capturing events that crossed it."""
         ...
 

@@ -32,7 +32,7 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
         self._sim_context.register_listener(self)
 
     @property
-    def signal_log(self) -> Timeline:
+    def timeline(self) -> Timeline:
         return self._signal_log
 
     def get_presence_matrix(self, start_time: float, end_time: float, bin_width: float, match: Optional[Callable[[SignalEvent], bool]] = None) -> PresenceMatrix:
@@ -40,7 +40,7 @@ class BoundaryBase(Boundary, SignalEventListener, ABC):
         return PresenceMatrix(presences=presences,t0=start_time, t1=end_time, bin_width=bin_width)
 
     def extract_presences(self, t0, t1, match: Optional[Callable[[SignalEvent], bool]] = None) -> List[Presence]:
-        signal_events = self.signal_log.signal_events
+        signal_events = self.timeline.signal_events
         enter_event = self._enter_event
         exit_event = self._exit_event
 
