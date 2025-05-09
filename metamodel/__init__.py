@@ -19,7 +19,7 @@ and Presence that are required  for analyzing flow in any domain.
 It is inspired by and compatible with John Hollands Signal/Boundary framework for modeling complex adaptive systems,
 but is primarily focused on modeling the physics of flow in such systems: how signals propagate across boundaries,
 how presence emerges, and how flow behaviors can be modeled, measured, bounded, and analyzed. For a more detailed
-comparison please see [Holland's Signal/Boundary framework]().
+comparison please see [Holland's Signal/Boundary framework](https://github.com/krishnaku/p-calculus-tools/blob/main/docs/holland.md).
 
 Modules in this package enable:
 

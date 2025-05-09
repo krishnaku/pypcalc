@@ -29,6 +29,7 @@ Yet, these perspectives are not in conflict:
 
 The Presence Calculus metamodel offers a precise and analyzable implementation of Holland’s signal-boundary abstraction, focusing on **flow dynamics** and **boundary-crossing behavior**. 
 This makes it a natural complement to Holland’s framework, particularly for modeling, measurement, and causal inference in adaptive systems.
+
 In practice, we would create a Holland style model at the simulation layer that
 modeled using our metamodel and then feed it to the Presence Calculus layer 
 for analyzing flow dynamics in the complex adaptive system.
