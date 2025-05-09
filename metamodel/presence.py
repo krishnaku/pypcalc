@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Generic
-from metamodel import Signal
 
 from .element import T_Element
+
 
 @dataclass
 class Presence(Generic[T_Element]):

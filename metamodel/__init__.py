@@ -9,28 +9,31 @@
 # Author: Krishna Kumar
 
 """
-This package defines a metamodel for modeling flow in a domain.
+##A domain metamodel for The Presence Calculus
 
-It provides the core constructs—Entities, Signals, Transactions, Timelines, DomainEvents, Boundaries,
-Presences, and PresenceMatrices—that together form a causal-temporal metamodel for analyzing flow dynamics.
+This package defines a metamodel for modeling a domain for the purposes of analyzing flow using The Presence Calculus.
 
-The metamodel provides a minimal abstract ontology required to measure and model flow in both simple and complex domains.
-It is loosely inspired by John Hollands Signal/Boundary framework for modeling complex adaptive systems,
-but is primarily focused on modeling the physics of flow in such systems: how information propagates,
-how presence emerges, and how flow behaviors can be modeled, measured, bounded, and analyzed.
+It provides the minimal abstract ontology: Entities, Signals, Transactions, Timelines, DomainEvents, Boundaries,
+and Presence that are required  for analyzing flow in any domain.
+
+It is inspired by and compatible with John Hollands Signal/Boundary framework for modeling complex adaptive systems,
+but is primarily focused on modeling the physics of flow in such systems: how signals propagate across boundaries,
+how presence emerges, and how flow behaviors can be modeled, measured, bounded, and analyzed. For a more detailed
+comparison please see [Holland's Signal/Boundary framework]().
 
 Modules in this package enable:
 
-- Construction and identification of flow elements (entities, signals, transactions)
+- Construction and identification of domain elements that can flow (entities, signals, transactions)
 - Event-driven modeling of signal activity via domain events and timelines
-- Boundary-based partitioning of domains for presence tracking and flow analysis
+- Defining domain topology using boundaries for determining presence of flow elements in boundaries over time and
+thus enabling flow analysis using The Presence Calculus (see package `pcalc`),
 
-The metamodel provides a minimal abstraction of an underlying domain that allows us to model and measure flow using
-the tools of The Presence Calculus (see package `pcalc`). The underlying domain may be implemented by a
-simulation model (see package `sim`) or be sourced from real-time data from other sources.
+This metamodel is intentionally decoupled from any specific domain model. Given any conforming model, it serves as the
+bridge for reasoning about flow dynamics using The Presence Calculus (see package `pcalc`),
 
-This metamodel is intentionally decoupled from any specific domain model and serves as the analytic
-backbone for reasoning about flow dynamics using The Presence Calculus, over any conforming model.
+The first concrete implementation is a simulation framework which can be found in the `sim` package. This allows us to
+model and simulate a wide variety of complex adaptive systems: value networks, agent network, queueing systems, value streams etc.
+and analyze flow in these systems uniformly via The Presence Calculus.
 """
 from .element import Element
 from .domain import DomainContext
