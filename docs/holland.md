@@ -1,8 +1,7 @@
-# Compatibility of Holland's Signal/Boundary Framework with the Presence Calculus Metamodel
+# Compatibility of Holland's Signal/Boundary Framework with the Presence Calculus metamodel
 
 John Holland’s Signal/Boundary framework offers a conceptual foundation for understanding complex adaptive systems (CAS). 
-While originally designed for modeling of adaptation and emergence, in a CAS,  
-its core notions—**signals** and **boundaries**—are fully compatible 
+While originally designed for modeling of adaptation and emergence, in a CAS, its core notions—**signals** and **boundaries**—are fully compatible 
 with the Presence Calculus metamodel.
 
 ## Conceptual Alignment
