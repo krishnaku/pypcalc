@@ -42,7 +42,7 @@ class Requestor(CollaboratorBase):
         while True:
             request = Request(
                 name=f"A-{self.counter}",
-                metadata={"created_by": self.name}
+                payload={"created_by": self.name}
             )
             self.transactions_in_process.add(request.transaction.id)
             self.send(request)

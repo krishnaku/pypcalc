@@ -57,7 +57,7 @@ class NetworkSimulation(Simulation):
             self.config[node] = config
 
             if 'kind' in config:
-                self.collaborators[node] = collaborator_registry.create(sim_context=self, **config)
+                self.collaborators[node] = collaborator_registry.create(domain_context=self, **config)
             else:
                 raise ValueError(f"Collaborator {node} must specify 'kind' in config ")
 

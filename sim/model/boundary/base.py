@@ -8,16 +8,18 @@
 
 # Author: Krishna Kumar
 
-from typing import Dict, Any, Optional, Set, List, Callable, Tuple
+from typing import Dict, Any, Optional, Set, List, Callable, Tuple, Generic, Sequence
 
 from abc import ABC, abstractmethod
 from collections import defaultdict
 
 import numpy as np
 
-from metamodel import Boundary, DomainEvent, Signal
+from metamodel import Boundary, DomainEvent, Signal, Entity
 from metamodel.timeline import  Timeline, DomainEventListener
-from metamodel.presence import Presence, PresenceMatrix
+from metamodel.presence import Presence
+from metamodel.element import T_Element
+from pcalc.presence import PresenceMatrix
 from sim.runtime.simulation import Simulation
 
 class BoundaryBase(Boundary, DomainEventListener, ABC):
@@ -35,11 +37,7 @@ class BoundaryBase(Boundary, DomainEventListener, ABC):
     def timeline(self) -> Timeline:
         return self._timeline
 
-    def get_presence_matrix(self, start_time: float, end_time: float, bin_width: float, match: Optional[Callable[[DomainEvent], bool]] = None) -> PresenceMatrix:
-        presences = self.extract_presences(start_time, end_time, match)
-        return PresenceMatrix(presences=presences,t0=start_time, t1=end_time, bin_width=bin_width)
-
-    def extract_presences(self, t0, t1, match: Optional[Callable[[DomainEvent], bool]] = None) -> List[Presence]:
+    def get_signal_presences(self, start_time:float, end_time:float, match: Callable[[DomainEvent], bool] = None, **kwargs) -> List[Presence[Signal]]:
         domain_events = self.timeline.domain_events
         enter_event = self._enter_event
         exit_event = self._exit_event
@@ -49,17 +47,17 @@ class BoundaryBase(Boundary, DomainEventListener, ABC):
 
         domain_events = sorted(domain_events, key=lambda s: s.timestamp)
 
-        presences: List[Presence] = []
-        open_presences: Dict[str, Presence] = {}
+        presences: List[Presence[Signal]] = []
+        open_presences: Dict[str, Presence[Signal]] = {}
 
         for e in domain_events:
             # Once we hit t1, we don't care about later events
-            if e.timestamp > t1:
+            if e.timestamp > end_time:
                 break
 
             if e.event_type == enter_event:
                 # clip the presence so that it never starts before t0.
-                presence = Presence(signal=e.signal, start=max(e.timestamp, t0), end=np.inf)
+                presence = Presence(element=e.signal, start=max(e.timestamp, start_time), end=np.inf)
                 open_presences[e.signal_id] = presence
 
             elif e.event_type == exit_event:
@@ -67,21 +65,23 @@ class BoundaryBase(Boundary, DomainEventListener, ABC):
                 if presence:
                     presence.end = e.timestamp
                     # If it ends within window, include it
-                    if presence.end >= t0:
+                    if presence.end >= start_time:
                         presences.append(presence)
                 else:
                     # Exit without entry: assume it was open from time t0
-                    presence = Presence(signal=e.signal, start=t0, end=e.timestamp)
+                    presence = Presence(element=e.signal, start=start_time, end=e.timestamp)
                     presences.append(presence)
 
         # After scan, extract presences open at t0 but not exited
         for sid, presence in open_presences.items():
             # clip the presence to end at t1.
-            presence.end = t1
+            presence.end = end_time
             presences.append(presence)
 
         return presences
 
+    def get_entity_presences(self, start_time: float, end_time: float, match: Optional[Callable[[DomainEvent], bool]]=None, **kwargs) -> List[Presence[Entity]]:
+        raise NotImplemented("Entity Presences not implemented for BoundaryBase")
 
 
     @abstractmethod

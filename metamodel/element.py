@@ -5,8 +5,9 @@
 # confidential.
 # Author: Krishna Kumar
 
-from typing import Protocol
+from typing import Protocol, TypeVar
 
+T_Element = TypeVar('T_Element', bound='Element')
 
 class Element(Protocol):
     """Identifiable members of a domain."""

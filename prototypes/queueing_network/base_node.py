@@ -46,7 +46,7 @@ class Service(Boundary):
 
     def signal_start_service(self, signal_id:str, **kwargs) -> Signal:
         timestamp = self.env.now
-        return self.signal_history.signal(
+        return self.signal_history.element(
             Signal(
                 signal_type="start_service",
                 source=self.name,
@@ -58,7 +58,7 @@ class Service(Boundary):
 
     def signal_end_service(self, signal_id:str, **kwargs) -> Signal:
         timestamp = self.env.now
-        return self.signal_history.signal(
+        return self.signal_history.element(
             Signal(
                 signal_type="end_service",
                 source=self.name,
