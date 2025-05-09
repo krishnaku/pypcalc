@@ -9,10 +9,10 @@ from metamodel.timeline import Timeline
 from sim.test.mocks import TestEntity, TestSignal, MockSimulation
 from sim.model.signal import SignalBase
 from metamodel import Transaction
-
+from sim.model.timeline import DefaultTimeline
 
 def create_mock_timeline():
-    log = Timeline()
+    log = DefaultTimeline()
     sim = MockSimulation()
     e1 = TestEntity(id="E1", name="Source", domain_context=sim)
     e2 = TestEntity(id="E2", name="Target", domain_context=sim)
@@ -110,7 +110,7 @@ def test_display_formatting():
 
 
 def test_empty_log_summary_and_display():
-    log = Timeline()
+    log = DefaultTimeline()
     assert log.summarize(output="dict")["log_entries"] == 0
     assert "No signals recorded" in log.summarize()
     assert "No signals recorded" in log.display()

@@ -19,6 +19,8 @@ from metamodel import Entity, Signal
 from metamodel.timeline import DomainEvent, Timeline, DomainEventListener
 from metamodel.domain import DomainContext
 
+from sim.model.timeline import DefaultTimeline
+
 log = logging.getLogger(__name__)
 
 class SimpyProxy(Protocol):
@@ -87,7 +89,7 @@ class Simulation(SimpyProxy, DomainContext, ABC):
         if self._timeline is not None:
             self._all_logs.append(self._timeline)
 
-        self._timeline = Timeline()
+        self._timeline = DefaultTimeline()
 
     @abstractmethod
     def bind_environment(self):

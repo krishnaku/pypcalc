@@ -18,15 +18,17 @@ import numpy as np
 from metamodel import Boundary, DomainEvent, Signal, Entity
 from metamodel.timeline import  Timeline, DomainEventListener
 from metamodel.presence import Presence
+
 from metamodel.element import T_Element
 from pcalc.presence import PresenceMatrix
 from sim.runtime.simulation import Simulation
+from sim.model.timeline import DefaultTimeline
 
 class BoundaryBase(Boundary, DomainEventListener, ABC):
     def __init__(self, kind, name, enter_event: str, exit_event: str, config: Dict[str,Any], sim_context: Simulation, id:Optional[str]=None ):
         super().__init__(kind, name, config, sim_context, id)
 
-        self._timeline: Timeline = Timeline()
+        self._timeline: Timeline = DefaultTimeline()
         self._sim_context = sim_context
         self._enter_event = enter_event
         self._exit_event = exit_event
