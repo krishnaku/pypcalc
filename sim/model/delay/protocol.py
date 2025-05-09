@@ -1,11 +1,4 @@
 # -*- coding: utf-8 -*-
-from typing import Generator
-
-import simpy
-
-from metamodel import Behavior
-
-
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
 
 # Unauthorized use or copying of this file and its contents, via any medium
@@ -13,5 +6,12 @@ from metamodel import Behavior
 # confidential.
 
 # Author: Krishna Kumar
+
+from typing import Generator
+
+import simpy
+
+from sim.model import Behavior
+
 class DelayBehavior(Behavior):
     def delay(self) -> Generator[simpy.Event, None, None]:...

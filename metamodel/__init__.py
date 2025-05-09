@@ -35,8 +35,6 @@ backbone for reasoning about flow dynamics in signal-boundary domains.
 from .entity import Entity
 from .signal import Signal
 from .transaction import Transaction
-from .behaviors import Behavior
-from .registry import Registry
 from .timeline import DomainEvent, Timeline
 from .boundary import Boundary
 from .element import Element

@@ -11,6 +11,8 @@
 Registry for delay behaviors. See module behavior for examples of registered behaviors.
 """
 
-from metamodel import Registry
+from sim.model import Registry
 from sim.model.delay.protocol import DelayBehavior
+
+
 delay_behavior_registry: Registry[DelayBehavior]= Registry()

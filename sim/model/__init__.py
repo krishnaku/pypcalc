@@ -8,4 +8,5 @@
 
 # Author: Krishna Kumar
 
-from .entity import EntityBase
+from .registry import Registry
+from .protocols import Behavior

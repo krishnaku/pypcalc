@@ -7,13 +7,16 @@
 
 # Author: Krishna Kumar
 from __future__ import annotations
+
 import logging
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Set, Generator
+
 import simpy
-from metamodel import Signal, Transaction, Registry
-from sim.model.signal import SignalBase
+
+from metamodel import Transaction
 from sim.model.entity.base import EntityBase
+from sim.model.signal import SignalBase
 from sim.runtime.simulation import Simulation
 
 log = logging.getLogger(__name__)

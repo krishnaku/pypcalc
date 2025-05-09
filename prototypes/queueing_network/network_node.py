@@ -10,7 +10,7 @@
 from typing import Any, Optional, Dict, Generator
 import networkx as nx
 
-from metamodel.registry import Registry
+from sim.model.registry import Registry
 from prototypes.queueing_network.base_node import Node
 from metamodel.boundary import Boundary
 from prototypes.queueing_network.routing import RoutingMixin, router_registry
