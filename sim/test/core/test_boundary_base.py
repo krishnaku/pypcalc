@@ -10,17 +10,18 @@
 
 from metamodel import Signal, DomainEvent
 from sim.model.boundary.base import BoundaryBase
-from sim.test.mocks import MockEntity, MockSimulation
+from sim.model.signal import SignalBase
+from sim.test.mocks import TestEntity, MockSimulation
 
 class TestBoundary(BoundaryBase):
     def on_domain_event(self, event: DomainEvent) -> None:
         pass
 
 def make_signal(name: str) -> Signal:
-    return Signal(name=name, signal_type="test")
+    return SignalBase(name=name, signal_type="test")
 
-def make_entity(entity_id: str) -> MockEntity:
-    return MockEntity(id=entity_id, name=entity_id.capitalize(), domain_context=MockSimulation())
+def make_entity(entity_id: str) -> TestEntity:
+    return TestEntity(id=entity_id, name=entity_id.capitalize(), domain_context=MockSimulation())
 
 # --- Test cases ---
 def test_extract_presences_basic():

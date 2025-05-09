@@ -13,6 +13,7 @@ import simpy
 
 from sim.runtime.simulation import Simulation
 from sim.model.entity import EntityBase
+from sim.model.signal import SignalBase
 
 
 class MockSimulation(Simulation):
@@ -22,5 +23,10 @@ class MockSimulation(Simulation):
     def bind_environment(self):
         pass
 
-class MockEntity(EntityBase):...
 
+# Default implementations of model base classes.
+
+class TestEntity(EntityBase): ...
+
+
+class TestSignal(SignalBase): ...

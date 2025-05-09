@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
 
 # Unauthorized use or copying of this file and its contents, via any medium
@@ -6,17 +7,15 @@
 # confidential.
 
 # Author: Krishna Kumar
-from __future__ import annotations
-
-import uuid
 from dataclasses import dataclass, field
-from typing import Optional, Dict, Any, Protocol
+from typing import Dict, Any, Optional
 
-from .transaction import Transaction
-from .element import Element
+from metamodel import Signal, Transaction
 
+from sim.model.element import ElementBase
 
-class Signal(Element, Protocol):
+@dataclass
+class SignalBase(ElementBase, Signal):
     """
     Signals represent information flows between entities in a domain.
 
@@ -36,6 +35,10 @@ class Signal(Element, Protocol):
     transaction: Optional[Transaction] = None
     """An optional reference to a transaction object that this signal is part of."""
 
-
-
+    def __init__(self, name:str, signal_type:str, payload: Dict[str, Any]=None, transaction: Optional[Transaction]=None) -> None:
+        super().__init__()
+        self.name = name
+        self.signal_type = signal_type
+        self.payload = payload
+        self.transaction = transaction if transaction is not None else Transaction()
 

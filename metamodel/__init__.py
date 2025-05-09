@@ -39,3 +39,4 @@ from .behaviors import Behavior
 from .registry import Registry
 from .timeline import DomainEvent
 from .boundary import Boundary
+from .element import Element

@@ -12,21 +12,22 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Set, Generator
 import simpy
 from metamodel import Signal, Transaction, Registry
+from sim.model.signal import SignalBase
 from sim.model.entity.base import EntityBase
 from sim.runtime.simulation import Simulation
 
 log = logging.getLogger(__name__)
 
-class Request(Signal):
+class Request(SignalBase):
     def __init__(self, name:str, payload: Dict[str, Any]=None, transaction: Optional[Transaction]=None) -> None:
         super().__init__(
-            name, 
+            name,
             signal_type="request",
             payload=payload,
             transaction=transaction or Transaction()
         )
 
-class Response(Signal):
+class Response(SignalBase):
     def __init__(self, signal):
         super().__init__(
             signal.name,
