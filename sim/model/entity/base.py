@@ -10,7 +10,7 @@
 import uuid
 from typing import Dict, Any, Optional
 
-from core import Entity
+from metamodel import Entity
 from sim.runtime.simulation import Simulation
 
 class EntityBase(Entity):

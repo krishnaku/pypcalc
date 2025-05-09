@@ -3,7 +3,7 @@ from typing import Generator
 
 import simpy
 
-from core import Behavior
+from metamodel import Behavior
 
 
 # Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved

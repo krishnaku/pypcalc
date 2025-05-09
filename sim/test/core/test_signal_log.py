@@ -4,10 +4,10 @@ from typing import Optional, Dict, Any
 from dataclasses import dataclass
 import polars as pl
 
-from core import Entity, Signal, Transaction
-from core.timeline import Timeline
+from metamodel import Entity, Signal, Transaction
+from metamodel.timeline import Timeline
 from sim.test.mocks import MockEntity, MockSimulation
-from core import Transaction
+from metamodel import Transaction
 
 
 def create_mock_timeline():

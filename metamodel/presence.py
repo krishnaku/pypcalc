@@ -5,7 +5,7 @@ from typing import List, Optional
 
 import numpy as np
 
-from core import Signal
+from metamodel import Signal
 
 
 @dataclass

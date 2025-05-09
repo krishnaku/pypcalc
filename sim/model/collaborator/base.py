@@ -11,7 +11,7 @@ import logging
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Set, Generator
 import simpy
-from core import Signal, Transaction, Registry
+from metamodel import Signal, Transaction, Registry
 from sim.model.entity.base import EntityBase
 from sim.runtime.simulation import Simulation
 

@@ -10,9 +10,9 @@
 from __future__ import annotations
 from typing import Optional
 import polars as pl
-from core import Entity
+from metamodel import Entity
 
-from core.timeline import Timeline, DomainEvent
+from metamodel.timeline import Timeline, DomainEvent
 from sim.runtime.simulation import Simulation
 
 

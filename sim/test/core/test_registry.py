@@ -10,7 +10,7 @@
 
 import pytest
 from typing import Callable, TypeVar, Dict, Generic
-from core import Registry
+from metamodel import Registry
 
 
 def test_registry_register_and_create():

@@ -9,8 +9,8 @@
 from typing import Dict
 
 import polars as pl
-from core import Signal, Entity
-from core.timeline import Timeline
+from metamodel import Signal, Entity
+from metamodel.timeline import Timeline
 
 
 from prototypes.queueing_network.signal_history_metrics import SignalHistoryMetric, QueueLength

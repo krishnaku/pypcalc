@@ -15,9 +15,9 @@ import time
 from typing import List, Generator, Optional, Any, Protocol, Dict
 from simpy.events import Event, Timeout
 
-from core import Entity, Signal
-from core.timeline import DomainEvent, Timeline, DomainEventListener
-from core.domain import DomainContext
+from metamodel import Entity, Signal
+from metamodel.timeline import DomainEvent, Timeline, DomainEventListener
+from metamodel.domain import DomainContext
 
 log = logging.getLogger(__name__)
 

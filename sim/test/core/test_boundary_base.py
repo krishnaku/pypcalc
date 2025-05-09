@@ -8,7 +8,7 @@
 
 # Author: Krishna Kumar
 
-from core import Signal, DomainEvent
+from metamodel import Signal, DomainEvent
 from sim.model.boundary.base import BoundaryBase
 from sim.test.mocks import MockEntity, MockSimulation
 
