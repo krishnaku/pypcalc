@@ -1,25 +1,33 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Generic
+from typing import Generic, TYPE_CHECKING
 
 from .element import T_Element
-
+if TYPE_CHECKING:
+    from .boundary import Boundary
 
 @dataclass
 class Presence(Generic[T_Element]):
     """
-    A continuous interval during which a domain element is considered present within a boundary.
+    A statement that a domain element was continuously present in a  boundary
+    for a time interval.
 
-    A `Presence` captures a presence interval for a single `element`, including start and end times,
+    In contrast to a domain event which locates a domain element in time, a `Presence` captures time and location
+    of a domain element within the domain.
 
-    A `core.boundary.Boundary` is responsible for mapping a set of point in time `core.timeline.DomainEvents` into
-    Presences.
+    The requirement of continuity of presence, in a boundary means that, in principle, one
+    can recover the entire trajectory of the domain element in the domain given a complete
+    history of the presences of the element within boundaries.
+
+    Note that an element may be present in many boundaries at the same time, ie presences, can overlap.
     """
 
     element: T_Element
     """The element this Presence corresponds to."""
 
+    boundary: Boundary
+    """The boundary where this element was present."""
     start: float
     """Start time of the Presence interval."""
 

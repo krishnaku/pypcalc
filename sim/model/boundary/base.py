@@ -59,7 +59,7 @@ class BoundaryBase(Boundary, DomainEventListener, ABC):
 
             if e.event_type == enter_event:
                 # clip the presence so that it never starts before t0.
-                presence = Presence(element=e.signal, start=max(e.timestamp, start_time), end=np.inf)
+                presence = Presence(boundary=self, element=e.signal, start=max(e.timestamp, start_time), end=np.inf)
                 open_presences[e.signal_id] = presence
 
             elif e.event_type == exit_event:
@@ -71,7 +71,7 @@ class BoundaryBase(Boundary, DomainEventListener, ABC):
                         presences.append(presence)
                 else:
                     # Exit without entry: assume it was open from time t0
-                    presence = Presence(element=e.signal, start=start_time, end=e.timestamp)
+                    presence = Presence(boundary=self, element=e.signal, start=start_time, end=e.timestamp)
                     presences.append(presence)
 
         # After scan, extract presences open at t0 but not exited
