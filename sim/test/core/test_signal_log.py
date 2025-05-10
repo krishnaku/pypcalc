@@ -1,15 +1,7 @@
-import numpy as np
-import pytest
-from typing import Optional, Dict, Any
-from dataclasses import dataclass
-import polars as pl
-
-from metamodel import Entity, Signal, Transaction
-from metamodel.timeline import Timeline
-from sim.test.mocks import TestEntity, TestSignal, MockSimulation
-from sim.model.signal import SignalBase
-from metamodel import Transaction
+from sim.model.transaction import DefaultTransaction
 from sim.model.timeline import DefaultTimeline
+from sim.test.mocks import TestEntity, TestSignal, MockSimulation
+
 
 def create_mock_timeline():
     log = DefaultTimeline()
@@ -17,7 +9,7 @@ def create_mock_timeline():
     e1 = TestEntity(id="E1", name="Source", domain_context=sim)
     e2 = TestEntity(id="E2", name="Target", domain_context=sim)
 
-    tx = Transaction()
+    tx = DefaultTransaction()
     # forcing this so that display test is repeatable
     tx._id = "TX1"
     sig1 = TestSignal(name="Sig1", signal_type="request", transaction=tx)

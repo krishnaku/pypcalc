@@ -27,7 +27,7 @@ class Request(SignalBase):
             name,
             signal_type="request",
             payload=payload,
-            transaction=transaction or Transaction()
+            transaction=transaction
         )
 
 class Response(SignalBase):

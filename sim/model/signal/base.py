@@ -13,6 +13,7 @@ from typing import Dict, Any, Optional
 from metamodel import Signal, Transaction
 
 from sim.model.element import ElementBase
+from sim.model.transaction import DefaultTransaction
 
 @dataclass
 class SignalBase(ElementBase, Signal):
@@ -40,5 +41,5 @@ class SignalBase(ElementBase, Signal):
         self.name = name
         self.signal_type = signal_type
         self.payload = payload
-        self.transaction = transaction if transaction is not None else Transaction()
+        self.transaction = transaction if transaction is not None else DefaultTransaction()
 
