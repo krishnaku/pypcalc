@@ -57,7 +57,7 @@ class DomainEvent(Element, Protocol):
     """Optional dictionary of additional metadata tags."""
 
     timeline: Timeline = None
-    """Back-reference to the timeline where this event was recorded (used for resolving IDs)."""
+    """The timeline where this event was recorded."""
 
     @property
     def id(self) -> str:
