@@ -20,7 +20,7 @@ from metamodel.timeline import  Timeline, DomainEventListener
 from metamodel.presence import Presence
 
 from metamodel.element import T_Element
-from pcalc.presence import PresenceMatrix
+from pcalc.presence_matrix import PresenceMatrix
 from sim.runtime.simulation import Simulation
 from sim.model.timeline import DefaultTimeline
 

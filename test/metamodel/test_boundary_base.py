@@ -11,7 +11,7 @@
 from metamodel import Signal, DomainEvent
 from sim.model.boundary.base import BoundaryBase
 from sim.model.signal import SignalBase
-from sim.test.mocks import TestEntity, MockSimulation
+from test.mocks import TestEntity, MockSimulation
 
 class TestBoundary(BoundaryBase):
     def on_domain_event(self, event: DomainEvent) -> None:

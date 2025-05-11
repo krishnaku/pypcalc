@@ -1,6 +1,6 @@
 from sim.model.transaction import DefaultTransaction
 from sim.model.timeline import DefaultTimeline
-from sim.test.mocks import TestEntity, TestSignal, MockSimulation
+from test.mocks import TestEntity, TestSignal, MockSimulation
 
 
 def create_mock_timeline():
