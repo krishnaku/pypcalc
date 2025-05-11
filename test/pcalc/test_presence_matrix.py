@@ -10,7 +10,7 @@
 import numpy as np
 
 from metamodel import Presence
-from pcalc import PresenceMatrixBoolean, PresenceMatrixReal  # adjust import path
+from pcalc import PresenceMatrix
 from test.mocks import MockElement, MockBoundary
 
 from pcalc.presence_matrix import PresenceMap
@@ -25,82 +25,59 @@ presences = [
 ]
 
 
-def test_boolean_matrix_shape_and_dtype():
-    matrix = PresenceMatrixBoolean(presences, start_time=0.0, end_time=5.0, time_scale=1.0)
+def test_matrix_shape():
+    matrix = PresenceMatrix(presences, start_time=0.0, end_time=5.0, time_scale=1.0)
     assert matrix.presence_matrix is not None
     assert matrix.presence_matrix.shape == (3, 5)
-    assert matrix.presence_matrix.dtype == int
 
 
-def test_boolean_matrix_values():
-    matrix = PresenceMatrixBoolean(presences, start_time=0.0, end_time=5.0, time_scale=1.0)
-    expected = np.array([
-        [1, 1, 0, 0, 0],
-        [0, 1, 1, 0, 0],
-        [0, 0, 1, 1, 0],
-    ], dtype=int)
-    assert np.array_equal(matrix.presence_matrix, expected)
-
-
-def test_boolean_matrix_presence_map():
-    matrix = PresenceMatrixBoolean(presences, start_time=0.0, end_time=5.0, time_scale=1.0)
-    expected_map = [
-        PresenceMap(presences[0], 0, 0, 2),
-        PresenceMap(presences[1], 1, 1, 3),
-        PresenceMap(presences[2], 2, 2, 4),
-    ]
-    assert matrix.presence_map == expected_map
-
-
-def test_boolean_matrix_time_bins():
-    matrix = PresenceMatrixBoolean(presences, start_time=0.0, end_time=5.0, time_scale=1.0)
-    expected_bins = np.array([0.0, 1.0, 2.0, 3.0, 4.0, 5.0])
-    assert np.allclose(matrix.time_bins, expected_bins)
-
-
-def test_real_matrix_dtype_and_shape():
-    matrix = PresenceMatrixReal(presences, start_time=0.0, end_time=5.0, time_scale=1.0)
-    assert matrix.presence_matrix is not None
-    assert matrix.presence_matrix.dtype == float
-    assert matrix.presence_matrix.shape == (3, 5)
-
-
-def test_real_matrix_values():
-    matrix = PresenceMatrixReal(presences, start_time=0.0, end_time=5.0, time_scale=1.0)
+def test_matrix_values():
+    matrix = PresenceMatrix(presences, start_time=0.0, end_time=5.0, time_scale=1.0)
     expected = np.array([
         [1.0, 1.0, 0.0, 0.0, 0.0],
-        [0.0, 1.0, 1.0, 0.0, 0.0],
+        [0.0, 0.5, 1.0, 0.5, 0.0],
         [0.0, 0.0, 1.0, 1.0, 0.0],
     ], dtype=float)
     assert np.allclose(matrix.presence_matrix, expected)
 
+def test_presence_map():
+    matrix = PresenceMatrix(presences, start_time=0.0, end_time=5.0, time_scale=1.0)
+    expected_map = [
+        PresenceMap(presences[0], 0, 0, 2),
+        PresenceMap(presences[1], 1, 1, 4),
+        PresenceMap(presences[2], 2, 2, 4),
+    ]
+    assert matrix.presence_map == expected_map
 
-def test_presence_clipping_at_bounds():
-    clipped = [Presence(boundary=dummy_boundary, element=MockElement(), start=-1.0, end=6.0)]
-    matrix = PresenceMatrixBoolean(clipped, start_time=0.0, end_time=5.0, time_scale=1.0)
-    expected = np.array([[1, 1, 1, 1, 1]], dtype=int)
-    assert np.array_equal(matrix.presence_matrix, expected)
+def test_matrix_shape_scaled():
+    matrix = PresenceMatrix(presences, start_time=0.0, end_time=10.0, time_scale=2.0)
+    assert matrix.presence_matrix is not None
+    assert matrix.presence_matrix.shape == (3, 5)
 
-def test_boolean_matrix_values_scaled():
-    matrix = PresenceMatrixBoolean(presences, start_time=0.0, end_time=10.0, time_scale=2.0)
+
+def test_matrix_values_scaled():
+    matrix = PresenceMatrix(presences, start_time=0.0, end_time=10.0, time_scale=2.0)
     expected = np.array([
-        [1, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0],
-    ], dtype=int)
-    assert np.array_equal(matrix.presence_matrix, expected)
+        [1.0, 0.0, 0.0, 0.0, 0.0],
+        [0.25, 0.75, 0.0, 0.0, 0.0],
+        [0.0, 1.0, 0.0, 0.0, 0.0],
+    ], dtype=float)
+    assert np.allclose(matrix.presence_matrix, expected)
 
-def test_boolean_matrix_presence_map_scaled():
-    matrix = PresenceMatrixBoolean(presences, start_time=0.0, end_time=10.0, time_scale=2.0)
+def test_presence_map_scaled():
+    matrix = PresenceMatrix(presences, start_time=0.0, end_time=10.0, time_scale=2.0)
     expected_map = [
         PresenceMap(presences[0], 0, 0, 1),
-        PresenceMap(presences[1], 1, 0, 1),
+        PresenceMap(presences[1], 1, 0, 2),
         PresenceMap(presences[2], 2, 1, 2),
     ]
     assert matrix.presence_map == expected_map
 
-def test_boolean_matrix_time_bins_scaled():
-    matrix = PresenceMatrixBoolean(presences, start_time=0.0, end_time=10.0, time_scale=2.0)
-    expected_bins = np.array([0.0, 2.0, 4.0, 6.0, 8.0, 10.0])
-    assert np.allclose(matrix.time_bins, expected_bins)
+
+def test_presence_clipping_at_bounds():
+    clipped = [Presence(boundary=dummy_boundary, element=MockElement(), start=-1.0, end=6.0)]
+    matrix = PresenceMatrix(clipped, start_time=0.0, end_time=5.0, time_scale=1.0)
+    expected = np.array([[1, 1, 1, 1, 1]], dtype=int)
+    assert np.array_equal(matrix.presence_matrix, expected)
+
 

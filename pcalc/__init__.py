@@ -7,7 +7,6 @@
 # confidential.
 
 # Author: Krishna Kumar
-from .types import BooleanPresence, RealPresence, T_Matrix
-from .presence_matrix import PresenceMatrixBoolean, PresenceMatrixReal, PresenceMatrix
+from .presence_matrix import  PresenceMatrix
 
 

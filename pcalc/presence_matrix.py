@@ -14,12 +14,13 @@ from numpy import typing as npt
 from metamodel.element import T_Element
 from metamodel.presence import Presence
 
-from pcalc.types import T_Matrix, RealPresence, BooleanPresence
+
 
 
 @dataclass
 class PresenceMap:
     """Internal bookkeeping data structure for presence matrix
+    Maps each presence to its row and column indices in the matrix.
     """
 
     presence: Presence
@@ -36,7 +37,7 @@ class PresenceMap:
     """
 
 
-class PresenceMatrix(ABC, Generic[T_Element, T_Matrix]):
+class PresenceMatrix(Generic[T_Element]):
     """
     A scale invariant matrix representation of element presences on a timeline.
 
@@ -65,7 +66,7 @@ class PresenceMatrix(ABC, Generic[T_Element, T_Matrix]):
     """
 
     def __init__(self, presences: List[Presence[T_Element]], start_time: float, end_time: float,
-                 time_scale: float = 1.0, dtype=int):
+                 time_scale: float = 1.0):
         """
         Construct a presence matrix from a list of Presences and time window configuration.
 
@@ -76,8 +77,14 @@ class PresenceMatrix(ABC, Generic[T_Element, T_Matrix]):
             time_scale: Multiple of some base time unit in which all timelines are recorded in the system.
         """
 
-        self.presence_matrix: Optional[T_Matrix] = None
-        """The binary presence matrix with shape (num_Presences, num_bins)."""
+        self.presence_matrix: Optional[npt.NDArray[np.float64]] = None
+        """
+        A real valued matrix with shape (num_Presences, num_bins).
+        When every presence.start and presence.end are whole numbers every value
+        in the matrix is either 0.0 or 1.0. If they are not whole numbers, the presence
+        is mapped to a number between 0.0 and 1.0 at the start and end (or both), with any
+        intermediate value being 1.0. 
+        """
 
         self.start_time = start_time
         """The start of the observation window."""
@@ -104,12 +111,10 @@ class PresenceMatrix(ABC, Generic[T_Element, T_Matrix]):
         """The number of bins used across the observation window."""
 
         self.presence_map: List[PresenceMap] = []
-
+        self.shape = None
         self.init_matrix(presences)
 
-    @abstractmethod
-    def init_presence_array(self, shape: Tuple[int, int]) -> npt.NDArray:
-        ...
+
 
     def init_matrix(self, presences: List[Presence[T_Element]]) -> None:
         """
@@ -123,9 +128,10 @@ class PresenceMatrix(ABC, Generic[T_Element, T_Matrix]):
         time_bins = np.arange(t0, t1 + bin_width, bin_width)
         num_bins = len(time_bins) - 1
         num_rows = len(presences)
+        self.shape = (num_rows, num_bins)
 
-        # concrete subclasses override these to provide correctly typed arrays
-        matrix = self.init_presence_array(shape=(num_rows, num_bins))
+        # the matrix is an array of floats.
+        matrix = np.zeros(self.shape, dtype=float)
 
         for row, presence in enumerate(presences):
 
@@ -134,11 +140,25 @@ class PresenceMatrix(ABC, Generic[T_Element, T_Matrix]):
             effective_end = min(presence.end, t1)
 
             # Convert to bin indices
-            start_slice = int((effective_start - t0) // bin_width)
-            end_slice = int((effective_end - t0) // bin_width)
+            start_slice = int(np.floor((effective_start - t0) / bin_width))
+            end_slice = int(np.ceil((effective_end - t0) / bin_width))
 
             if end_slice > start_slice:
-                matrix[row, start_slice:end_slice] = 1
+                # A presence is mapped to a range of bins
+                # If presence.start and presence.end are whole numbers
+                # then it maps to sequence of whole presences (value = 1,0)
+                # Otherwise, there may be a partial presence at the start
+                # or end of the interval (or both) where the presence partially
+                # overlaps a bin with 1.0 in any intermediate element of the slice.
+                for col in range(start_slice, end_slice):
+                    bin_start = t0 + col * bin_width
+                    bin_end = bin_start + bin_width
+
+                    overlap_start = max(effective_start, bin_start)
+                    overlap_end = min(effective_end, bin_end)
+                    overlap = max(0.0, overlap_end - overlap_start)
+
+                    matrix[row, col] = overlap / bin_width
 
             self.presence_map.append(PresenceMap(presence, row, start_slice, end_slice))
 
@@ -146,18 +166,8 @@ class PresenceMatrix(ABC, Generic[T_Element, T_Matrix]):
         self.time_bins = time_bins
 
 
-class PresenceMatrixBoolean(PresenceMatrix[T_Element, BooleanPresence]):
-    # we use ints here because we want to do arithmetic on the binary matrix
-    def init_presence_array(self, shape: Tuple[int, int]) -> npt.NDArray:
-        return np.zeros(shape, dtype=int)
 
 
-class PresenceMatrixReal(PresenceMatrix[T_Element, RealPresence]):
-    def init_presence_array(self, shape: Tuple[int, int]) -> npt.NDArray:
-        return np.zeros(shape, dtype=float)
-
-
-# -------------
 
 def get_entry_exit_times(presence, signal_index, queue_name):
     arrivals = []
