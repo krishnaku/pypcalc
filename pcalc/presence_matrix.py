@@ -43,13 +43,15 @@ class PresenceMatrix(Generic[T_Element]):
     ```
     """
 
-    def __init__(self, presences: List[Presence[T_Element]], time_scale: Timescale):
+    def __init__(self, presences: List[Presence[T_Element]], time_scale: Timescale, materialize=False):
         """
         Construct a presence matrix from a list of Presences and time window configuration.
 
         Args:
             presences: A list of `Presence` instances, one per element of interest.
             time_scale: The discrete `Timescale` that the matrix will be normalized to.
+            materialize: If True, immediately constructs the full backing matrix.
+                     Otherwise, matrix values will be computed on demand using the sparse presence map.
         """
 
         self.presence_matrix: Optional[npt.NDArray[np.float64]] = None
@@ -67,14 +69,14 @@ class PresenceMatrix(Generic[T_Element]):
         The time scale of the presence matrix.
         """
 
-        self.time_bins: int = time_scale.num_bins
-        """The number of bins used across the observation window."""
-
         self.presence_map: List[PresenceMap] = []
         self.shape = None
-        self.init_matrix(presences)
+        self.init_presence_map(presences)
 
-    def init_matrix(self, presences: List[Presence[T_Element]]) -> None:
+        if materialize:
+            self.materialize()
+
+    def init_presence_map(self, presences: List[Presence[T_Element]]) -> None:
         """
         Initialize the internal presence matrix based on the Presence intervals and binning scheme.
         """
@@ -84,27 +86,137 @@ class PresenceMatrix(Generic[T_Element]):
         num_rows = len(presences)
         self.shape = (num_rows, num_bins)
 
-        # Preallocate matrix and compute bin edges for the Timescale.
-        matrix = np.zeros(self.shape, dtype=float)
-        time_bins = ts.bin_edges()
-
         for row, presence in enumerate(presences):
             presence_map = PresenceMap(presence, ts)
-            if presence_map.is_mapped:
-                self.map_matrix_row(matrix, row, presence_map)
-
             self.presence_map.append(presence_map)
 
+    def is_materialized(self) -> bool:
+        """Return True if the backing matrix has been materialized."""
+        return self.presence_matrix is not None
+
+    def materialize(self) -> npt.NDArray[np.float64]:
+        """
+        Materialize and return the full presence matrix from presence maps.
+        If already materialized, this is a no-op and returns the cached matrix.
+
+        Use this only if want the full matrix to operate on. For most cases, you should
+        be able to work with the sparse representation with the presence map and using
+        array slicing on the matrix object. So think twice about why you are materializing
+        a matrix.
+
+        Returns:
+            The dense presence matrix of shape (num_presences, num_bins).
+        """
+        if self.is_materialized():
+            return  self.presence_matrix
+
+        num_rows, num_cols = self.shape
+        matrix = np.zeros((num_rows, num_cols), dtype=float)
+
+        for row, pm in enumerate(self.presence_map):
+            if not pm.is_mapped:
+                continue
+            start = pm.start_bin
+            end = pm.end_bin
+            matrix[row, start] = pm.start_value
+            if end - 1 > start:
+                matrix[row, end - 1] = pm.end_value
+            if end - start > 2:
+                matrix[row, start + 1: end - 1] = 1.0
+
         self.presence_matrix = matrix
-        self.time_bins = time_bins
+        return self.presence_matrix
 
-    @staticmethod
-    def map_matrix_row(matrix: npt.NDArray, row: int, presence_map: PresenceMap) -> None:
-        matrix[row, presence_map.start_bin] = presence_map.start_value
-        matrix[row, presence_map.start_bin + 1: presence_map.end_bin - 1] = 1.0
-        if presence_map.end_bin - 1 > presence_map.start_bin:
-            matrix[row, presence_map.end_bin - 1] = presence_map.end_value
+    def drop_materialization(self) -> None:
+        """Discard the cached matrix, returning to sparse-only mode."""
+        self.presence_matrix = None
 
+    def _compute_row_slice(self, row: int, start: int, stop: int) -> np.ndarray:
+        """
+        On-demand computation of a row slice from presence map.
+        If the presence is not mapped or out of bounds, returns zeroes.
+        """
+        pm = self.presence_map[row]
+        width = stop - start
+        output = np.zeros(width, dtype=float)
+
+        if not pm.is_mapped:
+            return output
+
+        # Slice and overlap window
+        for col in range(start, stop):
+            if col < pm.start_bin or col >= pm.end_bin:
+                continue
+            elif col == pm.start_bin:
+                output[col - start] = pm.start_value
+            elif col == pm.end_bin - 1:
+                output[col - start] = pm.end_value
+            else:
+                output[col - start] = 1.0
+
+        return output
+
+    def __getitem__(self, index):
+        """
+        Support NumPy-style indexing:
+        - matrix[i]           → row i
+        - matrix[i:j]         → row slice (returns 2D array)
+        - matrix[i, j]        → scalar
+        - matrix[i, j:k]      → row[i], column slice
+        - matrix[:, j]        → column j (all rows)
+        - matrix[:, j:k]      → column block j:k (all rows)
+        """
+        # matrix[i:j] → top-level row slicing
+        if isinstance(index, slice):
+            if index.step is not None:
+                raise ValueError("PresenceMatrix does not support slicing with a step.")
+            start = index.start if index.start is not None else 0
+            stop = index.stop if index.stop is not None else self.shape[0]
+            if self.presence_matrix is not None:
+                return self.presence_matrix[start:stop]
+            return np.array([self[row] for row in range(start, stop)])
+
+        # matrix[i, j], matrix[i, j:k], matrix[:, j]
+        if isinstance(index, tuple):
+            row_idx, col_idx = index
+
+            # matrix[:, j] or matrix[:, j:k]
+            if isinstance(row_idx, slice):
+                if row_idx.step is not None:
+                    raise ValueError("PresenceMatrix does not support stepped row slicing.")
+                row_start = row_idx.start if row_idx.start is not None else 0
+                row_stop = row_idx.stop if row_idx.stop is not None else self.shape[0]
+
+                if isinstance(col_idx, int):
+                    return np.array([self[row, col_idx] for row in range(row_start, row_stop)])
+
+                elif isinstance(col_idx, slice):
+                    if col_idx.step is not None:
+                        raise ValueError("PresenceMatrix does not support stepped column slicing.")
+                    col_start = col_idx.start if col_idx.start is not None else 0
+                    col_stop = col_idx.stop if col_idx.stop is not None else self.shape[1]
+                    return np.array([self[row, col_start:col_stop] for row in range(row_start, row_stop)])
+
+            # matrix[i, j] or matrix[i, j:k]
+            elif isinstance(row_idx, int):
+                if isinstance(col_idx, int):
+                    return self.presence_matrix[row_idx, col_idx] if self.presence_matrix is not None \
+                        else self._compute_row_slice(row_idx, col_idx, col_idx + 1)[0]
+
+                elif isinstance(col_idx, slice):
+                    if col_idx.step is not None:
+                        raise ValueError("PresenceMatrix does not support stepped column slicing.")
+                    start = col_idx.start if col_idx.start is not None else 0
+                    stop = col_idx.stop if col_idx.stop is not None else self.shape[1]
+                    return self.presence_matrix[row_idx, start:stop] if self.presence_matrix is not None \
+                        else self._compute_row_slice(row_idx, start, stop)
+
+        # matrix[i] → single row
+        if isinstance(index, int):
+            return self.presence_matrix[index] if self.presence_matrix is not None \
+                else self._compute_row_slice(index, 0, self.shape[1])
+
+        raise TypeError(f"Invalid index for PresenceMatrix: {index}")
 
 
 def get_entry_exit_times(presence, signal_index, queue_name):
