@@ -19,22 +19,40 @@ from metamodel.presence import Presence
 
 @dataclass
 class PresenceMap:
-    """Internal bookkeeping data structure for presence matrix
-    Maps each presence to its row and column indices in the matrix.
+    """A presence map is a mapping of a presence, which has
+    a start and end time on a continuous timescale, to a
+    discrete timescale where a continuous interval from t0 to t1 is
+    divided into equal-sized bins of width `bin_width`.
+
+    A presence map is a piecewise constant function over the bin indices,
+    where the presence is assumed to be:
+
+    - zero outside the mapped bin range,
+    - possibly fractional (0 < p < 1) in the first and last bins due to partial overlap, and
+    - equal to 1.0 in all interior bins that fall entirely within the presence interval.
+
+    This representation allows the continuous duration of a presence
+    to be projected onto a discrete matrix without loss of precision
+    at the boundaries, while enabling efficient matrix-based analytics and transformations.
     """
 
     presence: Presence
     """The presence entry"""
-    row: int
-    """The row of the matrix that it is mapped to"""
-    start_slice: int
-    """The starting index to slice the presence row"""
-    end_slice: int
-    """The ending index to slice the presence row.
-    Note that this is set to slice the row, so the 
-    presence matrix has entries in the slice `[start_slice, end_slice]` 
+
+    is_mapped: bool
+    """True if the presence has a valid mapping. Unmapped presences have value=None
+    for start_slice, end_slice, start_value and end_value. 
+    """
+    start_bin: int
+    """The starting bin in the discrete mapping"""
+    end_bin: int
+    """The ending bin in the discrete mapping` 
     of row `row`. 
     """
+    start_value: float
+    """A presence value 0 < p < 1.0 that represents a potentially partial presence at the start of the mapping"""
+    end_value: float
+    """A presence value 0 < p < 1.0 that represents a partially partial presence at the end of the mapping"""
 
 
 class PresenceMatrix(Generic[T_Element]):
@@ -114,8 +132,6 @@ class PresenceMatrix(Generic[T_Element]):
         self.shape = None
         self.init_matrix(presences)
 
-
-
     def init_matrix(self, presences: List[Presence[T_Element]]) -> None:
         """
         Initialize the internal presence matrix based on the Presence intervals and binning scheme.
@@ -132,41 +148,64 @@ class PresenceMatrix(Generic[T_Element]):
 
         # the matrix is an array of floats.
         matrix = np.zeros(self.shape, dtype=float)
-
         for row, presence in enumerate(presences):
+            presence_map = self.map_presence(presence, t0, t1, bin_width)
+            if presence_map.is_mapped:
+                self.map_matrix_row(matrix, row, presence_map)
 
-            # Clip presence interval to the time window
-            effective_start = max(presence.start, t0)
-            effective_end = min(presence.end, t1)
-
-            # Convert to bin indices
-            start_slice = int(np.floor((effective_start - t0) / bin_width))
-            end_slice = int(np.ceil((effective_end - t0) / bin_width))
-
-            if end_slice > start_slice:
-                # A presence is mapped to a range of bins
-                # If presence.start and presence.end are whole numbers
-                # then it maps to sequence of whole presences (value = 1,0)
-                # Otherwise, there may be a partial presence at the start
-                # or end of the interval (or both) where the presence partially
-                # overlaps a bin with 1.0 in any intermediate element of the slice.
-                for col in range(start_slice, end_slice):
-                    bin_start = t0 + col * bin_width
-                    bin_end = bin_start + bin_width
-
-                    overlap_start = max(effective_start, bin_start)
-                    overlap_end = min(effective_end, bin_end)
-                    overlap = max(0.0, overlap_end - overlap_start)
-
-                    matrix[row, col] = overlap / bin_width
-
-            self.presence_map.append(PresenceMap(presence, row, start_slice, end_slice))
+            self.presence_map.append(presence_map)
 
         self.presence_matrix = matrix
         self.time_bins = time_bins
 
+    @staticmethod
+    def map_matrix_row(matrix: npt.NDArray, row: int, presence_map: PresenceMap) -> None:
+        matrix[row, presence_map.start_bin] = presence_map.start_value
+        matrix[row, presence_map.start_bin + 1: presence_map.end_bin - 1] = 1.0
+        if presence_map.end_bin - 1 > presence_map.start_bin:
+            matrix[row, presence_map.end_bin - 1] = presence_map.end_value
 
+    @staticmethod
+    def map_presence(presence: Presence, t0: float, t1: float, bin_width: float) -> PresenceMap:
+        """Map a presence interval to matrix slice indices and edge fractional values."""
 
+        effective_start = max(presence.start, t0)
+        effective_end = min(presence.end, t1)
+
+        # If there is no mapping, then these are the values in the presence map.
+        is_mapped = False
+        start_slice = -1
+        end_slice = -1
+        start_value = -1
+        end_value = -1
+
+        if effective_end > effective_start:
+            is_mapped = True
+            start_slice = int(np.floor((effective_start - t0) / bin_width))
+            end_slice = int(np.ceil((effective_end - t0) / bin_width))
+
+            # Compute partial overlap at start
+            bin_start_time = t0 + start_slice * bin_width
+            bin_end_time = bin_start_time + bin_width
+            start_overlap = (min(effective_end, bin_end_time) - effective_start) / bin_width
+            start_value = max(0.0, min(1.0, start_overlap))
+
+            # Compute partial overlap at end
+            if end_slice - 1 > start_slice:
+                bin_start_time = t0 + (end_slice - 1) * bin_width
+                end_overlap = (effective_end - max(effective_start, bin_start_time)) / bin_width
+                end_value = max(0.0, min(1.0, end_overlap))
+            else:
+                end_value = start_value  # same bin
+
+        return PresenceMap(
+            presence=presence,
+            is_mapped=is_mapped,
+            start_bin=start_slice,
+            end_bin=end_slice,
+            start_value=start_value,
+            end_value=end_value,
+        )
 
 
 def get_entry_exit_times(presence, signal_index, queue_name):

@@ -43,9 +43,9 @@ def test_matrix_values():
 def test_presence_map():
     matrix = PresenceMatrix(presences, start_time=0.0, end_time=5.0, time_scale=1.0)
     expected_map = [
-        PresenceMap(presences[0], 0, 0, 2),
-        PresenceMap(presences[1], 1, 1, 4),
-        PresenceMap(presences[2], 2, 2, 4),
+        PresenceMap(presences[0], True, 0, 2, 1.0, 1.0),
+        PresenceMap(presences[1], True, 1, 4, 0.5, 0.5),
+        PresenceMap(presences[2], True, 2, 4, 1.0, 1.0),
     ]
     assert matrix.presence_map == expected_map
 
@@ -67,9 +67,9 @@ def test_matrix_values_scaled():
 def test_presence_map_scaled():
     matrix = PresenceMatrix(presences, start_time=0.0, end_time=10.0, time_scale=2.0)
     expected_map = [
-        PresenceMap(presences[0], 0, 0, 1),
-        PresenceMap(presences[1], 1, 0, 2),
-        PresenceMap(presences[2], 2, 1, 2),
+        PresenceMap(presences[0], True, 0, 1, 1.0, 1.0),
+        PresenceMap(presences[1], True, 0, 2, 0.25, 0.75),
+        PresenceMap(presences[2], True, 1, 2, 1.0, 1.0),
     ]
     assert matrix.presence_map == expected_map
 
@@ -97,6 +97,15 @@ def test_presence_outside_window():
     matrix = PresenceMatrix([p], start_time=0.0, end_time=5.0, time_scale=1.0)
     expected = np.zeros((1, 5))
     assert np.allclose(matrix.presence_matrix, expected)
+
+def test_presence_map_outside_window():
+    p = Presence(boundary=dummy_boundary, element=MockElement(), start=6.0, end=8.0)
+    matrix = PresenceMatrix([p], start_time=0.0, end_time=5.0, time_scale=1.0)
+    expected_map = [
+        PresenceMap(p, False, -1, -1, -1, -1),
+    ]
+    assert matrix.presence_map == expected_map
+
 
 def test_non_integer_scale():
     matrix = PresenceMatrix(presences, start_time=0.0, end_time=10.0, time_scale=2.5)
