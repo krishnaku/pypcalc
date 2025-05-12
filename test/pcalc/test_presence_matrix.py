@@ -42,9 +42,8 @@ def test_presence_map():
     ts = Timescale(t0=0.0, t1=5.0, bin_width=1.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
     expected_map = [
-        PresenceMap(presences[0], True, 0, 2, 1.0, 1.0),
-        PresenceMap(presences[1], True, 1, 4, 0.5, 0.5),
-        PresenceMap(presences[2], True, 2, 4, 1.0, 1.0),
+        PresenceMap(presence, ts)
+        for presence in presences
     ]
     assert matrix.presence_map == expected_map
 
@@ -68,9 +67,8 @@ def test_presence_map_scaled():
     ts = Timescale(t0=0.0, t1=10.0, bin_width=2.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
     expected_map = [
-        PresenceMap(presences[0], True, 0, 1, 1.0, 1.0),
-        PresenceMap(presences[1], True, 0, 2, 0.25, 0.75),
-        PresenceMap(presences[2], True, 1, 2, 1.0, 1.0),
+        PresenceMap(presence, ts)
+        for presence in presences
     ]
     assert matrix.presence_map == expected_map
 
@@ -105,7 +103,7 @@ def test_presence_map_outside_window():
     ts = Timescale(t0=0.0, t1=5.0, bin_width=1.0)
     p = Presence(boundary=dummy_boundary, element=MockElement(), start=6.0, end=8.0)
     matrix = PresenceMatrix([p], time_scale=ts)
-    expected_map = [PresenceMap(p, False, -1, -1, -1, -1)]
+    expected_map = [PresenceMap(p,ts)]
     assert matrix.presence_map == expected_map
 
 def test_non_integer_scale():

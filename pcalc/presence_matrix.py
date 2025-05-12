@@ -84,12 +84,12 @@ class PresenceMatrix(Generic[T_Element]):
         num_rows = len(presences)
         self.shape = (num_rows, num_bins)
 
-        # Preallocate matrix and compute bin edges using Timescale helper
+        # Preallocate matrix and compute bin edges for the Timescale.
         matrix = np.zeros(self.shape, dtype=float)
         time_bins = ts.bin_edges()
 
         for row, presence in enumerate(presences):
-            presence_map = self.map_presence(presence, ts)
+            presence_map = PresenceMap(presence, ts)
             if presence_map.is_mapped:
                 self.map_matrix_row(matrix, row, presence_map)
 
@@ -105,43 +105,6 @@ class PresenceMatrix(Generic[T_Element]):
         if presence_map.end_bin - 1 > presence_map.start_bin:
             matrix[row, presence_map.end_bin - 1] = presence_map.end_value
 
-    @staticmethod
-    def map_presence(presence: Presence, ts: Timescale) -> PresenceMap:
-        """
-        Map a presence interval to matrix slice indices and edge fractional values
-        using the provided Timescale object.
-        """
-
-        effective_start = max(presence.start, ts.t0)
-        effective_end = min(presence.end, ts.t1)
-
-        is_mapped = False
-        start_bin = -1
-        end_bin = -1
-        start_value = -1.0
-        end_value = -1.0
-
-        if effective_end > effective_start:
-            is_mapped = True
-            start_bin, end_bin = ts.bin_slice(effective_start, effective_end)
-
-            # Compute partial overlap at start bin
-            start_value = ts.fractional_overlap(effective_start, effective_end, start_bin)
-
-            # Compute partial overlap at end bin, if not same as start
-            if end_bin - 1 > start_bin:
-                end_value = ts.fractional_overlap(effective_start, effective_end, end_bin - 1)
-            else:
-                end_value = start_value
-
-        return PresenceMap(
-            presence=presence,
-            is_mapped=is_mapped,
-            start_bin=start_bin,
-            end_bin=end_bin,
-            start_value=start_value,
-            end_value=end_value,
-        )
 
 
 def get_entry_exit_times(presence, signal_index, queue_name):

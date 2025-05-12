@@ -9,5 +9,5 @@
 # Author: Krishna Kumar
 from .presence_matrix import  PresenceMatrix
 from .time_scale import Timescale
-
+from .presence_map import PresenceMap
 
