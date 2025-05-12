@@ -5,8 +5,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
 
-from pd_utils import estimate_limits
-from presence_matrix import compute_cumulative_arrival_rate, compute_signal_flow_metrics, compute_operator_flow_metrics, \
+from .pd_utils import estimate_limits
+from .presence_matrix import compute_cumulative_arrival_rate, compute_signal_flow_metrics, compute_operator_flow_metrics, \
     compute_average_residence_time, compute_average_number_in_queue, get_entry_exit_times
 
 

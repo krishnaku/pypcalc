@@ -1,5 +1,5 @@
 # Auto-generated module
-from types import Any, Optional, Dict
+from typing import Any, Optional, Dict
 
 import numpy as np
 import pandas as pd

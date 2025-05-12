@@ -17,31 +17,71 @@ from .time_scale import Timescale
 
 class PresenceMatrix(Generic[T_Element]):
     """
-    A scale invariant matrix representation of element presences on a timeline.
+    A scale-invariant, optionally lazy matrix representation of element presences over time.
 
-    Each row corresponds to a single `Presence`, and each column represents a unit of time on a timescale.
-    The matrix is binary: a value of 1 indicates the signal was present in the boundary
-    during that time bin, while 0 indicates absence.
+    Each row corresponds to a single `Presence`, and each column represents a discrete time bin defined by a `Timescale`.
+    The matrix records the degree of presence of each element within a given boundary over time, where each value is a real number in [0.0, 1.0]:
+    - 1.0 = full presence for the duration of the time bin
+    - 0.0 = no presence
+    - values in between represent partial presence due to overlap
 
-    Note that the same element may be present in a  given matrix multiple times, but they will
-    be recorded as separate Presences and be represented as separate rows in the matrix.
+    The matrix can be computed eagerly via `materialize()` or accessed lazily through NumPy-style slicing.
 
-    The `PresenceMatrix` is the core data structure used to analyze how elements
-    propagate through boundaries over time, and to support calculations of flow metrics like
-    arrivals, departures, residence times of elements in boundaries.
+    ### Structure
 
-    ### Dimensions
+    - **Rows:** Each row corresponds to one `Presence` instance.
+    - **Columns:** Each column represents a discrete bin of time defined by the `Timescale` (from `t0` to `t1` using `bin_width`).
+    - The matrix shape is therefore `(len(presences), timescale.num_bins)`.
 
-    - Rows: `len(Presences)`
-    - Columns: `(t1 - t0) / timescale`
-
-    ### Example
+    ### Usage
 
     ```python
-    matrix = PresenceMatrix(Presences, t0=0.0, t1=10.0, time_scale=1.0)
-    matrix.presence_matrix  # shape: (num_Presences, num_time_bins)
+    from pcalc import PresenceMatrix
+    from metamodel.timescale import Timescale
+
+    # Define a time window with bin width of 1.0
+    ts = Timescale(t0=0.0, t1=5.0, bin_width=1.0)
+
+    # Construct lazily
+    matrix = PresenceMatrix(presences, time_scale=ts)
+
+    # Access entire row
+    row = matrix[0]  # row 0 as 1D array
+
+    # Access single value
+    value = matrix[2, 3]  # presence at row 2, column 3
+
+    # Access slice of row
+    window = matrix[1, 1:4]  # row 1, columns 1–3
+
+    # Access slice of rows
+    rows = matrix[0:2]  # rows 0 and 1
+
+    # Access single column
+    col = matrix[:, 2]  # all rows at column 2
+
+    # Access column block
+    col_block = matrix[:, 1:4]  # all rows, columns 1–3
+
+    # Materialize full matrix (optional)
+    dense = matrix.materialize()
     ```
-    """
+
+    Features
+    --------
+    - Lazy evaluation by default; full matrix computed only if needed
+    - NumPy-style indexing: supports full rows, row/column slicing, and scalar access
+    - Precision-preserving: partial bin overlaps are retained in the matrix
+    - Compatible with matrix operations and flow metric calculations
+    - Backed by a sparse `PresenceMap`, which stores slice indices and fractional overlaps
+
+    Notes
+    -----
+    - Use `materialize()` if you want to extract or operate on the full dense matrix
+    - Use `matrix[i, j]`, `matrix[i, j:k]`, or `matrix[:, j]` for lightweight slicing without allocating the full matrix
+    - Stepped slicing (e.g., `matrix[::2]`) is not currently supported
+
+"""
 
     def __init__(self, presences: List[Presence[T_Element]], time_scale: Timescale, materialize=False):
         """
@@ -62,7 +102,6 @@ class PresenceMatrix(Generic[T_Element]):
         is mapped to a number between 0.0 and 1.0 at the start and end (or both), with any
         intermediate value being 1.0. 
         """
-
 
         self.time_scale = time_scale
         """
@@ -108,7 +147,7 @@ class PresenceMatrix(Generic[T_Element]):
             The dense presence matrix of shape (num_presences, num_bins).
         """
         if self.is_materialized():
-            return  self.presence_matrix
+            return self.presence_matrix
 
         num_rows, num_cols = self.shape
         matrix = np.zeros((num_rows, num_cols), dtype=float)
