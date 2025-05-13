@@ -7,7 +7,7 @@
 # confidential.
 
 # Author: Krishna Kumar
-
+import numpy as np
 from metamodel import Signal, DomainEvent
 from sim.model.boundary.base import BoundaryBase
 from sim.model.signal import SignalBase
@@ -85,8 +85,8 @@ def test_visit_starts_before_end_during_window():
     log.record(entity, 3.0, "exit", s1)
     presences = boundary.get_signal_presences(2.0, 4.0)
     assert len(presences) == 1
-    # this is clipped to the window
-    assert presences[0].start == 2.0 and presences[0].end == 3.0
+
+    assert presences[0].start == 1.0 and presences[0].end == 3.0
 
 def test_visit_starts_during_ends_after_window():
     sim = MockSimulation()
@@ -98,8 +98,8 @@ def test_visit_starts_during_ends_after_window():
     log.record(entity, 5.0, "exit", s1)
     presences = boundary.get_signal_presences(2.0, 4.0)
     assert len(presences) == 1
-    # this is clipped to the window
-    assert presences[0].start == 3.0 and presences[0].end == 4.0
+
+    assert presences[0].start == 3.0 and presences[0].end == 5.0
 
 def test_visit_starts_before_ends_after_window():
     sim = MockSimulation()
@@ -111,8 +111,8 @@ def test_visit_starts_before_ends_after_window():
     log.record(entity, 5.0, "exit", s1)
     presences = boundary.get_signal_presences(2.0, 4.0)
     assert len(presences) == 1
-    # this is clipped to the window
-    assert presences[0].start == 2.0 and presences[0].end == 4.0
+
+    assert presences[0].start == 1.0 and presences[0].end == 5.0
 
 def test_enter_without_exit():
     sim = MockSimulation()
@@ -125,7 +125,7 @@ def test_enter_without_exit():
     presences = boundary.get_signal_presences(2.0, 4.0)
     assert len(presences) == 1
     assert presences[0].start == 3.0
-    assert presences[0].end == 4.0  # clipped to t1
+    assert presences[0].end == np.inf
 
 def test_exit_without_enter():
     sim = MockSimulation()
@@ -136,7 +136,7 @@ def test_exit_without_enter():
     log.record(entity, 3.0, "exit", s1)
     presences = boundary.get_signal_presences(2.0, 4.0)
     assert len(presences) == 1
-    assert presences[0].start == 2.0  # t0 default
+    assert presences[0].start == 0  # t0 default
     assert presences[0].end == 3.0
 
 
