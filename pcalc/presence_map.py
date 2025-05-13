@@ -72,18 +72,17 @@ class PresenceMap:
         self.presence = presence
         self.time_scale = time_scale
         ts = self.time_scale
-
-        effective_start = max(presence.start, ts.t0)
-        effective_end = min(presence.end, ts.t1)
-
         is_mapped = False
         start_bin = -1
         end_bin = -1
         start_value = -1.0
         end_value = -1.0
 
-        if effective_end > effective_start:
+        if presence.overlaps(ts.t0, ts.t1):
             is_mapped = True
+
+            effective_start = max(presence.start, ts.t0)
+            effective_end = min(presence.end, ts.t1)
             start_bin, end_bin = ts.bin_slice(effective_start, effective_end)
 
             # Compute partial overlap at start bin
