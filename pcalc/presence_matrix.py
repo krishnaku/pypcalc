@@ -118,16 +118,18 @@ class PresenceMatrix(Generic[T_Element]):
     def init_presence_map(self, presences: List[Presence[T_Element]]) -> None:
         """
         Initialize the internal presence matrix based on the Presence intervals and binning scheme.
+        Only presences that overlap the timescale endpoints [t0, t1) are mapped.
         """
         ts = self.time_scale  # Timescale object: includes t0, t1, bin_width
 
-        num_bins = ts.num_bins
-        num_rows = len(presences)
-        self.shape = (num_rows, num_bins)
-
         for row, presence in enumerate(presences):
             presence_map = PresenceMap(presence, ts)
-            self.presence_map.append(presence_map)
+            if presence_map.is_mapped:
+                self.presence_map.append(presence_map)
+
+        num_bins = ts.num_bins
+        num_rows = len(self.presence_map)
+        self.shape = (num_rows, num_bins)
 
     def is_materialized(self) -> bool:
         """Return True if the backing matrix has been materialized."""

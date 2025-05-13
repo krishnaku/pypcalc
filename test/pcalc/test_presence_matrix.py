@@ -94,14 +94,15 @@ def test_presence_outside_window(materialize):
     ts = Timescale(0.0, 5.0, 1.0)
     p = Presence(boundary=dummy_boundary, element=MockElement(), start=6.0, end=8.0)
     matrix = PresenceMatrix([p], time_scale=ts, materialize=materialize)
-    assert np.allclose(matrix[:], np.zeros((1, 5)))
+    assert len(matrix.presence_map) == 0
+    assert matrix.shape == (0,5)
 
 @pytest.mark.parametrize("materialize", [True, False])
 def test_presence_map_outside_window(materialize):
     ts = Timescale(0.0, 5.0, 1.0)
     p = Presence(boundary=dummy_boundary, element=MockElement(), start=6.0, end=8.0)
     matrix = PresenceMatrix([p], time_scale=ts, materialize=materialize)
-    assert matrix.presence_map == [PresenceMap(p, ts)]
+    assert matrix.presence_map == []
 
 @pytest.mark.parametrize("materialize", [True, False])
 def test_non_integer_scale(materialize):
