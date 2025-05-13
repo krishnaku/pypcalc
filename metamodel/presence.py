@@ -1,27 +1,27 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Generic, TYPE_CHECKING
+from typing import Generic, TYPE_CHECKING, Optional
 
 from .element import T_Element
+
 if TYPE_CHECKING:
     from .boundary import Boundary
 
 @dataclass
 class Presence(Generic[T_Element]):
     """
-    A statement that a domain element was continuously present in a  boundary
-    for a time interval.
+    A statement that a domain element was continuously present in a boundary
+    during a specific time interval.
 
-    In contrast to a domain event which locates a domain element in time, a `Presence` captures time and location
-    of a domain element within the domain.
+    Unlike a DomainEvent, which captures a point-in-time signal, a `Presence`
+    represents a continuous interval in which the element was active or resident
+    within a boundary.
 
-    The requirement of continuity of presence, in a boundary means that, in principle, one
-    can recover the entire trajectory of the domain element in the domain given a complete
-    history of the presences of the element within boundaries.
+    The assumption of continuity allows full reconstruction of element trajectories
+    within the domain if all presences are known.
 
-    Note that an element may have many associated presences over time in the same boundary, and each one is considered
-    distinct.
+    Multiple distinct presences for the same element in the same boundary may occur over time.
     """
 
     element: T_Element
@@ -34,8 +34,41 @@ class Presence(Generic[T_Element]):
     """Start time of the Presence interval."""
 
     end: float
-    """End time of the Presence interval."""
+    """
+    End time of the Presence interval.
 
+    A value of `np.inf` indicates an open-ended presence — i.e., the element has
+    not yet exited the boundary or no end event has been observed.
+    """
 
+    def overlaps(self, t0: float, t1: float) -> bool:
+        """
+        Return True if this presence overlaps the time interval [t0, t1).
 
+        Overlap means there exists a nonzero-duration intersection between
+        [self.start, self.end) and [t0, t1).
+        """
+        return self.end > t0 and self.start < t1
 
+    def clip(self, t0: float, t1: float) -> Optional["Presence[T_Element]"]:
+        """
+        Return a new Presence representing the clipped overlap with [t0, t1),
+        or None if there is no overlap.
+        """
+        if not self.overlaps(t0, t1):
+            return None
+
+        return Presence(
+            element=self.element,
+            boundary=self.boundary,
+            start=max(self.start, t0),
+            end=min(self.end, t1),
+        )
+
+    def duration(self) -> float:
+        """
+        Return the full duration of the presence.
+
+        Returns `inf` if the presence is open-ended (`end = np.inf`).
+        """
+        return self.end - self.start

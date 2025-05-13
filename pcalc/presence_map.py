@@ -83,7 +83,9 @@ class PresenceMap:
 
             effective_start = max(presence.start, ts.t0)
             effective_end = min(presence.end, ts.t1)
-            start_bin, end_bin = ts.bin_slice(effective_start, effective_end)
+
+            start_bin = ts.bin_index(effective_start)
+            end_bin = ts.bin_index(effective_end)
 
             # Compute partial overlap at start bin
             start_value = ts.fractional_overlap(effective_start, effective_end, start_bin)
@@ -99,3 +101,6 @@ class PresenceMap:
         self.end_bin = end_bin
         self.start_value = start_value
         self.end_value = end_value
+
+    def is_active(self, start_bin: int, end_bin: int):
+        return end_bin > self.start_bin and start_bin < self.end_bin

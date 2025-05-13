@@ -197,6 +197,10 @@ class PresenceMatrix(Generic[T_Element]):
 
         return output
 
+    @property
+    def presences(self) -> List[Presence[T_Element]]:
+        return [pm.presence for pm in self.presence_map]
+
     def __getitem__(self, index):
         """
         Support NumPy-style indexing:
