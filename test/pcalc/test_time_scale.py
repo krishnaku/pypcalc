@@ -80,3 +80,25 @@ def test_fractional_overlap_clipping():
     assert ts.fractional_overlap(-1.0, 1.0, 0) == 0.5
     assert ts.fractional_overlap(1.5, 4.5, 1) == 1.0
 
+
+def test_bin_index_out_of_bounds():
+    ts = Timescale(0.0, 10.0, 2.0)
+    assert ts.bin_index(-0.1) == -1
+    assert ts.bin_index(10.0) == 5  # Outside [t0, t1), but correct by floor logic
+
+def test_bin_slice_empty_interval_produces_nonempty_range():
+    ts = Timescale(0.0, 10.0, 2.0)
+    # Even for [t, t), we get one bin covered if t falls inside a bin
+    assert ts.bin_slice(5.0, 5.0) == (2, 3)
+
+def test_fractional_overlap_outside_bin_is_zero():
+    ts = Timescale(0.0, 10.0, 2.0)
+    # Interval lies fully outside bin 0
+    assert ts.fractional_overlap(3.0, 4.0, 0) == 0.0
+
+def test_time_range_matches_start_end_inverse():
+    ts = Timescale(0.0, 10.0, 2.0)
+    for i in range(ts.num_bins):
+        start = ts.bin_start(i)
+        end = ts.bin_end(i)
+        assert ts.time_range(i) == (start, end)
