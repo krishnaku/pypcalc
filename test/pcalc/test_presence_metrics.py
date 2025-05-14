@@ -276,3 +276,28 @@ def test_avg_residence_time_per_presence(case, start, end, expected):
 
     actual = metrics.avg_residence_time_per_presence(start, end)
     assert abs(actual - expected) < 1e-6, f"{case}: got {actual}, expected {expected}"
+
+
+#Test wide bins
+def make_wide_bin_presences():
+    return [
+        Presence(boundary=dummy, element=MockElement(), start=1.0, end=5.0),  # spans bins 0–2
+        Presence(boundary=dummy, element=MockElement(), start=6.0, end=8.0),  # bin 3
+    ]
+
+@pytest.mark.parametrize("case, start, end, expected", [
+    ("P1 spans [1,5) within [0,6)", 0.0, 6.0, (4.0 + 0.0) / 1),   # Only P1 active, full coverage = 4.0
+    ("P2 alone in bin [6,8)", 6.0, 8.0, 2.0),                    # Only P2 active, full coverage = 2.0
+    ("P1 clipped in [2,4)", 2.0, 4.0, 2.0),                      # P1 partially spans one bin
+    ("P1 and P2 together in [1,8)", 1.0, 8.0, (4.0 + 2.0) / 2),  # Average over both
+    ("Empty window [9,10)", 9.0, 10.0, 0.0),                     # No presences
+])
+def test_avg_residence_time_with_wide_bins(case, start, end, expected):
+    presences = make_wide_bin_presences()
+    ts = Timescale(t0=0.0, t1=10.0, bin_width=2.0)
+    matrix = PresenceMatrix(presences=presences, time_scale=ts)
+    matrix.init_presence_map(presences)
+    metrics = PresenceMetrics(matrix)
+
+    actual = metrics.avg_residence_time_per_presence(start, end)
+    assert abs(actual - expected) < 1e-6, f"{case}: got {actual}, expected {expected}"
