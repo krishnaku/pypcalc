@@ -76,6 +76,8 @@ class Timescale:
         """
         effective_start = max(start, self.t0)
         effective_end = min(end, self.t1)
+        if effective_start >= effective_end:
+            return 0, 0
         start_bin = int(np.floor((effective_start - self.t0) / self.bin_width))
         end_bin = int(np.ceil((effective_end - self.t0) / self.bin_width))
         return start_bin, end_bin

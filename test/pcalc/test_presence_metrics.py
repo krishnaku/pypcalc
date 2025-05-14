@@ -177,3 +177,83 @@ def test_flow_rate_consistency(case, start, end):
 
     assert abs(lhs - N) < 1e-6, f"{case}: lhs != flow_rate*T: {lhs} vs {N}"
     assert abs(rhs - N) < 1e-6, f"{case}: rhs != flow_rate*T: {rhs} vs {N}"
+
+
+def make_variable_binwidth_presences():
+    return [
+        Presence(boundary=dummy, element=MockElement(), start=0.0, end=2.5),
+        Presence(boundary=dummy, element=MockElement(), start=3.0, end=6.0),
+        Presence(boundary=dummy, element=MockElement(), start=7.5, end=9.0),
+    ]
+
+@pytest.mark.parametrize("case, start, end, expected", [
+    ("Single bin window at [0.0, 3.0)", 0.0, 3.0, 1.0),     # Only P1 overlaps bin 0
+    ("Window [0.0, 6.0)", 0.0, 6.0, 1.0),                  # P1 and P2 over bins 0, 1
+    ("Window [6.0, 9.0)", 6.0, 9.0, 1.0),                  # Only P3 overlaps bin 2
+    ("Window [3.0, 9.0)", 3.0, 9.0, 1.0),                  # P2 and P3 over bins 1, 2
+    ("Window [0.0, 9.0)", 0.0, 9.0, 1.0),                  # All over 3 bins → 3 / 3
+    ("Empty window [4.0, 4.0)", 4.0, 4.0, 0.0),            # Zero-width interval → 0
+])
+def test_flow_rate_variable_bin_width(case, start, end, expected):
+    presences = make_variable_binwidth_presences()
+    ts = Timescale(t0=0.0, t1=9.0, bin_width=3.0)
+    matrix = PresenceMatrix(presences, time_scale=ts)
+    metrics = PresenceMetrics(matrix)
+    actual = metrics.flow_rate(start, end)
+    assert abs(actual - expected) < 1e-6, f"{case}: {actual} != {expected}"
+
+def make_large_bin_width_presences():
+    return [
+        Presence(boundary=dummy, element=MockElement(), start=0.0, end=2.5),  # bin 0
+        Presence(boundary=dummy, element=MockElement(), start=3.0, end=6.0),  # bin 1
+        Presence(boundary=dummy, element=MockElement(), start=7.5, end=9.0),  # bin 2
+    ]
+
+@pytest.mark.parametrize("case, start, end", [
+    ("Window [0.0, 3.0)", 0.0, 3.0),
+    ("Window [3.0, 6.0)", 3.0, 6.0),
+    ("Window [6.0, 9.0)", 6.0, 9.0),
+    ("Full window [0.0, 9.0)", 0.0, 9.0),
+    ("Offset window [1.5, 7.5)", 1.5, 7.5),
+])
+def test_flow_rate_consistency_with_bin_width(case, start, end):
+    presences = make_large_bin_width_presences()
+    ts = Timescale(0.0, 9.0, bin_width=3.0)
+    matrix = PresenceMatrix(presences, time_scale=ts)
+    metrics = PresenceMetrics(matrix)
+
+    flow_rate = metrics.flow_rate(start, end)
+    start_bin, end_bin = ts.bin_slice(start, end)
+    num_bins = end_bin - start_bin
+    N = flow_rate * num_bins
+
+    start_count = sum(
+        1 for pm in matrix.presence_map
+        if pm.is_active(start_bin, end_bin)
+        and pm.start_bin < start_bin
+    )
+
+    arrival_count = sum(
+        1 for pm in matrix.presence_map
+        if pm.is_active(start_bin, end_bin)
+        and start_bin <= pm.start_bin < end_bin
+    )
+
+    departure_count = sum(
+        1 for pm in matrix.presence_map
+        if pm.is_active(start_bin, end_bin)
+        and not np.isinf(pm.presence.end)
+        and start_bin <= ts.bin_index(pm.presence.end) < end_bin
+    )
+
+    end_count = sum(
+        1 for pm in matrix.presence_map
+        if pm.is_active(start_bin, end_bin)
+        and (np.isinf(pm.presence.end) or ts.bin_index(pm.presence.end) >= end_bin)
+    )
+
+    lhs = start_count + arrival_count
+    rhs = departure_count + end_count
+
+    assert abs(lhs - N) < 1e-6, f"{case}: lhs ({lhs}) != flow*N ({N})"
+    assert abs(rhs - N) < 1e-6, f"{case}: rhs ({rhs}) != flow*N ({N})"

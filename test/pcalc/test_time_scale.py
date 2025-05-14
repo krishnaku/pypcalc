@@ -86,10 +86,10 @@ def test_bin_index_out_of_bounds():
     assert ts.bin_index(-0.1) == -1
     assert ts.bin_index(10.0) == 5  # Outside [t0, t1), but correct by floor logic
 
-def test_bin_slice_empty_interval_produces_nonempty_range():
+def test_bin_slice_empty_interval_produces_empty_range():
     ts = Timescale(0.0, 10.0, 2.0)
     # Even for [t, t), we get one bin covered if t falls inside a bin
-    assert ts.bin_slice(5.0, 5.0) == (2, 3)
+    assert ts.bin_slice(5.0, 5.0) == (0, 0)
 
 def test_fractional_overlap_outside_bin_is_zero():
     ts = Timescale(0.0, 10.0, 2.0)
