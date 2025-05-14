@@ -83,17 +83,8 @@ class PresenceMap:
 
         if presence.overlaps(ts.t0, ts.t1):
             is_mapped = True
-
             start_bin, end_bin = ts.bin_slice(presence.start, presence.end)
-
-            # Compute partial overlap at start bin
-            start_value = ts.fractional_overlap(presence.start, presence.end, start_bin)
-
-            # Compute partial overlap at end bin, if not same as start
-            if end_bin - 1 > start_bin:
-                end_value = ts.fractional_overlap(presence.start, presence.end, end_bin - 1)
-            else:
-                end_value = start_value
+            start_value, end_value = self._compute_fractional_values(presence.start, start_bin, presence.end, end_bin)
 
         self.is_mapped = is_mapped
         self.start_bin = start_bin
@@ -101,5 +92,53 @@ class PresenceMap:
         self.start_value = start_value
         self.end_value = end_value
 
+    def _compute_fractional_values(self, start_time: float, start_bin: int, end_time: float, end_bin: int):
+        ts = self.time_scale
+        # Compute partial overlap at start bin
+        start_value = ts.fractional_overlap(start_time, end_time, start_bin)
+
+        # Compute partial overlap at end bin, if not same as start
+        if end_bin - 1 > start_bin:
+            end_value = ts.fractional_overlap(start_time, end_time, end_bin - 1)
+        else:
+            end_value = 0.0
+
+        return start_value, end_value
+
+
     def is_active(self, start_bin: int, end_bin: int):
         return end_bin > self.start_bin and start_bin < self.end_bin
+
+    def presence_value_in(self, start_time: float, end_time: float) -> float:
+        """
+        Computes total presence value (in time) within [start_time, end_time),
+        using bin-based approximation logic, clipped to the given interval.
+        """
+        ts = self.time_scale
+        bin_width = ts.bin_width
+
+        start_bin, end_bin = ts.bin_slice(start_time, end_time)
+        if self.is_mapped and self.is_active(start_bin, end_bin):
+            #  Clip window to actual presence bounds
+            effective_start = max(self.presence.start, start_time)
+            effective_end = min(self.presence.end, end_time)
+
+            effective_start_bin, effective_end_bin = ts.bin_slice(effective_start, effective_end)
+
+            if start_time == ts.t0 and end_time == ts.t1:
+                start_value = self.start_value
+                end_value = self.end_value
+            else:
+                start_value, end_value = self._compute_fractional_values(effective_start, effective_start_bin, effective_end, effective_end_bin)
+
+            full_bin_value = max(0, effective_end_bin - effective_start_bin - 2)
+
+            fractional_value = start_value + end_value
+
+            return (full_bin_value + fractional_value) * bin_width
+        else:
+            return 0.0
+
+    @property
+    def presence_value(self) -> float:
+        return self.presence_value_in(self.time_scale.t0, self.time_scale.t1)
