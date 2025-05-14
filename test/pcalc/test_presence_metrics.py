@@ -257,3 +257,22 @@ def test_flow_rate_consistency_with_bin_width(case, start, end):
 
     assert abs(lhs - N) < 1e-6, f"{case}: lhs ({lhs}) != flow*N ({N})"
     assert abs(rhs - N) < 1e-6, f"{case}: rhs ({rhs}) != flow*N ({N})"
+
+
+# Average Residence time tests.
+@pytest.mark.parametrize("case, start, end, expected", [
+    ("Only P1 fully in window", 0.0, 2.0, (2.0 + 0.5)/2),
+    ("P1 and P2 partial overlap", 1.5, 2.5, (0.5 + 1.0) / 2),
+    ("Midrange with P2 and P3", 2.0, 4.0, (1.0 + 1.0) / 2),
+    ("Only P4 open-ended clipped to 1.0", 5.0, 6.0, 1.0),
+    ("All overlapping presences", 0.0, 6.0, (2.0 + 1.5 + 1.5 + 1.4) / 4),
+])
+def test_avg_residence_time_per_presence(case, start, end, expected):
+    presences = make_presences()
+    ts = Timescale(t0=0.0, t1=6.0, bin_width=1.0)
+    matrix = PresenceMatrix(presences=presences, time_scale=ts)
+    matrix.init_presence_map(presences)
+    metrics = PresenceMetrics(matrix)
+
+    actual = metrics.avg_residence_time_per_presence(start, end)
+    assert abs(actual - expected) < 1e-6, f"{case}: got {actual}, expected {expected}"
