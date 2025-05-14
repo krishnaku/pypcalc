@@ -88,10 +88,16 @@ class Timescale:
             - Clipped to bin extent: overlaps outside the bin are ignored
             - Used to compute partial presence contribution within a bin
         """
+        # Clip to timescale
+        start = max(start, self.t0)
+        end = min(end, self.t1)
+
         bin_start = self.bin_start(bin_idx)
         bin_end = self.bin_end(bin_idx)
+
         overlap_start = max(start, bin_start)
         overlap_end = min(end, bin_end)
+
         return max(0.0, overlap_end - overlap_start) / self.bin_width
 
     # Mapping from discrete bins back to continuous time.

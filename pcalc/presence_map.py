@@ -17,21 +17,24 @@ from .time_scale import Timescale
 
 @dataclass
 class PresenceMap:
-    """A presence map is a mapping of a presence, which has
-    a start and end time on a continuous timescale, to a
-    discrete timescale where a continuous interval from t0 to t1 is
-    divided into equal-sized bins of width `bin_width`.
+    """
+        A PresenceMap maps a continuous presence interval [start, end)
+        onto a discrete time grid defined by a Timescale.
 
-    A presence map is a piecewise constant function over the bin indices,
-    where the presence is assumed to be:
+        The result is a bin-aligned representation:
+        - `start_bin` is the index of the first bin touched
+        - `end_bin` is the exclusive upper bound (i.e., first bin not touched)
+        - `start_value` and `end_value` represent fractional presence at the edges
+        - Bins between `start_bin` and `end_bin` are fully or partially covered
 
-    - zero outside the mapped bin range,
-    - possibly fractional (0 < p < 1) in the first and last bins due to partial overlap, and
-    - equal to 1.0 in all interior bins that fall entirely within the presence interval.
-
-    This representation allows the continuous duration of a presence
-    to be projected onto a discrete matrix without loss of precision
-    at the boundaries, while enabling efficient matrix-based analytics and transformations.
+        Contract:
+        - A presence is considered "mapped" if it overlaps the timescale [t0, t1)
+        - Mapped presences always produce:
+            start_bin ∈ [0, num_bins)
+            end_bin   ∈ (start_bin, num_bins]
+        - The bin range [start_bin, end_bin) contains all and only the bins the presence overlaps
+        - start_value ∈ (0.0, 1.0] if partially covers `start_bin`
+        - end_value   ∈ (0.0, 1.0] if partially covers `end_bin - 1`
     """
 
     presence: Presence
@@ -81,18 +84,14 @@ class PresenceMap:
         if presence.overlaps(ts.t0, ts.t1):
             is_mapped = True
 
-            effective_start = max(presence.start, ts.t0)
-            effective_end = min(presence.end, ts.t1)
-
-            start_bin = ts.bin_index(effective_start)
-            end_bin = ts.bin_index(effective_end)
+            start_bin, end_bin = ts.bin_slice(presence.start, presence.end)
 
             # Compute partial overlap at start bin
-            start_value = ts.fractional_overlap(effective_start, effective_end, start_bin)
+            start_value = ts.fractional_overlap(presence.start, presence.end, start_bin)
 
             # Compute partial overlap at end bin, if not same as start
             if end_bin - 1 > start_bin:
-                end_value = ts.fractional_overlap(effective_start, effective_end, end_bin - 1)
+                end_value = ts.fractional_overlap(presence.start, presence.end, end_bin - 1)
             else:
                 end_value = start_value
 

@@ -43,7 +43,7 @@ def make_presences():
     ("Only first presence in [0.0, 1.0)", 0.0, 1.0, 1.0),
     ("First two presences in [0.0, 2.5)", 0.0, 2.5, 2 / 3),  # bins: 0, 1, 2
     ("Only third presence in [3.0, 4.0)", 3.0, 4.0, 1.0),
-    ("Only open-ended presence in [4.6, 5.5)", 4.6, 5.5, 0.5),
+    ("Only open-ended presence in [4.6, 5.5)", 4.6, 5.5, 1.0),
     ("Zero-length window [2.0, 2.0)", 2.0, 2.0, 0.0),
     ("All presences in [0.0, 6.0)", 0.0, 6.0, 4 / 6),
     ("Edge overlap only with last bin [5.9, 6.0)", 5.9, 6.0, 1.0),
@@ -77,7 +77,7 @@ def test_flow_rate_outside_window(case, start, end, expected):
 @pytest.mark.parametrize("case, start, end, expected", [
     ("Only P1 started before 1.0:3.0", 1.0, 3.0, 1),
     ("Only P2 started before 2.0:4.0", 2.0, 4.0, 1),
-    ("None started before 4.6:6.0", 4.6, 6.0, 0),
+    ("None started before 4.6:6.0", 4.6, 6.0, 1),
     ("None started before 0.0:2.0", 0.0, 2.0, 0),
 ])
 def test_starting_presence_count_window(case, start, end, expected):

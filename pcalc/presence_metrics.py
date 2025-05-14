@@ -151,6 +151,9 @@ class PresenceMetrics(Generic[T_Element]):
         return sum(
             1 for pm in self.presence_map
             if pm.is_active(start_bin, end_bin)
+            #Note: here we must explicitly check the un-clipped
+            # bin indices, since we are looking for end indices that fall outside the
+            # window and even the matrix. So pm.end_bin is not the right test here.
             and self.ts.bin_index(pm.presence.start) < start_bin
         )
 
@@ -161,7 +164,11 @@ class PresenceMetrics(Generic[T_Element]):
         return sum(
             1 for pm in self.presence_map
             if pm.is_active(start_bin, end_bin)
-            and (np.isinf(pm.presence.end) or self.ts.bin_index(pm.presence.end) >= end_bin)
+            and (np.isinf(pm.presence.end) or
+                 # Note: here we must explicitly check the un-clipped
+                 # bin indices, since we are looking for end indices that fall outside the
+                 # window and even the matrix. So pm.end_bin is not the right test here.
+                 self.ts.bin_index(pm.presence.end) >= end_bin)
         )
 
     def arrival_count(self, start_time: float = None, end_time: float = None) -> int:
