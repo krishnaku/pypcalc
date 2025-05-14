@@ -5,7 +5,7 @@
 # confidential.
 
 # Author: Krishna Kumar
-from typing import Generic, Optional
+from typing import Generic, Optional, Tuple
 import numpy as np
 
 from metamodel import Presence, T_Element
@@ -192,16 +192,23 @@ class PresenceMetrics(Generic[T_Element]):
             and self.ts.bin_index(pm.presence.end) in range(start_bin, end_bin)
         )
 
-    def avg_residence_time_per_presence(self, start_time: float = None, end_time: float = None) -> float:
+    def get_presence_summary(self, start_time: float = None, end_time: float = None) -> Tuple[float, float, float]:
         start, end = self._resolve_range(start_time, end_time)
         start_bin, end_bin = self.ts.bin_slice(start, end)
         total_presence_value = 0
         number_of_presences = 0
         for pm in self.presence_map:
             if pm.is_active(start_bin, end_bin):
-                total_presence_value += pm.presence_value_in(start_time,end_time)
+                total_presence_value += pm.presence_value_in(start_time, end_time)
                 number_of_presences += 1
 
+        return total_presence_value, number_of_presences, end_bin - start_bin
+
+    def avg_residence_time_per_presence(self, start_time: float = None, end_time: float = None) -> float:
+        total_presence_value, number_of_presences, _ = self.get_presence_summary(start_time, end_time)
         return total_presence_value / number_of_presences if number_of_presences > 0 else 0.0
 
 
+    def avg_presence_per_time_bin(self, start_time: float = None, end_time: float = None) -> float:
+        total_presence_value, _, num_bins = self.get_presence_summary(start_time, end_time)
+        return total_presence_value / num_bins if num_bins > 0 else 0.0

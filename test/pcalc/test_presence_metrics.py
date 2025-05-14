@@ -301,3 +301,16 @@ def test_avg_residence_time_with_wide_bins(case, start, end, expected):
 
     actual = metrics.avg_residence_time_per_presence(start, end)
     assert abs(actual - expected) < 1e-6, f"{case}: got {actual}, expected {expected}"
+
+@pytest.mark.parametrize("case, start, end, expected", [
+    ("P1 over [0,2) → 2.0 / 2 bins", 0.0, 2.0, 1.25),
+    ("P1 and P2 over [1.5,3.0) → (0.5 + 1.0)/2 bins", 1.5, 3.0, 1.0),
+    ("Open ended presence with partial overlap", 5.5, 6.0, 0.5),
+])
+def test_avg_presence_per_time_bin(case, start, end, expected):
+    presences = make_presences()
+    ts = Timescale(t0=0.0, t1=6.0, bin_width=1.0)
+    matrix = PresenceMatrix(presences=presences, time_scale=ts)
+    metrics = PresenceMetrics(matrix)
+    result = metrics.avg_presence_per_time_bin(start, end)
+    assert abs(result - expected) < 1e-6, f"{case}: got {result}, expected {expected}"
