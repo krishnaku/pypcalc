@@ -314,3 +314,33 @@ def test_avg_presence_per_time_bin(case, start, end, expected):
     metrics = PresenceMetrics(matrix)
     result = metrics.avg_presence_per_time_bin(start, end)
     assert abs(result - expected) < 1e-6, f"{case}: got {result}, expected {expected}"
+
+
+# Presence Invariant consistency tests.
+
+@pytest.mark.parametrize("case, start, end", [
+    ("Full interval", 0.0, 6.0),
+    ("Early window", 0.0, 2.0),
+    ("Mid window", 1.5, 3.5),
+    ("Late window", 4.0, 6.0),
+    ("Open-ended presence window", 4.6, 6.0),
+])
+def test_presence_invariant(case, start, end):
+    presences = make_presences()
+    ts = Timescale(t0=0.0, t1=6.0, bin_width=1.0)
+    matrix = PresenceMatrix(presences=presences, time_scale=ts)
+    matrix.init_presence_map(presences)
+    metrics = PresenceMetrics(matrix)
+
+    # Compute components
+    presence_per_time = metrics.avg_presence_per_time_bin(start, end)
+    flow_rate = metrics.flow_rate(start, end)
+    avg_residence = metrics.avg_residence_time_per_presence(start, end)
+
+    # Compute invariant
+    expected = flow_rate * avg_residence
+
+    assert abs(presence_per_time - expected) < 1e-6, (
+        f"{case}: presence/time={presence_per_time}, flow_rate={flow_rate}, "
+        f"res_time={avg_residence}, expected={expected}"
+    )
