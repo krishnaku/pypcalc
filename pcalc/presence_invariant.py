@@ -30,10 +30,10 @@ class PresenceInvariant(Generic[T_Element]):
     - **$w$**: The *residence time* - a finite approximation of *presence duration* (see `metamodel.presence.Presence.duration`).
 
     This invariant extends the classical formulation of Little’s Law, an equilibrium-based identity, by establishing a
-    conservation law (of presence) that remains valid across arbitrary timescales, and in non-linear stochastic processes
+    conservation law (of presence) that remains valid across arbitrary timescales, and in non-linear, stochastic processes
     that operate far from equilibrium.
 
-    It holds unconditionally for any PresenceMatrix and finite window, and serves as a foundational
+    It holds unconditionally for any presence matrix and finite window, and serves as a foundational
     construct for reasoning about flow in non-linear systems.
 
     The proof of this invariant is surprisingly simple and elementary.
@@ -44,7 +44,8 @@ class PresenceInvariant(Generic[T_Element]):
 
     Let $A$ be the total presence in the matrix over a finite time window `[start_time, end_time)` of $T$ time units.
     Let $N$ be the number of distinct presences that overlap the window.
-    Let $R(p_i)$ be the *residence time* of $p_i$ - the portion of the duration of $p_i$ that overlaps the window.
+
+    Let $R(p_i)$ be the portion of the duration of $p_i$ that overlaps the window. This is the *residence time* of $p_i$ in the window.
 
     The following diagram shows these quantities and the derivation.
 
