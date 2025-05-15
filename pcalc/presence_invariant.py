@@ -17,8 +17,10 @@ class PresenceInvariant(Generic[T_Element]):
     """
     **A finite, scale-invariant, non-equilibrium version of Little's Law.**
 
+    This class computes the components of The Presence Invariant of a presence matrix.
+
     The Presence Invariant states that for any *finite* interval `[start_time, end_time)` over the timescale `[t0, t1)`
-    of a Presence Matrix,
+    of a presence matrix, the following invariant condition holds.
 
     $$
         L = \Lambda \cdot w
@@ -56,7 +58,7 @@ class PresenceInvariant(Generic[T_Element]):
     $$
     A = \sum_{i=1}^{N} R(p_i)
     $$
-    represents the sum of the non-zero elements in the presence matrix over the time window `[start_time, end_time)`.
+    represents the sum of the elements in the presence matrix that foll in the time window `[start_time, end_time)`.
 
     $A = 12$ presence-time-units in our example.
 
