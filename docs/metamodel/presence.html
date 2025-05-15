@@ -103,80 +103,85 @@
 
                         <label class="view-source-button" for="mod-presence-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Optional</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.element</span><span class="w"> </span><span class="kn">import</span> <span class="n">T_Element</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">.boundary</span><span class="w"> </span><span class="kn">import</span> <span class="n">Boundary</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="nd">@dataclass</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Presence</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]):</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    A statement that a domain element was continuously present in a boundary</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    during a specific time interval.</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">    Unlike a DomainEvent, which captures a point-in-time signal, a `Presence`</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    represents a continuous interval in which the element was active or resident</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    within a boundary.</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">    The assumption of continuity allows full reconstruction of element trajectories</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">    within the domain if all presences are known.</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">    Multiple distinct presences for the same element in the same boundary may occur over time.</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="n">element</span><span class="p">:</span> <span class="n">T_Element</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The element this Presence corresponds to.&quot;&quot;&quot;</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="n">boundary</span><span class="p">:</span> <span class="n">Boundary</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The boundary where this element was present.&quot;&quot;&quot;</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="n">start</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Start time of the Presence interval.&quot;&quot;&quot;</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="n">end</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">    End time of the Presence interval.</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="sd">    A value of `np.inf` indicates an open-ended presence — i.e., the element has</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="sd">    not yet exited the boundary or no end event has been observed.</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="sd">        Return True if this presence overlaps the time interval [t0, t1).</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="sd">        Overlap means there exists a nonzero-duration intersection between</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a><span class="sd">        [self.start, self.end) and [t0, t1).</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">t1</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="c1"># -*- coding: utf-8 -*-</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="c1"># Copyright (c) 2025 Krishna Kumar</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="c1"># SPDX-License-Identifier: MIT</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Optional</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.element</span><span class="w"> </span><span class="kn">import</span> <span class="n">T_Element</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">.boundary</span><span class="w"> </span><span class="kn">import</span> <span class="n">Boundary</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="nd">@dataclass</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Presence</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]):</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    A statement that a domain element was continuously present in a boundary</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">    during a specific time interval.</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">    Unlike a DomainEvent, which captures a point-in-time signal, a `Presence`</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="sd">    represents a continuous interval in which the element was active or resident</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">    within a boundary.</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">    The assumption of continuity allows full reconstruction of element trajectories</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">    within the domain if all presences are known.</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">    Multiple distinct presences for the same element in the same boundary may occur over time.</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="n">element</span><span class="p">:</span> <span class="n">T_Element</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The element this Presence corresponds to.&quot;&quot;&quot;</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="n">boundary</span><span class="p">:</span> <span class="n">Boundary</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The boundary where this element was present.&quot;&quot;&quot;</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="n">start</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Start time of the Presence interval.&quot;&quot;&quot;</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="n">end</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">    End time of the Presence interval.</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="sd">    A value of `np.inf` indicates an open-ended presence — i.e., the element has</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="sd">    not yet exited the boundary or no end event has been observed.</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="sd">        Return True if this presence overlaps the time interval [t0, t1).</span>
 </span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">clip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Presence[T_Element]&quot;</span><span class="p">]:</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">        Return a new Presence representing the clipped overlap with [t0, t1),</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">        or None if there is no overlap.</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>            <span class="k">return</span> <span class="kc">None</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>        <span class="k">return</span> <span class="n">Presence</span><span class="p">(</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>            <span class="n">element</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">,</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>            <span class="n">boundary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">,</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>            <span class="n">start</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">t0</span><span class="p">),</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>            <span class="n">end</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>        <span class="p">)</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>
-</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a><span class="sd">        Return the full duration of the presence.</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>
-</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a><span class="sd">        Returns `inf` if the presence is open-ended (`end = np.inf`).</span>
-</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="sd">        Overlap means there exists a nonzero-duration intersection between</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="sd">        [self.start, self.end) and [t0, t1).</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">t1</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">clip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Presence[T_Element]&quot;</span><span class="p">]:</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="sd">        Return a new Presence representing the clipped overlap with [t0, t1),</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="sd">        or None if there is no overlap.</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>            <span class="k">return</span> <span class="kc">None</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>        <span class="k">return</span> <span class="n">Presence</span><span class="p">(</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>            <span class="n">element</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">,</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>            <span class="n">boundary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">,</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>            <span class="n">start</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">t0</span><span class="p">),</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>            <span class="n">end</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>        <span class="p">)</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>
+</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a><span class="sd">        Return the full duration of the presence.</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a>
+</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a><span class="sd">        Returns `inf` if the presence is open-ended (`end = np.inf`).</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
 </span></pre></div>
 
 
@@ -193,70 +198,70 @@
 
     </div>
     <a class="headerlink" href="#Presence"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence-12"><a href="#Presence-12"><span class="linenos">12</span></a><span class="nd">@dataclass</span>
-</span><span id="Presence-13"><a href="#Presence-13"><span class="linenos">13</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Presence</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]):</span>
-</span><span id="Presence-14"><a href="#Presence-14"><span class="linenos">14</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence-15"><a href="#Presence-15"><span class="linenos">15</span></a><span class="sd">    A statement that a domain element was continuously present in a boundary</span>
-</span><span id="Presence-16"><a href="#Presence-16"><span class="linenos">16</span></a><span class="sd">    during a specific time interval.</span>
-</span><span id="Presence-17"><a href="#Presence-17"><span class="linenos">17</span></a>
-</span><span id="Presence-18"><a href="#Presence-18"><span class="linenos">18</span></a><span class="sd">    Unlike a DomainEvent, which captures a point-in-time signal, a `Presence`</span>
-</span><span id="Presence-19"><a href="#Presence-19"><span class="linenos">19</span></a><span class="sd">    represents a continuous interval in which the element was active or resident</span>
-</span><span id="Presence-20"><a href="#Presence-20"><span class="linenos">20</span></a><span class="sd">    within a boundary.</span>
-</span><span id="Presence-21"><a href="#Presence-21"><span class="linenos">21</span></a>
-</span><span id="Presence-22"><a href="#Presence-22"><span class="linenos">22</span></a><span class="sd">    The assumption of continuity allows full reconstruction of element trajectories</span>
-</span><span id="Presence-23"><a href="#Presence-23"><span class="linenos">23</span></a><span class="sd">    within the domain if all presences are known.</span>
-</span><span id="Presence-24"><a href="#Presence-24"><span class="linenos">24</span></a>
-</span><span id="Presence-25"><a href="#Presence-25"><span class="linenos">25</span></a><span class="sd">    Multiple distinct presences for the same element in the same boundary may occur over time.</span>
-</span><span id="Presence-26"><a href="#Presence-26"><span class="linenos">26</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Presence-27"><a href="#Presence-27"><span class="linenos">27</span></a>
-</span><span id="Presence-28"><a href="#Presence-28"><span class="linenos">28</span></a>    <span class="n">element</span><span class="p">:</span> <span class="n">T_Element</span>
-</span><span id="Presence-29"><a href="#Presence-29"><span class="linenos">29</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The element this Presence corresponds to.&quot;&quot;&quot;</span>
-</span><span id="Presence-30"><a href="#Presence-30"><span class="linenos">30</span></a>
-</span><span id="Presence-31"><a href="#Presence-31"><span class="linenos">31</span></a>    <span class="n">boundary</span><span class="p">:</span> <span class="n">Boundary</span>
-</span><span id="Presence-32"><a href="#Presence-32"><span class="linenos">32</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The boundary where this element was present.&quot;&quot;&quot;</span>
-</span><span id="Presence-33"><a href="#Presence-33"><span class="linenos">33</span></a>
-</span><span id="Presence-34"><a href="#Presence-34"><span class="linenos">34</span></a>    <span class="n">start</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="Presence-35"><a href="#Presence-35"><span class="linenos">35</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Start time of the Presence interval.&quot;&quot;&quot;</span>
-</span><span id="Presence-36"><a href="#Presence-36"><span class="linenos">36</span></a>
-</span><span id="Presence-37"><a href="#Presence-37"><span class="linenos">37</span></a>    <span class="n">end</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="Presence-38"><a href="#Presence-38"><span class="linenos">38</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence-39"><a href="#Presence-39"><span class="linenos">39</span></a><span class="sd">    End time of the Presence interval.</span>
-</span><span id="Presence-40"><a href="#Presence-40"><span class="linenos">40</span></a>
-</span><span id="Presence-41"><a href="#Presence-41"><span class="linenos">41</span></a><span class="sd">    A value of `np.inf` indicates an open-ended presence — i.e., the element has</span>
-</span><span id="Presence-42"><a href="#Presence-42"><span class="linenos">42</span></a><span class="sd">    not yet exited the boundary or no end event has been observed.</span>
-</span><span id="Presence-43"><a href="#Presence-43"><span class="linenos">43</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Presence-44"><a href="#Presence-44"><span class="linenos">44</span></a>
-</span><span id="Presence-45"><a href="#Presence-45"><span class="linenos">45</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Presence-46"><a href="#Presence-46"><span class="linenos">46</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence-47"><a href="#Presence-47"><span class="linenos">47</span></a><span class="sd">        Return True if this presence overlaps the time interval [t0, t1).</span>
-</span><span id="Presence-48"><a href="#Presence-48"><span class="linenos">48</span></a>
-</span><span id="Presence-49"><a href="#Presence-49"><span class="linenos">49</span></a><span class="sd">        Overlap means there exists a nonzero-duration intersection between</span>
-</span><span id="Presence-50"><a href="#Presence-50"><span class="linenos">50</span></a><span class="sd">        [self.start, self.end) and [t0, t1).</span>
-</span><span id="Presence-51"><a href="#Presence-51"><span class="linenos">51</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Presence-52"><a href="#Presence-52"><span class="linenos">52</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">t1</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence-17"><a href="#Presence-17"><span class="linenos">17</span></a><span class="nd">@dataclass</span>
+</span><span id="Presence-18"><a href="#Presence-18"><span class="linenos">18</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Presence</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]):</span>
+</span><span id="Presence-19"><a href="#Presence-19"><span class="linenos">19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Presence-20"><a href="#Presence-20"><span class="linenos">20</span></a><span class="sd">    A statement that a domain element was continuously present in a boundary</span>
+</span><span id="Presence-21"><a href="#Presence-21"><span class="linenos">21</span></a><span class="sd">    during a specific time interval.</span>
+</span><span id="Presence-22"><a href="#Presence-22"><span class="linenos">22</span></a>
+</span><span id="Presence-23"><a href="#Presence-23"><span class="linenos">23</span></a><span class="sd">    Unlike a DomainEvent, which captures a point-in-time signal, a `Presence`</span>
+</span><span id="Presence-24"><a href="#Presence-24"><span class="linenos">24</span></a><span class="sd">    represents a continuous interval in which the element was active or resident</span>
+</span><span id="Presence-25"><a href="#Presence-25"><span class="linenos">25</span></a><span class="sd">    within a boundary.</span>
+</span><span id="Presence-26"><a href="#Presence-26"><span class="linenos">26</span></a>
+</span><span id="Presence-27"><a href="#Presence-27"><span class="linenos">27</span></a><span class="sd">    The assumption of continuity allows full reconstruction of element trajectories</span>
+</span><span id="Presence-28"><a href="#Presence-28"><span class="linenos">28</span></a><span class="sd">    within the domain if all presences are known.</span>
+</span><span id="Presence-29"><a href="#Presence-29"><span class="linenos">29</span></a>
+</span><span id="Presence-30"><a href="#Presence-30"><span class="linenos">30</span></a><span class="sd">    Multiple distinct presences for the same element in the same boundary may occur over time.</span>
+</span><span id="Presence-31"><a href="#Presence-31"><span class="linenos">31</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="Presence-32"><a href="#Presence-32"><span class="linenos">32</span></a>
+</span><span id="Presence-33"><a href="#Presence-33"><span class="linenos">33</span></a>    <span class="n">element</span><span class="p">:</span> <span class="n">T_Element</span>
+</span><span id="Presence-34"><a href="#Presence-34"><span class="linenos">34</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The element this Presence corresponds to.&quot;&quot;&quot;</span>
+</span><span id="Presence-35"><a href="#Presence-35"><span class="linenos">35</span></a>
+</span><span id="Presence-36"><a href="#Presence-36"><span class="linenos">36</span></a>    <span class="n">boundary</span><span class="p">:</span> <span class="n">Boundary</span>
+</span><span id="Presence-37"><a href="#Presence-37"><span class="linenos">37</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The boundary where this element was present.&quot;&quot;&quot;</span>
+</span><span id="Presence-38"><a href="#Presence-38"><span class="linenos">38</span></a>
+</span><span id="Presence-39"><a href="#Presence-39"><span class="linenos">39</span></a>    <span class="n">start</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="Presence-40"><a href="#Presence-40"><span class="linenos">40</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Start time of the Presence interval.&quot;&quot;&quot;</span>
+</span><span id="Presence-41"><a href="#Presence-41"><span class="linenos">41</span></a>
+</span><span id="Presence-42"><a href="#Presence-42"><span class="linenos">42</span></a>    <span class="n">end</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="Presence-43"><a href="#Presence-43"><span class="linenos">43</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Presence-44"><a href="#Presence-44"><span class="linenos">44</span></a><span class="sd">    End time of the Presence interval.</span>
+</span><span id="Presence-45"><a href="#Presence-45"><span class="linenos">45</span></a>
+</span><span id="Presence-46"><a href="#Presence-46"><span class="linenos">46</span></a><span class="sd">    A value of `np.inf` indicates an open-ended presence — i.e., the element has</span>
+</span><span id="Presence-47"><a href="#Presence-47"><span class="linenos">47</span></a><span class="sd">    not yet exited the boundary or no end event has been observed.</span>
+</span><span id="Presence-48"><a href="#Presence-48"><span class="linenos">48</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="Presence-49"><a href="#Presence-49"><span class="linenos">49</span></a>
+</span><span id="Presence-50"><a href="#Presence-50"><span class="linenos">50</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="Presence-51"><a href="#Presence-51"><span class="linenos">51</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Presence-52"><a href="#Presence-52"><span class="linenos">52</span></a><span class="sd">        Return True if this presence overlaps the time interval [t0, t1).</span>
 </span><span id="Presence-53"><a href="#Presence-53"><span class="linenos">53</span></a>
-</span><span id="Presence-54"><a href="#Presence-54"><span class="linenos">54</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">clip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Presence[T_Element]&quot;</span><span class="p">]:</span>
-</span><span id="Presence-55"><a href="#Presence-55"><span class="linenos">55</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence-56"><a href="#Presence-56"><span class="linenos">56</span></a><span class="sd">        Return a new Presence representing the clipped overlap with [t0, t1),</span>
-</span><span id="Presence-57"><a href="#Presence-57"><span class="linenos">57</span></a><span class="sd">        or None if there is no overlap.</span>
-</span><span id="Presence-58"><a href="#Presence-58"><span class="linenos">58</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Presence-59"><a href="#Presence-59"><span class="linenos">59</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
-</span><span id="Presence-60"><a href="#Presence-60"><span class="linenos">60</span></a>            <span class="k">return</span> <span class="kc">None</span>
-</span><span id="Presence-61"><a href="#Presence-61"><span class="linenos">61</span></a>
-</span><span id="Presence-62"><a href="#Presence-62"><span class="linenos">62</span></a>        <span class="k">return</span> <span class="n">Presence</span><span class="p">(</span>
-</span><span id="Presence-63"><a href="#Presence-63"><span class="linenos">63</span></a>            <span class="n">element</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">,</span>
-</span><span id="Presence-64"><a href="#Presence-64"><span class="linenos">64</span></a>            <span class="n">boundary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">,</span>
-</span><span id="Presence-65"><a href="#Presence-65"><span class="linenos">65</span></a>            <span class="n">start</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">t0</span><span class="p">),</span>
-</span><span id="Presence-66"><a href="#Presence-66"><span class="linenos">66</span></a>            <span class="n">end</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span>
-</span><span id="Presence-67"><a href="#Presence-67"><span class="linenos">67</span></a>        <span class="p">)</span>
-</span><span id="Presence-68"><a href="#Presence-68"><span class="linenos">68</span></a>
-</span><span id="Presence-69"><a href="#Presence-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="Presence-70"><a href="#Presence-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence-71"><a href="#Presence-71"><span class="linenos">71</span></a><span class="sd">        Return the full duration of the presence.</span>
-</span><span id="Presence-72"><a href="#Presence-72"><span class="linenos">72</span></a>
-</span><span id="Presence-73"><a href="#Presence-73"><span class="linenos">73</span></a><span class="sd">        Returns `inf` if the presence is open-ended (`end = np.inf`).</span>
-</span><span id="Presence-74"><a href="#Presence-74"><span class="linenos">74</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Presence-75"><a href="#Presence-75"><span class="linenos">75</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
+</span><span id="Presence-54"><a href="#Presence-54"><span class="linenos">54</span></a><span class="sd">        Overlap means there exists a nonzero-duration intersection between</span>
+</span><span id="Presence-55"><a href="#Presence-55"><span class="linenos">55</span></a><span class="sd">        [self.start, self.end) and [t0, t1).</span>
+</span><span id="Presence-56"><a href="#Presence-56"><span class="linenos">56</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Presence-57"><a href="#Presence-57"><span class="linenos">57</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">t1</span>
+</span><span id="Presence-58"><a href="#Presence-58"><span class="linenos">58</span></a>
+</span><span id="Presence-59"><a href="#Presence-59"><span class="linenos">59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">clip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Presence[T_Element]&quot;</span><span class="p">]:</span>
+</span><span id="Presence-60"><a href="#Presence-60"><span class="linenos">60</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Presence-61"><a href="#Presence-61"><span class="linenos">61</span></a><span class="sd">        Return a new Presence representing the clipped overlap with [t0, t1),</span>
+</span><span id="Presence-62"><a href="#Presence-62"><span class="linenos">62</span></a><span class="sd">        or None if there is no overlap.</span>
+</span><span id="Presence-63"><a href="#Presence-63"><span class="linenos">63</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Presence-64"><a href="#Presence-64"><span class="linenos">64</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
+</span><span id="Presence-65"><a href="#Presence-65"><span class="linenos">65</span></a>            <span class="k">return</span> <span class="kc">None</span>
+</span><span id="Presence-66"><a href="#Presence-66"><span class="linenos">66</span></a>
+</span><span id="Presence-67"><a href="#Presence-67"><span class="linenos">67</span></a>        <span class="k">return</span> <span class="n">Presence</span><span class="p">(</span>
+</span><span id="Presence-68"><a href="#Presence-68"><span class="linenos">68</span></a>            <span class="n">element</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">,</span>
+</span><span id="Presence-69"><a href="#Presence-69"><span class="linenos">69</span></a>            <span class="n">boundary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">,</span>
+</span><span id="Presence-70"><a href="#Presence-70"><span class="linenos">70</span></a>            <span class="n">start</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">t0</span><span class="p">),</span>
+</span><span id="Presence-71"><a href="#Presence-71"><span class="linenos">71</span></a>            <span class="n">end</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span>
+</span><span id="Presence-72"><a href="#Presence-72"><span class="linenos">72</span></a>        <span class="p">)</span>
+</span><span id="Presence-73"><a href="#Presence-73"><span class="linenos">73</span></a>
+</span><span id="Presence-74"><a href="#Presence-74"><span class="linenos">74</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="Presence-75"><a href="#Presence-75"><span class="linenos">75</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Presence-76"><a href="#Presence-76"><span class="linenos">76</span></a><span class="sd">        Return the full duration of the presence.</span>
+</span><span id="Presence-77"><a href="#Presence-77"><span class="linenos">77</span></a>
+</span><span id="Presence-78"><a href="#Presence-78"><span class="linenos">78</span></a><span class="sd">        Returns `inf` if the presence is open-ended (`end = np.inf`).</span>
+</span><span id="Presence-79"><a href="#Presence-79"><span class="linenos">79</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Presence-80"><a href="#Presence-80"><span class="linenos">80</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
 </span></pre></div>
 
 
@@ -352,14 +357,14 @@ not yet exited the boundary or no end event has been observed.</p>
 
     </div>
     <a class="headerlink" href="#Presence.overlaps"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.overlaps-45"><a href="#Presence.overlaps-45"><span class="linenos">45</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Presence.overlaps-46"><a href="#Presence.overlaps-46"><span class="linenos">46</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence.overlaps-47"><a href="#Presence.overlaps-47"><span class="linenos">47</span></a><span class="sd">        Return True if this presence overlaps the time interval [t0, t1).</span>
-</span><span id="Presence.overlaps-48"><a href="#Presence.overlaps-48"><span class="linenos">48</span></a>
-</span><span id="Presence.overlaps-49"><a href="#Presence.overlaps-49"><span class="linenos">49</span></a><span class="sd">        Overlap means there exists a nonzero-duration intersection between</span>
-</span><span id="Presence.overlaps-50"><a href="#Presence.overlaps-50"><span class="linenos">50</span></a><span class="sd">        [self.start, self.end) and [t0, t1).</span>
-</span><span id="Presence.overlaps-51"><a href="#Presence.overlaps-51"><span class="linenos">51</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Presence.overlaps-52"><a href="#Presence.overlaps-52"><span class="linenos">52</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">t1</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.overlaps-50"><a href="#Presence.overlaps-50"><span class="linenos">50</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="Presence.overlaps-51"><a href="#Presence.overlaps-51"><span class="linenos">51</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Presence.overlaps-52"><a href="#Presence.overlaps-52"><span class="linenos">52</span></a><span class="sd">        Return True if this presence overlaps the time interval [t0, t1).</span>
+</span><span id="Presence.overlaps-53"><a href="#Presence.overlaps-53"><span class="linenos">53</span></a>
+</span><span id="Presence.overlaps-54"><a href="#Presence.overlaps-54"><span class="linenos">54</span></a><span class="sd">        Overlap means there exists a nonzero-duration intersection between</span>
+</span><span id="Presence.overlaps-55"><a href="#Presence.overlaps-55"><span class="linenos">55</span></a><span class="sd">        [self.start, self.end) and [t0, t1).</span>
+</span><span id="Presence.overlaps-56"><a href="#Presence.overlaps-56"><span class="linenos">56</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Presence.overlaps-57"><a href="#Presence.overlaps-57"><span class="linenos">57</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">t1</span>
 </span></pre></div>
 
 
@@ -382,20 +387,20 @@ not yet exited the boundary or no end event has been observed.</p>
 
     </div>
     <a class="headerlink" href="#Presence.clip"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.clip-54"><a href="#Presence.clip-54"><span class="linenos">54</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">clip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Presence[T_Element]&quot;</span><span class="p">]:</span>
-</span><span id="Presence.clip-55"><a href="#Presence.clip-55"><span class="linenos">55</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence.clip-56"><a href="#Presence.clip-56"><span class="linenos">56</span></a><span class="sd">        Return a new Presence representing the clipped overlap with [t0, t1),</span>
-</span><span id="Presence.clip-57"><a href="#Presence.clip-57"><span class="linenos">57</span></a><span class="sd">        or None if there is no overlap.</span>
-</span><span id="Presence.clip-58"><a href="#Presence.clip-58"><span class="linenos">58</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Presence.clip-59"><a href="#Presence.clip-59"><span class="linenos">59</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
-</span><span id="Presence.clip-60"><a href="#Presence.clip-60"><span class="linenos">60</span></a>            <span class="k">return</span> <span class="kc">None</span>
-</span><span id="Presence.clip-61"><a href="#Presence.clip-61"><span class="linenos">61</span></a>
-</span><span id="Presence.clip-62"><a href="#Presence.clip-62"><span class="linenos">62</span></a>        <span class="k">return</span> <span class="n">Presence</span><span class="p">(</span>
-</span><span id="Presence.clip-63"><a href="#Presence.clip-63"><span class="linenos">63</span></a>            <span class="n">element</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">,</span>
-</span><span id="Presence.clip-64"><a href="#Presence.clip-64"><span class="linenos">64</span></a>            <span class="n">boundary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">,</span>
-</span><span id="Presence.clip-65"><a href="#Presence.clip-65"><span class="linenos">65</span></a>            <span class="n">start</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">t0</span><span class="p">),</span>
-</span><span id="Presence.clip-66"><a href="#Presence.clip-66"><span class="linenos">66</span></a>            <span class="n">end</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span>
-</span><span id="Presence.clip-67"><a href="#Presence.clip-67"><span class="linenos">67</span></a>        <span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.clip-59"><a href="#Presence.clip-59"><span class="linenos">59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">clip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Presence[T_Element]&quot;</span><span class="p">]:</span>
+</span><span id="Presence.clip-60"><a href="#Presence.clip-60"><span class="linenos">60</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Presence.clip-61"><a href="#Presence.clip-61"><span class="linenos">61</span></a><span class="sd">        Return a new Presence representing the clipped overlap with [t0, t1),</span>
+</span><span id="Presence.clip-62"><a href="#Presence.clip-62"><span class="linenos">62</span></a><span class="sd">        or None if there is no overlap.</span>
+</span><span id="Presence.clip-63"><a href="#Presence.clip-63"><span class="linenos">63</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Presence.clip-64"><a href="#Presence.clip-64"><span class="linenos">64</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
+</span><span id="Presence.clip-65"><a href="#Presence.clip-65"><span class="linenos">65</span></a>            <span class="k">return</span> <span class="kc">None</span>
+</span><span id="Presence.clip-66"><a href="#Presence.clip-66"><span class="linenos">66</span></a>
+</span><span id="Presence.clip-67"><a href="#Presence.clip-67"><span class="linenos">67</span></a>        <span class="k">return</span> <span class="n">Presence</span><span class="p">(</span>
+</span><span id="Presence.clip-68"><a href="#Presence.clip-68"><span class="linenos">68</span></a>            <span class="n">element</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">,</span>
+</span><span id="Presence.clip-69"><a href="#Presence.clip-69"><span class="linenos">69</span></a>            <span class="n">boundary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">,</span>
+</span><span id="Presence.clip-70"><a href="#Presence.clip-70"><span class="linenos">70</span></a>            <span class="n">start</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">t0</span><span class="p">),</span>
+</span><span id="Presence.clip-71"><a href="#Presence.clip-71"><span class="linenos">71</span></a>            <span class="n">end</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span>
+</span><span id="Presence.clip-72"><a href="#Presence.clip-72"><span class="linenos">72</span></a>        <span class="p">)</span>
 </span></pre></div>
 
 
@@ -416,13 +421,13 @@ or None if there is no overlap.</p>
 
     </div>
     <a class="headerlink" href="#Presence.duration"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.duration-69"><a href="#Presence.duration-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="Presence.duration-70"><a href="#Presence.duration-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence.duration-71"><a href="#Presence.duration-71"><span class="linenos">71</span></a><span class="sd">        Return the full duration of the presence.</span>
-</span><span id="Presence.duration-72"><a href="#Presence.duration-72"><span class="linenos">72</span></a>
-</span><span id="Presence.duration-73"><a href="#Presence.duration-73"><span class="linenos">73</span></a><span class="sd">        Returns `inf` if the presence is open-ended (`end = np.inf`).</span>
-</span><span id="Presence.duration-74"><a href="#Presence.duration-74"><span class="linenos">74</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Presence.duration-75"><a href="#Presence.duration-75"><span class="linenos">75</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.duration-74"><a href="#Presence.duration-74"><span class="linenos">74</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="Presence.duration-75"><a href="#Presence.duration-75"><span class="linenos">75</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Presence.duration-76"><a href="#Presence.duration-76"><span class="linenos">76</span></a><span class="sd">        Return the full duration of the presence.</span>
+</span><span id="Presence.duration-77"><a href="#Presence.duration-77"><span class="linenos">77</span></a>
+</span><span id="Presence.duration-78"><a href="#Presence.duration-78"><span class="linenos">78</span></a><span class="sd">        Returns `inf` if the presence is open-ended (`end = np.inf`).</span>
+</span><span id="Presence.duration-79"><a href="#Presence.duration-79"><span class="linenos">79</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Presence.duration-80"><a href="#Presence.duration-80"><span class="linenos">80</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
 </span></pre></div>
 
 

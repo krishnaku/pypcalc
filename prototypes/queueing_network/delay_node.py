@@ -1,19 +1,7 @@
 # -*- coding: utf-8 -*-
-from typing import Dict, Any
+# Copyright (c) 2025 Krishna Kumar
+# SPDX-License-Identifier: MIT
 
-import simpy
-
-from prototypes.queueing_network.base_node import NonBlockingService, BlockingService
-from metamodel.domain import DomainContext
-
-
-# Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
-
-# Unauthorized use or copying of this file and its contents, via any medium
-# is strictly prohibited. The work product in this file is proprietary and
-# confidential.
-
-# Author: Krishna Kumar
 class PureDelay(NonBlockingService):
     def __init__(self, name: str, config: Dict[str, Any], sim_context: DomainContext) -> None:
         super().__init__(name, config, sim_context)

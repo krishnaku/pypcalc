@@ -104,119 +104,116 @@
                         <label class="view-source-button" for="mod-domain-view-source"><span>View Source</span></label>
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">  1</span></a><span class="c1"># -*- coding: utf-8 -*-</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos">  2</span></a><span class="c1"># Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos">  3</span></a>
-</span><span id="L-4"><a href="#L-4"><span class="linenos">  4</span></a><span class="c1"># Unauthorized use or copying of this file and its contents, via any medium</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a><span class="c1"># is strictly prohibited. The work product in this file is proprietary and</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a><span class="c1"># confidential.</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a>
-</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="c1"># Author: Krishna Kumar</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos">  2</span></a><span class="c1"># Copyright (c) 2025 Krishna Kumar</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos">  3</span></a><span class="c1"># SPDX-License-Identifier: MIT</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos">  4</span></a>
+</span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a>
+</span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a>
+</span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a>
+</span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">Any</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a>
 </span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a>
-</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">Any</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a>
-</span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a>
-</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Signal</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.transaction</span><span class="w"> </span><span class="kn">import</span> <span class="n">Transaction</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.boundary</span><span class="w"> </span><span class="kn">import</span> <span class="n">Boundary</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.timeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">DomainEvent</span><span class="p">,</span> <span class="n">Timeline</span><span class="p">,</span> <span class="n">DomainEventListener</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a>
-</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>
-</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainContext</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="sd">    Abstract interface for domain model.</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Signal</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.transaction</span><span class="w"> </span><span class="kn">import</span> <span class="n">Transaction</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.boundary</span><span class="w"> </span><span class="kn">import</span> <span class="n">Boundary</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.timeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">DomainEvent</span><span class="p">,</span> <span class="n">Timeline</span><span class="p">,</span> <span class="n">DomainEventListener</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a>
+</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainContext</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="sd">    Abstract interface for domain model.</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="sd">    A `DomainContext` is the global context of all domain elements: entities, signals, transactions, and boundaries.</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="sd">    It also exposes methods for recording signal events and subscribing to changes in the domain&#39;s execution history.</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a>
-</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">    A `DomainContext` is the global context of all domain elements: entities, signals, transactions, and boundaries.</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="sd">    It also exposes methods for recording signal events and subscribing to changes in the domain&#39;s execution history.</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">    Concrete classes are expected to implement this interface to support simulation, analysis,</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">    monitoring, and coordination in concrete domain models. See :class:`sim.runtime.Simulation` for a concrete</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="sd">    implementation.</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>
-</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">    ### Example</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>
-</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="sd">    ```python</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="sd">    class MyDomain(DomainModel):</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="sd">        def entities(self, name: str) -&gt; List[Entity]:</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">            return self.entity_registry.get(name, [])</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">    Concrete classes are expected to implement this interface to support simulation, analysis,</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="sd">    monitoring, and coordination in concrete domain models. See :class:`sim.runtime.Simulation` for a concrete</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="sd">    implementation.</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a>
+</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">    ### Example</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a><span class="sd">    ```python</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">    class MyDomain(DomainModel):</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="sd">        def entities(self, name: str) -&gt; List[Entity]:</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="sd">            return self.entity_registry.get(name, [])</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="sd">        def record_signal(self, source, timestamp, signal_type, signal, transaction=None, target=None, tags=None):</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">            return self.timeline.record(source, timestamp, signal_type, signal, transaction, target, tags)</span>
 </span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a>
-</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="sd">        def record_signal(self, source, timestamp, signal_type, signal, transaction=None, target=None, tags=None):</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="sd">            return self.timeline.record(source, timestamp, signal_type, signal, transaction, target, tags)</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>
-</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="sd">        @property</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a><span class="sd">        def all_logs(self) -&gt; List[SignalLog]:</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a><span class="sd">            return [self.timeline]</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="sd">    ```</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="sd">        @property</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="sd">        def all_logs(self) -&gt; List[SignalLog]:</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a><span class="sd">            return [self.timeline]</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="sd">    ```</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>    <span class="c1"># -------- Accessors -------------------------</span>
 </span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>
-</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>
-</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>    <span class="c1"># -------- Accessors -------------------------</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>
-</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">]:</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Entity` objects with the given name (or matching key).&quot;&quot;&quot;</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>        <span class="o">...</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>
-</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Signal</span><span class="p">]:</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Signal` instances with the given name (or type label).&quot;&quot;&quot;</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>        <span class="o">...</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>
-</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]:</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Transaction` objects with the given ID or tag.&quot;&quot;&quot;</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>        <span class="o">...</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>
-</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundaries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Boundary</span><span class="p">]:</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Boundary` instances matching the provided name or identifier.&quot;&quot;&quot;</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>        <span class="o">...</span>
-</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>
-</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>    <span class="c1"># -------- Signal Interface ------------------</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>
-</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record_signal</span><span class="p">(</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>        <span class="bp">self</span><span class="p">,</span>
-</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>        <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>        <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>        <span class="n">signal_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>        <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span>
-</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>        <span class="n">transaction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>        <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>        <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a><span class="sd">        Record a signal event in the simulation.</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>
-</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="sd">        Args:</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a><span class="sd">            source: The entity emitting or processing the signal.</span>
-</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="sd">            timestamp: The time at which the event occurred.</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">            signal_type: The type of event (e.g., &#39;send&#39;, &#39;receive&#39;).</span>
-</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="sd">            signal: The signal being recorded.</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="sd">            transaction: Optional transaction context.</span>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="sd">            target: Optional receiving entity.</span>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="sd">            tags: Optional metadata tags.</span>
-</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>
-</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="sd">        Returns:</span>
-</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">            The created `SignalEvent` instance.</span>
-</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>        <span class="o">...</span>
-</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">register_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">listener</span><span class="p">:</span> <span class="n">DomainEventListener</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a><span class="sd">        Register a listener that will be notified when a new signal event is recorded.</span>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>
-</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a><span class="sd">        Args:</span>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="sd">            listener: An object implementing the `SignalEventListener` protocol.</span>
-</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>        <span class="o">...</span>
-</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>
-</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>    <span class="nd">@property</span>
-</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">all_timelines</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Timeline</span><span class="p">]:</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a><span class="sd">        Access the complete set of `SignalLog` instances tracked by the simulation.</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="sd">        This includes logs from all boundaries or subdomains that emit signals.</span>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>        <span class="o">...</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">]:</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Entity` objects with the given name (or matching key).&quot;&quot;&quot;</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>        <span class="o">...</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>
+</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Signal</span><span class="p">]:</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Signal` instances with the given name (or type label).&quot;&quot;&quot;</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>        <span class="o">...</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>
+</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]:</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Transaction` objects with the given ID or tag.&quot;&quot;&quot;</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>        <span class="o">...</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>
+</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundaries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Boundary</span><span class="p">]:</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Boundary` instances matching the provided name or identifier.&quot;&quot;&quot;</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>        <span class="o">...</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>    <span class="c1"># -------- Signal Interface ------------------</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>
+</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record_signal</span><span class="p">(</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>        <span class="bp">self</span><span class="p">,</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>        <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>        <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>        <span class="n">signal_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>        <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>        <span class="n">transaction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>        <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>        <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a><span class="sd">        Record a signal event in the simulation.</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>
+</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a><span class="sd">        Args:</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a><span class="sd">            source: The entity emitting or processing the signal.</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a><span class="sd">            timestamp: The time at which the event occurred.</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="sd">            signal_type: The type of event (e.g., &#39;send&#39;, &#39;receive&#39;).</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a><span class="sd">            signal: The signal being recorded.</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="sd">            transaction: Optional transaction context.</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">            target: Optional receiving entity.</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="sd">            tags: Optional metadata tags.</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="sd">        Returns:</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="sd">            The created `SignalEvent` instance.</span>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>        <span class="o">...</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">register_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">listener</span><span class="p">:</span> <span class="n">DomainEventListener</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="sd">        Register a listener that will be notified when a new signal event is recorded.</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a><span class="sd">        Args:</span>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a><span class="sd">            listener: An object implementing the `SignalEventListener` protocol.</span>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>        <span class="o">...</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>    <span class="nd">@property</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">all_timelines</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Timeline</span><span class="p">]:</span>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a><span class="sd">        Access the complete set of `SignalLog` instances tracked by the simulation.</span>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="sd">        This includes logs from all boundaries or subdomains that emit signals.</span>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -232,99 +229,99 @@
 
     </div>
     <a class="headerlink" href="#DomainContext"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext-23"><a href="#DomainContext-23"><span class="linenos"> 23</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainContext</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-</span><span id="DomainContext-24"><a href="#DomainContext-24"><span class="linenos"> 24</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="DomainContext-25"><a href="#DomainContext-25"><span class="linenos"> 25</span></a><span class="sd">    Abstract interface for domain model.</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext-20"><a href="#DomainContext-20"><span class="linenos"> 20</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainContext</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span><span id="DomainContext-21"><a href="#DomainContext-21"><span class="linenos"> 21</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="DomainContext-22"><a href="#DomainContext-22"><span class="linenos"> 22</span></a><span class="sd">    Abstract interface for domain model.</span>
+</span><span id="DomainContext-23"><a href="#DomainContext-23"><span class="linenos"> 23</span></a>
+</span><span id="DomainContext-24"><a href="#DomainContext-24"><span class="linenos"> 24</span></a><span class="sd">    A `DomainContext` is the global context of all domain elements: entities, signals, transactions, and boundaries.</span>
+</span><span id="DomainContext-25"><a href="#DomainContext-25"><span class="linenos"> 25</span></a><span class="sd">    It also exposes methods for recording signal events and subscribing to changes in the domain&#39;s execution history.</span>
 </span><span id="DomainContext-26"><a href="#DomainContext-26"><span class="linenos"> 26</span></a>
-</span><span id="DomainContext-27"><a href="#DomainContext-27"><span class="linenos"> 27</span></a><span class="sd">    A `DomainContext` is the global context of all domain elements: entities, signals, transactions, and boundaries.</span>
-</span><span id="DomainContext-28"><a href="#DomainContext-28"><span class="linenos"> 28</span></a><span class="sd">    It also exposes methods for recording signal events and subscribing to changes in the domain&#39;s execution history.</span>
-</span><span id="DomainContext-29"><a href="#DomainContext-29"><span class="linenos"> 29</span></a>
-</span><span id="DomainContext-30"><a href="#DomainContext-30"><span class="linenos"> 30</span></a><span class="sd">    Concrete classes are expected to implement this interface to support simulation, analysis,</span>
-</span><span id="DomainContext-31"><a href="#DomainContext-31"><span class="linenos"> 31</span></a><span class="sd">    monitoring, and coordination in concrete domain models. See :class:`sim.runtime.Simulation` for a concrete</span>
-</span><span id="DomainContext-32"><a href="#DomainContext-32"><span class="linenos"> 32</span></a><span class="sd">    implementation.</span>
-</span><span id="DomainContext-33"><a href="#DomainContext-33"><span class="linenos"> 33</span></a>
-</span><span id="DomainContext-34"><a href="#DomainContext-34"><span class="linenos"> 34</span></a><span class="sd">    ### Example</span>
-</span><span id="DomainContext-35"><a href="#DomainContext-35"><span class="linenos"> 35</span></a>
-</span><span id="DomainContext-36"><a href="#DomainContext-36"><span class="linenos"> 36</span></a><span class="sd">    ```python</span>
-</span><span id="DomainContext-37"><a href="#DomainContext-37"><span class="linenos"> 37</span></a><span class="sd">    class MyDomain(DomainModel):</span>
-</span><span id="DomainContext-38"><a href="#DomainContext-38"><span class="linenos"> 38</span></a><span class="sd">        def entities(self, name: str) -&gt; List[Entity]:</span>
-</span><span id="DomainContext-39"><a href="#DomainContext-39"><span class="linenos"> 39</span></a><span class="sd">            return self.entity_registry.get(name, [])</span>
+</span><span id="DomainContext-27"><a href="#DomainContext-27"><span class="linenos"> 27</span></a><span class="sd">    Concrete classes are expected to implement this interface to support simulation, analysis,</span>
+</span><span id="DomainContext-28"><a href="#DomainContext-28"><span class="linenos"> 28</span></a><span class="sd">    monitoring, and coordination in concrete domain models. See :class:`sim.runtime.Simulation` for a concrete</span>
+</span><span id="DomainContext-29"><a href="#DomainContext-29"><span class="linenos"> 29</span></a><span class="sd">    implementation.</span>
+</span><span id="DomainContext-30"><a href="#DomainContext-30"><span class="linenos"> 30</span></a>
+</span><span id="DomainContext-31"><a href="#DomainContext-31"><span class="linenos"> 31</span></a><span class="sd">    ### Example</span>
+</span><span id="DomainContext-32"><a href="#DomainContext-32"><span class="linenos"> 32</span></a>
+</span><span id="DomainContext-33"><a href="#DomainContext-33"><span class="linenos"> 33</span></a><span class="sd">    ```python</span>
+</span><span id="DomainContext-34"><a href="#DomainContext-34"><span class="linenos"> 34</span></a><span class="sd">    class MyDomain(DomainModel):</span>
+</span><span id="DomainContext-35"><a href="#DomainContext-35"><span class="linenos"> 35</span></a><span class="sd">        def entities(self, name: str) -&gt; List[Entity]:</span>
+</span><span id="DomainContext-36"><a href="#DomainContext-36"><span class="linenos"> 36</span></a><span class="sd">            return self.entity_registry.get(name, [])</span>
+</span><span id="DomainContext-37"><a href="#DomainContext-37"><span class="linenos"> 37</span></a>
+</span><span id="DomainContext-38"><a href="#DomainContext-38"><span class="linenos"> 38</span></a><span class="sd">        def record_signal(self, source, timestamp, signal_type, signal, transaction=None, target=None, tags=None):</span>
+</span><span id="DomainContext-39"><a href="#DomainContext-39"><span class="linenos"> 39</span></a><span class="sd">            return self.timeline.record(source, timestamp, signal_type, signal, transaction, target, tags)</span>
 </span><span id="DomainContext-40"><a href="#DomainContext-40"><span class="linenos"> 40</span></a>
-</span><span id="DomainContext-41"><a href="#DomainContext-41"><span class="linenos"> 41</span></a><span class="sd">        def record_signal(self, source, timestamp, signal_type, signal, transaction=None, target=None, tags=None):</span>
-</span><span id="DomainContext-42"><a href="#DomainContext-42"><span class="linenos"> 42</span></a><span class="sd">            return self.timeline.record(source, timestamp, signal_type, signal, transaction, target, tags)</span>
-</span><span id="DomainContext-43"><a href="#DomainContext-43"><span class="linenos"> 43</span></a>
-</span><span id="DomainContext-44"><a href="#DomainContext-44"><span class="linenos"> 44</span></a><span class="sd">        @property</span>
-</span><span id="DomainContext-45"><a href="#DomainContext-45"><span class="linenos"> 45</span></a><span class="sd">        def all_logs(self) -&gt; List[SignalLog]:</span>
-</span><span id="DomainContext-46"><a href="#DomainContext-46"><span class="linenos"> 46</span></a><span class="sd">            return [self.timeline]</span>
-</span><span id="DomainContext-47"><a href="#DomainContext-47"><span class="linenos"> 47</span></a><span class="sd">    ```</span>
-</span><span id="DomainContext-48"><a href="#DomainContext-48"><span class="linenos"> 48</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="DomainContext-49"><a href="#DomainContext-49"><span class="linenos"> 49</span></a>
+</span><span id="DomainContext-41"><a href="#DomainContext-41"><span class="linenos"> 41</span></a><span class="sd">        @property</span>
+</span><span id="DomainContext-42"><a href="#DomainContext-42"><span class="linenos"> 42</span></a><span class="sd">        def all_logs(self) -&gt; List[SignalLog]:</span>
+</span><span id="DomainContext-43"><a href="#DomainContext-43"><span class="linenos"> 43</span></a><span class="sd">            return [self.timeline]</span>
+</span><span id="DomainContext-44"><a href="#DomainContext-44"><span class="linenos"> 44</span></a><span class="sd">    ```</span>
+</span><span id="DomainContext-45"><a href="#DomainContext-45"><span class="linenos"> 45</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="DomainContext-46"><a href="#DomainContext-46"><span class="linenos"> 46</span></a>
+</span><span id="DomainContext-47"><a href="#DomainContext-47"><span class="linenos"> 47</span></a>
+</span><span id="DomainContext-48"><a href="#DomainContext-48"><span class="linenos"> 48</span></a>
+</span><span id="DomainContext-49"><a href="#DomainContext-49"><span class="linenos"> 49</span></a>    <span class="c1"># -------- Accessors -------------------------</span>
 </span><span id="DomainContext-50"><a href="#DomainContext-50"><span class="linenos"> 50</span></a>
-</span><span id="DomainContext-51"><a href="#DomainContext-51"><span class="linenos"> 51</span></a>
-</span><span id="DomainContext-52"><a href="#DomainContext-52"><span class="linenos"> 52</span></a>    <span class="c1"># -------- Accessors -------------------------</span>
-</span><span id="DomainContext-53"><a href="#DomainContext-53"><span class="linenos"> 53</span></a>
-</span><span id="DomainContext-54"><a href="#DomainContext-54"><span class="linenos"> 54</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">]:</span>
-</span><span id="DomainContext-55"><a href="#DomainContext-55"><span class="linenos"> 55</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Entity` objects with the given name (or matching key).&quot;&quot;&quot;</span>
-</span><span id="DomainContext-56"><a href="#DomainContext-56"><span class="linenos"> 56</span></a>        <span class="o">...</span>
-</span><span id="DomainContext-57"><a href="#DomainContext-57"><span class="linenos"> 57</span></a>
-</span><span id="DomainContext-58"><a href="#DomainContext-58"><span class="linenos"> 58</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Signal</span><span class="p">]:</span>
-</span><span id="DomainContext-59"><a href="#DomainContext-59"><span class="linenos"> 59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Signal` instances with the given name (or type label).&quot;&quot;&quot;</span>
-</span><span id="DomainContext-60"><a href="#DomainContext-60"><span class="linenos"> 60</span></a>        <span class="o">...</span>
-</span><span id="DomainContext-61"><a href="#DomainContext-61"><span class="linenos"> 61</span></a>
-</span><span id="DomainContext-62"><a href="#DomainContext-62"><span class="linenos"> 62</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]:</span>
-</span><span id="DomainContext-63"><a href="#DomainContext-63"><span class="linenos"> 63</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Transaction` objects with the given ID or tag.&quot;&quot;&quot;</span>
-</span><span id="DomainContext-64"><a href="#DomainContext-64"><span class="linenos"> 64</span></a>        <span class="o">...</span>
-</span><span id="DomainContext-65"><a href="#DomainContext-65"><span class="linenos"> 65</span></a>
-</span><span id="DomainContext-66"><a href="#DomainContext-66"><span class="linenos"> 66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundaries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Boundary</span><span class="p">]:</span>
-</span><span id="DomainContext-67"><a href="#DomainContext-67"><span class="linenos"> 67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Boundary` instances matching the provided name or identifier.&quot;&quot;&quot;</span>
-</span><span id="DomainContext-68"><a href="#DomainContext-68"><span class="linenos"> 68</span></a>        <span class="o">...</span>
-</span><span id="DomainContext-69"><a href="#DomainContext-69"><span class="linenos"> 69</span></a>
-</span><span id="DomainContext-70"><a href="#DomainContext-70"><span class="linenos"> 70</span></a>    <span class="c1"># -------- Signal Interface ------------------</span>
-</span><span id="DomainContext-71"><a href="#DomainContext-71"><span class="linenos"> 71</span></a>
-</span><span id="DomainContext-72"><a href="#DomainContext-72"><span class="linenos"> 72</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record_signal</span><span class="p">(</span>
-</span><span id="DomainContext-73"><a href="#DomainContext-73"><span class="linenos"> 73</span></a>        <span class="bp">self</span><span class="p">,</span>
-</span><span id="DomainContext-74"><a href="#DomainContext-74"><span class="linenos"> 74</span></a>        <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span>
-</span><span id="DomainContext-75"><a href="#DomainContext-75"><span class="linenos"> 75</span></a>        <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-</span><span id="DomainContext-76"><a href="#DomainContext-76"><span class="linenos"> 76</span></a>        <span class="n">signal_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="DomainContext-77"><a href="#DomainContext-77"><span class="linenos"> 77</span></a>        <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span>
-</span><span id="DomainContext-78"><a href="#DomainContext-78"><span class="linenos"> 78</span></a>        <span class="n">transaction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="DomainContext-79"><a href="#DomainContext-79"><span class="linenos"> 79</span></a>        <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="DomainContext-80"><a href="#DomainContext-80"><span class="linenos"> 80</span></a>        <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="DomainContext-81"><a href="#DomainContext-81"><span class="linenos"> 81</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
-</span><span id="DomainContext-82"><a href="#DomainContext-82"><span class="linenos"> 82</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="DomainContext-83"><a href="#DomainContext-83"><span class="linenos"> 83</span></a><span class="sd">        Record a signal event in the simulation.</span>
-</span><span id="DomainContext-84"><a href="#DomainContext-84"><span class="linenos"> 84</span></a>
-</span><span id="DomainContext-85"><a href="#DomainContext-85"><span class="linenos"> 85</span></a><span class="sd">        Args:</span>
-</span><span id="DomainContext-86"><a href="#DomainContext-86"><span class="linenos"> 86</span></a><span class="sd">            source: The entity emitting or processing the signal.</span>
-</span><span id="DomainContext-87"><a href="#DomainContext-87"><span class="linenos"> 87</span></a><span class="sd">            timestamp: The time at which the event occurred.</span>
-</span><span id="DomainContext-88"><a href="#DomainContext-88"><span class="linenos"> 88</span></a><span class="sd">            signal_type: The type of event (e.g., &#39;send&#39;, &#39;receive&#39;).</span>
-</span><span id="DomainContext-89"><a href="#DomainContext-89"><span class="linenos"> 89</span></a><span class="sd">            signal: The signal being recorded.</span>
-</span><span id="DomainContext-90"><a href="#DomainContext-90"><span class="linenos"> 90</span></a><span class="sd">            transaction: Optional transaction context.</span>
-</span><span id="DomainContext-91"><a href="#DomainContext-91"><span class="linenos"> 91</span></a><span class="sd">            target: Optional receiving entity.</span>
-</span><span id="DomainContext-92"><a href="#DomainContext-92"><span class="linenos"> 92</span></a><span class="sd">            tags: Optional metadata tags.</span>
-</span><span id="DomainContext-93"><a href="#DomainContext-93"><span class="linenos"> 93</span></a>
-</span><span id="DomainContext-94"><a href="#DomainContext-94"><span class="linenos"> 94</span></a><span class="sd">        Returns:</span>
-</span><span id="DomainContext-95"><a href="#DomainContext-95"><span class="linenos"> 95</span></a><span class="sd">            The created `SignalEvent` instance.</span>
-</span><span id="DomainContext-96"><a href="#DomainContext-96"><span class="linenos"> 96</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DomainContext-97"><a href="#DomainContext-97"><span class="linenos"> 97</span></a>        <span class="o">...</span>
-</span><span id="DomainContext-98"><a href="#DomainContext-98"><span class="linenos"> 98</span></a>
-</span><span id="DomainContext-99"><a href="#DomainContext-99"><span class="linenos"> 99</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">register_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">listener</span><span class="p">:</span> <span class="n">DomainEventListener</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="DomainContext-100"><a href="#DomainContext-100"><span class="linenos">100</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="DomainContext-101"><a href="#DomainContext-101"><span class="linenos">101</span></a><span class="sd">        Register a listener that will be notified when a new signal event is recorded.</span>
-</span><span id="DomainContext-102"><a href="#DomainContext-102"><span class="linenos">102</span></a>
-</span><span id="DomainContext-103"><a href="#DomainContext-103"><span class="linenos">103</span></a><span class="sd">        Args:</span>
-</span><span id="DomainContext-104"><a href="#DomainContext-104"><span class="linenos">104</span></a><span class="sd">            listener: An object implementing the `SignalEventListener` protocol.</span>
-</span><span id="DomainContext-105"><a href="#DomainContext-105"><span class="linenos">105</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DomainContext-106"><a href="#DomainContext-106"><span class="linenos">106</span></a>        <span class="o">...</span>
-</span><span id="DomainContext-107"><a href="#DomainContext-107"><span class="linenos">107</span></a>
-</span><span id="DomainContext-108"><a href="#DomainContext-108"><span class="linenos">108</span></a>    <span class="nd">@property</span>
-</span><span id="DomainContext-109"><a href="#DomainContext-109"><span class="linenos">109</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">all_timelines</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Timeline</span><span class="p">]:</span>
-</span><span id="DomainContext-110"><a href="#DomainContext-110"><span class="linenos">110</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="DomainContext-111"><a href="#DomainContext-111"><span class="linenos">111</span></a><span class="sd">        Access the complete set of `SignalLog` instances tracked by the simulation.</span>
-</span><span id="DomainContext-112"><a href="#DomainContext-112"><span class="linenos">112</span></a>
-</span><span id="DomainContext-113"><a href="#DomainContext-113"><span class="linenos">113</span></a><span class="sd">        This includes logs from all boundaries or subdomains that emit signals.</span>
-</span><span id="DomainContext-114"><a href="#DomainContext-114"><span class="linenos">114</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DomainContext-115"><a href="#DomainContext-115"><span class="linenos">115</span></a>        <span class="o">...</span>
+</span><span id="DomainContext-51"><a href="#DomainContext-51"><span class="linenos"> 51</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">]:</span>
+</span><span id="DomainContext-52"><a href="#DomainContext-52"><span class="linenos"> 52</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Entity` objects with the given name (or matching key).&quot;&quot;&quot;</span>
+</span><span id="DomainContext-53"><a href="#DomainContext-53"><span class="linenos"> 53</span></a>        <span class="o">...</span>
+</span><span id="DomainContext-54"><a href="#DomainContext-54"><span class="linenos"> 54</span></a>
+</span><span id="DomainContext-55"><a href="#DomainContext-55"><span class="linenos"> 55</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Signal</span><span class="p">]:</span>
+</span><span id="DomainContext-56"><a href="#DomainContext-56"><span class="linenos"> 56</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Signal` instances with the given name (or type label).&quot;&quot;&quot;</span>
+</span><span id="DomainContext-57"><a href="#DomainContext-57"><span class="linenos"> 57</span></a>        <span class="o">...</span>
+</span><span id="DomainContext-58"><a href="#DomainContext-58"><span class="linenos"> 58</span></a>
+</span><span id="DomainContext-59"><a href="#DomainContext-59"><span class="linenos"> 59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]:</span>
+</span><span id="DomainContext-60"><a href="#DomainContext-60"><span class="linenos"> 60</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Transaction` objects with the given ID or tag.&quot;&quot;&quot;</span>
+</span><span id="DomainContext-61"><a href="#DomainContext-61"><span class="linenos"> 61</span></a>        <span class="o">...</span>
+</span><span id="DomainContext-62"><a href="#DomainContext-62"><span class="linenos"> 62</span></a>
+</span><span id="DomainContext-63"><a href="#DomainContext-63"><span class="linenos"> 63</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundaries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Boundary</span><span class="p">]:</span>
+</span><span id="DomainContext-64"><a href="#DomainContext-64"><span class="linenos"> 64</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Boundary` instances matching the provided name or identifier.&quot;&quot;&quot;</span>
+</span><span id="DomainContext-65"><a href="#DomainContext-65"><span class="linenos"> 65</span></a>        <span class="o">...</span>
+</span><span id="DomainContext-66"><a href="#DomainContext-66"><span class="linenos"> 66</span></a>
+</span><span id="DomainContext-67"><a href="#DomainContext-67"><span class="linenos"> 67</span></a>    <span class="c1"># -------- Signal Interface ------------------</span>
+</span><span id="DomainContext-68"><a href="#DomainContext-68"><span class="linenos"> 68</span></a>
+</span><span id="DomainContext-69"><a href="#DomainContext-69"><span class="linenos"> 69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record_signal</span><span class="p">(</span>
+</span><span id="DomainContext-70"><a href="#DomainContext-70"><span class="linenos"> 70</span></a>        <span class="bp">self</span><span class="p">,</span>
+</span><span id="DomainContext-71"><a href="#DomainContext-71"><span class="linenos"> 71</span></a>        <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span>
+</span><span id="DomainContext-72"><a href="#DomainContext-72"><span class="linenos"> 72</span></a>        <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+</span><span id="DomainContext-73"><a href="#DomainContext-73"><span class="linenos"> 73</span></a>        <span class="n">signal_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="DomainContext-74"><a href="#DomainContext-74"><span class="linenos"> 74</span></a>        <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span>
+</span><span id="DomainContext-75"><a href="#DomainContext-75"><span class="linenos"> 75</span></a>        <span class="n">transaction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="DomainContext-76"><a href="#DomainContext-76"><span class="linenos"> 76</span></a>        <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="DomainContext-77"><a href="#DomainContext-77"><span class="linenos"> 77</span></a>        <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="DomainContext-78"><a href="#DomainContext-78"><span class="linenos"> 78</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
+</span><span id="DomainContext-79"><a href="#DomainContext-79"><span class="linenos"> 79</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="DomainContext-80"><a href="#DomainContext-80"><span class="linenos"> 80</span></a><span class="sd">        Record a signal event in the simulation.</span>
+</span><span id="DomainContext-81"><a href="#DomainContext-81"><span class="linenos"> 81</span></a>
+</span><span id="DomainContext-82"><a href="#DomainContext-82"><span class="linenos"> 82</span></a><span class="sd">        Args:</span>
+</span><span id="DomainContext-83"><a href="#DomainContext-83"><span class="linenos"> 83</span></a><span class="sd">            source: The entity emitting or processing the signal.</span>
+</span><span id="DomainContext-84"><a href="#DomainContext-84"><span class="linenos"> 84</span></a><span class="sd">            timestamp: The time at which the event occurred.</span>
+</span><span id="DomainContext-85"><a href="#DomainContext-85"><span class="linenos"> 85</span></a><span class="sd">            signal_type: The type of event (e.g., &#39;send&#39;, &#39;receive&#39;).</span>
+</span><span id="DomainContext-86"><a href="#DomainContext-86"><span class="linenos"> 86</span></a><span class="sd">            signal: The signal being recorded.</span>
+</span><span id="DomainContext-87"><a href="#DomainContext-87"><span class="linenos"> 87</span></a><span class="sd">            transaction: Optional transaction context.</span>
+</span><span id="DomainContext-88"><a href="#DomainContext-88"><span class="linenos"> 88</span></a><span class="sd">            target: Optional receiving entity.</span>
+</span><span id="DomainContext-89"><a href="#DomainContext-89"><span class="linenos"> 89</span></a><span class="sd">            tags: Optional metadata tags.</span>
+</span><span id="DomainContext-90"><a href="#DomainContext-90"><span class="linenos"> 90</span></a>
+</span><span id="DomainContext-91"><a href="#DomainContext-91"><span class="linenos"> 91</span></a><span class="sd">        Returns:</span>
+</span><span id="DomainContext-92"><a href="#DomainContext-92"><span class="linenos"> 92</span></a><span class="sd">            The created `SignalEvent` instance.</span>
+</span><span id="DomainContext-93"><a href="#DomainContext-93"><span class="linenos"> 93</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="DomainContext-94"><a href="#DomainContext-94"><span class="linenos"> 94</span></a>        <span class="o">...</span>
+</span><span id="DomainContext-95"><a href="#DomainContext-95"><span class="linenos"> 95</span></a>
+</span><span id="DomainContext-96"><a href="#DomainContext-96"><span class="linenos"> 96</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">register_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">listener</span><span class="p">:</span> <span class="n">DomainEventListener</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="DomainContext-97"><a href="#DomainContext-97"><span class="linenos"> 97</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="DomainContext-98"><a href="#DomainContext-98"><span class="linenos"> 98</span></a><span class="sd">        Register a listener that will be notified when a new signal event is recorded.</span>
+</span><span id="DomainContext-99"><a href="#DomainContext-99"><span class="linenos"> 99</span></a>
+</span><span id="DomainContext-100"><a href="#DomainContext-100"><span class="linenos">100</span></a><span class="sd">        Args:</span>
+</span><span id="DomainContext-101"><a href="#DomainContext-101"><span class="linenos">101</span></a><span class="sd">            listener: An object implementing the `SignalEventListener` protocol.</span>
+</span><span id="DomainContext-102"><a href="#DomainContext-102"><span class="linenos">102</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="DomainContext-103"><a href="#DomainContext-103"><span class="linenos">103</span></a>        <span class="o">...</span>
+</span><span id="DomainContext-104"><a href="#DomainContext-104"><span class="linenos">104</span></a>
+</span><span id="DomainContext-105"><a href="#DomainContext-105"><span class="linenos">105</span></a>    <span class="nd">@property</span>
+</span><span id="DomainContext-106"><a href="#DomainContext-106"><span class="linenos">106</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">all_timelines</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Timeline</span><span class="p">]:</span>
+</span><span id="DomainContext-107"><a href="#DomainContext-107"><span class="linenos">107</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="DomainContext-108"><a href="#DomainContext-108"><span class="linenos">108</span></a><span class="sd">        Access the complete set of `SignalLog` instances tracked by the simulation.</span>
+</span><span id="DomainContext-109"><a href="#DomainContext-109"><span class="linenos">109</span></a>
+</span><span id="DomainContext-110"><a href="#DomainContext-110"><span class="linenos">110</span></a><span class="sd">        This includes logs from all boundaries or subdomains that emit signals.</span>
+</span><span id="DomainContext-111"><a href="#DomainContext-111"><span class="linenos">111</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="DomainContext-112"><a href="#DomainContext-112"><span class="linenos">112</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -409,9 +406,9 @@ implementation.</p>
 
     </div>
     <a class="headerlink" href="#DomainContext.entities"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.entities-54"><a href="#DomainContext.entities-54"><span class="linenos">54</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">]:</span>
-</span><span id="DomainContext.entities-55"><a href="#DomainContext.entities-55"><span class="linenos">55</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Entity` objects with the given name (or matching key).&quot;&quot;&quot;</span>
-</span><span id="DomainContext.entities-56"><a href="#DomainContext.entities-56"><span class="linenos">56</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.entities-51"><a href="#DomainContext.entities-51"><span class="linenos">51</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">]:</span>
+</span><span id="DomainContext.entities-52"><a href="#DomainContext.entities-52"><span class="linenos">52</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Entity` objects with the given name (or matching key).&quot;&quot;&quot;</span>
+</span><span id="DomainContext.entities-53"><a href="#DomainContext.entities-53"><span class="linenos">53</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -431,9 +428,9 @@ implementation.</p>
 
     </div>
     <a class="headerlink" href="#DomainContext.signals"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.signals-58"><a href="#DomainContext.signals-58"><span class="linenos">58</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Signal</span><span class="p">]:</span>
-</span><span id="DomainContext.signals-59"><a href="#DomainContext.signals-59"><span class="linenos">59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Signal` instances with the given name (or type label).&quot;&quot;&quot;</span>
-</span><span id="DomainContext.signals-60"><a href="#DomainContext.signals-60"><span class="linenos">60</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.signals-55"><a href="#DomainContext.signals-55"><span class="linenos">55</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Signal</span><span class="p">]:</span>
+</span><span id="DomainContext.signals-56"><a href="#DomainContext.signals-56"><span class="linenos">56</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Signal` instances with the given name (or type label).&quot;&quot;&quot;</span>
+</span><span id="DomainContext.signals-57"><a href="#DomainContext.signals-57"><span class="linenos">57</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -453,9 +450,9 @@ implementation.</p>
 
     </div>
     <a class="headerlink" href="#DomainContext.transactions"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.transactions-62"><a href="#DomainContext.transactions-62"><span class="linenos">62</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]:</span>
-</span><span id="DomainContext.transactions-63"><a href="#DomainContext.transactions-63"><span class="linenos">63</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Transaction` objects with the given ID or tag.&quot;&quot;&quot;</span>
-</span><span id="DomainContext.transactions-64"><a href="#DomainContext.transactions-64"><span class="linenos">64</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.transactions-59"><a href="#DomainContext.transactions-59"><span class="linenos">59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]:</span>
+</span><span id="DomainContext.transactions-60"><a href="#DomainContext.transactions-60"><span class="linenos">60</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Transaction` objects with the given ID or tag.&quot;&quot;&quot;</span>
+</span><span id="DomainContext.transactions-61"><a href="#DomainContext.transactions-61"><span class="linenos">61</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -475,9 +472,9 @@ implementation.</p>
 
     </div>
     <a class="headerlink" href="#DomainContext.boundaries"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.boundaries-66"><a href="#DomainContext.boundaries-66"><span class="linenos">66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundaries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Boundary</span><span class="p">]:</span>
-</span><span id="DomainContext.boundaries-67"><a href="#DomainContext.boundaries-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Boundary` instances matching the provided name or identifier.&quot;&quot;&quot;</span>
-</span><span id="DomainContext.boundaries-68"><a href="#DomainContext.boundaries-68"><span class="linenos">68</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.boundaries-63"><a href="#DomainContext.boundaries-63"><span class="linenos">63</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundaries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Boundary</span><span class="p">]:</span>
+</span><span id="DomainContext.boundaries-64"><a href="#DomainContext.boundaries-64"><span class="linenos">64</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of `Boundary` instances matching the provided name or identifier.&quot;&quot;&quot;</span>
+</span><span id="DomainContext.boundaries-65"><a href="#DomainContext.boundaries-65"><span class="linenos">65</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -497,32 +494,32 @@ implementation.</p>
 
     </div>
     <a class="headerlink" href="#DomainContext.record_signal"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.record_signal-72"><a href="#DomainContext.record_signal-72"><span class="linenos">72</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record_signal</span><span class="p">(</span>
-</span><span id="DomainContext.record_signal-73"><a href="#DomainContext.record_signal-73"><span class="linenos">73</span></a>        <span class="bp">self</span><span class="p">,</span>
-</span><span id="DomainContext.record_signal-74"><a href="#DomainContext.record_signal-74"><span class="linenos">74</span></a>        <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span>
-</span><span id="DomainContext.record_signal-75"><a href="#DomainContext.record_signal-75"><span class="linenos">75</span></a>        <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-</span><span id="DomainContext.record_signal-76"><a href="#DomainContext.record_signal-76"><span class="linenos">76</span></a>        <span class="n">signal_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="DomainContext.record_signal-77"><a href="#DomainContext.record_signal-77"><span class="linenos">77</span></a>        <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span>
-</span><span id="DomainContext.record_signal-78"><a href="#DomainContext.record_signal-78"><span class="linenos">78</span></a>        <span class="n">transaction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="DomainContext.record_signal-79"><a href="#DomainContext.record_signal-79"><span class="linenos">79</span></a>        <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="DomainContext.record_signal-80"><a href="#DomainContext.record_signal-80"><span class="linenos">80</span></a>        <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="DomainContext.record_signal-81"><a href="#DomainContext.record_signal-81"><span class="linenos">81</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
-</span><span id="DomainContext.record_signal-82"><a href="#DomainContext.record_signal-82"><span class="linenos">82</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="DomainContext.record_signal-83"><a href="#DomainContext.record_signal-83"><span class="linenos">83</span></a><span class="sd">        Record a signal event in the simulation.</span>
-</span><span id="DomainContext.record_signal-84"><a href="#DomainContext.record_signal-84"><span class="linenos">84</span></a>
-</span><span id="DomainContext.record_signal-85"><a href="#DomainContext.record_signal-85"><span class="linenos">85</span></a><span class="sd">        Args:</span>
-</span><span id="DomainContext.record_signal-86"><a href="#DomainContext.record_signal-86"><span class="linenos">86</span></a><span class="sd">            source: The entity emitting or processing the signal.</span>
-</span><span id="DomainContext.record_signal-87"><a href="#DomainContext.record_signal-87"><span class="linenos">87</span></a><span class="sd">            timestamp: The time at which the event occurred.</span>
-</span><span id="DomainContext.record_signal-88"><a href="#DomainContext.record_signal-88"><span class="linenos">88</span></a><span class="sd">            signal_type: The type of event (e.g., &#39;send&#39;, &#39;receive&#39;).</span>
-</span><span id="DomainContext.record_signal-89"><a href="#DomainContext.record_signal-89"><span class="linenos">89</span></a><span class="sd">            signal: The signal being recorded.</span>
-</span><span id="DomainContext.record_signal-90"><a href="#DomainContext.record_signal-90"><span class="linenos">90</span></a><span class="sd">            transaction: Optional transaction context.</span>
-</span><span id="DomainContext.record_signal-91"><a href="#DomainContext.record_signal-91"><span class="linenos">91</span></a><span class="sd">            target: Optional receiving entity.</span>
-</span><span id="DomainContext.record_signal-92"><a href="#DomainContext.record_signal-92"><span class="linenos">92</span></a><span class="sd">            tags: Optional metadata tags.</span>
-</span><span id="DomainContext.record_signal-93"><a href="#DomainContext.record_signal-93"><span class="linenos">93</span></a>
-</span><span id="DomainContext.record_signal-94"><a href="#DomainContext.record_signal-94"><span class="linenos">94</span></a><span class="sd">        Returns:</span>
-</span><span id="DomainContext.record_signal-95"><a href="#DomainContext.record_signal-95"><span class="linenos">95</span></a><span class="sd">            The created `SignalEvent` instance.</span>
-</span><span id="DomainContext.record_signal-96"><a href="#DomainContext.record_signal-96"><span class="linenos">96</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DomainContext.record_signal-97"><a href="#DomainContext.record_signal-97"><span class="linenos">97</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.record_signal-69"><a href="#DomainContext.record_signal-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record_signal</span><span class="p">(</span>
+</span><span id="DomainContext.record_signal-70"><a href="#DomainContext.record_signal-70"><span class="linenos">70</span></a>        <span class="bp">self</span><span class="p">,</span>
+</span><span id="DomainContext.record_signal-71"><a href="#DomainContext.record_signal-71"><span class="linenos">71</span></a>        <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span>
+</span><span id="DomainContext.record_signal-72"><a href="#DomainContext.record_signal-72"><span class="linenos">72</span></a>        <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+</span><span id="DomainContext.record_signal-73"><a href="#DomainContext.record_signal-73"><span class="linenos">73</span></a>        <span class="n">signal_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="DomainContext.record_signal-74"><a href="#DomainContext.record_signal-74"><span class="linenos">74</span></a>        <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span>
+</span><span id="DomainContext.record_signal-75"><a href="#DomainContext.record_signal-75"><span class="linenos">75</span></a>        <span class="n">transaction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Transaction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="DomainContext.record_signal-76"><a href="#DomainContext.record_signal-76"><span class="linenos">76</span></a>        <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="DomainContext.record_signal-77"><a href="#DomainContext.record_signal-77"><span class="linenos">77</span></a>        <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="DomainContext.record_signal-78"><a href="#DomainContext.record_signal-78"><span class="linenos">78</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
+</span><span id="DomainContext.record_signal-79"><a href="#DomainContext.record_signal-79"><span class="linenos">79</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="DomainContext.record_signal-80"><a href="#DomainContext.record_signal-80"><span class="linenos">80</span></a><span class="sd">        Record a signal event in the simulation.</span>
+</span><span id="DomainContext.record_signal-81"><a href="#DomainContext.record_signal-81"><span class="linenos">81</span></a>
+</span><span id="DomainContext.record_signal-82"><a href="#DomainContext.record_signal-82"><span class="linenos">82</span></a><span class="sd">        Args:</span>
+</span><span id="DomainContext.record_signal-83"><a href="#DomainContext.record_signal-83"><span class="linenos">83</span></a><span class="sd">            source: The entity emitting or processing the signal.</span>
+</span><span id="DomainContext.record_signal-84"><a href="#DomainContext.record_signal-84"><span class="linenos">84</span></a><span class="sd">            timestamp: The time at which the event occurred.</span>
+</span><span id="DomainContext.record_signal-85"><a href="#DomainContext.record_signal-85"><span class="linenos">85</span></a><span class="sd">            signal_type: The type of event (e.g., &#39;send&#39;, &#39;receive&#39;).</span>
+</span><span id="DomainContext.record_signal-86"><a href="#DomainContext.record_signal-86"><span class="linenos">86</span></a><span class="sd">            signal: The signal being recorded.</span>
+</span><span id="DomainContext.record_signal-87"><a href="#DomainContext.record_signal-87"><span class="linenos">87</span></a><span class="sd">            transaction: Optional transaction context.</span>
+</span><span id="DomainContext.record_signal-88"><a href="#DomainContext.record_signal-88"><span class="linenos">88</span></a><span class="sd">            target: Optional receiving entity.</span>
+</span><span id="DomainContext.record_signal-89"><a href="#DomainContext.record_signal-89"><span class="linenos">89</span></a><span class="sd">            tags: Optional metadata tags.</span>
+</span><span id="DomainContext.record_signal-90"><a href="#DomainContext.record_signal-90"><span class="linenos">90</span></a>
+</span><span id="DomainContext.record_signal-91"><a href="#DomainContext.record_signal-91"><span class="linenos">91</span></a><span class="sd">        Returns:</span>
+</span><span id="DomainContext.record_signal-92"><a href="#DomainContext.record_signal-92"><span class="linenos">92</span></a><span class="sd">            The created `SignalEvent` instance.</span>
+</span><span id="DomainContext.record_signal-93"><a href="#DomainContext.record_signal-93"><span class="linenos">93</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="DomainContext.record_signal-94"><a href="#DomainContext.record_signal-94"><span class="linenos">94</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -560,14 +557,14 @@ implementation.</p>
 
     </div>
     <a class="headerlink" href="#DomainContext.register_listener"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.register_listener-99"><a href="#DomainContext.register_listener-99"><span class="linenos"> 99</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">register_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">listener</span><span class="p">:</span> <span class="n">DomainEventListener</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="DomainContext.register_listener-100"><a href="#DomainContext.register_listener-100"><span class="linenos">100</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="DomainContext.register_listener-101"><a href="#DomainContext.register_listener-101"><span class="linenos">101</span></a><span class="sd">        Register a listener that will be notified when a new signal event is recorded.</span>
-</span><span id="DomainContext.register_listener-102"><a href="#DomainContext.register_listener-102"><span class="linenos">102</span></a>
-</span><span id="DomainContext.register_listener-103"><a href="#DomainContext.register_listener-103"><span class="linenos">103</span></a><span class="sd">        Args:</span>
-</span><span id="DomainContext.register_listener-104"><a href="#DomainContext.register_listener-104"><span class="linenos">104</span></a><span class="sd">            listener: An object implementing the `SignalEventListener` protocol.</span>
-</span><span id="DomainContext.register_listener-105"><a href="#DomainContext.register_listener-105"><span class="linenos">105</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DomainContext.register_listener-106"><a href="#DomainContext.register_listener-106"><span class="linenos">106</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.register_listener-96"><a href="#DomainContext.register_listener-96"><span class="linenos"> 96</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">register_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">listener</span><span class="p">:</span> <span class="n">DomainEventListener</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="DomainContext.register_listener-97"><a href="#DomainContext.register_listener-97"><span class="linenos"> 97</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="DomainContext.register_listener-98"><a href="#DomainContext.register_listener-98"><span class="linenos"> 98</span></a><span class="sd">        Register a listener that will be notified when a new signal event is recorded.</span>
+</span><span id="DomainContext.register_listener-99"><a href="#DomainContext.register_listener-99"><span class="linenos"> 99</span></a>
+</span><span id="DomainContext.register_listener-100"><a href="#DomainContext.register_listener-100"><span class="linenos">100</span></a><span class="sd">        Args:</span>
+</span><span id="DomainContext.register_listener-101"><a href="#DomainContext.register_listener-101"><span class="linenos">101</span></a><span class="sd">            listener: An object implementing the `SignalEventListener` protocol.</span>
+</span><span id="DomainContext.register_listener-102"><a href="#DomainContext.register_listener-102"><span class="linenos">102</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="DomainContext.register_listener-103"><a href="#DomainContext.register_listener-103"><span class="linenos">103</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -591,14 +588,14 @@ implementation.</p>
 
     </div>
     <a class="headerlink" href="#DomainContext.all_timelines"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.all_timelines-108"><a href="#DomainContext.all_timelines-108"><span class="linenos">108</span></a>    <span class="nd">@property</span>
-</span><span id="DomainContext.all_timelines-109"><a href="#DomainContext.all_timelines-109"><span class="linenos">109</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">all_timelines</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Timeline</span><span class="p">]:</span>
-</span><span id="DomainContext.all_timelines-110"><a href="#DomainContext.all_timelines-110"><span class="linenos">110</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="DomainContext.all_timelines-111"><a href="#DomainContext.all_timelines-111"><span class="linenos">111</span></a><span class="sd">        Access the complete set of `SignalLog` instances tracked by the simulation.</span>
-</span><span id="DomainContext.all_timelines-112"><a href="#DomainContext.all_timelines-112"><span class="linenos">112</span></a>
-</span><span id="DomainContext.all_timelines-113"><a href="#DomainContext.all_timelines-113"><span class="linenos">113</span></a><span class="sd">        This includes logs from all boundaries or subdomains that emit signals.</span>
-</span><span id="DomainContext.all_timelines-114"><a href="#DomainContext.all_timelines-114"><span class="linenos">114</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DomainContext.all_timelines-115"><a href="#DomainContext.all_timelines-115"><span class="linenos">115</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainContext.all_timelines-105"><a href="#DomainContext.all_timelines-105"><span class="linenos">105</span></a>    <span class="nd">@property</span>
+</span><span id="DomainContext.all_timelines-106"><a href="#DomainContext.all_timelines-106"><span class="linenos">106</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">all_timelines</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Timeline</span><span class="p">]:</span>
+</span><span id="DomainContext.all_timelines-107"><a href="#DomainContext.all_timelines-107"><span class="linenos">107</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="DomainContext.all_timelines-108"><a href="#DomainContext.all_timelines-108"><span class="linenos">108</span></a><span class="sd">        Access the complete set of `SignalLog` instances tracked by the simulation.</span>
+</span><span id="DomainContext.all_timelines-109"><a href="#DomainContext.all_timelines-109"><span class="linenos">109</span></a>
+</span><span id="DomainContext.all_timelines-110"><a href="#DomainContext.all_timelines-110"><span class="linenos">110</span></a><span class="sd">        This includes logs from all boundaries or subdomains that emit signals.</span>
+</span><span id="DomainContext.all_timelines-111"><a href="#DomainContext.all_timelines-111"><span class="linenos">111</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="DomainContext.all_timelines-112"><a href="#DomainContext.all_timelines-112"><span class="linenos">112</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 

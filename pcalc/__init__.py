@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
+# Copyright (c) 2025 Krishna Kumar
+# SPDX-License-Identifier: MIT
 
-# Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
+"""
+Presence Calculus Toolkit
 
-# Unauthorized use or copying of this file and its contents, via any medium
-# is strictly prohibited. The work product in this file is proprietary and
-# confidential.
+© 2025 Krishna Kumar
+SPDX-License-Identifier: MIT
+"""
 
-# Author: Krishna Kumar
 from .presence_matrix import  PresenceMatrix
 from .time_scale import Timescale
 from .presence_map import PresenceMap

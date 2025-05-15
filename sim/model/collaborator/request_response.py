@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
-# Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
+# Copyright (c) 2025 Krishna Kumar
+# SPDX-License-Identifier: MIT
 
-# Unauthorized use or copying of this file and its contents, via any medium
-# is strictly prohibited. The work product in this file is proprietary and
-# confidential.
-
-# Author: Krishna Kumar
 
 from __future__ import annotations
 
@@ -19,9 +15,10 @@ from sim.runtime.simulation import Simulation
 from misc.collection_utils import without_keys
 from .registry import collaborator_registry
 
+
 @collaborator_registry.register("Requestor")
 class Requestor(CollaboratorBase):
-    def __init__(self, name: str, domain_context: Simulation, delay_behavior: Dict[str,Any]=None, **kwargs):
+    def __init__(self, name: str, domain_context: Simulation, delay_behavior: Dict[str, Any] = None, **kwargs):
         super().__init__(name, domain_context, delay_behavior=delay_behavior, **kwargs)
         self.counter: int = 0
         self.delay_behavior: Optional[DelayBehavior] = None
@@ -30,13 +27,11 @@ class Requestor(CollaboratorBase):
         else:
             raise ValueError(f"Request behavior not specified for Requestor {name}")
 
-
     def start_processes(self):
         if self.domain_context is None:
             raise RuntimeError(f"Simulation Context for Requestor {self.name} has not been initialized")
         self.domain_context.process(self.send_requests())
         self.domain_context.process(self.receive())
-
 
     def send_requests(self):
         while True:
@@ -49,7 +44,6 @@ class Requestor(CollaboratorBase):
             self.counter += 1
             yield from self.delay_behavior.delay()
 
-
     def on_receive_response(self, response: Response) -> Generator[simpy.events.Event, None, None]:
         self.transactions_in_process.remove(response.transaction.id)
         yield self.domain_context.timeout(0)
@@ -57,7 +51,8 @@ class Requestor(CollaboratorBase):
 
 @collaborator_registry.register("Responder")
 class Responder(CollaboratorBase):
-    def __init__(self, name: str, domain_context: Simulation, concurrency=None, delay_behavior:Dict[str,Any] = None, **kwargs):
+    def __init__(self, name: str, domain_context: Simulation, concurrency=None, delay_behavior: Dict[str, Any] = None,
+                 **kwargs):
         super().__init__(name, domain_context, concurrency=concurrency, delay_behavior=delay_behavior, **kwargs)
         self.counter: int = 0
         self.delay_behavior: Optional[DelayBehavior] = None
@@ -73,4 +68,3 @@ class Responder(CollaboratorBase):
 
     def on_receive_request(self, request) -> Generator[simpy.events.Event, None, None]:
         yield from self.delay_behavior.delay()
-

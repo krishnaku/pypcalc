@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
-# Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
+# Copyright (c) 2025 Krishna Kumar
+# SPDX-License-Identifier: MIT
 
-# Unauthorized use or copying of this file and its contents, via any medium
-# is strictly prohibited. The work product in this file is proprietary and
-# confidential.
-
-# Author: Krishna Kumar
 from __future__ import annotations
 
 from typing import List, Protocol, Optional, Callable, Sequence, Any
@@ -14,6 +10,7 @@ from .entity import Entity
 from .presence import Presence
 from .timeline import Timeline, DomainEvent
 from .signal import Signal
+
 
 class Boundary(Entity, Protocol):
     """
@@ -54,7 +51,8 @@ class Boundary(Entity, Protocol):
         """The `Timeline` associated with this boundary."""
         ...
 
-    def get_signal_presences(self, start_time: float, end_time: float, match: Callable[[DomainEvent], bool]=None) -> List[Presence[Signal]]:
+    def get_signal_presences(self, start_time: float, end_time: float, match: Callable[[DomainEvent], bool] = None) -> \
+            List[Presence[Signal]]:
         """
         Determine the presence of signals in this boundary over a finite time interval in the timeline.
 
@@ -68,7 +66,8 @@ class Boundary(Entity, Protocol):
         """
         ...
 
-    def get_entity_presences(self, start_time: float, end_time: float, match: Optional[Callable[[DomainEvent], bool]]=None) -> List[Presence[Entity]]:
+    def get_entity_presences(self, start_time: float, end_time: float,
+                             match: Optional[Callable[[DomainEvent], bool]] = None) -> List[Presence[Entity]]:
         """
         Determine the presence of entities in this boundary over a finite time interval in the timeline. This is
         useful when the boundaries are not defined over static partitions of entities, and may change

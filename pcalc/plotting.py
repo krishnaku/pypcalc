@@ -1,4 +1,6 @@
-# Auto-generated module
+# -*- coding: utf-8 -*-
+# Copyright (c) 2025 Krishna Kumar
+# SPDX-License-Identifier: MIT
 
 import numpy as np
 import pandas as pd

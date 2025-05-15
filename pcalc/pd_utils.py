@@ -1,4 +1,7 @@
-# Auto-generated module
+# -*- coding: utf-8 -*-
+# Copyright (c) 2025 Krishna Kumar
+# SPDX-License-Identifier: MIT
+
 from typing import Any, Optional, Dict
 
 import numpy as np

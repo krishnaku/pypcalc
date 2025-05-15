@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
-# Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved
-# Unauthorized use or copying of this file and its contents, via any medium
-# is strictly prohibited. The work product in this file is proprietary and
-# confidential.
+# Copyright (c) 2025 Krishna Kumar
+# SPDX-License-Identifier: MIT
 
-# Author: Krishna Kumar
-#--- Generic utility class to create typed registries
 
 """
 This module defines a lightweight  generic`Registry` class that maps string keys to factory functions.

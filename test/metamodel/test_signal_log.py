@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+# Copyright (c) 2025 Krishna Kumar
+# SPDX-License-Identifier: MIT
+
 from sim.model.transaction import DefaultTransaction
 from sim.model.timeline import DefaultTimeline
 from test.mocks import TestEntity, TestSignal, MockSimulation

@@ -82,7 +82,13 @@
                     <h1 class="modulename">
 metamodel    </h1>
 
-                        <div class="docstring"><h2 id="a-domain-metamodel-for-the-presence-calculus">A domain metamodel for The Presence Calculus</h2>
+                        <div class="docstring"><p><strong><em>The Presence Calculus Toolkit</em></strong></p>
+
+<p>© 2025 Krishna Kumar</p>
+
+<p>SPDX-License-Identifier: MIT</p>
+
+<h2 id="a-domain-metamodel-for-the-presence-calculus">A domain metamodel for The Presence Calculus</h2>
 
 <p>This package defines a metamodel for modeling a domain for the purposes of analyzing flow using The Presence Calculus.</p>
 
@@ -116,50 +122,51 @@ and analyze flow in these systems uniformly via The Presence Calculus.</p>
                         <label class="view-source-button" for="mod-metamodel-view-source"><span>View Source</span></label>
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="c1"># -*- coding: utf-8 -*-</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="c1"># Copyright: © Exathink, LLC 2016-2015-${today.year} All Rights Reserved</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="c1"># Copyright (c) 2025 Krishna Kumar</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="c1"># SPDX-License-Identifier: MIT</span>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="c1"># Unauthorized use or copying of this file and its contents, via any medium</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="c1"># is strictly prohibited. The work product in this file is proprietary and</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="c1"># confidential.</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">***The Presence Calculus Toolkit***</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="c1"># Author: Krishna Kumar</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">© 2025 Krishna Kumar</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">##A domain metamodel for The Presence Calculus</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">This package defines a metamodel for modeling a domain for the purposes of analyzing flow using The Presence Calculus.</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">It provides the minimal abstract ontology: Entities, Signals, Transactions, Timelines, DomainEvents, Boundaries,</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">and Presence that are required  for analyzing flow in any domain.</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">It is inspired by and compatible with John Hollands Signal/Boundary framework for modeling complex adaptive systems,</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">but is primarily focused on modeling the physics of flow in such systems: how signals propagate across boundaries,</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">how presence emerges, and how flow behaviors can be modeled, measured, bounded, and analyzed. For a more detailed</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">comparison please see [Holland&#39;s Signal/Boundary framework](https://github.com/krishnaku/p-calculus-tools/blob/main/docs/holland.md).</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">Modules in this package enable:</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">- Construction and identification of domain elements that can flow (entities, signals, transactions)</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">- Event-driven modeling of signal activity via domain events and timelines</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="sd">- Defining domain topology using boundaries for determining presence of flow elements in boundaries over time and</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">thus enabling flow analysis using The Presence Calculus (see package `pcalc`),</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">This metamodel is intentionally decoupled from any specific domain model. Given any conforming model, it serves as the</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">bridge for reasoning about flow dynamics using The Presence Calculus (see package `pcalc`),</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">The first concrete implementation is a simulation framework which can be found in the `sim` package. This allows us to</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">model and simulate a wide variety of complex adaptive systems: value networks, agent network, queueing systems, value streams etc.</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="sd">and analyze flow in these systems uniformly via The Presence Calculus.</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.element</span><span class="w"> </span><span class="kn">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">T_Element</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.domain</span><span class="w"> </span><span class="kn">import</span> <span class="n">DomainContext</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Signal</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.transaction</span><span class="w"> </span><span class="kn">import</span> <span class="n">Transaction</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.timeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">DomainEvent</span><span class="p">,</span> <span class="n">Timeline</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.boundary</span><span class="w"> </span><span class="kn">import</span> <span class="n">Boundary</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Presence</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">SPDX-License-Identifier: MIT</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">##A domain metamodel for The Presence Calculus</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">This package defines a metamodel for modeling a domain for the purposes of analyzing flow using The Presence Calculus.</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">It provides the minimal abstract ontology: Entities, Signals, Transactions, Timelines, DomainEvents, Boundaries,</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">and Presence that are required  for analyzing flow in any domain.</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">It is inspired by and compatible with John Hollands Signal/Boundary framework for modeling complex adaptive systems,</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">but is primarily focused on modeling the physics of flow in such systems: how signals propagate across boundaries,</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">how presence emerges, and how flow behaviors can be modeled, measured, bounded, and analyzed. For a more detailed</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="sd">comparison please see [Holland&#39;s Signal/Boundary framework](https://github.com/krishnaku/p-calculus-tools/blob/main/docs/holland.md).</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">Modules in this package enable:</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">- Construction and identification of domain elements that can flow (entities, signals, transactions)</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="sd">- Event-driven modeling of signal activity via domain events and timelines</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">- Defining domain topology using boundaries for determining presence of flow elements in boundaries over time and</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">thus enabling flow analysis using The Presence Calculus (see package `pcalc`),</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">This metamodel is intentionally decoupled from any specific domain model. Given any conforming model, it serves as the</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">bridge for reasoning about flow dynamics using The Presence Calculus (see package `pcalc`),</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">The first concrete implementation is a simulation framework which can be found in the `sim` package. This allows us to</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="sd">model and simulate a wide variety of complex adaptive systems: value networks, agent network, queueing systems, value streams etc.</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">and analyze flow in these systems uniformly via The Presence Calculus.</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.element</span><span class="w"> </span><span class="kn">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">T_Element</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.domain</span><span class="w"> </span><span class="kn">import</span> <span class="n">DomainContext</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Signal</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.transaction</span><span class="w"> </span><span class="kn">import</span> <span class="n">Transaction</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.timeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">DomainEvent</span><span class="p">,</span> <span class="n">Timeline</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.boundary</span><span class="w"> </span><span class="kn">import</span> <span class="n">Boundary</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Presence</span>
 </span></pre></div>
 
 

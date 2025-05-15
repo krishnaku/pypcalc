@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+# Copyright (c) 2025 Krishna Kumar
+# SPDX-License-Identifier: MIT
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -7,6 +11,7 @@ from .element import T_Element
 
 if TYPE_CHECKING:
     from .boundary import Boundary
+
 
 @dataclass
 class Presence(Generic[T_Element]):
