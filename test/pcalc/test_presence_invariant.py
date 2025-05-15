@@ -13,7 +13,7 @@ import numpy as np
 from metamodel import Presence
 from pcalc import Timescale
 from pcalc.presence_matrix import PresenceMatrix
-from pcalc.presence_metrics import PresenceMetrics
+from pcalc.presence_invariant import PresenceInvariant
 from test.mocks import MockElement, MockBoundary
 
 dummy = MockBoundary()
@@ -52,7 +52,7 @@ def test_flow_rate(case, start, end, expected):
     presences = make_presences()
     ts = Timescale(t0=0.0, t1=6.0, bin_width=1.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
     actual = metrics.flow_rate(start, end)
     assert abs(actual - expected) < 1e-6, case
 
@@ -70,7 +70,7 @@ def test_flow_rate_outside_window(case, start, end, expected):
     presences = make_presences()
     ts = Timescale(t0=0.0, t1=6.0, bin_width=1.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
     with pytest.raises(ValueError):
         metrics.flow_rate(start, end)
 
@@ -84,7 +84,7 @@ def test_starting_presence_count_window(case, start, end, expected):
     presences = make_presences()
     ts = Timescale(0.0, 6.0, 1.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
     result = metrics.starting_presence_count(start, end)
     assert result == expected, case
 
@@ -98,7 +98,7 @@ def test_ending_presence_count_window(case, start, end, expected):
     presences = make_presences()
     ts = Timescale(0.0, 6.0, 1.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
     result = metrics.ending_presence_count(start, end)
     assert result == expected, case
 
@@ -113,7 +113,7 @@ def test_starting_ending_counts_out_of_bounds(method_name, start, end):
     presences = make_presences()
     ts = Timescale(0.0, 6.0, 1.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
     method = getattr(metrics, method_name)
 
     with pytest.raises(ValueError, match="Presence metrics are not defined outside the time scale"):
@@ -131,7 +131,7 @@ def test_arrival_count(case, start, end, expected):
     presences = make_presences()
     ts = Timescale(0.0, 6.0, 1.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
     assert metrics.arrival_count(start, end) == expected, case
 
 @pytest.mark.parametrize("case, start, end, expected", [
@@ -145,7 +145,7 @@ def test_departure_count(case, start, end, expected):
     presences = make_presences()
     ts = Timescale(0.0, 6.0, 1.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
     assert metrics.departure_count(start, end) == expected, case
 
 
@@ -159,7 +159,7 @@ def test_flow_rate_consistency(case, start, end):
     presences = make_presences()
     ts = Timescale(0.0, 6.0, 1.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
 
     flow_rate = metrics.flow_rate(start, end)
     start_bin, end_bin = ts.bin_slice(start, end)
@@ -198,7 +198,7 @@ def test_flow_rate_variable_bin_width(case, start, end, expected):
     presences = make_variable_binwidth_presences()
     ts = Timescale(t0=0.0, t1=9.0, bin_width=3.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
     actual = metrics.flow_rate(start, end)
     assert abs(actual - expected) < 1e-6, f"{case}: {actual} != {expected}"
 
@@ -220,7 +220,7 @@ def test_flow_rate_consistency_with_bin_width(case, start, end):
     presences = make_large_bin_width_presences()
     ts = Timescale(0.0, 9.0, bin_width=3.0)
     matrix = PresenceMatrix(presences, time_scale=ts)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
 
     flow_rate = metrics.flow_rate(start, end)
     start_bin, end_bin = ts.bin_slice(start, end)
@@ -272,9 +272,9 @@ def test_avg_residence_time_per_presence(case, start, end, expected):
     ts = Timescale(t0=0.0, t1=6.0, bin_width=1.0)
     matrix = PresenceMatrix(presences=presences, time_scale=ts)
     matrix.init_presence_map(presences)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
 
-    actual = metrics.avg_residence_time_per_presence(start, end)
+    actual = metrics.avg_residence_time(start, end)
     assert abs(actual - expected) < 1e-6, f"{case}: got {actual}, expected {expected}"
 
 
@@ -297,9 +297,9 @@ def test_avg_residence_time_with_wide_bins(case, start, end, expected):
     ts = Timescale(t0=0.0, t1=10.0, bin_width=2.0)
     matrix = PresenceMatrix(presences=presences, time_scale=ts)
     matrix.init_presence_map(presences)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
 
-    actual = metrics.avg_residence_time_per_presence(start, end)
+    actual = metrics.avg_residence_time(start, end)
     assert abs(actual - expected) < 1e-6, f"{case}: got {actual}, expected {expected}"
 
 @pytest.mark.parametrize("case, start, end, expected", [
@@ -311,8 +311,8 @@ def test_avg_presence_per_time_bin(case, start, end, expected):
     presences = make_presences()
     ts = Timescale(t0=0.0, t1=6.0, bin_width=1.0)
     matrix = PresenceMatrix(presences=presences, time_scale=ts)
-    metrics = PresenceMetrics(matrix)
-    result = metrics.avg_presence_per_time_bin(start, end)
+    metrics = PresenceInvariant(matrix)
+    result = metrics.avg_presence_per_unit_time(start, end)
     assert abs(result - expected) < 1e-6, f"{case}: got {result}, expected {expected}"
 
 
@@ -330,17 +330,10 @@ def test_presence_invariant(case, start, end):
     ts = Timescale(t0=0.0, t1=6.0, bin_width=1.0)
     matrix = PresenceMatrix(presences=presences, time_scale=ts)
     matrix.init_presence_map(presences)
-    metrics = PresenceMetrics(matrix)
+    metrics = PresenceInvariant(matrix)
 
     # Compute components
-    presence_per_time = metrics.avg_presence_per_time_bin(start, end)
-    flow_rate = metrics.flow_rate(start, end)
-    avg_residence = metrics.avg_residence_time_per_presence(start, end)
 
-    # Compute invariant
-    expected = flow_rate * avg_residence
+    L, Λ, W = metrics.get_presence_metrics(start, end)
+    assert L == pytest.approx(Λ * W, rel=1e-6) # modulo floating point math.
 
-    assert abs(presence_per_time - expected) < 1e-6, (
-        f"{case}: presence/time={presence_per_time}, flow_rate={flow_rate}, "
-        f"res_time={avg_residence}, expected={expected}"
-    )
