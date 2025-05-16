@@ -274,6 +274,29 @@ def test_avg_residence_time_per_presence(case, start, end, expected):
     assert abs(actual - expected) < 1e-6, f"{case}: got {actual}, expected {expected}"
 
 
+def test_avg_residence_time_matches_direct_average():
+    """This test is reqyied because residence time for presences is defined in
+    continuous time, while the avg_residence_time for Presence Matrices is computed
+    in bins. We want to make sure that the two definitions always give the same answer
+    modulo floating point arithmetic.
+    """
+    presences = make_presences()
+    start, end = 1.0, 5.0
+
+    direct_avg = sum(
+        p.residence_time(start, end)
+        for p in presences
+        if p.residence_time(start, end) > 0
+    ) / len([p for p in presences if p.residence_time(start, end) > 0])
+
+    ts = Timescale(t0=0.0, t1=6.0, bin_width=1.0)
+    matrix = PresenceMatrix(presences=presences, time_scale=ts)
+    metrics = PresenceInvariant(matrix)
+
+    computed_avg = metrics.avg_residence_time(start, end)
+
+    assert abs(computed_avg - direct_avg) < 1e-6, f"Expected {direct_avg}, got {computed_avg}"
+
 #Test wide bins
 def make_wide_bin_presences():
     return [
@@ -297,6 +320,29 @@ def test_avg_residence_time_with_wide_bins(case, start, end, expected):
 
     actual = metrics.avg_residence_time(start, end)
     assert abs(actual - expected) < 1e-6, f"{case}: got {actual}, expected {expected}"
+
+def test_avg_residence_time_matches_direct_average_wide_bin():
+    """This test is required because residence time for presences is defined in
+    continuous time, while the avg_residence_time for Presence Matrices is computed
+    in bins. We want to make sure that the two definitions always give the same answer
+    modulo floating point arithmetic.
+    """
+    presences = make_wide_bin_presences()
+    start, end = 3.0, 7.0
+
+    direct_avg = sum(
+        p.residence_time(start, end)
+        for p in presences
+        if p.residence_time(start, end) > 0
+    ) / len([p for p in presences if p.residence_time(start, end) > 0])
+
+    ts = Timescale(t0=0.0, t1=10.0, bin_width=2.0)
+    matrix = PresenceMatrix(presences=presences, time_scale=ts)
+    metrics = PresenceInvariant(matrix)
+
+    computed_avg = metrics.avg_residence_time(start, end)
+
+    assert abs(computed_avg - direct_avg) < 1e-6, f"Expected {direct_avg}, got {computed_avg}"
 
 @pytest.mark.parametrize("case, start, end, expected", [
     ("P1 over [0,2) → 2.0 / 2 bins", 0.0, 2.0, 1.25),

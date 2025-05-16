@@ -50,3 +50,15 @@ class MockBoundary(Boundary):
                              match: Optional[Callable[[DomainEvent], bool]] = None) -> List[Presence[Entity]]:
         return []
 
+    def __init__(self, name=None):
+        self._name: str = name
+
+
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+
+    def __str__(self) -> str:
+        return self._name if self._name is not None else 'None'
