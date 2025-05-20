@@ -128,7 +128,7 @@
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="n">T_Element</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_Element&quot;</span><span class="p">)</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a>
 </span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="nd">@dataclass</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Presence</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]):</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="sd">    An assertion that a domain element was continuously present in a boundary</span>
@@ -252,7 +252,7 @@
                 <section id="Presence">
                             <input id="Presence-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
-                    <div class="decorator decorator-dataclass">@dataclass(frozen=True)</div>
+                    <div class="decorator decorator-dataclass">@dataclass</div>
 
     <span class="def">class</span>
     <span class="name">Presence</span><wbr>(<span class="base">typing.Generic[~T_Element]</span>):
@@ -261,7 +261,7 @@
 
     </div>
     <a class="headerlink" href="#Presence"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence-18"><a href="#Presence-18"><span class="linenos"> 18</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence-18"><a href="#Presence-18"><span class="linenos"> 18</span></a><span class="nd">@dataclass</span>
 </span><span id="Presence-19"><a href="#Presence-19"><span class="linenos"> 19</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Presence</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]):</span>
 </span><span id="Presence-20"><a href="#Presence-20"><span class="linenos"> 20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="Presence-21"><a href="#Presence-21"><span class="linenos"> 21</span></a><span class="sd">    An assertion that a domain element was continuously present in a boundary</span>

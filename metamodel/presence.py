@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 T_Element = TypeVar("T_Element")
 
 
-@dataclass(frozen=True)
+@dataclass
 class Presence(Generic[T_Element]):
     """
     An assertion that a domain element was continuously present in a boundary
