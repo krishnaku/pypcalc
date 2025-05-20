@@ -11,7 +11,6 @@ import networkx as nx
 
 from sim.model.collaborator import CollaboratorBase, collaborator_registry
 from sim.runtime.simulation import Simulation
-from misc.collection_utils import without_keys
 
 log = logging.getLogger(__name__)
 

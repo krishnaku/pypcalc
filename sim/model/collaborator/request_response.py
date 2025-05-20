@@ -12,7 +12,6 @@ import simpy
 from sim.model.collaborator.base import CollaboratorBase, Request, Response
 from sim.model.delay import DelayBehavior, delay_behavior_registry
 from sim.runtime.simulation import Simulation
-from misc.collection_utils import without_keys
 from .registry import collaborator_registry
 
 
