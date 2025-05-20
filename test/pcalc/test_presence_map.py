@@ -8,7 +8,7 @@ import numpy as np
 
 
 from pcalc import Presence, PresenceMap, Timescale
-from test.mocks import MockElement, MockBoundary
+from .mocks import MockElement, MockBoundary
 
 dummy_boundary = MockBoundary()
 

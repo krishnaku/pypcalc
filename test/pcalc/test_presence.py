@@ -5,7 +5,7 @@
 import numpy as np
 from pcalc import Presence
 
-from test.mocks import MockBoundary
+from .mocks import MockBoundary
 
 
 
