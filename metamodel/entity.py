@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 from typing import Protocol
-from .element import Element
+from pcalc.element import Element
 
 
 class Entity(Element, Protocol):

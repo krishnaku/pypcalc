@@ -15,18 +15,15 @@ subset of events that occur in the domain.
 Analyzing how events propagate across timelines is a first class analysis concern for us.
 """
 from __future__ import annotations
-import polars as pl
-import uuid
 
-from dataclasses import dataclass, field
-from typing import Dict, Any, Optional, List, Literal, Union, Iterable, Protocol
+from typing import Dict, Any, Optional, List, Iterable, Protocol
 
 
 
 from .entity import Entity
 from .signal import Signal
 from .transaction import Transaction
-from .element import Element
+from pcalc.element import Element
 
 class DomainEvent(Element, Protocol):
     """A timestamped event representing the lifecycle events of a domain element as recorded on a timeline."""

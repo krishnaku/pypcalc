@@ -4,12 +4,7 @@
 
 from __future__ import annotations
 
-from typing import List, Protocol, Optional, Callable, Sequence, Any, Dict
-
-from .entity import Entity
-from .presence import Presence
-from .timeline import Timeline, DomainEvent
-from .signal import Signal
+from typing import Protocol, Any, Dict
 
 
 class Boundary(Protocol):

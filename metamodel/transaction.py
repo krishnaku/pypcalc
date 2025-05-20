@@ -4,10 +4,9 @@
 
 from __future__ import annotations
 
-import uuid
 from typing import Optional, Protocol
 
-from .element import Element
+from pcalc.element import Element
 
 
 class Transaction(Element, Protocol):

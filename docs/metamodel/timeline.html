@@ -190,126 +190,123 @@ subset of events that occur in the domain.</p>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="sd">Analyzing how events propagate across timelines is a first class analysis concern for us.</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Protocol</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a>
-</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Protocol</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>
-</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a>
-</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Signal</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.transaction</span><span class="w"> </span><span class="kn">import</span> <span class="n">Transaction</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.element</span><span class="w"> </span><span class="kn">import</span> <span class="n">Element</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Signal</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.transaction</span><span class="w"> </span><span class="kn">import</span> <span class="n">Transaction</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pcalc.element</span><span class="w"> </span><span class="kn">import</span> <span class="n">Element</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainEvent</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A timestamped event representing the lifecycle events of a domain element as recorded on a timeline.&quot;&quot;&quot;</span>
 </span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a>
-</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainEvent</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A timestamped event representing the lifecycle events of a domain element as recorded on a timeline.&quot;&quot;&quot;</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>    <span class="n">source_id</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the entity that emitted or handled the signal.&quot;&quot;&quot;</span>
 </span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>
-</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>    <span class="n">source_id</span><span class="p">:</span> <span class="nb">str</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the entity that emitted or handled the signal.&quot;&quot;&quot;</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The time at which the event occurred.&quot;&quot;&quot;</span>
 </span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a>    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The time at which the event occurred.&quot;&quot;&quot;</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a>    <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A label describing the type of event (e.g., &#39;send&#39;, &#39;receive&#39;, &#39;process&#39;).&quot;&quot;&quot;</span>
 </span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a>
-</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>    <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A label describing the type of event (e.g., &#39;send&#39;, &#39;receive&#39;, &#39;process&#39;).&quot;&quot;&quot;</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>    <span class="n">signal_id</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the signal involved in the event.&quot;&quot;&quot;</span>
 </span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>
-</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>    <span class="n">signal_id</span><span class="p">:</span> <span class="nb">str</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the signal involved in the event.&quot;&quot;&quot;</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>    <span class="n">transaction_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Optional transaction ID if the signal is part of a transaction.&quot;&quot;&quot;</span>
 </span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>    <span class="n">transaction_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Optional transaction ID if the signal is part of a transaction.&quot;&quot;&quot;</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>    <span class="n">target_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the receiving entity, if any.&quot;&quot;&quot;</span>
 </span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>
-</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>    <span class="n">target_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the receiving entity, if any.&quot;&quot;&quot;</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>    <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Optional dictionary of additional metadata tags.&quot;&quot;&quot;</span>
 </span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>
-</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>    <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Optional dictionary of additional metadata tags.&quot;&quot;&quot;</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>    <span class="n">timeline</span><span class="p">:</span> <span class="n">Timeline</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The timeline where this event was recorded.&quot;&quot;&quot;</span>
 </span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>
-</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>    <span class="n">timeline</span><span class="p">:</span> <span class="n">Timeline</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The timeline where this event was recorded.&quot;&quot;&quot;</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>
-</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>    <span class="nd">@property</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;The unique ID of the signal (auto-assigned).&quot;&quot;&quot;</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>        <span class="o">...</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>
-</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>    <span class="nd">@property</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the source ID.&quot;&quot;&quot;</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>        <span class="o">...</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>
-</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>    <span class="nd">@property</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the target ID, if present.&quot;&quot;&quot;</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>        <span class="o">...</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>
-</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>    <span class="nd">@property</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
-</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the full `Signal` object referenced by this event.&quot;&quot;&quot;</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>        <span class="o">...</span>
-</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>
-</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>    <span class="nd">@property</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Transaction` this signal is part of, if any.&quot;&quot;&quot;</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>        <span class="o">...</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>
-</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the event into a serializable dictionary (excluding timeline).&quot;&quot;&quot;</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>        <span class="o">...</span>
-</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>
+</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>    <span class="nd">@property</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;The unique ID of the signal (auto-assigned).&quot;&quot;&quot;</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>        <span class="o">...</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>
+</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>    <span class="nd">@property</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the source ID.&quot;&quot;&quot;</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>        <span class="o">...</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>
+</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>    <span class="nd">@property</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the target ID, if present.&quot;&quot;&quot;</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>        <span class="o">...</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>    <span class="nd">@property</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the full `Signal` object referenced by this event.&quot;&quot;&quot;</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>        <span class="o">...</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>    <span class="nd">@property</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Transaction` this signal is part of, if any.&quot;&quot;&quot;</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>        <span class="o">...</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the event into a serializable dictionary (excluding timeline).&quot;&quot;&quot;</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>        <span class="o">...</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainEventListener</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Protocol for subscribers that react to new signal events.&quot;&quot;&quot;</span>
 </span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a>
-</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainEventListener</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Protocol for subscribers that react to new signal events.&quot;&quot;&quot;</span>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_domain_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">DomainEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Called when a new `SignalEvent` is recorded.&quot;&quot;&quot;</span>
-</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>        <span class="o">...</span>
-</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_domain_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">DomainEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Called when a new `SignalEvent` is recorded.&quot;&quot;&quot;</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>        <span class="o">...</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Timeline</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Captures and manages all signal events emitted during simulation or execution.&quot;&quot;&quot;</span>
 </span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>
-</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Timeline</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
-</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Captures and manages all signal events emitted during simulation or execution.&quot;&quot;&quot;</span>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>    <span class="nd">@property</span>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">domain_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DomainEvent</span><span class="p">]:</span>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the full list of recorded signal events.&quot;&quot;&quot;</span>
-</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>        <span class="o">...</span>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>
-</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span> <span class="n">transaction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>               <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
-</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a><span class="sd">        Add a new domain event to the timeline and return it. This is the canonical factory method for DomainEvents</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>        <span class="o">...</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>    <span class="nd">@property</span>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Transaction</span><span class="p">]]:</span>
-</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known transactions referenced in the timeline.&quot;&quot;&quot;</span>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>        <span class="o">...</span>
-</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>    <span class="nd">@property</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Signal</span><span class="p">]]:</span>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known signals referenced in the timeline.&quot;&quot;&quot;</span>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>        <span class="o">...</span>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>    <span class="nd">@property</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Entity</span><span class="p">]]:</span>
-</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known entities that emitted or received signals.&quot;&quot;&quot;</span>
-</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>        <span class="o">...</span>
-</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>
-</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
-</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up an entity  in the timeline by ID.&quot;&quot;&quot;</span>
-</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>        <span class="o">...</span>
-</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>
-</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
-</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a signal in the timeline by ID.&quot;&quot;&quot;</span>
-</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>        <span class="o">...</span>
-</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>
-</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
-</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a transaction in the timeline by ID.&quot;&quot;&quot;</span>
-</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>        <span class="o">...</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>    <span class="nd">@property</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">domain_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DomainEvent</span><span class="p">]:</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the full list of recorded signal events.&quot;&quot;&quot;</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>        <span class="o">...</span>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span> <span class="n">transaction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>               <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="sd">        Add a new domain event to the timeline and return it. This is the canonical factory method for DomainEvents</span>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>        <span class="o">...</span>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>    <span class="nd">@property</span>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Transaction</span><span class="p">]]:</span>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known transactions referenced in the timeline.&quot;&quot;&quot;</span>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>        <span class="o">...</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>
+</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>    <span class="nd">@property</span>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Signal</span><span class="p">]]:</span>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known signals referenced in the timeline.&quot;&quot;&quot;</span>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>        <span class="o">...</span>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="nd">@property</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Entity</span><span class="p">]]:</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known entities that emitted or received signals.&quot;&quot;&quot;</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>        <span class="o">...</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up an entity  in the timeline by ID.&quot;&quot;&quot;</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>        <span class="o">...</span>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>
+</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a signal in the timeline by ID.&quot;&quot;&quot;</span>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>        <span class="o">...</span>
+</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>
+</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
+</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a transaction in the timeline by ID.&quot;&quot;&quot;</span>
+</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -319,67 +316,67 @@ subset of events that occur in the domain.</p>
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">DomainEvent</span><wbr>(<span class="base"><a href="element.html#Element">metamodel.element.Element</a></span>, <span class="base">typing.Protocol</span>):
+    <span class="name">DomainEvent</span><wbr>(<span class="base"><a href="../pcalc/element.html#Element">pcalc.element.Element</a></span>, <span class="base">typing.Protocol</span>):
 
                 <label class="view-source-button" for="DomainEvent-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#DomainEvent"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent-32"><a href="#DomainEvent-32"><span class="linenos">32</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainEvent</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
-</span><span id="DomainEvent-33"><a href="#DomainEvent-33"><span class="linenos">33</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A timestamped event representing the lifecycle events of a domain element as recorded on a timeline.&quot;&quot;&quot;</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent-29"><a href="#DomainEvent-29"><span class="linenos">29</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainEvent</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
+</span><span id="DomainEvent-30"><a href="#DomainEvent-30"><span class="linenos">30</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A timestamped event representing the lifecycle events of a domain element as recorded on a timeline.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-31"><a href="#DomainEvent-31"><span class="linenos">31</span></a>
+</span><span id="DomainEvent-32"><a href="#DomainEvent-32"><span class="linenos">32</span></a>    <span class="n">source_id</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="DomainEvent-33"><a href="#DomainEvent-33"><span class="linenos">33</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the entity that emitted or handled the signal.&quot;&quot;&quot;</span>
 </span><span id="DomainEvent-34"><a href="#DomainEvent-34"><span class="linenos">34</span></a>
-</span><span id="DomainEvent-35"><a href="#DomainEvent-35"><span class="linenos">35</span></a>    <span class="n">source_id</span><span class="p">:</span> <span class="nb">str</span>
-</span><span id="DomainEvent-36"><a href="#DomainEvent-36"><span class="linenos">36</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the entity that emitted or handled the signal.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-35"><a href="#DomainEvent-35"><span class="linenos">35</span></a>    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="DomainEvent-36"><a href="#DomainEvent-36"><span class="linenos">36</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The time at which the event occurred.&quot;&quot;&quot;</span>
 </span><span id="DomainEvent-37"><a href="#DomainEvent-37"><span class="linenos">37</span></a>
-</span><span id="DomainEvent-38"><a href="#DomainEvent-38"><span class="linenos">38</span></a>    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="DomainEvent-39"><a href="#DomainEvent-39"><span class="linenos">39</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The time at which the event occurred.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-38"><a href="#DomainEvent-38"><span class="linenos">38</span></a>    <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="DomainEvent-39"><a href="#DomainEvent-39"><span class="linenos">39</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A label describing the type of event (e.g., &#39;send&#39;, &#39;receive&#39;, &#39;process&#39;).&quot;&quot;&quot;</span>
 </span><span id="DomainEvent-40"><a href="#DomainEvent-40"><span class="linenos">40</span></a>
-</span><span id="DomainEvent-41"><a href="#DomainEvent-41"><span class="linenos">41</span></a>    <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span>
-</span><span id="DomainEvent-42"><a href="#DomainEvent-42"><span class="linenos">42</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A label describing the type of event (e.g., &#39;send&#39;, &#39;receive&#39;, &#39;process&#39;).&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-41"><a href="#DomainEvent-41"><span class="linenos">41</span></a>    <span class="n">signal_id</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="DomainEvent-42"><a href="#DomainEvent-42"><span class="linenos">42</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the signal involved in the event.&quot;&quot;&quot;</span>
 </span><span id="DomainEvent-43"><a href="#DomainEvent-43"><span class="linenos">43</span></a>
-</span><span id="DomainEvent-44"><a href="#DomainEvent-44"><span class="linenos">44</span></a>    <span class="n">signal_id</span><span class="p">:</span> <span class="nb">str</span>
-</span><span id="DomainEvent-45"><a href="#DomainEvent-45"><span class="linenos">45</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the signal involved in the event.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-44"><a href="#DomainEvent-44"><span class="linenos">44</span></a>    <span class="n">transaction_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="DomainEvent-45"><a href="#DomainEvent-45"><span class="linenos">45</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Optional transaction ID if the signal is part of a transaction.&quot;&quot;&quot;</span>
 </span><span id="DomainEvent-46"><a href="#DomainEvent-46"><span class="linenos">46</span></a>
-</span><span id="DomainEvent-47"><a href="#DomainEvent-47"><span class="linenos">47</span></a>    <span class="n">transaction_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="DomainEvent-48"><a href="#DomainEvent-48"><span class="linenos">48</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Optional transaction ID if the signal is part of a transaction.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-47"><a href="#DomainEvent-47"><span class="linenos">47</span></a>    <span class="n">target_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="DomainEvent-48"><a href="#DomainEvent-48"><span class="linenos">48</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the receiving entity, if any.&quot;&quot;&quot;</span>
 </span><span id="DomainEvent-49"><a href="#DomainEvent-49"><span class="linenos">49</span></a>
-</span><span id="DomainEvent-50"><a href="#DomainEvent-50"><span class="linenos">50</span></a>    <span class="n">target_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="DomainEvent-51"><a href="#DomainEvent-51"><span class="linenos">51</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The ID of the receiving entity, if any.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-50"><a href="#DomainEvent-50"><span class="linenos">50</span></a>    <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="DomainEvent-51"><a href="#DomainEvent-51"><span class="linenos">51</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Optional dictionary of additional metadata tags.&quot;&quot;&quot;</span>
 </span><span id="DomainEvent-52"><a href="#DomainEvent-52"><span class="linenos">52</span></a>
-</span><span id="DomainEvent-53"><a href="#DomainEvent-53"><span class="linenos">53</span></a>    <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="DomainEvent-54"><a href="#DomainEvent-54"><span class="linenos">54</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Optional dictionary of additional metadata tags.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-53"><a href="#DomainEvent-53"><span class="linenos">53</span></a>    <span class="n">timeline</span><span class="p">:</span> <span class="n">Timeline</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="DomainEvent-54"><a href="#DomainEvent-54"><span class="linenos">54</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The timeline where this event was recorded.&quot;&quot;&quot;</span>
 </span><span id="DomainEvent-55"><a href="#DomainEvent-55"><span class="linenos">55</span></a>
-</span><span id="DomainEvent-56"><a href="#DomainEvent-56"><span class="linenos">56</span></a>    <span class="n">timeline</span><span class="p">:</span> <span class="n">Timeline</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="DomainEvent-57"><a href="#DomainEvent-57"><span class="linenos">57</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The timeline where this event was recorded.&quot;&quot;&quot;</span>
-</span><span id="DomainEvent-58"><a href="#DomainEvent-58"><span class="linenos">58</span></a>
-</span><span id="DomainEvent-59"><a href="#DomainEvent-59"><span class="linenos">59</span></a>    <span class="nd">@property</span>
-</span><span id="DomainEvent-60"><a href="#DomainEvent-60"><span class="linenos">60</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="DomainEvent-61"><a href="#DomainEvent-61"><span class="linenos">61</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;The unique ID of the signal (auto-assigned).&quot;&quot;&quot;</span>
-</span><span id="DomainEvent-62"><a href="#DomainEvent-62"><span class="linenos">62</span></a>        <span class="o">...</span>
-</span><span id="DomainEvent-63"><a href="#DomainEvent-63"><span class="linenos">63</span></a>
-</span><span id="DomainEvent-64"><a href="#DomainEvent-64"><span class="linenos">64</span></a>    <span class="nd">@property</span>
-</span><span id="DomainEvent-65"><a href="#DomainEvent-65"><span class="linenos">65</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
-</span><span id="DomainEvent-66"><a href="#DomainEvent-66"><span class="linenos">66</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the source ID.&quot;&quot;&quot;</span>
-</span><span id="DomainEvent-67"><a href="#DomainEvent-67"><span class="linenos">67</span></a>        <span class="o">...</span>
-</span><span id="DomainEvent-68"><a href="#DomainEvent-68"><span class="linenos">68</span></a>
-</span><span id="DomainEvent-69"><a href="#DomainEvent-69"><span class="linenos">69</span></a>    <span class="nd">@property</span>
-</span><span id="DomainEvent-70"><a href="#DomainEvent-70"><span class="linenos">70</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
-</span><span id="DomainEvent-71"><a href="#DomainEvent-71"><span class="linenos">71</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the target ID, if present.&quot;&quot;&quot;</span>
-</span><span id="DomainEvent-72"><a href="#DomainEvent-72"><span class="linenos">72</span></a>        <span class="o">...</span>
-</span><span id="DomainEvent-73"><a href="#DomainEvent-73"><span class="linenos">73</span></a>
-</span><span id="DomainEvent-74"><a href="#DomainEvent-74"><span class="linenos">74</span></a>    <span class="nd">@property</span>
-</span><span id="DomainEvent-75"><a href="#DomainEvent-75"><span class="linenos">75</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
-</span><span id="DomainEvent-76"><a href="#DomainEvent-76"><span class="linenos">76</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the full `Signal` object referenced by this event.&quot;&quot;&quot;</span>
-</span><span id="DomainEvent-77"><a href="#DomainEvent-77"><span class="linenos">77</span></a>        <span class="o">...</span>
-</span><span id="DomainEvent-78"><a href="#DomainEvent-78"><span class="linenos">78</span></a>
-</span><span id="DomainEvent-79"><a href="#DomainEvent-79"><span class="linenos">79</span></a>    <span class="nd">@property</span>
-</span><span id="DomainEvent-80"><a href="#DomainEvent-80"><span class="linenos">80</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
-</span><span id="DomainEvent-81"><a href="#DomainEvent-81"><span class="linenos">81</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Transaction` this signal is part of, if any.&quot;&quot;&quot;</span>
-</span><span id="DomainEvent-82"><a href="#DomainEvent-82"><span class="linenos">82</span></a>        <span class="o">...</span>
-</span><span id="DomainEvent-83"><a href="#DomainEvent-83"><span class="linenos">83</span></a>
-</span><span id="DomainEvent-84"><a href="#DomainEvent-84"><span class="linenos">84</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-</span><span id="DomainEvent-85"><a href="#DomainEvent-85"><span class="linenos">85</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the event into a serializable dictionary (excluding timeline).&quot;&quot;&quot;</span>
-</span><span id="DomainEvent-86"><a href="#DomainEvent-86"><span class="linenos">86</span></a>        <span class="o">...</span>
+</span><span id="DomainEvent-56"><a href="#DomainEvent-56"><span class="linenos">56</span></a>    <span class="nd">@property</span>
+</span><span id="DomainEvent-57"><a href="#DomainEvent-57"><span class="linenos">57</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="DomainEvent-58"><a href="#DomainEvent-58"><span class="linenos">58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;The unique ID of the signal (auto-assigned).&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-59"><a href="#DomainEvent-59"><span class="linenos">59</span></a>        <span class="o">...</span>
+</span><span id="DomainEvent-60"><a href="#DomainEvent-60"><span class="linenos">60</span></a>
+</span><span id="DomainEvent-61"><a href="#DomainEvent-61"><span class="linenos">61</span></a>    <span class="nd">@property</span>
+</span><span id="DomainEvent-62"><a href="#DomainEvent-62"><span class="linenos">62</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
+</span><span id="DomainEvent-63"><a href="#DomainEvent-63"><span class="linenos">63</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the source ID.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-64"><a href="#DomainEvent-64"><span class="linenos">64</span></a>        <span class="o">...</span>
+</span><span id="DomainEvent-65"><a href="#DomainEvent-65"><span class="linenos">65</span></a>
+</span><span id="DomainEvent-66"><a href="#DomainEvent-66"><span class="linenos">66</span></a>    <span class="nd">@property</span>
+</span><span id="DomainEvent-67"><a href="#DomainEvent-67"><span class="linenos">67</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
+</span><span id="DomainEvent-68"><a href="#DomainEvent-68"><span class="linenos">68</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the target ID, if present.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-69"><a href="#DomainEvent-69"><span class="linenos">69</span></a>        <span class="o">...</span>
+</span><span id="DomainEvent-70"><a href="#DomainEvent-70"><span class="linenos">70</span></a>
+</span><span id="DomainEvent-71"><a href="#DomainEvent-71"><span class="linenos">71</span></a>    <span class="nd">@property</span>
+</span><span id="DomainEvent-72"><a href="#DomainEvent-72"><span class="linenos">72</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
+</span><span id="DomainEvent-73"><a href="#DomainEvent-73"><span class="linenos">73</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the full `Signal` object referenced by this event.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-74"><a href="#DomainEvent-74"><span class="linenos">74</span></a>        <span class="o">...</span>
+</span><span id="DomainEvent-75"><a href="#DomainEvent-75"><span class="linenos">75</span></a>
+</span><span id="DomainEvent-76"><a href="#DomainEvent-76"><span class="linenos">76</span></a>    <span class="nd">@property</span>
+</span><span id="DomainEvent-77"><a href="#DomainEvent-77"><span class="linenos">77</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
+</span><span id="DomainEvent-78"><a href="#DomainEvent-78"><span class="linenos">78</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Transaction` this signal is part of, if any.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-79"><a href="#DomainEvent-79"><span class="linenos">79</span></a>        <span class="o">...</span>
+</span><span id="DomainEvent-80"><a href="#DomainEvent-80"><span class="linenos">80</span></a>
+</span><span id="DomainEvent-81"><a href="#DomainEvent-81"><span class="linenos">81</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span id="DomainEvent-82"><a href="#DomainEvent-82"><span class="linenos">82</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the event into a serializable dictionary (excluding timeline).&quot;&quot;&quot;</span>
+</span><span id="DomainEvent-83"><a href="#DomainEvent-83"><span class="linenos">83</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -504,10 +501,10 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#DomainEvent.id"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.id-59"><a href="#DomainEvent.id-59"><span class="linenos">59</span></a>    <span class="nd">@property</span>
-</span><span id="DomainEvent.id-60"><a href="#DomainEvent.id-60"><span class="linenos">60</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="DomainEvent.id-61"><a href="#DomainEvent.id-61"><span class="linenos">61</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;The unique ID of the signal (auto-assigned).&quot;&quot;&quot;</span>
-</span><span id="DomainEvent.id-62"><a href="#DomainEvent.id-62"><span class="linenos">62</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.id-56"><a href="#DomainEvent.id-56"><span class="linenos">56</span></a>    <span class="nd">@property</span>
+</span><span id="DomainEvent.id-57"><a href="#DomainEvent.id-57"><span class="linenos">57</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="DomainEvent.id-58"><a href="#DomainEvent.id-58"><span class="linenos">58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;The unique ID of the signal (auto-assigned).&quot;&quot;&quot;</span>
+</span><span id="DomainEvent.id-59"><a href="#DomainEvent.id-59"><span class="linenos">59</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -525,10 +522,10 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#DomainEvent.source"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.source-64"><a href="#DomainEvent.source-64"><span class="linenos">64</span></a>    <span class="nd">@property</span>
-</span><span id="DomainEvent.source-65"><a href="#DomainEvent.source-65"><span class="linenos">65</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
-</span><span id="DomainEvent.source-66"><a href="#DomainEvent.source-66"><span class="linenos">66</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the source ID.&quot;&quot;&quot;</span>
-</span><span id="DomainEvent.source-67"><a href="#DomainEvent.source-67"><span class="linenos">67</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.source-61"><a href="#DomainEvent.source-61"><span class="linenos">61</span></a>    <span class="nd">@property</span>
+</span><span id="DomainEvent.source-62"><a href="#DomainEvent.source-62"><span class="linenos">62</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
+</span><span id="DomainEvent.source-63"><a href="#DomainEvent.source-63"><span class="linenos">63</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the source ID.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent.source-64"><a href="#DomainEvent.source-64"><span class="linenos">64</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -546,10 +543,10 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#DomainEvent.target"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.target-69"><a href="#DomainEvent.target-69"><span class="linenos">69</span></a>    <span class="nd">@property</span>
-</span><span id="DomainEvent.target-70"><a href="#DomainEvent.target-70"><span class="linenos">70</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
-</span><span id="DomainEvent.target-71"><a href="#DomainEvent.target-71"><span class="linenos">71</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the target ID, if present.&quot;&quot;&quot;</span>
-</span><span id="DomainEvent.target-72"><a href="#DomainEvent.target-72"><span class="linenos">72</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.target-66"><a href="#DomainEvent.target-66"><span class="linenos">66</span></a>    <span class="nd">@property</span>
+</span><span id="DomainEvent.target-67"><a href="#DomainEvent.target-67"><span class="linenos">67</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
+</span><span id="DomainEvent.target-68"><a href="#DomainEvent.target-68"><span class="linenos">68</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Entity` corresponding to the target ID, if present.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent.target-69"><a href="#DomainEvent.target-69"><span class="linenos">69</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -567,10 +564,10 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#DomainEvent.signal"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.signal-74"><a href="#DomainEvent.signal-74"><span class="linenos">74</span></a>    <span class="nd">@property</span>
-</span><span id="DomainEvent.signal-75"><a href="#DomainEvent.signal-75"><span class="linenos">75</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
-</span><span id="DomainEvent.signal-76"><a href="#DomainEvent.signal-76"><span class="linenos">76</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the full `Signal` object referenced by this event.&quot;&quot;&quot;</span>
-</span><span id="DomainEvent.signal-77"><a href="#DomainEvent.signal-77"><span class="linenos">77</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.signal-71"><a href="#DomainEvent.signal-71"><span class="linenos">71</span></a>    <span class="nd">@property</span>
+</span><span id="DomainEvent.signal-72"><a href="#DomainEvent.signal-72"><span class="linenos">72</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
+</span><span id="DomainEvent.signal-73"><a href="#DomainEvent.signal-73"><span class="linenos">73</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the full `Signal` object referenced by this event.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent.signal-74"><a href="#DomainEvent.signal-74"><span class="linenos">74</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -588,10 +585,10 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#DomainEvent.transaction"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.transaction-79"><a href="#DomainEvent.transaction-79"><span class="linenos">79</span></a>    <span class="nd">@property</span>
-</span><span id="DomainEvent.transaction-80"><a href="#DomainEvent.transaction-80"><span class="linenos">80</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
-</span><span id="DomainEvent.transaction-81"><a href="#DomainEvent.transaction-81"><span class="linenos">81</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Transaction` this signal is part of, if any.&quot;&quot;&quot;</span>
-</span><span id="DomainEvent.transaction-82"><a href="#DomainEvent.transaction-82"><span class="linenos">82</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.transaction-76"><a href="#DomainEvent.transaction-76"><span class="linenos">76</span></a>    <span class="nd">@property</span>
+</span><span id="DomainEvent.transaction-77"><a href="#DomainEvent.transaction-77"><span class="linenos">77</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
+</span><span id="DomainEvent.transaction-78"><a href="#DomainEvent.transaction-78"><span class="linenos">78</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the `Transaction` this signal is part of, if any.&quot;&quot;&quot;</span>
+</span><span id="DomainEvent.transaction-79"><a href="#DomainEvent.transaction-79"><span class="linenos">79</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -611,9 +608,9 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#DomainEvent.as_dict"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.as_dict-84"><a href="#DomainEvent.as_dict-84"><span class="linenos">84</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-</span><span id="DomainEvent.as_dict-85"><a href="#DomainEvent.as_dict-85"><span class="linenos">85</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the event into a serializable dictionary (excluding timeline).&quot;&quot;&quot;</span>
-</span><span id="DomainEvent.as_dict-86"><a href="#DomainEvent.as_dict-86"><span class="linenos">86</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEvent.as_dict-81"><a href="#DomainEvent.as_dict-81"><span class="linenos">81</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span id="DomainEvent.as_dict-82"><a href="#DomainEvent.as_dict-82"><span class="linenos">82</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the event into a serializable dictionary (excluding timeline).&quot;&quot;&quot;</span>
+</span><span id="DomainEvent.as_dict-83"><a href="#DomainEvent.as_dict-83"><span class="linenos">83</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -625,9 +622,9 @@ subset of events that occur in the domain.</p>
                             <div class="inherited">
                                 <h5>Inherited Members</h5>
                                 <dl>
-                                    <div><dt><a href="element.html#Element">metamodel.element.Element</a></dt>
-                                <dd id="DomainEvent.__init__" class="function"><a href="element.html#Element.__init__">Element</a></dd>
-                <dd id="DomainEvent.metadata" class="variable"><a href="element.html#Element.metadata">metadata</a></dd>
+                                    <div><dt><a href="../pcalc/element.html#Element">pcalc.element.Element</a></dt>
+                                <dd id="DomainEvent.__init__" class="function"><a href="../pcalc/element.html#Element.__init__">Element</a></dd>
+                <dd id="DomainEvent.metadata" class="variable"><a href="../pcalc/element.html#Element.metadata">metadata</a></dd>
 
             </div>
                                 </dl>
@@ -644,12 +641,12 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#DomainEventListener"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEventListener-89"><a href="#DomainEventListener-89"><span class="linenos">89</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainEventListener</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-</span><span id="DomainEventListener-90"><a href="#DomainEventListener-90"><span class="linenos">90</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Protocol for subscribers that react to new signal events.&quot;&quot;&quot;</span>
-</span><span id="DomainEventListener-91"><a href="#DomainEventListener-91"><span class="linenos">91</span></a>
-</span><span id="DomainEventListener-92"><a href="#DomainEventListener-92"><span class="linenos">92</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_domain_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">DomainEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="DomainEventListener-93"><a href="#DomainEventListener-93"><span class="linenos">93</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Called when a new `SignalEvent` is recorded.&quot;&quot;&quot;</span>
-</span><span id="DomainEventListener-94"><a href="#DomainEventListener-94"><span class="linenos">94</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEventListener-86"><a href="#DomainEventListener-86"><span class="linenos">86</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainEventListener</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span><span id="DomainEventListener-87"><a href="#DomainEventListener-87"><span class="linenos">87</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Protocol for subscribers that react to new signal events.&quot;&quot;&quot;</span>
+</span><span id="DomainEventListener-88"><a href="#DomainEventListener-88"><span class="linenos">88</span></a>
+</span><span id="DomainEventListener-89"><a href="#DomainEventListener-89"><span class="linenos">89</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_domain_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">DomainEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="DomainEventListener-90"><a href="#DomainEventListener-90"><span class="linenos">90</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Called when a new `SignalEvent` is recorded.&quot;&quot;&quot;</span>
+</span><span id="DomainEventListener-91"><a href="#DomainEventListener-91"><span class="linenos">91</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -711,9 +708,9 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#DomainEventListener.on_domain_event"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEventListener.on_domain_event-92"><a href="#DomainEventListener.on_domain_event-92"><span class="linenos">92</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_domain_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">DomainEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="DomainEventListener.on_domain_event-93"><a href="#DomainEventListener.on_domain_event-93"><span class="linenos">93</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Called when a new `SignalEvent` is recorded.&quot;&quot;&quot;</span>
-</span><span id="DomainEventListener.on_domain_event-94"><a href="#DomainEventListener.on_domain_event-94"><span class="linenos">94</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DomainEventListener.on_domain_event-89"><a href="#DomainEventListener.on_domain_event-89"><span class="linenos">89</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_domain_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">DomainEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="DomainEventListener.on_domain_event-90"><a href="#DomainEventListener.on_domain_event-90"><span class="linenos">90</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Called when a new `SignalEvent` is recorded.&quot;&quot;&quot;</span>
+</span><span id="DomainEventListener.on_domain_event-91"><a href="#DomainEventListener.on_domain_event-91"><span class="linenos">91</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -728,54 +725,54 @@ subset of events that occur in the domain.</p>
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">Timeline</span><wbr>(<span class="base"><a href="element.html#Element">metamodel.element.Element</a></span>, <span class="base">typing.Protocol</span>):
+    <span class="name">Timeline</span><wbr>(<span class="base"><a href="../pcalc/element.html#Element">pcalc.element.Element</a></span>, <span class="base">typing.Protocol</span>):
 
                 <label class="view-source-button" for="Timeline-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Timeline"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline-97"><a href="#Timeline-97"><span class="linenos"> 97</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Timeline</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
-</span><span id="Timeline-98"><a href="#Timeline-98"><span class="linenos"> 98</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Captures and manages all signal events emitted during simulation or execution.&quot;&quot;&quot;</span>
-</span><span id="Timeline-99"><a href="#Timeline-99"><span class="linenos"> 99</span></a>
-</span><span id="Timeline-100"><a href="#Timeline-100"><span class="linenos">100</span></a>    <span class="nd">@property</span>
-</span><span id="Timeline-101"><a href="#Timeline-101"><span class="linenos">101</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">domain_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DomainEvent</span><span class="p">]:</span>
-</span><span id="Timeline-102"><a href="#Timeline-102"><span class="linenos">102</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the full list of recorded signal events.&quot;&quot;&quot;</span>
-</span><span id="Timeline-103"><a href="#Timeline-103"><span class="linenos">103</span></a>        <span class="o">...</span>
-</span><span id="Timeline-104"><a href="#Timeline-104"><span class="linenos">104</span></a>
-</span><span id="Timeline-105"><a href="#Timeline-105"><span class="linenos">105</span></a>
-</span><span id="Timeline-106"><a href="#Timeline-106"><span class="linenos">106</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span> <span class="n">transaction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="Timeline-107"><a href="#Timeline-107"><span class="linenos">107</span></a>               <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
-</span><span id="Timeline-108"><a href="#Timeline-108"><span class="linenos">108</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Timeline-109"><a href="#Timeline-109"><span class="linenos">109</span></a><span class="sd">        Add a new domain event to the timeline and return it. This is the canonical factory method for DomainEvents</span>
-</span><span id="Timeline-110"><a href="#Timeline-110"><span class="linenos">110</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Timeline-111"><a href="#Timeline-111"><span class="linenos">111</span></a>        <span class="o">...</span>
-</span><span id="Timeline-112"><a href="#Timeline-112"><span class="linenos">112</span></a>
-</span><span id="Timeline-113"><a href="#Timeline-113"><span class="linenos">113</span></a>    <span class="nd">@property</span>
-</span><span id="Timeline-114"><a href="#Timeline-114"><span class="linenos">114</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Transaction</span><span class="p">]]:</span>
-</span><span id="Timeline-115"><a href="#Timeline-115"><span class="linenos">115</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known transactions referenced in the timeline.&quot;&quot;&quot;</span>
-</span><span id="Timeline-116"><a href="#Timeline-116"><span class="linenos">116</span></a>        <span class="o">...</span>
-</span><span id="Timeline-117"><a href="#Timeline-117"><span class="linenos">117</span></a>
-</span><span id="Timeline-118"><a href="#Timeline-118"><span class="linenos">118</span></a>    <span class="nd">@property</span>
-</span><span id="Timeline-119"><a href="#Timeline-119"><span class="linenos">119</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Signal</span><span class="p">]]:</span>
-</span><span id="Timeline-120"><a href="#Timeline-120"><span class="linenos">120</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known signals referenced in the timeline.&quot;&quot;&quot;</span>
-</span><span id="Timeline-121"><a href="#Timeline-121"><span class="linenos">121</span></a>        <span class="o">...</span>
-</span><span id="Timeline-122"><a href="#Timeline-122"><span class="linenos">122</span></a>
-</span><span id="Timeline-123"><a href="#Timeline-123"><span class="linenos">123</span></a>    <span class="nd">@property</span>
-</span><span id="Timeline-124"><a href="#Timeline-124"><span class="linenos">124</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Entity</span><span class="p">]]:</span>
-</span><span id="Timeline-125"><a href="#Timeline-125"><span class="linenos">125</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known entities that emitted or received signals.&quot;&quot;&quot;</span>
-</span><span id="Timeline-126"><a href="#Timeline-126"><span class="linenos">126</span></a>        <span class="o">...</span>
-</span><span id="Timeline-127"><a href="#Timeline-127"><span class="linenos">127</span></a>
-</span><span id="Timeline-128"><a href="#Timeline-128"><span class="linenos">128</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
-</span><span id="Timeline-129"><a href="#Timeline-129"><span class="linenos">129</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up an entity  in the timeline by ID.&quot;&quot;&quot;</span>
-</span><span id="Timeline-130"><a href="#Timeline-130"><span class="linenos">130</span></a>        <span class="o">...</span>
-</span><span id="Timeline-131"><a href="#Timeline-131"><span class="linenos">131</span></a>
-</span><span id="Timeline-132"><a href="#Timeline-132"><span class="linenos">132</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
-</span><span id="Timeline-133"><a href="#Timeline-133"><span class="linenos">133</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a signal in the timeline by ID.&quot;&quot;&quot;</span>
-</span><span id="Timeline-134"><a href="#Timeline-134"><span class="linenos">134</span></a>        <span class="o">...</span>
-</span><span id="Timeline-135"><a href="#Timeline-135"><span class="linenos">135</span></a>
-</span><span id="Timeline-136"><a href="#Timeline-136"><span class="linenos">136</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
-</span><span id="Timeline-137"><a href="#Timeline-137"><span class="linenos">137</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a transaction in the timeline by ID.&quot;&quot;&quot;</span>
-</span><span id="Timeline-138"><a href="#Timeline-138"><span class="linenos">138</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline-94"><a href="#Timeline-94"><span class="linenos"> 94</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Timeline</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
+</span><span id="Timeline-95"><a href="#Timeline-95"><span class="linenos"> 95</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Captures and manages all signal events emitted during simulation or execution.&quot;&quot;&quot;</span>
+</span><span id="Timeline-96"><a href="#Timeline-96"><span class="linenos"> 96</span></a>
+</span><span id="Timeline-97"><a href="#Timeline-97"><span class="linenos"> 97</span></a>    <span class="nd">@property</span>
+</span><span id="Timeline-98"><a href="#Timeline-98"><span class="linenos"> 98</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">domain_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DomainEvent</span><span class="p">]:</span>
+</span><span id="Timeline-99"><a href="#Timeline-99"><span class="linenos"> 99</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the full list of recorded signal events.&quot;&quot;&quot;</span>
+</span><span id="Timeline-100"><a href="#Timeline-100"><span class="linenos">100</span></a>        <span class="o">...</span>
+</span><span id="Timeline-101"><a href="#Timeline-101"><span class="linenos">101</span></a>
+</span><span id="Timeline-102"><a href="#Timeline-102"><span class="linenos">102</span></a>
+</span><span id="Timeline-103"><a href="#Timeline-103"><span class="linenos">103</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span> <span class="n">transaction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="Timeline-104"><a href="#Timeline-104"><span class="linenos">104</span></a>               <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
+</span><span id="Timeline-105"><a href="#Timeline-105"><span class="linenos">105</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Timeline-106"><a href="#Timeline-106"><span class="linenos">106</span></a><span class="sd">        Add a new domain event to the timeline and return it. This is the canonical factory method for DomainEvents</span>
+</span><span id="Timeline-107"><a href="#Timeline-107"><span class="linenos">107</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Timeline-108"><a href="#Timeline-108"><span class="linenos">108</span></a>        <span class="o">...</span>
+</span><span id="Timeline-109"><a href="#Timeline-109"><span class="linenos">109</span></a>
+</span><span id="Timeline-110"><a href="#Timeline-110"><span class="linenos">110</span></a>    <span class="nd">@property</span>
+</span><span id="Timeline-111"><a href="#Timeline-111"><span class="linenos">111</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Transaction</span><span class="p">]]:</span>
+</span><span id="Timeline-112"><a href="#Timeline-112"><span class="linenos">112</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known transactions referenced in the timeline.&quot;&quot;&quot;</span>
+</span><span id="Timeline-113"><a href="#Timeline-113"><span class="linenos">113</span></a>        <span class="o">...</span>
+</span><span id="Timeline-114"><a href="#Timeline-114"><span class="linenos">114</span></a>
+</span><span id="Timeline-115"><a href="#Timeline-115"><span class="linenos">115</span></a>    <span class="nd">@property</span>
+</span><span id="Timeline-116"><a href="#Timeline-116"><span class="linenos">116</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Signal</span><span class="p">]]:</span>
+</span><span id="Timeline-117"><a href="#Timeline-117"><span class="linenos">117</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known signals referenced in the timeline.&quot;&quot;&quot;</span>
+</span><span id="Timeline-118"><a href="#Timeline-118"><span class="linenos">118</span></a>        <span class="o">...</span>
+</span><span id="Timeline-119"><a href="#Timeline-119"><span class="linenos">119</span></a>
+</span><span id="Timeline-120"><a href="#Timeline-120"><span class="linenos">120</span></a>    <span class="nd">@property</span>
+</span><span id="Timeline-121"><a href="#Timeline-121"><span class="linenos">121</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Entity</span><span class="p">]]:</span>
+</span><span id="Timeline-122"><a href="#Timeline-122"><span class="linenos">122</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known entities that emitted or received signals.&quot;&quot;&quot;</span>
+</span><span id="Timeline-123"><a href="#Timeline-123"><span class="linenos">123</span></a>        <span class="o">...</span>
+</span><span id="Timeline-124"><a href="#Timeline-124"><span class="linenos">124</span></a>
+</span><span id="Timeline-125"><a href="#Timeline-125"><span class="linenos">125</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
+</span><span id="Timeline-126"><a href="#Timeline-126"><span class="linenos">126</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up an entity  in the timeline by ID.&quot;&quot;&quot;</span>
+</span><span id="Timeline-127"><a href="#Timeline-127"><span class="linenos">127</span></a>        <span class="o">...</span>
+</span><span id="Timeline-128"><a href="#Timeline-128"><span class="linenos">128</span></a>
+</span><span id="Timeline-129"><a href="#Timeline-129"><span class="linenos">129</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
+</span><span id="Timeline-130"><a href="#Timeline-130"><span class="linenos">130</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a signal in the timeline by ID.&quot;&quot;&quot;</span>
+</span><span id="Timeline-131"><a href="#Timeline-131"><span class="linenos">131</span></a>        <span class="o">...</span>
+</span><span id="Timeline-132"><a href="#Timeline-132"><span class="linenos">132</span></a>
+</span><span id="Timeline-133"><a href="#Timeline-133"><span class="linenos">133</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
+</span><span id="Timeline-134"><a href="#Timeline-134"><span class="linenos">134</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a transaction in the timeline by ID.&quot;&quot;&quot;</span>
+</span><span id="Timeline-135"><a href="#Timeline-135"><span class="linenos">135</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -792,10 +789,10 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#Timeline.domain_events"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.domain_events-100"><a href="#Timeline.domain_events-100"><span class="linenos">100</span></a>    <span class="nd">@property</span>
-</span><span id="Timeline.domain_events-101"><a href="#Timeline.domain_events-101"><span class="linenos">101</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">domain_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DomainEvent</span><span class="p">]:</span>
-</span><span id="Timeline.domain_events-102"><a href="#Timeline.domain_events-102"><span class="linenos">102</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the full list of recorded signal events.&quot;&quot;&quot;</span>
-</span><span id="Timeline.domain_events-103"><a href="#Timeline.domain_events-103"><span class="linenos">103</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.domain_events-97"><a href="#Timeline.domain_events-97"><span class="linenos"> 97</span></a>    <span class="nd">@property</span>
+</span><span id="Timeline.domain_events-98"><a href="#Timeline.domain_events-98"><span class="linenos"> 98</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">domain_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DomainEvent</span><span class="p">]:</span>
+</span><span id="Timeline.domain_events-99"><a href="#Timeline.domain_events-99"><span class="linenos"> 99</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the full list of recorded signal events.&quot;&quot;&quot;</span>
+</span><span id="Timeline.domain_events-100"><a href="#Timeline.domain_events-100"><span class="linenos">100</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -815,12 +812,12 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#Timeline.record"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.record-106"><a href="#Timeline.record-106"><span class="linenos">106</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span> <span class="n">transaction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="Timeline.record-107"><a href="#Timeline.record-107"><span class="linenos">107</span></a>               <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
-</span><span id="Timeline.record-108"><a href="#Timeline.record-108"><span class="linenos">108</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Timeline.record-109"><a href="#Timeline.record-109"><span class="linenos">109</span></a><span class="sd">        Add a new domain event to the timeline and return it. This is the canonical factory method for DomainEvents</span>
-</span><span id="Timeline.record-110"><a href="#Timeline.record-110"><span class="linenos">110</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Timeline.record-111"><a href="#Timeline.record-111"><span class="linenos">111</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.record-103"><a href="#Timeline.record-103"><span class="linenos">103</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signal</span><span class="p">:</span> <span class="n">Signal</span><span class="p">,</span> <span class="n">transaction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="Timeline.record-104"><a href="#Timeline.record-104"><span class="linenos">104</span></a>               <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Entity</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DomainEvent</span><span class="p">:</span>
+</span><span id="Timeline.record-105"><a href="#Timeline.record-105"><span class="linenos">105</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Timeline.record-106"><a href="#Timeline.record-106"><span class="linenos">106</span></a><span class="sd">        Add a new domain event to the timeline and return it. This is the canonical factory method for DomainEvents</span>
+</span><span id="Timeline.record-107"><a href="#Timeline.record-107"><span class="linenos">107</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Timeline.record-108"><a href="#Timeline.record-108"><span class="linenos">108</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -838,10 +835,10 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#Timeline.transactions"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.transactions-113"><a href="#Timeline.transactions-113"><span class="linenos">113</span></a>    <span class="nd">@property</span>
-</span><span id="Timeline.transactions-114"><a href="#Timeline.transactions-114"><span class="linenos">114</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Transaction</span><span class="p">]]:</span>
-</span><span id="Timeline.transactions-115"><a href="#Timeline.transactions-115"><span class="linenos">115</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known transactions referenced in the timeline.&quot;&quot;&quot;</span>
-</span><span id="Timeline.transactions-116"><a href="#Timeline.transactions-116"><span class="linenos">116</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.transactions-110"><a href="#Timeline.transactions-110"><span class="linenos">110</span></a>    <span class="nd">@property</span>
+</span><span id="Timeline.transactions-111"><a href="#Timeline.transactions-111"><span class="linenos">111</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Transaction</span><span class="p">]]:</span>
+</span><span id="Timeline.transactions-112"><a href="#Timeline.transactions-112"><span class="linenos">112</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known transactions referenced in the timeline.&quot;&quot;&quot;</span>
+</span><span id="Timeline.transactions-113"><a href="#Timeline.transactions-113"><span class="linenos">113</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -859,10 +856,10 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#Timeline.signals"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.signals-118"><a href="#Timeline.signals-118"><span class="linenos">118</span></a>    <span class="nd">@property</span>
-</span><span id="Timeline.signals-119"><a href="#Timeline.signals-119"><span class="linenos">119</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Signal</span><span class="p">]]:</span>
-</span><span id="Timeline.signals-120"><a href="#Timeline.signals-120"><span class="linenos">120</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known signals referenced in the timeline.&quot;&quot;&quot;</span>
-</span><span id="Timeline.signals-121"><a href="#Timeline.signals-121"><span class="linenos">121</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.signals-115"><a href="#Timeline.signals-115"><span class="linenos">115</span></a>    <span class="nd">@property</span>
+</span><span id="Timeline.signals-116"><a href="#Timeline.signals-116"><span class="linenos">116</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Signal</span><span class="p">]]:</span>
+</span><span id="Timeline.signals-117"><a href="#Timeline.signals-117"><span class="linenos">117</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known signals referenced in the timeline.&quot;&quot;&quot;</span>
+</span><span id="Timeline.signals-118"><a href="#Timeline.signals-118"><span class="linenos">118</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -880,10 +877,10 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#Timeline.entities"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.entities-123"><a href="#Timeline.entities-123"><span class="linenos">123</span></a>    <span class="nd">@property</span>
-</span><span id="Timeline.entities-124"><a href="#Timeline.entities-124"><span class="linenos">124</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Entity</span><span class="p">]]:</span>
-</span><span id="Timeline.entities-125"><a href="#Timeline.entities-125"><span class="linenos">125</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known entities that emitted or received signals.&quot;&quot;&quot;</span>
-</span><span id="Timeline.entities-126"><a href="#Timeline.entities-126"><span class="linenos">126</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.entities-120"><a href="#Timeline.entities-120"><span class="linenos">120</span></a>    <span class="nd">@property</span>
+</span><span id="Timeline.entities-121"><a href="#Timeline.entities-121"><span class="linenos">121</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Entity</span><span class="p">]]:</span>
+</span><span id="Timeline.entities-122"><a href="#Timeline.entities-122"><span class="linenos">122</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;All known entities that emitted or received signals.&quot;&quot;&quot;</span>
+</span><span id="Timeline.entities-123"><a href="#Timeline.entities-123"><span class="linenos">123</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -903,9 +900,9 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#Timeline.entity"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.entity-128"><a href="#Timeline.entity-128"><span class="linenos">128</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
-</span><span id="Timeline.entity-129"><a href="#Timeline.entity-129"><span class="linenos">129</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up an entity  in the timeline by ID.&quot;&quot;&quot;</span>
-</span><span id="Timeline.entity-130"><a href="#Timeline.entity-130"><span class="linenos">130</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.entity-125"><a href="#Timeline.entity-125"><span class="linenos">125</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entity</span><span class="p">:</span>
+</span><span id="Timeline.entity-126"><a href="#Timeline.entity-126"><span class="linenos">126</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up an entity  in the timeline by ID.&quot;&quot;&quot;</span>
+</span><span id="Timeline.entity-127"><a href="#Timeline.entity-127"><span class="linenos">127</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -925,9 +922,9 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#Timeline.signal"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.signal-132"><a href="#Timeline.signal-132"><span class="linenos">132</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
-</span><span id="Timeline.signal-133"><a href="#Timeline.signal-133"><span class="linenos">133</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a signal in the timeline by ID.&quot;&quot;&quot;</span>
-</span><span id="Timeline.signal-134"><a href="#Timeline.signal-134"><span class="linenos">134</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.signal-129"><a href="#Timeline.signal-129"><span class="linenos">129</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal</span><span class="p">:</span>
+</span><span id="Timeline.signal-130"><a href="#Timeline.signal-130"><span class="linenos">130</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a signal in the timeline by ID.&quot;&quot;&quot;</span>
+</span><span id="Timeline.signal-131"><a href="#Timeline.signal-131"><span class="linenos">131</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -947,9 +944,9 @@ subset of events that occur in the domain.</p>
 
     </div>
     <a class="headerlink" href="#Timeline.transaction"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.transaction-136"><a href="#Timeline.transaction-136"><span class="linenos">136</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
-</span><span id="Timeline.transaction-137"><a href="#Timeline.transaction-137"><span class="linenos">137</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a transaction in the timeline by ID.&quot;&quot;&quot;</span>
-</span><span id="Timeline.transaction-138"><a href="#Timeline.transaction-138"><span class="linenos">138</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Timeline.transaction-133"><a href="#Timeline.transaction-133"><span class="linenos">133</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transaction</span><span class="p">:</span>
+</span><span id="Timeline.transaction-134"><a href="#Timeline.transaction-134"><span class="linenos">134</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up a transaction in the timeline by ID.&quot;&quot;&quot;</span>
+</span><span id="Timeline.transaction-135"><a href="#Timeline.transaction-135"><span class="linenos">135</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -961,10 +958,10 @@ subset of events that occur in the domain.</p>
                             <div class="inherited">
                                 <h5>Inherited Members</h5>
                                 <dl>
-                                    <div><dt><a href="element.html#Element">metamodel.element.Element</a></dt>
-                                <dd id="Timeline.__init__" class="function"><a href="element.html#Element.__init__">Element</a></dd>
-                <dd id="Timeline.id" class="variable"><a href="element.html#Element.id">id</a></dd>
-                <dd id="Timeline.metadata" class="variable"><a href="element.html#Element.metadata">metadata</a></dd>
+                                    <div><dt><a href="../pcalc/element.html#Element">pcalc.element.Element</a></dt>
+                                <dd id="Timeline.__init__" class="function"><a href="../pcalc/element.html#Element.__init__">Element</a></dd>
+                <dd id="Timeline.id" class="variable"><a href="../pcalc/element.html#Element.id">id</a></dd>
+                <dd id="Timeline.metadata" class="variable"><a href="../pcalc/element.html#Element.metadata">metadata</a></dd>
 
             </div>
                                 </dl>

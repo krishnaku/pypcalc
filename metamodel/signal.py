@@ -4,12 +4,11 @@
 
 from __future__ import annotations
 
-import uuid
-from dataclasses import dataclass, field
+from dataclasses import field
 from typing import Optional, Dict, Any, Protocol
 
 from .transaction import Transaction
-from .element import Element
+from pcalc.element import Element
 
 
 class Signal(Element, Protocol):

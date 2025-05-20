@@ -7,7 +7,8 @@ from typing import List, Callable, Optional
 
 import simpy
 
-from metamodel import Boundary, Timeline, Presence, Signal, DomainEvent, Entity
+from metamodel import Timeline, Signal, DomainEvent, Entity
+from pcalc import Boundary, Presence
 from sim.model.element import ElementBase
 from sim.runtime.simulation import Simulation
 from sim.model.entity import EntityBase

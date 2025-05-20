@@ -3,13 +3,10 @@
 # SPDX-License-Identifier: MIT
 
 
-import pytest
 import numpy as np
+import pytest
 
-from metamodel import Presence
-from pcalc import Timescale
-from pcalc.presence_matrix import PresenceMatrix
-from pcalc.presence_invariant import PresenceInvariant
+from pcalc import Timescale, Presence, PresenceMatrix, PresenceInvariant
 from test.mocks import MockElement, MockBoundary
 
 dummy = MockBoundary()
@@ -33,6 +30,7 @@ def make_presences():
         Presence(boundary=dummy, element=MockElement(), start=4.6, end=np.inf),
     ]
 
+
 @pytest.mark.parametrize("case, start, end, expected", [
     # We will test flow rate for various start and end times relative to the
     # timescale end points [0, 6.0)
@@ -52,6 +50,7 @@ def test_flow_rate(case, start, end, expected):
     actual = metrics.flow_rate(start, end)
     assert abs(actual - expected) < 1e-6, case
 
+
 @pytest.mark.parametrize("case, start, end, expected", [
     # We will test flow rate for various start and end times outside the
     # timescale end points [0, 6.0)
@@ -70,6 +69,7 @@ def test_flow_rate_outside_window(case, start, end, expected):
     with pytest.raises(ValueError):
         metrics.flow_rate(start, end)
 
+
 @pytest.mark.parametrize("case, start, end, expected", [
     ("Only P1 started before 1.0:3.0", 1.0, 3.0, 1),
     ("Only P2 started before 2.0:4.0", 2.0, 4.0, 1),
@@ -84,6 +84,7 @@ def test_starting_presence_count_window(case, start, end, expected):
     result = metrics.starting_presence_count(start, end)
     assert result == expected, case
 
+
 @pytest.mark.parametrize("case, start, end, expected", [
     ("Only P2 end after 1.0:3.0", 1.0, 3.0, 1),
     ("Only P4 ends after 3.0:4.5", 3.0, 4.5, 1),
@@ -97,6 +98,7 @@ def test_ending_presence_count_window(case, start, end, expected):
     metrics = PresenceInvariant(matrix)
     result = metrics.ending_presence_count(start, end)
     assert result == expected, case
+
 
 @pytest.mark.parametrize("method_name, start, end", [
     ("starting_presence_count", -1.0, 2.0),
@@ -129,6 +131,7 @@ def test_arrival_count(case, start, end, expected):
     matrix = PresenceMatrix(presences, time_scale=ts)
     metrics = PresenceInvariant(matrix)
     assert metrics.arrival_count(start, end) == expected, case
+
 
 @pytest.mark.parametrize("case, start, end, expected", [
     ("No departures", 0.0, 1.0, 0),
@@ -182,13 +185,14 @@ def make_variable_binwidth_presences():
         Presence(boundary=dummy, element=MockElement(), start=7.5, end=9.0),
     ]
 
+
 @pytest.mark.parametrize("case, start, end, expected", [
-    ("Single bin window at [0.0, 3.0)", 0.0, 3.0, 1.0),     # Only P1 overlaps bin 0
-    ("Window [0.0, 6.0)", 0.0, 6.0, 1.0),                  # P1 and P2 over bins 0, 1
-    ("Window [6.0, 9.0)", 6.0, 9.0, 1.0),                  # Only P3 overlaps bin 2
-    ("Window [3.0, 9.0)", 3.0, 9.0, 1.0),                  # P2 and P3 over bins 1, 2
-    ("Window [0.0, 9.0)", 0.0, 9.0, 1.0),                  # All over 3 bins → 3 / 3
-    ("Empty window [4.0, 4.0)", 4.0, 4.0, 0.0),            # Zero-width interval → 0
+    ("Single bin window at [0.0, 3.0)", 0.0, 3.0, 1.0),  # Only P1 overlaps bin 0
+    ("Window [0.0, 6.0)", 0.0, 6.0, 1.0),  # P1 and P2 over bins 0, 1
+    ("Window [6.0, 9.0)", 6.0, 9.0, 1.0),  # Only P3 overlaps bin 2
+    ("Window [3.0, 9.0)", 3.0, 9.0, 1.0),  # P2 and P3 over bins 1, 2
+    ("Window [0.0, 9.0)", 0.0, 9.0, 1.0),  # All over 3 bins → 3 / 3
+    ("Empty window [4.0, 4.0)", 4.0, 4.0, 0.0),  # Zero-width interval → 0
 ])
 def test_flow_rate_variable_bin_width(case, start, end, expected):
     presences = make_variable_binwidth_presences()
@@ -198,12 +202,14 @@ def test_flow_rate_variable_bin_width(case, start, end, expected):
     actual = metrics.flow_rate(start, end)
     assert abs(actual - expected) < 1e-6, f"{case}: {actual} != {expected}"
 
+
 def make_large_bin_width_presences():
     return [
         Presence(boundary=dummy, element=MockElement(), start=0.0, end=2.5),  # bin 0
         Presence(boundary=dummy, element=MockElement(), start=3.0, end=6.0),  # bin 1
         Presence(boundary=dummy, element=MockElement(), start=7.5, end=9.0),  # bin 2
     ]
+
 
 @pytest.mark.parametrize("case, start, end", [
     ("Window [0.0, 3.0)", 0.0, 3.0),
@@ -257,7 +263,7 @@ def test_flow_rate_consistency_with_bin_width(case, start, end):
 
 # Average Residence time tests.
 @pytest.mark.parametrize("case, start, end, expected", [
-    ("Only P1 fully in window", 0.0, 2.0, (2.0 + 0.5)/2),
+    ("Only P1 fully in window", 0.0, 2.0, (2.0 + 0.5) / 2),
     ("P1 and P2 partial overlap", 1.5, 2.5, (0.5 + 1.0) / 2),
     ("Midrange with P2 and P3", 2.0, 4.0, (1.0 + 1.0) / 2),
     ("Only P4 open-ended clipped to 1.0", 5.0, 6.0, 1.0),
@@ -297,19 +303,21 @@ def test_avg_residence_time_matches_direct_average():
 
     assert abs(computed_avg - direct_avg) < 1e-6, f"Expected {direct_avg}, got {computed_avg}"
 
-#Test wide bins
+
+# Test wide bins
 def make_wide_bin_presences():
     return [
         Presence(boundary=dummy, element=MockElement(), start=1.0, end=5.0),  # spans bins 0–2
         Presence(boundary=dummy, element=MockElement(), start=6.0, end=8.0),  # bin 3
     ]
 
+
 @pytest.mark.parametrize("case, start, end, expected", [
-    ("P1 spans [1,5) within [0,6)", 0.0, 6.0, (4.0 + 0.0) / 1),   # Only P1 active, full coverage = 4.0
-    ("P2 alone in bin [6,8)", 6.0, 8.0, 2.0),                    # Only P2 active, full coverage = 2.0
-    ("P1 clipped in [2,4)", 2.0, 4.0, 2.0),                      # P1 partially spans one bin
+    ("P1 spans [1,5) within [0,6)", 0.0, 6.0, (4.0 + 0.0) / 1),  # Only P1 active, full coverage = 4.0
+    ("P2 alone in bin [6,8)", 6.0, 8.0, 2.0),  # Only P2 active, full coverage = 2.0
+    ("P1 clipped in [2,4)", 2.0, 4.0, 2.0),  # P1 partially spans one bin
     ("P1 and P2 together in [1,8)", 1.0, 8.0, (4.0 + 2.0) / 2),  # Average over both
-    ("Empty window [9,10)", 9.0, 10.0, 0.0),                     # No presences
+    ("Empty window [9,10)", 9.0, 10.0, 0.0),  # No presences
 ])
 def test_avg_residence_time_with_wide_bins(case, start, end, expected):
     presences = make_wide_bin_presences()
@@ -320,6 +328,7 @@ def test_avg_residence_time_with_wide_bins(case, start, end, expected):
 
     actual = metrics.avg_residence_time(start, end)
     assert abs(actual - expected) < 1e-6, f"{case}: got {actual}, expected {expected}"
+
 
 def test_avg_residence_time_matches_direct_average_wide_bin():
     """This test is required because residence time for presences is defined in
@@ -343,6 +352,7 @@ def test_avg_residence_time_matches_direct_average_wide_bin():
     computed_avg = metrics.avg_residence_time(start, end)
 
     assert abs(computed_avg - direct_avg) < 1e-6, f"Expected {direct_avg}, got {computed_avg}"
+
 
 @pytest.mark.parametrize("case, start, end, expected", [
     ("P1 over [0,2) → 2.0 / 2 bins", 0.0, 2.0, 1.25),
@@ -377,5 +387,4 @@ def test_presence_invariant(case, start, end):
     # Compute components
 
     L, Λ, W = metrics.get_presence_metrics(start, end)
-    assert L == pytest.approx(Λ * W, rel=1e-6) # modulo floating point math.
-
+    assert L == pytest.approx(Λ * W, rel=1e-6)  # modulo floating point math.

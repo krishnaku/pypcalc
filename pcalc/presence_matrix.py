@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 
 from numpy import typing as npt
 
-from metamodel.element import T_Element
-from metamodel.presence import Presence
+from .element import T_Element
+from .presence import Presence
 from .presence_map import PresenceMap
 from .time_scale import Timescale
 

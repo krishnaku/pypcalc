@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from metamodel import Presence
+from .presence import Presence
 from .time_scale import Timescale
 
 

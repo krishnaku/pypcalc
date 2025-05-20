@@ -5,9 +5,9 @@
 
 import pytest
 import numpy as np
-from metamodel import Presence
 
-from pcalc import PresenceMap, Timescale
+
+from pcalc import Presence, PresenceMap, Timescale
 from test.mocks import MockElement, MockBoundary
 
 dummy_boundary = MockBoundary()

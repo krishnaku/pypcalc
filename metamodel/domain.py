@@ -11,7 +11,7 @@ from typing import List, Dict, Optional, Protocol, Any
 
 from .signal import Signal
 from .transaction import Transaction
-from .boundary import Boundary
+from pcalc.boundary import Boundary
 from .timeline import DomainEvent, Timeline, DomainEventListener
 from .entity import Entity
 

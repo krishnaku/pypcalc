@@ -36,11 +36,9 @@ The first concrete implementation is a simulation framework which can be found i
 model and simulate a wide variety of complex adaptive systems: value networks, agent network, queueing systems, value streams etc.
 and analyze flow in these systems uniformly via The Presence Calculus.
 """
-from .element import Element, T_Element
-from .domain import DomainContext
+
 from .entity import Entity
+from .domain import DomainContext
 from .signal import Signal
 from .transaction import Transaction
 from .timeline import DomainEvent, Timeline
-from .boundary import Boundary
-from .presence import Presence

@@ -7,7 +7,7 @@ from typing import Dict, Any, Generator
 
 from sim.model.signal.signal import Signal
 
-from metamodel.boundary import Boundary
+from pcalc.boundary import Boundary
 from metamodel.domain import DomainContext
 
 class Node(ABC):

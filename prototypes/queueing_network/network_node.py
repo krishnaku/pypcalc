@@ -7,7 +7,7 @@ import networkx as nx
 
 from sim.model.registry import Registry
 from prototypes.queueing_network.base_node import Node
-from metamodel.boundary import Boundary
+from pcalc.boundary import Boundary
 from prototypes.queueing_network.routing import RoutingMixin, router_registry
 from metamodel.domain import DomainContext
 

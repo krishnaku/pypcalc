@@ -4,7 +4,7 @@
 
 import uuid
 
-from metamodel import Element
+from pcalc import Element
 
 
 class ElementBase(Element):

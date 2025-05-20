@@ -6,8 +6,9 @@ from typing import Generic, Optional, Tuple
 
 import numpy as np
 
-from metamodel import Presence, T_Element
-from pcalc import PresenceMatrix, PresenceMap
+from .element import T_Element
+from .presence import Presence
+from .presence_matrix import PresenceMatrix, PresenceMap
 
 
 class PresenceInvariant(Generic[T_Element]):

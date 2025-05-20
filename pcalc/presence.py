@@ -6,12 +6,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Generic, Optional, TypeVar, TYPE_CHECKING
-import numpy as np
 
-if TYPE_CHECKING:
-    from .boundary import Boundary
+from .element import T_Element
+from .boundary import Boundary
 
-T_Element = TypeVar("T_Element")
 
 
 @dataclass

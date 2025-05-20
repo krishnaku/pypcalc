@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 import numpy as np
-from metamodel import Presence
+from pcalc import Presence
 
 from test.mocks import MockBoundary
 

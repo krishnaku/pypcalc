@@ -2,19 +2,16 @@
 # Copyright (c) 2025 Krishna Kumar
 # SPDX-License-Identifier: MIT
 
-from typing import Dict, Any, Optional, Set, List, Callable, Tuple, Generic, Sequence
+from typing import Dict, Any, Optional, List, Callable
 
 from abc import ABC, abstractmethod
-from collections import defaultdict
 
 import numpy as np
 
-from metamodel import Boundary, DomainEvent, Signal, Entity
+from metamodel import DomainEvent, Signal, Entity
 from metamodel.timeline import  Timeline, DomainEventListener
-from metamodel.presence import Presence
+from pcalc import Presence, Boundary
 
-from metamodel.element import T_Element
-from pcalc.presence_matrix import PresenceMatrix
 from sim.runtime.simulation import Simulation
 from sim.model.timeline import DefaultTimeline
 
