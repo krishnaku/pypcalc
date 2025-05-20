@@ -8,7 +8,7 @@ from typing import Optional, Dict, Any, List, Iterable, Literal, Union
 
 import polars as pl
 
-from metamodel import Entity, Signal, Transaction, Timeline, DomainEvent
+from sim.metamodel import Entity, Signal, Transaction, Timeline, DomainEvent
 
 
 @dataclass

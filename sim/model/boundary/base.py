@@ -8,8 +8,8 @@ from abc import ABC, abstractmethod
 
 import numpy as np
 
-from metamodel import DomainEvent, Signal, Entity
-from metamodel.timeline import  Timeline, DomainEventListener
+from sim.metamodel import DomainEvent, Signal, Entity
+from sim.metamodel import  Timeline, DomainEventListener
 from pcalc import Presence, Boundary
 
 from sim.runtime.simulation import Simulation

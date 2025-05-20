@@ -41,4 +41,4 @@ from .entity import Entity
 from .domain import DomainContext
 from .signal import Signal
 from .transaction import Transaction
-from .timeline import DomainEvent, Timeline
+from .timeline import DomainEvent, Timeline, DomainEventListener

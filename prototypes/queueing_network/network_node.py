@@ -9,7 +9,7 @@ from sim.model.registry import Registry
 from prototypes.queueing_network.base_node import Node
 from pcalc.boundary import Boundary
 from prototypes.queueing_network.routing import RoutingMixin, router_registry
-from metamodel.domain import DomainContext
+from sim.metamodel import DomainContext
 
 from prototypes.queueing_network.delay_node import BlockingDelay, PureDelay
 

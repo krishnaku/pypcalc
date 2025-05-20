@@ -9,11 +9,11 @@ import simpy
 import logging
 import time
 from typing import List, Generator, Optional, Any, Protocol, Dict
-from simpy.events import Event, Timeout
+from simpy.events import Timeout
 
-from metamodel import Entity, Signal
-from metamodel.timeline import DomainEvent, Timeline, DomainEventListener
-from metamodel.domain import DomainContext
+from sim.metamodel import Entity, Signal
+from sim.metamodel import DomainEvent, Timeline, DomainEventListener
+from sim.metamodel import DomainContext
 
 from sim.model.timeline import DefaultTimeline
 

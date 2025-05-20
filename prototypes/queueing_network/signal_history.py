@@ -6,8 +6,8 @@
 from typing import Dict
 
 import polars as pl
-from metamodel import Signal, Entity
-from metamodel.timeline import Timeline
+from sim.metamodel import Signal, Entity
+from sim.metamodel import Timeline
 
 
 from prototypes.queueing_network.signal_history_metrics import SignalHistoryMetric, QueueLength

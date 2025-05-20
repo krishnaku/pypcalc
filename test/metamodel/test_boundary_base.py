@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 import numpy as np
-from metamodel import Signal, DomainEvent
+from sim.metamodel import Signal, DomainEvent
 from sim.model.boundary.base import BoundaryBase
 from sim.model.signal import SignalBase
 from test.mocks import TestEntity, MockSimulation

@@ -5,7 +5,7 @@
 from dataclasses import dataclass, field
 from typing import Dict, Any, Optional
 
-from metamodel import Signal, Transaction
+from sim.metamodel import Signal, Transaction
 
 from sim.model.element import ElementBase
 from sim.model.transaction import DefaultTransaction

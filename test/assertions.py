@@ -5,9 +5,8 @@
 from __future__ import annotations
 from typing import Optional
 import polars as pl
-from metamodel import Entity
 
-from metamodel.timeline import Timeline, DomainEvent
+from sim.metamodel import Timeline, DomainEvent
 from sim.runtime.simulation import Simulation
 
 

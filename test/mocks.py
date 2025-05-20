@@ -7,13 +7,13 @@ from typing import List, Callable, Optional
 
 import simpy
 
-from metamodel import Timeline, Signal, DomainEvent, Entity
+from sim.metamodel import Timeline, Signal, DomainEvent, Entity
 from pcalc import Boundary, Presence
 from sim.model.element import ElementBase
 from sim.runtime.simulation import Simulation
 from sim.model.entity import EntityBase
 from sim.model.signal import SignalBase
-from sim.model.timeline import DefaultTimeline, DefaultEvent
+from sim.model.timeline import DefaultTimeline
 
 
 class MockSimulation(Simulation):

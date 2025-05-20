@@ -8,7 +8,7 @@ from typing import Dict, Any, Generator
 from sim.model.signal.signal import Signal
 
 from pcalc.boundary import Boundary
-from metamodel.domain import DomainContext
+from sim.metamodel import DomainContext
 
 class Node(ABC):
     def __init__(self, name: str, config: Dict[str, Any], sim_context: DomainContext) -> None:

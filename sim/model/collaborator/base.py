@@ -10,7 +10,7 @@ from typing import Any, Dict, Optional, Set, Generator
 
 import simpy
 
-from metamodel import Transaction
+from sim.metamodel import Transaction
 from sim.model.entity.base import EntityBase
 from sim.model.signal import SignalBase
 from sim.runtime.simulation import Simulation

@@ -13,7 +13,7 @@ import uuid
 from dataclasses import dataclass
 from typing import Optional
 
-from metamodel import Transaction
+from sim.metamodel import Transaction
 
 
 @dataclass

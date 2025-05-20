@@ -5,7 +5,7 @@
 import uuid
 from typing import Dict, Any, Optional
 
-from metamodel import Entity
+from sim.metamodel import Entity
 from sim.runtime.simulation import Simulation
 
 class EntityBase(Entity):
