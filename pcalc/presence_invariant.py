@@ -6,12 +6,12 @@ from typing import Generic, Optional, Tuple
 
 import numpy as np
 
-from .element import T_Element
+
 from .presence import Presence
 from .presence_matrix import PresenceMatrix, PresenceMap
 
 
-class PresenceInvariant(Generic[T_Element]):
+class PresenceInvariant:
     """
     **A finite, scale-invariant, non-equilibrium version of Little's Law.**
 
@@ -149,7 +149,7 @@ class PresenceInvariant(Generic[T_Element]):
 
 
     """
-    def __init__(self, matrix: PresenceMatrix[T_Element]):
+    def __init__(self, matrix: PresenceMatrix):
         self.matrix = matrix
         """"""
         self.presences: list[Presence] = matrix.presences

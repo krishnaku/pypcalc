@@ -12,13 +12,13 @@ import matplotlib.pyplot as plt
 
 from numpy import typing as npt
 
-from .element import T_Element
+
 from .presence import Presence
 from .presence_map import PresenceMap
 from .time_scale import Timescale
 
 
-class PresenceMatrix(Generic[T_Element]):
+class PresenceMatrix:
     """
     A scale-invariant, optionally lazy matrix representation of element presences over time.
 
@@ -86,7 +86,7 @@ class PresenceMatrix(Generic[T_Element]):
 
 """
 
-    def __init__(self, presences: List[Presence[T_Element]], time_scale: Timescale, materialize=False):
+    def __init__(self, presences: List[Presence], time_scale: Timescale, materialize=False):
         """
         Construct a presence matrix from a list of Presences and time window configuration.
 
@@ -118,7 +118,7 @@ class PresenceMatrix(Generic[T_Element]):
         if materialize:
             self.materialize()
 
-    def init_presence_map(self, presences: List[Presence[T_Element]]) -> None:
+    def init_presence_map(self, presences: List[Presence]) -> None:
         """
         Initialize the internal presence matrix based on the Presence intervals and binning scheme.
         Only presences that overlap the timescale endpoints [t0, t1) are mapped.
@@ -201,7 +201,7 @@ class PresenceMatrix(Generic[T_Element]):
         return output
 
     @property
-    def presences(self) -> List[Presence[T_Element]]:
+    def presences(self) -> List[Presence]:
         return [pm.presence for pm in self.presence_map]
 
     def __getitem__(self, index):

@@ -5,7 +5,7 @@
 
 from typing import Protocol, TypeVar, Dict, Any
 
-T_Element = TypeVar('T_Element', bound='Element')
+
 
 class Element(Protocol):
     """Identifiable members of a domain."""

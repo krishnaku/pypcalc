@@ -30,7 +30,7 @@ class BoundaryBase(Boundary, DomainEventListener, ABC):
     def timeline(self) -> Timeline:
         return self._timeline
 
-    def get_signal_presences(self, start_time:float, end_time:float, match: Callable[[DomainEvent], bool] = None, **kwargs) -> List[Presence[Signal]]:
+    def get_signal_presences(self, start_time:float, end_time:float, match: Callable[[DomainEvent], bool] = None, **kwargs) -> List[Presence]:
         domain_events = self.timeline.domain_events
         enter_event = self._enter_event
         exit_event = self._exit_event
@@ -71,7 +71,7 @@ class BoundaryBase(Boundary, DomainEventListener, ABC):
                 presences.append(presence)
         return presences
 
-    def get_entity_presences(self, start_time: float, end_time: float, match: Optional[Callable[[DomainEvent], bool]]=None, **kwargs) -> List[Presence[Entity]]:
+    def get_entity_presences(self, start_time: float, end_time: float, match: Optional[Callable[[DomainEvent], bool]]=None, **kwargs) -> List[Presence]:
         raise NotImplemented("Entity Presences not implemented for BoundaryBase")
 
 

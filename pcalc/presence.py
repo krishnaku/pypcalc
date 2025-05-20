@@ -7,13 +7,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Generic, Optional, TypeVar, TYPE_CHECKING
 
-from .element import T_Element
+from .element import Element
 from .boundary import Boundary
 
 
 
 @dataclass
-class Presence(Generic[T_Element]):
+class Presence:
     """
     An assertion that a domain element was continuously present in a boundary
     during a specific time interval [start, end).
@@ -31,7 +31,7 @@ class Presence(Generic[T_Element]):
     
     """
 
-    element: Optional[T_Element]
+    element: Optional[Element]
     """The element this Presence corresponds to. May be None in EmptyPresence."""
 
     boundary: Optional[Boundary]

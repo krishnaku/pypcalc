@@ -44,11 +44,11 @@ class MockBoundary(Boundary):
        return DefaultTimeline()
 
     def get_signal_presences(self, start_time: float, end_time: float, match: Callable[[DomainEvent], bool] = None) -> \
-    List[Presence[Signal]]:
+    List[Presence]:
         return []
 
     def get_entity_presences(self, start_time: float, end_time: float,
-                             match: Optional[Callable[[DomainEvent], bool]] = None) -> List[Presence[Entity]]:
+                             match: Optional[Callable[[DomainEvent], bool]] = None) -> List[Presence]:
         return []
 
     def __init__(self, name=None):

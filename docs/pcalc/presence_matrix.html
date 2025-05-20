@@ -150,13 +150,13 @@
 </span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a>
 </span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">typing</span> <span class="k">as</span> <span class="n">npt</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a>
-</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.element</span><span class="w"> </span><span class="kn">import</span> <span class="n">T_Element</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a>
 </span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Presence</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMap</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_scale</span><span class="w"> </span><span class="kn">import</span> <span class="n">Timescale</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a>
-</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PresenceMatrix</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]):</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PresenceMatrix</span><span class="p">:</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="sd">    A scale-invariant, optionally lazy matrix representation of element presences over time.</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>
@@ -224,7 +224,7 @@
 </span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>
 </span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>
-</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]],</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">,</span> <span class="n">materialize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">],</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">,</span> <span class="n">materialize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="sd">        Construct a presence matrix from a list of Presences and time window configuration.</span>
 </span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>
@@ -256,7 +256,7 @@
 </span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>        <span class="k">if</span> <span class="n">materialize</span><span class="p">:</span>
 </span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">materialize</span><span class="p">()</span>
 </span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">init_presence_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">init_presence_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="sd">        Initialize the internal presence matrix based on the Presence intervals and binning scheme.</span>
 </span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="sd">        Only presences that overlap the timescale endpoints [t0, t1) are mapped.</span>
@@ -339,7 +339,7 @@
 </span><span id="L-201"><a href="#L-201"><span class="linenos">201</span></a>        <span class="k">return</span> <span class="n">output</span>
 </span><span id="L-202"><a href="#L-202"><span class="linenos">202</span></a>
 </span><span id="L-203"><a href="#L-203"><span class="linenos">203</span></a>    <span class="nd">@property</span>
-</span><span id="L-204"><a href="#L-204"><span class="linenos">204</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">presences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]]:</span>
+</span><span id="L-204"><a href="#L-204"><span class="linenos">204</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">presences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
 </span><span id="L-205"><a href="#L-205"><span class="linenos">205</span></a>        <span class="k">return</span> <span class="p">[</span><span class="n">pm</span><span class="o">.</span><span class="n">presence</span> <span class="k">for</span> <span class="n">pm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">presence_map</span><span class="p">]</span>
 </span><span id="L-206"><a href="#L-206"><span class="linenos">206</span></a>
 </span><span id="L-207"><a href="#L-207"><span class="linenos">207</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
@@ -528,13 +528,13 @@
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">PresenceMatrix</span><wbr>(<span class="base">typing.Generic[~T_Element]</span>):
+    <span class="name">PresenceMatrix</span>:
 
                 <label class="view-source-button" for="PresenceMatrix-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceMatrix"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix-22"><a href="#PresenceMatrix-22"><span class="linenos"> 22</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PresenceMatrix</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix-22"><a href="#PresenceMatrix-22"><span class="linenos"> 22</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PresenceMatrix</span><span class="p">:</span>
 </span><span id="PresenceMatrix-23"><a href="#PresenceMatrix-23"><span class="linenos"> 23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMatrix-24"><a href="#PresenceMatrix-24"><span class="linenos"> 24</span></a><span class="sd">    A scale-invariant, optionally lazy matrix representation of element presences over time.</span>
 </span><span id="PresenceMatrix-25"><a href="#PresenceMatrix-25"><span class="linenos"> 25</span></a>
@@ -602,7 +602,7 @@
 </span><span id="PresenceMatrix-87"><a href="#PresenceMatrix-87"><span class="linenos"> 87</span></a>
 </span><span id="PresenceMatrix-88"><a href="#PresenceMatrix-88"><span class="linenos"> 88</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMatrix-89"><a href="#PresenceMatrix-89"><span class="linenos"> 89</span></a>
-</span><span id="PresenceMatrix-90"><a href="#PresenceMatrix-90"><span class="linenos"> 90</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]],</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">,</span> <span class="n">materialize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="PresenceMatrix-90"><a href="#PresenceMatrix-90"><span class="linenos"> 90</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">],</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">,</span> <span class="n">materialize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="PresenceMatrix-91"><a href="#PresenceMatrix-91"><span class="linenos"> 91</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMatrix-92"><a href="#PresenceMatrix-92"><span class="linenos"> 92</span></a><span class="sd">        Construct a presence matrix from a list of Presences and time window configuration.</span>
 </span><span id="PresenceMatrix-93"><a href="#PresenceMatrix-93"><span class="linenos"> 93</span></a>
@@ -634,7 +634,7 @@
 </span><span id="PresenceMatrix-119"><a href="#PresenceMatrix-119"><span class="linenos">119</span></a>        <span class="k">if</span> <span class="n">materialize</span><span class="p">:</span>
 </span><span id="PresenceMatrix-120"><a href="#PresenceMatrix-120"><span class="linenos">120</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">materialize</span><span class="p">()</span>
 </span><span id="PresenceMatrix-121"><a href="#PresenceMatrix-121"><span class="linenos">121</span></a>
-</span><span id="PresenceMatrix-122"><a href="#PresenceMatrix-122"><span class="linenos">122</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">init_presence_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="PresenceMatrix-122"><a href="#PresenceMatrix-122"><span class="linenos">122</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">init_presence_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="PresenceMatrix-123"><a href="#PresenceMatrix-123"><span class="linenos">123</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMatrix-124"><a href="#PresenceMatrix-124"><span class="linenos">124</span></a><span class="sd">        Initialize the internal presence matrix based on the Presence intervals and binning scheme.</span>
 </span><span id="PresenceMatrix-125"><a href="#PresenceMatrix-125"><span class="linenos">125</span></a><span class="sd">        Only presences that overlap the timescale endpoints [t0, t1) are mapped.</span>
@@ -717,7 +717,7 @@
 </span><span id="PresenceMatrix-202"><a href="#PresenceMatrix-202"><span class="linenos">202</span></a>        <span class="k">return</span> <span class="n">output</span>
 </span><span id="PresenceMatrix-203"><a href="#PresenceMatrix-203"><span class="linenos">203</span></a>
 </span><span id="PresenceMatrix-204"><a href="#PresenceMatrix-204"><span class="linenos">204</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceMatrix-205"><a href="#PresenceMatrix-205"><span class="linenos">205</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">presences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]]:</span>
+</span><span id="PresenceMatrix-205"><a href="#PresenceMatrix-205"><span class="linenos">205</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">presences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
 </span><span id="PresenceMatrix-206"><a href="#PresenceMatrix-206"><span class="linenos">206</span></a>        <span class="k">return</span> <span class="p">[</span><span class="n">pm</span><span class="o">.</span><span class="n">presence</span> <span class="k">for</span> <span class="n">pm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">presence_map</span><span class="p">]</span>
 </span><span id="PresenceMatrix-207"><a href="#PresenceMatrix-207"><span class="linenos">207</span></a>
 </span><span id="PresenceMatrix-208"><a href="#PresenceMatrix-208"><span class="linenos">208</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
@@ -864,13 +864,13 @@ The matrix records the degree of presence of each element within a given boundar
                                         <input id="PresenceMatrix.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">PresenceMatrix</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="presence.html#Presence">pcalc.presence.Presence</a></span><span class="p">[</span><span class="o">~</span><span class="n">T_Element</span><span class="p">]]</span>,</span><span class="param">	<span class="n">time_scale</span><span class="p">:</span> <span class="n"><a href="time_scale.html#Timescale">pcalc.time_scale.Timescale</a></span>,</span><span class="param">	<span class="n">materialize</span><span class="o">=</span><span class="kc">False</span></span>)</span>
+        <span class="name">PresenceMatrix</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="presence.html#Presence">pcalc.presence.Presence</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">time_scale</span><span class="p">:</span> <span class="n"><a href="time_scale.html#Timescale">pcalc.time_scale.Timescale</a></span>,</span><span class="param">	<span class="n">materialize</span><span class="o">=</span><span class="kc">False</span></span>)</span>
 
                 <label class="view-source-button" for="PresenceMatrix.__init__-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceMatrix.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix.__init__-90"><a href="#PresenceMatrix.__init__-90"><span class="linenos"> 90</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]],</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">,</span> <span class="n">materialize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix.__init__-90"><a href="#PresenceMatrix.__init__-90"><span class="linenos"> 90</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">],</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">,</span> <span class="n">materialize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="PresenceMatrix.__init__-91"><a href="#PresenceMatrix.__init__-91"><span class="linenos"> 91</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMatrix.__init__-92"><a href="#PresenceMatrix.__init__-92"><span class="linenos"> 92</span></a><span class="sd">        Construct a presence matrix from a list of Presences and time window configuration.</span>
 </span><span id="PresenceMatrix.__init__-93"><a href="#PresenceMatrix.__init__-93"><span class="linenos"> 93</span></a>
@@ -975,13 +975,13 @@ intermediate value being 1.0.</p>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">init_presence_map</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="presence.html#Presence">pcalc.presence.Presence</a></span><span class="p">[</span><span class="o">~</span><span class="n">T_Element</span><span class="p">]]</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
+        <span class="name">init_presence_map</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="presence.html#Presence">pcalc.presence.Presence</a></span><span class="p">]</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
 
                 <label class="view-source-button" for="PresenceMatrix.init_presence_map-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceMatrix.init_presence_map"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix.init_presence_map-122"><a href="#PresenceMatrix.init_presence_map-122"><span class="linenos">122</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">init_presence_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix.init_presence_map-122"><a href="#PresenceMatrix.init_presence_map-122"><span class="linenos">122</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">init_presence_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="PresenceMatrix.init_presence_map-123"><a href="#PresenceMatrix.init_presence_map-123"><span class="linenos">123</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMatrix.init_presence_map-124"><a href="#PresenceMatrix.init_presence_map-124"><span class="linenos">124</span></a><span class="sd">        Initialize the internal presence matrix based on the Presence intervals and binning scheme.</span>
 </span><span id="PresenceMatrix.init_presence_map-125"><a href="#PresenceMatrix.init_presence_map-125"><span class="linenos">125</span></a><span class="sd">        Only presences that overlap the timescale endpoints [t0, t1) are mapped.</span>
@@ -1115,14 +1115,14 @@ a matrix.</p>
                             <div id="PresenceMatrix.presences" class="classattr">
                                         <input id="PresenceMatrix.presences-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
-            <span class="name">presences</span><span class="annotation">: List[<a href="presence.html#Presence">pcalc.presence.Presence</a>[~T_Element]]</span>
+            <span class="name">presences</span><span class="annotation">: List[<a href="presence.html#Presence">pcalc.presence.Presence</a>]</span>
 
                 <label class="view-source-button" for="PresenceMatrix.presences-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceMatrix.presences"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix.presences-204"><a href="#PresenceMatrix.presences-204"><span class="linenos">204</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceMatrix.presences-205"><a href="#PresenceMatrix.presences-205"><span class="linenos">205</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">presences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">[</span><span class="n">T_Element</span><span class="p">]]:</span>
+</span><span id="PresenceMatrix.presences-205"><a href="#PresenceMatrix.presences-205"><span class="linenos">205</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">presences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
 </span><span id="PresenceMatrix.presences-206"><a href="#PresenceMatrix.presences-206"><span class="linenos">206</span></a>        <span class="k">return</span> <span class="p">[</span><span class="n">pm</span><span class="o">.</span><span class="n">presence</span> <span class="k">for</span> <span class="n">pm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">presence_map</span><span class="p">]</span>
 </span></pre></div>
 
