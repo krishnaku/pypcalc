@@ -2,9 +2,7 @@
 # Copyright (c) 2025 Krishna Kumar
 # SPDX-License-Identifier: MIT
 
-from typing import Protocol, Dict, Any
-
-from typing import Protocol, Dict, Any
+from typing import Protocol
 from .element import Element
 
 
@@ -43,9 +41,4 @@ class Entity(Element, Protocol):
     @property
     def name(self) -> str:
         """A human-readable name for display or debugging."""
-        ...
-
-    @property
-    def metadata(self) -> Dict[str, Any]:
-        """Optional key-value metadata associated with the entity."""
         ...

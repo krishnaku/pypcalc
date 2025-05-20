@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import List, Protocol, Optional, Callable, Sequence, Any
+from typing import List, Protocol, Optional, Callable, Sequence, Any, Dict
 
 from .entity import Entity
 from .presence import Presence
@@ -12,7 +12,7 @@ from .timeline import Timeline, DomainEvent
 from .signal import Signal
 
 
-class Boundary(Entity, Protocol):
+class Boundary(Protocol):
     """
     To analyze signal "flow" in a domain, we must impose a topological structure
     on the domain elements under observation, so that we can meaningfully speak of "place" and "time" in the domain.
@@ -47,37 +47,13 @@ class Boundary(Entity, Protocol):
     """
 
     @property
-    def timeline(self) -> Timeline:
-        """The `Timeline` associated with this boundary."""
+    def id(self) -> str:
+        """A stable unique identifier for the element (used for indexing and lookup)."""
         ...
 
-    def get_signal_presences(self, start_time: float, end_time: float, match: Callable[[DomainEvent], bool] = None) -> \
-            List[Presence[Signal]]:
-        """
-        Determine the presence of signals in this boundary over a finite time interval in the timeline.
-
-        Args:
-            start_time: The beginning of the observation window.
-            end_time: The end of the observation window.
-            match: (Optional) a filter that is applied to the timeline before determining the presence of signals.
-
-        Returns:
-            A `List[Presence[Signal]]` that gives signal presences in the boundary over the time interval.
-        """
+    @property
+    def metadata(self) -> Dict[str, Any]:
+        """Optional key-value metadata associated with the element."""
         ...
 
-    def get_entity_presences(self, start_time: float, end_time: float,
-                             match: Optional[Callable[[DomainEvent], bool]] = None) -> List[Presence[Entity]]:
-        """
-        Determine the presence of entities in this boundary over a finite time interval in the timeline. This is
-        useful when the boundaries are not defined over static partitions of entities, and may change
-        over the timeline.
 
-        Args:
-            start_time: The beginning of the observation window.
-            end_time: The end of the observation window.
-            match: (Optional) a filter that is applied to the timeline before determining the presence of entities.
-        Returns:
-            A `List[Presence[Entity]]` that gives entity presences in the boundary over the time interval.
-        """
-        ...
