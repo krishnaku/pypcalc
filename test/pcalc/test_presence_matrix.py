@@ -5,15 +5,15 @@
 import numpy as np
 import pytest
 
-from pcalc import Presence, PresenceMap, PresenceMatrix, Timescale
-from .mocks import MockElement, MockBoundary
+from pcalc import Presence, PresenceMap, PresenceMatrix, Timescale, Element
+from .mocks import MockBoundary
 
 dummy_boundary = MockBoundary()
 
 presences = [
-    Presence(boundary=dummy_boundary, element=MockElement(), start=0.0, end=2.0),
-    Presence(boundary=dummy_boundary, element=MockElement(), start=1.5, end=3.5),
-    Presence(boundary=dummy_boundary, element=MockElement(), start=2.0, end=4.0),
+    Presence(boundary=dummy_boundary, element=Element(), start=0.0, end=2.0),
+    Presence(boundary=dummy_boundary, element=Element(), start=1.5, end=3.5),
+    Presence(boundary=dummy_boundary, element=Element(), start=2.0, end=4.0),
 ]
 
 @pytest.mark.parametrize("materialize", [True, False])
@@ -67,7 +67,7 @@ def test_presence_map_scaled(materialize):
 @pytest.mark.parametrize("materialize", [True, False])
 def test_presence_clipping_at_bounds(materialize):
     ts = Timescale(0.0, 5.0, 1.0)
-    clipped = [Presence(boundary=dummy_boundary, element=MockElement(), start=-1.0, end=6.0)]
+    clipped = [Presence(boundary=dummy_boundary, element=Element(), start=-1.0, end=6.0)]
     matrix = PresenceMatrix(clipped, time_scale=ts, materialize=materialize)
     assert np.array_equal(matrix[:], np.array([[1, 1, 1, 1, 1]]))
 
@@ -81,14 +81,14 @@ def test_empty_input(materialize):
 @pytest.mark.parametrize("materialize", [True, False])
 def test_partial_overlap_single_bin(materialize):
     ts = Timescale(0.0, 5.0, 1.0)
-    p = Presence(boundary=dummy_boundary, element=MockElement(), start=0.25, end=0.75)
+    p = Presence(boundary=dummy_boundary, element=Element(), start=0.25, end=0.75)
     matrix = PresenceMatrix([p], time_scale=ts, materialize=materialize)
     assert np.allclose(matrix[0, :1], np.array([0.5]))
 
 @pytest.mark.parametrize("materialize", [True, False])
 def test_presence_outside_window(materialize):
     ts = Timescale(0.0, 5.0, 1.0)
-    p = Presence(boundary=dummy_boundary, element=MockElement(), start=6.0, end=8.0)
+    p = Presence(boundary=dummy_boundary, element=Element(), start=6.0, end=8.0)
     matrix = PresenceMatrix([p], time_scale=ts, materialize=materialize)
     assert len(matrix.presence_map) == 0
     assert matrix.shape == (0,5)
@@ -96,7 +96,7 @@ def test_presence_outside_window(materialize):
 @pytest.mark.parametrize("materialize", [True, False])
 def test_presence_map_outside_window(materialize):
     ts = Timescale(0.0, 5.0, 1.0)
-    p = Presence(boundary=dummy_boundary, element=MockElement(), start=6.0, end=8.0)
+    p = Presence(boundary=dummy_boundary, element=Element(), start=6.0, end=8.0)
     matrix = PresenceMatrix([p], time_scale=ts, materialize=materialize)
     assert matrix.presence_map == []
 
@@ -109,7 +109,7 @@ def test_non_integer_scale(materialize):
 @pytest.mark.parametrize("materialize", [True, False])
 def test_fractional_row_sum_consistency(materialize):
     ts = Timescale(0.0, 5.0, 1.0)
-    p = Presence(boundary=dummy_boundary, element=MockElement(), start=1.25, end=3.75)
+    p = Presence(boundary=dummy_boundary, element=Element(), start=1.25, end=3.75)
     matrix = PresenceMatrix([p], time_scale=ts, materialize=materialize)
     row_sum = matrix[0].sum()
     assert abs(row_sum - (p.end - p.start)) < 1e-6
