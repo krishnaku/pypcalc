@@ -64,7 +64,7 @@ class Presence:
         """
         return self.end > t0 and self.start < t1
 
-    def clip(self, t0: float, t1: float) -> Optional["Presence[T_Element]"]:
+    def clip(self, t0: float, t1: float) -> Optional[Presence]:
         """
         Return a new Presence representing the clipped overlap with [t0, t1),
         or None if there is no overlap.
