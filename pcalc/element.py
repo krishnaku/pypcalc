@@ -2,6 +2,8 @@
 # Copyright (c) 2025 Krishna Kumar
 # SPDX-License-Identifier: MIT
 
+from __future__ import annotations
+
 import uuid
 from typing import Protocol, runtime_checkable, Dict, Any, Optional
 

@@ -7,10 +7,10 @@ import pytest
 import numpy as np
 
 
-from pcalc import Element, Presence, PresenceMap, Timescale
-from .mocks import MockBoundary
+from pcalc import Element, Boundary, Presence, PresenceMap, Timescale
 
-dummy_boundary = MockBoundary()
+
+dummy_boundary = Boundary()
 
 def test_full_overlap_single_bin():
     ts = Timescale(t0=0.0, t1=5.0, bin_width=1.0)

@@ -6,10 +6,10 @@
 import numpy as np
 import pytest
 
-from pcalc import Timescale, Presence, PresenceMatrix, PresenceInvariant, Element
-from .mocks import MockBoundary
+from pcalc import Timescale, Presence, PresenceMatrix, PresenceInvariant, Element, Boundary
 
-dummy = MockBoundary()
+
+dummy = Boundary()
 
 
 def make_presences():
