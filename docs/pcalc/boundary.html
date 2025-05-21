@@ -53,6 +53,51 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
+                    <a class="class" href="#BoundaryProtocol">BoundaryProtocol</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#BoundaryProtocol.__init__">BoundaryProtocol</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#BoundaryProtocol.id">id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#BoundaryProtocol.name">name</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#BoundaryProtocol.metadata">metadata</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#BoundaryMixin">BoundaryMixin</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#BoundaryMixin.summary">summary</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#BoundaryView">BoundaryView</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#BoundaryView.__init__">BoundaryView</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#BoundaryView.id">id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#BoundaryView.name">name</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#BoundaryView.metadata">metadata</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
                     <a class="class" href="#Boundary">Boundary</a>
                             <ul class="memberlist">
                         <li>
@@ -60,6 +105,9 @@
                         </li>
                         <li>
                                 <a class="variable" href="#Boundary.id">id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Boundary.name">name</a>
                         </li>
                         <li>
                                 <a class="variable" href="#Boundary.metadata">metadata</a>
@@ -88,149 +136,555 @@
 
                         <label class="view-source-button" for="mod-boundary-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="c1"># -*- coding: utf-8 -*-</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="c1"># Copyright (c) 2025 Krishna Kumar</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="c1"># SPDX-License-Identifier: MIT</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Boundary</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">    To analyze signal &quot;flow&quot; in a domain, we must impose a topological structure</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    on the domain elements under observation, so that we can meaningfully speak of &quot;place&quot; and &quot;time&quot; in the domain.</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    A `Boundary` is a special kind of `Entity` that defines such a structure. It partitions</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    a domain into regions, potentially, each with its own timeline.</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    Given domain events in a timeline, a boundary determines whether elements of the domain - entities, signals,</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    transactions, etc. are &quot;present&quot; in the boundary or not, at a particular moment in time.</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">    The primary purpose of a boundary is to support the study of flow dynamics:</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">    which domain elements cross a boundary, when they do so, how long they remain within it,</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="sd">    how often they enter and leave.</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">    This is the foundation for analyzing &quot;flow&quot; in the domain.</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">    The behavior of a boundary is formally expressed as protocol - a mapping from a `Timeline` to a `PresenceMatrix`.</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">    Given a sequence of point-in-time `core.timeline.DomainEvent` records in  `core.timeline.Timeline` and a finite observation window,</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">    a boundary produces a boolean `core.presence.PresenceMatrix` that records continuous intervals during which a domain element is</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">    considered present within the boundary.</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">    This definition allows boundaries to support a rich variety of partitioning behavior —</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">    ranging from static partitions based on entity metadata, to dynamic signal-driven</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">    partitions derived entirely from signal attributes, or hybrids that combine both.</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">    The dynamic `PresenceMatrix` is the sole source of truth for what the &quot;boundary&quot; *is* at any given point in time.</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">    The exact structure or shape of the boundary is less important than the flow behaviors it induces—</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="sd">    and those behaviors are fully determined by the boundary’s `PresenceMatrix`.</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="sd">    Concrete implementation of the `Boundary` are responsible for determining the `PresenceMatrix` for boundary.</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="nd">@property</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;A stable unique identifier for the element (used for indexing and lookup).&quot;&quot;&quot;</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>        <span class="o">...</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="nd">@property</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Optional key-value metadata associated with the element.&quot;&quot;&quot;</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>        <span class="o">...</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">  1</span></a><span class="c1"># -*- coding: utf-8 -*-</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos">  2</span></a><span class="c1"># Copyright (c) 2025 Krishna Kumar</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos">  3</span></a><span class="c1"># SPDX-License-Identifier: MIT</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos">  4</span></a>
+</span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a>
+</span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a>
+</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a>
+</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="nd">@runtime_checkable</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="k">class</span><span class="w"> </span><span class="nc">BoundaryProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a>    <span class="nd">@property</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="sd">        A stable, unique identifier for the element.</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="sd">        Used for indexing and identity.</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>        <span class="o">...</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a>    <span class="nd">@property</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">        A user facing name for the element, defaults to the id if None.</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a>        <span class="o">...</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a>
+</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Setter for name&quot;&quot;&quot;</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>        <span class="o">...</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>    <span class="nd">@property</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">        Optional extensible key-value metadata.</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>        <span class="o">...</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a>
+</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a><span class="c1"># ----------------------------------------</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="c1"># Mixin: shared logic for any compatible class</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a><span class="c1"># ----------------------------------------</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="k">class</span><span class="w"> </span><span class="nc">BoundaryMixin</span><span class="p">:</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">BoundaryProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Boundary[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Boundary[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a><span class="c1"># ----------------------------------------</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a><span class="c1"># View: wrap arbitrary duck-typed objects</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a><span class="c1"># ----------------------------------------</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>
+</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a><span class="k">class</span><span class="w"> </span><span class="nc">BoundaryView</span><span class="p">(</span><span class="n">BoundaryMixin</span><span class="p">):</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">BoundaryProtocol</span><span class="p">):</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>
+</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>    <span class="nd">@property</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>    <span class="nd">@property</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>
+</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>    <span class="nd">@property</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>
+</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a><span class="c1"># ----------------------------------------</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a><span class="c1"># Default implementation</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a><span class="c1"># ----------------------------------------</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Boundary</span><span class="p">(</span><span class="n">BoundaryMixin</span><span class="p">,</span> <span class="n">BoundaryProtocol</span><span class="p">):</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>                 <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>    <span class="nd">@property</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>    <span class="c1"># noinspection PyProtocol</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>    <span class="nd">@property</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>    <span class="nd">@property</span>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </span></pre></div>
 
 
             </section>
+                <section id="BoundaryProtocol">
+                            <input id="BoundaryProtocol-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator decorator-runtime_checkable">@runtime_checkable</div>
+
+    <span class="def">class</span>
+    <span class="name">BoundaryProtocol</span><wbr>(<span class="base">typing.Protocol</span>):
+
+                <label class="view-source-button" for="BoundaryProtocol-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryProtocol"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryProtocol-13"><a href="#BoundaryProtocol-13"><span class="linenos">13</span></a><span class="nd">@runtime_checkable</span>
+</span><span id="BoundaryProtocol-14"><a href="#BoundaryProtocol-14"><span class="linenos">14</span></a><span class="k">class</span><span class="w"> </span><span class="nc">BoundaryProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span><span id="BoundaryProtocol-15"><a href="#BoundaryProtocol-15"><span class="linenos">15</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryProtocol-16"><a href="#BoundaryProtocol-16"><span class="linenos">16</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="BoundaryProtocol-17"><a href="#BoundaryProtocol-17"><span class="linenos">17</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol-18"><a href="#BoundaryProtocol-18"><span class="linenos">18</span></a><span class="sd">        A stable, unique identifier for the element.</span>
+</span><span id="BoundaryProtocol-19"><a href="#BoundaryProtocol-19"><span class="linenos">19</span></a><span class="sd">        Used for indexing and identity.</span>
+</span><span id="BoundaryProtocol-20"><a href="#BoundaryProtocol-20"><span class="linenos">20</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
+</span><span id="BoundaryProtocol-21"><a href="#BoundaryProtocol-21"><span class="linenos">21</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol-22"><a href="#BoundaryProtocol-22"><span class="linenos">22</span></a>        <span class="o">...</span>
+</span><span id="BoundaryProtocol-23"><a href="#BoundaryProtocol-23"><span class="linenos">23</span></a>
+</span><span id="BoundaryProtocol-24"><a href="#BoundaryProtocol-24"><span class="linenos">24</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryProtocol-25"><a href="#BoundaryProtocol-25"><span class="linenos">25</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="BoundaryProtocol-26"><a href="#BoundaryProtocol-26"><span class="linenos">26</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol-27"><a href="#BoundaryProtocol-27"><span class="linenos">27</span></a><span class="sd">        A user facing name for the element, defaults to the id if None.</span>
+</span><span id="BoundaryProtocol-28"><a href="#BoundaryProtocol-28"><span class="linenos">28</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol-29"><a href="#BoundaryProtocol-29"><span class="linenos">29</span></a>        <span class="o">...</span>
+</span><span id="BoundaryProtocol-30"><a href="#BoundaryProtocol-30"><span class="linenos">30</span></a>
+</span><span id="BoundaryProtocol-31"><a href="#BoundaryProtocol-31"><span class="linenos">31</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="BoundaryProtocol-32"><a href="#BoundaryProtocol-32"><span class="linenos">32</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="BoundaryProtocol-33"><a href="#BoundaryProtocol-33"><span class="linenos">33</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Setter for name&quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol-34"><a href="#BoundaryProtocol-34"><span class="linenos">34</span></a>        <span class="o">...</span>
+</span><span id="BoundaryProtocol-35"><a href="#BoundaryProtocol-35"><span class="linenos">35</span></a>
+</span><span id="BoundaryProtocol-36"><a href="#BoundaryProtocol-36"><span class="linenos">36</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryProtocol-37"><a href="#BoundaryProtocol-37"><span class="linenos">37</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="BoundaryProtocol-38"><a href="#BoundaryProtocol-38"><span class="linenos">38</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol-39"><a href="#BoundaryProtocol-39"><span class="linenos">39</span></a><span class="sd">        Optional extensible key-value metadata.</span>
+</span><span id="BoundaryProtocol-40"><a href="#BoundaryProtocol-40"><span class="linenos">40</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol-41"><a href="#BoundaryProtocol-41"><span class="linenos">41</span></a>        <span class="o">...</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Base class for protocol classes.</p>
+
+<p>Protocol classes are defined as::</p>
+
+<pre><code>class Proto(Protocol):
+    def meth(self) -&gt; int:
+        ...
+</code></pre>
+
+<p>Such classes are primarily used with static type checkers that recognize
+structural subtyping (static duck-typing).</p>
+
+<p>For example::</p>
+
+<pre><code>class C:
+    def meth(self) -&gt; int:
+        return 0
+
+def func(x: Proto) -&gt; int:
+    return x.meth()
+
+func(C())  # Passes static type check
+</code></pre>
+
+<p>See PEP 544 for details. Protocol classes decorated with
+@typing.runtime_checkable act as simple-minded runtime protocols that check
+only the presence of given attributes, ignoring their type signatures.
+Protocol classes can be generic, they are defined as::</p>
+
+<pre><code>class GenProto(Protocol[T]):
+    def meth(self) -&gt; T:
+        ...
+</code></pre>
+</div>
+
+
+                            <div id="BoundaryProtocol.__init__" class="classattr">
+                                        <input id="BoundaryProtocol.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">BoundaryProtocol</span><span class="signature pdoc-code condensed">(<span class="param"><span class="o">*</span><span class="n">args</span>, </span><span class="param"><span class="o">**</span><span class="n">kwargs</span></span>)</span>
+
+                <label class="view-source-button" for="BoundaryProtocol.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryProtocol.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryProtocol.__init__-1953"><a href="#BoundaryProtocol.__init__-1953"><span class="linenos">1953</span></a><span class="k">def</span><span class="w"> </span><span class="nf">_no_init_or_replace_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="BoundaryProtocol.__init__-1954"><a href="#BoundaryProtocol.__init__-1954"><span class="linenos">1954</span></a>    <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span id="BoundaryProtocol.__init__-1955"><a href="#BoundaryProtocol.__init__-1955"><span class="linenos">1955</span></a>
+</span><span id="BoundaryProtocol.__init__-1956"><a href="#BoundaryProtocol.__init__-1956"><span class="linenos">1956</span></a>    <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_is_protocol</span><span class="p">:</span>
+</span><span id="BoundaryProtocol.__init__-1957"><a href="#BoundaryProtocol.__init__-1957"><span class="linenos">1957</span></a>        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Protocols cannot be instantiated&#39;</span><span class="p">)</span>
+</span><span id="BoundaryProtocol.__init__-1958"><a href="#BoundaryProtocol.__init__-1958"><span class="linenos">1958</span></a>
+</span><span id="BoundaryProtocol.__init__-1959"><a href="#BoundaryProtocol.__init__-1959"><span class="linenos">1959</span></a>    <span class="c1"># Already using a custom `__init__`. No need to calculate correct</span>
+</span><span id="BoundaryProtocol.__init__-1960"><a href="#BoundaryProtocol.__init__-1960"><span class="linenos">1960</span></a>    <span class="c1"># `__init__` to call. This can lead to RecursionError. See bpo-45121.</span>
+</span><span id="BoundaryProtocol.__init__-1961"><a href="#BoundaryProtocol.__init__-1961"><span class="linenos">1961</span></a>    <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="fm">__init__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_no_init_or_replace_init</span><span class="p">:</span>
+</span><span id="BoundaryProtocol.__init__-1962"><a href="#BoundaryProtocol.__init__-1962"><span class="linenos">1962</span></a>        <span class="k">return</span>
+</span><span id="BoundaryProtocol.__init__-1963"><a href="#BoundaryProtocol.__init__-1963"><span class="linenos">1963</span></a>
+</span><span id="BoundaryProtocol.__init__-1964"><a href="#BoundaryProtocol.__init__-1964"><span class="linenos">1964</span></a>    <span class="c1"># Initially, `__init__` of a protocol subclass is set to `_no_init_or_replace_init`.</span>
+</span><span id="BoundaryProtocol.__init__-1965"><a href="#BoundaryProtocol.__init__-1965"><span class="linenos">1965</span></a>    <span class="c1"># The first instantiation of the subclass will call `_no_init_or_replace_init` which</span>
+</span><span id="BoundaryProtocol.__init__-1966"><a href="#BoundaryProtocol.__init__-1966"><span class="linenos">1966</span></a>    <span class="c1"># searches for a proper new `__init__` in the MRO. The new `__init__`</span>
+</span><span id="BoundaryProtocol.__init__-1967"><a href="#BoundaryProtocol.__init__-1967"><span class="linenos">1967</span></a>    <span class="c1"># replaces the subclass&#39; old `__init__` (ie `_no_init_or_replace_init`). Subsequent</span>
+</span><span id="BoundaryProtocol.__init__-1968"><a href="#BoundaryProtocol.__init__-1968"><span class="linenos">1968</span></a>    <span class="c1"># instantiation of the protocol subclass will thus use the new</span>
+</span><span id="BoundaryProtocol.__init__-1969"><a href="#BoundaryProtocol.__init__-1969"><span class="linenos">1969</span></a>    <span class="c1"># `__init__` and no longer call `_no_init_or_replace_init`.</span>
+</span><span id="BoundaryProtocol.__init__-1970"><a href="#BoundaryProtocol.__init__-1970"><span class="linenos">1970</span></a>    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">:</span>
+</span><span id="BoundaryProtocol.__init__-1971"><a href="#BoundaryProtocol.__init__-1971"><span class="linenos">1971</span></a>        <span class="n">init</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__init__&#39;</span><span class="p">,</span> <span class="n">_no_init_or_replace_init</span><span class="p">)</span>
+</span><span id="BoundaryProtocol.__init__-1972"><a href="#BoundaryProtocol.__init__-1972"><span class="linenos">1972</span></a>        <span class="k">if</span> <span class="n">init</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_no_init_or_replace_init</span><span class="p">:</span>
+</span><span id="BoundaryProtocol.__init__-1973"><a href="#BoundaryProtocol.__init__-1973"><span class="linenos">1973</span></a>            <span class="bp">cls</span><span class="o">.</span><span class="fm">__init__</span> <span class="o">=</span> <span class="n">init</span>
+</span><span id="BoundaryProtocol.__init__-1974"><a href="#BoundaryProtocol.__init__-1974"><span class="linenos">1974</span></a>            <span class="k">break</span>
+</span><span id="BoundaryProtocol.__init__-1975"><a href="#BoundaryProtocol.__init__-1975"><span class="linenos">1975</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="BoundaryProtocol.__init__-1976"><a href="#BoundaryProtocol.__init__-1976"><span class="linenos">1976</span></a>        <span class="c1"># should not happen</span>
+</span><span id="BoundaryProtocol.__init__-1977"><a href="#BoundaryProtocol.__init__-1977"><span class="linenos">1977</span></a>        <span class="bp">cls</span><span class="o">.</span><span class="fm">__init__</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__init__</span>
+</span><span id="BoundaryProtocol.__init__-1978"><a href="#BoundaryProtocol.__init__-1978"><span class="linenos">1978</span></a>
+</span><span id="BoundaryProtocol.__init__-1979"><a href="#BoundaryProtocol.__init__-1979"><span class="linenos">1979</span></a>    <span class="bp">cls</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="BoundaryProtocol.id" class="classattr">
+                                        <input id="BoundaryProtocol.id-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">id</span><span class="annotation">: str</span>
+
+                <label class="view-source-button" for="BoundaryProtocol.id-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryProtocol.id"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryProtocol.id-15"><a href="#BoundaryProtocol.id-15"><span class="linenos">15</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryProtocol.id-16"><a href="#BoundaryProtocol.id-16"><span class="linenos">16</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="BoundaryProtocol.id-17"><a href="#BoundaryProtocol.id-17"><span class="linenos">17</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol.id-18"><a href="#BoundaryProtocol.id-18"><span class="linenos">18</span></a><span class="sd">        A stable, unique identifier for the element.</span>
+</span><span id="BoundaryProtocol.id-19"><a href="#BoundaryProtocol.id-19"><span class="linenos">19</span></a><span class="sd">        Used for indexing and identity.</span>
+</span><span id="BoundaryProtocol.id-20"><a href="#BoundaryProtocol.id-20"><span class="linenos">20</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
+</span><span id="BoundaryProtocol.id-21"><a href="#BoundaryProtocol.id-21"><span class="linenos">21</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol.id-22"><a href="#BoundaryProtocol.id-22"><span class="linenos">22</span></a>        <span class="o">...</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>A stable, unique identifier for the element.
+Used for indexing and identity.
+Defaults to a uuid.uuid4().</p>
+</div>
+
+
+                            </div>
+                            <div id="BoundaryProtocol.name" class="classattr">
+                                        <input id="BoundaryProtocol.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">name</span><span class="annotation">: str</span>
+
+                <label class="view-source-button" for="BoundaryProtocol.name-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryProtocol.name"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryProtocol.name-24"><a href="#BoundaryProtocol.name-24"><span class="linenos">24</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryProtocol.name-25"><a href="#BoundaryProtocol.name-25"><span class="linenos">25</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="BoundaryProtocol.name-26"><a href="#BoundaryProtocol.name-26"><span class="linenos">26</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol.name-27"><a href="#BoundaryProtocol.name-27"><span class="linenos">27</span></a><span class="sd">        A user facing name for the element, defaults to the id if None.</span>
+</span><span id="BoundaryProtocol.name-28"><a href="#BoundaryProtocol.name-28"><span class="linenos">28</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol.name-29"><a href="#BoundaryProtocol.name-29"><span class="linenos">29</span></a>        <span class="o">...</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>A user facing name for the element, defaults to the id if None.</p>
+</div>
+
+
+                            </div>
+                            <div id="BoundaryProtocol.metadata" class="classattr">
+                                        <input id="BoundaryProtocol.metadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">metadata</span><span class="annotation">: Dict[str, Any]</span>
+
+                <label class="view-source-button" for="BoundaryProtocol.metadata-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryProtocol.metadata"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryProtocol.metadata-36"><a href="#BoundaryProtocol.metadata-36"><span class="linenos">36</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryProtocol.metadata-37"><a href="#BoundaryProtocol.metadata-37"><span class="linenos">37</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="BoundaryProtocol.metadata-38"><a href="#BoundaryProtocol.metadata-38"><span class="linenos">38</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol.metadata-39"><a href="#BoundaryProtocol.metadata-39"><span class="linenos">39</span></a><span class="sd">        Optional extensible key-value metadata.</span>
+</span><span id="BoundaryProtocol.metadata-40"><a href="#BoundaryProtocol.metadata-40"><span class="linenos">40</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="BoundaryProtocol.metadata-41"><a href="#BoundaryProtocol.metadata-41"><span class="linenos">41</span></a>        <span class="o">...</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Optional extensible key-value metadata.</p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="BoundaryMixin">
+                            <input id="BoundaryMixin-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">BoundaryMixin</span>:
+
+                <label class="view-source-button" for="BoundaryMixin-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryMixin"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryMixin-47"><a href="#BoundaryMixin-47"><span class="linenos">47</span></a><span class="k">class</span><span class="w"> </span><span class="nc">BoundaryMixin</span><span class="p">:</span>
+</span><span id="BoundaryMixin-48"><a href="#BoundaryMixin-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">BoundaryProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="BoundaryMixin-49"><a href="#BoundaryMixin-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BoundaryMixin-50"><a href="#BoundaryMixin-50"><span class="linenos">50</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
+</span><span id="BoundaryMixin-51"><a href="#BoundaryMixin-51"><span class="linenos">51</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="BoundaryMixin-52"><a href="#BoundaryMixin-52"><span class="linenos">52</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="BoundaryMixin-53"><a href="#BoundaryMixin-53"><span class="linenos">53</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
+</span><span id="BoundaryMixin-54"><a href="#BoundaryMixin-54"><span class="linenos">54</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Boundary[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
+</span><span id="BoundaryMixin-55"><a href="#BoundaryMixin-55"><span class="linenos">55</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</span><span id="BoundaryMixin-56"><a href="#BoundaryMixin-56"><span class="linenos">56</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Boundary[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+</span></pre></div>
+
+
+    
+
+                            <div id="BoundaryMixin.summary" class="classattr">
+                                        <input id="BoundaryMixin.summary-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">summary</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span><span class="p">:</span> <span class="n"><a href="#BoundaryProtocol">BoundaryProtocol</a></span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+
+                <label class="view-source-button" for="BoundaryMixin.summary-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryMixin.summary"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryMixin.summary-48"><a href="#BoundaryMixin.summary-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">BoundaryProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="BoundaryMixin.summary-49"><a href="#BoundaryMixin.summary-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BoundaryMixin.summary-50"><a href="#BoundaryMixin.summary-50"><span class="linenos">50</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
+</span><span id="BoundaryMixin.summary-51"><a href="#BoundaryMixin.summary-51"><span class="linenos">51</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="BoundaryMixin.summary-52"><a href="#BoundaryMixin.summary-52"><span class="linenos">52</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="BoundaryMixin.summary-53"><a href="#BoundaryMixin.summary-53"><span class="linenos">53</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
+</span><span id="BoundaryMixin.summary-54"><a href="#BoundaryMixin.summary-54"><span class="linenos">54</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Boundary[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
+</span><span id="BoundaryMixin.summary-55"><a href="#BoundaryMixin.summary-55"><span class="linenos">55</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</span><span id="BoundaryMixin.summary-56"><a href="#BoundaryMixin.summary-56"><span class="linenos">56</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Boundary[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Return a human-readable summary based on id and metadata.</p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="BoundaryView">
+                            <input id="BoundaryView-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">BoundaryView</span><wbr>(<span class="base"><a href="#BoundaryMixin">BoundaryMixin</a></span>):
+
+                <label class="view-source-button" for="BoundaryView-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryView"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryView-62"><a href="#BoundaryView-62"><span class="linenos">62</span></a><span class="k">class</span><span class="w"> </span><span class="nc">BoundaryView</span><span class="p">(</span><span class="n">BoundaryMixin</span><span class="p">):</span>
+</span><span id="BoundaryView-63"><a href="#BoundaryView-63"><span class="linenos">63</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">BoundaryProtocol</span><span class="p">):</span>
+</span><span id="BoundaryView-64"><a href="#BoundaryView-64"><span class="linenos">64</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
+</span><span id="BoundaryView-65"><a href="#BoundaryView-65"><span class="linenos">65</span></a>
+</span><span id="BoundaryView-66"><a href="#BoundaryView-66"><span class="linenos">66</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryView-67"><a href="#BoundaryView-67"><span class="linenos">67</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="BoundaryView-68"><a href="#BoundaryView-68"><span class="linenos">68</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
+</span><span id="BoundaryView-69"><a href="#BoundaryView-69"><span class="linenos">69</span></a>
+</span><span id="BoundaryView-70"><a href="#BoundaryView-70"><span class="linenos">70</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryView-71"><a href="#BoundaryView-71"><span class="linenos">71</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="BoundaryView-72"><a href="#BoundaryView-72"><span class="linenos">72</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
+</span><span id="BoundaryView-73"><a href="#BoundaryView-73"><span class="linenos">73</span></a>
+</span><span id="BoundaryView-74"><a href="#BoundaryView-74"><span class="linenos">74</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryView-75"><a href="#BoundaryView-75"><span class="linenos">75</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="BoundaryView-76"><a href="#BoundaryView-76"><span class="linenos">76</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
+</span></pre></div>
+
+
+    
+
+                            <div id="BoundaryView.__init__" class="classattr">
+                                        <input id="BoundaryView.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">BoundaryView</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">base</span><span class="p">:</span> <span class="n"><a href="#BoundaryProtocol">BoundaryProtocol</a></span></span>)</span>
+
+                <label class="view-source-button" for="BoundaryView.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryView.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryView.__init__-63"><a href="#BoundaryView.__init__-63"><span class="linenos">63</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">BoundaryProtocol</span><span class="p">):</span>
+</span><span id="BoundaryView.__init__-64"><a href="#BoundaryView.__init__-64"><span class="linenos">64</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="BoundaryView.id" class="classattr">
+                                        <input id="BoundaryView.id-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">id</span><span class="annotation">: str</span>
+
+                <label class="view-source-button" for="BoundaryView.id-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryView.id"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryView.id-66"><a href="#BoundaryView.id-66"><span class="linenos">66</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryView.id-67"><a href="#BoundaryView.id-67"><span class="linenos">67</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="BoundaryView.id-68"><a href="#BoundaryView.id-68"><span class="linenos">68</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="BoundaryView.name" class="classattr">
+                                        <input id="BoundaryView.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">name</span><span class="annotation">: Optional[str]</span>
+
+                <label class="view-source-button" for="BoundaryView.name-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryView.name"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryView.name-70"><a href="#BoundaryView.name-70"><span class="linenos">70</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryView.name-71"><a href="#BoundaryView.name-71"><span class="linenos">71</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="BoundaryView.name-72"><a href="#BoundaryView.name-72"><span class="linenos">72</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="BoundaryView.metadata" class="classattr">
+                                        <input id="BoundaryView.metadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">metadata</span><span class="annotation">: Dict[str, Any]</span>
+
+                <label class="view-source-button" for="BoundaryView.metadata-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#BoundaryView.metadata"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BoundaryView.metadata-74"><a href="#BoundaryView.metadata-74"><span class="linenos">74</span></a>    <span class="nd">@property</span>
+</span><span id="BoundaryView.metadata-75"><a href="#BoundaryView.metadata-75"><span class="linenos">75</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="BoundaryView.metadata-76"><a href="#BoundaryView.metadata-76"><span class="linenos">76</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="#BoundaryMixin">BoundaryMixin</a></dt>
+                                <dd id="BoundaryView.summary" class="function"><a href="#BoundaryMixin.summary">summary</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
                 <section id="Boundary">
                             <input id="Boundary-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">Boundary</span><wbr>(<span class="base">typing.Protocol</span>):
+    <span class="name">Boundary</span><wbr>(<span class="base"><a href="#BoundaryMixin">BoundaryMixin</a></span>, <span class="base"><a href="#BoundaryProtocol">BoundaryProtocol</a></span>):
 
                 <label class="view-source-button" for="Boundary-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Boundary"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Boundary-11"><a href="#Boundary-11"><span class="linenos">11</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Boundary</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-</span><span id="Boundary-12"><a href="#Boundary-12"><span class="linenos">12</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Boundary-13"><a href="#Boundary-13"><span class="linenos">13</span></a><span class="sd">    To analyze signal &quot;flow&quot; in a domain, we must impose a topological structure</span>
-</span><span id="Boundary-14"><a href="#Boundary-14"><span class="linenos">14</span></a><span class="sd">    on the domain elements under observation, so that we can meaningfully speak of &quot;place&quot; and &quot;time&quot; in the domain.</span>
-</span><span id="Boundary-15"><a href="#Boundary-15"><span class="linenos">15</span></a>
-</span><span id="Boundary-16"><a href="#Boundary-16"><span class="linenos">16</span></a><span class="sd">    A `Boundary` is a special kind of `Entity` that defines such a structure. It partitions</span>
-</span><span id="Boundary-17"><a href="#Boundary-17"><span class="linenos">17</span></a><span class="sd">    a domain into regions, potentially, each with its own timeline.</span>
-</span><span id="Boundary-18"><a href="#Boundary-18"><span class="linenos">18</span></a>
-</span><span id="Boundary-19"><a href="#Boundary-19"><span class="linenos">19</span></a><span class="sd">    Given domain events in a timeline, a boundary determines whether elements of the domain - entities, signals,</span>
-</span><span id="Boundary-20"><a href="#Boundary-20"><span class="linenos">20</span></a><span class="sd">    transactions, etc. are &quot;present&quot; in the boundary or not, at a particular moment in time.</span>
-</span><span id="Boundary-21"><a href="#Boundary-21"><span class="linenos">21</span></a>
-</span><span id="Boundary-22"><a href="#Boundary-22"><span class="linenos">22</span></a><span class="sd">    The primary purpose of a boundary is to support the study of flow dynamics:</span>
-</span><span id="Boundary-23"><a href="#Boundary-23"><span class="linenos">23</span></a><span class="sd">    which domain elements cross a boundary, when they do so, how long they remain within it,</span>
-</span><span id="Boundary-24"><a href="#Boundary-24"><span class="linenos">24</span></a><span class="sd">    how often they enter and leave.</span>
-</span><span id="Boundary-25"><a href="#Boundary-25"><span class="linenos">25</span></a>
-</span><span id="Boundary-26"><a href="#Boundary-26"><span class="linenos">26</span></a><span class="sd">    This is the foundation for analyzing &quot;flow&quot; in the domain.</span>
-</span><span id="Boundary-27"><a href="#Boundary-27"><span class="linenos">27</span></a>
-</span><span id="Boundary-28"><a href="#Boundary-28"><span class="linenos">28</span></a><span class="sd">    The behavior of a boundary is formally expressed as protocol - a mapping from a `Timeline` to a `PresenceMatrix`.</span>
-</span><span id="Boundary-29"><a href="#Boundary-29"><span class="linenos">29</span></a>
-</span><span id="Boundary-30"><a href="#Boundary-30"><span class="linenos">30</span></a><span class="sd">    Given a sequence of point-in-time `core.timeline.DomainEvent` records in  `core.timeline.Timeline` and a finite observation window,</span>
-</span><span id="Boundary-31"><a href="#Boundary-31"><span class="linenos">31</span></a><span class="sd">    a boundary produces a boolean `core.presence.PresenceMatrix` that records continuous intervals during which a domain element is</span>
-</span><span id="Boundary-32"><a href="#Boundary-32"><span class="linenos">32</span></a><span class="sd">    considered present within the boundary.</span>
-</span><span id="Boundary-33"><a href="#Boundary-33"><span class="linenos">33</span></a>
-</span><span id="Boundary-34"><a href="#Boundary-34"><span class="linenos">34</span></a><span class="sd">    This definition allows boundaries to support a rich variety of partitioning behavior —</span>
-</span><span id="Boundary-35"><a href="#Boundary-35"><span class="linenos">35</span></a><span class="sd">    ranging from static partitions based on entity metadata, to dynamic signal-driven</span>
-</span><span id="Boundary-36"><a href="#Boundary-36"><span class="linenos">36</span></a><span class="sd">    partitions derived entirely from signal attributes, or hybrids that combine both.</span>
-</span><span id="Boundary-37"><a href="#Boundary-37"><span class="linenos">37</span></a>
-</span><span id="Boundary-38"><a href="#Boundary-38"><span class="linenos">38</span></a><span class="sd">    The dynamic `PresenceMatrix` is the sole source of truth for what the &quot;boundary&quot; *is* at any given point in time.</span>
-</span><span id="Boundary-39"><a href="#Boundary-39"><span class="linenos">39</span></a><span class="sd">    The exact structure or shape of the boundary is less important than the flow behaviors it induces—</span>
-</span><span id="Boundary-40"><a href="#Boundary-40"><span class="linenos">40</span></a><span class="sd">    and those behaviors are fully determined by the boundary’s `PresenceMatrix`.</span>
-</span><span id="Boundary-41"><a href="#Boundary-41"><span class="linenos">41</span></a>
-</span><span id="Boundary-42"><a href="#Boundary-42"><span class="linenos">42</span></a><span class="sd">    Concrete implementation of the `Boundary` are responsible for determining the `PresenceMatrix` for boundary.</span>
-</span><span id="Boundary-43"><a href="#Boundary-43"><span class="linenos">43</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Boundary-44"><a href="#Boundary-44"><span class="linenos">44</span></a>
-</span><span id="Boundary-45"><a href="#Boundary-45"><span class="linenos">45</span></a>    <span class="nd">@property</span>
-</span><span id="Boundary-46"><a href="#Boundary-46"><span class="linenos">46</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Boundary-47"><a href="#Boundary-47"><span class="linenos">47</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;A stable unique identifier for the element (used for indexing and lookup).&quot;&quot;&quot;</span>
-</span><span id="Boundary-48"><a href="#Boundary-48"><span class="linenos">48</span></a>        <span class="o">...</span>
-</span><span id="Boundary-49"><a href="#Boundary-49"><span class="linenos">49</span></a>
-</span><span id="Boundary-50"><a href="#Boundary-50"><span class="linenos">50</span></a>    <span class="nd">@property</span>
-</span><span id="Boundary-51"><a href="#Boundary-51"><span class="linenos">51</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="Boundary-52"><a href="#Boundary-52"><span class="linenos">52</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Optional key-value metadata associated with the element.&quot;&quot;&quot;</span>
-</span><span id="Boundary-53"><a href="#Boundary-53"><span class="linenos">53</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Boundary-81"><a href="#Boundary-81"><span class="linenos"> 81</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Boundary</span><span class="p">(</span><span class="n">BoundaryMixin</span><span class="p">,</span> <span class="n">BoundaryProtocol</span><span class="p">):</span>
+</span><span id="Boundary-82"><a href="#Boundary-82"><span class="linenos"> 82</span></a>
+</span><span id="Boundary-83"><a href="#Boundary-83"><span class="linenos"> 83</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="Boundary-84"><a href="#Boundary-84"><span class="linenos"> 84</span></a>                 <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Boundary-85"><a href="#Boundary-85"><span class="linenos"> 85</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+</span><span id="Boundary-86"><a href="#Boundary-86"><span class="linenos"> 86</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+</span><span id="Boundary-87"><a href="#Boundary-87"><span class="linenos"> 87</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
+</span><span id="Boundary-88"><a href="#Boundary-88"><span class="linenos"> 88</span></a>
+</span><span id="Boundary-89"><a href="#Boundary-89"><span class="linenos"> 89</span></a>    <span class="nd">@property</span>
+</span><span id="Boundary-90"><a href="#Boundary-90"><span class="linenos"> 90</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Boundary-91"><a href="#Boundary-91"><span class="linenos"> 91</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+</span><span id="Boundary-92"><a href="#Boundary-92"><span class="linenos"> 92</span></a>
+</span><span id="Boundary-93"><a href="#Boundary-93"><span class="linenos"> 93</span></a>    <span class="c1"># noinspection PyProtocol</span>
+</span><span id="Boundary-94"><a href="#Boundary-94"><span class="linenos"> 94</span></a>    <span class="nd">@property</span>
+</span><span id="Boundary-95"><a href="#Boundary-95"><span class="linenos"> 95</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Boundary-96"><a href="#Boundary-96"><span class="linenos"> 96</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+</span><span id="Boundary-97"><a href="#Boundary-97"><span class="linenos"> 97</span></a>
+</span><span id="Boundary-98"><a href="#Boundary-98"><span class="linenos"> 98</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="Boundary-99"><a href="#Boundary-99"><span class="linenos"> 99</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Boundary-100"><a href="#Boundary-100"><span class="linenos">100</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+</span><span id="Boundary-101"><a href="#Boundary-101"><span class="linenos">101</span></a>
+</span><span id="Boundary-102"><a href="#Boundary-102"><span class="linenos">102</span></a>    <span class="nd">@property</span>
+</span><span id="Boundary-103"><a href="#Boundary-103"><span class="linenos">103</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="Boundary-104"><a href="#Boundary-104"><span class="linenos">104</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
+</span><span id="Boundary-105"><a href="#Boundary-105"><span class="linenos">105</span></a>
+</span><span id="Boundary-106"><a href="#Boundary-106"><span class="linenos">106</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Boundary-107"><a href="#Boundary-107"><span class="linenos">107</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>To analyze signal "flow" in a domain, we must impose a topological structure
-on the domain elements under observation, so that we can meaningfully speak of "place" and "time" in the domain.</p>
+            <div class="docstring"><p>Base class for protocol classes.</p>
 
-<p>A <code><a href="#Boundary">Boundary</a></code> is a special kind of <code>Entity</code> that defines such a structure. It partitions
-a domain into regions, potentially, each with its own timeline.</p>
+<p>Protocol classes are defined as::</p>
 
-<p>Given domain events in a timeline, a boundary determines whether elements of the domain - entities, signals,
-transactions, etc. are "present" in the boundary or not, at a particular moment in time.</p>
+<pre><code>class Proto(Protocol):
+    def meth(self) -&gt; int:
+        ...
+</code></pre>
 
-<p>The primary purpose of a boundary is to support the study of flow dynamics:
-which domain elements cross a boundary, when they do so, how long they remain within it,
-how often they enter and leave.</p>
+<p>Such classes are primarily used with static type checkers that recognize
+structural subtyping (static duck-typing).</p>
 
-<p>This is the foundation for analyzing "flow" in the domain.</p>
+<p>For example::</p>
 
-<p>The behavior of a boundary is formally expressed as protocol - a mapping from a <code>Timeline</code> to a <code>PresenceMatrix</code>.</p>
+<pre><code>class C:
+    def meth(self) -&gt; int:
+        return 0
 
-<p>Given a sequence of point-in-time <code>core.timeline.DomainEvent</code> records in  <code>core.timeline.Timeline</code> and a finite observation window,
-a boundary produces a boolean <code>core.presence.PresenceMatrix</code> that records continuous intervals during which a domain element is
-considered present within the boundary.</p>
+def func(x: Proto) -&gt; int:
+    return x.meth()
 
-<p>This definition allows boundaries to support a rich variety of partitioning behavior —
-ranging from static partitions based on entity metadata, to dynamic signal-driven
-partitions derived entirely from signal attributes, or hybrids that combine both.</p>
+func(C())  # Passes static type check
+</code></pre>
 
-<p>The dynamic <code>PresenceMatrix</code> is the sole source of truth for what the "boundary" <em>is</em> at any given point in time.
-The exact structure or shape of the boundary is less important than the flow behaviors it induces—
-and those behaviors are fully determined by the boundary’s <code>PresenceMatrix</code>.</p>
+<p>See PEP 544 for details. Protocol classes decorated with
+@typing.runtime_checkable act as simple-minded runtime protocols that check
+only the presence of given attributes, ignoring their type signatures.
+Protocol classes can be generic, they are defined as::</p>
 
-<p>Concrete implementation of the <code><a href="#Boundary">Boundary</a></code> are responsible for determining the <code>PresenceMatrix</code> for boundary.</p>
+<pre><code>class GenProto(Protocol[T]):
+    def meth(self) -&gt; T:
+        ...
+</code></pre>
 </div>
 
 
@@ -238,39 +692,17 @@ and those behaviors are fully determined by the boundary’s <code>PresenceMatri
                                         <input id="Boundary.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">Boundary</span><span class="signature pdoc-code condensed">(<span class="param"><span class="o">*</span><span class="n">args</span>, </span><span class="param"><span class="o">**</span><span class="n">kwargs</span></span>)</span>
+        <span class="name">Boundary</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
 
                 <label class="view-source-button" for="Boundary.__init__-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Boundary.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Boundary.__init__-1953"><a href="#Boundary.__init__-1953"><span class="linenos">1953</span></a><span class="k">def</span><span class="w"> </span><span class="nf">_no_init_or_replace_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span id="Boundary.__init__-1954"><a href="#Boundary.__init__-1954"><span class="linenos">1954</span></a>    <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</span><span id="Boundary.__init__-1955"><a href="#Boundary.__init__-1955"><span class="linenos">1955</span></a>
-</span><span id="Boundary.__init__-1956"><a href="#Boundary.__init__-1956"><span class="linenos">1956</span></a>    <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_is_protocol</span><span class="p">:</span>
-</span><span id="Boundary.__init__-1957"><a href="#Boundary.__init__-1957"><span class="linenos">1957</span></a>        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Protocols cannot be instantiated&#39;</span><span class="p">)</span>
-</span><span id="Boundary.__init__-1958"><a href="#Boundary.__init__-1958"><span class="linenos">1958</span></a>
-</span><span id="Boundary.__init__-1959"><a href="#Boundary.__init__-1959"><span class="linenos">1959</span></a>    <span class="c1"># Already using a custom `__init__`. No need to calculate correct</span>
-</span><span id="Boundary.__init__-1960"><a href="#Boundary.__init__-1960"><span class="linenos">1960</span></a>    <span class="c1"># `__init__` to call. This can lead to RecursionError. See bpo-45121.</span>
-</span><span id="Boundary.__init__-1961"><a href="#Boundary.__init__-1961"><span class="linenos">1961</span></a>    <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="fm">__init__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_no_init_or_replace_init</span><span class="p">:</span>
-</span><span id="Boundary.__init__-1962"><a href="#Boundary.__init__-1962"><span class="linenos">1962</span></a>        <span class="k">return</span>
-</span><span id="Boundary.__init__-1963"><a href="#Boundary.__init__-1963"><span class="linenos">1963</span></a>
-</span><span id="Boundary.__init__-1964"><a href="#Boundary.__init__-1964"><span class="linenos">1964</span></a>    <span class="c1"># Initially, `__init__` of a protocol subclass is set to `_no_init_or_replace_init`.</span>
-</span><span id="Boundary.__init__-1965"><a href="#Boundary.__init__-1965"><span class="linenos">1965</span></a>    <span class="c1"># The first instantiation of the subclass will call `_no_init_or_replace_init` which</span>
-</span><span id="Boundary.__init__-1966"><a href="#Boundary.__init__-1966"><span class="linenos">1966</span></a>    <span class="c1"># searches for a proper new `__init__` in the MRO. The new `__init__`</span>
-</span><span id="Boundary.__init__-1967"><a href="#Boundary.__init__-1967"><span class="linenos">1967</span></a>    <span class="c1"># replaces the subclass&#39; old `__init__` (ie `_no_init_or_replace_init`). Subsequent</span>
-</span><span id="Boundary.__init__-1968"><a href="#Boundary.__init__-1968"><span class="linenos">1968</span></a>    <span class="c1"># instantiation of the protocol subclass will thus use the new</span>
-</span><span id="Boundary.__init__-1969"><a href="#Boundary.__init__-1969"><span class="linenos">1969</span></a>    <span class="c1"># `__init__` and no longer call `_no_init_or_replace_init`.</span>
-</span><span id="Boundary.__init__-1970"><a href="#Boundary.__init__-1970"><span class="linenos">1970</span></a>    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">:</span>
-</span><span id="Boundary.__init__-1971"><a href="#Boundary.__init__-1971"><span class="linenos">1971</span></a>        <span class="n">init</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;__init__&#39;</span><span class="p">,</span> <span class="n">_no_init_or_replace_init</span><span class="p">)</span>
-</span><span id="Boundary.__init__-1972"><a href="#Boundary.__init__-1972"><span class="linenos">1972</span></a>        <span class="k">if</span> <span class="n">init</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_no_init_or_replace_init</span><span class="p">:</span>
-</span><span id="Boundary.__init__-1973"><a href="#Boundary.__init__-1973"><span class="linenos">1973</span></a>            <span class="bp">cls</span><span class="o">.</span><span class="fm">__init__</span> <span class="o">=</span> <span class="n">init</span>
-</span><span id="Boundary.__init__-1974"><a href="#Boundary.__init__-1974"><span class="linenos">1974</span></a>            <span class="k">break</span>
-</span><span id="Boundary.__init__-1975"><a href="#Boundary.__init__-1975"><span class="linenos">1975</span></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="Boundary.__init__-1976"><a href="#Boundary.__init__-1976"><span class="linenos">1976</span></a>        <span class="c1"># should not happen</span>
-</span><span id="Boundary.__init__-1977"><a href="#Boundary.__init__-1977"><span class="linenos">1977</span></a>        <span class="bp">cls</span><span class="o">.</span><span class="fm">__init__</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__init__</span>
-</span><span id="Boundary.__init__-1978"><a href="#Boundary.__init__-1978"><span class="linenos">1978</span></a>
-</span><span id="Boundary.__init__-1979"><a href="#Boundary.__init__-1979"><span class="linenos">1979</span></a>    <span class="bp">cls</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Boundary.__init__-83"><a href="#Boundary.__init__-83"><span class="linenos">83</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="Boundary.__init__-84"><a href="#Boundary.__init__-84"><span class="linenos">84</span></a>                 <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Boundary.__init__-85"><a href="#Boundary.__init__-85"><span class="linenos">85</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+</span><span id="Boundary.__init__-86"><a href="#Boundary.__init__-86"><span class="linenos">86</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+</span><span id="Boundary.__init__-87"><a href="#Boundary.__init__-87"><span class="linenos">87</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
 </span></pre></div>
 
 
@@ -286,14 +718,35 @@ and those behaviors are fully determined by the boundary’s <code>PresenceMatri
 
     </div>
     <a class="headerlink" href="#Boundary.id"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Boundary.id-45"><a href="#Boundary.id-45"><span class="linenos">45</span></a>    <span class="nd">@property</span>
-</span><span id="Boundary.id-46"><a href="#Boundary.id-46"><span class="linenos">46</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Boundary.id-47"><a href="#Boundary.id-47"><span class="linenos">47</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;A stable unique identifier for the element (used for indexing and lookup).&quot;&quot;&quot;</span>
-</span><span id="Boundary.id-48"><a href="#Boundary.id-48"><span class="linenos">48</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Boundary.id-89"><a href="#Boundary.id-89"><span class="linenos">89</span></a>    <span class="nd">@property</span>
+</span><span id="Boundary.id-90"><a href="#Boundary.id-90"><span class="linenos">90</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Boundary.id-91"><a href="#Boundary.id-91"><span class="linenos">91</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>A stable unique identifier for the element (used for indexing and lookup).</p>
+            <div class="docstring"><p>A stable, unique identifier for the element.
+Used for indexing and identity.
+Defaults to a uuid.uuid4().</p>
+</div>
+
+
+                            </div>
+                            <div id="Boundary.name" class="classattr">
+                                        <input id="Boundary.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">name</span><span class="annotation">: str</span>
+
+                <label class="view-source-button" for="Boundary.name-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Boundary.name"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Boundary.name-94"><a href="#Boundary.name-94"><span class="linenos">94</span></a>    <span class="nd">@property</span>
+</span><span id="Boundary.name-95"><a href="#Boundary.name-95"><span class="linenos">95</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Boundary.name-96"><a href="#Boundary.name-96"><span class="linenos">96</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>A user facing name for the element, defaults to the id if None.</p>
 </div>
 
 
@@ -307,17 +760,25 @@ and those behaviors are fully determined by the boundary’s <code>PresenceMatri
 
     </div>
     <a class="headerlink" href="#Boundary.metadata"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Boundary.metadata-50"><a href="#Boundary.metadata-50"><span class="linenos">50</span></a>    <span class="nd">@property</span>
-</span><span id="Boundary.metadata-51"><a href="#Boundary.metadata-51"><span class="linenos">51</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="Boundary.metadata-52"><a href="#Boundary.metadata-52"><span class="linenos">52</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Optional key-value metadata associated with the element.&quot;&quot;&quot;</span>
-</span><span id="Boundary.metadata-53"><a href="#Boundary.metadata-53"><span class="linenos">53</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Boundary.metadata-102"><a href="#Boundary.metadata-102"><span class="linenos">102</span></a>    <span class="nd">@property</span>
+</span><span id="Boundary.metadata-103"><a href="#Boundary.metadata-103"><span class="linenos">103</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="Boundary.metadata-104"><a href="#Boundary.metadata-104"><span class="linenos">104</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Optional key-value metadata associated with the element.</p>
+            <div class="docstring"><p>Optional extensible key-value metadata.</p>
 </div>
 
 
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="#BoundaryMixin">BoundaryMixin</a></dt>
+                                <dd id="Boundary.summary" class="function"><a href="#BoundaryMixin.summary">summary</a></dd>
+
+            </div>
+                                </dl>
                             </div>
                 </section>
     </main>
