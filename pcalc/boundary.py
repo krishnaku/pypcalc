@@ -30,7 +30,6 @@ derived metrics.
 This module contains the contract and implementations for a Boundary.
 """
 
-
 from __future__ import annotations
 
 import uuid
@@ -40,6 +39,7 @@ from typing import Protocol, runtime_checkable, Dict, Any, Optional
 @runtime_checkable
 class BoundaryProtocol(Protocol):
     """The structural contract for a Boundary"""
+
     @property
     def id(self) -> str:
         """
@@ -68,10 +68,12 @@ class BoundaryProtocol(Protocol):
         """
         ...
 
+
 class BoundaryMixin:
     """A mixin class that can be used to inject common shared behavior
         of elements.
     """
+
     def summary(self: BoundaryProtocol) -> str:
         """
         Return a human-readable summary based on id and metadata.
@@ -85,6 +87,9 @@ class BoundaryMixin:
 
 class BoundaryView(BoundaryMixin):
     """A view class that allows domain objects to behave like elements"""
+
+    __slots__ = ("_id", "_name", "_metadata")
+
     def __init__(self, base: BoundaryProtocol):
         self._base = base
 
@@ -103,6 +108,9 @@ class BoundaryView(BoundaryMixin):
 
 class Boundary(BoundaryMixin, BoundaryProtocol):
     """A default implementation of fully functional boundary."""
+
+    __slots__ = ("_id", "_name", "_metadata")
+
     def __init__(self, id: Optional[str] = None, name: Optional[str] = None,
                  metadata: Optional[Dict[str, Any]] = None):
         self._id: str = id or str(uuid.uuid4())

@@ -33,6 +33,7 @@ from __future__ import annotations
 import uuid
 from typing import Protocol, runtime_checkable, Dict, Any, Optional
 
+
 @runtime_checkable
 class ElementProtocol(Protocol):
     """ The structural contract for an element """
@@ -70,6 +71,7 @@ class ElementMixin:
     """A mixin class that can be used to inject common shared behavior
     of elements.
     """
+
     def summary(self: ElementProtocol) -> str:
         """
         Return a human-readable summary based on id and metadata.
@@ -83,6 +85,9 @@ class ElementMixin:
 
 class ElementView(ElementMixin):
     """A view class that allows domain objects to behave like elements"""
+
+    __slots__ = ("_id", "_name", "_metadata")
+
     def __init__(self, base: ElementProtocol):
         self._base = base
 
@@ -102,10 +107,12 @@ class ElementView(ElementMixin):
 class Element(ElementMixin, ElementProtocol):
     """A default implementation of fully functional element."""
 
+    __slots__ = ("_id", "_name", "_metadata")
+
     def __init__(self, id: Optional[str] = None, name: Optional[str] = None, metadata: Optional[Dict[str, Any]] = None):
         self._id: str = id or str(uuid.uuid4())
         self._name: str = name or self.id
-        self._metadata: Dict[str,Any] = metadata or {}
+        self._metadata: Dict[str, Any] = metadata or {}
 
     @property
     def id(self) -> str:
@@ -117,7 +124,7 @@ class Element(ElementMixin, ElementProtocol):
         return self._name
 
     @name.setter
-    def name(self, name:str) -> None:
+    def name(self, name: str) -> None:
         self._name = name
 
     @property
