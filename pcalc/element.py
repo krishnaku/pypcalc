@@ -22,9 +22,7 @@ It is best to think of elements as playing the "thing" role in a presence
 assertion. The same domain entity may appear in both element and boundary
 roles.
 
-Each element requires only a unique identifier, a user-facing name, and
-optional metadata that can be used to filter or aggregate presences and
-derived metrics.
+
 
 This module contains the contract and implementations for an Element.
 """
@@ -36,7 +34,14 @@ from typing import Protocol, runtime_checkable, Dict, Any, Optional
 
 @runtime_checkable
 class ElementProtocol(Protocol):
-    """ The structural contract for an element """
+    """
+    The structural contract for an element
+
+    Each element requires only a unique identifier, a user-facing name, and
+    optional metadata that can be used to filter or aggregate presences and
+    derived metrics.
+    """
+    __init__ = None  # type: ignore
 
     @property
     def id(self) -> str:
@@ -109,6 +114,7 @@ class Element(ElementMixin, ElementProtocol):
 
     __slots__ = ("_id", "_name", "_metadata")
 
+    # noinspection PyProtocol
     def __init__(self, id: Optional[str] = None, name: Optional[str] = None, metadata: Optional[Dict[str, Any]] = None):
         self._id: str = id or str(uuid.uuid4())
         self._name: str = name or self.id

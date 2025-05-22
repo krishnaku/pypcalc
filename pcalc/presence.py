@@ -39,22 +39,8 @@ from .boundary import Boundary
 
 @runtime_checkable
 class PresenceProtocol(Protocol):
-    """
-    A Presence is the foundational assertion in the Presence Calculus. It states
-    that a specific element was continuously present within a specific boundary
-    over a defined time interval.
-
-    Formally, a presence is represented as a 4-tuple:
-
-    $$
-    p = (e, b, t_0, t_1)
-    $$
-
-    where:
-    - $e \in E$ is the element (thing),
-    - $b \in B$ is the boundary (place),
-    - $[t_0, t_1)$ is the half-open interval of presence in time.
-    """
+    """The structural and behavioral contract for a Presence."""
+    __init__ = None  # type: ignore
 
     @property
     def element(self) -> Optional[Element]: ...
