@@ -466,7 +466,7 @@ class PresenceInvariant:
             #Note: here we must explicitly check the un-clipped
             # bin indices, since we are looking for end indices that fall outside the
             # window and even the matrix. So pm.end_bin is not the right test here.
-            and self.ts.bin_index(pm.presence.start) < start_bin
+            and self.ts.bin_index(pm.presence.onset_time) < start_bin
         )
 
     def ending_presence_count(self, start_time: float = None, end_time: float = None) -> int:
@@ -476,11 +476,11 @@ class PresenceInvariant:
         return sum(
             1 for pm in self.presence_map
             if pm.is_active(start_bin, end_bin)
-            and (np.isinf(pm.presence.end) or
+            and (np.isinf(pm.presence.reset_time) or
                  # Note: here we must explicitly check the un-clipped
                  # bin indices, since we are looking for end indices that fall outside the
                  # window and even the matrix. So pm.end_bin is not the right test here.
-                 self.ts.bin_index(pm.presence.end) >= end_bin)
+                 self.ts.bin_index(pm.presence.reset_time) >= end_bin)
         )
 
     def arrival_count(self, start_time: float = None, end_time: float = None) -> int:
@@ -490,7 +490,7 @@ class PresenceInvariant:
 
         return sum(
             1 for pm in self.presence_map
-            if start_bin <= self.ts.bin_index(pm.presence.start) < end_bin
+            if start_bin <= self.ts.bin_index(pm.presence.onset_time) < end_bin
         )
 
     def departure_count(self, start_time: float = None, end_time: float = None) -> int:
@@ -499,9 +499,9 @@ class PresenceInvariant:
 
         return sum(
             1 for pm in self.presence_map
-            if np.isfinite(pm.presence.end)
+            if np.isfinite(pm.presence.reset_time)
             and pm.is_active(start_bin, end_bin)
-            and self.ts.bin_index(pm.presence.end) in range(start_bin, end_bin)
+            and self.ts.bin_index(pm.presence.reset_time) in range(start_bin, end_bin)
         )
 
 

@@ -17,6 +17,42 @@ where:
 - $b \in B$ is the boundary (place),
 - $[t_0, t_1)$ is the half-open interval of presence in time.
 
+A presence can be viewed as a function:
+
+$$
+P: E \\times B \\times \\mathbb{R} \\times \\mathbb{R} \\to \\mathbb{R}
+$$
+
+
+where
+
+
+- $P(e, b, t_0, t_1) = 1$  if $e$ is present in $b$ during $[t_0, t_1)$
+- $P(e, b, t_0, t_1) = 0$  otherwise
+
+### Presence onset and reset
+
+$t_0$ is called the onset time of the presence—the instant at which the
+presence transitions from zero to non-zero. $t_1$ is called the reset time—
+the instant at which the presence transitions back to zero. The presence is *active*
+over the half-open interval $[t_0, t_1)$, meaning it
+includes $t_0$ but excludes $t_1$.
+
+<div style="text-align: center; margin: 2em 0;">
+  <img src="../assets/pcalc/half_open_presence.png" width="400px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 0.5em;">
+    Figure: A presence interval $[t_0, t_1)$ with $t_0$ included (●) and
+    $t_1$ excluded (○).
+  </div>
+</div>
+
+This diagram illustrates a presence assertion over a half-open interval
+$[t_0, t_1)$, where element $e$ is continuously present in boundary $b$
+starting at $t_0$ (included) and ending just before $t_1$ (excluded).
+Time is modeled as a continuous quantity over $\mathbb{R}$.
+
+## Structure
+
 Presence assertions define the structure from which all other constructs in
 Presence Calculus are derived—such as element timelines, flow rates,
 co-presence, accumulations, and topological structures.
@@ -49,17 +85,17 @@ class PresenceProtocol(Protocol):
     def boundary(self) -> Optional[Boundary]: ...
 
     @property
-    def start(self) -> float: ...
+    def onset_time(self) -> float: ...
 
     @property
-    def end(self) -> float: ...
+    def reset_time(self) -> float: ...
 
     @property
     def provenance(self) -> str: ...
 
     def overlaps(self, t0: float, t1: float) -> bool: ...
 
-    def clip(self, t0: float, t1: float) -> Optional[PresenceProtocol]: ...
+
 
     def duration(self) -> float: ...
 
@@ -75,41 +111,24 @@ class PresenceMixin:
     """
 
     def overlaps(self: PresenceProtocol, t0: float, t1: float) -> bool:
-        return self.end > t0 and self.start < t1
+        return self.reset_time > t0 and self.onset_time < t1
 
-    def clip(self: PresenceProtocol, t0: float, t1: float) -> Optional[Presence]:
-        if not self.overlaps(t0, t1):
-            return None
-
-        start = max(self.start, t0)
-        end = min(self.end, t1)
-
-        if start < end:
-            return Presence(
-                element=self.element,
-                boundary=self.boundary,
-                start=start,
-                end=end,
-                provenance=f"clipped from {self}",
-            )
-        else:
-            return EMPTY_PRESENCE
 
     def duration(self: PresenceProtocol) -> float:
-        return max(0.0, self.end - self.start)
+        return max(0.0, self.reset_time - self.onset_time)
 
     def residence_time(self: PresenceProtocol, t0: float, t1: float) -> float:
         if t0 >= t1 or not self.overlaps(t0, t1):
             return 0.0
 
-        start = max(self.start, t0)
-        end = min(self.end, t1)
+        start = max(self.onset_time, t0)
+        end = min(self.reset_time, t1)
         return max(0.0, end - start)
 
     def __str__(self: PresenceProtocol) -> str:
         element_str = str(self.element) if self.element is not None else "None"
         boundary_str = str(self.boundary) if self.boundary is not None else "None"
-        interval_str = f"[{self.start}, {self.end})"
+        interval_str = f"[{self.onset_time}, {self.reset_time})"
         return (
             f"Presence(element={element_str}, boundary={boundary_str}, "
             f"interval={interval_str}, provenance={self.provenance})"
@@ -145,11 +164,11 @@ class Presence(PresenceMixin, PresenceProtocol):
         return self._boundary
 
     @property
-    def start(self) -> float:
+    def onset_time(self) -> float:
         return self._start
 
     @property
-    def end(self) -> float:
+    def reset_time(self) -> float:
         return self._end
 
     @property
@@ -197,11 +216,11 @@ class PresenceView(PresenceMixin, PresenceProtocol):
         return self._boundary
 
     @property
-    def start(self) -> float:
+    def onset_time(self) -> float:
         return self._start
 
     @property
-    def end(self) -> float:
+    def reset_time(self) -> float:
         return self._end
 
     @property

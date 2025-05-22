@@ -60,7 +60,7 @@ class PresenceMap:
 
     @property
     def duration(self) -> float:
-        return self.presence.end - self.presence.start
+        return self.presence.reset_time - self.presence.onset_time
 
 
     def __init__(self, presence: Presence, time_scale: Timescale):
@@ -79,8 +79,8 @@ class PresenceMap:
 
         if presence.overlaps(ts.t0, ts.t1):
             is_mapped = True
-            start_bin, end_bin = ts.bin_slice(presence.start, presence.end)
-            start_value, end_value = self._compute_fractional_values(presence.start, start_bin, presence.end, end_bin)
+            start_bin, end_bin = ts.bin_slice(presence.onset_time, presence.reset_time)
+            start_value, end_value = self._compute_fractional_values(presence.onset_time, start_bin, presence.reset_time, end_bin)
 
         self.is_mapped = is_mapped
         self.start_bin = start_bin
@@ -116,8 +116,8 @@ class PresenceMap:
         start_bin, end_bin = ts.bin_slice(start_time, end_time)
         if self.is_mapped and self.is_active(start_bin, end_bin):
             #  Clip window to actual presence bounds
-            effective_start = max(self.presence.start, start_time)
-            effective_end = min(self.presence.end, end_time)
+            effective_start = max(self.presence.onset_time, start_time)
+            effective_end = min(self.presence.reset_time, end_time)
 
             effective_start_bin, effective_end_bin = ts.bin_slice(effective_start, effective_end)
 

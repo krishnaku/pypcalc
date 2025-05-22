@@ -244,14 +244,14 @@ def test_flow_rate_consistency_with_bin_width(case, start, end):
     departure_count = sum(
         1 for pm in matrix.presence_map
         if pm.is_active(start_bin, end_bin)
-        and not np.isinf(pm.presence.end)
-        and start_bin <= ts.bin_index(pm.presence.end) < end_bin
+        and not np.isinf(pm.presence.reset_time)
+        and start_bin <= ts.bin_index(pm.presence.reset_time) < end_bin
     )
 
     end_count = sum(
         1 for pm in matrix.presence_map
         if pm.is_active(start_bin, end_bin)
-        and (np.isinf(pm.presence.end) or ts.bin_index(pm.presence.end) >= end_bin)
+        and (np.isinf(pm.presence.reset_time) or ts.bin_index(pm.presence.reset_time) >= end_bin)
     )
 
     lhs = start_count + arrival_count

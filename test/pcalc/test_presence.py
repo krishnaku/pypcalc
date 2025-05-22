@@ -18,18 +18,6 @@ def test_overlap_false():
     assert p.overlaps(5.0, 6.0) is False
     assert p.overlaps(0.0, 1.0) is False
 
-def test_clip_overlap():
-    p = Presence("x", Boundary(), 1.0, 5.0)
-    clipped = p.clip(2.0, 4.0)
-    assert clipped is not None
-    assert clipped.start == 2.0
-    assert clipped.end == 4.0
-    assert "clipped from" in clipped.provenance
-
-def test_clip_no_overlap():
-    p = Presence("x", Boundary(), 1.0, 5.0)
-    clipped = p.clip(5.0, 6.0)
-    assert clipped is None
 
 def test_duration():
     p = Presence("x", Boundary(), 1.0, 4.0)

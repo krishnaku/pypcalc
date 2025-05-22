@@ -112,7 +112,7 @@ def test_fractional_row_sum_consistency(materialize):
     p = Presence(boundary=dummy_boundary, element=Element(), start=1.25, end=3.75)
     matrix = PresenceMatrix([p], time_scale=ts, materialize=materialize)
     row_sum = matrix[0].sum()
-    assert abs(row_sum - (p.end - p.start)) < 1e-6
+    assert abs(row_sum - (p.reset_time - p.onset_time)) < 1e-6
 
 @pytest.mark.parametrize("materialize", [True, False])
 def test_getitem_row_access(materialize):
