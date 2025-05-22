@@ -4,28 +4,31 @@
 
 """
 #The Presence Calculus Toolkit
-© 2025 Krishna Kumar
+© 2025 Dr. Krishna Kumar
 SPDX-License-Identifier: MIT
+
+## Introduction
 
 The Presence Calculus provides a mathematical formalism for reasoning about
 the relationship between *things* and *places* over *time*.
 
-It begins with a [*Presence*](./pcalc/presence.html)—an assertion that a
-particular [*Element*](./pcalc/element.html) (thing) was continuously present
-within a [*Boundary*](./pcalc/boundary.html) (place) over a continuous interval
-of time.
+It begins with a [*Presence*](./pcalc/presence.html)—an *assertion* that a
+particular [*Element*](./pcalc/element.html) (thing) was *continuously* present
+within a [*Boundary*](./pcalc/boundary.html) (place) over an interval
+of *time*.
 
 Given a set of presence assertions over a defined domain of elements and
-boundaries, the presence calculus constructs rigorous tools for analyzing
-element timelines and trajectories, presence-induced boundary topologies, and the
-effects of co-presence - simultaneous element presence within and across
+boundaries, the presence calculus provides rigorously defined  primitives and constructs
+for analyzing element timelines and trajectories, presence-induced topologies, and the
+effects of co-presence - simultaneous element presence - within and across
 boundaries.
 
-Further, by extending the notion of presences to *functions over presences*, we introduce
-a powerful mechanism for reasoning about the *effects* of presence—enabling
-reasoning about concepts such as the time value and option value of presence.
+Further, by extending the notion of presences to *functions over presences*, it gives
+a general mechanism for representing the *effects* of presence, This helps
+model concepts such impact, delays, cost, revenues, user experience etc, as well
+as reason rigorously about concepts like time value, delayed value and option value of presence.
 
-These techniques apply consistently across a wide range of systems, including
+These techniques can be applied consistently across a wide range of systems, including
 stochastic, non-linear, adaptive, and complex systems.
 
 <div style="text-align: center; margin:2em">
@@ -35,35 +38,53 @@ stochastic, non-linear, adaptive, and complex systems.
   </div>
 </div>
 
-The presence calculus lies at the intersection of stochastic process dynamics,
-queueing theory, topology, and complex systems science—yet remains
-philosophically distinct from each of them. It allows to connect these fields while
-re-framing their perspectives through the common epistemic lens of presence.
-
-The foundational concepts of the presence calculus allow us to precisely *define*  derived
-concepts like flow, stability, equilibrium, and coherence in these domains—and
-relate them to practically useful measures such as delay, cost, revenue, and
-user experience when mapped back into the semantics of the underlying domain being modeled.
-
+## Motivation
 Our main goal in developing the presence calculus is to provide better tools
 for rigorous modeling and principled decision-making using messy, real-world data.
+Our focus is on ensuring that the way data is used in those decisions rests on a
+linguistically precise, logically sound and mathematically grounded foundation.
 
-We are less concerned with what decisions to make or prescribing *how* to make decisions.
-Rather, our focus is on ensuring that the way data is used in those decisions rests on a
-linguistically precise, logically sound and mathematically defensible foundation.
+The world of measurement, particularly in messy, complex, real-world contexts, is sorely lacking in all these
+three areas, and the presence calculus evolved from a search for better solutions here.
 
+The presence calculus builds on ideas from stochastic process dynamics,
+queueing theory, topology, and complex systems science—yet remains
+philosophically distinct from each of them. It allows us to connect these fields while
+re-framing their perspectives through the common epistemic lens of presence.
 
+The foundational concepts of Presence Calculus allow us to *define*
+derived notions such as flow, stability, equilibrium, and coherence precisely, and to
+relate them to practically useful measures like delay, cost, revenue, and user
+experience when interpreted within the semantics of the domain being modeled.
+
+In messy real-world domains, relationships between elements, boundaries, flows, and
+effects often emerge from complex, higher-dimensional interactions among
+many parameters. These patterns are often more amenable to machine analysis
+in high-dimensional representations than through the simplified, low-dimensional
+models we typically use to make decisions.
+
+The Presence Calculus provides a precise and structured way to build such
+representations—grounded in simple, declarative models of presence.
+
+Although we will motivate most ideas we introduce with real-world decision
+problems, we are less focused on *what* decisions to make or prescribing *how* to make decisions.
+
+This is the application domain for the presence calculus. We believe it is vast and
+hope to make it accessible for more people to build applications without requiring a deep
+understanding of the underlying mathematics.
 
 ## The Toolkit
 
-The Presence Calculus Toolkit is a
-minimal, computationally efficient implementation of the core concepts and
+The Presence Calculus Toolkit is a computationally efficient implementation of the core concepts and
 calculations in Presence Calculus.
 
 This `pcalc` module in particular, is an elementary and accessible entry point to some of the more abstract
-concepts in the presence calculus. It is a precise, computational formulation of the calculus
-capable of powering real-time analysis and simulation of complex systems. If you are more comfortable
-reading code rather than mathematical notation, this is a better entry point for you.
+concepts in the presence calculus. It is a computational model for the calculus
+capable of powering real-time analysis and simulation of complex systems.
+
+If you are more comfortable learning by
+reading code and implementing models rather than reading mathematical notation or prose, this is a better entry point
+to the presence calculus for you.
 
 The module is designed as a lightweight, easy-to-integrate analytical
 middleware library that connects real-time event streams, simulation models,
@@ -72,8 +93,7 @@ visualization and analysis tools.
 
 While we provide several examples of end-to-end integrations, the library is
 open source under the MIT license, and you are encouraged to create models and
-applications—both commercial and non-commercial—that apply the concepts of
-the presence calculus.
+applications—both commercial and non-commercial—that build on the concepts.
 
 The presence calculus builds on an intuitive and elementary foundation, even as
 it remains mathematically rigorous. I believe the space of potential
@@ -93,3 +113,13 @@ from .presence_matrix import PresenceMatrix
 from .time_scale import Timescale
 from .presence_map import PresenceMap
 from .presence_invariant import PresenceInvariant
+
+__all__ = [
+    "element",
+    "boundary",
+    "presence",
+    "time_scale",
+    "presence_map",
+    "presence_matrix",
+    "presence_invariant",
+]
