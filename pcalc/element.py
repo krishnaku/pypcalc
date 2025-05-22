@@ -1,19 +1,35 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2025 Krishna Kumar
 # SPDX-License-Identifier: MIT
+"""
+An *Element* is a thing in the domain—typically a noun, and the subject of
+presence assertions.
 
+The presence calculus is agnostic to the nature of
+elements, treating them as opaque members of a set
+$$E = \\\{ e_1, e_2, \dots, e_n \\\} $$
+
+In general, there are no constraints on what an element can be—it depends
+entirely on what you choose to model using presence assertions.
+
+Examples of elements include actors and
+resources in an actor domain, messages and signals in a communications domain,
+or customers and sales orders in a business domain.
+
+Each element requires only
+a unique identifier, a user-facing name, and optional metadata that can be
+used to filter or aggregate presences and derived metrics. This module contains the
+contract and implementations for an Element.
+"""
 from __future__ import annotations
 
 import uuid
 from typing import Protocol, runtime_checkable, Dict, Any, Optional
 
-
-# ----------------------------------------
-# Protocol: structural contract
-# ----------------------------------------
-
 @runtime_checkable
 class ElementProtocol(Protocol):
+    """ The structural contract for an element """
+
     @property
     def id(self) -> str:
         """
@@ -43,11 +59,10 @@ class ElementProtocol(Protocol):
         ...
 
 
-# ----------------------------------------
-# Mixin: shared logic for any compatible class
-# ----------------------------------------
-
 class ElementMixin:
+    """A mixin class that can be used to inject common shared behavior
+    of elements.
+    """
     def summary(self: ElementProtocol) -> str:
         """
         Return a human-readable summary based on id and metadata.
@@ -59,11 +74,8 @@ class ElementMixin:
         return f"Element[{self.id}] name = {self.name} {{{formatted}}}"
 
 
-# ----------------------------------------
-# View: wrap arbitrary duck-typed objects
-# ----------------------------------------
-
 class ElementView(ElementMixin):
+    """A view class that allows domain objects to behave like elements"""
     def __init__(self, base: ElementProtocol):
         self._base = base
 
@@ -80,10 +92,8 @@ class ElementView(ElementMixin):
         return self._base.metadata
 
 
-# ----------------------------------------
-# Default implementation
-# ----------------------------------------
 class Element(ElementMixin, ElementProtocol):
+    """A default implementation of fully functional element."""
 
     def __init__(self, id: Optional[str] = None, name: Optional[str] = None, metadata: Optional[Dict[str, Any]] = None):
         self._id: str = id or str(uuid.uuid4())

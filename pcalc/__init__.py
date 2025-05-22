@@ -25,7 +25,7 @@ boundaries.
 
 Further, by extending the notion of presences to *functions over presences*, it gives
 a general mechanism for representing the *effects* of presence, This helps
-model concepts such impact, delays, cost, revenues, user experience etc, as well
+model concepts such value, impact, delays, cost, revenues, user experience etc, as well
 as reason rigorously about concepts like time value, delayed value and option value of presence.
 
 These techniques can be applied consistently across a wide range of systems, including
@@ -61,16 +61,14 @@ In messy real-world domains, relationships between elements, boundaries, flows, 
 effects often emerge from complex, higher-dimensional interactions among
 many parameters. These patterns are often more amenable to machine analysis
 in high-dimensional representations than through the simplified, low-dimensional
-models we typically use to make decisions.
-
-The Presence Calculus provides a precise and structured way to build such
-representations—grounded in simple, declarative models of presence.
+models we typically use to make decisions. The presence calculus provides a precise and structured way to
+build such representations starting from simple, declarative models of presence.
 
 Although we will motivate most ideas we introduce with real-world decision
-problems, we are less focused on *what* decisions to make or prescribing *how* to make decisions.
+problems, we are less focused on *what* decisions to make or prescribing *how* to make decisions. This is the
+ application domain for the presence calculus.
 
-This is the application domain for the presence calculus. We believe it is vast and
-hope to make it accessible for more people to build applications without requiring a deep
+ We believe it is vast and hope to make it accessible for more people to build applications without requiring a deep
 understanding of the underlying mathematics.
 
 ## The Toolkit
