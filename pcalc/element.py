@@ -5,24 +5,28 @@
 An *Element* is a thing in the domain—typically a noun, and the subject of
 presence assertions.
 
-The presence calculus is agnostic to the nature of
-elements, treating them as opaque members of a set of entities in some underlying domain $D$
+The Presence Calculus is agnostic to the nature of elements, treating them as
+opaque members of a set of entities in some underlying domain $D$:
 
-$$E = \\\{ e_1, e_2, \dots, e_n \\\} \subset D $$
+$$
+E = \\\{ e_1, e_2, \dots, e_n \\\} \subset D
+$$
 
-Examples of elements include actors and
-actants in an actor domain, processing units in a process domain, messages and signals in a communications domain,
-or customers and sales orders in a business domain.
+Examples of elements include actors and actants in an actor domain,
+processing units in a process domain, messages and signals in a communications
+domain, or customers and sales orders in a business domain.
 
 In general, there are no constraints on what an element can be—it depends
-entirely on what you choose to model as presence assertions over $D$. It is best to
-think of elements as playing the "thing" role in a presence assertion.
-The same domain entity may appear in both element and boundary roles in presence assertions over a given domain.
+entirely on what you choose to model with presence assertions over $D$.
+It is best to think of elements as playing the "thing" role in a presence
+assertion. The same domain entity may appear in both element and boundary
+roles.
 
-Each element requires only
-a unique identifier, a user-facing name, and optional metadata that can be
-used to filter or aggregate presences and derived metrics. This module contains the
-contract and implementations for an Element.
+Each element requires only a unique identifier, a user-facing name, and
+optional metadata that can be used to filter or aggregate presences and
+derived metrics.
+
+This module contains the contract and implementations for an Element.
 """
 from __future__ import annotations
 

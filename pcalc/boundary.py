@@ -2,27 +2,34 @@
 # Copyright (c) 2025 Krishna Kumar
 # SPDX-License-Identifier: MIT
 """
-A *Boundary* represents a place, defined region, location or container for elements in the domain.
-It is best thought of as an abstract context for a presence assertion.
+A *Boundary* is a place, defined region, location, or container for elements in
+the domain. It is best thought of as an abstract context for a presence
+assertion.
 
-As with elements, The presence calculus is agnostic to the nature of
-boundaries, treating them as opaque members of a set of entities in some underlying domain $D$
-$$B = \\\{ b_1, b_2, \dots, b_n \\\} \subset D$$
+The Presence Calculus is agnostic to the nature of boundaries, treating them as
+opaque members of a set of entities in some underlying domain $D$:
 
-Examples of boundaries include physical locations or organizational units or roles in a business domain,
- process states in process domain, communication channels in a messaging domain, and
- actors or actants in an actor domain.
+$$
+B = \\\{ b_1, b_2, \dots, b_n \\\} \subset D
+$$
+
+Examples of boundaries include physical locations or organizational units in a
+business domain, process states in a process domain, communication channels in
+a messaging domain, or actors and actants in an actor domain.
 
 In general, there are no constraints on what a boundary can be—it depends
-entirely on what you choose to model with presence assertions over the domain $D$. It is best to
-think of boundaries as playing the "place" role in a presence assertion.
-The same domain entity may appear in both element and boundary roles in presence assertions.
+entirely on what you choose to model with presence assertions over $D$.
+It is best to think of boundaries as playing the "place" role in a presence
+assertion. The same domain entity may appear in both boundary and element
+roles.
 
-A boundary requires only
-a unique identifier, a user-facing name, and optional metadata that can be
-used to filter or aggregate presences and derived metrics. This module contains the
-contract and implementations for a Boundary.
+Each boundary requires only a unique identifier, a user-facing name, and
+optional metadata that can be used to filter or aggregate presences and
+derived metrics.
+
+This module contains the contract and implementations for a Boundary.
 """
+
 
 from __future__ import annotations
 
