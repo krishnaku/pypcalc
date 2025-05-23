@@ -50,6 +50,7 @@
     <li><a href="#introduction">Introduction</a></li>
     <li><a href="#motivation">Motivation</a></li>
     <li><a href="#the-toolkit">The Toolkit</a></li>
+    <li><a href="#reading-these-docs">Reading these docs</a></li>
   </ul></li>
 </ul>
 
@@ -156,20 +157,26 @@ calculations in Presence Calculus.</p>
 
 <p>This <code><a href="">pcalc</a></code> module in particular, is an elementary and accessible entry point to some of the more abstract
 concepts in the presence calculus. It is a computational model for the calculus
-capable of powering real-time analysis and simulation of complex systems.</p>
+capable of powering real-time analysis and simulation of complex systems. The module is designed as a lightweight,
+easy-to-integrate analytical middleware library that connects real-time event streams, simulation models,
+and static datasets from a domain to rich visualization and analysis tools.</p>
 
-<p>If you are more comfortable learning by
-reading code and implementing models rather than reading mathematical notation or prose, this is a better entry point
-to the presence calculus for you.</p>
-
-<p>The module is designed as a lightweight, easy-to-integrate analytical
-middleware library that connects real-time event streams, simulation models,
-and static datasets from a domain to rich
-visualization and analysis tools.</p>
-
-<p>While we provide several examples of end-to-end integrations, the library is
+<p>While we'll provide several examples of end-to-end integrations, the library is
 open source under the MIT license, and you are encouraged to create models and
 applications—both commercial and non-commercial—that build on the concepts.</p>
+
+<p>If you are comfortable learning by
+reading code and implementing models and don't mind just a tiny bit of
+formal mathematical notation, this is a better entry point to the presence calculus for you.</p>
+
+<p>More background and general, informal discussion around these topics
+can be found on <a href="https://wwww.polaris-flow-dispatch.com">The Polaris Flow Dispatch.</a></p>
+
+<h2 id="reading-these-docs">Reading these docs</h2>
+
+<p>The documentation is organized so that you can get a very good idea of the
+scope of the presence calculus and it's implementation by reading the
+topics in the order listed on the left hand menu.</p>
 
 <p>The presence calculus builds on an intuitive and elementary foundation, even as
 it remains mathematically rigorous. We believe the space of potential
@@ -265,47 +272,56 @@ have questions or would like to collaborate.</p>
 </span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>
 </span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a><span class="sd">This `pcalc` module in particular, is an elementary and accessible entry point to some of the more abstract</span>
 </span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a><span class="sd">concepts in the presence calculus. It is a computational model for the calculus</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a><span class="sd">capable of powering real-time analysis and simulation of complex systems.</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>
-</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="sd">If you are more comfortable learning by</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a><span class="sd">reading code and implementing models rather than reading mathematical notation or prose, this is a better entry point</span>
-</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="sd">to the presence calculus for you.</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a>
-</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="sd">The module is designed as a lightweight, easy-to-integrate analytical</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="sd">middleware library that connects real-time event streams, simulation models,</span>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="sd">and static datasets from a domain to rich</span>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="sd">visualization and analysis tools.</span>
-</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>
-</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="sd">While we provide several examples of end-to-end integrations, the library is</span>
-</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">open source under the MIT license, and you are encouraged to create models and</span>
-</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a><span class="sd">applications—both commercial and non-commercial—that build on the concepts.</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a><span class="sd">capable of powering real-time analysis and simulation of complex systems. The module is designed as a lightweight,</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a><span class="sd">easy-to-integrate analytical middleware library that connects real-time event streams, simulation models,</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="sd">and static datasets from a domain to rich visualization and analysis tools.</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="sd">While we&#39;ll provide several examples of end-to-end integrations, the library is</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">open source under the MIT license, and you are encouraged to create models and</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="sd">applications—both commercial and non-commercial—that build on the concepts.</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="sd">If you are comfortable learning by</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="sd">reading code and implementing models and don&#39;t mind just a tiny bit of</span>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="sd">formal mathematical notation, this is a better entry point to the presence calculus for you.</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">More background and general, informal discussion around these topics</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a><span class="sd">can be found on [The Polaris Flow Dispatch.](https://wwww.polaris-flow-dispatch.com)</span>
 </span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>
-</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="sd">The presence calculus builds on an intuitive and elementary foundation, even as</span>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a><span class="sd">it remains mathematically rigorous. We believe the space of potential</span>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a><span class="sd">applications is vast, and invite you to explore it—and to reach out if you</span>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a><span class="sd">have questions or would like to collaborate.</span>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>
-</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a><span class="sd">[Dr. Krishna Kumar](https://www.linkedin.com/in/krishnaku1/),</span>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="sd">&lt;br&gt; [The Polaris Advisor Program](https://github.com/polarisadvisor)</span>
-</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>
-</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="sd">## Reading these docs</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a><span class="sd">The documentation is organized so that you can get a very good idea of the</span>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a><span class="sd">scope of the presence calculus and it&#39;s implementation by reading the</span>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="sd">topics in the order listed on the left hand menu.</span>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="sd">The presence calculus builds on an intuitive and elementary foundation, even as</span>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="sd">it remains mathematically rigorous. We believe the space of potential</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="sd">applications is vast, and invite you to explore it—and to reach out if you</span>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="sd">have questions or would like to collaborate.</span>
 </span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>
-</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Presence</span>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_matrix</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMatrix</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_scale</span><span class="w"> </span><span class="kn">import</span> <span class="n">Timescale</span>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMap</span>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_invariant</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceInvariant</span>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a><span class="sd">[Dr. Krishna Kumar](https://www.linkedin.com/in/krishnaku1/),</span>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="sd">&lt;br&gt; [The Polaris Advisor Program](https://github.com/polarisadvisor)</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>
 </span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>    <span class="s2">&quot;entity&quot;</span><span class="p">,</span>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>    <span class="s2">&quot;presence&quot;</span><span class="p">,</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>    <span class="s2">&quot;time_scale&quot;</span><span class="p">,</span>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="s2">&quot;presence_map&quot;</span><span class="p">,</span>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>    <span class="s2">&quot;presence_matrix&quot;</span><span class="p">,</span>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="s2">&quot;presence_invariant&quot;</span><span class="p">,</span>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="p">]</span>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Presence</span>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_matrix</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMatrix</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_scale</span><span class="w"> </span><span class="kn">import</span> <span class="n">Timescale</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMap</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_invariant</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceInvariant</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>    <span class="s2">&quot;entity&quot;</span><span class="p">,</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>    <span class="s2">&quot;presence&quot;</span><span class="p">,</span>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>    <span class="s2">&quot;time_scale&quot;</span><span class="p">,</span>
+</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>    <span class="s2">&quot;presence_map&quot;</span><span class="p">,</span>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>    <span class="s2">&quot;presence_matrix&quot;</span><span class="p">,</span>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>    <span class="s2">&quot;presence_invariant&quot;</span><span class="p">,</span>
+</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a><span class="p">]</span>
 </span></pre></div>
 
 

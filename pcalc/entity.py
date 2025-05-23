@@ -9,17 +9,15 @@ defined domain $D$ with its own structure, topologies, constraints, and
 semantics. While these aspects of the domain influence the kinds of presence
 assertions that can be expressed over it, the presence calculus itself is domain-agnostic.
 
-It is solely concerned with presence assertions over the domain, which are
+It is solely concerned with [presence assertions](./presence.html) over the domain, which are
 assumed as given, and the derived constructs and calculations thereof under
 the calculus.
 
-The connection between the domain and the calculus is established via the
-`EntityProtocol`, which declares the minimal contract a member of the domain
-$D$ must satisfy in order to participate in presence assertions over $D$.
+A [presence assertion](./presence.html)  is a statement of the form "an element was present
+in a boundary from time $t_0$ to $t_1$."
 
-Since a [presence assertion](./presence.html)  is a statement of the form "an element was present
-in a boundary from time $t_0$ to $t_1$", it is useful to think of Elements ($E$)
-and Boundaries ($B$) as distinguished subsets of a shared domain of entities:
+It is useful to distinguish Elements ($E$)
+and Boundaries ($B$) as subsets of the domain $D$:
 
 - Some entities act as "things" that are present (Elements).
 - Others act as "places" or contexts in which presence occurs (Boundaries).
@@ -41,8 +39,8 @@ presence assertions under analysis.
 - In traffic network, the locations and
 road segments of the road network might be natural boundaries and vehicles might be elements.
 
-- In a business value network, the roles in the network would be natural boundaries and value exchanges
-between the roles would be natural elements.
+- In a business value network, the participants in the network would be natural boundaries and value exchanges
+between the participants would be natural elements.
 
 - In a customer relationship management context, the boundaries might be customer segments and elements might be customers
 or prospects.
@@ -51,17 +49,31 @@ or prospects.
 
 - In an organizational design context, the organization units might be the boundaries and the elements might be job functions.
 
-Please note that these are illustrative examples.
+- In a software development context, a boundary might be code branch and an element might be a code change.
+
+Please note that these are illustrative examples there may be other choices that can be made even in these same domains.
 
 In general, you are free to model elements and boundaries as you wish, provided that
 there are meaningful domain semantics you can assign to a statement
-like "An element was in a boundary from time $t_0$ to $t_1$".
+like "An element was in a boundary from time $t_0$ to $t_1$" that are preserved under the
+presence calculus.
 
-## Structure
+Indeed, the utility of the calculus only extends as far as one can
+make inferences using the machinery of the calculus that have useful semantics when mapped back into the
+domain $D$.
 
-This module defines the minimal contract and implementation required for an
-Entity to participate in a presence assertion, either as an Element or as
-a Boundary.
+Therefore, modeling choices are critical.
+
+## Entity Module
+
+The connection between the domain and the calculus is established via the
+`EntityProtocol`, which declares the minimal contract a domain entity in
+$D$ must satisfy in order to participate in presence assertions over $D$ as an
+element or a boundary.
+
+The remaining classes in the module are various utility classes that are provided
+to simplify integrating a domain model to the presence calculus.
+
 """
 from __future__ import annotations
 
@@ -77,9 +89,10 @@ class EntityProtocol(Protocol):
     Each entity requires only a unique identifier, a user-facing name.
 
     Optional metadata may be provided and exposes specific attributes of the domain
-    entities that are relevant to the *interpreting* the results of analyzing presence.
+    entities that are relevant when interpreting or manipulating the results
+    of an analysis using the machinery of the calculus.
 
-    They are not necessary for any of the core calculations or results of the calculus.
+    See `Entity` for an example of a concrete implementation.
     """
     __init__ = None  # type: ignore
 
@@ -129,7 +142,41 @@ class EntityMixin:
 
 
 class EntityView(EntityMixin):
-    """A view class that allows domain objects to behave like entities"""
+    """
+    A view class that allows domain objects to behave like entities
+
+    ```python
+    class Customer:
+        def __init__(self, id, name, segment):
+            self._id = id
+            self._name = name
+            self._segment = segment
+
+        @property
+        def id(self):
+            return self._id
+
+        @property
+        def name(self):
+            return self._name
+
+        @property
+        def metadata(self):
+            return {"segment": self._segment}
+    ```
+
+    You can wrap it with `EntityView` to use it with presence-related infrastructure:
+
+    ```python
+    customer = Customer("cust-001", "Alice Chen", "Enterprise")
+    entity = EntityView(customer)
+
+    print(entity.id)        # cust-001
+    print(entity.name)      # Alice Chen
+    print(entity.metadata)  # {'segment': 'Enterprise'}
+    print(entity.summary()) # Element[cust-001] name = Alice Chen {segment='Enterprise'}
+    ```
+    """
 
     __slots__ = ("_id", "_name", "_metadata")
 
@@ -150,8 +197,28 @@ class EntityView(EntityMixin):
 
 
 class Entity(EntityMixin, EntityProtocol):
-    """A default implementation of fully functional element."""
+    """A default implementation of fully functional entity.
 
+    ```python
+    elements = [
+        Entity(id="cust-001", name="Alice Chen", metadata={"type": "customer"}),
+        Entity(id="cust-002", name="Bob Gupta", metadata={"type": "customer"}),
+        Entity(id="pros-003", name="Dana Rivera", metadata={"type": "prospect"}),
+    ]
+    boundaries = [
+        Entity(id="seg-enterprise", name="Enterprise Segment", metadata={"region": "NA"}),
+        Entity(id="seg-smb", name="SMB Segment", metadata={"region": "EMEA"}),
+        Entity(id="seg-dormant", name="Flight Risk", metadata={"status": "inactive", "last login": "2024-06-01"}),
+        Entity(id="seg-prospect", name="Active Prospects", metadata={"status": "demo given"})
+    ]
+
+    for e in elements:
+        print(f"Element: {e.summary()}")
+
+    for b in boundaries:
+        print(f"Boundary: {b.summary()}")
+    ```
+    """
     __slots__ = ("_id", "_name", "_metadata")
 
     # noinspection PyProtocol

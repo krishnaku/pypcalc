@@ -79,25 +79,34 @@ calculations in Presence Calculus.
 
 This `pcalc` module in particular, is an elementary and accessible entry point to some of the more abstract
 concepts in the presence calculus. It is a computational model for the calculus
-capable of powering real-time analysis and simulation of complex systems.
+capable of powering real-time analysis and simulation of complex systems. The module is designed as a lightweight,
+easy-to-integrate analytical middleware library that connects real-time event streams, simulation models,
+and static datasets from a domain to rich visualization and analysis tools.
 
-If you are more comfortable learning by
-reading code and implementing models rather than reading mathematical notation or prose, this is a better entry point
-to the presence calculus for you.
-
-The module is designed as a lightweight, easy-to-integrate analytical
-middleware library that connects real-time event streams, simulation models,
-and static datasets from a domain to rich
-visualization and analysis tools.
-
-While we provide several examples of end-to-end integrations, the library is
+While we'll provide several examples of end-to-end integrations, the library is
 open source under the MIT license, and you are encouraged to create models and
 applications—both commercial and non-commercial—that build on the concepts.
+
+If you are comfortable learning by
+reading code and implementing models and don't mind just a tiny bit of
+formal mathematical notation, this is a better entry point to the presence calculus for you.
+
+More background and general, informal discussion around these topics
+can be found on [The Polaris Flow Dispatch.](https://wwww.polaris-flow-dispatch.com)
+
+## Reading these docs
+
+The documentation is organized so that you can get a very good idea of the
+scope of the presence calculus and it's implementation by reading the
+topics in the order listed on the left hand menu.
 
 The presence calculus builds on an intuitive and elementary foundation, even as
 it remains mathematically rigorous. We believe the space of potential
 applications is vast, and invite you to explore it—and to reach out if you
 have questions or would like to collaborate.
+
+
+
 
 [Dr. Krishna Kumar](https://www.linkedin.com/in/krishnaku1/),
 <br> [The Polaris Advisor Program](https://github.com/polarisadvisor)
