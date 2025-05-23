@@ -70,7 +70,7 @@ from __future__ import annotations
 from typing import Optional, Protocol, runtime_checkable
 import numpy as np
 from .element import Element
-from .boundary import Boundary
+
 
 
 @runtime_checkable
@@ -82,7 +82,7 @@ class PresenceProtocol(Protocol):
     def element(self) -> Optional[Element]: ...
 
     @property
-    def boundary(self) -> Optional[Boundary]: ...
+    def boundary(self) -> Optional[Element]: ...
 
     @property
     def onset_time(self) -> float: ...
@@ -144,7 +144,7 @@ class Presence(PresenceMixin, PresenceProtocol):
     def __init__(
             self,
             element: Optional[Element],
-            boundary: Optional[Boundary],
+            boundary: Optional[Element],
             start: float,
             end: float,
             provenance: str = "observed",
@@ -160,7 +160,7 @@ class Presence(PresenceMixin, PresenceProtocol):
         return self._element
 
     @property
-    def boundary(self) -> Optional[Boundary]:
+    def boundary(self) -> Optional[Element]:
         return self._boundary
 
     @property
@@ -185,7 +185,7 @@ class PresenceView(PresenceMixin, PresenceProtocol):
     __slots__ = ("_element", "_boundary", "_start", "_end", "_provenance")
 
     _element: Optional[Element]
-    _boundary: Optional[Boundary]
+    _boundary: Optional[Element]
     _start: float
     _end: float
     _provenance: str
@@ -193,7 +193,7 @@ class PresenceView(PresenceMixin, PresenceProtocol):
     def __init__(
             self,
             element: Optional[Element],
-            boundary: Optional[Boundary],
+            boundary: Optional[Element],
             start: float,
             end: float,
             provenance: str = "observed",
@@ -212,7 +212,7 @@ class PresenceView(PresenceMixin, PresenceProtocol):
         return self._element
 
     @property
-    def boundary(self) -> Optional[Boundary]:
+    def boundary(self) -> Optional[Element]:
         return self._boundary
 
     @property

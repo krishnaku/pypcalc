@@ -5,10 +5,10 @@
 import numpy as np
 import pytest
 
-from pcalc import Boundary, Presence, PresenceMap, PresenceMatrix, Timescale, Element
+from pcalc import Presence, PresenceMap, PresenceMatrix, Timescale, Element
 
 
-dummy_boundary = Boundary()
+dummy_boundary = Element()
 
 presences = [
     Presence(boundary=dummy_boundary, element=Element(), start=0.0, end=2.0),

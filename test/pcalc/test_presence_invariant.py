@@ -6,10 +6,10 @@
 import numpy as np
 import pytest
 
-from pcalc import Timescale, Presence, PresenceMatrix, PresenceInvariant, Element, Boundary
+from pcalc import Timescale, Presence, PresenceMatrix, PresenceInvariant, Element, Element
 
 
-dummy = Boundary()
+dummy = Element()
 
 
 def make_presences():
