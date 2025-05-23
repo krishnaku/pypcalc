@@ -2,29 +2,66 @@
 # Copyright (c) 2025 Krishna Kumar
 # SPDX-License-Identifier: MIT
 """
-An *Element* is a thing in the domain—typically a noun, and the subject of
-presence assertions.
+## Introduction
 
-The Presence Calculus is agnostic to the nature of elements, treating them as
-opaque members of a set of entities in some underlying domain $D$:
+In the Presence Calculus, we assume that we are operating over some externally
+defined domain $D$ with its own structure, topologies, constraints, and
+semantics. While these aspects of the domain influence the kinds of presence
+assertions that can be expressed over it, the presence calculus itself is domain-agnostic.
+
+It is solely concerned with presence assertions over the domain, which are
+assumed as given, and the derived constructs and calculations thereof under
+the calculus.
+
+The connection between the domain and the calculus is established via the
+`EntityProtocol`, which declares the minimal contract a member of the domain
+$D$ must satisfy in order to participate in presence assertions over $D$.
+
+Since a [presence assertion](./presence.html)  is a statement of the form "an element was present
+in a boundary from time $t_0$ to $t_1$", it is useful to think of Elements ($E$)
+and Boundaries ($B$) as distinguished subsets of a shared domain of entities:
+
+- Some entities act as "things" that are present (Elements).
+- Others act as "places" or contexts in which presence occurs (Boundaries).
 
 $$
-E = \\\{ e_1, e_2, \dots, e_n \\\} \subset D
+E = \{ e_1, e_2, \dots, e_n \} \subset D
 $$
 
-Examples of elements include actors and actants in an actor domain,
-processing units in a process domain, messages and signals in a communications
-domain, or customers and sales orders in a business domain.
+$$
+B = \{ b_1, b_2, \dots, b_m \} \subset D
+$$
 
-In general, there are no constraints on what an element can be—it depends
-entirely on what you choose to model with presence assertions over $D$.
-It is best to think of elements as playing the "thing" role in a presence
-assertion. The same domain entity may appear in both element and boundary
-roles.
+There are no constraints on what an element or boundary can be. These roles
+are application-defined, context-dependent, and scoped to a particular set of
+presence assertions under analysis.
 
+## Examples
 
+- In traffic network, the locations and
+road segments of the road network might be natural boundaries and vehicles might be elements.
 
-This module contains the contract and implementations for an Element.
+- In a business value network, the roles in the network would be natural boundaries and value exchanges
+between the roles would be natural elements.
+
+- In a customer relationship management context, the boundaries might be customer segments and elements might be customers
+or prospects.
+
+- In a process management context, the boundaries might be process states and the elements might be processing items.
+
+- In an organizational design context, the organization units might be the boundaries and the elements might be job functions.
+
+Please note that these are illustrative examples.
+
+In general, you are free to model elements and boundaries as you wish, provided that
+there are meaningful domain semantics you can assign to a statement
+like "An element was in a boundary from time $t_0$ to $t_1$".
+
+## Structure
+
+This module defines the minimal contract and implementation required for an
+Entity to participate in a presence assertion, either as an Element or as
+a Boundary.
 """
 from __future__ import annotations
 
@@ -35,18 +72,21 @@ from typing import Protocol, runtime_checkable, Dict, Any, Optional
 @runtime_checkable
 class EntityProtocol(Protocol):
     """
-    The structural contract for an element
+    The interface contract for a domain entity to participate in a presence assertion.
 
-    Each element requires only a unique identifier, a user-facing name, and
-    optional metadata that can be used to filter or aggregate presences and
-    derived metrics.
+    Each entity requires only a unique identifier, a user-facing name.
+
+    Optional metadata may be provided and exposes specific attributes of the domain
+    entities that are relevant to the *interpreting* the results of analyzing presence.
+
+    They are not necessary for any of the core calculations or results of the calculus.
     """
     __init__ = None  # type: ignore
 
     @property
     def id(self) -> str:
         """
-        A stable, unique identifier for the element.
+        A stable, unique identifier for the entity.
         Used for indexing and identity.
         Defaults to a uuid.uuid4().
         """
@@ -55,7 +95,7 @@ class EntityProtocol(Protocol):
     @property
     def name(self) -> str:
         """
-        A user facing name for the element, defaults to the id if None.
+        A user facing name for the entity, defaults to the id if None.
         """
         ...
 
@@ -74,7 +114,7 @@ class EntityProtocol(Protocol):
 
 class EntityMixin:
     """A mixin class that can be used to inject common shared behavior
-    of elements.
+    of objects satisfying the EntityProtocol  into existing domain entities.
     """
 
     def summary(self: EntityProtocol) -> str:
@@ -89,7 +129,7 @@ class EntityMixin:
 
 
 class EntityView(EntityMixin):
-    """A view class that allows domain objects to behave like elements"""
+    """A view class that allows domain objects to behave like entities"""
 
     __slots__ = ("_id", "_name", "_metadata")
 

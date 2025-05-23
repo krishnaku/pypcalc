@@ -13,13 +13,14 @@ The Presence Calculus provides a mathematical formalism for reasoning about
 the relationship between *things* and *places* over *time*.
 
 It begins with a [*Presence*](./pcalc/presence.html)—an *assertion* that a
-particular [*Element*](./pcalc/element.html) (thing) was *continuously* present
-within a [*Boundary*](./pcalc/boundary.html) (place) over an interval
-of *time*.
+particular *Element* (thing) was *continuously* present
+within a *Boundary* (place) over an interval
+of *time*. Both Elements and Boundaries come from some underlying domain $D$
+that we are studying.
 
-Given a set of presence assertions over a defined domain of elements and
-boundaries, the presence calculus provides rigorously defined  primitives and constructs
-for analyzing element timelines and trajectories, presence-induced topologies, and the
+Given a set of presence assertions over a domain $D$, the presence calculus provides
+rigorously defined  primitives and constructs for analyzing element timelines and trajectories,
+presence-induced topologies on $D$, and the
 effects of co-presence - simultaneous element presence - within and across
 boundaries.
 
@@ -28,7 +29,7 @@ a general mechanism for representing the *effects* of presence, This helps
 model concepts such value, impact, delays, cost, revenues, user experience etc, as well
 as reason rigorously about concepts like time value, delayed value and option value of presence.
 
-These techniques can be applied consistently across a wide range of systems, including
+These techniques can be applied consistently across a wide range of domains, including
 stochastic, non-linear, adaptive, and complex systems.
 
 <div style="text-align: center; margin:2em">
@@ -40,11 +41,11 @@ stochastic, non-linear, adaptive, and complex systems.
 
 ## Motivation
 Our main goal in developing the presence calculus is to provide better tools
-for rigorous modeling and principled decision-making using messy, real-world data.
+for rigorous modeling and principled decision-making in messy, real-world domains.
 Our focus is on ensuring that the way data is used in those decisions rests on a
 linguistically precise, logically sound and mathematically grounded foundation.
 
-The world of measurement, particularly in messy, complex, real-world contexts, is sorely lacking in all these
+The world of measurement, particularly in messy, complex, real-world domains, is sorely lacking in all these
 three areas, and the presence calculus evolved from a search for better solutions here.
 
 The presence calculus builds on ideas from stochastic process dynamics,
@@ -86,7 +87,7 @@ to the presence calculus for you.
 
 The module is designed as a lightweight, easy-to-integrate analytical
 middleware library that connects real-time event streams, simulation models,
-and static datasets (from which presence assertions can be inferred) to rich
+and static datasets from a domain to rich
 visualization and analysis tools.
 
 While we provide several examples of end-to-end integrations, the library is
@@ -94,8 +95,8 @@ open source under the MIT license, and you are encouraged to create models and
 applications—both commercial and non-commercial—that build on the concepts.
 
 The presence calculus builds on an intuitive and elementary foundation, even as
-it remains mathematically rigorous. I believe the space of potential
-applications is vast, and I invite you to explore it—and to reach out if you
+it remains mathematically rigorous. We believe the space of potential
+applications is vast, and invite you to explore it—and to reach out if you
 have questions or would like to collaborate.
 
 [Dr. Krishna Kumar](https://www.linkedin.com/in/krishnaku1/),
@@ -112,7 +113,7 @@ from .presence_map import PresenceMap
 from .presence_invariant import PresenceInvariant
 
 __all__ = [
-    "entity.py",
+    "entity",
     "presence",
     "time_scale",
     "presence_map",
