@@ -69,7 +69,7 @@ presence calculus
 from __future__ import annotations
 from typing import Optional, Protocol, runtime_checkable
 import numpy as np
-from .element import Element
+from .entity import EntityProtocol
 
 
 
@@ -79,10 +79,10 @@ class PresenceProtocol(Protocol):
     __init__ = None  # type: ignore
 
     @property
-    def element(self) -> Optional[Element]: ...
+    def element(self) -> Optional[EntityProtocol]: ...
 
     @property
-    def boundary(self) -> Optional[Element]: ...
+    def boundary(self) -> Optional[EntityProtocol]: ...
 
     @property
     def onset_time(self) -> float: ...
@@ -143,8 +143,8 @@ class Presence(PresenceMixin, PresenceProtocol):
 
     def __init__(
             self,
-            element: Optional[Element],
-            boundary: Optional[Element],
+            element: Optional[EntityProtocol],
+            boundary: Optional[EntityProtocol],
             start: float,
             end: float,
             provenance: str = "observed",
@@ -156,11 +156,11 @@ class Presence(PresenceMixin, PresenceProtocol):
         self._provenance = provenance
 
     @property
-    def element(self) -> Optional[Element]:
+    def element(self) -> Optional[EntityProtocol]:
         return self._element
 
     @property
-    def boundary(self) -> Optional[Element]:
+    def boundary(self) -> Optional[EntityProtocol]:
         return self._boundary
 
     @property
@@ -184,16 +184,16 @@ class PresenceView(PresenceMixin, PresenceProtocol):
 
     __slots__ = ("_element", "_boundary", "_start", "_end", "_provenance")
 
-    _element: Optional[Element]
-    _boundary: Optional[Element]
+    _element: Optional[EntityProtocol]
+    _boundary: Optional[EntityProtocol]
     _start: float
     _end: float
     _provenance: str
 
     def __init__(
             self,
-            element: Optional[Element],
-            boundary: Optional[Element],
+            element: Optional[EntityProtocol],
+            boundary: Optional[EntityProtocol],
             start: float,
             end: float,
             provenance: str = "observed",
@@ -208,11 +208,11 @@ class PresenceView(PresenceMixin, PresenceProtocol):
         raise AttributeError("PresenceView is immutable.")
 
     @property
-    def element(self) -> Optional[Element]:
+    def element(self) -> Optional[EntityProtocol]:
         return self._element
 
     @property
-    def boundary(self) -> Optional[Element]:
+    def boundary(self) -> Optional[EntityProtocol]:
         return self._boundary
 
     @property

@@ -53,61 +53,61 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
-                    <a class="class" href="#ElementProtocol">ElementProtocol</a>
+                    <a class="class" href="#EntityProtocol">EntityProtocol</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="variable" href="#ElementProtocol.id">id</a>
+                                <a class="variable" href="#EntityProtocol.id">id</a>
                         </li>
                         <li>
-                                <a class="variable" href="#ElementProtocol.name">name</a>
+                                <a class="variable" href="#EntityProtocol.name">name</a>
                         </li>
                         <li>
-                                <a class="variable" href="#ElementProtocol.metadata">metadata</a>
+                                <a class="variable" href="#EntityProtocol.metadata">metadata</a>
                         </li>
                 </ul>
 
             </li>
             <li>
-                    <a class="class" href="#ElementMixin">ElementMixin</a>
+                    <a class="class" href="#EntityMixin">EntityMixin</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#ElementMixin.summary">summary</a>
+                                <a class="function" href="#EntityMixin.summary">summary</a>
                         </li>
                 </ul>
 
             </li>
             <li>
-                    <a class="class" href="#ElementView">ElementView</a>
+                    <a class="class" href="#EntityView">EntityView</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#ElementView.__init__">ElementView</a>
+                                <a class="function" href="#EntityView.__init__">EntityView</a>
                         </li>
                         <li>
-                                <a class="variable" href="#ElementView.id">id</a>
+                                <a class="variable" href="#EntityView.id">id</a>
                         </li>
                         <li>
-                                <a class="variable" href="#ElementView.name">name</a>
+                                <a class="variable" href="#EntityView.name">name</a>
                         </li>
                         <li>
-                                <a class="variable" href="#ElementView.metadata">metadata</a>
+                                <a class="variable" href="#EntityView.metadata">metadata</a>
                         </li>
                 </ul>
 
             </li>
             <li>
-                    <a class="class" href="#Element">Element</a>
+                    <a class="class" href="#Entity">Entity</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#Element.__init__">Element</a>
+                                <a class="function" href="#Entity.__init__">Entity</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Element.id">id</a>
+                                <a class="variable" href="#Entity.id">id</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Element.name">name</a>
+                                <a class="variable" href="#Entity.name">name</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Element.metadata">metadata</a>
+                                <a class="variable" href="#Entity.metadata">metadata</a>
                         </li>
                 </ul>
 
@@ -190,7 +190,7 @@ roles.</p>
 </span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>
 </span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>
 </span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="nd">@runtime_checkable</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ElementProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
 </span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">    The structural contract for an element</span>
 </span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a>
@@ -229,12 +229,12 @@ roles.</p>
 </span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>        <span class="o">...</span>
 </span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>
 </span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>
-</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ElementMixin</span><span class="p">:</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityMixin</span><span class="p">:</span>
 </span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A mixin class that can be used to inject common shared behavior</span>
 </span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a><span class="sd">    of elements.</span>
 </span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>
-</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ElementProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
 </span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a><span class="sd">        &quot;&quot;&quot;</span>
@@ -245,12 +245,12 @@ roles.</p>
 </span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
 </span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>
 </span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ElementView</span><span class="p">(</span><span class="n">ElementMixin</span><span class="p">):</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityView</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">):</span>
 </span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A view class that allows domain objects to behave like elements&quot;&quot;&quot;</span>
 </span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>
 </span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
 </span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>
-</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">ElementProtocol</span><span class="p">):</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">):</span>
 </span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
 </span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>
 </span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>    <span class="nd">@property</span>
@@ -266,7 +266,7 @@ roles.</p>
 </span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
 </span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>
 </span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Element</span><span class="p">(</span><span class="n">ElementMixin</span><span class="p">,</span> <span class="n">ElementProtocol</span><span class="p">):</span>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Entity</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">,</span> <span class="n">EntityProtocol</span><span class="p">):</span>
 </span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A default implementation of fully functional element.&quot;&quot;&quot;</span>
 </span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>
 </span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
@@ -300,56 +300,56 @@ roles.</p>
 
 
             </section>
-                <section id="ElementProtocol">
-                            <input id="ElementProtocol-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                <section id="EntityProtocol">
+                            <input id="EntityProtocol-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
                     <div class="decorator decorator-runtime_checkable">@runtime_checkable</div>
 
     <span class="def">class</span>
-    <span class="name">ElementProtocol</span><wbr>(<span class="base">typing.Protocol</span>):
+    <span class="name">EntityProtocol</span><wbr>(<span class="base">typing.Protocol</span>):
 
-                <label class="view-source-button" for="ElementProtocol-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="EntityProtocol-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#ElementProtocol"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ElementProtocol-36"><a href="#ElementProtocol-36"><span class="linenos">36</span></a><span class="nd">@runtime_checkable</span>
-</span><span id="ElementProtocol-37"><a href="#ElementProtocol-37"><span class="linenos">37</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ElementProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-</span><span id="ElementProtocol-38"><a href="#ElementProtocol-38"><span class="linenos">38</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="ElementProtocol-39"><a href="#ElementProtocol-39"><span class="linenos">39</span></a><span class="sd">    The structural contract for an element</span>
-</span><span id="ElementProtocol-40"><a href="#ElementProtocol-40"><span class="linenos">40</span></a>
-</span><span id="ElementProtocol-41"><a href="#ElementProtocol-41"><span class="linenos">41</span></a><span class="sd">    Each element requires only a unique identifier, a user-facing name, and</span>
-</span><span id="ElementProtocol-42"><a href="#ElementProtocol-42"><span class="linenos">42</span></a><span class="sd">    optional metadata that can be used to filter or aggregate presences and</span>
-</span><span id="ElementProtocol-43"><a href="#ElementProtocol-43"><span class="linenos">43</span></a><span class="sd">    derived metrics.</span>
-</span><span id="ElementProtocol-44"><a href="#ElementProtocol-44"><span class="linenos">44</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="ElementProtocol-45"><a href="#ElementProtocol-45"><span class="linenos">45</span></a>    <span class="fm">__init__</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
-</span><span id="ElementProtocol-46"><a href="#ElementProtocol-46"><span class="linenos">46</span></a>
-</span><span id="ElementProtocol-47"><a href="#ElementProtocol-47"><span class="linenos">47</span></a>    <span class="nd">@property</span>
-</span><span id="ElementProtocol-48"><a href="#ElementProtocol-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="ElementProtocol-49"><a href="#ElementProtocol-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="ElementProtocol-50"><a href="#ElementProtocol-50"><span class="linenos">50</span></a><span class="sd">        A stable, unique identifier for the element.</span>
-</span><span id="ElementProtocol-51"><a href="#ElementProtocol-51"><span class="linenos">51</span></a><span class="sd">        Used for indexing and identity.</span>
-</span><span id="ElementProtocol-52"><a href="#ElementProtocol-52"><span class="linenos">52</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
-</span><span id="ElementProtocol-53"><a href="#ElementProtocol-53"><span class="linenos">53</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="ElementProtocol-54"><a href="#ElementProtocol-54"><span class="linenos">54</span></a>        <span class="o">...</span>
-</span><span id="ElementProtocol-55"><a href="#ElementProtocol-55"><span class="linenos">55</span></a>
-</span><span id="ElementProtocol-56"><a href="#ElementProtocol-56"><span class="linenos">56</span></a>    <span class="nd">@property</span>
-</span><span id="ElementProtocol-57"><a href="#ElementProtocol-57"><span class="linenos">57</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="ElementProtocol-58"><a href="#ElementProtocol-58"><span class="linenos">58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="ElementProtocol-59"><a href="#ElementProtocol-59"><span class="linenos">59</span></a><span class="sd">        A user facing name for the element, defaults to the id if None.</span>
-</span><span id="ElementProtocol-60"><a href="#ElementProtocol-60"><span class="linenos">60</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="ElementProtocol-61"><a href="#ElementProtocol-61"><span class="linenos">61</span></a>        <span class="o">...</span>
-</span><span id="ElementProtocol-62"><a href="#ElementProtocol-62"><span class="linenos">62</span></a>
-</span><span id="ElementProtocol-63"><a href="#ElementProtocol-63"><span class="linenos">63</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-</span><span id="ElementProtocol-64"><a href="#ElementProtocol-64"><span class="linenos">64</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="ElementProtocol-65"><a href="#ElementProtocol-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Setter for name&quot;&quot;&quot;</span>
-</span><span id="ElementProtocol-66"><a href="#ElementProtocol-66"><span class="linenos">66</span></a>        <span class="o">...</span>
-</span><span id="ElementProtocol-67"><a href="#ElementProtocol-67"><span class="linenos">67</span></a>
-</span><span id="ElementProtocol-68"><a href="#ElementProtocol-68"><span class="linenos">68</span></a>    <span class="nd">@property</span>
-</span><span id="ElementProtocol-69"><a href="#ElementProtocol-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="ElementProtocol-70"><a href="#ElementProtocol-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="ElementProtocol-71"><a href="#ElementProtocol-71"><span class="linenos">71</span></a><span class="sd">        Optional extensible key-value metadata.</span>
-</span><span id="ElementProtocol-72"><a href="#ElementProtocol-72"><span class="linenos">72</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="ElementProtocol-73"><a href="#ElementProtocol-73"><span class="linenos">73</span></a>        <span class="o">...</span>
+    <a class="headerlink" href="#EntityProtocol"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol-36"><a href="#EntityProtocol-36"><span class="linenos">36</span></a><span class="nd">@runtime_checkable</span>
+</span><span id="EntityProtocol-37"><a href="#EntityProtocol-37"><span class="linenos">37</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span><span id="EntityProtocol-38"><a href="#EntityProtocol-38"><span class="linenos">38</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-39"><a href="#EntityProtocol-39"><span class="linenos">39</span></a><span class="sd">    The structural contract for an element</span>
+</span><span id="EntityProtocol-40"><a href="#EntityProtocol-40"><span class="linenos">40</span></a>
+</span><span id="EntityProtocol-41"><a href="#EntityProtocol-41"><span class="linenos">41</span></a><span class="sd">    Each element requires only a unique identifier, a user-facing name, and</span>
+</span><span id="EntityProtocol-42"><a href="#EntityProtocol-42"><span class="linenos">42</span></a><span class="sd">    optional metadata that can be used to filter or aggregate presences and</span>
+</span><span id="EntityProtocol-43"><a href="#EntityProtocol-43"><span class="linenos">43</span></a><span class="sd">    derived metrics.</span>
+</span><span id="EntityProtocol-44"><a href="#EntityProtocol-44"><span class="linenos">44</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-45"><a href="#EntityProtocol-45"><span class="linenos">45</span></a>    <span class="fm">__init__</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
+</span><span id="EntityProtocol-46"><a href="#EntityProtocol-46"><span class="linenos">46</span></a>
+</span><span id="EntityProtocol-47"><a href="#EntityProtocol-47"><span class="linenos">47</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol-48"><a href="#EntityProtocol-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol-49"><a href="#EntityProtocol-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-50"><a href="#EntityProtocol-50"><span class="linenos">50</span></a><span class="sd">        A stable, unique identifier for the element.</span>
+</span><span id="EntityProtocol-51"><a href="#EntityProtocol-51"><span class="linenos">51</span></a><span class="sd">        Used for indexing and identity.</span>
+</span><span id="EntityProtocol-52"><a href="#EntityProtocol-52"><span class="linenos">52</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
+</span><span id="EntityProtocol-53"><a href="#EntityProtocol-53"><span class="linenos">53</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-54"><a href="#EntityProtocol-54"><span class="linenos">54</span></a>        <span class="o">...</span>
+</span><span id="EntityProtocol-55"><a href="#EntityProtocol-55"><span class="linenos">55</span></a>
+</span><span id="EntityProtocol-56"><a href="#EntityProtocol-56"><span class="linenos">56</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol-57"><a href="#EntityProtocol-57"><span class="linenos">57</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol-58"><a href="#EntityProtocol-58"><span class="linenos">58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-59"><a href="#EntityProtocol-59"><span class="linenos">59</span></a><span class="sd">        A user facing name for the element, defaults to the id if None.</span>
+</span><span id="EntityProtocol-60"><a href="#EntityProtocol-60"><span class="linenos">60</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-61"><a href="#EntityProtocol-61"><span class="linenos">61</span></a>        <span class="o">...</span>
+</span><span id="EntityProtocol-62"><a href="#EntityProtocol-62"><span class="linenos">62</span></a>
+</span><span id="EntityProtocol-63"><a href="#EntityProtocol-63"><span class="linenos">63</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="EntityProtocol-64"><a href="#EntityProtocol-64"><span class="linenos">64</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="EntityProtocol-65"><a href="#EntityProtocol-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Setter for name&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-66"><a href="#EntityProtocol-66"><span class="linenos">66</span></a>        <span class="o">...</span>
+</span><span id="EntityProtocol-67"><a href="#EntityProtocol-67"><span class="linenos">67</span></a>
+</span><span id="EntityProtocol-68"><a href="#EntityProtocol-68"><span class="linenos">68</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol-69"><a href="#EntityProtocol-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="EntityProtocol-70"><a href="#EntityProtocol-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-71"><a href="#EntityProtocol-71"><span class="linenos">71</span></a><span class="sd">        Optional extensible key-value metadata.</span>
+</span><span id="EntityProtocol-72"><a href="#EntityProtocol-72"><span class="linenos">72</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-73"><a href="#EntityProtocol-73"><span class="linenos">73</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -361,23 +361,23 @@ derived metrics.</p>
 </div>
 
 
-                            <div id="ElementProtocol.id" class="classattr">
-                                        <input id="ElementProtocol.id-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="EntityProtocol.id" class="classattr">
+                                        <input id="EntityProtocol.id-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
             <span class="name">id</span><span class="annotation">: str</span>
 
-                <label class="view-source-button" for="ElementProtocol.id-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="EntityProtocol.id-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#ElementProtocol.id"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ElementProtocol.id-47"><a href="#ElementProtocol.id-47"><span class="linenos">47</span></a>    <span class="nd">@property</span>
-</span><span id="ElementProtocol.id-48"><a href="#ElementProtocol.id-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="ElementProtocol.id-49"><a href="#ElementProtocol.id-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="ElementProtocol.id-50"><a href="#ElementProtocol.id-50"><span class="linenos">50</span></a><span class="sd">        A stable, unique identifier for the element.</span>
-</span><span id="ElementProtocol.id-51"><a href="#ElementProtocol.id-51"><span class="linenos">51</span></a><span class="sd">        Used for indexing and identity.</span>
-</span><span id="ElementProtocol.id-52"><a href="#ElementProtocol.id-52"><span class="linenos">52</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
-</span><span id="ElementProtocol.id-53"><a href="#ElementProtocol.id-53"><span class="linenos">53</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="ElementProtocol.id-54"><a href="#ElementProtocol.id-54"><span class="linenos">54</span></a>        <span class="o">...</span>
+    <a class="headerlink" href="#EntityProtocol.id"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.id-47"><a href="#EntityProtocol.id-47"><span class="linenos">47</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol.id-48"><a href="#EntityProtocol.id-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol.id-49"><a href="#EntityProtocol.id-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.id-50"><a href="#EntityProtocol.id-50"><span class="linenos">50</span></a><span class="sd">        A stable, unique identifier for the element.</span>
+</span><span id="EntityProtocol.id-51"><a href="#EntityProtocol.id-51"><span class="linenos">51</span></a><span class="sd">        Used for indexing and identity.</span>
+</span><span id="EntityProtocol.id-52"><a href="#EntityProtocol.id-52"><span class="linenos">52</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
+</span><span id="EntityProtocol.id-53"><a href="#EntityProtocol.id-53"><span class="linenos">53</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.id-54"><a href="#EntityProtocol.id-54"><span class="linenos">54</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -388,21 +388,21 @@ Defaults to a uuid.uuid4().</p>
 
 
                             </div>
-                            <div id="ElementProtocol.name" class="classattr">
-                                        <input id="ElementProtocol.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="EntityProtocol.name" class="classattr">
+                                        <input id="EntityProtocol.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
             <span class="name">name</span><span class="annotation">: str</span>
 
-                <label class="view-source-button" for="ElementProtocol.name-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="EntityProtocol.name-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#ElementProtocol.name"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ElementProtocol.name-56"><a href="#ElementProtocol.name-56"><span class="linenos">56</span></a>    <span class="nd">@property</span>
-</span><span id="ElementProtocol.name-57"><a href="#ElementProtocol.name-57"><span class="linenos">57</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="ElementProtocol.name-58"><a href="#ElementProtocol.name-58"><span class="linenos">58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="ElementProtocol.name-59"><a href="#ElementProtocol.name-59"><span class="linenos">59</span></a><span class="sd">        A user facing name for the element, defaults to the id if None.</span>
-</span><span id="ElementProtocol.name-60"><a href="#ElementProtocol.name-60"><span class="linenos">60</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="ElementProtocol.name-61"><a href="#ElementProtocol.name-61"><span class="linenos">61</span></a>        <span class="o">...</span>
+    <a class="headerlink" href="#EntityProtocol.name"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.name-56"><a href="#EntityProtocol.name-56"><span class="linenos">56</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol.name-57"><a href="#EntityProtocol.name-57"><span class="linenos">57</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol.name-58"><a href="#EntityProtocol.name-58"><span class="linenos">58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.name-59"><a href="#EntityProtocol.name-59"><span class="linenos">59</span></a><span class="sd">        A user facing name for the element, defaults to the id if None.</span>
+</span><span id="EntityProtocol.name-60"><a href="#EntityProtocol.name-60"><span class="linenos">60</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.name-61"><a href="#EntityProtocol.name-61"><span class="linenos">61</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -411,21 +411,21 @@ Defaults to a uuid.uuid4().</p>
 
 
                             </div>
-                            <div id="ElementProtocol.metadata" class="classattr">
-                                        <input id="ElementProtocol.metadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="EntityProtocol.metadata" class="classattr">
+                                        <input id="EntityProtocol.metadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
             <span class="name">metadata</span><span class="annotation">: Dict[str, Any]</span>
 
-                <label class="view-source-button" for="ElementProtocol.metadata-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="EntityProtocol.metadata-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#ElementProtocol.metadata"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ElementProtocol.metadata-68"><a href="#ElementProtocol.metadata-68"><span class="linenos">68</span></a>    <span class="nd">@property</span>
-</span><span id="ElementProtocol.metadata-69"><a href="#ElementProtocol.metadata-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="ElementProtocol.metadata-70"><a href="#ElementProtocol.metadata-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="ElementProtocol.metadata-71"><a href="#ElementProtocol.metadata-71"><span class="linenos">71</span></a><span class="sd">        Optional extensible key-value metadata.</span>
-</span><span id="ElementProtocol.metadata-72"><a href="#ElementProtocol.metadata-72"><span class="linenos">72</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="ElementProtocol.metadata-73"><a href="#ElementProtocol.metadata-73"><span class="linenos">73</span></a>        <span class="o">...</span>
+    <a class="headerlink" href="#EntityProtocol.metadata"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.metadata-68"><a href="#EntityProtocol.metadata-68"><span class="linenos">68</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol.metadata-69"><a href="#EntityProtocol.metadata-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="EntityProtocol.metadata-70"><a href="#EntityProtocol.metadata-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.metadata-71"><a href="#EntityProtocol.metadata-71"><span class="linenos">71</span></a><span class="sd">        Optional extensible key-value metadata.</span>
+</span><span id="EntityProtocol.metadata-72"><a href="#EntityProtocol.metadata-72"><span class="linenos">72</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.metadata-73"><a href="#EntityProtocol.metadata-73"><span class="linenos">73</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -435,31 +435,31 @@ Defaults to a uuid.uuid4().</p>
 
                             </div>
                 </section>
-                <section id="ElementMixin">
-                            <input id="ElementMixin-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                <section id="EntityMixin">
+                            <input id="EntityMixin-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">ElementMixin</span>:
+    <span class="name">EntityMixin</span>:
 
-                <label class="view-source-button" for="ElementMixin-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="EntityMixin-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#ElementMixin"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ElementMixin-76"><a href="#ElementMixin-76"><span class="linenos">76</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ElementMixin</span><span class="p">:</span>
-</span><span id="ElementMixin-77"><a href="#ElementMixin-77"><span class="linenos">77</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A mixin class that can be used to inject common shared behavior</span>
-</span><span id="ElementMixin-78"><a href="#ElementMixin-78"><span class="linenos">78</span></a><span class="sd">    of elements.</span>
-</span><span id="ElementMixin-79"><a href="#ElementMixin-79"><span class="linenos">79</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="ElementMixin-80"><a href="#ElementMixin-80"><span class="linenos">80</span></a>
-</span><span id="ElementMixin-81"><a href="#ElementMixin-81"><span class="linenos">81</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ElementProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="ElementMixin-82"><a href="#ElementMixin-82"><span class="linenos">82</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="ElementMixin-83"><a href="#ElementMixin-83"><span class="linenos">83</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
-</span><span id="ElementMixin-84"><a href="#ElementMixin-84"><span class="linenos">84</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="ElementMixin-85"><a href="#ElementMixin-85"><span class="linenos">85</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
-</span><span id="ElementMixin-86"><a href="#ElementMixin-86"><span class="linenos">86</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
-</span><span id="ElementMixin-87"><a href="#ElementMixin-87"><span class="linenos">87</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
-</span><span id="ElementMixin-88"><a href="#ElementMixin-88"><span class="linenos">88</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-</span><span id="ElementMixin-89"><a href="#ElementMixin-89"><span class="linenos">89</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+    <a class="headerlink" href="#EntityMixin"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityMixin-76"><a href="#EntityMixin-76"><span class="linenos">76</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityMixin</span><span class="p">:</span>
+</span><span id="EntityMixin-77"><a href="#EntityMixin-77"><span class="linenos">77</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A mixin class that can be used to inject common shared behavior</span>
+</span><span id="EntityMixin-78"><a href="#EntityMixin-78"><span class="linenos">78</span></a><span class="sd">    of elements.</span>
+</span><span id="EntityMixin-79"><a href="#EntityMixin-79"><span class="linenos">79</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="EntityMixin-80"><a href="#EntityMixin-80"><span class="linenos">80</span></a>
+</span><span id="EntityMixin-81"><a href="#EntityMixin-81"><span class="linenos">81</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityMixin-82"><a href="#EntityMixin-82"><span class="linenos">82</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityMixin-83"><a href="#EntityMixin-83"><span class="linenos">83</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
+</span><span id="EntityMixin-84"><a href="#EntityMixin-84"><span class="linenos">84</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityMixin-85"><a href="#EntityMixin-85"><span class="linenos">85</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="EntityMixin-86"><a href="#EntityMixin-86"><span class="linenos">86</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
+</span><span id="EntityMixin-87"><a href="#EntityMixin-87"><span class="linenos">87</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
+</span><span id="EntityMixin-88"><a href="#EntityMixin-88"><span class="linenos">88</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</span><span id="EntityMixin-89"><a href="#EntityMixin-89"><span class="linenos">89</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
 </span></pre></div>
 
 
@@ -468,26 +468,26 @@ of elements.</p>
 </div>
 
 
-                            <div id="ElementMixin.summary" class="classattr">
-                                        <input id="ElementMixin.summary-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="EntityMixin.summary" class="classattr">
+                                        <input id="EntityMixin.summary-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">summary</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span><span class="p">:</span> <span class="n"><a href="#ElementProtocol">ElementProtocol</a></span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+        <span class="name">summary</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span><span class="p">:</span> <span class="n"><a href="#EntityProtocol">EntityProtocol</a></span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
 
-                <label class="view-source-button" for="ElementMixin.summary-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="EntityMixin.summary-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#ElementMixin.summary"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ElementMixin.summary-81"><a href="#ElementMixin.summary-81"><span class="linenos">81</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ElementProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="ElementMixin.summary-82"><a href="#ElementMixin.summary-82"><span class="linenos">82</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="ElementMixin.summary-83"><a href="#ElementMixin.summary-83"><span class="linenos">83</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
-</span><span id="ElementMixin.summary-84"><a href="#ElementMixin.summary-84"><span class="linenos">84</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="ElementMixin.summary-85"><a href="#ElementMixin.summary-85"><span class="linenos">85</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
-</span><span id="ElementMixin.summary-86"><a href="#ElementMixin.summary-86"><span class="linenos">86</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
-</span><span id="ElementMixin.summary-87"><a href="#ElementMixin.summary-87"><span class="linenos">87</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
-</span><span id="ElementMixin.summary-88"><a href="#ElementMixin.summary-88"><span class="linenos">88</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-</span><span id="ElementMixin.summary-89"><a href="#ElementMixin.summary-89"><span class="linenos">89</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+    <a class="headerlink" href="#EntityMixin.summary"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityMixin.summary-81"><a href="#EntityMixin.summary-81"><span class="linenos">81</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityMixin.summary-82"><a href="#EntityMixin.summary-82"><span class="linenos">82</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityMixin.summary-83"><a href="#EntityMixin.summary-83"><span class="linenos">83</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
+</span><span id="EntityMixin.summary-84"><a href="#EntityMixin.summary-84"><span class="linenos">84</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityMixin.summary-85"><a href="#EntityMixin.summary-85"><span class="linenos">85</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="EntityMixin.summary-86"><a href="#EntityMixin.summary-86"><span class="linenos">86</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
+</span><span id="EntityMixin.summary-87"><a href="#EntityMixin.summary-87"><span class="linenos">87</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
+</span><span id="EntityMixin.summary-88"><a href="#EntityMixin.summary-88"><span class="linenos">88</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</span><span id="EntityMixin.summary-89"><a href="#EntityMixin.summary-89"><span class="linenos">89</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
 </span></pre></div>
 
 
@@ -497,36 +497,36 @@ of elements.</p>
 
                             </div>
                 </section>
-                <section id="ElementView">
-                            <input id="ElementView-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                <section id="EntityView">
+                            <input id="EntityView-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">ElementView</span><wbr>(<span class="base"><a href="#ElementMixin">ElementMixin</a></span>):
+    <span class="name">EntityView</span><wbr>(<span class="base"><a href="#EntityMixin">EntityMixin</a></span>):
 
-                <label class="view-source-button" for="ElementView-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="EntityView-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#ElementView"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ElementView-92"><a href="#ElementView-92"><span class="linenos"> 92</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ElementView</span><span class="p">(</span><span class="n">ElementMixin</span><span class="p">):</span>
-</span><span id="ElementView-93"><a href="#ElementView-93"><span class="linenos"> 93</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A view class that allows domain objects to behave like elements&quot;&quot;&quot;</span>
-</span><span id="ElementView-94"><a href="#ElementView-94"><span class="linenos"> 94</span></a>
-</span><span id="ElementView-95"><a href="#ElementView-95"><span class="linenos"> 95</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
-</span><span id="ElementView-96"><a href="#ElementView-96"><span class="linenos"> 96</span></a>
-</span><span id="ElementView-97"><a href="#ElementView-97"><span class="linenos"> 97</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">ElementProtocol</span><span class="p">):</span>
-</span><span id="ElementView-98"><a href="#ElementView-98"><span class="linenos"> 98</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
-</span><span id="ElementView-99"><a href="#ElementView-99"><span class="linenos"> 99</span></a>
-</span><span id="ElementView-100"><a href="#ElementView-100"><span class="linenos">100</span></a>    <span class="nd">@property</span>
-</span><span id="ElementView-101"><a href="#ElementView-101"><span class="linenos">101</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="ElementView-102"><a href="#ElementView-102"><span class="linenos">102</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
-</span><span id="ElementView-103"><a href="#ElementView-103"><span class="linenos">103</span></a>
-</span><span id="ElementView-104"><a href="#ElementView-104"><span class="linenos">104</span></a>    <span class="nd">@property</span>
-</span><span id="ElementView-105"><a href="#ElementView-105"><span class="linenos">105</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="ElementView-106"><a href="#ElementView-106"><span class="linenos">106</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
-</span><span id="ElementView-107"><a href="#ElementView-107"><span class="linenos">107</span></a>
-</span><span id="ElementView-108"><a href="#ElementView-108"><span class="linenos">108</span></a>    <span class="nd">@property</span>
-</span><span id="ElementView-109"><a href="#ElementView-109"><span class="linenos">109</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="ElementView-110"><a href="#ElementView-110"><span class="linenos">110</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
+    <a class="headerlink" href="#EntityView"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView-92"><a href="#EntityView-92"><span class="linenos"> 92</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityView</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">):</span>
+</span><span id="EntityView-93"><a href="#EntityView-93"><span class="linenos"> 93</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A view class that allows domain objects to behave like elements&quot;&quot;&quot;</span>
+</span><span id="EntityView-94"><a href="#EntityView-94"><span class="linenos"> 94</span></a>
+</span><span id="EntityView-95"><a href="#EntityView-95"><span class="linenos"> 95</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
+</span><span id="EntityView-96"><a href="#EntityView-96"><span class="linenos"> 96</span></a>
+</span><span id="EntityView-97"><a href="#EntityView-97"><span class="linenos"> 97</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">):</span>
+</span><span id="EntityView-98"><a href="#EntityView-98"><span class="linenos"> 98</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
+</span><span id="EntityView-99"><a href="#EntityView-99"><span class="linenos"> 99</span></a>
+</span><span id="EntityView-100"><a href="#EntityView-100"><span class="linenos">100</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView-101"><a href="#EntityView-101"><span class="linenos">101</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityView-102"><a href="#EntityView-102"><span class="linenos">102</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
+</span><span id="EntityView-103"><a href="#EntityView-103"><span class="linenos">103</span></a>
+</span><span id="EntityView-104"><a href="#EntityView-104"><span class="linenos">104</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView-105"><a href="#EntityView-105"><span class="linenos">105</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="EntityView-106"><a href="#EntityView-106"><span class="linenos">106</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
+</span><span id="EntityView-107"><a href="#EntityView-107"><span class="linenos">107</span></a>
+</span><span id="EntityView-108"><a href="#EntityView-108"><span class="linenos">108</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView-109"><a href="#EntityView-109"><span class="linenos">109</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="EntityView-110"><a href="#EntityView-110"><span class="linenos">110</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
 </span></pre></div>
 
 
@@ -534,72 +534,72 @@ of elements.</p>
 </div>
 
 
-                            <div id="ElementView.__init__" class="classattr">
-                                        <input id="ElementView.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="EntityView.__init__" class="classattr">
+                                        <input id="EntityView.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">ElementView</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">base</span><span class="p">:</span> <span class="n"><a href="#ElementProtocol">ElementProtocol</a></span></span>)</span>
+        <span class="name">EntityView</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">base</span><span class="p">:</span> <span class="n"><a href="#EntityProtocol">EntityProtocol</a></span></span>)</span>
 
-                <label class="view-source-button" for="ElementView.__init__-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="EntityView.__init__-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#ElementView.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ElementView.__init__-97"><a href="#ElementView.__init__-97"><span class="linenos">97</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">ElementProtocol</span><span class="p">):</span>
-</span><span id="ElementView.__init__-98"><a href="#ElementView.__init__-98"><span class="linenos">98</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
+    <a class="headerlink" href="#EntityView.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.__init__-97"><a href="#EntityView.__init__-97"><span class="linenos">97</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">):</span>
+</span><span id="EntityView.__init__-98"><a href="#EntityView.__init__-98"><span class="linenos">98</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
 </span></pre></div>
 
 
     
 
                             </div>
-                            <div id="ElementView.id" class="classattr">
-                                        <input id="ElementView.id-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="EntityView.id" class="classattr">
+                                        <input id="EntityView.id-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
             <span class="name">id</span><span class="annotation">: str</span>
 
-                <label class="view-source-button" for="ElementView.id-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="EntityView.id-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#ElementView.id"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ElementView.id-100"><a href="#ElementView.id-100"><span class="linenos">100</span></a>    <span class="nd">@property</span>
-</span><span id="ElementView.id-101"><a href="#ElementView.id-101"><span class="linenos">101</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="ElementView.id-102"><a href="#ElementView.id-102"><span class="linenos">102</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
+    <a class="headerlink" href="#EntityView.id"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.id-100"><a href="#EntityView.id-100"><span class="linenos">100</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView.id-101"><a href="#EntityView.id-101"><span class="linenos">101</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityView.id-102"><a href="#EntityView.id-102"><span class="linenos">102</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
 </span></pre></div>
 
 
     
 
                             </div>
-                            <div id="ElementView.name" class="classattr">
-                                        <input id="ElementView.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="EntityView.name" class="classattr">
+                                        <input id="EntityView.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
             <span class="name">name</span><span class="annotation">: Optional[str]</span>
 
-                <label class="view-source-button" for="ElementView.name-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="EntityView.name-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#ElementView.name"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ElementView.name-104"><a href="#ElementView.name-104"><span class="linenos">104</span></a>    <span class="nd">@property</span>
-</span><span id="ElementView.name-105"><a href="#ElementView.name-105"><span class="linenos">105</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="ElementView.name-106"><a href="#ElementView.name-106"><span class="linenos">106</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
+    <a class="headerlink" href="#EntityView.name"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.name-104"><a href="#EntityView.name-104"><span class="linenos">104</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView.name-105"><a href="#EntityView.name-105"><span class="linenos">105</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="EntityView.name-106"><a href="#EntityView.name-106"><span class="linenos">106</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
 </span></pre></div>
 
 
     
 
                             </div>
-                            <div id="ElementView.metadata" class="classattr">
-                                        <input id="ElementView.metadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="EntityView.metadata" class="classattr">
+                                        <input id="EntityView.metadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
             <span class="name">metadata</span><span class="annotation">: Dict[str, Any]</span>
 
-                <label class="view-source-button" for="ElementView.metadata-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="EntityView.metadata-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#ElementView.metadata"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ElementView.metadata-108"><a href="#ElementView.metadata-108"><span class="linenos">108</span></a>    <span class="nd">@property</span>
-</span><span id="ElementView.metadata-109"><a href="#ElementView.metadata-109"><span class="linenos">109</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="ElementView.metadata-110"><a href="#ElementView.metadata-110"><span class="linenos">110</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
+    <a class="headerlink" href="#EntityView.metadata"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.metadata-108"><a href="#EntityView.metadata-108"><span class="linenos">108</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView.metadata-109"><a href="#EntityView.metadata-109"><span class="linenos">109</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="EntityView.metadata-110"><a href="#EntityView.metadata-110"><span class="linenos">110</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
 </span></pre></div>
 
 
@@ -609,54 +609,54 @@ of elements.</p>
                             <div class="inherited">
                                 <h5>Inherited Members</h5>
                                 <dl>
-                                    <div><dt><a href="#ElementMixin">ElementMixin</a></dt>
-                                <dd id="ElementView.summary" class="function"><a href="#ElementMixin.summary">summary</a></dd>
+                                    <div><dt><a href="#EntityMixin">EntityMixin</a></dt>
+                                <dd id="EntityView.summary" class="function"><a href="#EntityMixin.summary">summary</a></dd>
 
             </div>
                                 </dl>
                             </div>
                 </section>
-                <section id="Element">
-                            <input id="Element-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                <section id="Entity">
+                            <input id="Entity-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">Element</span><wbr>(<span class="base"><a href="#ElementMixin">ElementMixin</a></span>, <span class="base"><a href="#ElementProtocol">ElementProtocol</a></span>):
+    <span class="name">Entity</span><wbr>(<span class="base"><a href="#EntityMixin">EntityMixin</a></span>, <span class="base"><a href="#EntityProtocol">EntityProtocol</a></span>):
 
-                <label class="view-source-button" for="Element-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="Entity-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Element"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Element-113"><a href="#Element-113"><span class="linenos">113</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Element</span><span class="p">(</span><span class="n">ElementMixin</span><span class="p">,</span> <span class="n">ElementProtocol</span><span class="p">):</span>
-</span><span id="Element-114"><a href="#Element-114"><span class="linenos">114</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A default implementation of fully functional element.&quot;&quot;&quot;</span>
-</span><span id="Element-115"><a href="#Element-115"><span class="linenos">115</span></a>
-</span><span id="Element-116"><a href="#Element-116"><span class="linenos">116</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
-</span><span id="Element-117"><a href="#Element-117"><span class="linenos">117</span></a>
-</span><span id="Element-118"><a href="#Element-118"><span class="linenos">118</span></a>    <span class="c1"># noinspection PyProtocol</span>
-</span><span id="Element-119"><a href="#Element-119"><span class="linenos">119</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="Element-120"><a href="#Element-120"><span class="linenos">120</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
-</span><span id="Element-121"><a href="#Element-121"><span class="linenos">121</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
-</span><span id="Element-122"><a href="#Element-122"><span class="linenos">122</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
-</span><span id="Element-123"><a href="#Element-123"><span class="linenos">123</span></a>
-</span><span id="Element-124"><a href="#Element-124"><span class="linenos">124</span></a>    <span class="nd">@property</span>
-</span><span id="Element-125"><a href="#Element-125"><span class="linenos">125</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Element-126"><a href="#Element-126"><span class="linenos">126</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
-</span><span id="Element-127"><a href="#Element-127"><span class="linenos">127</span></a>
-</span><span id="Element-128"><a href="#Element-128"><span class="linenos">128</span></a>    <span class="c1"># noinspection PyProtocol</span>
-</span><span id="Element-129"><a href="#Element-129"><span class="linenos">129</span></a>    <span class="nd">@property</span>
-</span><span id="Element-130"><a href="#Element-130"><span class="linenos">130</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Element-131"><a href="#Element-131"><span class="linenos">131</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
-</span><span id="Element-132"><a href="#Element-132"><span class="linenos">132</span></a>
-</span><span id="Element-133"><a href="#Element-133"><span class="linenos">133</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-</span><span id="Element-134"><a href="#Element-134"><span class="linenos">134</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Element-135"><a href="#Element-135"><span class="linenos">135</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
-</span><span id="Element-136"><a href="#Element-136"><span class="linenos">136</span></a>
-</span><span id="Element-137"><a href="#Element-137"><span class="linenos">137</span></a>    <span class="nd">@property</span>
-</span><span id="Element-138"><a href="#Element-138"><span class="linenos">138</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="Element-139"><a href="#Element-139"><span class="linenos">139</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
-</span><span id="Element-140"><a href="#Element-140"><span class="linenos">140</span></a>
-</span><span id="Element-141"><a href="#Element-141"><span class="linenos">141</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Element-142"><a href="#Element-142"><span class="linenos">142</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+    <a class="headerlink" href="#Entity"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity-113"><a href="#Entity-113"><span class="linenos">113</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Entity</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">,</span> <span class="n">EntityProtocol</span><span class="p">):</span>
+</span><span id="Entity-114"><a href="#Entity-114"><span class="linenos">114</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A default implementation of fully functional element.&quot;&quot;&quot;</span>
+</span><span id="Entity-115"><a href="#Entity-115"><span class="linenos">115</span></a>
+</span><span id="Entity-116"><a href="#Entity-116"><span class="linenos">116</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
+</span><span id="Entity-117"><a href="#Entity-117"><span class="linenos">117</span></a>
+</span><span id="Entity-118"><a href="#Entity-118"><span class="linenos">118</span></a>    <span class="c1"># noinspection PyProtocol</span>
+</span><span id="Entity-119"><a href="#Entity-119"><span class="linenos">119</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Entity-120"><a href="#Entity-120"><span class="linenos">120</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+</span><span id="Entity-121"><a href="#Entity-121"><span class="linenos">121</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+</span><span id="Entity-122"><a href="#Entity-122"><span class="linenos">122</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
+</span><span id="Entity-123"><a href="#Entity-123"><span class="linenos">123</span></a>
+</span><span id="Entity-124"><a href="#Entity-124"><span class="linenos">124</span></a>    <span class="nd">@property</span>
+</span><span id="Entity-125"><a href="#Entity-125"><span class="linenos">125</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Entity-126"><a href="#Entity-126"><span class="linenos">126</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+</span><span id="Entity-127"><a href="#Entity-127"><span class="linenos">127</span></a>
+</span><span id="Entity-128"><a href="#Entity-128"><span class="linenos">128</span></a>    <span class="c1"># noinspection PyProtocol</span>
+</span><span id="Entity-129"><a href="#Entity-129"><span class="linenos">129</span></a>    <span class="nd">@property</span>
+</span><span id="Entity-130"><a href="#Entity-130"><span class="linenos">130</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Entity-131"><a href="#Entity-131"><span class="linenos">131</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+</span><span id="Entity-132"><a href="#Entity-132"><span class="linenos">132</span></a>
+</span><span id="Entity-133"><a href="#Entity-133"><span class="linenos">133</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="Entity-134"><a href="#Entity-134"><span class="linenos">134</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Entity-135"><a href="#Entity-135"><span class="linenos">135</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+</span><span id="Entity-136"><a href="#Entity-136"><span class="linenos">136</span></a>
+</span><span id="Entity-137"><a href="#Entity-137"><span class="linenos">137</span></a>    <span class="nd">@property</span>
+</span><span id="Entity-138"><a href="#Entity-138"><span class="linenos">138</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="Entity-139"><a href="#Entity-139"><span class="linenos">139</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
+</span><span id="Entity-140"><a href="#Entity-140"><span class="linenos">140</span></a>
+</span><span id="Entity-141"><a href="#Entity-141"><span class="linenos">141</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Entity-142"><a href="#Entity-142"><span class="linenos">142</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -664,38 +664,38 @@ of elements.</p>
 </div>
 
 
-                            <div id="Element.__init__" class="classattr">
-                                        <input id="Element.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="Entity.__init__" class="classattr">
+                                        <input id="Entity.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">Element</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+        <span class="name">Entity</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
 
-                <label class="view-source-button" for="Element.__init__-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="Entity.__init__-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Element.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Element.__init__-119"><a href="#Element.__init__-119"><span class="linenos">119</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="Element.__init__-120"><a href="#Element.__init__-120"><span class="linenos">120</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
-</span><span id="Element.__init__-121"><a href="#Element.__init__-121"><span class="linenos">121</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
-</span><span id="Element.__init__-122"><a href="#Element.__init__-122"><span class="linenos">122</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
+    <a class="headerlink" href="#Entity.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.__init__-119"><a href="#Entity.__init__-119"><span class="linenos">119</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Entity.__init__-120"><a href="#Entity.__init__-120"><span class="linenos">120</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+</span><span id="Entity.__init__-121"><a href="#Entity.__init__-121"><span class="linenos">121</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+</span><span id="Entity.__init__-122"><a href="#Entity.__init__-122"><span class="linenos">122</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
 </span></pre></div>
 
 
     
 
                             </div>
-                            <div id="Element.id" class="classattr">
-                                        <input id="Element.id-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="Entity.id" class="classattr">
+                                        <input id="Entity.id-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
             <span class="name">id</span><span class="annotation">: str</span>
 
-                <label class="view-source-button" for="Element.id-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="Entity.id-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Element.id"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Element.id-124"><a href="#Element.id-124"><span class="linenos">124</span></a>    <span class="nd">@property</span>
-</span><span id="Element.id-125"><a href="#Element.id-125"><span class="linenos">125</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Element.id-126"><a href="#Element.id-126"><span class="linenos">126</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+    <a class="headerlink" href="#Entity.id"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.id-124"><a href="#Entity.id-124"><span class="linenos">124</span></a>    <span class="nd">@property</span>
+</span><span id="Entity.id-125"><a href="#Entity.id-125"><span class="linenos">125</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Entity.id-126"><a href="#Entity.id-126"><span class="linenos">126</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
 </span></pre></div>
 
 
@@ -706,18 +706,18 @@ Defaults to a uuid.uuid4().</p>
 
 
                             </div>
-                            <div id="Element.name" class="classattr">
-                                        <input id="Element.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="Entity.name" class="classattr">
+                                        <input id="Entity.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
             <span class="name">name</span><span class="annotation">: str</span>
 
-                <label class="view-source-button" for="Element.name-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="Entity.name-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Element.name"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Element.name-129"><a href="#Element.name-129"><span class="linenos">129</span></a>    <span class="nd">@property</span>
-</span><span id="Element.name-130"><a href="#Element.name-130"><span class="linenos">130</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Element.name-131"><a href="#Element.name-131"><span class="linenos">131</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+    <a class="headerlink" href="#Entity.name"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.name-129"><a href="#Entity.name-129"><span class="linenos">129</span></a>    <span class="nd">@property</span>
+</span><span id="Entity.name-130"><a href="#Entity.name-130"><span class="linenos">130</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Entity.name-131"><a href="#Entity.name-131"><span class="linenos">131</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
 </span></pre></div>
 
 
@@ -726,18 +726,18 @@ Defaults to a uuid.uuid4().</p>
 
 
                             </div>
-                            <div id="Element.metadata" class="classattr">
-                                        <input id="Element.metadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="Entity.metadata" class="classattr">
+                                        <input id="Entity.metadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
             <span class="name">metadata</span><span class="annotation">: Dict[str, Any]</span>
 
-                <label class="view-source-button" for="Element.metadata-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="Entity.metadata-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Element.metadata"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Element.metadata-137"><a href="#Element.metadata-137"><span class="linenos">137</span></a>    <span class="nd">@property</span>
-</span><span id="Element.metadata-138"><a href="#Element.metadata-138"><span class="linenos">138</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="Element.metadata-139"><a href="#Element.metadata-139"><span class="linenos">139</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
+    <a class="headerlink" href="#Entity.metadata"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.metadata-137"><a href="#Entity.metadata-137"><span class="linenos">137</span></a>    <span class="nd">@property</span>
+</span><span id="Entity.metadata-138"><a href="#Entity.metadata-138"><span class="linenos">138</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="Entity.metadata-139"><a href="#Entity.metadata-139"><span class="linenos">139</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
 </span></pre></div>
 
 
@@ -749,8 +749,8 @@ Defaults to a uuid.uuid4().</p>
                             <div class="inherited">
                                 <h5>Inherited Members</h5>
                                 <dl>
-                                    <div><dt><a href="#ElementMixin">ElementMixin</a></dt>
-                                <dd id="Element.summary" class="function"><a href="#ElementMixin.summary">summary</a></dd>
+                                    <div><dt><a href="#EntityMixin">EntityMixin</a></dt>
+                                <dd id="Entity.summary" class="function"><a href="#EntityMixin.summary">summary</a></dd>
 
             </div>
                                 </dl>

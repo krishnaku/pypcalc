@@ -311,7 +311,7 @@ presence calculus</p>
 </span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 </span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>
 </span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.element</span><span class="w"> </span><span class="kn">import</span> <span class="n">Element</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">EntityProtocol</span>
 </span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>
 </span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>
 </span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>
@@ -321,10 +321,10 @@ presence calculus</p>
 </span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>    <span class="fm">__init__</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
 </span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>
 </span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>    <span class="nd">@property</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span> <span class="o">...</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span> <span class="o">...</span>
 </span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>
 </span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>    <span class="nd">@property</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span> <span class="o">...</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span> <span class="o">...</span>
 </span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>
 </span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a>    <span class="nd">@property</span>
 </span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">onset_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="o">...</span>
@@ -385,8 +385,8 @@ presence calculus</p>
 </span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>
 </span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>            <span class="bp">self</span><span class="p">,</span>
-</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
-</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
+</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
+</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
 </span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>            <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>            <span class="n">end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a>            <span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span><span class="p">,</span>
@@ -398,11 +398,11 @@ presence calculus</p>
 </span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span> <span class="o">=</span> <span class="n">provenance</span>
 </span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>
 </span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a>    <span class="nd">@property</span>
-</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element</span>
 </span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a>
 </span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>    <span class="nd">@property</span>
-</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boundary</span>
 </span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a>
 </span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a>    <span class="nd">@property</span>
@@ -426,16 +426,16 @@ presence calculus</p>
 </span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a>
 </span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_element&quot;</span><span class="p">,</span> <span class="s2">&quot;_boundary&quot;</span><span class="p">,</span> <span class="s2">&quot;_start&quot;</span><span class="p">,</span> <span class="s2">&quot;_end&quot;</span><span class="p">,</span> <span class="s2">&quot;_provenance&quot;</span><span class="p">)</span>
 </span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>
-</span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>    <span class="n">_element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]</span>
-</span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a>    <span class="n">_boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]</span>
+</span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>    <span class="n">_element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
+</span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a>    <span class="n">_boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
 </span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a>    <span class="n">_start</span><span class="p">:</span> <span class="nb">float</span>
 </span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a>    <span class="n">_end</span><span class="p">:</span> <span class="nb">float</span>
 </span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a>    <span class="n">_provenance</span><span class="p">:</span> <span class="nb">str</span>
 </span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a>
 </span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>            <span class="bp">self</span><span class="p">,</span>
-</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
-</span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
+</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
+</span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
 </span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a>            <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a>            <span class="n">end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a>            <span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span><span class="p">,</span>
@@ -450,11 +450,11 @@ presence calculus</p>
 </span><span id="L-208"><a href="#L-208"><span class="linenos">208</span></a>        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;PresenceView is immutable.&quot;</span><span class="p">)</span>
 </span><span id="L-209"><a href="#L-209"><span class="linenos">209</span></a>
 </span><span id="L-210"><a href="#L-210"><span class="linenos">210</span></a>    <span class="nd">@property</span>
-</span><span id="L-211"><a href="#L-211"><span class="linenos">211</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="L-211"><a href="#L-211"><span class="linenos">211</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="L-212"><a href="#L-212"><span class="linenos">212</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element</span>
 </span><span id="L-213"><a href="#L-213"><span class="linenos">213</span></a>
 </span><span id="L-214"><a href="#L-214"><span class="linenos">214</span></a>    <span class="nd">@property</span>
-</span><span id="L-215"><a href="#L-215"><span class="linenos">215</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="L-215"><a href="#L-215"><span class="linenos">215</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="L-216"><a href="#L-216"><span class="linenos">216</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boundary</span>
 </span><span id="L-217"><a href="#L-217"><span class="linenos">217</span></a>
 </span><span id="L-218"><a href="#L-218"><span class="linenos">218</span></a>    <span class="nd">@property</span>
@@ -499,10 +499,10 @@ presence calculus</p>
 </span><span id="PresenceProtocol-80"><a href="#PresenceProtocol-80"><span class="linenos"> 80</span></a>    <span class="fm">__init__</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
 </span><span id="PresenceProtocol-81"><a href="#PresenceProtocol-81"><span class="linenos"> 81</span></a>
 </span><span id="PresenceProtocol-82"><a href="#PresenceProtocol-82"><span class="linenos"> 82</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceProtocol-83"><a href="#PresenceProtocol-83"><span class="linenos"> 83</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span> <span class="o">...</span>
+</span><span id="PresenceProtocol-83"><a href="#PresenceProtocol-83"><span class="linenos"> 83</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span> <span class="o">...</span>
 </span><span id="PresenceProtocol-84"><a href="#PresenceProtocol-84"><span class="linenos"> 84</span></a>
 </span><span id="PresenceProtocol-85"><a href="#PresenceProtocol-85"><span class="linenos"> 85</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceProtocol-86"><a href="#PresenceProtocol-86"><span class="linenos"> 86</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span> <span class="o">...</span>
+</span><span id="PresenceProtocol-86"><a href="#PresenceProtocol-86"><span class="linenos"> 86</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span> <span class="o">...</span>
 </span><span id="PresenceProtocol-87"><a href="#PresenceProtocol-87"><span class="linenos"> 87</span></a>
 </span><span id="PresenceProtocol-88"><a href="#PresenceProtocol-88"><span class="linenos"> 88</span></a>    <span class="nd">@property</span>
 </span><span id="PresenceProtocol-89"><a href="#PresenceProtocol-89"><span class="linenos"> 89</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">onset_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="o">...</span>
@@ -532,14 +532,14 @@ presence calculus</p>
                             <div id="PresenceProtocol.element" class="classattr">
                                         <input id="PresenceProtocol.element-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
-            <span class="name">element</span><span class="annotation">: Optional[<a href="element.html#Element">pcalc.element.Element</a>]</span>
+            <span class="name">element</span><span class="annotation">: Optional[pcalc.entity.EntityProtocol]</span>
 
                 <label class="view-source-button" for="PresenceProtocol.element-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceProtocol.element"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceProtocol.element-82"><a href="#PresenceProtocol.element-82"><span class="linenos">82</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceProtocol.element-83"><a href="#PresenceProtocol.element-83"><span class="linenos">83</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span> <span class="o">...</span>
+</span><span id="PresenceProtocol.element-83"><a href="#PresenceProtocol.element-83"><span class="linenos">83</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span> <span class="o">...</span>
 </span></pre></div>
 
 
@@ -549,14 +549,14 @@ presence calculus</p>
                             <div id="PresenceProtocol.boundary" class="classattr">
                                         <input id="PresenceProtocol.boundary-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
-            <span class="name">boundary</span><span class="annotation">: Optional[<a href="element.html#Element">pcalc.element.Element</a>]</span>
+            <span class="name">boundary</span><span class="annotation">: Optional[pcalc.entity.EntityProtocol]</span>
 
                 <label class="view-source-button" for="PresenceProtocol.boundary-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceProtocol.boundary"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceProtocol.boundary-85"><a href="#PresenceProtocol.boundary-85"><span class="linenos">85</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceProtocol.boundary-86"><a href="#PresenceProtocol.boundary-86"><span class="linenos">86</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span> <span class="o">...</span>
+</span><span id="PresenceProtocol.boundary-86"><a href="#PresenceProtocol.boundary-86"><span class="linenos">86</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span> <span class="o">...</span>
 </span></pre></div>
 
 
@@ -799,8 +799,8 @@ defines <code>element</code>, <code>boundary</code>, <code>start</code>, <code>e
 </span><span id="Presence-144"><a href="#Presence-144"><span class="linenos">144</span></a>
 </span><span id="Presence-145"><a href="#Presence-145"><span class="linenos">145</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="Presence-146"><a href="#Presence-146"><span class="linenos">146</span></a>            <span class="bp">self</span><span class="p">,</span>
-</span><span id="Presence-147"><a href="#Presence-147"><span class="linenos">147</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
-</span><span id="Presence-148"><a href="#Presence-148"><span class="linenos">148</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
+</span><span id="Presence-147"><a href="#Presence-147"><span class="linenos">147</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
+</span><span id="Presence-148"><a href="#Presence-148"><span class="linenos">148</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
 </span><span id="Presence-149"><a href="#Presence-149"><span class="linenos">149</span></a>            <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="Presence-150"><a href="#Presence-150"><span class="linenos">150</span></a>            <span class="n">end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="Presence-151"><a href="#Presence-151"><span class="linenos">151</span></a>            <span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span><span class="p">,</span>
@@ -812,11 +812,11 @@ defines <code>element</code>, <code>boundary</code>, <code>start</code>, <code>e
 </span><span id="Presence-157"><a href="#Presence-157"><span class="linenos">157</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span> <span class="o">=</span> <span class="n">provenance</span>
 </span><span id="Presence-158"><a href="#Presence-158"><span class="linenos">158</span></a>
 </span><span id="Presence-159"><a href="#Presence-159"><span class="linenos">159</span></a>    <span class="nd">@property</span>
-</span><span id="Presence-160"><a href="#Presence-160"><span class="linenos">160</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="Presence-160"><a href="#Presence-160"><span class="linenos">160</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="Presence-161"><a href="#Presence-161"><span class="linenos">161</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element</span>
 </span><span id="Presence-162"><a href="#Presence-162"><span class="linenos">162</span></a>
 </span><span id="Presence-163"><a href="#Presence-163"><span class="linenos">163</span></a>    <span class="nd">@property</span>
-</span><span id="Presence-164"><a href="#Presence-164"><span class="linenos">164</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="Presence-164"><a href="#Presence-164"><span class="linenos">164</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="Presence-165"><a href="#Presence-165"><span class="linenos">165</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boundary</span>
 </span><span id="Presence-166"><a href="#Presence-166"><span class="linenos">166</span></a>
 </span><span id="Presence-167"><a href="#Presence-167"><span class="linenos">167</span></a>    <span class="nd">@property</span>
@@ -841,7 +841,7 @@ defines <code>element</code>, <code>boundary</code>, <code>start</code>, <code>e
                                         <input id="Presence.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">Presence</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="element.html#Element">pcalc.element.Element</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="element.html#Element">pcalc.element.Element</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">start</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">end</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;observed&#39;</span></span>)</span>
+        <span class="name">Presence</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pcalc</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">EntityProtocol</span><span class="p">]</span>,</span><span class="param">	<span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pcalc</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">EntityProtocol</span><span class="p">]</span>,</span><span class="param">	<span class="n">start</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">end</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;observed&#39;</span></span>)</span>
 
                 <label class="view-source-button" for="Presence.__init__-view-source"><span>View Source</span></label>
 
@@ -849,8 +849,8 @@ defines <code>element</code>, <code>boundary</code>, <code>start</code>, <code>e
     <a class="headerlink" href="#Presence.__init__"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.__init__-145"><a href="#Presence.__init__-145"><span class="linenos">145</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="Presence.__init__-146"><a href="#Presence.__init__-146"><span class="linenos">146</span></a>            <span class="bp">self</span><span class="p">,</span>
-</span><span id="Presence.__init__-147"><a href="#Presence.__init__-147"><span class="linenos">147</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
-</span><span id="Presence.__init__-148"><a href="#Presence.__init__-148"><span class="linenos">148</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
+</span><span id="Presence.__init__-147"><a href="#Presence.__init__-147"><span class="linenos">147</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
+</span><span id="Presence.__init__-148"><a href="#Presence.__init__-148"><span class="linenos">148</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
 </span><span id="Presence.__init__-149"><a href="#Presence.__init__-149"><span class="linenos">149</span></a>            <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="Presence.__init__-150"><a href="#Presence.__init__-150"><span class="linenos">150</span></a>            <span class="n">end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="Presence.__init__-151"><a href="#Presence.__init__-151"><span class="linenos">151</span></a>            <span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span><span class="p">,</span>
@@ -869,14 +869,14 @@ defines <code>element</code>, <code>boundary</code>, <code>start</code>, <code>e
                             <div id="Presence.element" class="classattr">
                                         <input id="Presence.element-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
-            <span class="name">element</span><span class="annotation">: Optional[<a href="element.html#Element">pcalc.element.Element</a>]</span>
+            <span class="name">element</span><span class="annotation">: Optional[pcalc.entity.EntityProtocol]</span>
 
                 <label class="view-source-button" for="Presence.element-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Presence.element"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.element-159"><a href="#Presence.element-159"><span class="linenos">159</span></a>    <span class="nd">@property</span>
-</span><span id="Presence.element-160"><a href="#Presence.element-160"><span class="linenos">160</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="Presence.element-160"><a href="#Presence.element-160"><span class="linenos">160</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="Presence.element-161"><a href="#Presence.element-161"><span class="linenos">161</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element</span>
 </span></pre></div>
 
@@ -887,14 +887,14 @@ defines <code>element</code>, <code>boundary</code>, <code>start</code>, <code>e
                             <div id="Presence.boundary" class="classattr">
                                         <input id="Presence.boundary-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
-            <span class="name">boundary</span><span class="annotation">: Optional[<a href="element.html#Element">pcalc.element.Element</a>]</span>
+            <span class="name">boundary</span><span class="annotation">: Optional[pcalc.entity.EntityProtocol]</span>
 
                 <label class="view-source-button" for="Presence.boundary-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Presence.boundary"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.boundary-163"><a href="#Presence.boundary-163"><span class="linenos">163</span></a>    <span class="nd">@property</span>
-</span><span id="Presence.boundary-164"><a href="#Presence.boundary-164"><span class="linenos">164</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="Presence.boundary-164"><a href="#Presence.boundary-164"><span class="linenos">164</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="Presence.boundary-165"><a href="#Presence.boundary-165"><span class="linenos">165</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boundary</span>
 </span></pre></div>
 
@@ -987,16 +987,16 @@ defines <code>element</code>, <code>boundary</code>, <code>start</code>, <code>e
 </span><span id="PresenceView-185"><a href="#PresenceView-185"><span class="linenos">185</span></a>
 </span><span id="PresenceView-186"><a href="#PresenceView-186"><span class="linenos">186</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_element&quot;</span><span class="p">,</span> <span class="s2">&quot;_boundary&quot;</span><span class="p">,</span> <span class="s2">&quot;_start&quot;</span><span class="p">,</span> <span class="s2">&quot;_end&quot;</span><span class="p">,</span> <span class="s2">&quot;_provenance&quot;</span><span class="p">)</span>
 </span><span id="PresenceView-187"><a href="#PresenceView-187"><span class="linenos">187</span></a>
-</span><span id="PresenceView-188"><a href="#PresenceView-188"><span class="linenos">188</span></a>    <span class="n">_element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]</span>
-</span><span id="PresenceView-189"><a href="#PresenceView-189"><span class="linenos">189</span></a>    <span class="n">_boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]</span>
+</span><span id="PresenceView-188"><a href="#PresenceView-188"><span class="linenos">188</span></a>    <span class="n">_element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
+</span><span id="PresenceView-189"><a href="#PresenceView-189"><span class="linenos">189</span></a>    <span class="n">_boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
 </span><span id="PresenceView-190"><a href="#PresenceView-190"><span class="linenos">190</span></a>    <span class="n">_start</span><span class="p">:</span> <span class="nb">float</span>
 </span><span id="PresenceView-191"><a href="#PresenceView-191"><span class="linenos">191</span></a>    <span class="n">_end</span><span class="p">:</span> <span class="nb">float</span>
 </span><span id="PresenceView-192"><a href="#PresenceView-192"><span class="linenos">192</span></a>    <span class="n">_provenance</span><span class="p">:</span> <span class="nb">str</span>
 </span><span id="PresenceView-193"><a href="#PresenceView-193"><span class="linenos">193</span></a>
 </span><span id="PresenceView-194"><a href="#PresenceView-194"><span class="linenos">194</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="PresenceView-195"><a href="#PresenceView-195"><span class="linenos">195</span></a>            <span class="bp">self</span><span class="p">,</span>
-</span><span id="PresenceView-196"><a href="#PresenceView-196"><span class="linenos">196</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
-</span><span id="PresenceView-197"><a href="#PresenceView-197"><span class="linenos">197</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
+</span><span id="PresenceView-196"><a href="#PresenceView-196"><span class="linenos">196</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
+</span><span id="PresenceView-197"><a href="#PresenceView-197"><span class="linenos">197</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
 </span><span id="PresenceView-198"><a href="#PresenceView-198"><span class="linenos">198</span></a>            <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="PresenceView-199"><a href="#PresenceView-199"><span class="linenos">199</span></a>            <span class="n">end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="PresenceView-200"><a href="#PresenceView-200"><span class="linenos">200</span></a>            <span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span><span class="p">,</span>
@@ -1011,11 +1011,11 @@ defines <code>element</code>, <code>boundary</code>, <code>start</code>, <code>e
 </span><span id="PresenceView-209"><a href="#PresenceView-209"><span class="linenos">209</span></a>        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;PresenceView is immutable.&quot;</span><span class="p">)</span>
 </span><span id="PresenceView-210"><a href="#PresenceView-210"><span class="linenos">210</span></a>
 </span><span id="PresenceView-211"><a href="#PresenceView-211"><span class="linenos">211</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceView-212"><a href="#PresenceView-212"><span class="linenos">212</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="PresenceView-212"><a href="#PresenceView-212"><span class="linenos">212</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="PresenceView-213"><a href="#PresenceView-213"><span class="linenos">213</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element</span>
 </span><span id="PresenceView-214"><a href="#PresenceView-214"><span class="linenos">214</span></a>
 </span><span id="PresenceView-215"><a href="#PresenceView-215"><span class="linenos">215</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceView-216"><a href="#PresenceView-216"><span class="linenos">216</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="PresenceView-216"><a href="#PresenceView-216"><span class="linenos">216</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="PresenceView-217"><a href="#PresenceView-217"><span class="linenos">217</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boundary</span>
 </span><span id="PresenceView-218"><a href="#PresenceView-218"><span class="linenos">218</span></a>
 </span><span id="PresenceView-219"><a href="#PresenceView-219"><span class="linenos">219</span></a>    <span class="nd">@property</span>
@@ -1041,7 +1041,7 @@ data from external sources or enforcing read-only access.</p>
                                         <input id="PresenceView.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">PresenceView</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="element.html#Element">pcalc.element.Element</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="element.html#Element">pcalc.element.Element</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">start</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">end</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;observed&#39;</span></span>)</span>
+        <span class="name">PresenceView</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pcalc</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">EntityProtocol</span><span class="p">]</span>,</span><span class="param">	<span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pcalc</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">EntityProtocol</span><span class="p">]</span>,</span><span class="param">	<span class="n">start</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">end</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;observed&#39;</span></span>)</span>
 
                 <label class="view-source-button" for="PresenceView.__init__-view-source"><span>View Source</span></label>
 
@@ -1049,8 +1049,8 @@ data from external sources or enforcing read-only access.</p>
     <a class="headerlink" href="#PresenceView.__init__"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceView.__init__-194"><a href="#PresenceView.__init__-194"><span class="linenos">194</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="PresenceView.__init__-195"><a href="#PresenceView.__init__-195"><span class="linenos">195</span></a>            <span class="bp">self</span><span class="p">,</span>
-</span><span id="PresenceView.__init__-196"><a href="#PresenceView.__init__-196"><span class="linenos">196</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
-</span><span id="PresenceView.__init__-197"><a href="#PresenceView.__init__-197"><span class="linenos">197</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span>
+</span><span id="PresenceView.__init__-196"><a href="#PresenceView.__init__-196"><span class="linenos">196</span></a>            <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
+</span><span id="PresenceView.__init__-197"><a href="#PresenceView.__init__-197"><span class="linenos">197</span></a>            <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">],</span>
 </span><span id="PresenceView.__init__-198"><a href="#PresenceView.__init__-198"><span class="linenos">198</span></a>            <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="PresenceView.__init__-199"><a href="#PresenceView.__init__-199"><span class="linenos">199</span></a>            <span class="n">end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 </span><span id="PresenceView.__init__-200"><a href="#PresenceView.__init__-200"><span class="linenos">200</span></a>            <span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span><span class="p">,</span>
@@ -1069,14 +1069,14 @@ data from external sources or enforcing read-only access.</p>
                             <div id="PresenceView.element" class="classattr">
                                         <input id="PresenceView.element-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
-            <span class="name">element</span><span class="annotation">: Optional[<a href="element.html#Element">pcalc.element.Element</a>]</span>
+            <span class="name">element</span><span class="annotation">: Optional[pcalc.entity.EntityProtocol]</span>
 
                 <label class="view-source-button" for="PresenceView.element-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceView.element"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceView.element-211"><a href="#PresenceView.element-211"><span class="linenos">211</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceView.element-212"><a href="#PresenceView.element-212"><span class="linenos">212</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="PresenceView.element-212"><a href="#PresenceView.element-212"><span class="linenos">212</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="PresenceView.element-213"><a href="#PresenceView.element-213"><span class="linenos">213</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element</span>
 </span></pre></div>
 
@@ -1087,14 +1087,14 @@ data from external sources or enforcing read-only access.</p>
                             <div id="PresenceView.boundary" class="classattr">
                                         <input id="PresenceView.boundary-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
-            <span class="name">boundary</span><span class="annotation">: Optional[<a href="element.html#Element">pcalc.element.Element</a>]</span>
+            <span class="name">boundary</span><span class="annotation">: Optional[pcalc.entity.EntityProtocol]</span>
 
                 <label class="view-source-button" for="PresenceView.boundary-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceView.boundary"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceView.boundary-215"><a href="#PresenceView.boundary-215"><span class="linenos">215</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceView.boundary-216"><a href="#PresenceView.boundary-216"><span class="linenos">216</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+</span><span id="PresenceView.boundary-216"><a href="#PresenceView.boundary-216"><span class="linenos">216</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]:</span>
 </span><span id="PresenceView.boundary-217"><a href="#PresenceView.boundary-217"><span class="linenos">217</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boundary</span>
 </span></pre></div>
 

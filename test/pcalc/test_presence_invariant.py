@@ -6,10 +6,10 @@
 import numpy as np
 import pytest
 
-from pcalc import Timescale, Presence, PresenceMatrix, PresenceInvariant, Element, Element
+from pcalc import Timescale, Presence, PresenceMatrix, PresenceInvariant, Entity, Entity
 
 
-dummy = Element()
+dummy = Entity()
 
 
 def make_presences():
@@ -24,10 +24,10 @@ def make_presences():
 
     """
     return [
-        Presence(boundary=dummy, element=Element(), start=0.0, end=2.0),
-        Presence(boundary=dummy, element=Element(), start=1.5, end=3.0),
-        Presence(boundary=dummy, element=Element(), start=3.0, end=4.5),
-        Presence(boundary=dummy, element=Element(), start=4.6, end=np.inf),
+        Presence(boundary=dummy, element=Entity(), start=0.0, end=2.0),
+        Presence(boundary=dummy, element=Entity(), start=1.5, end=3.0),
+        Presence(boundary=dummy, element=Entity(), start=3.0, end=4.5),
+        Presence(boundary=dummy, element=Entity(), start=4.6, end=np.inf),
     ]
 
 
@@ -180,9 +180,9 @@ def test_flow_rate_consistency(case, start, end):
 
 def make_variable_binwidth_presences():
     return [
-        Presence(boundary=dummy, element=Element(), start=0.0, end=2.5),
-        Presence(boundary=dummy, element=Element(), start=3.0, end=6.0),
-        Presence(boundary=dummy, element=Element(), start=7.5, end=9.0),
+        Presence(boundary=dummy, element=Entity(), start=0.0, end=2.5),
+        Presence(boundary=dummy, element=Entity(), start=3.0, end=6.0),
+        Presence(boundary=dummy, element=Entity(), start=7.5, end=9.0),
     ]
 
 
@@ -205,9 +205,9 @@ def test_flow_rate_variable_bin_width(case, start, end, expected):
 
 def make_large_bin_width_presences():
     return [
-        Presence(boundary=dummy, element=Element(), start=0.0, end=2.5),  # bin 0
-        Presence(boundary=dummy, element=Element(), start=3.0, end=6.0),  # bin 1
-        Presence(boundary=dummy, element=Element(), start=7.5, end=9.0),  # bin 2
+        Presence(boundary=dummy, element=Entity(), start=0.0, end=2.5),  # bin 0
+        Presence(boundary=dummy, element=Entity(), start=3.0, end=6.0),  # bin 1
+        Presence(boundary=dummy, element=Entity(), start=7.5, end=9.0),  # bin 2
     ]
 
 
@@ -307,8 +307,8 @@ def test_avg_residence_time_matches_direct_average():
 # Test wide bins
 def make_wide_bin_presences():
     return [
-        Presence(boundary=dummy, element=Element(), start=1.0, end=5.0),  # spans bins 0–2
-        Presence(boundary=dummy, element=Element(), start=6.0, end=8.0),  # bin 3
+        Presence(boundary=dummy, element=Entity(), start=1.0, end=5.0),  # spans bins 0–2
+        Presence(boundary=dummy, element=Entity(), start=6.0, end=8.0),  # bin 3
     ]
 
 

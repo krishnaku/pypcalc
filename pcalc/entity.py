@@ -33,7 +33,7 @@ from typing import Protocol, runtime_checkable, Dict, Any, Optional
 
 
 @runtime_checkable
-class ElementProtocol(Protocol):
+class EntityProtocol(Protocol):
     """
     The structural contract for an element
 
@@ -72,12 +72,12 @@ class ElementProtocol(Protocol):
         ...
 
 
-class ElementMixin:
+class EntityMixin:
     """A mixin class that can be used to inject common shared behavior
     of elements.
     """
 
-    def summary(self: ElementProtocol) -> str:
+    def summary(self: EntityProtocol) -> str:
         """
         Return a human-readable summary based on id and metadata.
         """
@@ -88,12 +88,12 @@ class ElementMixin:
         return f"Element[{self.id}] name = {self.name} {{{formatted}}}"
 
 
-class ElementView(ElementMixin):
+class EntityView(EntityMixin):
     """A view class that allows domain objects to behave like elements"""
 
     __slots__ = ("_id", "_name", "_metadata")
 
-    def __init__(self, base: ElementProtocol):
+    def __init__(self, base: EntityProtocol):
         self._base = base
 
     @property
@@ -109,7 +109,7 @@ class ElementView(ElementMixin):
         return self._base.metadata
 
 
-class Element(ElementMixin, ElementProtocol):
+class Entity(EntityMixin, EntityProtocol):
     """A default implementation of fully functional element."""
 
     __slots__ = ("_id", "_name", "_metadata")
