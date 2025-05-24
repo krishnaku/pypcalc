@@ -180,60 +180,6 @@ These basis elements allow us to reason about local neighborhoods of presence,
 enabling analysis of continuity, clustering, transitions, and proximity in
 presence space.
 
-
----
-
-
-# Presence Matrix and Sheaf Restriction
-
-In the Presence Calculus, the **presence matrix** is a concrete, computable
-representation of presence assertions restricted to an **observation window**.
-
-## Observation Window as an Open Set
-
-An observation window is modeled as:
-
-$$
-U = E' \times B' \times [t_0, t_1)
-$$
-
-However, this is not open in the base topology $\mathcal{T}$ because:
-- $[t_0, t_1)$ is not open in $\mathbb{R}$
-- Arbitrary subsets $E' \subseteq E$ and $B' \subseteq B$ are not open unless $E$ and $B$ have the discrete topology
-
-### Resolution
-
-We interpret an observation window as being covered by open sets of the form:
-
-$$
-U_{e,b,(t_i - \epsilon, t_i + \epsilon)}
-$$
-
-This allows us to treat the presence matrix as a discrete approximation of a restriction of the sheaf to an open cover.
-
-## Presence Matrix Definition
-
-Let $\{t_i\}$ be a discrete time grid in $[t_0, t_1)$.
-The matrix:
-
-$$
-P_{e,b}(t_i) =
-\begin{cases}
-1 & \text{if } (e, b, t_i) \text{ lies within a presence assertion} \\
-0 & \text{otherwise}
-\end{cases}
-$$
-
-encodes the observed presence at that time step.
-
-## Summary
-
-The presence matrix represents a **sampled restriction** of the sheaf over an open cover of a bounded domain. It enables computation of metrics like residence time, flow rate, and co-presence.
-
-
----
-
-
 # From Topological Basis to Connected Components and Element Trajectories
 
 ## Connecting Presences
@@ -333,8 +279,54 @@ from overlapping presence assertions that agree on their overlaps.
 In implementation terms, it merges sequences of presence assertions—across time and
 boundaries—into a **connected component**, or a **maximal presence trajectory**.
 
+---
 
-## Presence Matrix as a Sample
+
+# Presence Matrix and Sheaf Restriction
+
+In the Presence Calculus, the **presence matrix** is a concrete, computable
+representation of presence assertions restricted to an **observation window**.
+
+## Observation Window as an Open Set
+
+An observation window is modeled as:
+
+$$
+U = E' \times B' \times [t_0, t_1)
+$$
+
+However, this is not open in the base topology $\mathcal{T}$ because:
+- $[t_0, t_1)$ is not open in $\mathbb{R}$
+- Arbitrary subsets $E' \subseteq E$ and $B' \subseteq B$ are not open unless $E$ and $B$ have the discrete topology
+
+### Resolution
+
+We interpret an observation window as being covered by open sets of the form:
+
+$$
+U_{e,b,(t_i - \epsilon, t_i + \epsilon)}
+$$
+
+This allows us to treat the presence matrix as a discrete approximation of a restriction of the sheaf to an open cover.
+
+## Presence Matrix Definition
+
+Let $\{t_i\}$ be a discrete time grid in $[t_0, t_1)$.
+The matrix:
+
+$$
+P_{e,b}(t_i) =
+\begin{cases}
+1 & \text{if } (e, b, t_i) \text{ lies within a presence assertion} \\
+0 & \text{otherwise}
+\end{cases}
+$$
+
+encodes the observed presence at that time step.
+
+## Summary
+
+The presence matrix represents a **sampled restriction** of the sheaf over an open cover of a bounded domain. It enables computation of metrics like residence time, flow rate, and co-presence.
 
 The presence matrix samples values from sections over neighborhoods in a grid covering a bounded domain.
 
