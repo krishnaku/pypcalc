@@ -30,21 +30,22 @@ where
 - $P(e, b, t_0, t_1) = 1$  if $e$ is present in $b$ during $[t_0, t_1)$
 - $P(e, b, t_0, t_1) = 0$  otherwise
 
-Note that P is defined as a function into ℝ (real numbers), rather than into the Boolean set {0, 1}.
+Note that P maps into ℝ (real numbers), rather than into the Boolean set {0, 1}.
 This is because applying a time scale to presences—for example, by binning time into discrete intervals —
 can yield fractional values for presence. These fractional values represent partial overlap with a bin
-and enable presence to be interpreted as a continuous, additive quantity.
-
-This real-valued interpretation supports robust aggregation, smoothing, and rate-based calculations
-within the calculus even as we apply scaling factors to the input timeline. See class [TimeScale](./time_scale.html) for
+and enable presence to be interpreted as a continuous, additive quantity. See class [TimeScale](./time_scale.html) for
 more details.
 
+This real-valued interpretation supports robust aggregation, smoothing, and rate-based calculations
+within the calculus even as we apply scaling factors to the input timeline.
 
 ### Presence onset and reset
 
-$t_0$ is called the onset time of the presence—the instant at which the
-presence transitions from zero to non-zero. $t_1$ is called the reset time—
-the instant at which the presence transitions back to zero. The presence is *active*
+$t_0$ is called the <em>onset time</em> of the presence—the instant at which the
+presence transitions from zero to non-zero. $t_1$ is called the *reset time* —
+the instant at which the presence transitions back to zero.
+
+We will say the presence is *active*
 over the half-open interval $[t_0, t_1)$, meaning it
 includes $t_0$ but excludes $t_1$.
 
@@ -60,24 +61,68 @@ This diagram illustrates a presence assertion over a half-open interval
 $[t_0, t_1)$, where element $e$ is continuously present in boundary $b$
 starting at $t_0$ (included) and ending just before $t_1$ (excluded).
 
-Time is modeled as a continuous quantity over $\mathbb{R}$. When interfacing
-with external systems that operate in wallclock time you will need to
-convert to and from timestamps and dates when constructing presence assertions.
+### The Time Model
+
+Time in the presence calculus is modeled as a continuous quantity over $\mathbb{R}$.
+When interfacing with external systems that operate in wallclock time you will need to
+convert between timestamps and dates and floating point numbers when constructing presence assertions.
 
 The [TimeModel](./time_model.html) class (`pcalc.time_model.TimeModel`) is provided for this purpose.
 
-## Structure
+---
+### Validity of Presence Assertions
 
-Presence assertions define the structure from which all other constructs in
-Presence Calculus are derived—such as element timelines, trajectories,
-co-presence, accumulations, and topological structures.
+It is crucial to note that the Presence Calculus treats presence assertions
+as **axiomatic**: it does not question or make inferences about their validity.
 
-A presence does not require knowledge of the internal state of elements or
-boundaries—only that the element was known to be present in the boundary
-during the specified time interval.
+If a presence assertion is derived from point-in-time events, the meaning of
+that derivation must be defined within the domain itself.
+
+For example, suppose in a traffic domain we observe that a vehicle (the element) crossed the
+1-mile marker at 11:00 AM and the 2-mile marker at 11:10 AM. If we assert that
+the vehicle was continuously present (i.e., within the boundary between those
+markers) during the interval [11:00, 11:11), that assertion depends on
+domain-level assumptions—such as continuity of motion, absence of detours,
+or the nonexistence of teleportation.
+
+In a different domain—for example, one in which a wormhole allows instantaneous
+travel between Mars and mile 1.6—such an assertion might be invalid.
+
+The Presence Calculus does **not** attempt to resolve or validate such
+assumptions. It simply assumes that all presence assertions are valid according
+to domain semantics and proceeds to compute their consequences.
+
+
+### Topology
+
+This brings us to a fundamental distinction between a presence assertion and a
+point-in-time event: a presence assertion introduces a natural way to define a
+**topology** on the space of entities, boundaries, and time intervals
+\( E \times B \times \mathbb{R} \times \mathbb{R} \).
+
+This means that presence assertions allow us to reason about concepts such as
+**nearness**, **overlap**, **continuity**, and **structure**—that is, how
+things relate across elements, boundaries, and time.
+
+The consequences of presence assertions are not logical in the classical sense,
+but **topological**: they give rise to notions of proximity, flow, and
+co-presence that reveal the shape, connectedness and dynamics of the domain.
+
+With presence, we can detect patterns such as:
+- elements that tend to be present together (co-presence),
+- transitions between boundaries, and
+- regions of concentrated or evolving presence.
+
+Presence thus provides the foundational structure for understanding the **dynamics
+of entities** in a domain.
+
+---
+
+## Presence API
 
 This module defines the data structure and associated methods for Presence, 
-and serves as the canonical representation of presence assertions in the
+and serves as the canonical representation of presence assertions and their topological
+ primitives in the
 presence calculus
 """
 
