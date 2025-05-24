@@ -116,6 +116,7 @@ have questions or would like to collaborate.
 
 from .entity import Entity
 from .presence import Presence
+from .time_model import TimeModel
 from .presence_matrix import PresenceMatrix
 from .time_scale import Timescale
 from .presence_map import PresenceMap
@@ -124,6 +125,7 @@ from .presence_invariant import PresenceInvariant
 __all__ = [
     "entity",
     "presence",
+    "time_model",
     "time_scale",
     "presence_map",
     "presence_matrix",

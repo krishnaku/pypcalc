@@ -49,7 +49,12 @@ includes $t_0$ but excludes $t_1$.
 This diagram illustrates a presence assertion over a half-open interval
 $[t_0, t_1)$, where element $e$ is continuously present in boundary $b$
 starting at $t_0$ (included) and ending just before $t_1$ (excluded).
-Time is modeled as a continuous quantity over $\mathbb{R}$.
+
+Time is modeled as a continuous quantity over $\mathbb{R}$. When interfacing
+with external systems that operate in wallclock time you will need to
+convert to and from timestamps and dates when constructing presence assertions.
+
+The [TimeModel](./time_model.html) class (`pcalc.time_model.TimeModel`) is provided for this purpose.
 
 ## Structure
 
