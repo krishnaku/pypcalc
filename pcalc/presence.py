@@ -30,6 +30,16 @@ where
 - $P(e, b, t_0, t_1) = 1$  if $e$ is present in $b$ during $[t_0, t_1)$
 - $P(e, b, t_0, t_1) = 0$  otherwise
 
+Note that P is defined as a function into ℝ (real numbers), rather than into the Boolean set {0, 1}.
+This is because applying a time scale to presences—for example, by binning time into discrete intervals —
+can yield fractional values for presence. These fractional values represent partial overlap with a bin
+and enable presence to be interpreted as a continuous, additive quantity.
+
+This real-valued interpretation supports robust aggregation, smoothing, and rate-based calculations
+within the calculus even as we apply scaling factors to the input timeline. See class [TimeScale](./time_scale.html) for
+more details.
+
+
 ### Presence onset and reset
 
 $t_0$ is called the onset time of the presence—the instant at which the
@@ -59,7 +69,7 @@ The [TimeModel](./time_model.html) class (`pcalc.time_model.TimeModel`) is provi
 ## Structure
 
 Presence assertions define the structure from which all other constructs in
-Presence Calculus are derived—such as element timelines, flow rates,
+Presence Calculus are derived—such as element timelines, trajectories,
 co-presence, accumulations, and topological structures.
 
 A presence does not require knowledge of the internal state of elements or
