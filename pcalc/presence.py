@@ -133,59 +133,71 @@ from .entity import EntityProtocol
 
 
 
-@runtime_checkable
-class PresenceProtocol(Protocol):
-    """The structural and behavioral contract for a Presence."""
-    __init__ = None  # type: ignore
-
-    @property
-    def element(self) -> Optional[EntityProtocol]: ...
-
-    @property
-    def boundary(self) -> Optional[EntityProtocol]: ...
-
-    @property
-    def onset_time(self) -> float: ...
-
-    @property
-    def reset_time(self) -> float: ...
-
-    @property
-    def provenance(self) -> str: ...
-
-    def overlaps(self, t0: float, t1: float) -> bool: ...
+from dataclasses import dataclass
+from typing import Optional
+import numpy as np
+from .entity import EntityProtocol
 
 
-
-    def duration(self) -> float: ...
-
-    def residence_time(self, t0: float, t1: float) -> float: ...
-
-    def __str__(self) -> str: ...
-
-
-class PresenceMixin:
+@dataclass(frozen=True)
+class Presence:
     """
-    Common logic for all Presence implementations. Assumes consuming class
-    defines `element`, `boundary`, `start`, `end`, and `provenance` properties.
-    """
+    A presence assertion in the Presence Calculus.
 
-    def overlaps(self: PresenceProtocol, t0: float, t1: float) -> bool:
+    This is a fundamental, immutable construct representing the presence of an
+    element at a boundary over a continuous interval of time.
+    """
+    element: Optional[EntityProtocol]
+    boundary: Optional[EntityProtocol]
+    onset_time: float
+    reset_time: float
+    provenance: str = "observed"
+
+    def overlaps(self, t0: float, t1: float) -> bool:
         return self.reset_time > t0 and self.onset_time < t1
 
-
-    def duration(self: PresenceProtocol) -> float:
+    def duration(self) -> float:
         return max(0.0, self.reset_time - self.onset_time)
 
-    def residence_time(self: PresenceProtocol, t0: float, t1: float) -> float:
+    def residence_time(self, t0: float, t1: float) -> float:
         if t0 >= t1 or not self.overlaps(t0, t1):
             return 0.0
-
         start = max(self.onset_time, t0)
         end = min(self.reset_time, t1)
         return max(0.0, end - start)
 
-    def __str__(self: PresenceProtocol) -> str:
+    def merge(self, other: Presence) -> Presence:
+        """
+        Returns the minimal continuous presence that covers both presences if they are
+        compatible (same element and boundary) and their time intervals overlap or touch.
+
+        This is the join operation in the basis topology of the Presence Calculus.
+        It reflects the union of basic open sets corresponding to temporal presence intervals.
+        It is not sheaf-theoretic gluing.
+
+        If the two presences are disjoint or incompatible, returns EMPTY_PRESENCE.
+
+        Returns:
+            Presence: the merged presence or EMPTY_PRESENCE if merge is undefined.
+        """
+        if (self.element, self.boundary) != (other.element, other.boundary):
+            return EMPTY_PRESENCE
+
+        # Check for disjoint non-touching intervals
+        if self.reset_time < other.onset_time != float("-inf") and self.reset_time != float("inf"):
+            return EMPTY_PRESENCE
+        if other.reset_time < self.onset_time != float("-inf") and other.reset_time != float("inf"):
+            return EMPTY_PRESENCE
+
+        return Presence(
+            element=self.element,
+            boundary=self.boundary,
+            onset_time=min(self.onset_time, other.onset_time),
+            reset_time=max(self.reset_time, other.reset_time),
+            provenance="merge",
+        )
+
+    def __str__(self) -> str:
         element_str = str(self.element) if self.element is not None else "None"
         boundary_str = str(self.boundary) if self.boundary is not None else "None"
         interval_str = f"[{self.onset_time}, {self.reset_time})"
@@ -194,104 +206,11 @@ class PresenceMixin:
             f"interval={interval_str}, provenance={self.provenance})"
         )
 
-
-class Presence(PresenceMixin, PresenceProtocol):
-    """
-    Default implementation of PresenceProtocol.
-    """
-    __slots__ = ("_element", "_boundary", "_start", "_end", "_provenance")
-
-    def __init__(
-            self,
-            element: Optional[EntityProtocol],
-            boundary: Optional[EntityProtocol],
-            start: float,
-            end: float,
-            provenance: str = "observed",
-    ) -> None:
-        self._element = element
-        self._boundary = boundary
-        self._start = start
-        self._end = end
-        self._provenance = provenance
-
-    @property
-    def element(self) -> Optional[EntityProtocol]:
-        return self._element
-
-    @property
-    def boundary(self) -> Optional[EntityProtocol]:
-        return self._boundary
-
-    @property
-    def onset_time(self) -> float:
-        return self._start
-
-    @property
-    def reset_time(self) -> float:
-        return self._end
-
-    @property
-    def provenance(self) -> str:
-        return self._provenance
-
-
-class PresenceView(PresenceMixin, PresenceProtocol):
-    """
-    Immutable view over a Presence-like object. Use this when exposing presence
-    data from external sources or enforcing read-only access.
-    """
-
-    __slots__ = ("_element", "_boundary", "_start", "_end", "_provenance")
-
-    _element: Optional[EntityProtocol]
-    _boundary: Optional[EntityProtocol]
-    _start: float
-    _end: float
-    _provenance: str
-
-    def __init__(
-            self,
-            element: Optional[EntityProtocol],
-            boundary: Optional[EntityProtocol],
-            start: float,
-            end: float,
-            provenance: str = "observed",
-    ) -> None:
-        object.__setattr__(self, "_element", element)
-        object.__setattr__(self, "_boundary", boundary)
-        object.__setattr__(self, "_start", start)
-        object.__setattr__(self, "_end", end)
-        object.__setattr__(self, "_provenance", provenance)
-
-    def __setattr__(self, key: str, value: object) -> None:
-        raise AttributeError("PresenceView is immutable.")
-
-    @property
-    def element(self) -> Optional[EntityProtocol]:
-        return self._element
-
-    @property
-    def boundary(self) -> Optional[EntityProtocol]:
-        return self._boundary
-
-    @property
-    def onset_time(self) -> float:
-        return self._start
-
-    @property
-    def reset_time(self) -> float:
-        return self._end
-
-    @property
-    def provenance(self) -> str:
-        return self._provenance
-
-
 EMPTY_PRESENCE: Presence = Presence(
     element=None,
     boundary=None,
-    start=0.0,
-    end=0.0,
+    onset_time=0.0,
+    reset_time=0.0,
     provenance="empty",
 )
+
