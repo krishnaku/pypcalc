@@ -69,9 +69,6 @@ The `BasisTopology` class provides methods to define, traverse, and query this t
 efficiently over arbitrary collections of presences defined over the domain.
 """
 
-
-
-
 from collections import defaultdict
 from typing import Iterable, Tuple
 from sortedcontainers import SortedSet
