@@ -98,7 +98,11 @@ can be found on [The Polaris Flow Dispatch.](https://wwww.polaris-flow-dispatch.
 
 The documentation is organized so that you can get a very good idea of the
 scope of the presence calculus and it's implementation by reading the
-topics in the order listed on the left hand menu.
+topics listed on the "submodules" left hand menu, in order.
+
+Each module
+links to detailed API documentation that is also directly accessible from this page.
+The index is also searchable once you get familiar with the concepts.
 
 The presence calculus builds on an intuitive and elementary foundation, even as
 it remains mathematically rigorous. We believe the space of potential
@@ -106,17 +110,15 @@ applications is vast, and invite you to explore it—and to reach out if you
 have questions or would like to collaborate.
 
 
-
-
 [Dr. Krishna Kumar](https://www.linkedin.com/in/krishnaku1/),
 <br> [The Polaris Advisor Program](https://github.com/polarisadvisor)
 
 
 """
-
 from .entity import Entity
 from .presence import Presence
 from .time_model import TimeModel
+from .basis_topology import BasisTopology
 from .presence_matrix import PresenceMatrix
 from .time_scale import Timescale
 from .presence_map import PresenceMap
@@ -124,10 +126,19 @@ from .presence_invariant import PresenceInvariant
 
 __all__ = [
     "entity",
+    Entity,
     "presence",
+    Presence,
     "time_model",
+    TimeModel,
+    "basis_topology",
+    BasisTopology,
     "time_scale",
+    Timescale,
     "presence_map",
+    PresenceMap,
     "presence_matrix",
+    PresenceMatrix,
     "presence_invariant",
+    PresenceInvariant,
 ]

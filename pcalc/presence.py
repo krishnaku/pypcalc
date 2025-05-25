@@ -166,36 +166,6 @@ class Presence:
         end = min(self.reset_time, t1)
         return max(0.0, end - start)
 
-    def merge(self, other: Presence) -> Presence:
-        """
-        Returns the minimal continuous presence that covers both presences if they are
-        compatible (same element and boundary) and their time intervals overlap or touch.
-
-        This is the join operation in the basis topology of the Presence Calculus.
-        It reflects the union of basic open sets corresponding to temporal presence intervals.
-        It is not sheaf-theoretic gluing.
-
-        If the two presences are disjoint or incompatible, returns EMPTY_PRESENCE.
-
-        Returns:
-            Presence: the merged presence or EMPTY_PRESENCE if merge is undefined.
-        """
-        if (self.element, self.boundary) != (other.element, other.boundary):
-            return EMPTY_PRESENCE
-
-        # Check for disjoint non-touching intervals
-        if self.reset_time < other.onset_time != float("-inf") and self.reset_time != float("inf"):
-            return EMPTY_PRESENCE
-        if other.reset_time < self.onset_time != float("-inf") and other.reset_time != float("inf"):
-            return EMPTY_PRESENCE
-
-        return Presence(
-            element=self.element,
-            boundary=self.boundary,
-            onset_time=min(self.onset_time, other.onset_time),
-            reset_time=max(self.reset_time, other.reset_time),
-            provenance="merge",
-        )
 
     def __str__(self) -> str:
         element_str = str(self.element) if self.element is not None else "None"
