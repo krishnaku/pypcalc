@@ -119,26 +119,34 @@ from .entity import Entity
 from .presence import Presence
 from .time_model import TimeModel
 from .basis_topology import BasisTopology
+from .presence_invariant import PresenceInvariant
 from .presence_matrix import PresenceMatrix
 from .time_scale import Timescale
 from .presence_map import PresenceMap
-from .presence_invariant import PresenceInvariant
+from .presence_invariant_discrete import PresenceInvariantDiscrete
 
 __all__ = [
+    # Domain API
     "entity",
     Entity,
     "presence",
     Presence,
+
+    # Continuous Time Models
     "time_model",
     TimeModel,
     "basis_topology",
     BasisTopology,
+    "presence_invariant",
+    PresenceInvariant,
+
+    # Discrete Time Models
     "time_scale",
     Timescale,
     "presence_map",
     PresenceMap,
     "presence_matrix",
     PresenceMatrix,
-    "presence_invariant",
-    PresenceInvariant,
+    "presence_invariant_discrete",
+    PresenceInvariantDiscrete,
 ]

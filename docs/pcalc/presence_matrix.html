@@ -127,7 +127,7 @@
 </span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a>
 </span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PresenceMatrix</span><span class="p">:</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="sd">    A scale-invariant, optionally lazy matrix representation of element presences over time.</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="sd">    A scale-invariant, optionally lazy matrix representation of element presences over discrete time bins.</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="sd">    Each row corresponds to a single `Presence`, and each column represents a discrete time bin defined by a `Timescale`.</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="sd">    The matrix records the degree of presence of each element within a given boundary over time, where each value is a real number in [0.0, 1.0]:</span>
@@ -389,7 +389,7 @@
     <a class="headerlink" href="#PresenceMatrix"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix-18"><a href="#PresenceMatrix-18"><span class="linenos"> 18</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PresenceMatrix</span><span class="p">:</span>
 </span><span id="PresenceMatrix-19"><a href="#PresenceMatrix-19"><span class="linenos"> 19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="PresenceMatrix-20"><a href="#PresenceMatrix-20"><span class="linenos"> 20</span></a><span class="sd">    A scale-invariant, optionally lazy matrix representation of element presences over time.</span>
+</span><span id="PresenceMatrix-20"><a href="#PresenceMatrix-20"><span class="linenos"> 20</span></a><span class="sd">    A scale-invariant, optionally lazy matrix representation of element presences over discrete time bins.</span>
 </span><span id="PresenceMatrix-21"><a href="#PresenceMatrix-21"><span class="linenos"> 21</span></a>
 </span><span id="PresenceMatrix-22"><a href="#PresenceMatrix-22"><span class="linenos"> 22</span></a><span class="sd">    Each row corresponds to a single `Presence`, and each column represents a discrete time bin defined by a `Timescale`.</span>
 </span><span id="PresenceMatrix-23"><a href="#PresenceMatrix-23"><span class="linenos"> 23</span></a><span class="sd">    The matrix records the degree of presence of each element within a given boundary over time, where each value is a real number in [0.0, 1.0]:</span>
@@ -637,7 +637,7 @@
 </span></pre></div>
 
 
-            <div class="docstring"><p>A scale-invariant, optionally lazy matrix representation of element presences over time.</p>
+            <div class="docstring"><p>A scale-invariant, optionally lazy matrix representation of element presences over discrete time bins.</p>
 
 <p>Each row corresponds to a single <code>Presence</code>, and each column represents a discrete time bin defined by a <code>Timescale</code>.
 The matrix records the degree of presence of each element within a given boundary over time, where each value is a real number in [0.0, 1.0]:</p>

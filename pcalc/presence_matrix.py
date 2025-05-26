@@ -16,7 +16,7 @@ from .time_scale import Timescale
 
 class PresenceMatrix:
     """
-    A scale-invariant, optionally lazy matrix representation of element presences over time.
+    A scale-invariant, optionally lazy matrix representation of element presences over discrete time bins.
 
     Each row corresponds to a single `Presence`, and each column represents a discrete time bin defined by a `Timescale`.
     The matrix records the degree of presence of each element within a given boundary over time, where each value is a real number in [0.0, 1.0]:
