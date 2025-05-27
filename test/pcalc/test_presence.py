@@ -74,8 +74,6 @@ def test_str_representation():
     # Window with t0 >= t1
     ("zero-length window", (0.0, 1.0), (1.0, 1.0), 0.0),
 
-    # No overlap with -inf
-    ("-inf reset, no overlap", (0.0, -float("inf")), (0.0, 1.0), 0.0),
 ])
 def test_presence_residence_time(desc, presence_args, window, expected_residence):
     p = Presence(Entity("e"), Entity("b"), *presence_args)
@@ -115,8 +113,6 @@ def test_presence_residence_time(desc, presence_args, window, expected_residence
     # Both ends infinite
     ("eternal presence", (-float("inf"), float("inf")), (2.0, 5.0), True),
 
-    # Negative infinite reset (invalid range)
-    ("negative infinite reset", (0.0, -float("inf")), (0.0, 1.0), False),
 
     # Window with t0 >= t1
     ("zero-length window", (0.0, 1.0), (1.0, 1.0), False),
@@ -126,3 +122,35 @@ def test_presence_overlaps(desc, presence_args, window, expected_overlap):
     t0, t1 = window
     actual = p.overlaps(t0, t1)
     assert actual == expected_overlap, f"{desc}: got {actual}, expected {expected_overlap}"
+
+
+
+@pytest.mark.parametrize("desc, onset, reset, expected_duration", [
+    # Standard case
+    ("normal duration", 1.0, 3.0, 2.0),
+
+    # Empty presence at t=0
+    ("empty presence at origin", 0.0, 0.0, 0.0),
+
+    # Open-ended presence
+    ("open-ended presence", 5.0, float("inf"), float("inf")),
+
+    # Reset at infinity, onset before t=0
+    ("eternal presence ending never", -float("inf"), float("inf"), float("inf")),
+
+    # Reset finite, onset = -inf → duration = reset - 0
+    ("eternal presence ending at t=5", -float("inf"), 5.0, 5.0),
+
+    # Reset finite, onset = -inf → duration = reset - 0
+    ("eternal presence ending at t=1", -float("inf"), 1.0, 1.0),
+
+    # Fully finite
+    ("short finite presence", 0.5, 1.5, 1.0),
+])
+def test_presence_duration(desc, onset, reset, expected_duration):
+    p = Presence(Entity("e"), Entity("b"), onset, reset)
+    actual = p.duration()
+    if expected_duration == float("inf"):
+        assert actual == float("inf"), f"{desc}: got {actual}, expected inf"
+    else:
+        assert abs(actual - expected_duration) < 1e-6, f"{desc}: got {actual}, expected {expected_duration}"

@@ -146,6 +146,26 @@ class Presence:
 
     This is a fundamental, immutable construct representing the presence of an
     element at a boundary over a continuous interval of time.
+
+    A presence is defined over a half-open interval $[t_0, t_1)$ on the real
+    line, where $t_0$ is the onset time and $t_1$ is the reset time.
+
+    The
+    following constraints must hold:
+
+    - $t_0 < t_1$
+    - $t_0 \\in \\mathbb{R} \\cup \\{-\\infty\\}$
+    - $t_1 \\in \\mathbb{R} \\cup \\{+\\infty\\}$
+    - $t_0 \\ne +\\infty$
+    - $t_1 \\ne -\\infty$
+
+    These rules ensure that the interval is well-formed, bounded on the left,
+    and open on the right. Intervals such as $[2.0, 5.0)$, $[-\\infty, 4.2)$,
+    and $[1.0, +\\infty)$ are allowed, as are the special case $[-\\infty,
+    +\\infty)$ and $[0,0),$ the empty presence.
+
+    With the empty presence as the only exception, intervals with zero or negative duration, or with reversed or
+    undefined bounds, are disallowed.
     """
     element: Optional[EntityProtocol]
     boundary: Optional[EntityProtocol]
@@ -153,11 +173,51 @@ class Presence:
     reset_time: float
     provenance: str = "observed"
 
+    def __post_init__(self):
+        """
+        Validates the temporal bounds of the presence interval
+        """
+        if self.onset_time >= self.reset_time:
+            if not (self.onset_time == self.reset_time == 0):
+                raise ValueError(
+                    f"Invalid interval: onset_time ({self.onset_time}) must be less than reset_time ({self.reset_time})")
+
+        if self.onset_time == float("inf"):
+            raise ValueError("Presence cannot begin at +inf")
+
+        if self.reset_time == float("-inf"):
+            raise ValueError("Presence cannot end at -inf")
+
     def overlaps(self, t0: float, t1: float) -> bool:
         return self.reset_time > t0 and self.onset_time < t1
 
     def duration(self) -> float:
-        return max(0.0, self.reset_time - self.onset_time)
+        """
+        Returns the duration of the presence, interpreted as the total length
+        of time the element is asserted to have been present.
+
+        If the onset time is finite, the duration is simply:
+
+            duration = max(0, reset_time - onset_time)
+
+        If the onset time is -∞, the presence is treated as beginning at the
+        start of observation time (t = 0) for the purpose of duration
+        calculation. This bounds the duration to a finite value when
+        reset_time is known.
+
+        Thus, for onset_time = -∞ and reset_time = t₁ < ∞, we compute:
+
+            duration = max(0, t₁ - 0) = t₁
+
+        If the reset time is ∞, the duration is ∞, regardless of onset time.
+
+        This behavior ensures that durations remain meaningful and converge
+        within systems where observation windows begin at t = 0, while still
+        preserving the semantic intent of presences that began before the
+        observable history.
+        """
+        onset = max(0.0, self.onset_time)
+        return max(0.0, self.reset_time - onset)
 
     def residence_time(self, t0: float, t1: float) -> float:
         if t0 >= t1 or not self.overlaps(t0, t1):

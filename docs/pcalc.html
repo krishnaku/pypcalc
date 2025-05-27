@@ -858,35 +858,95 @@ Defaults to a uuid.uuid4().</p>
 </span><span id="Presence-147"><a href="#Presence-147"><span class="linenos">147</span></a>
 </span><span id="Presence-148"><a href="#Presence-148"><span class="linenos">148</span></a><span class="sd">    This is a fundamental, immutable construct representing the presence of an</span>
 </span><span id="Presence-149"><a href="#Presence-149"><span class="linenos">149</span></a><span class="sd">    element at a boundary over a continuous interval of time.</span>
-</span><span id="Presence-150"><a href="#Presence-150"><span class="linenos">150</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Presence-151"><a href="#Presence-151"><span class="linenos">151</span></a>    <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
-</span><span id="Presence-152"><a href="#Presence-152"><span class="linenos">152</span></a>    <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
-</span><span id="Presence-153"><a href="#Presence-153"><span class="linenos">153</span></a>    <span class="n">onset_time</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="Presence-154"><a href="#Presence-154"><span class="linenos">154</span></a>    <span class="n">reset_time</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="Presence-155"><a href="#Presence-155"><span class="linenos">155</span></a>    <span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span>
+</span><span id="Presence-150"><a href="#Presence-150"><span class="linenos">150</span></a>
+</span><span id="Presence-151"><a href="#Presence-151"><span class="linenos">151</span></a><span class="sd">    A presence is defined over a half-open interval $[t_0, t_1)$ on the real</span>
+</span><span id="Presence-152"><a href="#Presence-152"><span class="linenos">152</span></a><span class="sd">    line, where $t_0$ is the onset time and $t_1$ is the reset time.</span>
+</span><span id="Presence-153"><a href="#Presence-153"><span class="linenos">153</span></a>
+</span><span id="Presence-154"><a href="#Presence-154"><span class="linenos">154</span></a><span class="sd">    The</span>
+</span><span id="Presence-155"><a href="#Presence-155"><span class="linenos">155</span></a><span class="sd">    following constraints must hold:</span>
 </span><span id="Presence-156"><a href="#Presence-156"><span class="linenos">156</span></a>
-</span><span id="Presence-157"><a href="#Presence-157"><span class="linenos">157</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Presence-158"><a href="#Presence-158"><span class="linenos">158</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
-</span><span id="Presence-159"><a href="#Presence-159"><span class="linenos">159</span></a>
-</span><span id="Presence-160"><a href="#Presence-160"><span class="linenos">160</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="Presence-161"><a href="#Presence-161"><span class="linenos">161</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
+</span><span id="Presence-157"><a href="#Presence-157"><span class="linenos">157</span></a><span class="sd">    - $t_0 &lt; t_1$</span>
+</span><span id="Presence-158"><a href="#Presence-158"><span class="linenos">158</span></a><span class="sd">    - $t_0 \\in \\mathbb{R} \\cup \\{-\\infty\\}$</span>
+</span><span id="Presence-159"><a href="#Presence-159"><span class="linenos">159</span></a><span class="sd">    - $t_1 \\in \\mathbb{R} \\cup \\{+\\infty\\}$</span>
+</span><span id="Presence-160"><a href="#Presence-160"><span class="linenos">160</span></a><span class="sd">    - $t_0 \\ne +\\infty$</span>
+</span><span id="Presence-161"><a href="#Presence-161"><span class="linenos">161</span></a><span class="sd">    - $t_1 \\ne -\\infty$</span>
 </span><span id="Presence-162"><a href="#Presence-162"><span class="linenos">162</span></a>
-</span><span id="Presence-163"><a href="#Presence-163"><span class="linenos">163</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">residence_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="Presence-164"><a href="#Presence-164"><span class="linenos">164</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
-</span><span id="Presence-165"><a href="#Presence-165"><span class="linenos">165</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
-</span><span id="Presence-166"><a href="#Presence-166"><span class="linenos">166</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
-</span><span id="Presence-167"><a href="#Presence-167"><span class="linenos">167</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
-</span><span id="Presence-168"><a href="#Presence-168"><span class="linenos">168</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
-</span><span id="Presence-169"><a href="#Presence-169"><span class="linenos">169</span></a>
-</span><span id="Presence-170"><a href="#Presence-170"><span class="linenos">170</span></a>
-</span><span id="Presence-171"><a href="#Presence-171"><span class="linenos">171</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Presence-172"><a href="#Presence-172"><span class="linenos">172</span></a>        <span class="n">element_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
-</span><span id="Presence-173"><a href="#Presence-173"><span class="linenos">173</span></a>        <span class="n">boundary_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">boundary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
-</span><span id="Presence-174"><a href="#Presence-174"><span class="linenos">174</span></a>        <span class="n">interval_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="si">}</span><span class="s2">)&quot;</span>
-</span><span id="Presence-175"><a href="#Presence-175"><span class="linenos">175</span></a>        <span class="k">return</span> <span class="p">(</span>
-</span><span id="Presence-176"><a href="#Presence-176"><span class="linenos">176</span></a>            <span class="sa">f</span><span class="s2">&quot;Presence(element=</span><span class="si">{</span><span class="n">element_str</span><span class="si">}</span><span class="s2">, boundary=</span><span class="si">{</span><span class="n">boundary_str</span><span class="si">}</span><span class="s2">, &quot;</span>
-</span><span id="Presence-177"><a href="#Presence-177"><span class="linenos">177</span></a>            <span class="sa">f</span><span class="s2">&quot;interval=</span><span class="si">{</span><span class="n">interval_str</span><span class="si">}</span><span class="s2">, provenance=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provenance</span><span class="si">}</span><span class="s2">)&quot;</span>
-</span><span id="Presence-178"><a href="#Presence-178"><span class="linenos">178</span></a>        <span class="p">)</span>
+</span><span id="Presence-163"><a href="#Presence-163"><span class="linenos">163</span></a><span class="sd">    These rules ensure that the interval is well-formed, bounded on the left,</span>
+</span><span id="Presence-164"><a href="#Presence-164"><span class="linenos">164</span></a><span class="sd">    and open on the right. Intervals such as $[2.0, 5.0)$, $[-\\infty, 4.2)$,</span>
+</span><span id="Presence-165"><a href="#Presence-165"><span class="linenos">165</span></a><span class="sd">    and $[1.0, +\\infty)$ are allowed, as are the special case $[-\\infty,</span>
+</span><span id="Presence-166"><a href="#Presence-166"><span class="linenos">166</span></a><span class="sd">    +\\infty)$ and $[0,0),$ the empty presence.</span>
+</span><span id="Presence-167"><a href="#Presence-167"><span class="linenos">167</span></a>
+</span><span id="Presence-168"><a href="#Presence-168"><span class="linenos">168</span></a><span class="sd">    With the empty presence as the only exception, intervals with zero or negative duration, or with reversed or</span>
+</span><span id="Presence-169"><a href="#Presence-169"><span class="linenos">169</span></a><span class="sd">    undefined bounds, are disallowed.</span>
+</span><span id="Presence-170"><a href="#Presence-170"><span class="linenos">170</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="Presence-171"><a href="#Presence-171"><span class="linenos">171</span></a>    <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
+</span><span id="Presence-172"><a href="#Presence-172"><span class="linenos">172</span></a>    <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
+</span><span id="Presence-173"><a href="#Presence-173"><span class="linenos">173</span></a>    <span class="n">onset_time</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="Presence-174"><a href="#Presence-174"><span class="linenos">174</span></a>    <span class="n">reset_time</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="Presence-175"><a href="#Presence-175"><span class="linenos">175</span></a>    <span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span>
+</span><span id="Presence-176"><a href="#Presence-176"><span class="linenos">176</span></a>
+</span><span id="Presence-177"><a href="#Presence-177"><span class="linenos">177</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Presence-178"><a href="#Presence-178"><span class="linenos">178</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Presence-179"><a href="#Presence-179"><span class="linenos">179</span></a><span class="sd">        Validates the temporal bounds of the presence interval</span>
+</span><span id="Presence-180"><a href="#Presence-180"><span class="linenos">180</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Presence-181"><a href="#Presence-181"><span class="linenos">181</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">:</span>
+</span><span id="Presence-182"><a href="#Presence-182"><span class="linenos">182</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span><span id="Presence-183"><a href="#Presence-183"><span class="linenos">183</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+</span><span id="Presence-184"><a href="#Presence-184"><span class="linenos">184</span></a>                    <span class="sa">f</span><span class="s2">&quot;Invalid interval: onset_time (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="si">}</span><span class="s2">) must be less than reset_time (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</span><span id="Presence-185"><a href="#Presence-185"><span class="linenos">185</span></a>
+</span><span id="Presence-186"><a href="#Presence-186"><span class="linenos">186</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
+</span><span id="Presence-187"><a href="#Presence-187"><span class="linenos">187</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Presence cannot begin at +inf&quot;</span><span class="p">)</span>
+</span><span id="Presence-188"><a href="#Presence-188"><span class="linenos">188</span></a>
+</span><span id="Presence-189"><a href="#Presence-189"><span class="linenos">189</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>
+</span><span id="Presence-190"><a href="#Presence-190"><span class="linenos">190</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Presence cannot end at -inf&quot;</span><span class="p">)</span>
+</span><span id="Presence-191"><a href="#Presence-191"><span class="linenos">191</span></a>
+</span><span id="Presence-192"><a href="#Presence-192"><span class="linenos">192</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="Presence-193"><a href="#Presence-193"><span class="linenos">193</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
+</span><span id="Presence-194"><a href="#Presence-194"><span class="linenos">194</span></a>
+</span><span id="Presence-195"><a href="#Presence-195"><span class="linenos">195</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="Presence-196"><a href="#Presence-196"><span class="linenos">196</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Presence-197"><a href="#Presence-197"><span class="linenos">197</span></a><span class="sd">        Returns the duration of the presence, interpreted as the total length</span>
+</span><span id="Presence-198"><a href="#Presence-198"><span class="linenos">198</span></a><span class="sd">        of time the element is asserted to have been present.</span>
+</span><span id="Presence-199"><a href="#Presence-199"><span class="linenos">199</span></a>
+</span><span id="Presence-200"><a href="#Presence-200"><span class="linenos">200</span></a><span class="sd">        If the onset time is finite, the duration is simply:</span>
+</span><span id="Presence-201"><a href="#Presence-201"><span class="linenos">201</span></a>
+</span><span id="Presence-202"><a href="#Presence-202"><span class="linenos">202</span></a><span class="sd">            duration = max(0, reset_time - onset_time)</span>
+</span><span id="Presence-203"><a href="#Presence-203"><span class="linenos">203</span></a>
+</span><span id="Presence-204"><a href="#Presence-204"><span class="linenos">204</span></a><span class="sd">        If the onset time is -∞, the presence is treated as beginning at the</span>
+</span><span id="Presence-205"><a href="#Presence-205"><span class="linenos">205</span></a><span class="sd">        start of observation time (t = 0) for the purpose of duration</span>
+</span><span id="Presence-206"><a href="#Presence-206"><span class="linenos">206</span></a><span class="sd">        calculation. This bounds the duration to a finite value when</span>
+</span><span id="Presence-207"><a href="#Presence-207"><span class="linenos">207</span></a><span class="sd">        reset_time is known.</span>
+</span><span id="Presence-208"><a href="#Presence-208"><span class="linenos">208</span></a>
+</span><span id="Presence-209"><a href="#Presence-209"><span class="linenos">209</span></a><span class="sd">        Thus, for onset_time = -∞ and reset_time = t₁ &lt; ∞, we compute:</span>
+</span><span id="Presence-210"><a href="#Presence-210"><span class="linenos">210</span></a>
+</span><span id="Presence-211"><a href="#Presence-211"><span class="linenos">211</span></a><span class="sd">            duration = max(0, t₁ - 0) = t₁</span>
+</span><span id="Presence-212"><a href="#Presence-212"><span class="linenos">212</span></a>
+</span><span id="Presence-213"><a href="#Presence-213"><span class="linenos">213</span></a><span class="sd">        If the reset time is ∞, the duration is ∞, regardless of onset time.</span>
+</span><span id="Presence-214"><a href="#Presence-214"><span class="linenos">214</span></a>
+</span><span id="Presence-215"><a href="#Presence-215"><span class="linenos">215</span></a><span class="sd">        This behavior ensures that durations remain meaningful and converge</span>
+</span><span id="Presence-216"><a href="#Presence-216"><span class="linenos">216</span></a><span class="sd">        within systems where observation windows begin at t = 0, while still</span>
+</span><span id="Presence-217"><a href="#Presence-217"><span class="linenos">217</span></a><span class="sd">        preserving the semantic intent of presences that began before the</span>
+</span><span id="Presence-218"><a href="#Presence-218"><span class="linenos">218</span></a><span class="sd">        observable history.</span>
+</span><span id="Presence-219"><a href="#Presence-219"><span class="linenos">219</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Presence-220"><a href="#Presence-220"><span class="linenos">220</span></a>        <span class="n">onset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
+</span><span id="Presence-221"><a href="#Presence-221"><span class="linenos">221</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="n">onset</span><span class="p">)</span>
+</span><span id="Presence-222"><a href="#Presence-222"><span class="linenos">222</span></a>
+</span><span id="Presence-223"><a href="#Presence-223"><span class="linenos">223</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">residence_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="Presence-224"><a href="#Presence-224"><span class="linenos">224</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
+</span><span id="Presence-225"><a href="#Presence-225"><span class="linenos">225</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
+</span><span id="Presence-226"><a href="#Presence-226"><span class="linenos">226</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+</span><span id="Presence-227"><a href="#Presence-227"><span class="linenos">227</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
+</span><span id="Presence-228"><a href="#Presence-228"><span class="linenos">228</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+</span><span id="Presence-229"><a href="#Presence-229"><span class="linenos">229</span></a>
+</span><span id="Presence-230"><a href="#Presence-230"><span class="linenos">230</span></a>
+</span><span id="Presence-231"><a href="#Presence-231"><span class="linenos">231</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Presence-232"><a href="#Presence-232"><span class="linenos">232</span></a>        <span class="n">element_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
+</span><span id="Presence-233"><a href="#Presence-233"><span class="linenos">233</span></a>        <span class="n">boundary_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">boundary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
+</span><span id="Presence-234"><a href="#Presence-234"><span class="linenos">234</span></a>        <span class="n">interval_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="si">}</span><span class="s2">)&quot;</span>
+</span><span id="Presence-235"><a href="#Presence-235"><span class="linenos">235</span></a>        <span class="k">return</span> <span class="p">(</span>
+</span><span id="Presence-236"><a href="#Presence-236"><span class="linenos">236</span></a>            <span class="sa">f</span><span class="s2">&quot;Presence(element=</span><span class="si">{</span><span class="n">element_str</span><span class="si">}</span><span class="s2">, boundary=</span><span class="si">{</span><span class="n">boundary_str</span><span class="si">}</span><span class="s2">, &quot;</span>
+</span><span id="Presence-237"><a href="#Presence-237"><span class="linenos">237</span></a>            <span class="sa">f</span><span class="s2">&quot;interval=</span><span class="si">{</span><span class="n">interval_str</span><span class="si">}</span><span class="s2">, provenance=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provenance</span><span class="si">}</span><span class="s2">)&quot;</span>
+</span><span id="Presence-238"><a href="#Presence-238"><span class="linenos">238</span></a>        <span class="p">)</span>
 </span></pre></div>
 
 
@@ -894,6 +954,28 @@ Defaults to a uuid.uuid4().</p>
 
 <p>This is a fundamental, immutable construct representing the presence of an
 element at a boundary over a continuous interval of time.</p>
+
+<p>A presence is defined over a half-open interval $[t_0, t_1)$ on the real
+line, where $t_0$ is the onset time and $t_1$ is the reset time.</p>
+
+<p>The
+following constraints must hold:</p>
+
+<ul>
+<li>$t_0 &lt; t_1$</li>
+<li>$t_0 \in \mathbb{R} \cup {-\infty}$</li>
+<li>$t_1 \in \mathbb{R} \cup {+\infty}$</li>
+<li>$t_0 \ne +\infty$</li>
+<li>$t_1 \ne -\infty$</li>
+</ul>
+
+<p>These rules ensure that the interval is well-formed, bounded on the left,
+and open on the right. Intervals such as $[2.0, 5.0)$, $[-\infty, 4.2)$,
+and $[1.0, +\infty)$ are allowed, as are the special case $[-\infty,
++\infty)$ and $[0,0),$ the empty presence.</p>
+
+<p>With the empty presence as the only exception, intervals with zero or negative duration, or with reversed or
+undefined bounds, are disallowed.</p>
 </div>
 
 
@@ -976,8 +1058,8 @@ element at a boundary over a continuous interval of time.</p>
 
     </div>
     <a class="headerlink" href="#Presence.overlaps"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.overlaps-157"><a href="#Presence.overlaps-157"><span class="linenos">157</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Presence.overlaps-158"><a href="#Presence.overlaps-158"><span class="linenos">158</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.overlaps-192"><a href="#Presence.overlaps-192"><span class="linenos">192</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="Presence.overlaps-193"><a href="#Presence.overlaps-193"><span class="linenos">193</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
 </span></pre></div>
 
 
@@ -995,12 +1077,62 @@ element at a boundary over a continuous interval of time.</p>
 
     </div>
     <a class="headerlink" href="#Presence.duration"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.duration-160"><a href="#Presence.duration-160"><span class="linenos">160</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="Presence.duration-161"><a href="#Presence.duration-161"><span class="linenos">161</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.duration-195"><a href="#Presence.duration-195"><span class="linenos">195</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="Presence.duration-196"><a href="#Presence.duration-196"><span class="linenos">196</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Presence.duration-197"><a href="#Presence.duration-197"><span class="linenos">197</span></a><span class="sd">        Returns the duration of the presence, interpreted as the total length</span>
+</span><span id="Presence.duration-198"><a href="#Presence.duration-198"><span class="linenos">198</span></a><span class="sd">        of time the element is asserted to have been present.</span>
+</span><span id="Presence.duration-199"><a href="#Presence.duration-199"><span class="linenos">199</span></a>
+</span><span id="Presence.duration-200"><a href="#Presence.duration-200"><span class="linenos">200</span></a><span class="sd">        If the onset time is finite, the duration is simply:</span>
+</span><span id="Presence.duration-201"><a href="#Presence.duration-201"><span class="linenos">201</span></a>
+</span><span id="Presence.duration-202"><a href="#Presence.duration-202"><span class="linenos">202</span></a><span class="sd">            duration = max(0, reset_time - onset_time)</span>
+</span><span id="Presence.duration-203"><a href="#Presence.duration-203"><span class="linenos">203</span></a>
+</span><span id="Presence.duration-204"><a href="#Presence.duration-204"><span class="linenos">204</span></a><span class="sd">        If the onset time is -∞, the presence is treated as beginning at the</span>
+</span><span id="Presence.duration-205"><a href="#Presence.duration-205"><span class="linenos">205</span></a><span class="sd">        start of observation time (t = 0) for the purpose of duration</span>
+</span><span id="Presence.duration-206"><a href="#Presence.duration-206"><span class="linenos">206</span></a><span class="sd">        calculation. This bounds the duration to a finite value when</span>
+</span><span id="Presence.duration-207"><a href="#Presence.duration-207"><span class="linenos">207</span></a><span class="sd">        reset_time is known.</span>
+</span><span id="Presence.duration-208"><a href="#Presence.duration-208"><span class="linenos">208</span></a>
+</span><span id="Presence.duration-209"><a href="#Presence.duration-209"><span class="linenos">209</span></a><span class="sd">        Thus, for onset_time = -∞ and reset_time = t₁ &lt; ∞, we compute:</span>
+</span><span id="Presence.duration-210"><a href="#Presence.duration-210"><span class="linenos">210</span></a>
+</span><span id="Presence.duration-211"><a href="#Presence.duration-211"><span class="linenos">211</span></a><span class="sd">            duration = max(0, t₁ - 0) = t₁</span>
+</span><span id="Presence.duration-212"><a href="#Presence.duration-212"><span class="linenos">212</span></a>
+</span><span id="Presence.duration-213"><a href="#Presence.duration-213"><span class="linenos">213</span></a><span class="sd">        If the reset time is ∞, the duration is ∞, regardless of onset time.</span>
+</span><span id="Presence.duration-214"><a href="#Presence.duration-214"><span class="linenos">214</span></a>
+</span><span id="Presence.duration-215"><a href="#Presence.duration-215"><span class="linenos">215</span></a><span class="sd">        This behavior ensures that durations remain meaningful and converge</span>
+</span><span id="Presence.duration-216"><a href="#Presence.duration-216"><span class="linenos">216</span></a><span class="sd">        within systems where observation windows begin at t = 0, while still</span>
+</span><span id="Presence.duration-217"><a href="#Presence.duration-217"><span class="linenos">217</span></a><span class="sd">        preserving the semantic intent of presences that began before the</span>
+</span><span id="Presence.duration-218"><a href="#Presence.duration-218"><span class="linenos">218</span></a><span class="sd">        observable history.</span>
+</span><span id="Presence.duration-219"><a href="#Presence.duration-219"><span class="linenos">219</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Presence.duration-220"><a href="#Presence.duration-220"><span class="linenos">220</span></a>        <span class="n">onset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
+</span><span id="Presence.duration-221"><a href="#Presence.duration-221"><span class="linenos">221</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="n">onset</span><span class="p">)</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Returns the duration of the presence, interpreted as the total length
+of time the element is asserted to have been present.</p>
+
+<p>If the onset time is finite, the duration is simply:</p>
+
+<pre><code>duration = max(0, reset_time - onset_time)
+</code></pre>
+
+<p>If the onset time is -∞, the presence is treated as beginning at the
+start of observation time (t = 0) for the purpose of duration
+calculation. This bounds the duration to a finite value when
+reset_time is known.</p>
+
+<p>Thus, for onset_time = -∞ and reset_time = t₁ &lt; ∞, we compute:</p>
+
+<pre><code>duration = max(0, t₁ - 0) = t₁
+</code></pre>
+
+<p>If the reset time is ∞, the duration is ∞, regardless of onset time.</p>
+
+<p>This behavior ensures that durations remain meaningful and converge
+within systems where observation windows begin at t = 0, while still
+preserving the semantic intent of presences that began before the
+observable history.</p>
+</div>
+
 
                             </div>
                             <div id="Presence.residence_time" class="classattr">
@@ -1014,12 +1146,12 @@ element at a boundary over a continuous interval of time.</p>
 
     </div>
     <a class="headerlink" href="#Presence.residence_time"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.residence_time-163"><a href="#Presence.residence_time-163"><span class="linenos">163</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">residence_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="Presence.residence_time-164"><a href="#Presence.residence_time-164"><span class="linenos">164</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
-</span><span id="Presence.residence_time-165"><a href="#Presence.residence_time-165"><span class="linenos">165</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
-</span><span id="Presence.residence_time-166"><a href="#Presence.residence_time-166"><span class="linenos">166</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
-</span><span id="Presence.residence_time-167"><a href="#Presence.residence_time-167"><span class="linenos">167</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
-</span><span id="Presence.residence_time-168"><a href="#Presence.residence_time-168"><span class="linenos">168</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.residence_time-223"><a href="#Presence.residence_time-223"><span class="linenos">223</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">residence_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="Presence.residence_time-224"><a href="#Presence.residence_time-224"><span class="linenos">224</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
+</span><span id="Presence.residence_time-225"><a href="#Presence.residence_time-225"><span class="linenos">225</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
+</span><span id="Presence.residence_time-226"><a href="#Presence.residence_time-226"><span class="linenos">226</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+</span><span id="Presence.residence_time-227"><a href="#Presence.residence_time-227"><span class="linenos">227</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
+</span><span id="Presence.residence_time-228"><a href="#Presence.residence_time-228"><span class="linenos">228</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
 </span></pre></div>
 
 
