@@ -181,17 +181,102 @@ Note: When interfacing with external systems that operate in wallclock time you 
 convert between timestamps and dates and floating point numbers when constructing presence assertions.
 
 The [TimeModel](./time_model.html) class (`pcalc.time_model.TimeModel`) is provided for this purpose.
+
+---
 """
 
 from __future__ import annotations
 from typing import Optional, Protocol, runtime_checkable
-import numpy as np
-from .entity import EntityProtocol
 
 from dataclasses import dataclass
-from typing import Optional
-import numpy as np
+from typing import Optional, Callable
+
 from .entity import EntityProtocol
+
+
+PresenceFunction = Callable[[EntityProtocol, EntityProtocol, float], float]
+# Presence functions and Presence Protocols
+"""
+A `PresenceFunction` $f$ is a time-varying function represented as a callable of the form:
+
+```python
+(e: EntityProtocol, b: EntityProtocol, t: float) -> float
+```
+
+It returns a real-valued signal that is non-zero only when $t$ falls within some half open 
+interval $[t_s, t_e)$
+
+Presence functions must satisfy the following property:
+
+- For some half-open interval $[t_s, t_e)$, the function is non-zero only within that interval:
+
+    - $f(e, b, t) \\\\ne 0$ only if $t \in [t_s, t_e)$
+    - $f(e, b, t) = 0$ elsewhere
+
+The returned value for $f$ in $\mathbb{R}$ can represent any time-varying quantity that has meaning in the domain—
+such as revenue, attention, sensor signal strength, or value accrual.
+
+For example, in a sales domain, if the element `e` is a customer and `b` is a customer segment,
+the presence function might represent revenue from that customer at time `t`. If $[t_s, t_e)$
+represents the customer lifetime, then customer revenue is zero outside that interval. 
+
+Note that Inside the interval, the value may still drop to zero — presence does not
+require that every value for the presence function remain greater than zero during the interval.
+
+
+Examples:
+
+```python
+# Boolean presence: returns 1.0 within [start, end), 0.0 elsewhere
+def constant_presence(start: float, end: float) -> PresenceFunction:
+    def f(e, b, t):
+        return 1.0 if start <= t < end else 0.0
+    return f
+
+# Ramped presence: increases linearly from 0.0 to 1.0 over [start, end)
+def ramp_presence(start: float, end: float) -> PresenceFunction:
+    def f(e, b, t):
+        if start <= t < end:
+            return (t - start) / (end - start)
+        return 0.0
+    return f
+
+# Delayed pulse: returns fixed value only after a delay from start
+def delayed_presence(start: float, end: float, delay: float = 1.0) -> PresenceFunction:
+    def f(e, b, t):
+        if start + delay <= t < end:
+            return 1.0
+        return 0.0
+    return f
+```
+
+These functions form the foundation of presence semantics.
+
+Presence functions are defined *in the domain* and serve as the bridge between discrete
+domain events and continuous presence intervals used in the presence calculus. 
+They are exposed to the presence calculus via the `PresenceProtocol`.
+
+"""
+
+
+@runtime_checkable
+class PresenceProtocol(Protocol):
+    """
+    The PresenceProtocol represents the  contract between an arbitrary presence function
+    and the foo
+    """
+
+    def __call__(self, t0: float, t1: float) -> float: ...
+
+
+
+    def overlaps(self, t0: float, t1: float) -> bool: ...
+
+    @property
+    def onset_time(self) -> float: ...
+
+    @property
+    def reset_time(self) -> float: ...
 
 
 @dataclass(frozen=True)
@@ -225,6 +310,7 @@ class PresenceAssertion:
     boundary: Optional[EntityProtocol]
     onset_time: float
     reset_time: float
+    presence: Optional[PresenceProtocol] = None
     observer: Optional[EntityProtocol] | str = "observed"
     assert_time: Optional[float] = 0.0
 
@@ -276,6 +362,7 @@ class PresenceAssertion:
 EMPTY_PRESENCE: PresenceAssertion = PresenceAssertion(
     element=None,
     boundary=None,
+    presence=None,
     onset_time=0.0,
     reset_time=0.0,
     observer="empty",

@@ -89,6 +89,21 @@
 
             </li>
             <li>
+                    <a class="class" href="#EntityProtocol">EntityProtocol</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="variable" href="#EntityProtocol.id">id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#EntityProtocol.name">name</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#EntityProtocol.metadata">metadata</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
                     <a class="class" href="#PresenceAssertion">PresenceAssertion</a>
                             <ul class="memberlist">
                         <li>
@@ -105,6 +120,9 @@
                         </li>
                         <li>
                                 <a class="variable" href="#PresenceAssertion.reset_time">reset_time</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PresenceAssertion.presence">presence</a>
                         </li>
                         <li>
                                 <a class="variable" href="#PresenceAssertion.observer">observer</a>
@@ -624,41 +642,43 @@ have questions or would like to collaborate.</p>
 </span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>
 </span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>
 </span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceAssertion</span>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeModel</span>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.basis_topology</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasisTopology</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_invariant</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceInvariant</span>
-</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_matrix</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMatrix</span>
-</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_scale</span><span class="w"> </span><span class="kn">import</span> <span class="n">Timescale</span>
-</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMap</span>
-</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_invariant_discrete</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceInvariantDiscrete</span>
-</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>
-</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>    <span class="c1"># Domain API</span>
-</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>    <span class="s2">&quot;entity&quot;</span><span class="p">,</span>
-</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>    <span class="n">Entity</span><span class="p">,</span>
-</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>    <span class="s2">&quot;presence&quot;</span><span class="p">,</span>
-</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>    <span class="n">PresenceAssertion</span><span class="p">,</span>
-</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>
-</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>    <span class="c1"># Continuous Time Models</span>
-</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>    <span class="s2">&quot;time_model&quot;</span><span class="p">,</span>
-</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>    <span class="n">TimeModel</span><span class="p">,</span>
-</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>    <span class="s2">&quot;basis_topology&quot;</span><span class="p">,</span>
-</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>    <span class="n">BasisTopology</span><span class="p">,</span>
-</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>    <span class="s2">&quot;presence_invariant&quot;</span><span class="p">,</span>
-</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>    <span class="n">PresenceInvariant</span><span class="p">,</span>
-</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>
-</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>    <span class="c1"># Discrete Time Models</span>
-</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>    <span class="s2">&quot;time_scale&quot;</span><span class="p">,</span>
-</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>    <span class="n">Timescale</span><span class="p">,</span>
-</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>    <span class="s2">&quot;presence_map&quot;</span><span class="p">,</span>
-</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>    <span class="n">PresenceMap</span><span class="p">,</span>
-</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>    <span class="s2">&quot;presence_matrix&quot;</span><span class="p">,</span>
-</span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a>    <span class="n">PresenceMatrix</span><span class="p">,</span>
-</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>    <span class="s2">&quot;presence_invariant_discrete&quot;</span><span class="p">,</span>
-</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>    <span class="n">PresenceInvariantDiscrete</span><span class="p">,</span>
-</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a><span class="p">]</span>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">EntityProtocol</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceAssertion</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeModel</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.basis_topology</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasisTopology</span>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_invariant</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceInvariant</span>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_matrix</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMatrix</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_scale</span><span class="w"> </span><span class="kn">import</span> <span class="n">Timescale</span>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMap</span>
+</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_invariant_discrete</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceInvariantDiscrete</span>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>    <span class="c1"># Domain API</span>
+</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>    <span class="s2">&quot;entity&quot;</span><span class="p">,</span>
+</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>    <span class="n">Entity</span><span class="p">,</span> <span class="n">EntityProtocol</span><span class="p">,</span>
+</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>
+</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>    <span class="s2">&quot;presence&quot;</span><span class="p">,</span>
+</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>    <span class="n">PresenceAssertion</span><span class="p">,</span>
+</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>
+</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>    <span class="c1"># Continuous Time Models</span>
+</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>    <span class="s2">&quot;time_model&quot;</span><span class="p">,</span>
+</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>    <span class="n">TimeModel</span><span class="p">,</span>
+</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>    <span class="s2">&quot;basis_topology&quot;</span><span class="p">,</span>
+</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>    <span class="n">BasisTopology</span><span class="p">,</span>
+</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>    <span class="s2">&quot;presence_invariant&quot;</span><span class="p">,</span>
+</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>    <span class="n">PresenceInvariant</span><span class="p">,</span>
+</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>
+</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>    <span class="c1"># Discrete Time Models</span>
+</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>    <span class="s2">&quot;time_scale&quot;</span><span class="p">,</span>
+</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>    <span class="n">Timescale</span><span class="p">,</span>
+</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>    <span class="s2">&quot;presence_map&quot;</span><span class="p">,</span>
+</span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a>    <span class="n">PresenceMap</span><span class="p">,</span>
+</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>    <span class="s2">&quot;presence_matrix&quot;</span><span class="p">,</span>
+</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>    <span class="n">PresenceMatrix</span><span class="p">,</span>
+</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>    <span class="s2">&quot;presence_invariant_discrete&quot;</span><span class="p">,</span>
+</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>    <span class="n">PresenceInvariantDiscrete</span><span class="p">,</span>
+</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a><span class="p">]</span>
 </span></pre></div>
 
 
@@ -668,7 +688,7 @@ have questions or would like to collaborate.</p>
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">Entity</span><wbr>(<span class="base"><a href="pcalc/entity.html#EntityMixin">pcalc.entity.EntityMixin</a></span>, <span class="base"><a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a></span>):
+    <span class="name">Entity</span><wbr>(<span class="base"><a href="pcalc/entity.html#EntityMixin">pcalc.entity.EntityMixin</a></span>, <span class="base"><a href="#EntityProtocol">pcalc.EntityProtocol</a></span>):
 
                 <label class="view-source-button" for="Entity-view-source"><span>View Source</span></label>
 
@@ -844,6 +864,149 @@ Defaults to a uuid.uuid4().</p>
                                 </dl>
                             </div>
                 </section>
+                <section id="EntityProtocol">
+                            <input id="EntityProtocol-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator decorator-runtime_checkable">@runtime_checkable</div>
+
+    <span class="def">class</span>
+    <span class="name">EntityProtocol</span><wbr>(<span class="base">typing.Protocol</span>):
+
+                <label class="view-source-button" for="EntityProtocol-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#EntityProtocol"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol-85"><a href="#EntityProtocol-85"><span class="linenos"> 85</span></a><span class="nd">@runtime_checkable</span>
+</span><span id="EntityProtocol-86"><a href="#EntityProtocol-86"><span class="linenos"> 86</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span><span id="EntityProtocol-87"><a href="#EntityProtocol-87"><span class="linenos"> 87</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-88"><a href="#EntityProtocol-88"><span class="linenos"> 88</span></a><span class="sd">    The interface contract for a domain entity to participate in a presence assertion.</span>
+</span><span id="EntityProtocol-89"><a href="#EntityProtocol-89"><span class="linenos"> 89</span></a>
+</span><span id="EntityProtocol-90"><a href="#EntityProtocol-90"><span class="linenos"> 90</span></a><span class="sd">    Each entity requires only a unique identifier, a user-facing name.</span>
+</span><span id="EntityProtocol-91"><a href="#EntityProtocol-91"><span class="linenos"> 91</span></a>
+</span><span id="EntityProtocol-92"><a href="#EntityProtocol-92"><span class="linenos"> 92</span></a><span class="sd">    Optional metadata may be provided and exposes specific attributes of the domain</span>
+</span><span id="EntityProtocol-93"><a href="#EntityProtocol-93"><span class="linenos"> 93</span></a><span class="sd">    entities that are relevant when interpreting or manipulating the results</span>
+</span><span id="EntityProtocol-94"><a href="#EntityProtocol-94"><span class="linenos"> 94</span></a><span class="sd">    of an analysis using the machinery of the calculus.</span>
+</span><span id="EntityProtocol-95"><a href="#EntityProtocol-95"><span class="linenos"> 95</span></a>
+</span><span id="EntityProtocol-96"><a href="#EntityProtocol-96"><span class="linenos"> 96</span></a><span class="sd">    See `Entity` for an example of a concrete implementation.</span>
+</span><span id="EntityProtocol-97"><a href="#EntityProtocol-97"><span class="linenos"> 97</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-98"><a href="#EntityProtocol-98"><span class="linenos"> 98</span></a>    <span class="fm">__init__</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
+</span><span id="EntityProtocol-99"><a href="#EntityProtocol-99"><span class="linenos"> 99</span></a>
+</span><span id="EntityProtocol-100"><a href="#EntityProtocol-100"><span class="linenos">100</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol-101"><a href="#EntityProtocol-101"><span class="linenos">101</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol-102"><a href="#EntityProtocol-102"><span class="linenos">102</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-103"><a href="#EntityProtocol-103"><span class="linenos">103</span></a><span class="sd">        A stable, unique identifier for the entity.</span>
+</span><span id="EntityProtocol-104"><a href="#EntityProtocol-104"><span class="linenos">104</span></a><span class="sd">        Used for indexing and identity.</span>
+</span><span id="EntityProtocol-105"><a href="#EntityProtocol-105"><span class="linenos">105</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
+</span><span id="EntityProtocol-106"><a href="#EntityProtocol-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-107"><a href="#EntityProtocol-107"><span class="linenos">107</span></a>        <span class="o">...</span>
+</span><span id="EntityProtocol-108"><a href="#EntityProtocol-108"><span class="linenos">108</span></a>
+</span><span id="EntityProtocol-109"><a href="#EntityProtocol-109"><span class="linenos">109</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol-110"><a href="#EntityProtocol-110"><span class="linenos">110</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol-111"><a href="#EntityProtocol-111"><span class="linenos">111</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-112"><a href="#EntityProtocol-112"><span class="linenos">112</span></a><span class="sd">        A user facing name for the entity, defaults to the id if None.</span>
+</span><span id="EntityProtocol-113"><a href="#EntityProtocol-113"><span class="linenos">113</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-114"><a href="#EntityProtocol-114"><span class="linenos">114</span></a>        <span class="o">...</span>
+</span><span id="EntityProtocol-115"><a href="#EntityProtocol-115"><span class="linenos">115</span></a>
+</span><span id="EntityProtocol-116"><a href="#EntityProtocol-116"><span class="linenos">116</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="EntityProtocol-117"><a href="#EntityProtocol-117"><span class="linenos">117</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="EntityProtocol-118"><a href="#EntityProtocol-118"><span class="linenos">118</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Setter for name&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-119"><a href="#EntityProtocol-119"><span class="linenos">119</span></a>        <span class="o">...</span>
+</span><span id="EntityProtocol-120"><a href="#EntityProtocol-120"><span class="linenos">120</span></a>
+</span><span id="EntityProtocol-121"><a href="#EntityProtocol-121"><span class="linenos">121</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol-122"><a href="#EntityProtocol-122"><span class="linenos">122</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="EntityProtocol-123"><a href="#EntityProtocol-123"><span class="linenos">123</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-124"><a href="#EntityProtocol-124"><span class="linenos">124</span></a><span class="sd">        Optional extensible key-value metadata.</span>
+</span><span id="EntityProtocol-125"><a href="#EntityProtocol-125"><span class="linenos">125</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-126"><a href="#EntityProtocol-126"><span class="linenos">126</span></a>        <span class="o">...</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>The interface contract for a domain entity to participate in a presence assertion.</p>
+
+<p>Each entity requires only a unique identifier, a user-facing name.</p>
+
+<p>Optional metadata may be provided and exposes specific attributes of the domain
+entities that are relevant when interpreting or manipulating the results
+of an analysis using the machinery of the calculus.</p>
+
+<p>See <code><a href="#Entity">Entity</a></code> for an example of a concrete implementation.</p>
+</div>
+
+
+                            <div id="EntityProtocol.id" class="classattr">
+                                        <input id="EntityProtocol.id-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">id</span><span class="annotation">: str</span>
+
+                <label class="view-source-button" for="EntityProtocol.id-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#EntityProtocol.id"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.id-100"><a href="#EntityProtocol.id-100"><span class="linenos">100</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol.id-101"><a href="#EntityProtocol.id-101"><span class="linenos">101</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol.id-102"><a href="#EntityProtocol.id-102"><span class="linenos">102</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.id-103"><a href="#EntityProtocol.id-103"><span class="linenos">103</span></a><span class="sd">        A stable, unique identifier for the entity.</span>
+</span><span id="EntityProtocol.id-104"><a href="#EntityProtocol.id-104"><span class="linenos">104</span></a><span class="sd">        Used for indexing and identity.</span>
+</span><span id="EntityProtocol.id-105"><a href="#EntityProtocol.id-105"><span class="linenos">105</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
+</span><span id="EntityProtocol.id-106"><a href="#EntityProtocol.id-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.id-107"><a href="#EntityProtocol.id-107"><span class="linenos">107</span></a>        <span class="o">...</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>A stable, unique identifier for the entity.
+Used for indexing and identity.
+Defaults to a uuid.uuid4().</p>
+</div>
+
+
+                            </div>
+                            <div id="EntityProtocol.name" class="classattr">
+                                        <input id="EntityProtocol.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">name</span><span class="annotation">: str</span>
+
+                <label class="view-source-button" for="EntityProtocol.name-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#EntityProtocol.name"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.name-109"><a href="#EntityProtocol.name-109"><span class="linenos">109</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol.name-110"><a href="#EntityProtocol.name-110"><span class="linenos">110</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol.name-111"><a href="#EntityProtocol.name-111"><span class="linenos">111</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.name-112"><a href="#EntityProtocol.name-112"><span class="linenos">112</span></a><span class="sd">        A user facing name for the entity, defaults to the id if None.</span>
+</span><span id="EntityProtocol.name-113"><a href="#EntityProtocol.name-113"><span class="linenos">113</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.name-114"><a href="#EntityProtocol.name-114"><span class="linenos">114</span></a>        <span class="o">...</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>A user facing name for the entity, defaults to the id if None.</p>
+</div>
+
+
+                            </div>
+                            <div id="EntityProtocol.metadata" class="classattr">
+                                        <input id="EntityProtocol.metadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">metadata</span><span class="annotation">: Dict[str, Any]</span>
+
+                <label class="view-source-button" for="EntityProtocol.metadata-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#EntityProtocol.metadata"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.metadata-121"><a href="#EntityProtocol.metadata-121"><span class="linenos">121</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol.metadata-122"><a href="#EntityProtocol.metadata-122"><span class="linenos">122</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="EntityProtocol.metadata-123"><a href="#EntityProtocol.metadata-123"><span class="linenos">123</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.metadata-124"><a href="#EntityProtocol.metadata-124"><span class="linenos">124</span></a><span class="sd">        Optional extensible key-value metadata.</span>
+</span><span id="EntityProtocol.metadata-125"><a href="#EntityProtocol.metadata-125"><span class="linenos">125</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.metadata-126"><a href="#EntityProtocol.metadata-126"><span class="linenos">126</span></a>        <span class="o">...</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Optional extensible key-value metadata.</p>
+</div>
+
+
+                            </div>
+                </section>
                 <section id="PresenceAssertion">
                             <input id="PresenceAssertion-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
@@ -856,83 +1019,84 @@ Defaults to a uuid.uuid4().</p>
 
     </div>
     <a class="headerlink" href="#PresenceAssertion"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion-198"><a href="#PresenceAssertion-198"><span class="linenos">198</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="PresenceAssertion-199"><a href="#PresenceAssertion-199"><span class="linenos">199</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PresenceAssertion</span><span class="p">:</span>
-</span><span id="PresenceAssertion-200"><a href="#PresenceAssertion-200"><span class="linenos">200</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="PresenceAssertion-201"><a href="#PresenceAssertion-201"><span class="linenos">201</span></a>
-</span><span id="PresenceAssertion-202"><a href="#PresenceAssertion-202"><span class="linenos">202</span></a><span class="sd">    This is the fundamental, immutable construct of The presence calculus,</span>
-</span><span id="PresenceAssertion-203"><a href="#PresenceAssertion-203"><span class="linenos">203</span></a><span class="sd">    and asserts the presence of an element at a boundary over a continuous interval of time.</span>
-</span><span id="PresenceAssertion-204"><a href="#PresenceAssertion-204"><span class="linenos">204</span></a>
-</span><span id="PresenceAssertion-205"><a href="#PresenceAssertion-205"><span class="linenos">205</span></a><span class="sd">    A presence is defined over a half-open interval $[t_0, t_1)$ on the real</span>
-</span><span id="PresenceAssertion-206"><a href="#PresenceAssertion-206"><span class="linenos">206</span></a><span class="sd">    line, where $t_0$ is the onset time and $t_1$ is the reset time.</span>
-</span><span id="PresenceAssertion-207"><a href="#PresenceAssertion-207"><span class="linenos">207</span></a>
-</span><span id="PresenceAssertion-208"><a href="#PresenceAssertion-208"><span class="linenos">208</span></a><span class="sd">    The</span>
-</span><span id="PresenceAssertion-209"><a href="#PresenceAssertion-209"><span class="linenos">209</span></a><span class="sd">    following constraints must hold:</span>
-</span><span id="PresenceAssertion-210"><a href="#PresenceAssertion-210"><span class="linenos">210</span></a>
-</span><span id="PresenceAssertion-211"><a href="#PresenceAssertion-211"><span class="linenos">211</span></a><span class="sd">    - $t_0 &lt; t_1$</span>
-</span><span id="PresenceAssertion-212"><a href="#PresenceAssertion-212"><span class="linenos">212</span></a><span class="sd">    - $t_0 \\in \\mathbb{R} \\cup \\{-\\infty\\}$</span>
-</span><span id="PresenceAssertion-213"><a href="#PresenceAssertion-213"><span class="linenos">213</span></a><span class="sd">    - $t_1 \\in \\mathbb{R} \\cup \\{+\\infty\\}$</span>
-</span><span id="PresenceAssertion-214"><a href="#PresenceAssertion-214"><span class="linenos">214</span></a><span class="sd">    - $t_0 \\ne +\\infty$</span>
-</span><span id="PresenceAssertion-215"><a href="#PresenceAssertion-215"><span class="linenos">215</span></a><span class="sd">    - $t_1 \\ne -\\infty$</span>
-</span><span id="PresenceAssertion-216"><a href="#PresenceAssertion-216"><span class="linenos">216</span></a>
-</span><span id="PresenceAssertion-217"><a href="#PresenceAssertion-217"><span class="linenos">217</span></a><span class="sd">    These rules ensure that the interval is well-formed, bounded on the left,</span>
-</span><span id="PresenceAssertion-218"><a href="#PresenceAssertion-218"><span class="linenos">218</span></a><span class="sd">    and open on the right. Intervals such as $[2.0, 5.0)$, $[-\\infty, 4.2)$,</span>
-</span><span id="PresenceAssertion-219"><a href="#PresenceAssertion-219"><span class="linenos">219</span></a><span class="sd">    and $[1.0, +\\infty)$ are allowed, as are the special case $[-\\infty,</span>
-</span><span id="PresenceAssertion-220"><a href="#PresenceAssertion-220"><span class="linenos">220</span></a><span class="sd">    +\\infty)$ and $[0,0),$ the empty presence.</span>
-</span><span id="PresenceAssertion-221"><a href="#PresenceAssertion-221"><span class="linenos">221</span></a>
-</span><span id="PresenceAssertion-222"><a href="#PresenceAssertion-222"><span class="linenos">222</span></a><span class="sd">    With the empty presence as the only exception, intervals with zero or negative duration, or with reversed or</span>
-</span><span id="PresenceAssertion-223"><a href="#PresenceAssertion-223"><span class="linenos">223</span></a><span class="sd">    undefined bounds, are disallowed.</span>
-</span><span id="PresenceAssertion-224"><a href="#PresenceAssertion-224"><span class="linenos">224</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="PresenceAssertion-225"><a href="#PresenceAssertion-225"><span class="linenos">225</span></a>    <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
-</span><span id="PresenceAssertion-226"><a href="#PresenceAssertion-226"><span class="linenos">226</span></a>    <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
-</span><span id="PresenceAssertion-227"><a href="#PresenceAssertion-227"><span class="linenos">227</span></a>    <span class="n">onset_time</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="PresenceAssertion-228"><a href="#PresenceAssertion-228"><span class="linenos">228</span></a>    <span class="n">reset_time</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="PresenceAssertion-229"><a href="#PresenceAssertion-229"><span class="linenos">229</span></a>    <span class="n">observer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span>
-</span><span id="PresenceAssertion-230"><a href="#PresenceAssertion-230"><span class="linenos">230</span></a>    <span class="n">assert_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span id="PresenceAssertion-231"><a href="#PresenceAssertion-231"><span class="linenos">231</span></a>
-</span><span id="PresenceAssertion-232"><a href="#PresenceAssertion-232"><span class="linenos">232</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="PresenceAssertion-233"><a href="#PresenceAssertion-233"><span class="linenos">233</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="PresenceAssertion-234"><a href="#PresenceAssertion-234"><span class="linenos">234</span></a><span class="sd">        Validates the temporal bounds of the presence interval</span>
-</span><span id="PresenceAssertion-235"><a href="#PresenceAssertion-235"><span class="linenos">235</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="PresenceAssertion-236"><a href="#PresenceAssertion-236"><span class="linenos">236</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">:</span>
-</span><span id="PresenceAssertion-237"><a href="#PresenceAssertion-237"><span class="linenos">237</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
-</span><span id="PresenceAssertion-238"><a href="#PresenceAssertion-238"><span class="linenos">238</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-</span><span id="PresenceAssertion-239"><a href="#PresenceAssertion-239"><span class="linenos">239</span></a>                    <span class="sa">f</span><span class="s2">&quot;Invalid interval: onset_time (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="si">}</span><span class="s2">) must be less than reset_time (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-</span><span id="PresenceAssertion-240"><a href="#PresenceAssertion-240"><span class="linenos">240</span></a>
-</span><span id="PresenceAssertion-241"><a href="#PresenceAssertion-241"><span class="linenos">241</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
-</span><span id="PresenceAssertion-242"><a href="#PresenceAssertion-242"><span class="linenos">242</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Presence cannot begin at +inf&quot;</span><span class="p">)</span>
-</span><span id="PresenceAssertion-243"><a href="#PresenceAssertion-243"><span class="linenos">243</span></a>
-</span><span id="PresenceAssertion-244"><a href="#PresenceAssertion-244"><span class="linenos">244</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>
-</span><span id="PresenceAssertion-245"><a href="#PresenceAssertion-245"><span class="linenos">245</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Presence cannot end at -inf&quot;</span><span class="p">)</span>
-</span><span id="PresenceAssertion-246"><a href="#PresenceAssertion-246"><span class="linenos">246</span></a>
-</span><span id="PresenceAssertion-247"><a href="#PresenceAssertion-247"><span class="linenos">247</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="PresenceAssertion-248"><a href="#PresenceAssertion-248"><span class="linenos">248</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
-</span><span id="PresenceAssertion-249"><a href="#PresenceAssertion-249"><span class="linenos">249</span></a>
-</span><span id="PresenceAssertion-250"><a href="#PresenceAssertion-250"><span class="linenos">250</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">mass</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="PresenceAssertion-251"><a href="#PresenceAssertion-251"><span class="linenos">251</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="PresenceAssertion-252"><a href="#PresenceAssertion-252"><span class="linenos">252</span></a><span class="sd">        Returns the mass of the presence.</span>
-</span><span id="PresenceAssertion-253"><a href="#PresenceAssertion-253"><span class="linenos">253</span></a>
-</span><span id="PresenceAssertion-254"><a href="#PresenceAssertion-254"><span class="linenos">254</span></a>
-</span><span id="PresenceAssertion-255"><a href="#PresenceAssertion-255"><span class="linenos">255</span></a><span class="sd">        </span>
-</span><span id="PresenceAssertion-256"><a href="#PresenceAssertion-256"><span class="linenos">256</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="PresenceAssertion-257"><a href="#PresenceAssertion-257"><span class="linenos">257</span></a>        <span class="n">onset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
-</span><span id="PresenceAssertion-258"><a href="#PresenceAssertion-258"><span class="linenos">258</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="n">onset</span><span class="p">)</span>
-</span><span id="PresenceAssertion-259"><a href="#PresenceAssertion-259"><span class="linenos">259</span></a>
-</span><span id="PresenceAssertion-260"><a href="#PresenceAssertion-260"><span class="linenos">260</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">mass_contribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="PresenceAssertion-261"><a href="#PresenceAssertion-261"><span class="linenos">261</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
-</span><span id="PresenceAssertion-262"><a href="#PresenceAssertion-262"><span class="linenos">262</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
-</span><span id="PresenceAssertion-263"><a href="#PresenceAssertion-263"><span class="linenos">263</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
-</span><span id="PresenceAssertion-264"><a href="#PresenceAssertion-264"><span class="linenos">264</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
-</span><span id="PresenceAssertion-265"><a href="#PresenceAssertion-265"><span class="linenos">265</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
-</span><span id="PresenceAssertion-266"><a href="#PresenceAssertion-266"><span class="linenos">266</span></a>
-</span><span id="PresenceAssertion-267"><a href="#PresenceAssertion-267"><span class="linenos">267</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="PresenceAssertion-268"><a href="#PresenceAssertion-268"><span class="linenos">268</span></a>        <span class="n">element_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
-</span><span id="PresenceAssertion-269"><a href="#PresenceAssertion-269"><span class="linenos">269</span></a>        <span class="n">boundary_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">boundary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
-</span><span id="PresenceAssertion-270"><a href="#PresenceAssertion-270"><span class="linenos">270</span></a>        <span class="n">interval_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="si">}</span><span class="s2">)&quot;</span>
-</span><span id="PresenceAssertion-271"><a href="#PresenceAssertion-271"><span class="linenos">271</span></a>        <span class="k">return</span> <span class="p">(</span>
-</span><span id="PresenceAssertion-272"><a href="#PresenceAssertion-272"><span class="linenos">272</span></a>            <span class="sa">f</span><span class="s2">&quot;Presence(element=</span><span class="si">{</span><span class="n">element_str</span><span class="si">}</span><span class="s2">, boundary=</span><span class="si">{</span><span class="n">boundary_str</span><span class="si">}</span><span class="s2">, &quot;</span>
-</span><span id="PresenceAssertion-273"><a href="#PresenceAssertion-273"><span class="linenos">273</span></a>            <span class="sa">f</span><span class="s2">&quot;interval=</span><span class="si">{</span><span class="n">interval_str</span><span class="si">}</span><span class="s2">, provenance=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="si">}</span><span class="s2">)&quot;</span>
-</span><span id="PresenceAssertion-274"><a href="#PresenceAssertion-274"><span class="linenos">274</span></a>        <span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion-283"><a href="#PresenceAssertion-283"><span class="linenos">283</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="PresenceAssertion-284"><a href="#PresenceAssertion-284"><span class="linenos">284</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PresenceAssertion</span><span class="p">:</span>
+</span><span id="PresenceAssertion-285"><a href="#PresenceAssertion-285"><span class="linenos">285</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-286"><a href="#PresenceAssertion-286"><span class="linenos">286</span></a>
+</span><span id="PresenceAssertion-287"><a href="#PresenceAssertion-287"><span class="linenos">287</span></a><span class="sd">    This is the fundamental, immutable construct of The presence calculus,</span>
+</span><span id="PresenceAssertion-288"><a href="#PresenceAssertion-288"><span class="linenos">288</span></a><span class="sd">    and asserts the presence of an element at a boundary over a continuous interval of time.</span>
+</span><span id="PresenceAssertion-289"><a href="#PresenceAssertion-289"><span class="linenos">289</span></a>
+</span><span id="PresenceAssertion-290"><a href="#PresenceAssertion-290"><span class="linenos">290</span></a><span class="sd">    A presence is defined over a half-open interval $[t_0, t_1)$ on the real</span>
+</span><span id="PresenceAssertion-291"><a href="#PresenceAssertion-291"><span class="linenos">291</span></a><span class="sd">    line, where $t_0$ is the onset time and $t_1$ is the reset time.</span>
+</span><span id="PresenceAssertion-292"><a href="#PresenceAssertion-292"><span class="linenos">292</span></a>
+</span><span id="PresenceAssertion-293"><a href="#PresenceAssertion-293"><span class="linenos">293</span></a><span class="sd">    The</span>
+</span><span id="PresenceAssertion-294"><a href="#PresenceAssertion-294"><span class="linenos">294</span></a><span class="sd">    following constraints must hold:</span>
+</span><span id="PresenceAssertion-295"><a href="#PresenceAssertion-295"><span class="linenos">295</span></a>
+</span><span id="PresenceAssertion-296"><a href="#PresenceAssertion-296"><span class="linenos">296</span></a><span class="sd">    - $t_0 &lt; t_1$</span>
+</span><span id="PresenceAssertion-297"><a href="#PresenceAssertion-297"><span class="linenos">297</span></a><span class="sd">    - $t_0 \\in \\mathbb{R} \\cup \\{-\\infty\\}$</span>
+</span><span id="PresenceAssertion-298"><a href="#PresenceAssertion-298"><span class="linenos">298</span></a><span class="sd">    - $t_1 \\in \\mathbb{R} \\cup \\{+\\infty\\}$</span>
+</span><span id="PresenceAssertion-299"><a href="#PresenceAssertion-299"><span class="linenos">299</span></a><span class="sd">    - $t_0 \\ne +\\infty$</span>
+</span><span id="PresenceAssertion-300"><a href="#PresenceAssertion-300"><span class="linenos">300</span></a><span class="sd">    - $t_1 \\ne -\\infty$</span>
+</span><span id="PresenceAssertion-301"><a href="#PresenceAssertion-301"><span class="linenos">301</span></a>
+</span><span id="PresenceAssertion-302"><a href="#PresenceAssertion-302"><span class="linenos">302</span></a><span class="sd">    These rules ensure that the interval is well-formed, bounded on the left,</span>
+</span><span id="PresenceAssertion-303"><a href="#PresenceAssertion-303"><span class="linenos">303</span></a><span class="sd">    and open on the right. Intervals such as $[2.0, 5.0)$, $[-\\infty, 4.2)$,</span>
+</span><span id="PresenceAssertion-304"><a href="#PresenceAssertion-304"><span class="linenos">304</span></a><span class="sd">    and $[1.0, +\\infty)$ are allowed, as are the special case $[-\\infty,</span>
+</span><span id="PresenceAssertion-305"><a href="#PresenceAssertion-305"><span class="linenos">305</span></a><span class="sd">    +\\infty)$ and $[0,0),$ the empty presence.</span>
+</span><span id="PresenceAssertion-306"><a href="#PresenceAssertion-306"><span class="linenos">306</span></a>
+</span><span id="PresenceAssertion-307"><a href="#PresenceAssertion-307"><span class="linenos">307</span></a><span class="sd">    With the empty presence as the only exception, intervals with zero or negative duration, or with reversed or</span>
+</span><span id="PresenceAssertion-308"><a href="#PresenceAssertion-308"><span class="linenos">308</span></a><span class="sd">    undefined bounds, are disallowed.</span>
+</span><span id="PresenceAssertion-309"><a href="#PresenceAssertion-309"><span class="linenos">309</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-310"><a href="#PresenceAssertion-310"><span class="linenos">310</span></a>    <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
+</span><span id="PresenceAssertion-311"><a href="#PresenceAssertion-311"><span class="linenos">311</span></a>    <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
+</span><span id="PresenceAssertion-312"><a href="#PresenceAssertion-312"><span class="linenos">312</span></a>    <span class="n">onset_time</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="PresenceAssertion-313"><a href="#PresenceAssertion-313"><span class="linenos">313</span></a>    <span class="n">reset_time</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="PresenceAssertion-314"><a href="#PresenceAssertion-314"><span class="linenos">314</span></a>    <span class="n">presence</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PresenceProtocol</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="PresenceAssertion-315"><a href="#PresenceAssertion-315"><span class="linenos">315</span></a>    <span class="n">observer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span>
+</span><span id="PresenceAssertion-316"><a href="#PresenceAssertion-316"><span class="linenos">316</span></a>    <span class="n">assert_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="PresenceAssertion-317"><a href="#PresenceAssertion-317"><span class="linenos">317</span></a>
+</span><span id="PresenceAssertion-318"><a href="#PresenceAssertion-318"><span class="linenos">318</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="PresenceAssertion-319"><a href="#PresenceAssertion-319"><span class="linenos">319</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-320"><a href="#PresenceAssertion-320"><span class="linenos">320</span></a><span class="sd">        Validates the temporal bounds of the presence interval</span>
+</span><span id="PresenceAssertion-321"><a href="#PresenceAssertion-321"><span class="linenos">321</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-322"><a href="#PresenceAssertion-322"><span class="linenos">322</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">:</span>
+</span><span id="PresenceAssertion-323"><a href="#PresenceAssertion-323"><span class="linenos">323</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span><span id="PresenceAssertion-324"><a href="#PresenceAssertion-324"><span class="linenos">324</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+</span><span id="PresenceAssertion-325"><a href="#PresenceAssertion-325"><span class="linenos">325</span></a>                    <span class="sa">f</span><span class="s2">&quot;Invalid interval: onset_time (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="si">}</span><span class="s2">) must be less than reset_time (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</span><span id="PresenceAssertion-326"><a href="#PresenceAssertion-326"><span class="linenos">326</span></a>
+</span><span id="PresenceAssertion-327"><a href="#PresenceAssertion-327"><span class="linenos">327</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
+</span><span id="PresenceAssertion-328"><a href="#PresenceAssertion-328"><span class="linenos">328</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Presence cannot begin at +inf&quot;</span><span class="p">)</span>
+</span><span id="PresenceAssertion-329"><a href="#PresenceAssertion-329"><span class="linenos">329</span></a>
+</span><span id="PresenceAssertion-330"><a href="#PresenceAssertion-330"><span class="linenos">330</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>
+</span><span id="PresenceAssertion-331"><a href="#PresenceAssertion-331"><span class="linenos">331</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Presence cannot end at -inf&quot;</span><span class="p">)</span>
+</span><span id="PresenceAssertion-332"><a href="#PresenceAssertion-332"><span class="linenos">332</span></a>
+</span><span id="PresenceAssertion-333"><a href="#PresenceAssertion-333"><span class="linenos">333</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="PresenceAssertion-334"><a href="#PresenceAssertion-334"><span class="linenos">334</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
+</span><span id="PresenceAssertion-335"><a href="#PresenceAssertion-335"><span class="linenos">335</span></a>
+</span><span id="PresenceAssertion-336"><a href="#PresenceAssertion-336"><span class="linenos">336</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">mass</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="PresenceAssertion-337"><a href="#PresenceAssertion-337"><span class="linenos">337</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-338"><a href="#PresenceAssertion-338"><span class="linenos">338</span></a><span class="sd">        Returns the mass of the presence.</span>
+</span><span id="PresenceAssertion-339"><a href="#PresenceAssertion-339"><span class="linenos">339</span></a>
+</span><span id="PresenceAssertion-340"><a href="#PresenceAssertion-340"><span class="linenos">340</span></a>
+</span><span id="PresenceAssertion-341"><a href="#PresenceAssertion-341"><span class="linenos">341</span></a><span class="sd">        </span>
+</span><span id="PresenceAssertion-342"><a href="#PresenceAssertion-342"><span class="linenos">342</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-343"><a href="#PresenceAssertion-343"><span class="linenos">343</span></a>        <span class="n">onset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
+</span><span id="PresenceAssertion-344"><a href="#PresenceAssertion-344"><span class="linenos">344</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="n">onset</span><span class="p">)</span>
+</span><span id="PresenceAssertion-345"><a href="#PresenceAssertion-345"><span class="linenos">345</span></a>
+</span><span id="PresenceAssertion-346"><a href="#PresenceAssertion-346"><span class="linenos">346</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">mass_contribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="PresenceAssertion-347"><a href="#PresenceAssertion-347"><span class="linenos">347</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
+</span><span id="PresenceAssertion-348"><a href="#PresenceAssertion-348"><span class="linenos">348</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
+</span><span id="PresenceAssertion-349"><a href="#PresenceAssertion-349"><span class="linenos">349</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+</span><span id="PresenceAssertion-350"><a href="#PresenceAssertion-350"><span class="linenos">350</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
+</span><span id="PresenceAssertion-351"><a href="#PresenceAssertion-351"><span class="linenos">351</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+</span><span id="PresenceAssertion-352"><a href="#PresenceAssertion-352"><span class="linenos">352</span></a>
+</span><span id="PresenceAssertion-353"><a href="#PresenceAssertion-353"><span class="linenos">353</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="PresenceAssertion-354"><a href="#PresenceAssertion-354"><span class="linenos">354</span></a>        <span class="n">element_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
+</span><span id="PresenceAssertion-355"><a href="#PresenceAssertion-355"><span class="linenos">355</span></a>        <span class="n">boundary_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">boundary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
+</span><span id="PresenceAssertion-356"><a href="#PresenceAssertion-356"><span class="linenos">356</span></a>        <span class="n">interval_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="si">}</span><span class="s2">)&quot;</span>
+</span><span id="PresenceAssertion-357"><a href="#PresenceAssertion-357"><span class="linenos">357</span></a>        <span class="k">return</span> <span class="p">(</span>
+</span><span id="PresenceAssertion-358"><a href="#PresenceAssertion-358"><span class="linenos">358</span></a>            <span class="sa">f</span><span class="s2">&quot;Presence(element=</span><span class="si">{</span><span class="n">element_str</span><span class="si">}</span><span class="s2">, boundary=</span><span class="si">{</span><span class="n">boundary_str</span><span class="si">}</span><span class="s2">, &quot;</span>
+</span><span id="PresenceAssertion-359"><a href="#PresenceAssertion-359"><span class="linenos">359</span></a>            <span class="sa">f</span><span class="s2">&quot;interval=</span><span class="si">{</span><span class="n">interval_str</span><span class="si">}</span><span class="s2">, provenance=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">observer</span><span class="si">}</span><span class="s2">)&quot;</span>
+</span><span id="PresenceAssertion-360"><a href="#PresenceAssertion-360"><span class="linenos">360</span></a>        <span class="p">)</span>
 </span></pre></div>
 
 
@@ -966,7 +1130,7 @@ undefined bounds, are disallowed.</p>
                             <div id="PresenceAssertion.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">PresenceAssertion</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">onset_time</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">reset_time</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">observer</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n"><a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a></span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;observed&#39;</span>,</span><span class="param">	<span class="n">assert_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span></span>)</span>
+        <span class="name">PresenceAssertion</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#EntityProtocol">EntityProtocol</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#EntityProtocol">EntityProtocol</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">onset_time</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">reset_time</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">presence</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="pcalc/presence.html#PresenceProtocol">pcalc.presence.PresenceProtocol</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">observer</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n"><a href="#EntityProtocol">EntityProtocol</a></span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;observed&#39;</span>,</span><span class="param">	<span class="n">assert_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span></span>)</span>
 
         
     </div>
@@ -977,7 +1141,7 @@ undefined bounds, are disallowed.</p>
                             </div>
                             <div id="PresenceAssertion.element" class="classattr">
                                 <div class="attr variable">
-            <span class="name">element</span><span class="annotation">: Optional[<a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a>]</span>
+            <span class="name">element</span><span class="annotation">: Optional[<a href="#EntityProtocol">EntityProtocol</a>]</span>
 
         
     </div>
@@ -988,7 +1152,7 @@ undefined bounds, are disallowed.</p>
                             </div>
                             <div id="PresenceAssertion.boundary" class="classattr">
                                 <div class="attr variable">
-            <span class="name">boundary</span><span class="annotation">: Optional[<a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a>]</span>
+            <span class="name">boundary</span><span class="annotation">: Optional[<a href="#EntityProtocol">EntityProtocol</a>]</span>
 
         
     </div>
@@ -1019,9 +1183,21 @@ undefined bounds, are disallowed.</p>
     
 
                             </div>
+                            <div id="PresenceAssertion.presence" class="classattr">
+                                <div class="attr variable">
+            <span class="name">presence</span><span class="annotation">: Optional[<a href="pcalc/presence.html#PresenceProtocol">pcalc.presence.PresenceProtocol</a>]</span>        =
+<span class="default_value">None</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PresenceAssertion.presence"></a>
+    
+    
+
+                            </div>
                             <div id="PresenceAssertion.observer" class="classattr">
                                 <div class="attr variable">
-            <span class="name">observer</span><span class="annotation">: Union[<a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a>, NoneType, str]</span>        =
+            <span class="name">observer</span><span class="annotation">: Union[<a href="#EntityProtocol">EntityProtocol</a>, NoneType, str]</span>        =
 <span class="default_value">&#39;observed&#39;</span>
 
         
@@ -1054,8 +1230,8 @@ undefined bounds, are disallowed.</p>
 
     </div>
     <a class="headerlink" href="#PresenceAssertion.overlaps"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion.overlaps-247"><a href="#PresenceAssertion.overlaps-247"><span class="linenos">247</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="PresenceAssertion.overlaps-248"><a href="#PresenceAssertion.overlaps-248"><span class="linenos">248</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion.overlaps-333"><a href="#PresenceAssertion.overlaps-333"><span class="linenos">333</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="PresenceAssertion.overlaps-334"><a href="#PresenceAssertion.overlaps-334"><span class="linenos">334</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
 </span></pre></div>
 
 
@@ -1073,15 +1249,15 @@ undefined bounds, are disallowed.</p>
 
     </div>
     <a class="headerlink" href="#PresenceAssertion.mass"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion.mass-250"><a href="#PresenceAssertion.mass-250"><span class="linenos">250</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">mass</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="PresenceAssertion.mass-251"><a href="#PresenceAssertion.mass-251"><span class="linenos">251</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="PresenceAssertion.mass-252"><a href="#PresenceAssertion.mass-252"><span class="linenos">252</span></a><span class="sd">        Returns the mass of the presence.</span>
-</span><span id="PresenceAssertion.mass-253"><a href="#PresenceAssertion.mass-253"><span class="linenos">253</span></a>
-</span><span id="PresenceAssertion.mass-254"><a href="#PresenceAssertion.mass-254"><span class="linenos">254</span></a>
-</span><span id="PresenceAssertion.mass-255"><a href="#PresenceAssertion.mass-255"><span class="linenos">255</span></a><span class="sd">        </span>
-</span><span id="PresenceAssertion.mass-256"><a href="#PresenceAssertion.mass-256"><span class="linenos">256</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="PresenceAssertion.mass-257"><a href="#PresenceAssertion.mass-257"><span class="linenos">257</span></a>        <span class="n">onset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
-</span><span id="PresenceAssertion.mass-258"><a href="#PresenceAssertion.mass-258"><span class="linenos">258</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="n">onset</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion.mass-336"><a href="#PresenceAssertion.mass-336"><span class="linenos">336</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">mass</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="PresenceAssertion.mass-337"><a href="#PresenceAssertion.mass-337"><span class="linenos">337</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion.mass-338"><a href="#PresenceAssertion.mass-338"><span class="linenos">338</span></a><span class="sd">        Returns the mass of the presence.</span>
+</span><span id="PresenceAssertion.mass-339"><a href="#PresenceAssertion.mass-339"><span class="linenos">339</span></a>
+</span><span id="PresenceAssertion.mass-340"><a href="#PresenceAssertion.mass-340"><span class="linenos">340</span></a>
+</span><span id="PresenceAssertion.mass-341"><a href="#PresenceAssertion.mass-341"><span class="linenos">341</span></a><span class="sd">        </span>
+</span><span id="PresenceAssertion.mass-342"><a href="#PresenceAssertion.mass-342"><span class="linenos">342</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion.mass-343"><a href="#PresenceAssertion.mass-343"><span class="linenos">343</span></a>        <span class="n">onset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
+</span><span id="PresenceAssertion.mass-344"><a href="#PresenceAssertion.mass-344"><span class="linenos">344</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="n">onset</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1101,12 +1277,12 @@ undefined bounds, are disallowed.</p>
 
     </div>
     <a class="headerlink" href="#PresenceAssertion.mass_contribution"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion.mass_contribution-260"><a href="#PresenceAssertion.mass_contribution-260"><span class="linenos">260</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">mass_contribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="PresenceAssertion.mass_contribution-261"><a href="#PresenceAssertion.mass_contribution-261"><span class="linenos">261</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
-</span><span id="PresenceAssertion.mass_contribution-262"><a href="#PresenceAssertion.mass_contribution-262"><span class="linenos">262</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
-</span><span id="PresenceAssertion.mass_contribution-263"><a href="#PresenceAssertion.mass_contribution-263"><span class="linenos">263</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
-</span><span id="PresenceAssertion.mass_contribution-264"><a href="#PresenceAssertion.mass_contribution-264"><span class="linenos">264</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
-</span><span id="PresenceAssertion.mass_contribution-265"><a href="#PresenceAssertion.mass_contribution-265"><span class="linenos">265</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion.mass_contribution-346"><a href="#PresenceAssertion.mass_contribution-346"><span class="linenos">346</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">mass_contribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="PresenceAssertion.mass_contribution-347"><a href="#PresenceAssertion.mass_contribution-347"><span class="linenos">347</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
+</span><span id="PresenceAssertion.mass_contribution-348"><a href="#PresenceAssertion.mass_contribution-348"><span class="linenos">348</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
+</span><span id="PresenceAssertion.mass_contribution-349"><a href="#PresenceAssertion.mass_contribution-349"><span class="linenos">349</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+</span><span id="PresenceAssertion.mass_contribution-350"><a href="#PresenceAssertion.mass_contribution-350"><span class="linenos">350</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
+</span><span id="PresenceAssertion.mass_contribution-351"><a href="#PresenceAssertion.mass_contribution-351"><span class="linenos">351</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
 </span></pre></div>
 
 

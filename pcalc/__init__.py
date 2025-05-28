@@ -116,7 +116,8 @@ have questions or would like to collaborate.
 
 
 """
-from .entity import Entity
+
+from .entity import Entity, EntityProtocol
 from .presence import PresenceAssertion
 from .time_model import TimeModel
 from .basis_topology import BasisTopology
@@ -129,7 +130,8 @@ from .presence_invariant_discrete import PresenceInvariantDiscrete
 __all__ = [
     # Domain API
     "entity",
-    Entity,
+    Entity, EntityProtocol,
+
     "presence",
     PresenceAssertion,
 
