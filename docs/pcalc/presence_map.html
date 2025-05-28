@@ -127,7 +127,7 @@
 </span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a>
 </span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Presence</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceAssertion</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_scale</span><span class="w"> </span><span class="kn">import</span> <span class="n">Timescale</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a>
 </span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a>
@@ -153,7 +153,7 @@
 </span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">        - end_value   ∈ (0.0, 1.0] if partially covers `end_bin - 1`</span>
 </span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>
-</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>    <span class="n">presence</span><span class="p">:</span> <span class="n">Presence</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>    <span class="n">presence</span><span class="p">:</span> <span class="n">PresenceAssertion</span>
 </span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The presence entry&quot;&quot;&quot;</span>
 </span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a>    <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span>
 </span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The time scale that the presence is mapped to&quot;&quot;&quot;</span>
@@ -183,7 +183,7 @@
 </span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">presence</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">presence</span><span class="o">.</span><span class="n">onset_time</span>
 </span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>
 </span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>
-</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">Presence</span><span class="p">,</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">):</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">PresenceAssertion</span><span class="p">,</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">):</span>
 </span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a><span class="sd">        Map a presence interval to matrix slice indices and edge fractional values</span>
 </span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="sd">        using the provided Timescale object.</span>
@@ -296,7 +296,7 @@
 </span><span id="PresenceMap-34"><a href="#PresenceMap-34"><span class="linenos"> 34</span></a><span class="sd">        - end_value   ∈ (0.0, 1.0] if partially covers `end_bin - 1`</span>
 </span><span id="PresenceMap-35"><a href="#PresenceMap-35"><span class="linenos"> 35</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="PresenceMap-36"><a href="#PresenceMap-36"><span class="linenos"> 36</span></a>
-</span><span id="PresenceMap-37"><a href="#PresenceMap-37"><span class="linenos"> 37</span></a>    <span class="n">presence</span><span class="p">:</span> <span class="n">Presence</span>
+</span><span id="PresenceMap-37"><a href="#PresenceMap-37"><span class="linenos"> 37</span></a>    <span class="n">presence</span><span class="p">:</span> <span class="n">PresenceAssertion</span>
 </span><span id="PresenceMap-38"><a href="#PresenceMap-38"><span class="linenos"> 38</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The presence entry&quot;&quot;&quot;</span>
 </span><span id="PresenceMap-39"><a href="#PresenceMap-39"><span class="linenos"> 39</span></a>    <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span>
 </span><span id="PresenceMap-40"><a href="#PresenceMap-40"><span class="linenos"> 40</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The time scale that the presence is mapped to&quot;&quot;&quot;</span>
@@ -326,7 +326,7 @@
 </span><span id="PresenceMap-64"><a href="#PresenceMap-64"><span class="linenos"> 64</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">presence</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">presence</span><span class="o">.</span><span class="n">onset_time</span>
 </span><span id="PresenceMap-65"><a href="#PresenceMap-65"><span class="linenos"> 65</span></a>
 </span><span id="PresenceMap-66"><a href="#PresenceMap-66"><span class="linenos"> 66</span></a>
-</span><span id="PresenceMap-67"><a href="#PresenceMap-67"><span class="linenos"> 67</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">Presence</span><span class="p">,</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">):</span>
+</span><span id="PresenceMap-67"><a href="#PresenceMap-67"><span class="linenos"> 67</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">PresenceAssertion</span><span class="p">,</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">):</span>
 </span><span id="PresenceMap-68"><a href="#PresenceMap-68"><span class="linenos"> 68</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMap-69"><a href="#PresenceMap-69"><span class="linenos"> 69</span></a><span class="sd">        Map a presence interval to matrix slice indices and edge fractional values</span>
 </span><span id="PresenceMap-70"><a href="#PresenceMap-70"><span class="linenos"> 70</span></a><span class="sd">        using the provided Timescale object.</span>
@@ -434,13 +434,13 @@ end_bin   ∈ (start_bin, num_bins]</li>
                                         <input id="PresenceMap.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">PresenceMap</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">presence</span><span class="p">:</span> <span class="n"><a href="../pcalc.html#Presence">pcalc.Presence</a></span>,</span><span class="param">	<span class="n">time_scale</span><span class="p">:</span> <span class="n"><a href="../pcalc.html#Timescale">pcalc.Timescale</a></span></span>)</span>
+        <span class="name">PresenceMap</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">presence</span><span class="p">:</span> <span class="n"><a href="../pcalc.html#PresenceAssertion">pcalc.PresenceAssertion</a></span>,</span><span class="param">	<span class="n">time_scale</span><span class="p">:</span> <span class="n"><a href="../pcalc.html#Timescale">pcalc.Timescale</a></span></span>)</span>
 
                 <label class="view-source-button" for="PresenceMap.__init__-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceMap.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMap.__init__-67"><a href="#PresenceMap.__init__-67"><span class="linenos">67</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">Presence</span><span class="p">,</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMap.__init__-67"><a href="#PresenceMap.__init__-67"><span class="linenos">67</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">PresenceAssertion</span><span class="p">,</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">):</span>
 </span><span id="PresenceMap.__init__-68"><a href="#PresenceMap.__init__-68"><span class="linenos">68</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMap.__init__-69"><a href="#PresenceMap.__init__-69"><span class="linenos">69</span></a><span class="sd">        Map a presence interval to matrix slice indices and edge fractional values</span>
 </span><span id="PresenceMap.__init__-70"><a href="#PresenceMap.__init__-70"><span class="linenos">70</span></a><span class="sd">        using the provided Timescale object.</span>
@@ -475,7 +475,7 @@ using the provided Timescale object.</p>
                             </div>
                             <div id="PresenceMap.presence" class="classattr">
                                 <div class="attr variable">
-            <span class="name">presence</span><span class="annotation">: <a href="../pcalc.html#Presence">pcalc.Presence</a></span>
+            <span class="name">presence</span><span class="annotation">: <a href="../pcalc.html#PresenceAssertion">pcalc.PresenceAssertion</a></span>
 
         
     </div>

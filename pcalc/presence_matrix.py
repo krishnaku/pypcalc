@@ -9,7 +9,7 @@ from typing import List, Optional
 import numpy as np
 from numpy import typing as npt
 
-from .presence import Presence
+from .presence import PresenceAssertion
 from .presence_map import PresenceMap
 from .time_scale import Timescale
 
@@ -82,7 +82,7 @@ class PresenceMatrix:
 
 """
 
-    def __init__(self, presences: List[Presence], time_scale: Timescale, materialize=False):
+    def __init__(self, presences: List[PresenceAssertion], time_scale: Timescale, materialize=False):
         """
         Construct a presence matrix from a list of Presences and time window configuration.
 
@@ -114,7 +114,7 @@ class PresenceMatrix:
         if materialize:
             self.materialize()
 
-    def init_presence_map(self, presences: List[Presence]) -> None:
+    def init_presence_map(self, presences: List[PresenceAssertion]) -> None:
         """
         Initialize the internal presence matrix based on the Presence intervals and binning scheme.
         Only presences that overlap the timescale endpoints [t0, t1) are mapped.
@@ -197,7 +197,7 @@ class PresenceMatrix:
         return output
 
     @property
-    def presences(self) -> List[Presence]:
+    def presences(self) -> List[PresenceAssertion]:
         return [pm.presence for pm in self.presence_map]
 
     def __getitem__(self, index):

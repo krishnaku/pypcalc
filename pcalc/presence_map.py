@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .presence import Presence
+from .presence import PresenceAssertion
 from .time_scale import Timescale
 
 
@@ -33,7 +33,7 @@ class PresenceMap:
         - end_value   ∈ (0.0, 1.0] if partially covers `end_bin - 1`
     """
 
-    presence: Presence
+    presence: PresenceAssertion
     """The presence entry"""
     time_scale: Timescale
     """The time scale that the presence is mapped to"""
@@ -63,7 +63,7 @@ class PresenceMap:
         return self.presence.reset_time - self.presence.onset_time
 
 
-    def __init__(self, presence: Presence, time_scale: Timescale):
+    def __init__(self, presence: PresenceAssertion, time_scale: Timescale):
         """
         Map a presence interval to matrix slice indices and edge fractional values
         using the provided Timescale object.

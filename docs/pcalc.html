@@ -89,34 +89,34 @@
 
             </li>
             <li>
-                    <a class="class" href="#Presence">Presence</a>
+                    <a class="class" href="#PresenceAssertion">PresenceAssertion</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#Presence.__init__">Presence</a>
+                                <a class="function" href="#PresenceAssertion.__init__">PresenceAssertion</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Presence.element">element</a>
+                                <a class="variable" href="#PresenceAssertion.element">element</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Presence.boundary">boundary</a>
+                                <a class="variable" href="#PresenceAssertion.boundary">boundary</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Presence.onset_time">onset_time</a>
+                                <a class="variable" href="#PresenceAssertion.onset_time">onset_time</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Presence.reset_time">reset_time</a>
+                                <a class="variable" href="#PresenceAssertion.reset_time">reset_time</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Presence.provenance">provenance</a>
+                                <a class="variable" href="#PresenceAssertion.provenance">provenance</a>
                         </li>
                         <li>
-                                <a class="function" href="#Presence.overlaps">overlaps</a>
+                                <a class="function" href="#PresenceAssertion.overlaps">overlaps</a>
                         </li>
                         <li>
-                                <a class="function" href="#Presence.duration">duration</a>
+                                <a class="function" href="#PresenceAssertion.duration">duration</a>
                         </li>
                         <li>
-                                <a class="function" href="#Presence.residence_time">residence_time</a>
+                                <a class="function" href="#PresenceAssertion.residence_time">residence_time</a>
                         </li>
                 </ul>
 
@@ -397,23 +397,24 @@ SPDX-License-Identifier: MIT</p>
 the relationship between <em>things</em> and <em>places</em> over <em>time</em>.</p>
 
 <p>It begins with a <a href="./pcalc/presence.html"><em>Presence</em></a>—an <em>assertion</em> that a
-particular <em>Element</em> (thing) was <em>continuously</em> present
-within a <em>Boundary</em> (place) over an interval
-of <em>time</em>. Both Elements and Boundaries come from some underlying domain $D$
-that we are studying.</p>
+particular <em>Element</em> (thing) was <em>continuously</em> present within a <em>Boundary</em>
+(place) over an interval of <em>time</em>. Both Elements and Boundaries belong to
+an underlying domain $D$ under analysis.</p>
 
-<p>Given a set of presence assertions over a domain $D$, the presence calculus provides
-rigorously defined  primitives and constructs for analyzing element timelines and trajectories,
-presence-induced topologies on $D$, and the
-effects of co-presence - simultaneous element presence - within and across
+<p>Given a set of presence assertions over a domain $D$, the presence calculus
+provides rigorously defined primitives and constructs for analyzing element
+timelines and trajectories, presence-induced topologies on $D$, and the
+effects of co-presence—simultaneous element presence—within and across
 boundaries.</p>
 
-<p>Further, by extending the notion of presences to <em>functions over presences</em>, it gives
-a general mechanism for representing the <em>effects</em> of presence, This helps
-model concepts such value, impact, delays, cost, revenues, user experience etc, as well
-as reason rigorously about concepts like time value, delayed value and option value of presence.</p>
+<p>By defining presence as a function that relates entities to boundaries over
+time, the calculus offers a general mechanism for representing the <em>effects</em>
+of presence. This supports modeling concepts such as value, impact, delay,
+cost, revenue, and user experience, as well as rigorous reasoning about
+temporal constructs like time value, delayed value, and the option value
+of presence.</p>
 
-<p>These techniques can be applied consistently across a wide range of domains, including
+<p>These techniques apply consistently across a wide range of domains, including
 stochastic, non-linear, adaptive, and complex systems.</p>
 
 <div style="text-align: center; margin:2em">
@@ -438,7 +439,7 @@ queueing theory, topology, and complex systems science—yet remains
 philosophically distinct from each of them. It allows us to connect these fields while
 re-framing their perspectives through the common epistemic lens of presence.</p>
 
-<p>The foundational concepts of Presence Calculus allow us to <em>define</em>
+<p>The foundational concepts of presence calculus allow us to <em>define</em>
 derived notions such as flow, stability, equilibrium, and coherence precisely, and to
 relate them to practically useful measures like delay, cost, revenue, and user
 experience when interpreted within the semantics of the domain being modeled.</p>
@@ -460,7 +461,7 @@ understanding of the underlying mathematics.</p>
 <h2 id="the-toolkit">The Toolkit</h2>
 
 <p>The Presence Calculus Toolkit is a computationally efficient implementation of the core concepts and
-calculations in Presence Calculus.</p>
+calculations in presence calculus.</p>
 
 <p>This <code><a href="">pcalc</a></code> module in particular, is an elementary and accessible entry point to some of the more abstract
 concepts in the presence calculus. It is a computational model for the calculus
@@ -517,143 +518,144 @@ have questions or would like to collaborate.</p>
 </span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="sd">the relationship between *things* and *places* over *time*.</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="sd">It begins with a [*Presence*](./pcalc/presence.html)—an *assertion* that a</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="sd">particular *Element* (thing) was *continuously* present</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="sd">within a *Boundary* (place) over an interval</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="sd">of *time*. Both Elements and Boundaries come from some underlying domain $D$</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="sd">that we are studying.</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a>
-</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="sd">Given a set of presence assertions over a domain $D$, the presence calculus provides</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="sd">rigorously defined  primitives and constructs for analyzing element timelines and trajectories,</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="sd">presence-induced topologies on $D$, and the</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="sd">effects of co-presence - simultaneous element presence - within and across</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="sd">boundaries.</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>
-</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="sd">Further, by extending the notion of presences to *functions over presences*, it gives</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="sd">a general mechanism for representing the *effects* of presence, This helps</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">model concepts such value, impact, delays, cost, revenues, user experience etc, as well</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">as reason rigorously about concepts like time value, delayed value and option value of presence.</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a><span class="sd">These techniques can be applied consistently across a wide range of domains, including</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">stochastic, non-linear, adaptive, and complex systems.</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>
-</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="sd">&lt;div style=&quot;text-align: center; margin:2em&quot;&gt;</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="sd">  &lt;img src=&quot;./assets/pcalc/presence_calculus.svg&quot; width=&quot;600px&quot; /&gt;</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="sd">  &lt;div style=&quot;font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;&quot;&gt;</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">    Figure 1: Key constructs—presences, element paths, presence matrix, and co-presence topology</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="sd">  &lt;/div&gt;</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="sd">&lt;/div&gt;</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a>
-</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a><span class="sd">## Motivation</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="sd">Our main goal in developing the presence calculus is to provide better tools</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a><span class="sd">for rigorous modeling and principled decision-making in messy, real-world domains.</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a><span class="sd">Our focus is on ensuring that the way data is used in those decisions rests on a</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="sd">linguistically precise, logically sound and mathematically grounded foundation.</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>
-</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a><span class="sd">The world of measurement, particularly in messy, complex, real-world domains, is sorely lacking in all these</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="sd">three areas, and the presence calculus evolved from a search for better solutions here.</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>
-</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a><span class="sd">The presence calculus builds on ideas from stochastic process dynamics,</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="sd">queueing theory, topology, and complex systems science—yet remains</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a><span class="sd">philosophically distinct from each of them. It allows us to connect these fields while</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a><span class="sd">re-framing their perspectives through the common epistemic lens of presence.</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>
-</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a><span class="sd">The foundational concepts of Presence Calculus allow us to *define*</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a><span class="sd">derived notions such as flow, stability, equilibrium, and coherence precisely, and to</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a><span class="sd">relate them to practically useful measures like delay, cost, revenue, and user</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a><span class="sd">experience when interpreted within the semantics of the domain being modeled.</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>
-</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a><span class="sd">In messy real-world domains, relationships between elements, boundaries, flows, and</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a><span class="sd">effects often emerge from complex, higher-dimensional interactions among</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a><span class="sd">many parameters. These patterns are often more amenable to machine analysis</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a><span class="sd">in high-dimensional representations than through the simplified, low-dimensional</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a><span class="sd">models we typically use to make decisions. The presence calculus provides a precise and structured way to</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a><span class="sd">build such representations starting from simple, declarative models of presence.</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>
-</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a><span class="sd">Although we will motivate most ideas we introduce with real-world decision</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="sd">problems, we are less focused on *what* decisions to make or prescribing *how* to make decisions. This is the</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a><span class="sd"> application domain for the presence calculus.</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>
-</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a><span class="sd"> We believe it is vast and hope to make it accessible for more people to build applications without requiring a deep</span>
-</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a><span class="sd">understanding of the underlying mathematics.</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>
-</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a><span class="sd">## The Toolkit</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>
-</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a><span class="sd">The Presence Calculus Toolkit is a computationally efficient implementation of the core concepts and</span>
-</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a><span class="sd">calculations in Presence Calculus.</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>
-</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a><span class="sd">This `pcalc` module in particular, is an elementary and accessible entry point to some of the more abstract</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a><span class="sd">concepts in the presence calculus. It is a computational model for the calculus</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a><span class="sd">capable of powering real-time analysis and simulation of complex systems. The module is designed as a lightweight,</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a><span class="sd">easy-to-integrate analytical middleware library that connects real-time event streams, simulation models,</span>
-</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="sd">and static datasets from a domain to rich visualization and analysis tools.</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>
-</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="sd">While we&#39;ll provide several examples of end-to-end integrations, the library is</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">open source under the MIT license, and you are encouraged to create models and</span>
-</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="sd">applications—both commercial and non-commercial—that build on the concepts.</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="sd">If you are comfortable learning by</span>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="sd">reading code and implementing models and don&#39;t mind just a tiny bit of</span>
-</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="sd">formal mathematical notation, this is a better entry point to the presence calculus for you.</span>
-</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>
-</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">More background and general, informal discussion around these topics</span>
-</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a><span class="sd">can be found on [The Polaris Flow Dispatch.](https://wwww.polaris-flow-dispatch.com)</span>
-</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>
-</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="sd">## Reading these docs</span>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a><span class="sd">The documentation is organized so that you can get a very good idea of the</span>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a><span class="sd">scope of the presence calculus and it&#39;s implementation by reading the</span>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="sd">topics listed on the &quot;submodules&quot; left hand menu, in order.</span>
-</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="sd">Each module</span>
-</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="sd">links to detailed API documentation that is also directly accessible from this page.</span>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="sd">The index is also searchable once you get familiar with the concepts.</span>
-</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>
-</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a><span class="sd">The presence calculus builds on an intuitive and elementary foundation, even as</span>
-</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a><span class="sd">it remains mathematically rigorous. We believe the space of potential</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="sd">applications is vast, and invite you to explore it—and to reach out if you</span>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a><span class="sd">have questions or would like to collaborate.</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>
+</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="sd">particular *Element* (thing) was *continuously* present within a *Boundary*</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="sd">(place) over an interval of *time*. Both Elements and Boundaries belong to</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="sd">an underlying domain $D$ under analysis.</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a>
+</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="sd">Given a set of presence assertions over a domain $D$, the presence calculus</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="sd">provides rigorously defined primitives and constructs for analyzing element</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="sd">timelines and trajectories, presence-induced topologies on $D$, and the</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="sd">effects of co-presence—simultaneous element presence—within and across</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="sd">boundaries.</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a>
+</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">By defining presence as a function that relates entities to boundaries over</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="sd">time, the calculus offers a general mechanism for representing the *effects*</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="sd">of presence. This supports modeling concepts such as value, impact, delay,</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">cost, revenue, and user experience, as well as rigorous reasoning about</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">temporal constructs like time value, delayed value, and the option value</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="sd">of presence.</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">These techniques apply consistently across a wide range of domains, including</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="sd">stochastic, non-linear, adaptive, and complex systems.</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="sd">&lt;div style=&quot;text-align: center; margin:2em&quot;&gt;</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="sd">  &lt;img src=&quot;./assets/pcalc/presence_calculus.svg&quot; width=&quot;600px&quot; /&gt;</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">  &lt;div style=&quot;font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;&quot;&gt;</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="sd">    Figure 1: Key constructs—presences, element paths, presence matrix, and co-presence topology</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="sd">  &lt;/div&gt;</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="sd">&lt;/div&gt;</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="sd">## Motivation</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a><span class="sd">Our main goal in developing the presence calculus is to provide better tools</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a><span class="sd">for rigorous modeling and principled decision-making in messy, real-world domains.</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="sd">Our focus is on ensuring that the way data is used in those decisions rests on a</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a><span class="sd">linguistically precise, logically sound and mathematically grounded foundation.</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="sd">The world of measurement, particularly in messy, complex, real-world domains, is sorely lacking in all these</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a><span class="sd">three areas, and the presence calculus evolved from a search for better solutions here.</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="sd">The presence calculus builds on ideas from stochastic process dynamics,</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a><span class="sd">queueing theory, topology, and complex systems science—yet remains</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a><span class="sd">philosophically distinct from each of them. It allows us to connect these fields while</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a><span class="sd">re-framing their perspectives through the common epistemic lens of presence.</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a><span class="sd">The foundational concepts of presence calculus allow us to *define*</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a><span class="sd">derived notions such as flow, stability, equilibrium, and coherence precisely, and to</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a><span class="sd">relate them to practically useful measures like delay, cost, revenue, and user</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a><span class="sd">experience when interpreted within the semantics of the domain being modeled.</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>
+</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a><span class="sd">In messy real-world domains, relationships between elements, boundaries, flows, and</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a><span class="sd">effects often emerge from complex, higher-dimensional interactions among</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a><span class="sd">many parameters. These patterns are often more amenable to machine analysis</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a><span class="sd">in high-dimensional representations than through the simplified, low-dimensional</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a><span class="sd">models we typically use to make decisions. The presence calculus provides a precise and structured way to</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a><span class="sd">build such representations starting from simple, declarative models of presence.</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="sd">Although we will motivate most ideas we introduce with real-world decision</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a><span class="sd">problems, we are less focused on *what* decisions to make or prescribing *how* to make decisions. This is the</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a><span class="sd"> application domain for the presence calculus.</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>
+</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a><span class="sd"> We believe it is vast and hope to make it accessible for more people to build applications without requiring a deep</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a><span class="sd">understanding of the underlying mathematics.</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a><span class="sd">## The Toolkit</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>
+</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a><span class="sd">The Presence Calculus Toolkit is a computationally efficient implementation of the core concepts and</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a><span class="sd">calculations in presence calculus.</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>
+</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a><span class="sd">This `pcalc` module in particular, is an elementary and accessible entry point to some of the more abstract</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a><span class="sd">concepts in the presence calculus. It is a computational model for the calculus</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a><span class="sd">capable of powering real-time analysis and simulation of complex systems. The module is designed as a lightweight,</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="sd">easy-to-integrate analytical middleware library that connects real-time event streams, simulation models,</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a><span class="sd">and static datasets from a domain to rich visualization and analysis tools.</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">While we&#39;ll provide several examples of end-to-end integrations, the library is</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="sd">open source under the MIT license, and you are encouraged to create models and</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="sd">applications—both commercial and non-commercial—that build on the concepts.</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="sd">If you are comfortable learning by</span>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="sd">reading code and implementing models and don&#39;t mind just a tiny bit of</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="sd">formal mathematical notation, this is a better entry point to the presence calculus for you.</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a><span class="sd">More background and general, informal discussion around these topics</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a><span class="sd">can be found on [The Polaris Flow Dispatch.](https://wwww.polaris-flow-dispatch.com)</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a><span class="sd">## Reading these docs</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a><span class="sd">The documentation is organized so that you can get a very good idea of the</span>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="sd">scope of the presence calculus and it&#39;s implementation by reading the</span>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a><span class="sd">topics listed on the &quot;submodules&quot; left hand menu, in order.</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="sd">Each module</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="sd">links to detailed API documentation that is also directly accessible from this page.</span>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="sd">The index is also searchable once you get familiar with the concepts.</span>
+</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a><span class="sd">The presence calculus builds on an intuitive and elementary foundation, even as</span>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="sd">it remains mathematically rigorous. We believe the space of potential</span>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a><span class="sd">applications is vast, and invite you to explore it—and to reach out if you</span>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a><span class="sd">have questions or would like to collaborate.</span>
 </span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="sd">[Dr. Krishna Kumar](https://www.linkedin.com/in/krishnaku1/),</span>
-</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a><span class="sd">&lt;br&gt; [The Polaris Advisor Program](https://github.com/polarisadvisor)</span>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>
+</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a><span class="sd">[Dr. Krishna Kumar](https://www.linkedin.com/in/krishnaku1/),</span>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a><span class="sd">&lt;br&gt; [The Polaris Advisor Program](https://github.com/polarisadvisor)</span>
 </span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Presence</span>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeModel</span>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.basis_topology</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasisTopology</span>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_invariant</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceInvariant</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_matrix</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMatrix</span>
-</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_scale</span><span class="w"> </span><span class="kn">import</span> <span class="n">Timescale</span>
-</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMap</span>
-</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_invariant_discrete</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceInvariantDiscrete</span>
-</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>
-</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>    <span class="c1"># Domain API</span>
-</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>    <span class="s2">&quot;entity&quot;</span><span class="p">,</span>
-</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>    <span class="n">Entity</span><span class="p">,</span>
-</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>    <span class="s2">&quot;presence&quot;</span><span class="p">,</span>
-</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>    <span class="n">Presence</span><span class="p">,</span>
-</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>
-</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>    <span class="c1"># Continuous Time Models</span>
-</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>    <span class="s2">&quot;time_model&quot;</span><span class="p">,</span>
-</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>    <span class="n">TimeModel</span><span class="p">,</span>
-</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>    <span class="s2">&quot;basis_topology&quot;</span><span class="p">,</span>
-</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>    <span class="n">BasisTopology</span><span class="p">,</span>
-</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>    <span class="s2">&quot;presence_invariant&quot;</span><span class="p">,</span>
-</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>    <span class="n">PresenceInvariant</span><span class="p">,</span>
-</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>
-</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>    <span class="c1"># Discrete Time Models</span>
-</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>    <span class="s2">&quot;time_scale&quot;</span><span class="p">,</span>
-</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>    <span class="n">Timescale</span><span class="p">,</span>
-</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>    <span class="s2">&quot;presence_map&quot;</span><span class="p">,</span>
-</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>    <span class="n">PresenceMap</span><span class="p">,</span>
-</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>    <span class="s2">&quot;presence_matrix&quot;</span><span class="p">,</span>
-</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>    <span class="n">PresenceMatrix</span><span class="p">,</span>
-</span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a>    <span class="s2">&quot;presence_invariant_discrete&quot;</span><span class="p">,</span>
-</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>    <span class="n">PresenceInvariantDiscrete</span><span class="p">,</span>
-</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a><span class="p">]</span>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.entity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceAssertion</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeModel</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.basis_topology</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasisTopology</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_invariant</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceInvariant</span>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_matrix</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMatrix</span>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.time_scale</span><span class="w"> </span><span class="kn">import</span> <span class="n">Timescale</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceMap</span>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.presence_invariant_discrete</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresenceInvariantDiscrete</span>
+</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>    <span class="c1"># Domain API</span>
+</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>    <span class="s2">&quot;entity&quot;</span><span class="p">,</span>
+</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>    <span class="n">Entity</span><span class="p">,</span>
+</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>    <span class="s2">&quot;presence&quot;</span><span class="p">,</span>
+</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>    <span class="n">PresenceAssertion</span><span class="p">,</span>
+</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>
+</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>    <span class="c1"># Continuous Time Models</span>
+</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>    <span class="s2">&quot;time_model&quot;</span><span class="p">,</span>
+</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>    <span class="n">TimeModel</span><span class="p">,</span>
+</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>    <span class="s2">&quot;basis_topology&quot;</span><span class="p">,</span>
+</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>    <span class="n">BasisTopology</span><span class="p">,</span>
+</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>    <span class="s2">&quot;presence_invariant&quot;</span><span class="p">,</span>
+</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>    <span class="n">PresenceInvariant</span><span class="p">,</span>
+</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>
+</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>    <span class="c1"># Discrete Time Models</span>
+</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>    <span class="s2">&quot;time_scale&quot;</span><span class="p">,</span>
+</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>    <span class="n">Timescale</span><span class="p">,</span>
+</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>    <span class="s2">&quot;presence_map&quot;</span><span class="p">,</span>
+</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>    <span class="n">PresenceMap</span><span class="p">,</span>
+</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>    <span class="s2">&quot;presence_matrix&quot;</span><span class="p">,</span>
+</span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a>    <span class="n">PresenceMatrix</span><span class="p">,</span>
+</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>    <span class="s2">&quot;presence_invariant_discrete&quot;</span><span class="p">,</span>
+</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>    <span class="n">PresenceInvariantDiscrete</span><span class="p">,</span>
+</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a><span class="p">]</span>
 </span></pre></div>
 
 
@@ -839,121 +841,117 @@ Defaults to a uuid.uuid4().</p>
                                 </dl>
                             </div>
                 </section>
-                <section id="Presence">
-                            <input id="Presence-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                <section id="PresenceAssertion">
+                            <input id="PresenceAssertion-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
                     <div class="decorator decorator-dataclass">@dataclass(frozen=True)</div>
 
     <span class="def">class</span>
-    <span class="name">Presence</span>:
+    <span class="name">PresenceAssertion</span>:
 
-                <label class="view-source-button" for="Presence-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="PresenceAssertion-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Presence"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence-143"><a href="#Presence-143"><span class="linenos">143</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="Presence-144"><a href="#Presence-144"><span class="linenos">144</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Presence</span><span class="p">:</span>
-</span><span id="Presence-145"><a href="#Presence-145"><span class="linenos">145</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence-146"><a href="#Presence-146"><span class="linenos">146</span></a><span class="sd">    A presence assertion in the Presence Calculus.</span>
-</span><span id="Presence-147"><a href="#Presence-147"><span class="linenos">147</span></a>
-</span><span id="Presence-148"><a href="#Presence-148"><span class="linenos">148</span></a><span class="sd">    This is a fundamental, immutable construct representing the presence of an</span>
-</span><span id="Presence-149"><a href="#Presence-149"><span class="linenos">149</span></a><span class="sd">    element at a boundary over a continuous interval of time.</span>
-</span><span id="Presence-150"><a href="#Presence-150"><span class="linenos">150</span></a>
-</span><span id="Presence-151"><a href="#Presence-151"><span class="linenos">151</span></a><span class="sd">    A presence is defined over a half-open interval $[t_0, t_1)$ on the real</span>
-</span><span id="Presence-152"><a href="#Presence-152"><span class="linenos">152</span></a><span class="sd">    line, where $t_0$ is the onset time and $t_1$ is the reset time.</span>
-</span><span id="Presence-153"><a href="#Presence-153"><span class="linenos">153</span></a>
-</span><span id="Presence-154"><a href="#Presence-154"><span class="linenos">154</span></a><span class="sd">    The</span>
-</span><span id="Presence-155"><a href="#Presence-155"><span class="linenos">155</span></a><span class="sd">    following constraints must hold:</span>
-</span><span id="Presence-156"><a href="#Presence-156"><span class="linenos">156</span></a>
-</span><span id="Presence-157"><a href="#Presence-157"><span class="linenos">157</span></a><span class="sd">    - $t_0 &lt; t_1$</span>
-</span><span id="Presence-158"><a href="#Presence-158"><span class="linenos">158</span></a><span class="sd">    - $t_0 \\in \\mathbb{R} \\cup \\{-\\infty\\}$</span>
-</span><span id="Presence-159"><a href="#Presence-159"><span class="linenos">159</span></a><span class="sd">    - $t_1 \\in \\mathbb{R} \\cup \\{+\\infty\\}$</span>
-</span><span id="Presence-160"><a href="#Presence-160"><span class="linenos">160</span></a><span class="sd">    - $t_0 \\ne +\\infty$</span>
-</span><span id="Presence-161"><a href="#Presence-161"><span class="linenos">161</span></a><span class="sd">    - $t_1 \\ne -\\infty$</span>
-</span><span id="Presence-162"><a href="#Presence-162"><span class="linenos">162</span></a>
-</span><span id="Presence-163"><a href="#Presence-163"><span class="linenos">163</span></a><span class="sd">    These rules ensure that the interval is well-formed, bounded on the left,</span>
-</span><span id="Presence-164"><a href="#Presence-164"><span class="linenos">164</span></a><span class="sd">    and open on the right. Intervals such as $[2.0, 5.0)$, $[-\\infty, 4.2)$,</span>
-</span><span id="Presence-165"><a href="#Presence-165"><span class="linenos">165</span></a><span class="sd">    and $[1.0, +\\infty)$ are allowed, as are the special case $[-\\infty,</span>
-</span><span id="Presence-166"><a href="#Presence-166"><span class="linenos">166</span></a><span class="sd">    +\\infty)$ and $[0,0),$ the empty presence.</span>
-</span><span id="Presence-167"><a href="#Presence-167"><span class="linenos">167</span></a>
-</span><span id="Presence-168"><a href="#Presence-168"><span class="linenos">168</span></a><span class="sd">    With the empty presence as the only exception, intervals with zero or negative duration, or with reversed or</span>
-</span><span id="Presence-169"><a href="#Presence-169"><span class="linenos">169</span></a><span class="sd">    undefined bounds, are disallowed.</span>
-</span><span id="Presence-170"><a href="#Presence-170"><span class="linenos">170</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Presence-171"><a href="#Presence-171"><span class="linenos">171</span></a>    <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
-</span><span id="Presence-172"><a href="#Presence-172"><span class="linenos">172</span></a>    <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
-</span><span id="Presence-173"><a href="#Presence-173"><span class="linenos">173</span></a>    <span class="n">onset_time</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="Presence-174"><a href="#Presence-174"><span class="linenos">174</span></a>    <span class="n">reset_time</span><span class="p">:</span> <span class="nb">float</span>
-</span><span id="Presence-175"><a href="#Presence-175"><span class="linenos">175</span></a>    <span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span>
-</span><span id="Presence-176"><a href="#Presence-176"><span class="linenos">176</span></a>
-</span><span id="Presence-177"><a href="#Presence-177"><span class="linenos">177</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Presence-178"><a href="#Presence-178"><span class="linenos">178</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence-179"><a href="#Presence-179"><span class="linenos">179</span></a><span class="sd">        Validates the temporal bounds of the presence interval</span>
-</span><span id="Presence-180"><a href="#Presence-180"><span class="linenos">180</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Presence-181"><a href="#Presence-181"><span class="linenos">181</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">:</span>
-</span><span id="Presence-182"><a href="#Presence-182"><span class="linenos">182</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
-</span><span id="Presence-183"><a href="#Presence-183"><span class="linenos">183</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-</span><span id="Presence-184"><a href="#Presence-184"><span class="linenos">184</span></a>                    <span class="sa">f</span><span class="s2">&quot;Invalid interval: onset_time (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="si">}</span><span class="s2">) must be less than reset_time (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-</span><span id="Presence-185"><a href="#Presence-185"><span class="linenos">185</span></a>
-</span><span id="Presence-186"><a href="#Presence-186"><span class="linenos">186</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
-</span><span id="Presence-187"><a href="#Presence-187"><span class="linenos">187</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Presence cannot begin at +inf&quot;</span><span class="p">)</span>
-</span><span id="Presence-188"><a href="#Presence-188"><span class="linenos">188</span></a>
-</span><span id="Presence-189"><a href="#Presence-189"><span class="linenos">189</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>
-</span><span id="Presence-190"><a href="#Presence-190"><span class="linenos">190</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Presence cannot end at -inf&quot;</span><span class="p">)</span>
-</span><span id="Presence-191"><a href="#Presence-191"><span class="linenos">191</span></a>
-</span><span id="Presence-192"><a href="#Presence-192"><span class="linenos">192</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Presence-193"><a href="#Presence-193"><span class="linenos">193</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
-</span><span id="Presence-194"><a href="#Presence-194"><span class="linenos">194</span></a>
-</span><span id="Presence-195"><a href="#Presence-195"><span class="linenos">195</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="Presence-196"><a href="#Presence-196"><span class="linenos">196</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence-197"><a href="#Presence-197"><span class="linenos">197</span></a><span class="sd">        Returns the duration of the presence, interpreted as the total length</span>
-</span><span id="Presence-198"><a href="#Presence-198"><span class="linenos">198</span></a><span class="sd">        of time the element is asserted to have been present.</span>
-</span><span id="Presence-199"><a href="#Presence-199"><span class="linenos">199</span></a>
-</span><span id="Presence-200"><a href="#Presence-200"><span class="linenos">200</span></a><span class="sd">        If the onset time is finite, the duration is simply:</span>
-</span><span id="Presence-201"><a href="#Presence-201"><span class="linenos">201</span></a>
-</span><span id="Presence-202"><a href="#Presence-202"><span class="linenos">202</span></a><span class="sd">            duration = max(0, reset_time - onset_time)</span>
-</span><span id="Presence-203"><a href="#Presence-203"><span class="linenos">203</span></a>
-</span><span id="Presence-204"><a href="#Presence-204"><span class="linenos">204</span></a><span class="sd">        If the onset time is -∞, the presence is treated as beginning at the</span>
-</span><span id="Presence-205"><a href="#Presence-205"><span class="linenos">205</span></a><span class="sd">        start of observation time (t = 0) for the purpose of duration</span>
-</span><span id="Presence-206"><a href="#Presence-206"><span class="linenos">206</span></a><span class="sd">        calculation. This bounds the duration to a finite value when</span>
-</span><span id="Presence-207"><a href="#Presence-207"><span class="linenos">207</span></a><span class="sd">        reset_time is known.</span>
-</span><span id="Presence-208"><a href="#Presence-208"><span class="linenos">208</span></a>
-</span><span id="Presence-209"><a href="#Presence-209"><span class="linenos">209</span></a><span class="sd">        Thus, for onset_time = -∞ and reset_time = t₁ &lt; ∞, we compute:</span>
-</span><span id="Presence-210"><a href="#Presence-210"><span class="linenos">210</span></a>
-</span><span id="Presence-211"><a href="#Presence-211"><span class="linenos">211</span></a><span class="sd">            duration = max(0, t₁ - 0) = t₁</span>
-</span><span id="Presence-212"><a href="#Presence-212"><span class="linenos">212</span></a>
-</span><span id="Presence-213"><a href="#Presence-213"><span class="linenos">213</span></a><span class="sd">        If the reset time is ∞, the duration is ∞, regardless of onset time.</span>
-</span><span id="Presence-214"><a href="#Presence-214"><span class="linenos">214</span></a>
-</span><span id="Presence-215"><a href="#Presence-215"><span class="linenos">215</span></a><span class="sd">        This behavior ensures that durations remain meaningful and converge</span>
-</span><span id="Presence-216"><a href="#Presence-216"><span class="linenos">216</span></a><span class="sd">        within systems where observation windows begin at t = 0, while still</span>
-</span><span id="Presence-217"><a href="#Presence-217"><span class="linenos">217</span></a><span class="sd">        preserving the semantic intent of presences that began before the</span>
-</span><span id="Presence-218"><a href="#Presence-218"><span class="linenos">218</span></a><span class="sd">        observable history.</span>
-</span><span id="Presence-219"><a href="#Presence-219"><span class="linenos">219</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Presence-220"><a href="#Presence-220"><span class="linenos">220</span></a>        <span class="n">onset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
-</span><span id="Presence-221"><a href="#Presence-221"><span class="linenos">221</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="n">onset</span><span class="p">)</span>
-</span><span id="Presence-222"><a href="#Presence-222"><span class="linenos">222</span></a>
-</span><span id="Presence-223"><a href="#Presence-223"><span class="linenos">223</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">residence_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="Presence-224"><a href="#Presence-224"><span class="linenos">224</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
-</span><span id="Presence-225"><a href="#Presence-225"><span class="linenos">225</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
-</span><span id="Presence-226"><a href="#Presence-226"><span class="linenos">226</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
-</span><span id="Presence-227"><a href="#Presence-227"><span class="linenos">227</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
-</span><span id="Presence-228"><a href="#Presence-228"><span class="linenos">228</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
-</span><span id="Presence-229"><a href="#Presence-229"><span class="linenos">229</span></a>
-</span><span id="Presence-230"><a href="#Presence-230"><span class="linenos">230</span></a>
-</span><span id="Presence-231"><a href="#Presence-231"><span class="linenos">231</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Presence-232"><a href="#Presence-232"><span class="linenos">232</span></a>        <span class="n">element_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
-</span><span id="Presence-233"><a href="#Presence-233"><span class="linenos">233</span></a>        <span class="n">boundary_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">boundary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
-</span><span id="Presence-234"><a href="#Presence-234"><span class="linenos">234</span></a>        <span class="n">interval_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="si">}</span><span class="s2">)&quot;</span>
-</span><span id="Presence-235"><a href="#Presence-235"><span class="linenos">235</span></a>        <span class="k">return</span> <span class="p">(</span>
-</span><span id="Presence-236"><a href="#Presence-236"><span class="linenos">236</span></a>            <span class="sa">f</span><span class="s2">&quot;Presence(element=</span><span class="si">{</span><span class="n">element_str</span><span class="si">}</span><span class="s2">, boundary=</span><span class="si">{</span><span class="n">boundary_str</span><span class="si">}</span><span class="s2">, &quot;</span>
-</span><span id="Presence-237"><a href="#Presence-237"><span class="linenos">237</span></a>            <span class="sa">f</span><span class="s2">&quot;interval=</span><span class="si">{</span><span class="n">interval_str</span><span class="si">}</span><span class="s2">, provenance=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provenance</span><span class="si">}</span><span class="s2">)&quot;</span>
-</span><span id="Presence-238"><a href="#Presence-238"><span class="linenos">238</span></a>        <span class="p">)</span>
+    <a class="headerlink" href="#PresenceAssertion"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion-198"><a href="#PresenceAssertion-198"><span class="linenos">198</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="PresenceAssertion-199"><a href="#PresenceAssertion-199"><span class="linenos">199</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PresenceAssertion</span><span class="p">:</span>
+</span><span id="PresenceAssertion-200"><a href="#PresenceAssertion-200"><span class="linenos">200</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-201"><a href="#PresenceAssertion-201"><span class="linenos">201</span></a>
+</span><span id="PresenceAssertion-202"><a href="#PresenceAssertion-202"><span class="linenos">202</span></a><span class="sd">    This is the fundamental, immutable construct of The presence calculus,</span>
+</span><span id="PresenceAssertion-203"><a href="#PresenceAssertion-203"><span class="linenos">203</span></a><span class="sd">    and asserts the presence of an element at a boundary over a continuous interval of time.</span>
+</span><span id="PresenceAssertion-204"><a href="#PresenceAssertion-204"><span class="linenos">204</span></a>
+</span><span id="PresenceAssertion-205"><a href="#PresenceAssertion-205"><span class="linenos">205</span></a><span class="sd">    A presence is defined over a half-open interval $[t_0, t_1)$ on the real</span>
+</span><span id="PresenceAssertion-206"><a href="#PresenceAssertion-206"><span class="linenos">206</span></a><span class="sd">    line, where $t_0$ is the onset time and $t_1$ is the reset time.</span>
+</span><span id="PresenceAssertion-207"><a href="#PresenceAssertion-207"><span class="linenos">207</span></a>
+</span><span id="PresenceAssertion-208"><a href="#PresenceAssertion-208"><span class="linenos">208</span></a><span class="sd">    The</span>
+</span><span id="PresenceAssertion-209"><a href="#PresenceAssertion-209"><span class="linenos">209</span></a><span class="sd">    following constraints must hold:</span>
+</span><span id="PresenceAssertion-210"><a href="#PresenceAssertion-210"><span class="linenos">210</span></a>
+</span><span id="PresenceAssertion-211"><a href="#PresenceAssertion-211"><span class="linenos">211</span></a><span class="sd">    - $t_0 &lt; t_1$</span>
+</span><span id="PresenceAssertion-212"><a href="#PresenceAssertion-212"><span class="linenos">212</span></a><span class="sd">    - $t_0 \\in \\mathbb{R} \\cup \\{-\\infty\\}$</span>
+</span><span id="PresenceAssertion-213"><a href="#PresenceAssertion-213"><span class="linenos">213</span></a><span class="sd">    - $t_1 \\in \\mathbb{R} \\cup \\{+\\infty\\}$</span>
+</span><span id="PresenceAssertion-214"><a href="#PresenceAssertion-214"><span class="linenos">214</span></a><span class="sd">    - $t_0 \\ne +\\infty$</span>
+</span><span id="PresenceAssertion-215"><a href="#PresenceAssertion-215"><span class="linenos">215</span></a><span class="sd">    - $t_1 \\ne -\\infty$</span>
+</span><span id="PresenceAssertion-216"><a href="#PresenceAssertion-216"><span class="linenos">216</span></a>
+</span><span id="PresenceAssertion-217"><a href="#PresenceAssertion-217"><span class="linenos">217</span></a><span class="sd">    These rules ensure that the interval is well-formed, bounded on the left,</span>
+</span><span id="PresenceAssertion-218"><a href="#PresenceAssertion-218"><span class="linenos">218</span></a><span class="sd">    and open on the right. Intervals such as $[2.0, 5.0)$, $[-\\infty, 4.2)$,</span>
+</span><span id="PresenceAssertion-219"><a href="#PresenceAssertion-219"><span class="linenos">219</span></a><span class="sd">    and $[1.0, +\\infty)$ are allowed, as are the special case $[-\\infty,</span>
+</span><span id="PresenceAssertion-220"><a href="#PresenceAssertion-220"><span class="linenos">220</span></a><span class="sd">    +\\infty)$ and $[0,0),$ the empty presence.</span>
+</span><span id="PresenceAssertion-221"><a href="#PresenceAssertion-221"><span class="linenos">221</span></a>
+</span><span id="PresenceAssertion-222"><a href="#PresenceAssertion-222"><span class="linenos">222</span></a><span class="sd">    With the empty presence as the only exception, intervals with zero or negative duration, or with reversed or</span>
+</span><span id="PresenceAssertion-223"><a href="#PresenceAssertion-223"><span class="linenos">223</span></a><span class="sd">    undefined bounds, are disallowed.</span>
+</span><span id="PresenceAssertion-224"><a href="#PresenceAssertion-224"><span class="linenos">224</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-225"><a href="#PresenceAssertion-225"><span class="linenos">225</span></a>    <span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
+</span><span id="PresenceAssertion-226"><a href="#PresenceAssertion-226"><span class="linenos">226</span></a>    <span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityProtocol</span><span class="p">]</span>
+</span><span id="PresenceAssertion-227"><a href="#PresenceAssertion-227"><span class="linenos">227</span></a>    <span class="n">onset_time</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="PresenceAssertion-228"><a href="#PresenceAssertion-228"><span class="linenos">228</span></a>    <span class="n">reset_time</span><span class="p">:</span> <span class="nb">float</span>
+</span><span id="PresenceAssertion-229"><a href="#PresenceAssertion-229"><span class="linenos">229</span></a>    <span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;observed&quot;</span>
+</span><span id="PresenceAssertion-230"><a href="#PresenceAssertion-230"><span class="linenos">230</span></a>
+</span><span id="PresenceAssertion-231"><a href="#PresenceAssertion-231"><span class="linenos">231</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="PresenceAssertion-232"><a href="#PresenceAssertion-232"><span class="linenos">232</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-233"><a href="#PresenceAssertion-233"><span class="linenos">233</span></a><span class="sd">        Validates the temporal bounds of the presence interval</span>
+</span><span id="PresenceAssertion-234"><a href="#PresenceAssertion-234"><span class="linenos">234</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-235"><a href="#PresenceAssertion-235"><span class="linenos">235</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">:</span>
+</span><span id="PresenceAssertion-236"><a href="#PresenceAssertion-236"><span class="linenos">236</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span><span id="PresenceAssertion-237"><a href="#PresenceAssertion-237"><span class="linenos">237</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+</span><span id="PresenceAssertion-238"><a href="#PresenceAssertion-238"><span class="linenos">238</span></a>                    <span class="sa">f</span><span class="s2">&quot;Invalid interval: onset_time (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="si">}</span><span class="s2">) must be less than reset_time (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</span><span id="PresenceAssertion-239"><a href="#PresenceAssertion-239"><span class="linenos">239</span></a>
+</span><span id="PresenceAssertion-240"><a href="#PresenceAssertion-240"><span class="linenos">240</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
+</span><span id="PresenceAssertion-241"><a href="#PresenceAssertion-241"><span class="linenos">241</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Presence cannot begin at +inf&quot;</span><span class="p">)</span>
+</span><span id="PresenceAssertion-242"><a href="#PresenceAssertion-242"><span class="linenos">242</span></a>
+</span><span id="PresenceAssertion-243"><a href="#PresenceAssertion-243"><span class="linenos">243</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>
+</span><span id="PresenceAssertion-244"><a href="#PresenceAssertion-244"><span class="linenos">244</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Presence cannot end at -inf&quot;</span><span class="p">)</span>
+</span><span id="PresenceAssertion-245"><a href="#PresenceAssertion-245"><span class="linenos">245</span></a>
+</span><span id="PresenceAssertion-246"><a href="#PresenceAssertion-246"><span class="linenos">246</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="PresenceAssertion-247"><a href="#PresenceAssertion-247"><span class="linenos">247</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
+</span><span id="PresenceAssertion-248"><a href="#PresenceAssertion-248"><span class="linenos">248</span></a>
+</span><span id="PresenceAssertion-249"><a href="#PresenceAssertion-249"><span class="linenos">249</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="PresenceAssertion-250"><a href="#PresenceAssertion-250"><span class="linenos">250</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-251"><a href="#PresenceAssertion-251"><span class="linenos">251</span></a><span class="sd">        Returns the duration of the presence, interpreted as the total length</span>
+</span><span id="PresenceAssertion-252"><a href="#PresenceAssertion-252"><span class="linenos">252</span></a><span class="sd">        of time the element is asserted to have been present.</span>
+</span><span id="PresenceAssertion-253"><a href="#PresenceAssertion-253"><span class="linenos">253</span></a>
+</span><span id="PresenceAssertion-254"><a href="#PresenceAssertion-254"><span class="linenos">254</span></a><span class="sd">        If the onset time is finite, the duration is simply:</span>
+</span><span id="PresenceAssertion-255"><a href="#PresenceAssertion-255"><span class="linenos">255</span></a>
+</span><span id="PresenceAssertion-256"><a href="#PresenceAssertion-256"><span class="linenos">256</span></a><span class="sd">            duration = max(0, reset_time - onset_time)</span>
+</span><span id="PresenceAssertion-257"><a href="#PresenceAssertion-257"><span class="linenos">257</span></a>
+</span><span id="PresenceAssertion-258"><a href="#PresenceAssertion-258"><span class="linenos">258</span></a><span class="sd">        If the onset time is -∞, the presence is treated as beginning at the</span>
+</span><span id="PresenceAssertion-259"><a href="#PresenceAssertion-259"><span class="linenos">259</span></a><span class="sd">        start of observation time (t = 0) for the purpose of duration</span>
+</span><span id="PresenceAssertion-260"><a href="#PresenceAssertion-260"><span class="linenos">260</span></a><span class="sd">        calculation. This bounds the duration to a finite value when</span>
+</span><span id="PresenceAssertion-261"><a href="#PresenceAssertion-261"><span class="linenos">261</span></a><span class="sd">        reset_time is known.</span>
+</span><span id="PresenceAssertion-262"><a href="#PresenceAssertion-262"><span class="linenos">262</span></a>
+</span><span id="PresenceAssertion-263"><a href="#PresenceAssertion-263"><span class="linenos">263</span></a><span class="sd">        Thus, for onset_time = -∞ and reset_time = t₁ &lt; ∞, we compute:</span>
+</span><span id="PresenceAssertion-264"><a href="#PresenceAssertion-264"><span class="linenos">264</span></a>
+</span><span id="PresenceAssertion-265"><a href="#PresenceAssertion-265"><span class="linenos">265</span></a><span class="sd">            duration = max(0, t₁ - 0) = t₁</span>
+</span><span id="PresenceAssertion-266"><a href="#PresenceAssertion-266"><span class="linenos">266</span></a>
+</span><span id="PresenceAssertion-267"><a href="#PresenceAssertion-267"><span class="linenos">267</span></a><span class="sd">        If the reset time is ∞, the duration is ∞, regardless of onset time.</span>
+</span><span id="PresenceAssertion-268"><a href="#PresenceAssertion-268"><span class="linenos">268</span></a>
+</span><span id="PresenceAssertion-269"><a href="#PresenceAssertion-269"><span class="linenos">269</span></a><span class="sd">        This behavior ensures that durations remain meaningful and converge</span>
+</span><span id="PresenceAssertion-270"><a href="#PresenceAssertion-270"><span class="linenos">270</span></a><span class="sd">        within systems where observation windows begin at t = 0, while still</span>
+</span><span id="PresenceAssertion-271"><a href="#PresenceAssertion-271"><span class="linenos">271</span></a><span class="sd">        preserving the semantic intent of presences that began before the</span>
+</span><span id="PresenceAssertion-272"><a href="#PresenceAssertion-272"><span class="linenos">272</span></a><span class="sd">        observable history.</span>
+</span><span id="PresenceAssertion-273"><a href="#PresenceAssertion-273"><span class="linenos">273</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion-274"><a href="#PresenceAssertion-274"><span class="linenos">274</span></a>        <span class="n">onset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
+</span><span id="PresenceAssertion-275"><a href="#PresenceAssertion-275"><span class="linenos">275</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="n">onset</span><span class="p">)</span>
+</span><span id="PresenceAssertion-276"><a href="#PresenceAssertion-276"><span class="linenos">276</span></a>
+</span><span id="PresenceAssertion-277"><a href="#PresenceAssertion-277"><span class="linenos">277</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">residence_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="PresenceAssertion-278"><a href="#PresenceAssertion-278"><span class="linenos">278</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
+</span><span id="PresenceAssertion-279"><a href="#PresenceAssertion-279"><span class="linenos">279</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
+</span><span id="PresenceAssertion-280"><a href="#PresenceAssertion-280"><span class="linenos">280</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+</span><span id="PresenceAssertion-281"><a href="#PresenceAssertion-281"><span class="linenos">281</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
+</span><span id="PresenceAssertion-282"><a href="#PresenceAssertion-282"><span class="linenos">282</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+</span><span id="PresenceAssertion-283"><a href="#PresenceAssertion-283"><span class="linenos">283</span></a>
+</span><span id="PresenceAssertion-284"><a href="#PresenceAssertion-284"><span class="linenos">284</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="PresenceAssertion-285"><a href="#PresenceAssertion-285"><span class="linenos">285</span></a>        <span class="n">element_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
+</span><span id="PresenceAssertion-286"><a href="#PresenceAssertion-286"><span class="linenos">286</span></a>        <span class="n">boundary_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">boundary</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">boundary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
+</span><span id="PresenceAssertion-287"><a href="#PresenceAssertion-287"><span class="linenos">287</span></a>        <span class="n">interval_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="si">}</span><span class="s2">)&quot;</span>
+</span><span id="PresenceAssertion-288"><a href="#PresenceAssertion-288"><span class="linenos">288</span></a>        <span class="k">return</span> <span class="p">(</span>
+</span><span id="PresenceAssertion-289"><a href="#PresenceAssertion-289"><span class="linenos">289</span></a>            <span class="sa">f</span><span class="s2">&quot;Presence(element=</span><span class="si">{</span><span class="n">element_str</span><span class="si">}</span><span class="s2">, boundary=</span><span class="si">{</span><span class="n">boundary_str</span><span class="si">}</span><span class="s2">, &quot;</span>
+</span><span id="PresenceAssertion-290"><a href="#PresenceAssertion-290"><span class="linenos">290</span></a>            <span class="sa">f</span><span class="s2">&quot;interval=</span><span class="si">{</span><span class="n">interval_str</span><span class="si">}</span><span class="s2">, provenance=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provenance</span><span class="si">}</span><span class="s2">)&quot;</span>
+</span><span id="PresenceAssertion-291"><a href="#PresenceAssertion-291"><span class="linenos">291</span></a>        <span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>A presence assertion in the Presence Calculus.</p>
-
-<p>This is a fundamental, immutable construct representing the presence of an
-element at a boundary over a continuous interval of time.</p>
+            <div class="docstring"><p>This is the fundamental, immutable construct of The presence calculus,
+and asserts the presence of an element at a boundary over a continuous interval of time.</p>
 
 <p>A presence is defined over a half-open interval $[t_0, t_1)$ on the real
 line, where $t_0$ is the onset time and $t_1$ is the reset time.</p>
@@ -979,131 +977,131 @@ undefined bounds, are disallowed.</p>
 </div>
 
 
-                            <div id="Presence.__init__" class="classattr">
+                            <div id="PresenceAssertion.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">Presence</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">onset_time</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">reset_time</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;observed&#39;</span></span>)</span>
+        <span class="name">PresenceAssertion</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">boundary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">onset_time</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">reset_time</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">provenance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;observed&#39;</span></span>)</span>
 
         
     </div>
-    <a class="headerlink" href="#Presence.__init__"></a>
+    <a class="headerlink" href="#PresenceAssertion.__init__"></a>
     
     
 
                             </div>
-                            <div id="Presence.element" class="classattr">
+                            <div id="PresenceAssertion.element" class="classattr">
                                 <div class="attr variable">
             <span class="name">element</span><span class="annotation">: Optional[<a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a>]</span>
 
         
     </div>
-    <a class="headerlink" href="#Presence.element"></a>
+    <a class="headerlink" href="#PresenceAssertion.element"></a>
     
     
 
                             </div>
-                            <div id="Presence.boundary" class="classattr">
+                            <div id="PresenceAssertion.boundary" class="classattr">
                                 <div class="attr variable">
             <span class="name">boundary</span><span class="annotation">: Optional[<a href="pcalc/entity.html#EntityProtocol">pcalc.entity.EntityProtocol</a>]</span>
 
         
     </div>
-    <a class="headerlink" href="#Presence.boundary"></a>
+    <a class="headerlink" href="#PresenceAssertion.boundary"></a>
     
     
 
                             </div>
-                            <div id="Presence.onset_time" class="classattr">
+                            <div id="PresenceAssertion.onset_time" class="classattr">
                                 <div class="attr variable">
             <span class="name">onset_time</span><span class="annotation">: float</span>
 
         
     </div>
-    <a class="headerlink" href="#Presence.onset_time"></a>
+    <a class="headerlink" href="#PresenceAssertion.onset_time"></a>
     
     
 
                             </div>
-                            <div id="Presence.reset_time" class="classattr">
+                            <div id="PresenceAssertion.reset_time" class="classattr">
                                 <div class="attr variable">
             <span class="name">reset_time</span><span class="annotation">: float</span>
 
         
     </div>
-    <a class="headerlink" href="#Presence.reset_time"></a>
+    <a class="headerlink" href="#PresenceAssertion.reset_time"></a>
     
     
 
                             </div>
-                            <div id="Presence.provenance" class="classattr">
+                            <div id="PresenceAssertion.provenance" class="classattr">
                                 <div class="attr variable">
             <span class="name">provenance</span><span class="annotation">: str</span>        =
 <span class="default_value">&#39;observed&#39;</span>
 
         
     </div>
-    <a class="headerlink" href="#Presence.provenance"></a>
+    <a class="headerlink" href="#PresenceAssertion.provenance"></a>
     
     
 
                             </div>
-                            <div id="Presence.overlaps" class="classattr">
-                                        <input id="Presence.overlaps-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="PresenceAssertion.overlaps" class="classattr">
+                                        <input id="PresenceAssertion.overlaps-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
         <span class="def">def</span>
         <span class="name">overlaps</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">t0</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">t1</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="nb">bool</span>:</span></span>
 
-                <label class="view-source-button" for="Presence.overlaps-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="PresenceAssertion.overlaps-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Presence.overlaps"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.overlaps-192"><a href="#Presence.overlaps-192"><span class="linenos">192</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Presence.overlaps-193"><a href="#Presence.overlaps-193"><span class="linenos">193</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
+    <a class="headerlink" href="#PresenceAssertion.overlaps"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion.overlaps-246"><a href="#PresenceAssertion.overlaps-246"><span class="linenos">246</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="PresenceAssertion.overlaps-247"><a href="#PresenceAssertion.overlaps-247"><span class="linenos">247</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&gt;</span> <span class="n">t0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">&lt;</span> <span class="n">t1</span>
 </span></pre></div>
 
 
     
 
                             </div>
-                            <div id="Presence.duration" class="classattr">
-                                        <input id="Presence.duration-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="PresenceAssertion.duration" class="classattr">
+                                        <input id="PresenceAssertion.duration-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
         <span class="def">def</span>
         <span class="name">duration</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
 
-                <label class="view-source-button" for="Presence.duration-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="PresenceAssertion.duration-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Presence.duration"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.duration-195"><a href="#Presence.duration-195"><span class="linenos">195</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="Presence.duration-196"><a href="#Presence.duration-196"><span class="linenos">196</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Presence.duration-197"><a href="#Presence.duration-197"><span class="linenos">197</span></a><span class="sd">        Returns the duration of the presence, interpreted as the total length</span>
-</span><span id="Presence.duration-198"><a href="#Presence.duration-198"><span class="linenos">198</span></a><span class="sd">        of time the element is asserted to have been present.</span>
-</span><span id="Presence.duration-199"><a href="#Presence.duration-199"><span class="linenos">199</span></a>
-</span><span id="Presence.duration-200"><a href="#Presence.duration-200"><span class="linenos">200</span></a><span class="sd">        If the onset time is finite, the duration is simply:</span>
-</span><span id="Presence.duration-201"><a href="#Presence.duration-201"><span class="linenos">201</span></a>
-</span><span id="Presence.duration-202"><a href="#Presence.duration-202"><span class="linenos">202</span></a><span class="sd">            duration = max(0, reset_time - onset_time)</span>
-</span><span id="Presence.duration-203"><a href="#Presence.duration-203"><span class="linenos">203</span></a>
-</span><span id="Presence.duration-204"><a href="#Presence.duration-204"><span class="linenos">204</span></a><span class="sd">        If the onset time is -∞, the presence is treated as beginning at the</span>
-</span><span id="Presence.duration-205"><a href="#Presence.duration-205"><span class="linenos">205</span></a><span class="sd">        start of observation time (t = 0) for the purpose of duration</span>
-</span><span id="Presence.duration-206"><a href="#Presence.duration-206"><span class="linenos">206</span></a><span class="sd">        calculation. This bounds the duration to a finite value when</span>
-</span><span id="Presence.duration-207"><a href="#Presence.duration-207"><span class="linenos">207</span></a><span class="sd">        reset_time is known.</span>
-</span><span id="Presence.duration-208"><a href="#Presence.duration-208"><span class="linenos">208</span></a>
-</span><span id="Presence.duration-209"><a href="#Presence.duration-209"><span class="linenos">209</span></a><span class="sd">        Thus, for onset_time = -∞ and reset_time = t₁ &lt; ∞, we compute:</span>
-</span><span id="Presence.duration-210"><a href="#Presence.duration-210"><span class="linenos">210</span></a>
-</span><span id="Presence.duration-211"><a href="#Presence.duration-211"><span class="linenos">211</span></a><span class="sd">            duration = max(0, t₁ - 0) = t₁</span>
-</span><span id="Presence.duration-212"><a href="#Presence.duration-212"><span class="linenos">212</span></a>
-</span><span id="Presence.duration-213"><a href="#Presence.duration-213"><span class="linenos">213</span></a><span class="sd">        If the reset time is ∞, the duration is ∞, regardless of onset time.</span>
-</span><span id="Presence.duration-214"><a href="#Presence.duration-214"><span class="linenos">214</span></a>
-</span><span id="Presence.duration-215"><a href="#Presence.duration-215"><span class="linenos">215</span></a><span class="sd">        This behavior ensures that durations remain meaningful and converge</span>
-</span><span id="Presence.duration-216"><a href="#Presence.duration-216"><span class="linenos">216</span></a><span class="sd">        within systems where observation windows begin at t = 0, while still</span>
-</span><span id="Presence.duration-217"><a href="#Presence.duration-217"><span class="linenos">217</span></a><span class="sd">        preserving the semantic intent of presences that began before the</span>
-</span><span id="Presence.duration-218"><a href="#Presence.duration-218"><span class="linenos">218</span></a><span class="sd">        observable history.</span>
-</span><span id="Presence.duration-219"><a href="#Presence.duration-219"><span class="linenos">219</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Presence.duration-220"><a href="#Presence.duration-220"><span class="linenos">220</span></a>        <span class="n">onset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
-</span><span id="Presence.duration-221"><a href="#Presence.duration-221"><span class="linenos">221</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="n">onset</span><span class="p">)</span>
+    <a class="headerlink" href="#PresenceAssertion.duration"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion.duration-249"><a href="#PresenceAssertion.duration-249"><span class="linenos">249</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="PresenceAssertion.duration-250"><a href="#PresenceAssertion.duration-250"><span class="linenos">250</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion.duration-251"><a href="#PresenceAssertion.duration-251"><span class="linenos">251</span></a><span class="sd">        Returns the duration of the presence, interpreted as the total length</span>
+</span><span id="PresenceAssertion.duration-252"><a href="#PresenceAssertion.duration-252"><span class="linenos">252</span></a><span class="sd">        of time the element is asserted to have been present.</span>
+</span><span id="PresenceAssertion.duration-253"><a href="#PresenceAssertion.duration-253"><span class="linenos">253</span></a>
+</span><span id="PresenceAssertion.duration-254"><a href="#PresenceAssertion.duration-254"><span class="linenos">254</span></a><span class="sd">        If the onset time is finite, the duration is simply:</span>
+</span><span id="PresenceAssertion.duration-255"><a href="#PresenceAssertion.duration-255"><span class="linenos">255</span></a>
+</span><span id="PresenceAssertion.duration-256"><a href="#PresenceAssertion.duration-256"><span class="linenos">256</span></a><span class="sd">            duration = max(0, reset_time - onset_time)</span>
+</span><span id="PresenceAssertion.duration-257"><a href="#PresenceAssertion.duration-257"><span class="linenos">257</span></a>
+</span><span id="PresenceAssertion.duration-258"><a href="#PresenceAssertion.duration-258"><span class="linenos">258</span></a><span class="sd">        If the onset time is -∞, the presence is treated as beginning at the</span>
+</span><span id="PresenceAssertion.duration-259"><a href="#PresenceAssertion.duration-259"><span class="linenos">259</span></a><span class="sd">        start of observation time (t = 0) for the purpose of duration</span>
+</span><span id="PresenceAssertion.duration-260"><a href="#PresenceAssertion.duration-260"><span class="linenos">260</span></a><span class="sd">        calculation. This bounds the duration to a finite value when</span>
+</span><span id="PresenceAssertion.duration-261"><a href="#PresenceAssertion.duration-261"><span class="linenos">261</span></a><span class="sd">        reset_time is known.</span>
+</span><span id="PresenceAssertion.duration-262"><a href="#PresenceAssertion.duration-262"><span class="linenos">262</span></a>
+</span><span id="PresenceAssertion.duration-263"><a href="#PresenceAssertion.duration-263"><span class="linenos">263</span></a><span class="sd">        Thus, for onset_time = -∞ and reset_time = t₁ &lt; ∞, we compute:</span>
+</span><span id="PresenceAssertion.duration-264"><a href="#PresenceAssertion.duration-264"><span class="linenos">264</span></a>
+</span><span id="PresenceAssertion.duration-265"><a href="#PresenceAssertion.duration-265"><span class="linenos">265</span></a><span class="sd">            duration = max(0, t₁ - 0) = t₁</span>
+</span><span id="PresenceAssertion.duration-266"><a href="#PresenceAssertion.duration-266"><span class="linenos">266</span></a>
+</span><span id="PresenceAssertion.duration-267"><a href="#PresenceAssertion.duration-267"><span class="linenos">267</span></a><span class="sd">        If the reset time is ∞, the duration is ∞, regardless of onset time.</span>
+</span><span id="PresenceAssertion.duration-268"><a href="#PresenceAssertion.duration-268"><span class="linenos">268</span></a>
+</span><span id="PresenceAssertion.duration-269"><a href="#PresenceAssertion.duration-269"><span class="linenos">269</span></a><span class="sd">        This behavior ensures that durations remain meaningful and converge</span>
+</span><span id="PresenceAssertion.duration-270"><a href="#PresenceAssertion.duration-270"><span class="linenos">270</span></a><span class="sd">        within systems where observation windows begin at t = 0, while still</span>
+</span><span id="PresenceAssertion.duration-271"><a href="#PresenceAssertion.duration-271"><span class="linenos">271</span></a><span class="sd">        preserving the semantic intent of presences that began before the</span>
+</span><span id="PresenceAssertion.duration-272"><a href="#PresenceAssertion.duration-272"><span class="linenos">272</span></a><span class="sd">        observable history.</span>
+</span><span id="PresenceAssertion.duration-273"><a href="#PresenceAssertion.duration-273"><span class="linenos">273</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PresenceAssertion.duration-274"><a href="#PresenceAssertion.duration-274"><span class="linenos">274</span></a>        <span class="n">onset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">)</span>
+</span><span id="PresenceAssertion.duration-275"><a href="#PresenceAssertion.duration-275"><span class="linenos">275</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="n">onset</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1135,23 +1133,23 @@ observable history.</p>
 
 
                             </div>
-                            <div id="Presence.residence_time" class="classattr">
-                                        <input id="Presence.residence_time-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="PresenceAssertion.residence_time" class="classattr">
+                                        <input id="PresenceAssertion.residence_time-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
         <span class="def">def</span>
         <span class="name">residence_time</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">t0</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">t1</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
 
-                <label class="view-source-button" for="Presence.residence_time-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="PresenceAssertion.residence_time-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Presence.residence_time"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Presence.residence_time-223"><a href="#Presence.residence_time-223"><span class="linenos">223</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">residence_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="Presence.residence_time-224"><a href="#Presence.residence_time-224"><span class="linenos">224</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
-</span><span id="Presence.residence_time-225"><a href="#Presence.residence_time-225"><span class="linenos">225</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
-</span><span id="Presence.residence_time-226"><a href="#Presence.residence_time-226"><span class="linenos">226</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
-</span><span id="Presence.residence_time-227"><a href="#Presence.residence_time-227"><span class="linenos">227</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
-</span><span id="Presence.residence_time-228"><a href="#Presence.residence_time-228"><span class="linenos">228</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+    <a class="headerlink" href="#PresenceAssertion.residence_time"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceAssertion.residence_time-277"><a href="#PresenceAssertion.residence_time-277"><span class="linenos">277</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">residence_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="PresenceAssertion.residence_time-278"><a href="#PresenceAssertion.residence_time-278"><span class="linenos">278</span></a>        <span class="k">if</span> <span class="n">t0</span> <span class="o">&gt;=</span> <span class="n">t1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">):</span>
+</span><span id="PresenceAssertion.residence_time-279"><a href="#PresenceAssertion.residence_time-279"><span class="linenos">279</span></a>            <span class="k">return</span> <span class="mf">0.0</span>
+</span><span id="PresenceAssertion.residence_time-280"><a href="#PresenceAssertion.residence_time-280"><span class="linenos">280</span></a>        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+</span><span id="PresenceAssertion.residence_time-281"><a href="#PresenceAssertion.residence_time-281"><span class="linenos">281</span></a>        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_time</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
+</span><span id="PresenceAssertion.residence_time-282"><a href="#PresenceAssertion.residence_time-282"><span class="linenos">282</span></a>        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1361,14 +1359,14 @@ observable history.</p>
 </span><span id="BasisTopology-85"><a href="#BasisTopology-85"><span class="linenos"> 85</span></a><span class="sd">    and exposed through join, closure, and overlap operations.</span>
 </span><span id="BasisTopology-86"><a href="#BasisTopology-86"><span class="linenos"> 86</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="BasisTopology-87"><a href="#BasisTopology-87"><span class="linenos"> 87</span></a>
-</span><span id="BasisTopology-88"><a href="#BasisTopology-88"><span class="linenos"> 88</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Presence</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="BasisTopology-88"><a href="#BasisTopology-88"><span class="linenos"> 88</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="BasisTopology-89"><a href="#BasisTopology-89"><span class="linenos"> 89</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BasisTopology-90"><a href="#BasisTopology-90"><span class="linenos"> 90</span></a><span class="sd">        Initializes the topology from a set of presences.</span>
 </span><span id="BasisTopology-91"><a href="#BasisTopology-91"><span class="linenos"> 91</span></a>
 </span><span id="BasisTopology-92"><a href="#BasisTopology-92"><span class="linenos"> 92</span></a><span class="sd">        Internally maintains a SortedSet for each (element, boundary) pair,</span>
 </span><span id="BasisTopology-93"><a href="#BasisTopology-93"><span class="linenos"> 93</span></a><span class="sd">        ordered by onset_time for efficient merge and overlap operations.</span>
 </span><span id="BasisTopology-94"><a href="#BasisTopology-94"><span class="linenos"> 94</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="BasisTopology-95"><a href="#BasisTopology-95"><span class="linenos"> 95</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cover_index</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">,</span> <span class="n">SortedSet</span><span class="p">[</span><span class="n">Presence</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span>
+</span><span id="BasisTopology-95"><a href="#BasisTopology-95"><span class="linenos"> 95</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cover_index</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">,</span> <span class="n">SortedSet</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span>
 </span><span id="BasisTopology-96"><a href="#BasisTopology-96"><span class="linenos"> 96</span></a>            <span class="k">lambda</span><span class="p">:</span> <span class="n">SortedSet</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">presence_sort_key</span><span class="p">)</span>
 </span><span id="BasisTopology-97"><a href="#BasisTopology-97"><span class="linenos"> 97</span></a>        <span class="p">)</span>
 </span><span id="BasisTopology-98"><a href="#BasisTopology-98"><span class="linenos"> 98</span></a>
@@ -1376,14 +1374,14 @@ observable history.</p>
 </span><span id="BasisTopology-100"><a href="#BasisTopology-100"><span class="linenos">100</span></a>            <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">element</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">boundary</span><span class="p">)</span>
 </span><span id="BasisTopology-101"><a href="#BasisTopology-101"><span class="linenos">101</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">cover_index</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </span><span id="BasisTopology-102"><a href="#BasisTopology-102"><span class="linenos">102</span></a>
-</span><span id="BasisTopology-103"><a href="#BasisTopology-103"><span class="linenos">103</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_cover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">boundary</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SortedSet</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
+</span><span id="BasisTopology-103"><a href="#BasisTopology-103"><span class="linenos">103</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_cover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">boundary</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SortedSet</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]:</span>
 </span><span id="BasisTopology-104"><a href="#BasisTopology-104"><span class="linenos">104</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BasisTopology-105"><a href="#BasisTopology-105"><span class="linenos">105</span></a><span class="sd">        Returns the open cover for a given (element, boundary) pair.</span>
 </span><span id="BasisTopology-106"><a href="#BasisTopology-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="BasisTopology-107"><a href="#BasisTopology-107"><span class="linenos">107</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cover_index</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">element</span><span class="p">,</span> <span class="n">boundary</span><span class="p">),</span> <span class="n">SortedSet</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">presence_sort_key</span><span class="p">))</span>
 </span><span id="BasisTopology-108"><a href="#BasisTopology-108"><span class="linenos">108</span></a>
 </span><span id="BasisTopology-109"><a href="#BasisTopology-109"><span class="linenos">109</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="BasisTopology-110"><a href="#BasisTopology-110"><span class="linenos">110</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">join</span><span class="p">(</span><span class="n">p1</span><span class="p">:</span> <span class="n">Presence</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="n">Presence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Presence</span><span class="p">:</span>
+</span><span id="BasisTopology-110"><a href="#BasisTopology-110"><span class="linenos">110</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">join</span><span class="p">(</span><span class="n">p1</span><span class="p">:</span> <span class="n">PresenceAssertion</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="n">PresenceAssertion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PresenceAssertion</span><span class="p">:</span>
 </span><span id="BasisTopology-111"><a href="#BasisTopology-111"><span class="linenos">111</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BasisTopology-112"><a href="#BasisTopology-112"><span class="linenos">112</span></a><span class="sd">        Returns the join of two basis elements if they overlap or touch in time.</span>
 </span><span id="BasisTopology-113"><a href="#BasisTopology-113"><span class="linenos">113</span></a><span class="sd">        Returns EMPTY_PRESENCE if the presences are disjoint or incompatible.</span>
@@ -1396,7 +1394,7 @@ observable history.</p>
 </span><span id="BasisTopology-120"><a href="#BasisTopology-120"><span class="linenos">120</span></a>        <span class="k">if</span> <span class="n">p2</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&lt;</span> <span class="n">p1</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">p2</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
 </span><span id="BasisTopology-121"><a href="#BasisTopology-121"><span class="linenos">121</span></a>            <span class="k">return</span> <span class="n">EMPTY_PRESENCE</span>
 </span><span id="BasisTopology-122"><a href="#BasisTopology-122"><span class="linenos">122</span></a>
-</span><span id="BasisTopology-123"><a href="#BasisTopology-123"><span class="linenos">123</span></a>        <span class="k">return</span> <span class="n">Presence</span><span class="p">(</span>
+</span><span id="BasisTopology-123"><a href="#BasisTopology-123"><span class="linenos">123</span></a>        <span class="k">return</span> <span class="n">PresenceAssertion</span><span class="p">(</span>
 </span><span id="BasisTopology-124"><a href="#BasisTopology-124"><span class="linenos">124</span></a>            <span class="n">element</span><span class="o">=</span><span class="n">p1</span><span class="o">.</span><span class="n">element</span><span class="p">,</span>
 </span><span id="BasisTopology-125"><a href="#BasisTopology-125"><span class="linenos">125</span></a>            <span class="n">boundary</span><span class="o">=</span><span class="n">p1</span><span class="o">.</span><span class="n">boundary</span><span class="p">,</span>
 </span><span id="BasisTopology-126"><a href="#BasisTopology-126"><span class="linenos">126</span></a>            <span class="n">onset_time</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">p2</span><span class="o">.</span><span class="n">onset_time</span><span class="p">),</span>
@@ -1404,7 +1402,7 @@ observable history.</p>
 </span><span id="BasisTopology-128"><a href="#BasisTopology-128"><span class="linenos">128</span></a>            <span class="n">provenance</span><span class="o">=</span><span class="s2">&quot;join&quot;</span><span class="p">,</span>
 </span><span id="BasisTopology-129"><a href="#BasisTopology-129"><span class="linenos">129</span></a>        <span class="p">)</span>
 </span><span id="BasisTopology-130"><a href="#BasisTopology-130"><span class="linenos">130</span></a>
-</span><span id="BasisTopology-131"><a href="#BasisTopology-131"><span class="linenos">131</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">closure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
+</span><span id="BasisTopology-131"><a href="#BasisTopology-131"><span class="linenos">131</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">closure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]:</span>
 </span><span id="BasisTopology-132"><a href="#BasisTopology-132"><span class="linenos">132</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BasisTopology-133"><a href="#BasisTopology-133"><span class="linenos">133</span></a><span class="sd">        Computes the closure under join for each cover.</span>
 </span><span id="BasisTopology-134"><a href="#BasisTopology-134"><span class="linenos">134</span></a>
@@ -1432,7 +1430,7 @@ observable history.</p>
 </span><span id="BasisTopology-156"><a href="#BasisTopology-156"><span class="linenos">156</span></a>
 </span><span id="BasisTopology-157"><a href="#BasisTopology-157"><span class="linenos">157</span></a>        <span class="k">return</span> <span class="n">closed</span>
 </span><span id="BasisTopology-158"><a href="#BasisTopology-158"><span class="linenos">158</span></a>
-</span><span id="BasisTopology-159"><a href="#BasisTopology-159"><span class="linenos">159</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">find_overlapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">Presence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
+</span><span id="BasisTopology-159"><a href="#BasisTopology-159"><span class="linenos">159</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">find_overlapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">PresenceAssertion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]:</span>
 </span><span id="BasisTopology-160"><a href="#BasisTopology-160"><span class="linenos">160</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BasisTopology-161"><a href="#BasisTopology-161"><span class="linenos">161</span></a><span class="sd">        Finds all presences in the same cover that overlap with the given presence.</span>
 </span><span id="BasisTopology-162"><a href="#BasisTopology-162"><span class="linenos">162</span></a>
@@ -1469,20 +1467,20 @@ and exposed through join, closure, and overlap operations.</p>
                                         <input id="BasisTopology.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">BasisTopology</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">presences</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n"><a href="#Presence">Presence</a></span><span class="p">]</span></span>)</span>
+        <span class="name">BasisTopology</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">presences</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n"><a href="#PresenceAssertion">PresenceAssertion</a></span><span class="p">]</span></span>)</span>
 
                 <label class="view-source-button" for="BasisTopology.__init__-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#BasisTopology.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BasisTopology.__init__-88"><a href="#BasisTopology.__init__-88"><span class="linenos"> 88</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Presence</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BasisTopology.__init__-88"><a href="#BasisTopology.__init__-88"><span class="linenos"> 88</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="BasisTopology.__init__-89"><a href="#BasisTopology.__init__-89"><span class="linenos"> 89</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BasisTopology.__init__-90"><a href="#BasisTopology.__init__-90"><span class="linenos"> 90</span></a><span class="sd">        Initializes the topology from a set of presences.</span>
 </span><span id="BasisTopology.__init__-91"><a href="#BasisTopology.__init__-91"><span class="linenos"> 91</span></a>
 </span><span id="BasisTopology.__init__-92"><a href="#BasisTopology.__init__-92"><span class="linenos"> 92</span></a><span class="sd">        Internally maintains a SortedSet for each (element, boundary) pair,</span>
 </span><span id="BasisTopology.__init__-93"><a href="#BasisTopology.__init__-93"><span class="linenos"> 93</span></a><span class="sd">        ordered by onset_time for efficient merge and overlap operations.</span>
 </span><span id="BasisTopology.__init__-94"><a href="#BasisTopology.__init__-94"><span class="linenos"> 94</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="BasisTopology.__init__-95"><a href="#BasisTopology.__init__-95"><span class="linenos"> 95</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cover_index</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">,</span> <span class="n">SortedSet</span><span class="p">[</span><span class="n">Presence</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span>
+</span><span id="BasisTopology.__init__-95"><a href="#BasisTopology.__init__-95"><span class="linenos"> 95</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cover_index</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">,</span> <span class="n">SortedSet</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span>
 </span><span id="BasisTopology.__init__-96"><a href="#BasisTopology.__init__-96"><span class="linenos"> 96</span></a>            <span class="k">lambda</span><span class="p">:</span> <span class="n">SortedSet</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">presence_sort_key</span><span class="p">)</span>
 </span><span id="BasisTopology.__init__-97"><a href="#BasisTopology.__init__-97"><span class="linenos"> 97</span></a>        <span class="p">)</span>
 </span><span id="BasisTopology.__init__-98"><a href="#BasisTopology.__init__-98"><span class="linenos"> 98</span></a>
@@ -1502,7 +1500,7 @@ ordered by onset_time for efficient merge and overlap operations.</p>
                             </div>
                             <div id="BasisTopology.cover_index" class="classattr">
                                 <div class="attr variable">
-            <span class="name">cover_index</span><span class="annotation">: dict[typing.Tuple, sortedcontainers.sortedset.SortedSet[<a href="#Presence">Presence</a>]]</span>
+            <span class="name">cover_index</span><span class="annotation">: dict[typing.Tuple, sortedcontainers.sortedset.SortedSet[<a href="#PresenceAssertion">PresenceAssertion</a>]]</span>
 
         
     </div>
@@ -1516,13 +1514,13 @@ ordered by onset_time for efficient merge and overlap operations.</p>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">get_cover</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">element</span>,</span><span class="param">	<span class="n">boundary</span></span><span class="return-annotation">) -> <span class="n">sortedcontainers</span><span class="o">.</span><span class="n">sortedset</span><span class="o">.</span><span class="n">SortedSet</span><span class="p">[</span><span class="n"><a href="#Presence">Presence</a></span><span class="p">]</span>:</span></span>
+        <span class="name">get_cover</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">element</span>,</span><span class="param">	<span class="n">boundary</span></span><span class="return-annotation">) -> <span class="n">sortedcontainers</span><span class="o">.</span><span class="n">sortedset</span><span class="o">.</span><span class="n">SortedSet</span><span class="p">[</span><span class="n"><a href="#PresenceAssertion">PresenceAssertion</a></span><span class="p">]</span>:</span></span>
 
                 <label class="view-source-button" for="BasisTopology.get_cover-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#BasisTopology.get_cover"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BasisTopology.get_cover-103"><a href="#BasisTopology.get_cover-103"><span class="linenos">103</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_cover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">boundary</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SortedSet</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BasisTopology.get_cover-103"><a href="#BasisTopology.get_cover-103"><span class="linenos">103</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_cover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">boundary</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SortedSet</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]:</span>
 </span><span id="BasisTopology.get_cover-104"><a href="#BasisTopology.get_cover-104"><span class="linenos">104</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BasisTopology.get_cover-105"><a href="#BasisTopology.get_cover-105"><span class="linenos">105</span></a><span class="sd">        Returns the open cover for a given (element, boundary) pair.</span>
 </span><span id="BasisTopology.get_cover-106"><a href="#BasisTopology.get_cover-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
@@ -1541,14 +1539,14 @@ ordered by onset_time for efficient merge and overlap operations.</p>
                     <div class="decorator decorator-staticmethod">@staticmethod</div>
 
         <span class="def">def</span>
-        <span class="name">join</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">p1</span><span class="p">:</span> <span class="n"><a href="#Presence">Presence</a></span>,</span><span class="param">	<span class="n">p2</span><span class="p">:</span> <span class="n"><a href="#Presence">Presence</a></span></span><span class="return-annotation">) -> <span class="n"><a href="#Presence">Presence</a></span>:</span></span>
+        <span class="name">join</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">p1</span><span class="p">:</span> <span class="n"><a href="#PresenceAssertion">PresenceAssertion</a></span>,</span><span class="param">	<span class="n">p2</span><span class="p">:</span> <span class="n"><a href="#PresenceAssertion">PresenceAssertion</a></span></span><span class="return-annotation">) -> <span class="n"><a href="#PresenceAssertion">PresenceAssertion</a></span>:</span></span>
 
                 <label class="view-source-button" for="BasisTopology.join-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#BasisTopology.join"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="BasisTopology.join-109"><a href="#BasisTopology.join-109"><span class="linenos">109</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="BasisTopology.join-110"><a href="#BasisTopology.join-110"><span class="linenos">110</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">join</span><span class="p">(</span><span class="n">p1</span><span class="p">:</span> <span class="n">Presence</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="n">Presence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Presence</span><span class="p">:</span>
+</span><span id="BasisTopology.join-110"><a href="#BasisTopology.join-110"><span class="linenos">110</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">join</span><span class="p">(</span><span class="n">p1</span><span class="p">:</span> <span class="n">PresenceAssertion</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="n">PresenceAssertion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PresenceAssertion</span><span class="p">:</span>
 </span><span id="BasisTopology.join-111"><a href="#BasisTopology.join-111"><span class="linenos">111</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BasisTopology.join-112"><a href="#BasisTopology.join-112"><span class="linenos">112</span></a><span class="sd">        Returns the join of two basis elements if they overlap or touch in time.</span>
 </span><span id="BasisTopology.join-113"><a href="#BasisTopology.join-113"><span class="linenos">113</span></a><span class="sd">        Returns EMPTY_PRESENCE if the presences are disjoint or incompatible.</span>
@@ -1561,7 +1559,7 @@ ordered by onset_time for efficient merge and overlap operations.</p>
 </span><span id="BasisTopology.join-120"><a href="#BasisTopology.join-120"><span class="linenos">120</span></a>        <span class="k">if</span> <span class="n">p2</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">&lt;</span> <span class="n">p1</span><span class="o">.</span><span class="n">onset_time</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">p2</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
 </span><span id="BasisTopology.join-121"><a href="#BasisTopology.join-121"><span class="linenos">121</span></a>            <span class="k">return</span> <span class="n">EMPTY_PRESENCE</span>
 </span><span id="BasisTopology.join-122"><a href="#BasisTopology.join-122"><span class="linenos">122</span></a>
-</span><span id="BasisTopology.join-123"><a href="#BasisTopology.join-123"><span class="linenos">123</span></a>        <span class="k">return</span> <span class="n">Presence</span><span class="p">(</span>
+</span><span id="BasisTopology.join-123"><a href="#BasisTopology.join-123"><span class="linenos">123</span></a>        <span class="k">return</span> <span class="n">PresenceAssertion</span><span class="p">(</span>
 </span><span id="BasisTopology.join-124"><a href="#BasisTopology.join-124"><span class="linenos">124</span></a>            <span class="n">element</span><span class="o">=</span><span class="n">p1</span><span class="o">.</span><span class="n">element</span><span class="p">,</span>
 </span><span id="BasisTopology.join-125"><a href="#BasisTopology.join-125"><span class="linenos">125</span></a>            <span class="n">boundary</span><span class="o">=</span><span class="n">p1</span><span class="o">.</span><span class="n">boundary</span><span class="p">,</span>
 </span><span id="BasisTopology.join-126"><a href="#BasisTopology.join-126"><span class="linenos">126</span></a>            <span class="n">onset_time</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">onset_time</span><span class="p">,</span> <span class="n">p2</span><span class="o">.</span><span class="n">onset_time</span><span class="p">),</span>
@@ -1582,13 +1580,13 @@ Returns EMPTY_PRESENCE if the presences are disjoint or incompatible.</p>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">closure</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">set</span><span class="p">[</span><span class="n"><a href="#Presence">Presence</a></span><span class="p">]</span>:</span></span>
+        <span class="name">closure</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">set</span><span class="p">[</span><span class="n"><a href="#PresenceAssertion">PresenceAssertion</a></span><span class="p">]</span>:</span></span>
 
                 <label class="view-source-button" for="BasisTopology.closure-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#BasisTopology.closure"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BasisTopology.closure-131"><a href="#BasisTopology.closure-131"><span class="linenos">131</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">closure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BasisTopology.closure-131"><a href="#BasisTopology.closure-131"><span class="linenos">131</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">closure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]:</span>
 </span><span id="BasisTopology.closure-132"><a href="#BasisTopology.closure-132"><span class="linenos">132</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BasisTopology.closure-133"><a href="#BasisTopology.closure-133"><span class="linenos">133</span></a><span class="sd">        Computes the closure under join for each cover.</span>
 </span><span id="BasisTopology.closure-134"><a href="#BasisTopology.closure-134"><span class="linenos">134</span></a>
@@ -1631,13 +1629,13 @@ as the original topology, but without adjacent overlaps.</p>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">find_overlapping</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">presence</span><span class="p">:</span> <span class="n"><a href="#Presence">Presence</a></span></span><span class="return-annotation">) -> <span class="nb">list</span><span class="p">[</span><span class="n"><a href="#Presence">Presence</a></span><span class="p">]</span>:</span></span>
+        <span class="name">find_overlapping</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">presence</span><span class="p">:</span> <span class="n"><a href="#PresenceAssertion">PresenceAssertion</a></span></span><span class="return-annotation">) -> <span class="nb">list</span><span class="p">[</span><span class="n"><a href="#PresenceAssertion">PresenceAssertion</a></span><span class="p">]</span>:</span></span>
 
                 <label class="view-source-button" for="BasisTopology.find_overlapping-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#BasisTopology.find_overlapping"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BasisTopology.find_overlapping-159"><a href="#BasisTopology.find_overlapping-159"><span class="linenos">159</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">find_overlapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">Presence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BasisTopology.find_overlapping-159"><a href="#BasisTopology.find_overlapping-159"><span class="linenos">159</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">find_overlapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">PresenceAssertion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]:</span>
 </span><span id="BasisTopology.find_overlapping-160"><a href="#BasisTopology.find_overlapping-160"><span class="linenos">160</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BasisTopology.find_overlapping-161"><a href="#BasisTopology.find_overlapping-161"><span class="linenos">161</span></a><span class="sd">        Finds all presences in the same cover that overlap with the given presence.</span>
 </span><span id="BasisTopology.find_overlapping-162"><a href="#BasisTopology.find_overlapping-162"><span class="linenos">162</span></a>
@@ -1690,7 +1688,7 @@ relying on the sorted order of onset_time.</p>
 </span><span id="PresenceInvariant-20"><a href="#PresenceInvariant-20"><span class="linenos">20</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">topology</span> <span class="o">=</span> <span class="n">topology</span>
 </span><span id="PresenceInvariant-21"><a href="#PresenceInvariant-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">closed_presences</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">closure</span><span class="p">()</span>
 </span><span id="PresenceInvariant-22"><a href="#PresenceInvariant-22"><span class="linenos">22</span></a>
-</span><span id="PresenceInvariant-23"><a href="#PresenceInvariant-23"><span class="linenos">23</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_filter_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
+</span><span id="PresenceInvariant-23"><a href="#PresenceInvariant-23"><span class="linenos">23</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_filter_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]:</span>
 </span><span id="PresenceInvariant-24"><a href="#PresenceInvariant-24"><span class="linenos">24</span></a>        <span class="k">return</span> <span class="p">[</span>
 </span><span id="PresenceInvariant-25"><a href="#PresenceInvariant-25"><span class="linenos">25</span></a>            <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">closed_presences</span>
 </span><span id="PresenceInvariant-26"><a href="#PresenceInvariant-26"><span class="linenos">26</span></a>            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span><span class="n">t1</span><span class="p">)</span>
@@ -2561,7 +2559,7 @@ the presence matrix and all derived metrics.</p>
 </span><span id="PresenceMap-34"><a href="#PresenceMap-34"><span class="linenos"> 34</span></a><span class="sd">        - end_value   ∈ (0.0, 1.0] if partially covers `end_bin - 1`</span>
 </span><span id="PresenceMap-35"><a href="#PresenceMap-35"><span class="linenos"> 35</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="PresenceMap-36"><a href="#PresenceMap-36"><span class="linenos"> 36</span></a>
-</span><span id="PresenceMap-37"><a href="#PresenceMap-37"><span class="linenos"> 37</span></a>    <span class="n">presence</span><span class="p">:</span> <span class="n">Presence</span>
+</span><span id="PresenceMap-37"><a href="#PresenceMap-37"><span class="linenos"> 37</span></a>    <span class="n">presence</span><span class="p">:</span> <span class="n">PresenceAssertion</span>
 </span><span id="PresenceMap-38"><a href="#PresenceMap-38"><span class="linenos"> 38</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The presence entry&quot;&quot;&quot;</span>
 </span><span id="PresenceMap-39"><a href="#PresenceMap-39"><span class="linenos"> 39</span></a>    <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span>
 </span><span id="PresenceMap-40"><a href="#PresenceMap-40"><span class="linenos"> 40</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The time scale that the presence is mapped to&quot;&quot;&quot;</span>
@@ -2591,7 +2589,7 @@ the presence matrix and all derived metrics.</p>
 </span><span id="PresenceMap-64"><a href="#PresenceMap-64"><span class="linenos"> 64</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">presence</span><span class="o">.</span><span class="n">reset_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">presence</span><span class="o">.</span><span class="n">onset_time</span>
 </span><span id="PresenceMap-65"><a href="#PresenceMap-65"><span class="linenos"> 65</span></a>
 </span><span id="PresenceMap-66"><a href="#PresenceMap-66"><span class="linenos"> 66</span></a>
-</span><span id="PresenceMap-67"><a href="#PresenceMap-67"><span class="linenos"> 67</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">Presence</span><span class="p">,</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">):</span>
+</span><span id="PresenceMap-67"><a href="#PresenceMap-67"><span class="linenos"> 67</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">PresenceAssertion</span><span class="p">,</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">):</span>
 </span><span id="PresenceMap-68"><a href="#PresenceMap-68"><span class="linenos"> 68</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMap-69"><a href="#PresenceMap-69"><span class="linenos"> 69</span></a><span class="sd">        Map a presence interval to matrix slice indices and edge fractional values</span>
 </span><span id="PresenceMap-70"><a href="#PresenceMap-70"><span class="linenos"> 70</span></a><span class="sd">        using the provided Timescale object.</span>
@@ -2699,13 +2697,13 @@ end_bin   ∈ (start_bin, num_bins]</li>
                                         <input id="PresenceMap.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">PresenceMap</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">presence</span><span class="p">:</span> <span class="n"><a href="#Presence">Presence</a></span>,</span><span class="param">	<span class="n">time_scale</span><span class="p">:</span> <span class="n"><a href="#Timescale">Timescale</a></span></span>)</span>
+        <span class="name">PresenceMap</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">presence</span><span class="p">:</span> <span class="n"><a href="#PresenceAssertion">PresenceAssertion</a></span>,</span><span class="param">	<span class="n">time_scale</span><span class="p">:</span> <span class="n"><a href="#Timescale">Timescale</a></span></span>)</span>
 
                 <label class="view-source-button" for="PresenceMap.__init__-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceMap.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMap.__init__-67"><a href="#PresenceMap.__init__-67"><span class="linenos">67</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">Presence</span><span class="p">,</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMap.__init__-67"><a href="#PresenceMap.__init__-67"><span class="linenos">67</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">PresenceAssertion</span><span class="p">,</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">):</span>
 </span><span id="PresenceMap.__init__-68"><a href="#PresenceMap.__init__-68"><span class="linenos">68</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMap.__init__-69"><a href="#PresenceMap.__init__-69"><span class="linenos">69</span></a><span class="sd">        Map a presence interval to matrix slice indices and edge fractional values</span>
 </span><span id="PresenceMap.__init__-70"><a href="#PresenceMap.__init__-70"><span class="linenos">70</span></a><span class="sd">        using the provided Timescale object.</span>
@@ -2740,7 +2738,7 @@ using the provided Timescale object.</p>
                             </div>
                             <div id="PresenceMap.presence" class="classattr">
                                 <div class="attr variable">
-            <span class="name">presence</span><span class="annotation">: <a href="#Presence">Presence</a></span>
+            <span class="name">presence</span><span class="annotation">: <a href="#PresenceAssertion">PresenceAssertion</a></span>
 
         
     </div>
@@ -3033,7 +3031,7 @@ using bin-based approximation logic, clipped to the given interval.</p>
 </span><span id="PresenceMatrix-83"><a href="#PresenceMatrix-83"><span class="linenos"> 83</span></a>
 </span><span id="PresenceMatrix-84"><a href="#PresenceMatrix-84"><span class="linenos"> 84</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMatrix-85"><a href="#PresenceMatrix-85"><span class="linenos"> 85</span></a>
-</span><span id="PresenceMatrix-86"><a href="#PresenceMatrix-86"><span class="linenos"> 86</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">],</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">,</span> <span class="n">materialize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="PresenceMatrix-86"><a href="#PresenceMatrix-86"><span class="linenos"> 86</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">],</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">,</span> <span class="n">materialize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="PresenceMatrix-87"><a href="#PresenceMatrix-87"><span class="linenos"> 87</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMatrix-88"><a href="#PresenceMatrix-88"><span class="linenos"> 88</span></a><span class="sd">        Construct a presence matrix from a list of Presences and time window configuration.</span>
 </span><span id="PresenceMatrix-89"><a href="#PresenceMatrix-89"><span class="linenos"> 89</span></a>
@@ -3065,7 +3063,7 @@ using bin-based approximation logic, clipped to the given interval.</p>
 </span><span id="PresenceMatrix-115"><a href="#PresenceMatrix-115"><span class="linenos">115</span></a>        <span class="k">if</span> <span class="n">materialize</span><span class="p">:</span>
 </span><span id="PresenceMatrix-116"><a href="#PresenceMatrix-116"><span class="linenos">116</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">materialize</span><span class="p">()</span>
 </span><span id="PresenceMatrix-117"><a href="#PresenceMatrix-117"><span class="linenos">117</span></a>
-</span><span id="PresenceMatrix-118"><a href="#PresenceMatrix-118"><span class="linenos">118</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">init_presence_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="PresenceMatrix-118"><a href="#PresenceMatrix-118"><span class="linenos">118</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">init_presence_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="PresenceMatrix-119"><a href="#PresenceMatrix-119"><span class="linenos">119</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMatrix-120"><a href="#PresenceMatrix-120"><span class="linenos">120</span></a><span class="sd">        Initialize the internal presence matrix based on the Presence intervals and binning scheme.</span>
 </span><span id="PresenceMatrix-121"><a href="#PresenceMatrix-121"><span class="linenos">121</span></a><span class="sd">        Only presences that overlap the timescale endpoints [t0, t1) are mapped.</span>
@@ -3148,7 +3146,7 @@ using bin-based approximation logic, clipped to the given interval.</p>
 </span><span id="PresenceMatrix-198"><a href="#PresenceMatrix-198"><span class="linenos">198</span></a>        <span class="k">return</span> <span class="n">output</span>
 </span><span id="PresenceMatrix-199"><a href="#PresenceMatrix-199"><span class="linenos">199</span></a>
 </span><span id="PresenceMatrix-200"><a href="#PresenceMatrix-200"><span class="linenos">200</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceMatrix-201"><a href="#PresenceMatrix-201"><span class="linenos">201</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">presences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
+</span><span id="PresenceMatrix-201"><a href="#PresenceMatrix-201"><span class="linenos">201</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">presences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]:</span>
 </span><span id="PresenceMatrix-202"><a href="#PresenceMatrix-202"><span class="linenos">202</span></a>        <span class="k">return</span> <span class="p">[</span><span class="n">pm</span><span class="o">.</span><span class="n">presence</span> <span class="k">for</span> <span class="n">pm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">presence_map</span><span class="p">]</span>
 </span><span id="PresenceMatrix-203"><a href="#PresenceMatrix-203"><span class="linenos">203</span></a>
 </span><span id="PresenceMatrix-204"><a href="#PresenceMatrix-204"><span class="linenos">204</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
@@ -3217,7 +3215,7 @@ using bin-based approximation logic, clipped to the given interval.</p>
 
             <div class="docstring"><p>A scale-invariant, optionally lazy matrix representation of element presences over discrete time bins.</p>
 
-<p>Each row corresponds to a single <code><a href="#Presence">Presence</a></code>, and each column represents a discrete time bin defined by a <code><a href="#Timescale">Timescale</a></code>.
+<p>Each row corresponds to a single <code>Presence</code>, and each column represents a discrete time bin defined by a <code><a href="#Timescale">Timescale</a></code>.
 The matrix records the degree of presence of each element within a given boundary over time, where each value is a real number in [0.0, 1.0]:</p>
 
 <ul>
@@ -3231,7 +3229,7 @@ The matrix records the degree of presence of each element within a given boundar
 <h3 id="structure">Structure</h3>
 
 <ul>
-<li><strong>Rows:</strong> Each row corresponds to one <code><a href="#Presence">Presence</a></code> instance.</li>
+<li><strong>Rows:</strong> Each row corresponds to one <code>Presence</code> instance.</li>
 <li><strong>Columns:</strong> Each column represents a discrete bin of time defined by the <code><a href="#Timescale">Timescale</a></code> (from <code>t0</code> to <code>t1</code> using <code>bin_width</code>).</li>
 <li>The matrix shape is therefore <code>(len(presences), timescale.num_bins)</code>.</li>
 </ul>
@@ -3295,13 +3293,13 @@ The matrix records the degree of presence of each element within a given boundar
                                         <input id="PresenceMatrix.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">PresenceMatrix</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="#Presence">Presence</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">time_scale</span><span class="p">:</span> <span class="n"><a href="#Timescale">Timescale</a></span>,</span><span class="param">	<span class="n">materialize</span><span class="o">=</span><span class="kc">False</span></span>)</span>
+        <span class="name">PresenceMatrix</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="#PresenceAssertion">PresenceAssertion</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">time_scale</span><span class="p">:</span> <span class="n"><a href="#Timescale">Timescale</a></span>,</span><span class="param">	<span class="n">materialize</span><span class="o">=</span><span class="kc">False</span></span>)</span>
 
                 <label class="view-source-button" for="PresenceMatrix.__init__-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceMatrix.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix.__init__-86"><a href="#PresenceMatrix.__init__-86"><span class="linenos"> 86</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">],</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">,</span> <span class="n">materialize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix.__init__-86"><a href="#PresenceMatrix.__init__-86"><span class="linenos"> 86</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">],</span> <span class="n">time_scale</span><span class="p">:</span> <span class="n">Timescale</span><span class="p">,</span> <span class="n">materialize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="PresenceMatrix.__init__-87"><a href="#PresenceMatrix.__init__-87"><span class="linenos"> 87</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMatrix.__init__-88"><a href="#PresenceMatrix.__init__-88"><span class="linenos"> 88</span></a><span class="sd">        Construct a presence matrix from a list of Presences and time window configuration.</span>
 </span><span id="PresenceMatrix.__init__-89"><a href="#PresenceMatrix.__init__-89"><span class="linenos"> 89</span></a>
@@ -3340,7 +3338,7 @@ The matrix records the degree of presence of each element within a given boundar
 <h6 id="arguments">Arguments:</h6>
 
 <ul>
-<li><strong>presences:</strong>  A list of <code><a href="#Presence">Presence</a></code> instances, one per element of interest.</li>
+<li><strong>presences:</strong>  A list of <code>Presence</code> instances, one per element of interest.</li>
 <li><strong>time_scale:</strong>  The discrete <code><a href="#Timescale">Timescale</a></code> that the matrix will be normalized to.</li>
 <li><strong>materialize:</strong>  If True, immediately constructs the full backing matrix.
 Otherwise, matrix values will be computed on demand using the sparse presence map.</li>
@@ -3406,13 +3404,13 @@ intermediate value being 1.0.</p>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">init_presence_map</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="#Presence">Presence</a></span><span class="p">]</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
+        <span class="name">init_presence_map</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="#PresenceAssertion">PresenceAssertion</a></span><span class="p">]</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
 
                 <label class="view-source-button" for="PresenceMatrix.init_presence_map-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceMatrix.init_presence_map"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix.init_presence_map-118"><a href="#PresenceMatrix.init_presence_map-118"><span class="linenos">118</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">init_presence_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix.init_presence_map-118"><a href="#PresenceMatrix.init_presence_map-118"><span class="linenos">118</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">init_presence_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="PresenceMatrix.init_presence_map-119"><a href="#PresenceMatrix.init_presence_map-119"><span class="linenos">119</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="PresenceMatrix.init_presence_map-120"><a href="#PresenceMatrix.init_presence_map-120"><span class="linenos">120</span></a><span class="sd">        Initialize the internal presence matrix based on the Presence intervals and binning scheme.</span>
 </span><span id="PresenceMatrix.init_presence_map-121"><a href="#PresenceMatrix.init_presence_map-121"><span class="linenos">121</span></a><span class="sd">        Only presences that overlap the timescale endpoints [t0, t1) are mapped.</span>
@@ -3546,14 +3544,14 @@ a matrix.</p>
                             <div id="PresenceMatrix.presences" class="classattr">
                                         <input id="PresenceMatrix.presences-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
-            <span class="name">presences</span><span class="annotation">: List[<a href="#Presence">Presence</a>]</span>
+            <span class="name">presences</span><span class="annotation">: List[<a href="#PresenceAssertion">PresenceAssertion</a>]</span>
 
                 <label class="view-source-button" for="PresenceMatrix.presences-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PresenceMatrix.presences"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceMatrix.presences-200"><a href="#PresenceMatrix.presences-200"><span class="linenos">200</span></a>    <span class="nd">@property</span>
-</span><span id="PresenceMatrix.presences-201"><a href="#PresenceMatrix.presences-201"><span class="linenos">201</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">presences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Presence</span><span class="p">]:</span>
+</span><span id="PresenceMatrix.presences-201"><a href="#PresenceMatrix.presences-201"><span class="linenos">201</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">presences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]:</span>
 </span><span id="PresenceMatrix.presences-202"><a href="#PresenceMatrix.presences-202"><span class="linenos">202</span></a>        <span class="k">return</span> <span class="p">[</span><span class="n">pm</span><span class="o">.</span><span class="n">presence</span> <span class="k">for</span> <span class="n">pm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">presence_map</span><span class="p">]</span>
 </span></pre></div>
 
@@ -3714,7 +3712,7 @@ a matrix.</p>
 </span><span id="PresenceInvariantDiscrete-153"><a href="#PresenceInvariantDiscrete-153"><span class="linenos">153</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matrix</span><span class="p">:</span> <span class="n">PresenceMatrix</span><span class="p">):</span>
 </span><span id="PresenceInvariantDiscrete-154"><a href="#PresenceInvariantDiscrete-154"><span class="linenos">154</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">matrix</span>
 </span><span id="PresenceInvariantDiscrete-155"><a href="#PresenceInvariantDiscrete-155"><span class="linenos">155</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
-</span><span id="PresenceInvariantDiscrete-156"><a href="#PresenceInvariantDiscrete-156"><span class="linenos">156</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">presences</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Presence</span><span class="p">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">presences</span>
+</span><span id="PresenceInvariantDiscrete-156"><a href="#PresenceInvariantDiscrete-156"><span class="linenos">156</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">presences</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">presences</span>
 </span><span id="PresenceInvariantDiscrete-157"><a href="#PresenceInvariantDiscrete-157"><span class="linenos">157</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Only presences that overlap the interval [t0, t1) are included in Presence Metrics.</span>
 </span><span id="PresenceInvariantDiscrete-158"><a href="#PresenceInvariantDiscrete-158"><span class="linenos">158</span></a><span class="sd">        Note however that this may include presences that started before the interval or ended after the interval.&quot;&quot;&quot;</span>
 </span><span id="PresenceInvariantDiscrete-159"><a href="#PresenceInvariantDiscrete-159"><span class="linenos">159</span></a>
@@ -4293,7 +4291,7 @@ Miyazawa, M. (1994). <em>Rate conservation laws: a survey</em>. Science Universi
             <div class="pdoc-code codehilite"><pre><span></span><span id="PresenceInvariantDiscrete.__init__-153"><a href="#PresenceInvariantDiscrete.__init__-153"><span class="linenos">153</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matrix</span><span class="p">:</span> <span class="n">PresenceMatrix</span><span class="p">):</span>
 </span><span id="PresenceInvariantDiscrete.__init__-154"><a href="#PresenceInvariantDiscrete.__init__-154"><span class="linenos">154</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">matrix</span>
 </span><span id="PresenceInvariantDiscrete.__init__-155"><a href="#PresenceInvariantDiscrete.__init__-155"><span class="linenos">155</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
-</span><span id="PresenceInvariantDiscrete.__init__-156"><a href="#PresenceInvariantDiscrete.__init__-156"><span class="linenos">156</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">presences</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Presence</span><span class="p">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">presences</span>
+</span><span id="PresenceInvariantDiscrete.__init__-156"><a href="#PresenceInvariantDiscrete.__init__-156"><span class="linenos">156</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">presences</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PresenceAssertion</span><span class="p">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">presences</span>
 </span><span id="PresenceInvariantDiscrete.__init__-157"><a href="#PresenceInvariantDiscrete.__init__-157"><span class="linenos">157</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Only presences that overlap the interval [t0, t1) are included in Presence Metrics.</span>
 </span><span id="PresenceInvariantDiscrete.__init__-158"><a href="#PresenceInvariantDiscrete.__init__-158"><span class="linenos">158</span></a><span class="sd">        Note however that this may include presences that started before the interval or ended after the interval.&quot;&quot;&quot;</span>
 </span><span id="PresenceInvariantDiscrete.__init__-159"><a href="#PresenceInvariantDiscrete.__init__-159"><span class="linenos">159</span></a>
@@ -4322,7 +4320,7 @@ Miyazawa, M. (1994). <em>Rate conservation laws: a survey</em>. Science Universi
                             </div>
                             <div id="PresenceInvariantDiscrete.presences" class="classattr">
                                 <div class="attr variable">
-            <span class="name">presences</span><span class="annotation">: list[<a href="#Presence">Presence</a>]</span>
+            <span class="name">presences</span><span class="annotation">: list[<a href="#PresenceAssertion">PresenceAssertion</a>]</span>
 
         
     </div>

@@ -1,10 +1,10 @@
-# Conjectures on Sheaf Convergence in the Presence Calculus
+# Conjectures on Sheaf Convergence in the presence calculus
 
 This document introduces conjectures regarding the convergence behavior of presence assertions modeled as sheaves over topological domains. The conjectures aim to provide a topologically grounded understanding of when flow systems stabilize and how unbounded or incomplete presences affect this behavior.
 
 ## Background
 
-In the Presence Calculus, a **presence assertion** is a tuple:
+In the presence calculus, a **presence assertion** is a tuple:
 
 $$
 p = (e, b, t_0, t_1)
@@ -81,6 +81,6 @@ We propose that convergence of presence sheaves requires:
 2. **Stabilization** — restriction maps stabilize global sections.  
 3. **Local Finiteness** — only finitely many presences intersect any bounded region.
 
-These conditions together characterize when a flow system modeled in the Presence Calculus can be said to converge topologically. Each is individually testable and contributes to a coherent foundation for reasoning about dynamic systems and evolving domains.
+These conditions together characterize when a flow system modeled in the presence calculus can be said to converge topologically. Each is individually testable and contributes to a coherent foundation for reasoning about dynamic systems and evolving domains.
 
 > These are currently proposed as **conjectures** pending formal proof.

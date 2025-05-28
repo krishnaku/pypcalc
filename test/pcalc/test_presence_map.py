@@ -7,14 +7,14 @@ import pytest
 import numpy as np
 
 
-from pcalc import Entity, Entity, Presence, PresenceMap, Timescale
+from pcalc import Entity, Entity, PresenceAssertion, PresenceMap, Timescale
 
 
 dummy_boundary = Entity()
 
 def test_full_overlap_single_bin():
     ts = Timescale(t0=0.0, t1=5.0, bin_width=1.0)
-    p = Presence(boundary=dummy_boundary, element=Entity(), onset_time=1.0, reset_time=2.0)
+    p = PresenceAssertion(boundary=dummy_boundary, element=Entity(), onset_time=1.0, reset_time=2.0)
     pm = PresenceMap(p, ts)
     assert pm.is_mapped
     assert pm.start_bin == 1
@@ -24,7 +24,7 @@ def test_full_overlap_single_bin():
 
 def test_partial_overlap_start_and_end():
     ts = Timescale(t0=0.0, t1=5.0, bin_width=1.0)
-    p = Presence(boundary=dummy_boundary, element=Entity(), onset_time=0.25, reset_time=2.75)
+    p = PresenceAssertion(boundary=dummy_boundary, element=Entity(), onset_time=0.25, reset_time=2.75)
     pm = PresenceMap(p, ts)
     assert pm.is_mapped
     assert pm.start_bin == 0
@@ -34,7 +34,7 @@ def test_partial_overlap_start_and_end():
 
 def test_unmapped_presence():
     ts = Timescale(t0=0.0, t1=5.0, bin_width=1.0)
-    p = Presence(boundary=dummy_boundary, element=Entity(), onset_time=6.0, reset_time=8.0)
+    p = PresenceAssertion(boundary=dummy_boundary, element=Entity(), onset_time=6.0, reset_time=8.0)
     pm = PresenceMap(p, ts)
     assert not pm.is_mapped
     assert pm.start_bin == -1
@@ -44,7 +44,7 @@ def test_unmapped_presence():
 
 def test_exact_bin_edges():
     ts = Timescale(t0=0.0, t1=5.0, bin_width=1.0)
-    p = Presence(boundary=dummy_boundary, element=Entity(), onset_time=2.0, reset_time=4.0)
+    p = PresenceAssertion(boundary=dummy_boundary, element=Entity(), onset_time=2.0, reset_time=4.0)
     pm = PresenceMap(p, ts)
     assert pm.is_mapped
     assert pm.start_bin == 2
@@ -54,7 +54,7 @@ def test_exact_bin_edges():
 
 def test_same_bin_partial_presence():
     ts = Timescale(t0=0.0, t1=5.0, bin_width=1.0)
-    p = Presence(boundary=dummy_boundary, element=Entity(), onset_time=1.1, reset_time=1.4)
+    p = PresenceAssertion(boundary=dummy_boundary, element=Entity(), onset_time=1.1, reset_time=1.4)
     pm = PresenceMap(p, ts)
     assert pm.is_mapped
     assert pm.start_bin == 1
@@ -70,14 +70,14 @@ def simple_timescale():
     return Timescale(t0=0.0, t1=10.0, bin_width=1.0)
 
 def test_full_overlap_returns_correct_value(simple_timescale):
-    presence = Presence(onset_time=2.0, reset_time=6.0, element=Entity(), boundary=dummy_boundary)
+    presence = PresenceAssertion(onset_time=2.0, reset_time=6.0, element=Entity(), boundary=dummy_boundary)
     pm = PresenceMap(presence, simple_timescale)
 
     value = pm.presence_value_in(2.0, 6.0)
     assert 3.0 < value <= 4.0  # Includes fractional bins
 
 def test_partial_overlap_start(simple_timescale):
-    presence = Presence(onset_time=2.0, reset_time=6.0, element=Entity(), boundary=dummy_boundary)
+    presence = PresenceAssertion(onset_time=2.0, reset_time=6.0, element=Entity(), boundary=dummy_boundary)
     pm = PresenceMap(presence, simple_timescale)
 
     value = pm.presence_value_in(3.0, 6.0)
@@ -85,7 +85,7 @@ def test_partial_overlap_start(simple_timescale):
     assert value > 0.0
 
 def test_partial_overlap_end(simple_timescale):
-    presence = Presence(onset_time=2.0, reset_time=6.0, element=Entity(), boundary=dummy_boundary)
+    presence = PresenceAssertion(onset_time=2.0, reset_time=6.0, element=Entity(), boundary=dummy_boundary)
     pm = PresenceMap(presence, simple_timescale)
 
     value = pm.presence_value_in(2.0, 4.0)
@@ -93,21 +93,21 @@ def test_partial_overlap_end(simple_timescale):
     assert value > 0.0
 
 def test_no_overlap_returns_zero(simple_timescale):
-    presence = Presence(onset_time=2.0, reset_time=4.0, element=Entity(), boundary=dummy_boundary)
+    presence = PresenceAssertion(onset_time=2.0, reset_time=4.0, element=Entity(), boundary=dummy_boundary)
     pm = PresenceMap(presence, simple_timescale)
 
     value = pm.presence_value_in(5.0, 6.0)
     assert value == 0.0
 
 def test_exact_bin_match(simple_timescale):
-    presence = Presence(onset_time=3.0, reset_time=4.0, element=Entity(), boundary=dummy_boundary)
+    presence = PresenceAssertion(onset_time=3.0, reset_time=4.0, element=Entity(), boundary=dummy_boundary)
     pm = PresenceMap(presence, simple_timescale)
 
     value = pm.presence_value_in(3.0, 4.0)
     assert 0.9 <= value <= 1.0  # Allow tolerance for partial bin
 
 def test_identity_of_presence_value_property(simple_timescale):
-    presence = Presence(onset_time=1.5, reset_time=5.5, element=Entity(), boundary=dummy_boundary)
+    presence = PresenceAssertion(onset_time=1.5, reset_time=5.5, element=Entity(), boundary=dummy_boundary)
     pm = PresenceMap(presence, simple_timescale)
 
     assert abs(pm.presence_value - pm.presence_value_in(0.0, 10.0)) < 1e-6
@@ -115,7 +115,7 @@ def test_identity_of_presence_value_property(simple_timescale):
 
 def test_exact_fit_with_wide_bin():
     ts = Timescale(t0=0.0, t1=10.0, bin_width=2.0)
-    presence = Presence(onset_time=2.0, reset_time=4.0, element=Entity(), boundary=dummy_boundary)
+    presence = PresenceAssertion(onset_time=2.0, reset_time=4.0, element=Entity(), boundary=dummy_boundary)
     pm = PresenceMap(presence, ts)
 
     value = pm.presence_value_in(2.0, 4.0)
@@ -123,7 +123,7 @@ def test_exact_fit_with_wide_bin():
 
 def test_partial_overlap_with_wide_bin():
     ts = Timescale(t0=0.0, t1=10.0, bin_width=2.0)
-    presence = Presence(onset_time=3.0, reset_time=4.0, element=Entity(), boundary=dummy_boundary)
+    presence = PresenceAssertion(onset_time=3.0, reset_time=4.0, element=Entity(), boundary=dummy_boundary)
     pm = PresenceMap(presence, ts)
 
     value = pm.presence_value_in(2.0, 4.0)
@@ -131,7 +131,7 @@ def test_partial_overlap_with_wide_bin():
 
 def test_multi_bin_presence_with_wide_bins():
     ts = Timescale(t0=0.0, t1=10.0, bin_width=2.0)
-    presence = Presence(onset_time=1.0, reset_time=7.0, element=Entity(), boundary=dummy_boundary)
+    presence = PresenceAssertion(onset_time=1.0, reset_time=7.0, element=Entity(), boundary=dummy_boundary)
     pm = PresenceMap(presence, ts)
 
     value = pm.presence_value_in(0.0, 10.0)

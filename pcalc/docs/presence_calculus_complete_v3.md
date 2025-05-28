@@ -1,7 +1,7 @@
 
 # Presence Calculus: Topology, Sheaf Semantics, and Matrix Representations
 
-This document presents a mathematically coherent view of the Presence Calculus,
+This document presents a mathematically coherent view of the presence calculus,
 tracing its topological underpinnings and their expression through sheaf theory.
 It addresses practical representations such as the presence matrix while ensuring
 that all definitions are compatible with formal mathematical constraints.
@@ -16,7 +16,7 @@ relationship between presence matrices and the sheaf of presence assertions.
 
 # Presence Assertions
 
-The fundamental object of the Presence Calculus is the **presence assertion**.
+The fundamental object of the presence calculus is the **presence assertion**.
 
 A **presence assertion** is a 4-tuple:
 
@@ -47,7 +47,7 @@ $$
 \mathcal{P}_{\text{obs}} \subset \mathcal{P}_{\text{all}}
 $$
 
-and is treated as given (e.g., from observation, logs, or domain assertions). The Presence Calculus operates entirely on this set of **actual presence assertions**.
+and is treated as given (e.g., from observation, logs, or domain assertions). The presence calculus operates entirely on this set of **actual presence assertions**.
 
 ### Characteristic Function View (Clarification)
 
@@ -73,7 +73,7 @@ This representation is useful for certain forms of analysis or aggregation, but 
 
 ## Practical Interpretation
 
-A presence assertion is a primitive fact: "Element $e$ was present in boundary $b$ continuously from time $t_0$ to $t_1$." No assumptions are made about how this assertion was derived—whether from physical sensors, logs, or logical inference. The Presence Calculus treats all such assertions as axiomatic inputs.
+A presence assertion is a primitive fact: "Element $e$ was present in boundary $b$ continuously from time $t_0$ to $t_1$." No assumptions are made about how this assertion was derived—whether from physical sensors, logs, or logical inference. The presence calculus treats all such assertions as axiomatic inputs.
 We will use the example below to illustrate how we define and construct the topology of presences assertions  over 
 a domain. 
 
@@ -130,7 +130,7 @@ and persistence regions.
 
 Based on the provided presence diagram, we define the topological basis over
 the space $E \times B \times \mathbb{R} \times \mathbb{R}$ using the
-Presence Calculus.
+presence calculus.
 
 ## Observed Presence Assertions
 
@@ -213,7 +213,7 @@ Trajectories can span multiple boundaries and time intervals and form the struct
 ---
 
 
-# Topological Foundations and Sheaf Semantics of the Presence Calculus
+# Topological Foundations and Sheaf Semantics of the presence calculus
 
 ## Observation Windows and Open Sets
 
@@ -238,7 +238,7 @@ A **pre-sheaf** $\mathcal{P}$ over the space $X = E \times B \times \mathbb{R} \
 
 ## The Gluing Operator
 
-In the Presence Calculus, the **gluing operator** formalizes the process by which
+In the presence calculus, the **gluing operator** formalizes the process by which
 local presence assertions—defined over overlapping open subsets of presence space—are
 combined into a coherent, global trajectory.
 
@@ -284,7 +284,7 @@ boundaries—into a **connected component**, or a **maximal presence trajectory*
 
 # Presence Matrix and Sheaf Restriction
 
-In the Presence Calculus, the **presence matrix** is a concrete, computable
+In the presence calculus, the **presence matrix** is a concrete, computable
 representation of presence assertions restricted to an **observation window**.
 
 ## Observation Window as an Open Set

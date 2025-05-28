@@ -7,7 +7,7 @@ from typing import Generic, Optional, Tuple
 import numpy as np
 
 
-from .presence import Presence
+from .presence import PresenceAssertion
 from .presence_matrix import PresenceMatrix, PresenceMap
 
 
@@ -152,7 +152,7 @@ class PresenceInvariantDiscrete:
     def __init__(self, matrix: PresenceMatrix):
         self.matrix = matrix
         """"""
-        self.presences: list[Presence] = matrix.presences
+        self.presences: list[PresenceAssertion] = matrix.presences
         """Only presences that overlap the interval [t0, t1) are included in Presence Metrics.
         Note however that this may include presences that started before the interval or ended after the interval."""
 

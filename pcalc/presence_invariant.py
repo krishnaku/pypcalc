@@ -4,7 +4,7 @@
 
 from typing import Tuple
 from .basis_topology import BasisTopology
-from .presence import Presence
+from .presence import PresenceAssertion
 
 
 class PresenceInvariant:
@@ -19,7 +19,7 @@ class PresenceInvariant:
         self.topology = topology
         self.closed_presences = topology.closure()
 
-    def _filter_window(self, t0: float, t1: float) -> list[Presence]:
+    def _filter_window(self, t0: float, t1: float) -> list[PresenceAssertion]:
         return [
             p for p in self.closed_presences
             if p.overlaps(t0,t1)

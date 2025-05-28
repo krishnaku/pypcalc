@@ -72,7 +72,7 @@ efficiently over arbitrary collections of presences defined over the domain.
 from collections import defaultdict
 from typing import Iterable, Tuple
 from sortedcontainers import SortedSet
-from .presence import Presence, EMPTY_PRESENCE
+from .presence import PresenceAssertion, EMPTY_PRESENCE
 
 
 class BasisTopology:
@@ -84,14 +84,14 @@ class BasisTopology:
     and exposed through join, closure, and overlap operations.
     """
 
-    def __init__(self, presences: Iterable[Presence]) -> None:
+    def __init__(self, presences: Iterable[PresenceAssertion]) -> None:
         """
         Initializes the topology from a set of presences.
 
         Internally maintains a SortedSet for each (element, boundary) pair,
         ordered by onset_time for efficient merge and overlap operations.
         """
-        self.cover_index: dict[Tuple, SortedSet[Presence]] = defaultdict(
+        self.cover_index: dict[Tuple, SortedSet[PresenceAssertion]] = defaultdict(
             lambda: SortedSet(key=presence_sort_key)
         )
 
@@ -99,14 +99,14 @@ class BasisTopology:
             key = (p.element, p.boundary)
             self.cover_index[key].add(p)
 
-    def get_cover(self, element, boundary) -> SortedSet[Presence]:
+    def get_cover(self, element, boundary) -> SortedSet[PresenceAssertion]:
         """
         Returns the open cover for a given (element, boundary) pair.
         """
         return self.cover_index.get((element, boundary), SortedSet(key=presence_sort_key))
 
     @staticmethod
-    def join(p1: Presence, p2: Presence) -> Presence:
+    def join(p1: PresenceAssertion, p2: PresenceAssertion) -> PresenceAssertion:
         """
         Returns the join of two basis elements if they overlap or touch in time.
         Returns EMPTY_PRESENCE if the presences are disjoint or incompatible.
@@ -119,7 +119,7 @@ class BasisTopology:
         if p2.reset_time < p1.onset_time != float("-inf") and p2.reset_time != float("inf"):
             return EMPTY_PRESENCE
 
-        return Presence(
+        return PresenceAssertion(
             element=p1.element,
             boundary=p1.boundary,
             onset_time=min(p1.onset_time, p2.onset_time),
@@ -127,7 +127,7 @@ class BasisTopology:
             provenance="join",
         )
 
-    def closure(self) -> set[Presence]:
+    def closure(self) -> set[PresenceAssertion]:
         """
         Computes the closure under join for each cover.
 
@@ -155,7 +155,7 @@ class BasisTopology:
 
         return closed
 
-    def find_overlapping(self, presence: Presence) -> list[Presence]:
+    def find_overlapping(self, presence: PresenceAssertion) -> list[PresenceAssertion]:
         """
         Finds all presences in the same cover that overlap with the given presence.
 
@@ -179,6 +179,6 @@ class BasisTopology:
             yield from cover
 
 
-def presence_sort_key(p: Presence) -> float:
+def presence_sort_key(p: PresenceAssertion) -> float:
     """The default sort key for presences in an open cover is onset_time"""
     return p.onset_time

@@ -7,7 +7,7 @@
 import pytest
 from fontTools.merge.util import avg_int
 
-from pcalc import Presence, Entity, BasisTopology
+from pcalc import PresenceAssertion, Entity, BasisTopology
 from pcalc.presence_invariant import PresenceInvariant
 
 dummy = Entity()
@@ -16,10 +16,10 @@ def make_presences():
     boundary = Entity()
 
     return [
-        Presence(Entity(), boundary, 0.0, 1.0),
-        Presence(Entity(), boundary, 1.0, 2.0),
-        Presence(Entity(), boundary, 3.0, 4.0),
-        Presence(Entity(), boundary, 4.6, float("inf")),
+        PresenceAssertion(Entity(), boundary, 0.0, 1.0),
+        PresenceAssertion(Entity(), boundary, 1.0, 2.0),
+        PresenceAssertion(Entity(), boundary, 3.0, 4.0),
+        PresenceAssertion(Entity(), boundary, 4.6, float("inf")),
     ]
 
 
@@ -95,11 +95,11 @@ def make_presences_with_non_trivial_closure():
     e2 = Entity()
     return [
         # The two presences of e1 will be joined
-        Presence(e1, boundary, 0.0, 1.0),
-        Presence(e1, boundary, 1.0, 2.0),
+        PresenceAssertion(e1, boundary, 0.0, 1.0),
+        PresenceAssertion(e1, boundary, 1.0, 2.0),
         # The two presences of e2 will stay separate
-        Presence(e2, boundary, 3.0, 4.0),
-        Presence(e2, boundary, 4.6, float("inf")),
+        PresenceAssertion(e2, boundary, 3.0, 4.0),
+        PresenceAssertion(e2, boundary, 4.6, float("inf")),
     ]
 
 

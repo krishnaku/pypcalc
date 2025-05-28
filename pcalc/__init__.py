@@ -13,23 +13,24 @@ The Presence Calculus provides a mathematical formalism for reasoning about
 the relationship between *things* and *places* over *time*.
 
 It begins with a [*Presence*](./pcalc/presence.html)—an *assertion* that a
-particular *Element* (thing) was *continuously* present
-within a *Boundary* (place) over an interval
-of *time*. Both Elements and Boundaries come from some underlying domain $D$
-that we are studying.
+particular *Element* (thing) was *continuously* present within a *Boundary*
+(place) over an interval of *time*. Both Elements and Boundaries belong to
+an underlying domain $D$ under analysis.
 
-Given a set of presence assertions over a domain $D$, the presence calculus provides
-rigorously defined  primitives and constructs for analyzing element timelines and trajectories,
-presence-induced topologies on $D$, and the
-effects of co-presence - simultaneous element presence - within and across
+Given a set of presence assertions over a domain $D$, the presence calculus
+provides rigorously defined primitives and constructs for analyzing element
+timelines and trajectories, presence-induced topologies on $D$, and the
+effects of co-presence—simultaneous element presence—within and across
 boundaries.
 
-Further, by extending the notion of presences to *functions over presences*, it gives
-a general mechanism for representing the *effects* of presence, This helps
-model concepts such value, impact, delays, cost, revenues, user experience etc, as well
-as reason rigorously about concepts like time value, delayed value and option value of presence.
+By defining presence as a function that relates entities to boundaries over
+time, the calculus offers a general mechanism for representing the *effects*
+of presence. This supports modeling concepts such as value, impact, delay,
+cost, revenue, and user experience, as well as rigorous reasoning about
+temporal constructs like time value, delayed value, and the option value
+of presence.
 
-These techniques can be applied consistently across a wide range of domains, including
+These techniques apply consistently across a wide range of domains, including
 stochastic, non-linear, adaptive, and complex systems.
 
 <div style="text-align: center; margin:2em">
@@ -53,7 +54,7 @@ queueing theory, topology, and complex systems science—yet remains
 philosophically distinct from each of them. It allows us to connect these fields while
 re-framing their perspectives through the common epistemic lens of presence.
 
-The foundational concepts of Presence Calculus allow us to *define*
+The foundational concepts of presence calculus allow us to *define*
 derived notions such as flow, stability, equilibrium, and coherence precisely, and to
 relate them to practically useful measures like delay, cost, revenue, and user
 experience when interpreted within the semantics of the domain being modeled.
@@ -75,7 +76,7 @@ understanding of the underlying mathematics.
 ## The Toolkit
 
 The Presence Calculus Toolkit is a computationally efficient implementation of the core concepts and
-calculations in Presence Calculus.
+calculations in presence calculus.
 
 This `pcalc` module in particular, is an elementary and accessible entry point to some of the more abstract
 concepts in the presence calculus. It is a computational model for the calculus
@@ -116,7 +117,7 @@ have questions or would like to collaborate.
 
 """
 from .entity import Entity
-from .presence import Presence
+from .presence import PresenceAssertion
 from .time_model import TimeModel
 from .basis_topology import BasisTopology
 from .presence_invariant import PresenceInvariant
@@ -130,7 +131,7 @@ __all__ = [
     "entity",
     Entity,
     "presence",
-    Presence,
+    PresenceAssertion,
 
     # Continuous Time Models
     "time_model",

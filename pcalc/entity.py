@@ -4,7 +4,7 @@
 """
 ## Introduction
 
-In the Presence Calculus, we assume that we are operating over some externally
+In the presence calculus, we assume that we are operating over some externally
 defined domain $D$ with its own structure, topologies, constraints, and
 semantics. While these aspects of the domain influence the kinds of presence
 assertions that can be expressed over it, the presence calculus itself is domain-agnostic.

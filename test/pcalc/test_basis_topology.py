@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 from sortedcontainers import SortedSet
 
-from pcalc import Entity, Presence, BasisTopology
+from pcalc import Entity, PresenceAssertion, BasisTopology
 from pcalc.presence import EMPTY_PRESENCE
 
 # Sample entities
@@ -14,7 +14,7 @@ B2 = Entity("b2")
 
 
 def make(pairs, e=E1, b=B1):
-    return [Presence(e, b, t0, t1) for t0, t1 in pairs]
+    return [PresenceAssertion(e, b, t0, t1) for t0, t1 in pairs]
 
 
 def test_construction_and_get_cover():
@@ -23,12 +23,12 @@ def test_construction_and_get_cover():
 
     cover = topology.get_cover(E1, B1)
     assert len(cover) == 2
-    assert all(isinstance(p, Presence) for p in cover)
+    assert all(isinstance(p, PresenceAssertion) for p in cover)
 
 
 def test_join_touching_intervals():
-    p1 = Presence(E1, B1, 0, 2)
-    p2 = Presence(E1, B1, 2, 4)
+    p1 = PresenceAssertion(E1, B1, 0, 2)
+    p2 = PresenceAssertion(E1, B1, 2, 4)
     topology = BasisTopology([p1, p2])
 
     result = topology.join(p1, p2)
@@ -38,8 +38,8 @@ def test_join_touching_intervals():
 
 
 def test_join_disjoint_returns_empty():
-    p1 = Presence(E1, B1, 0, 2)
-    p2 = Presence(E1, B1, 3, 4)
+    p1 = PresenceAssertion(E1, B1, 0, 2)
+    p2 = PresenceAssertion(E1, B1, 3, 4)
     topology = BasisTopology([p1, p2])
 
     result = topology.join(p1, p2)
@@ -60,7 +60,7 @@ def test_find_overlapping_within_cover():
     presences = make([(0, 2), (1, 3), (4, 6)])
     topology = BasisTopology(presences)
 
-    target = Presence(E1, B1, 1.5, 4.5)
+    target = PresenceAssertion(E1, B1, 1.5, 4.5)
     overlaps = topology.find_overlapping(target)
 
     expected = {(0, 2), (1, 3), (4, 6)}
@@ -68,9 +68,9 @@ def test_find_overlapping_within_cover():
     assert actual == expected
 
 def test_multiple_covers_are_separate():
-    p1 = Presence(E1, B1, 0, 2)
-    p2 = Presence(E1, B2, 1, 3)
-    p3 = Presence(E2, B1, 2, 4)
+    p1 = PresenceAssertion(E1, B1, 0, 2)
+    p2 = PresenceAssertion(E1, B2, 1, 3)
+    p3 = PresenceAssertion(E2, B1, 2, 4)
     topology = BasisTopology([p1, p2, p3])
 
     assert len(topology.get_cover(E1, B1)) == 1
@@ -87,15 +87,15 @@ def test_closure_respects_cover_boundaries():
     closed = topology.closure()
 
     expected = {
-        Presence(E1, B1, 0, 4, provenance="join"),
-        Presence(E2, B1, 1, 5, provenance="join")
+        PresenceAssertion(E1, B1, 0, 4, provenance="join"),
+        PresenceAssertion(E2, B1, 1, 5, provenance="join")
     }
     assert closed == expected
 
 
 def test_join_between_different_covers_returns_empty():
-    p1 = Presence(E1, B1, 0, 2)
-    p2 = Presence(E2, B1, 1, 3)
+    p1 = PresenceAssertion(E1, B1, 0, 2)
+    p2 = PresenceAssertion(E2, B1, 1, 3)
     topology = BasisTopology([p1, p2])
 
     joined = topology.join(p1, p2)
@@ -103,12 +103,12 @@ def test_join_between_different_covers_returns_empty():
 
 
 def test_find_overlapping_only_searches_within_cover():
-    p1 = Presence(E1, B1, 0, 2)
-    p2 = Presence(E1, B2, 1, 3)
-    p3 = Presence(E2, B1, 2, 4)
+    p1 = PresenceAssertion(E1, B1, 0, 2)
+    p2 = PresenceAssertion(E1, B2, 1, 3)
+    p3 = PresenceAssertion(E2, B1, 2, 4)
     topology = BasisTopology([p1, p2, p3])
 
-    target = Presence(E1, B1, 1.5, 2.5)
+    target = PresenceAssertion(E1, B1, 1.5, 2.5)
     overlaps = topology.find_overlapping(target)
 
     assert overlaps == [p1]

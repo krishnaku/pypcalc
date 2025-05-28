@@ -5,39 +5,39 @@
 import numpy as np
 import pytest
 
-from pcalc import Presence, Entity
+from pcalc import PresenceAssertion, Entity
 
 
 def test_overlap_true():
-    p = Presence("x", Entity(), 1.0, 5.0)
+    p = PresenceAssertion("x", Entity(), 1.0, 5.0)
     assert p.overlaps(2.0, 4.0) is True
     assert p.overlaps(4.9, 6.0) is True
     assert p.overlaps(0.0, 1.1) is True
 
 def test_overlap_false():
-    p = Presence("x", Entity(), 1.0, 5.0)
+    p = PresenceAssertion("x", Entity(), 1.0, 5.0)
     assert p.overlaps(5.0, 6.0) is False
     assert p.overlaps(0.0, 1.0) is False
 
 
 def test_duration():
-    p = Presence("x", Entity(), 1.0, 4.0)
+    p = PresenceAssertion("x", Entity(), 1.0, 4.0)
     assert p.duration() == 3.0
 
 def test_duration_inf():
-    p = Presence("x", Entity(), 1.0, np.inf)
+    p = PresenceAssertion("x", Entity(), 1.0, np.inf)
     assert p.duration() == np.inf
 
 def test_residence_time_overlap():
-    p = Presence("x", Entity(), 1.0, 5.0)
+    p = PresenceAssertion("x", Entity(), 1.0, 5.0)
     assert p.residence_time(2.0, 6.0) == 3.0
 
 def test_residence_time_no_overlap():
-    p = Presence("x", Entity(), 1.0, 2.0)
+    p = PresenceAssertion("x", Entity(), 1.0, 2.0)
     assert p.residence_time(2.0, 3.0) == 0.0
 
 def test_str_representation():
-    p = Presence("x", Entity("B"), 3.0, 7.0, "observed")
+    p = PresenceAssertion("x", Entity("B"), 3.0, 7.0, "observed")
     s = str(p)
     assert "Presence(element=x, boundary=Element[B] name = B (no metadata), interval=[3.0, 7.0), provenance=observed)" in s
 
@@ -76,7 +76,7 @@ def test_str_representation():
 
 ])
 def test_presence_residence_time(desc, presence_args, window, expected_residence):
-    p = Presence(Entity("e"), Entity("b"), *presence_args)
+    p = PresenceAssertion(Entity("e"), Entity("b"), *presence_args)
     t0, t1 = window
     actual = p.residence_time(t0, t1)
     assert abs(actual - expected_residence) < 1e-6, f"{desc}: got {actual}, expected {expected_residence}"
@@ -118,7 +118,7 @@ def test_presence_residence_time(desc, presence_args, window, expected_residence
     ("zero-length window", (0.0, 1.0), (1.0, 1.0), False),
 ])
 def test_presence_overlaps(desc, presence_args, window, expected_overlap):
-    p = Presence(Entity("e"), Entity("b"), *presence_args)
+    p = PresenceAssertion(Entity("e"), Entity("b"), *presence_args)
     t0, t1 = window
     actual = p.overlaps(t0, t1)
     assert actual == expected_overlap, f"{desc}: got {actual}, expected {expected_overlap}"
@@ -148,7 +148,7 @@ def test_presence_overlaps(desc, presence_args, window, expected_overlap):
     ("short finite presence", 0.5, 1.5, 1.0),
 ])
 def test_presence_duration(desc, onset, reset, expected_duration):
-    p = Presence(Entity("e"), Entity("b"), onset, reset)
+    p = PresenceAssertion(Entity("e"), Entity("b"), onset, reset)
     actual = p.duration()
     if expected_duration == float("inf"):
         assert actual == float("inf"), f"{desc}: got {actual}, expected inf"
