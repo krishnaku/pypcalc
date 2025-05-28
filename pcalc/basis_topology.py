@@ -124,7 +124,7 @@ class BasisTopology:
             boundary=p1.boundary,
             onset_time=min(p1.onset_time, p2.onset_time),
             reset_time=max(p1.reset_time, p2.reset_time),
-            provenance="join",
+            observer="join",
         )
 
     def closure(self) -> set[PresenceAssertion]:

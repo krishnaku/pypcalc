@@ -290,10 +290,10 @@ def test_avg_residence_time_matches_direct_average():
     start, end = 1.0, 5.0
 
     direct_avg = sum(
-        p.residence_time(start, end)
+        p.mass_contribution(start, end)
         for p in presences
-        if p.residence_time(start, end) > 0
-    ) / len([p for p in presences if p.residence_time(start, end) > 0])
+        if p.mass_contribution(start, end) > 0
+    ) / len([p for p in presences if p.mass_contribution(start, end) > 0])
 
     ts = Timescale(t0=0.0, t1=6.0, bin_width=1.0)
     matrix = PresenceMatrix(presences=presences, time_scale=ts)
@@ -340,10 +340,10 @@ def test_avg_residence_time_matches_direct_average_wide_bin():
     start, end = 3.0, 7.0
 
     direct_avg = sum(
-        p.residence_time(start, end)
+        p.mass_contribution(start, end)
         for p in presences
-        if p.residence_time(start, end) > 0
-    ) / len([p for p in presences if p.residence_time(start, end) > 0])
+        if p.mass_contribution(start, end) > 0
+    ) / len([p for p in presences if p.mass_contribution(start, end) > 0])
 
     ts = Timescale(t0=0.0, t1=10.0, bin_width=2.0)
     matrix = PresenceMatrix(presences=presences, time_scale=ts)

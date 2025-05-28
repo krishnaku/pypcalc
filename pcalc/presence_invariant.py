@@ -40,7 +40,7 @@ class PresenceInvariant:
         T = t1 - t0
 
         for p in self._filter_window(t0, t1):
-            r = p.residence_time(t0, t1)
+            r = p.mass_contribution(t0, t1)
             if r > 0.0:
                 A += r
                 N += 1

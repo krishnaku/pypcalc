@@ -225,7 +225,8 @@ class PresenceAssertion:
     boundary: Optional[EntityProtocol]
     onset_time: float
     reset_time: float
-    provenance: str = "observed"
+    observer: Optional[EntityProtocol] | str = "observed"
+    assert_time: Optional[float] = 0.0
 
     def __post_init__(self):
         """
@@ -245,35 +246,17 @@ class PresenceAssertion:
     def overlaps(self, t0: float, t1: float) -> bool:
         return self.reset_time > t0 and self.onset_time < t1
 
-    def duration(self) -> float:
+    def mass(self) -> float:
         """
-        Returns the duration of the presence, interpreted as the total length
-        of time the element is asserted to have been present.
+        Returns the mass of the presence.
 
-        If the onset time is finite, the duration is simply:
 
-            duration = max(0, reset_time - onset_time)
-
-        If the onset time is -∞, the presence is treated as beginning at the
-        start of observation time (t = 0) for the purpose of duration
-        calculation. This bounds the duration to a finite value when
-        reset_time is known.
-
-        Thus, for onset_time = -∞ and reset_time = t₁ < ∞, we compute:
-
-            duration = max(0, t₁ - 0) = t₁
-
-        If the reset time is ∞, the duration is ∞, regardless of onset time.
-
-        This behavior ensures that durations remain meaningful and converge
-        within systems where observation windows begin at t = 0, while still
-        preserving the semantic intent of presences that began before the
-        observable history.
+        
         """
         onset = max(0.0, self.onset_time)
         return max(0.0, self.reset_time - onset)
 
-    def residence_time(self, t0: float, t1: float) -> float:
+    def mass_contribution(self, t0: float, t1: float) -> float:
         if t0 >= t1 or not self.overlaps(t0, t1):
             return 0.0
         start = max(self.onset_time, t0)
@@ -286,7 +269,7 @@ class PresenceAssertion:
         interval_str = f"[{self.onset_time}, {self.reset_time})"
         return (
             f"Presence(element={element_str}, boundary={boundary_str}, "
-            f"interval={interval_str}, provenance={self.provenance})"
+            f"interval={interval_str}, provenance={self.observer})"
         )
 
 
@@ -295,5 +278,5 @@ EMPTY_PRESENCE: PresenceAssertion = PresenceAssertion(
     boundary=None,
     onset_time=0.0,
     reset_time=0.0,
-    provenance="empty",
+    observer="empty",
 )

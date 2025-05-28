@@ -34,7 +34,7 @@ def test_join_touching_intervals():
     result = topology.join(p1, p2)
     assert result.onset_time == 0
     assert result.reset_time == 4
-    assert result.provenance == "join"
+    assert result.observer == "join"
 
 
 def test_join_disjoint_returns_empty():
@@ -87,8 +87,8 @@ def test_closure_respects_cover_boundaries():
     closed = topology.closure()
 
     expected = {
-        PresenceAssertion(E1, B1, 0, 4, provenance="join"),
-        PresenceAssertion(E2, B1, 1, 5, provenance="join")
+        PresenceAssertion(E1, B1, 0, 4, observer="join"),
+        PresenceAssertion(E2, B1, 1, 5, observer="join")
     }
     assert closed == expected
 

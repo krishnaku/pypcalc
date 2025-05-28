@@ -22,19 +22,19 @@ def test_overlap_false():
 
 def test_duration():
     p = PresenceAssertion("x", Entity(), 1.0, 4.0)
-    assert p.duration() == 3.0
+    assert p.mass() == 3.0
 
 def test_duration_inf():
     p = PresenceAssertion("x", Entity(), 1.0, np.inf)
-    assert p.duration() == np.inf
+    assert p.mass() == np.inf
 
 def test_residence_time_overlap():
     p = PresenceAssertion("x", Entity(), 1.0, 5.0)
-    assert p.residence_time(2.0, 6.0) == 3.0
+    assert p.mass_contribution(2.0, 6.0) == 3.0
 
 def test_residence_time_no_overlap():
     p = PresenceAssertion("x", Entity(), 1.0, 2.0)
-    assert p.residence_time(2.0, 3.0) == 0.0
+    assert p.mass_contribution(2.0, 3.0) == 0.0
 
 def test_str_representation():
     p = PresenceAssertion("x", Entity("B"), 3.0, 7.0, "observed")
@@ -78,7 +78,7 @@ def test_str_representation():
 def test_presence_residence_time(desc, presence_args, window, expected_residence):
     p = PresenceAssertion(Entity("e"), Entity("b"), *presence_args)
     t0, t1 = window
-    actual = p.residence_time(t0, t1)
+    actual = p.mass_contribution(t0, t1)
     assert abs(actual - expected_residence) < 1e-6, f"{desc}: got {actual}, expected {expected_residence}"
 
 
@@ -149,7 +149,7 @@ def test_presence_overlaps(desc, presence_args, window, expected_overlap):
 ])
 def test_presence_duration(desc, onset, reset, expected_duration):
     p = PresenceAssertion(Entity("e"), Entity("b"), onset, reset)
-    actual = p.duration()
+    actual = p.mass()
     if expected_duration == float("inf"):
         assert actual == float("inf"), f"{desc}: got {actual}, expected inf"
     else:
