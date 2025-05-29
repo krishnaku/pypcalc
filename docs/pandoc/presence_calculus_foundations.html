@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Presence Calculus Project" />
+  <meta name="dcterms.date" content="2025-05-29" />
+  <title>Foundations of Presence Calculus: Signals, Measures, and Assertions</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Foundations of Presence Calculus: Signals, Measures,
+and Assertions</h1>
+<p class="author">Presence Calculus Project</p>
+<p class="date">2025-05-29</p>
+</header>
+<h1 id="overview">Overview</h1>
+<p>This document provides a formal foundation for the Presence Calculus.
+It distinguishes between signals and presences, defines presence
+assertions and measures, and derives the presence invariant from
+measure-theoretic principles. It also captures the epistemic stance of
+the framework and the dimensional consistency of its metrics.</p>
+<hr />
+<h1 id="signals-and-integrability">1. Signals and Integrability</h1>
+<p>A <strong>signal</strong> is a measurable, real-valued function of
+time defined over element–boundary pairs:</p>
+<p><span class="math display">\[
+F: (e, b, t) \mapsto \mathbb{R}_{\ge 0}
+\]</span></p>
+<p>A signal must be <strong>Lebesgue integrable</strong> over any finite
+time interval <span class="math inline">\([t_0, t_1)\)</span>. That
+is:</p>
+<p><span class="math display">\[
+\int_{t_0}^{t_1} F(e, b, t) \, dt &lt; \infty
+\]</span></p>
+<p>This ensures that a signal can induce a <strong>presence
+measure</strong> over time.</p>
+<hr />
+<h1 id="presence-and-mass">2. Presence and Mass</h1>
+<p>Given an integrable signal <span class="math inline">\(F\)</span>, we
+define the <strong>presence mass</strong> over an interval <span
+class="math inline">\(A \subseteq \mathbb{R}\)</span> as:</p>
+<p><span class="math display">\[
+\mu_{e,b}(A) = \int_A F(e, b, t) \, dt
+\]</span></p>
+<p>This presence measure is <strong>finitely additive</strong> and
+defined over a topology of time intervals (typically half-open
+intervals). Presence is the <strong>first-order metric</strong> induced
+by the signal.</p>
+<hr />
+<h1 id="presence-assertions">3. Presence Assertions</h1>
+<p>A <strong>presence assertion</strong> is an epistemic claim about
+presence over a bounded interval:</p>
+<p><span class="math display">\[
+p = (e, b, [t_0, t_1), m)
+\]</span></p>
+<p>where <span class="math inline">\(m = \mu_{e,b}([t_0, t_1))\)</span>.
+Assertions are observer-relative and form the basic units of knowledge
+in the system.</p>
+<hr />
+<h1 id="the-presence-invariant">4. The Presence Invariant</h1>
+<p>Let <span class="math inline">\(W \subset \mathbb{R}\)</span> be a
+finite observation window. Define:</p>
+<ul>
+<li><span class="math inline">\(M(W) = \sum_i \mu_i(W \cap I_i)\)</span>
+— total presence mass</li>
+<li><span class="math inline">\(N(W)\)</span> — number of presence
+assertions active in <span class="math inline">\(W\)</span></li>
+<li><span class="math inline">\(|W|\)</span> — length of the
+interval</li>
+</ul>
+<p>We derive:</p>
+<ul>
+<li><strong>Average density</strong>: <span class="math inline">\(H(W) =
+\frac{M(W)}{|W|}\)</span></li>
+<li><strong>Average mass per presence</strong>: <span
+class="math inline">\(G(W) = \frac{M(W)}{N(W)}\)</span></li>
+<li><strong>Incidence rate</strong>: <span
+class="math inline">\(\lambda(W) = \frac{N(W)}{|W|}\)</span></li>
+</ul>
+<p>Then:</p>
+<p><span class="math display">\[
+H(W) = \lambda(W) \cdot G(W)
+\]</span></p>
+<p>This is the generalized form of Little’s Law in the Presence
+Calculus.</p>
+<hr />
+<h1 id="epistemic-foundations">5. Epistemic Foundations</h1>
+<p>A <strong>system</strong> is the evolving set of presence assertions
+about a domain. Its dynamics are not defined by state transitions, but
+by changes in the assertion set:</p>
+<ul>
+<li>As assertions are made, revised, or withdrawn, the system
+evolves.</li>
+<li>Higher-order metrics such as residence time and incidence rate
+reflect this evolution.</li>
+<li>Presences are <strong>phenomenological</strong>: they represent
+experienced structure, not just raw data.</li>
+</ul>
+<hr />
+<h1 id="dimensional-analysis">6. Dimensional Analysis</h1>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 48%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr>
+<th>Quantity</th>
+<th>Formula</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signal <span class="math inline">\(f(t)\)</span></td>
+<td>–</td>
+<td>dollars</td>
+</tr>
+<tr>
+<td>Presence Mass <span class="math inline">\(m\)</span></td>
+<td><span class="math inline">\(\int f(t)\,dt\)</span></td>
+<td>dollar-seconds</td>
+</tr>
+<tr>
+<td>Density <span class="math inline">\(H\)</span></td>
+<td><span class="math inline">\(M(W)/|W|\)</span></td>
+<td>dollars</td>
+</tr>
+<tr>
+<td>G</td>
+<td><span class="math inline">\(M(W)/N(W)\)</span></td>
+<td>dollars</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\lambda\)</span></td>
+<td><span class="math inline">\(N(W)/|W|\)</span></td>
+<td>1/sec (dimensionless)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="final-remarks">7. Final Remarks</h1>
+<ul>
+<li>Only integrable signals induce valid presences.</li>
+<li>Presences are finite samples of signals and provide the substrate
+for reasoning about flow.</li>
+<li>The invariant <span class="math inline">\(H = \lambda \cdot
+G\)</span> is a consistency condition that arises from this
+structure.</li>
+</ul>
+<p>This measure-theoretic foundation enables principled modeling of
+temporal systems where flow, accumulation, and knowledge are
+central.</p>
+</body>
+</html>

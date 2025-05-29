@@ -208,23 +208,45 @@ interval $[t_s, t_e)$
 
 Presence functions must satisfy the following property:
 
-- For some half-open interval $[t_s, t_e)$, the function is non-zero only within that interval:
+- For some half-open interval $[t_s, t_e) in \overline{\mathbb{R}}$, the function is non-zero only within that interval:
 
     - $f(e, b, t) \\\\ne 0$ only if $t \in [t_s, t_e)$
     - $f(e, b, t) = 0$ elsewhere
 
 The returned value for $f$ in $\mathbb{R}$ can represent any time-varying quantity that has meaning in the domain—
-such as revenue, attention, sensor signal strength, or value accrual.
+such as revenue, attention, sensor signal strength, or value accrual. Note that since the function domain is over
+the extended reals, we do allow these presences to extend infinitely into the past and the future. 
 
 For example, in a sales domain, if the element `e` is a customer and `b` is a customer segment,
 the presence function might represent revenue from that customer at time `t`. If $[t_s, t_e)$
 represents the customer lifetime, then customer revenue is zero outside that interval. 
 
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pcalc/presence_function.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 1: A presence function for customer revenues in the sales domain. 
+  </div>
+</div>
+
 Note that Inside the interval, the value may still drop to zero — presence does not
 require that every value for the presence function remain greater than zero during the interval.
 
 
-Examples:
+Here are more examples of presence functions in python. 
+Note that `constant_presence` corresponds to the most commonly assumed form of
+presence in classical models. It represents entities with uniform presence
+over a finite interval—from the start of the event to its end—with constant
+instantaneous mass.
+
+Much of queueing theory and flow analysis is based solely on this simple
+model, where presence is modeled as a rectangular pulse with finite duration
+and constant density.
+
+The presence calculus generalizes this by allowing arbitrary real-valued
+functions with compact support over the extended real line
+$\\overline{\\mathbb{R}}$, enabling richer modeling of non-uniform, delayed,
+forecasted, or probabilistic presences.
+
 
 ```python
 # Boolean presence: returns 1.0 within [start, end), 0.0 elsewhere
