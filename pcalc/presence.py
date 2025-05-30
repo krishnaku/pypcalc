@@ -2,7 +2,7 @@
 # Copyright (c) 2025 Krishna Kumar
 # SPDX-License-Identifier: MIT
 """
-A *Presence* is a foundational concept in the presence calculus and this modules
+A *Presence* is a foundational concept in the presence calculus and this module
 includes all the concepts for modeling presence and the API to work with them.
 
 Formally, a presence may represented as a 5-tuple:
@@ -16,7 +16,7 @@ where:
 - $b \in B \subseteq D$ is the boundary (place) in the domain $D$,
 - $[t_0, t_1)$ is the half-open interval of presence in time.
 - $m \in R$ is called the
-<em>mass</em> (or value/weight) of the presence.
+<em>mass</em> of the presence.
 
 A presence can be viewed as a function:
 
@@ -33,18 +33,28 @@ where
 
 
 When $m \in
-\\\\{ 0,1 \\\\} $ this corresponds to the base notion of a boolean presence, a statement that an element was
-present or not during that interval.
+\\\\{ 0,1 \\\\} $ we get the simplest form of presence: a binary assertion. This is a statement that an element was
+present in a boundary for a continuous time interval (with mass = 1). 
+
+Presence *mass* is core concept that
+will be described in more detail shortly - for now, it is sufficient to think of it as a value or weight attached to
+a presence assertion that is derived from some function on the underlying domain that must be "measurable" in a precise
+mathematical sense.
+
+The key thing is that the machinery of the presence calculus lets you work identically with binaru presences which are much more
+intutive and easy to understand, and presences derived on arbitrary measures. This generality gives us a great deal of power
+on reasoning about logical, desterministic/stochastic, linear/non-linear and complex adaptive systems using exactly the
+same set of tools.
 
 ### Presence onset and reset
 
 $t_0$ is called the <em>onset time</em> of the presence—the instant at which the
-presence transitions from zero to non-zero. $t_1$ is called the *reset time* —
+presence transitions from zero to non-zero mass. $t_1$ is called the *reset time* —
 the instant at which the presence transitions back to zero.
 
 We will say the presence is *active*
-over the half-open interval $[t_0, t_1)$, meaning it
-includes $t_0$ but excludes $t_1$.
+over the half-open interval $[t_0, t_1)$ (meaning it
+includes $t_0$ but excludes $t_1$).
 
 <div style="text-align: center; margin: 2em 0;">
   <img src="../assets/pcalc/half_open_presence.png" width="400px" />
@@ -133,40 +143,106 @@ assumptions. It simply assumes that all presence assertions are logically
 valid according to domain semantics and proceeds to compute their
 consequences using the machinery of the calculus.
 
+The key requirement though, is that the *presence mass* must be well defined.
+This brings us to the concept of a domain Signal over which presences are defined
+and asserted.
+
+### Domain Signals and Presence Mass
+
+A Domain Signal is any function that varies over time and is associated with
+elements and boundaries in a given domain $D$. It may represent activity,
+value, demand, or any other observable quantity relevant to the system.
+
+Let
+$$
+F : (e, b, t) \\to \\mathbb{R}_{\\geq 0}
+$$
+be a function that assigns a non-negative value to each element–boundary–time triple.
+This is the general form of a domain signal in the Presence Calculus.
+
+For the signal to be meaningful in the Presence Calculus, it must be *measurable* -
+that is, it must define a quantity that can be accumulated over time.
+
+*Measure theory* and the *Lebesgue measure* provide the standard mathematical language
+to model such functions. In particular, the *Lebesgue integral* of the signal
+defines the presence mass: the total contribution it makes over
+a continuous time interval.
+
+Integrability is the core requirement here—if a
+signal is Lebesgue integrable over an interval $[t_0, t_1)$, then its
+presence mass is well-defined and finite. This makes it possible to work with
+irregular, discontinuous, or sparse signals while still reasoning rigorously
+about accumulation and duration.
+
+Given $(e, b, t_0, t_1)$, the presence mass is given by:
+$$
+\\mu_{e,b} = \\int_{t_0}^{t_1} F(e, b, t)\\, dt
+$$
+
+This integral defines how much presence is accumulated over the interval for
+the given element–boundary pair, combining both the values of the function
+and how they are distributed over time.
+
+This is not a particularly restrictive condition: the class of Lebesgue integrable
+functions is broad and includes most real-world signals encountered in practice.
+However, insisting that we use the Lebesgue integral to define mass over an interval
+(as opposed to, say, a statistical average) has meaningful consequences when modeling
+discontinuous signals. It ensures that the resulting "mass" retains its intended semantics
+as a presence measure, even as we apply more complex algebraic and topological operations
+to sets of presence assertions.
+
+The Presence Calculus builds on this foundation, treating presence assertions
+as time-localized signals whose mass can be integrated, compared, and composed
+across boundaries.
+
+In addition to integrability, a key property of a Lebesgue measure is that it
+must be finitely additive—that is, we must be able to compute sums over
+unions and intersections of sets of intervals.
+
 ### Time as Topology
 
 This brings us to a fundamental property of presences—and the key distinction
 between presences and point-in-time events: the continuity of presence gives us
 a natural and mathematically precise way to define a *topology* of presence
-over the time dimension $\overline{\mathbb{R}}$.
+over the extended real line $\overline{\\mathbb{R}}$.
 
-Each presence defines a basic open set in the topology, corresponding to its
-half-open interval $[t_0, t_1) \subset \overline{\mathbb{R}}$. The collection of
+Each presence defines a basic open set in this topology, corresponding to its
+half-open interval $[t_0, t_1) \\subset \\overline{\\mathbb{R}}.$ The collection of
 all such intervals forms a basis for a topology over time, using the standard
 technique from point-set topology of generating a topology from a basis of
 open sets. See [BasisTopology](./basis_topology.html) for details.
+
+This topological structure plays an
+important role in ensuring that presence mass is well-behaved under composition:
+it allows us to combine, intersect, and partition presences in ways that
+naturally satisfy the finite additivity conditions required for presence mass
+to behave like a Lebesgue measure.
 
 This means that presence assertions allow us to reason about concepts such as
 *nearness*, *overlap*, *continuity*, and *structure* of presence in time—
 that is, how domain entities relate across time with mathematical precision.
 
-Thus, the consequences of presence assertions are not logical in the classical
-sense, but *temporal* and *topological*: they give rise to notions of proximity, flow, and
-co-presence in time that reveal the shape, connectedness, and dynamics of the domain
-in mathematically precise ways.
+It also allows us to compute sums, rates, averages, and other quantities across
+presences with well-defined semantics. This may seem like a technical detail,
+but it is essential: it allows us to handle sparse, discontinuous, bursty, or
+qualitative data with the same rigor as continuous signals.
 
-With presence, we can reason about patterns such as:
-- elements that tend to be present together (co-presence),
+The consequences of reasoning with presence assertions are *temporal* and *topological*:
+they give rise to notions of proximity, flow, and co-presence in time that reveal
+the shape, connectedness, and dynamics of the domain in mathematically precise ways.
+
+With presence assertions, we can reason about patterns such as:
+- elements that tend to be present together (*co-presence*),
 - transitions between boundaries,
 - regions of concentrated or evolving presence, and
 - causal relationships between presences.
 
-Furthermore, the presence calculus introduces certain topological invariants
-see [PresenceInvariant](./presence_invariant_discrete.html) that *constrain* the behavior of *sets* of
-presence assertions.
+Furthermore, the Presence Calculus introduces certain topological invariants
+(see [PresenceInvariant](./presence_invariant_discrete.html)) that express
+general *laws of conservation of presence mass*.
 
 This provides the foundational structure for reasoning about the *dynamics*
-and *causality* of presences in a domain.
+and *causality* of presence in a domain.
 
 ---
 

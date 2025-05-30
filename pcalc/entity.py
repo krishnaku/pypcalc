@@ -4,17 +4,20 @@
 """
 ## Introduction
 
-In the presence calculus, we assume that we are operating over some externally
-defined domain $D$ with its own structure, topologies, constraints, and
-semantics. While these aspects of the domain influence the kinds of presence
-assertions that can be expressed over it, the presence calculus itself is domain-agnostic.
+We assume an externally defined domain $D$ with its own structure,
+topologies, constraints, and semantics. While these aspects of the domain
+influence the kinds of presence assertions that can be expressed over it,
+the Presence Calculus itself remains domain-agnostic.
 
-It is solely concerned with [presence assertions](./presence.html) over the domain, which are
-assumed as given, and the derived constructs and calculations thereof under
-the calculus.
+Apart from some weak assumptions about what constitutes a measurable quantity
+in the domain, the calculus is solely concerned with
+[presence](./presence.html) over $D$, and the constructs and
+calculations derived from them.
 
-A [presence assertion](./presence.html)  is a statement of the form "an element was present
-in a boundary from time $t_0$ to $t_1$."
+A [presence](./presence.html) models the concept that “an element was present
+continuously in a boundary from time $t_0$ to $t_1$, with a certain measurable value.”
+
+### Elements and Boundaries
 
 It is useful to distinguish Elements ($E$)
 and Boundaries ($B$) as subsets of the domain $D$:
@@ -23,18 +26,22 @@ and Boundaries ($B$) as subsets of the domain $D$:
 - Others act as "places" or contexts in which presence occurs (Boundaries).
 
 $$
-E = \{ e_1, e_2, \dots, e_n \} \subset D
+E = \\\\{ e_1, e_2, \dots, e_n \\\\} \subset D
 $$
 
 $$
-B = \{ b_1, b_2, \dots, b_m \} \subset D
+B = \\\\{ b_1, b_2, \dots, b_m \\\\} \subset D
 $$
 
 There are no constraints on what an element or boundary can be. These roles
 are application-defined, context-dependent, and scoped to a particular set of
 presence assertions under analysis.
 
-## Examples
+The same domain entity may be an element in one presence
+assertion and a boundary in another.
+
+
+#### Examples
 
 - In traffic network, the locations and
 road segments of the road network might be natural boundaries and vehicles might be elements.
@@ -53,10 +60,23 @@ or prospects.
 
 Please note that these are illustrative examples there may be other choices that can be made even in these same domains.
 
-In general, you are free to model elements and boundaries as you wish, provided that
+### Observers
+
+In addition to elements and boundaries, we have a set of observers from the domain, who *assert* presences.
+$$
+O = \\\\{ o_1, o_2, \dots, o_n \\\\} \subset D
+$$
+Again there are no constraints on what an observer is other than that it is an entity in the domain.
+it could be something that also appears as either an entity or a boundary in the same presence assertion
+(reflexive assertions). It could also be a distinguished subset of entities in the domain.
+
+
+In general, you are free to model elements, boundaries and observers as you wish, provided that
 there are meaningful domain semantics you can assign to a statement
-like "An element was in a boundary from time $t_0$ to $t_1$" that are preserved under the
-presence calculus.
+like "An observer $o$ asserted at time $t_2$ that an element $e$
+was present in a boundary $b$ from time $t_0$ to $t_1$."
+
+Elements, Boundaries and Observers are simply placeholders for entity roles in a presence assertion.
 
 Indeed, the utility of the calculus only extends as far as one can
 make inferences using the machinery of the calculus that have useful semantics when mapped back into the

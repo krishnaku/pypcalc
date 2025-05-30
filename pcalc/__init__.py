@@ -10,25 +10,34 @@ SPDX-License-Identifier: MIT
 ## Introduction
 
 The Presence Calculus provides a mathematical formalism for reasoning about
-the relationship between *things* and *places* over *time*.
+the relationship between measures on *things* and *places* over *time*.
 
-It begins with a [*Presence*](./pcalc/presence.html)—an *assertion* that a
-particular *Element* (thing) was *continuously* present within a *Boundary*
-(place) over an interval of *time*. Both Elements and Boundaries belong to
-an underlying domain $D$ under analysis.
+It begins with the concept of a Presence—a measure over the real numbers, associated with
+a particular *Element* (thing) in a domain, observed within a *Boundary* (place),
+over a continuous interval of time.
 
-Given a set of presence assertions over a domain $D$, the presence calculus
-provides rigorously defined primitives and constructs for analyzing element
-timelines and trajectories, presence-induced topologies on $D$, and the
-effects of co-presence—simultaneous element presence—within and across
-boundaries.
+Both Elements and Boundaries belong
+to an underlying domain $D$ under analysis.
 
-By defining presence as a function that relates entities to boundaries over
-time, the calculus offers a general mechanism for representing the *effects*
-of presence. This supports modeling concepts such as value, impact, delay,
-cost, revenue, and user experience, as well as rigorous reasoning about
-temporal constructs like time value, delayed value, and the option value
-of presence.
+Measure theory offers a general mechanism for representing
+both presence and its effects. This lets us model concepts such as value,
+impact, delay, cost, revenue, and user experience as forms of presence.
+It also enables rigorous reasoning about temporal constructs like time value,
+delayed value, and the option value of presence.
+
+The Presence Calculus is built on rigorous mathematical foundations—
+measure theory and topology—but what makes it powerful is its epistemic stance
+on measurement: the primitive construct is a presence *assertion*.
+
+This frames each presence as an observation made by a specific observer
+at a specific time, within an open-world setting across an infinite timeline.
+It enables meaningful reasoning about complex systems where
+noise, delay, ambiguity, and the provenance of observations play a critical role.
+
+Given a set of presence assertions over a domain $D$, the calculus provides
+rigorously defined primitives and constructs for analyzing element timelines
+and trajectories, presence-induced topologies on $D$, and the effects of
+co-presence—simultaneous element presence—within and across boundaries.
 
 These techniques apply consistently across a wide range of domains, including
 stochastic, non-linear, adaptive, and complex systems.
@@ -41,37 +50,42 @@ stochastic, non-linear, adaptive, and complex systems.
 </div>
 
 ## Motivation
-Our main goal in developing the presence calculus is to provide better tools
-for rigorous modeling and principled decision-making in messy, real-world domains.
-Our focus is on ensuring that the way data is used in those decisions rests on a
-linguistically precise, logically sound and mathematically grounded foundation.
+Our primary goal in developing the Presence Calculus is to support rigorous
+modeling and principled decision-making in complex, real-world domains. We aim
+to ensure that the use of data in such decisions rests on a foundation that is
+mathematically precise, logically coherent, and epistemically grounded.
 
-The world of measurement, particularly in messy, complex, real-world domains, is sorely lacking in all these
-three areas, and the presence calculus evolved from a search for better solutions here.
+The current state of measurement—particularly in messy, complex domains—is often
+deficient in all three of these areas. The Presence Calculus emerged from a
+search for better structural tools in contexts where traditional statistical or
+causal methods fall short.
 
-The presence calculus builds on ideas from stochastic process dynamics,
-queueing theory, topology, and complex systems science—yet remains
-philosophically distinct from each of them. It allows us to connect these fields while
+Presence Calculus builds on ideas from measure theory and topology, and
+connects it stochastic process dynamics, queueing
+theory, and complex systems science—yet remains philosophically
+distinct from each of them in its focus. This allows it to connect disparate fields while
 re-framing their perspectives through the common epistemic lens of presence.
 
-The foundational concepts of presence calculus allow us to *define*
-derived notions such as flow, stability, equilibrium, and coherence precisely, and to
+The foundational constructs of Presence Calculus allow us to define derived
+notions such as flow, stability, equilibrium, and coherence precisely, and to
 relate them to practically useful measures like delay, cost, revenue, and user
-experience when interpreted within the semantics of the domain being modeled.
+experience—once interpreted within the semantics of the domain being modeled.
 
-In messy real-world domains, relationships between elements, boundaries, flows, and
-effects often emerge from complex, higher-dimensional interactions among
-many parameters. These patterns are often more amenable to machine analysis
-in high-dimensional representations than through the simplified, low-dimensional
-models we typically use to make decisions. The presence calculus provides a precise and structured way to
-build such representations starting from simple, declarative models of presence.
+In messy, real-world domains, relationships between elements, boundaries, flows,
+and effects often emerge from complex, higher-dimensional interactions among
+many parameters. These patterns are often more amenable to machine analysis in
+high-dimensional representations than through the simplified, low-dimensional
+models we typically use to make decisions. The Presence Calculus lets us
+build such representations, starting from simple, declarative models of presence.
 
-Although we will motivate most ideas we introduce with real-world decision
-problems, we are less focused on *what* decisions to make or prescribing *how* to make decisions. This is the
- application domain for the presence calculus.
+While we illustrate our ideas using real-world decision problems, our focus is
+not on prescribing what decisions to make or how to make them. That belongs to
+the application domain of Presence Calculus—a domain we believe is vast.
 
- We believe it is vast and hope to make it accessible for more people to build applications without requiring a deep
-understanding of the underlying mathematics.
+Our goal is to make this framework accessible enough for others to build powerful
+applications on top of it, without requiring a deep background in the
+underlying mathematics (though it will help in following some of the more technical
+arguments)
 
 ## The Toolkit
 
@@ -105,10 +119,9 @@ Each module
 links to detailed API documentation that is also directly accessible from this page.
 The index is also searchable once you get familiar with the concepts.
 
-The presence calculus builds on an intuitive and elementary foundation, even as
-it remains mathematically rigorous. We believe the space of potential
+We believe the space of potential
 applications is vast, and invite you to explore it—and to reach out if you
-have questions or would like to collaborate.
+have questions or would like to collaborate with me on helping develop it further.
 
 
 [Dr. Krishna Kumar](https://www.linkedin.com/in/krishnaku1/),

@@ -51,7 +51,6 @@
             <h2>Contents</h2>
             <ul>
   <li><a href="#introduction">Introduction</a></li>
-  <li><a href="#examples">Examples</a></li>
   <li><a href="#entity-module">Entity Module</a></li>
 </ul>
 
@@ -137,17 +136,20 @@
 
                         <div class="docstring"><h2 id="introduction">Introduction</h2>
 
-<p>In the presence calculus, we assume that we are operating over some externally
-defined domain $D$ with its own structure, topologies, constraints, and
-semantics. While these aspects of the domain influence the kinds of presence
-assertions that can be expressed over it, the presence calculus itself is domain-agnostic.</p>
+<p>We assume an externally defined domain $D$ with its own structure,
+topologies, constraints, and semantics. While these aspects of the domain
+influence the kinds of presence assertions that can be expressed over it,
+the Presence Calculus itself remains domain-agnostic.</p>
 
-<p>It is solely concerned with <a href="./presence.html">presence assertions</a> over the domain, which are
-assumed as given, and the derived constructs and calculations thereof under
-the calculus.</p>
+<p>Apart from some weak assumptions about what constitutes a measurable quantity
+in the domain, the calculus is solely concerned with
+<a href="./presence.html">presence</a> over $D$, and the constructs and
+calculations derived from them.</p>
 
-<p>A <a href="./presence.html">presence assertion</a>  is a statement of the form "an element was present
-in a boundary from time $t_0$ to $t_1$."</p>
+<p>A <a href="./presence.html">presence</a> models the concept that “an element was present
+continuously in a boundary from time $t_0$ to $t_1$, with a certain measurable value.”</p>
+
+<h3 id="elements-and-boundaries">Elements and Boundaries</h3>
 
 <p>It is useful to distinguish Elements ($E$)
 and Boundaries ($B$) as subsets of the domain $D$:</p>
@@ -158,18 +160,21 @@ and Boundaries ($B$) as subsets of the domain $D$:</p>
 </ul>
 
 <p>$$
-E = { e_1, e_2, \dots, e_n } \subset D
+E = \{ e_1, e_2, \dots, e_n \} \subset D
 $$</p>
 
 <p>$$
-B = { b_1, b_2, \dots, b_m } \subset D
+B = \{ b_1, b_2, \dots, b_m \} \subset D
 $$</p>
 
 <p>There are no constraints on what an element or boundary can be. These roles
 are application-defined, context-dependent, and scoped to a particular set of
 presence assertions under analysis.</p>
 
-<h2 id="examples">Examples</h2>
+<p>The same domain entity may be an element in one presence
+assertion and a boundary in another.</p>
+
+<h4 id="examples">Examples</h4>
 
 <ul>
 <li><p>In traffic network, the locations and
@@ -185,10 +190,22 @@ or prospects.</p></li>
 
 <p>Please note that these are illustrative examples there may be other choices that can be made even in these same domains.</p>
 
-<p>In general, you are free to model elements and boundaries as you wish, provided that
+<h3 id="observers">Observers</h3>
+
+<p>In addition to elements and boundaries, we have a set of observers from the domain, who <em>assert</em> presences.
+$$
+O = \{ o_1, o_2, \dots, o_n \} \subset D
+$$
+Again there are no constraints on what an observer is other than that it is an entity in the domain.
+it could be something that also appears as either an entity or a boundary in the same presence assertion
+(reflexive assertions). It could also be a distinguished subset of entities in the domain.</p>
+
+<p>In general, you are free to model elements, boundaries and observers as you wish, provided that
 there are meaningful domain semantics you can assign to a statement
-like "An element was in a boundary from time $t_0$ to $t_1$" that are preserved under the
-presence calculus.</p>
+like "An observer $o$ asserted at time $t_2$ that an element $e$
+was present in a boundary $b$ from time $t_0$ to $t_1$."</p>
+
+<p>Elements, Boundaries and Observers are simply placeholders for entity roles in a presence assertion.</p>
 
 <p>Indeed, the utility of the calculus only extends as far as one can
 make inferences using the machinery of the calculus that have useful semantics when mapped back into the
@@ -217,248 +234,268 @@ to simplify integrating a domain model to the presence calculus.</p>
 </span><span id="L-4"><a href="#L-4"><span class="linenos">  4</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a><span class="sd">## Introduction</span>
 </span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a>
-</span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="sd">In the presence calculus, we assume that we are operating over some externally</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="sd">defined domain $D$ with its own structure, topologies, constraints, and</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="sd">semantics. While these aspects of the domain influence the kinds of presence</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="sd">assertions that can be expressed over it, the presence calculus itself is domain-agnostic.</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="sd">We assume an externally defined domain $D$ with its own structure,</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="sd">topologies, constraints, and semantics. While these aspects of the domain</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="sd">influence the kinds of presence assertions that can be expressed over it,</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="sd">the Presence Calculus itself remains domain-agnostic.</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a>
-</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="sd">It is solely concerned with [presence assertions](./presence.html) over the domain, which are</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="sd">assumed as given, and the derived constructs and calculations thereof under</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="sd">the calculus.</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a>
-</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="sd">A [presence assertion](./presence.html)  is a statement of the form &quot;an element was present</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="sd">in a boundary from time $t_0$ to $t_1$.&quot;</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a>
-</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="sd">It is useful to distinguish Elements ($E$)</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="sd">and Boundaries ($B$) as subsets of the domain $D$:</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="sd">Apart from some weak assumptions about what constitutes a measurable quantity</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="sd">in the domain, the calculus is solely concerned with</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="sd">[presence](./presence.html) over $D$, and the constructs and</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="sd">calculations derived from them.</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a>
+</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="sd">A [presence](./presence.html) models the concept that “an element was present</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="sd">continuously in a boundary from time $t_0$ to $t_1$, with a certain measurable value.”</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a>
+</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="sd">### Elements and Boundaries</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>
-</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="sd">- Some entities act as &quot;things&quot; that are present (Elements).</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="sd">- Others act as &quot;places&quot; or contexts in which presence occurs (Boundaries).</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="sd">It is useful to distinguish Elements ($E$)</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="sd">and Boundaries ($B$) as subsets of the domain $D$:</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>
-</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="sd">$$</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">E = \{ e_1, e_2, \dots, e_n \} \subset D</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="sd">$$</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">$$</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">B = \{ b_1, b_2, \dots, b_m \} \subset D</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="sd">$$</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>
-</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">There are no constraints on what an element or boundary can be. These roles</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="sd">are application-defined, context-dependent, and scoped to a particular set of</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="sd">presence assertions under analysis.</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="sd">## Examples</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a>
-</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="sd">- In traffic network, the locations and</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="sd">road segments of the road network might be natural boundaries and vehicles might be elements.</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a>
-</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a><span class="sd">- In a business value network, the participants in the network would be natural boundaries and value exchanges</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="sd">between the participants would be natural elements.</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>
-</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a><span class="sd">- In a customer relationship management context, the boundaries might be customer segments and elements might be customers</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="sd">or prospects.</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>
-</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a><span class="sd">- In a process management context, the boundaries might be process states and the elements might be processing items.</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>
-</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a><span class="sd">- In an organizational design context, the organization units might be the boundaries and the elements might be job functions.</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="sd">- Some entities act as &quot;things&quot; that are present (Elements).</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">- Others act as &quot;places&quot; or contexts in which presence occurs (Boundaries).</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="sd">$$</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">E = \\\\{ e_1, e_2, \dots, e_n \\\\} \subset D</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">$$</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a><span class="sd">$$</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">B = \\\\{ b_1, b_2, \dots, b_m \\\\} \subset D</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="sd">$$</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="sd">There are no constraints on what an element or boundary can be. These roles</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="sd">are application-defined, context-dependent, and scoped to a particular set of</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">presence assertions under analysis.</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="sd">The same domain entity may be an element in one presence</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="sd">assertion and a boundary in another.</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a><span class="sd">#### Examples</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="sd">- In traffic network, the locations and</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a><span class="sd">road segments of the road network might be natural boundaries and vehicles might be elements.</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="sd">- In a business value network, the participants in the network would be natural boundaries and value exchanges</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a><span class="sd">between the participants would be natural elements.</span>
 </span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>
-</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="sd">- In a software development context, a boundary might be code branch and an element might be a code change.</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>
-</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a><span class="sd">Please note that these are illustrative examples there may be other choices that can be made even in these same domains.</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>
-</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a><span class="sd">In general, you are free to model elements and boundaries as you wish, provided that</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a><span class="sd">there are meaningful domain semantics you can assign to a statement</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a><span class="sd">like &quot;An element was in a boundary from time $t_0$ to $t_1$&quot; that are preserved under the</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a><span class="sd">presence calculus.</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="sd">- In a customer relationship management context, the boundaries might be customer segments and elements might be customers</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a><span class="sd">or prospects.</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>
+</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a><span class="sd">- In a process management context, the boundaries might be process states and the elements might be processing items.</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a><span class="sd">- In an organizational design context, the organization units might be the boundaries and the elements might be job functions.</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>
+</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a><span class="sd">- In a software development context, a boundary might be code branch and an element might be a code change.</span>
 </span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>
-</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a><span class="sd">Indeed, the utility of the calculus only extends as far as one can</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a><span class="sd">make inferences using the machinery of the calculus that have useful semantics when mapped back into the</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a><span class="sd">domain $D$.</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a><span class="sd">Please note that these are illustrative examples there may be other choices that can be made even in these same domains.</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>
+</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a><span class="sd">### Observers</span>
 </span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>
-</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a><span class="sd">Therefore, modeling choices are critical.</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>
-</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a><span class="sd">## Entity Module</span>
-</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>
-</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="sd">The connection between the domain and the calculus is established via the</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a><span class="sd">`EntityProtocol`, which declares the minimal contract a domain entity in</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a><span class="sd">$D$ must satisfy in order to participate in presence assertions over $D$ as an</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a><span class="sd">element or a boundary.</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a><span class="sd">In addition to elements and boundaries, we have a set of observers from the domain, who *assert* presences.</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a><span class="sd">$$</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a><span class="sd">O = \\\\{ o_1, o_2, \dots, o_n \\\\} \subset D</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a><span class="sd">$$</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="sd">Again there are no constraints on what an observer is other than that it is an entity in the domain.</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a><span class="sd">it could be something that also appears as either an entity or a boundary in the same presence assertion</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a><span class="sd">(reflexive assertions). It could also be a distinguished subset of entities in the domain.</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>
 </span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>
-</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a><span class="sd">The remaining classes in the module are various utility classes that are provided</span>
-</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a><span class="sd">to simplify integrating a domain model to the presence calculus.</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>
-</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>
-</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>
-</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>
-</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="nd">@runtime_checkable</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">    The interface contract for a domain entity to participate in a presence assertion.</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a><span class="sd">In general, you are free to model elements, boundaries and observers as you wish, provided that</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a><span class="sd">there are meaningful domain semantics you can assign to a statement</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a><span class="sd">like &quot;An observer $o$ asserted at time $t_2$ that an element $e$</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a><span class="sd">was present in a boundary $b$ from time $t_0$ to $t_1$.&quot;</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a><span class="sd">Elements, Boundaries and Observers are simply placeholders for entity roles in a presence assertion.</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>
+</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a><span class="sd">Indeed, the utility of the calculus only extends as far as one can</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a><span class="sd">make inferences using the machinery of the calculus that have useful semantics when mapped back into the</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a><span class="sd">domain $D$.</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a><span class="sd">Therefore, modeling choices are critical.</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">## Entity Module</span>
 </span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>
-</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="sd">    Each entity requires only a unique identifier, a user-facing name.</span>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="sd">    Optional metadata may be provided and exposes specific attributes of the domain</span>
-</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="sd">    entities that are relevant when interpreting or manipulating the results</span>
-</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="sd">    of an analysis using the machinery of the calculus.</span>
-</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>
-</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a><span class="sd">    See `Entity` for an example of a concrete implementation.</span>
-</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>    <span class="fm">__init__</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>    <span class="nd">@property</span>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a><span class="sd">        A stable, unique identifier for the entity.</span>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="sd">        Used for indexing and identity.</span>
-</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>        <span class="o">...</span>
-</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>
-</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>    <span class="nd">@property</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a><span class="sd">        A user facing name for the entity, defaults to the id if None.</span>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>        <span class="o">...</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="sd">The connection between the domain and the calculus is established via the</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="sd">`EntityProtocol`, which declares the minimal contract a domain entity in</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="sd">$D$ must satisfy in order to participate in presence assertions over $D$ as an</span>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="sd">element or a boundary.</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">The remaining classes in the module are various utility classes that are provided</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a><span class="sd">to simplify integrating a domain model to the presence calculus.</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="nd">@runtime_checkable</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a><span class="sd">    The interface contract for a domain entity to participate in a presence assertion.</span>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="sd">    Each entity requires only a unique identifier, a user-facing name.</span>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a><span class="sd">    Optional metadata may be provided and exposes specific attributes of the domain</span>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="sd">    entities that are relevant when interpreting or manipulating the results</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="sd">    of an analysis using the machinery of the calculus.</span>
 </span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Setter for name&quot;&quot;&quot;</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>        <span class="o">...</span>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>    <span class="nd">@property</span>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="sd">        Optional extensible key-value metadata.</span>
-</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>        <span class="o">...</span>
-</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a><span class="sd">    See `Entity` for an example of a concrete implementation.</span>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>    <span class="fm">__init__</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="nd">@property</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="sd">        A stable, unique identifier for the entity.</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="sd">        Used for indexing and identity.</span>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>        <span class="o">...</span>
 </span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>
-</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityMixin</span><span class="p">:</span>
-</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A mixin class that can be used to inject common shared behavior</span>
-</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a><span class="sd">    of objects satisfying the EntityProtocol  into existing domain entities.</span>
-</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>
-</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
-</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
-</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
-</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
-</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
-</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>
-</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>
-</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityView</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">):</span>
-</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a><span class="sd">    A view class that allows domain objects to behave like entities</span>
+</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>    <span class="nd">@property</span>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a><span class="sd">        A user facing name for the entity, defaults to the id if None.</span>
+</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>        <span class="o">...</span>
+</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>
+</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Setter for name&quot;&quot;&quot;</span>
+</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>        <span class="o">...</span>
+</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>
+</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>    <span class="nd">@property</span>
+</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a><span class="sd">        Optional extensible key-value metadata.</span>
+</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>        <span class="o">...</span>
+</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>
 </span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>
-</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a><span class="sd">    ```python</span>
-</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a><span class="sd">    class Customer:</span>
-</span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a><span class="sd">        def __init__(self, id, name, segment):</span>
-</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a><span class="sd">            self._id = id</span>
-</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a><span class="sd">            self._name = name</span>
-</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a><span class="sd">            self._segment = segment</span>
-</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>
-</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a><span class="sd">        @property</span>
-</span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a><span class="sd">        def id(self):</span>
-</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a><span class="sd">            return self._id</span>
-</span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a>
-</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a><span class="sd">        @property</span>
-</span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a><span class="sd">        def name(self):</span>
-</span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a><span class="sd">            return self._name</span>
+</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityMixin</span><span class="p">:</span>
+</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A mixin class that can be used to inject common shared behavior</span>
+</span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a><span class="sd">    of objects satisfying the EntityProtocol  into existing domain entities.</span>
+</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>
+</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
+</span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
+</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
+</span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
 </span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>
-</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a><span class="sd">        @property</span>
-</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a><span class="sd">        def metadata(self):</span>
-</span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a><span class="sd">            return {&quot;segment&quot;: self._segment}</span>
-</span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a><span class="sd">    ```</span>
+</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>
+</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityView</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">):</span>
+</span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a><span class="sd">    A view class that allows domain objects to behave like entities</span>
 </span><span id="L-167"><a href="#L-167"><span class="linenos">167</span></a>
-</span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a><span class="sd">    You can wrap it with `EntityView` to use it with presence-related infrastructure:</span>
-</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a>
-</span><span id="L-170"><a href="#L-170"><span class="linenos">170</span></a><span class="sd">    ```python</span>
-</span><span id="L-171"><a href="#L-171"><span class="linenos">171</span></a><span class="sd">    customer = Customer(&quot;cust-001&quot;, &quot;Alice Chen&quot;, &quot;Enterprise&quot;)</span>
-</span><span id="L-172"><a href="#L-172"><span class="linenos">172</span></a><span class="sd">    entity = EntityView(customer)</span>
-</span><span id="L-173"><a href="#L-173"><span class="linenos">173</span></a>
-</span><span id="L-174"><a href="#L-174"><span class="linenos">174</span></a><span class="sd">    print(entity.id)        # cust-001</span>
-</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a><span class="sd">    print(entity.name)      # Alice Chen</span>
-</span><span id="L-176"><a href="#L-176"><span class="linenos">176</span></a><span class="sd">    print(entity.metadata)  # {&#39;segment&#39;: &#39;Enterprise&#39;}</span>
-</span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a><span class="sd">    print(entity.summary()) # Element[cust-001] name = Alice Chen {segment=&#39;Enterprise&#39;}</span>
-</span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a><span class="sd">    ```</span>
-</span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-180"><a href="#L-180"><span class="linenos">180</span></a>
-</span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
+</span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a><span class="sd">    ```python</span>
+</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a><span class="sd">    class Customer:</span>
+</span><span id="L-170"><a href="#L-170"><span class="linenos">170</span></a><span class="sd">        def __init__(self, id, name, segment):</span>
+</span><span id="L-171"><a href="#L-171"><span class="linenos">171</span></a><span class="sd">            self._id = id</span>
+</span><span id="L-172"><a href="#L-172"><span class="linenos">172</span></a><span class="sd">            self._name = name</span>
+</span><span id="L-173"><a href="#L-173"><span class="linenos">173</span></a><span class="sd">            self._segment = segment</span>
+</span><span id="L-174"><a href="#L-174"><span class="linenos">174</span></a>
+</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a><span class="sd">        @property</span>
+</span><span id="L-176"><a href="#L-176"><span class="linenos">176</span></a><span class="sd">        def id(self):</span>
+</span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a><span class="sd">            return self._id</span>
+</span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a>
+</span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a><span class="sd">        @property</span>
+</span><span id="L-180"><a href="#L-180"><span class="linenos">180</span></a><span class="sd">        def name(self):</span>
+</span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a><span class="sd">            return self._name</span>
 </span><span id="L-182"><a href="#L-182"><span class="linenos">182</span></a>
-</span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">):</span>
-</span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
-</span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a>
-</span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>    <span class="nd">@property</span>
-</span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
+</span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a><span class="sd">        @property</span>
+</span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a><span class="sd">        def metadata(self):</span>
+</span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a><span class="sd">            return {&quot;segment&quot;: self._segment}</span>
+</span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a><span class="sd">    ```</span>
+</span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>
+</span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a><span class="sd">    You can wrap it with `EntityView` to use it with presence-related infrastructure:</span>
 </span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a>
-</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a>    <span class="nd">@property</span>
-</span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
+</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a><span class="sd">    ```python</span>
+</span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a><span class="sd">    customer = Customer(&quot;cust-001&quot;, &quot;Alice Chen&quot;, &quot;Enterprise&quot;)</span>
+</span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a><span class="sd">    entity = EntityView(customer)</span>
 </span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a>
-</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>    <span class="nd">@property</span>
-</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
-</span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a>
-</span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a>
-</span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Entity</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">,</span> <span class="n">EntityProtocol</span><span class="p">):</span>
-</span><span id="L-200"><a href="#L-200"><span class="linenos">200</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A default implementation of fully functional entity.</span>
-</span><span id="L-201"><a href="#L-201"><span class="linenos">201</span></a>
-</span><span id="L-202"><a href="#L-202"><span class="linenos">202</span></a><span class="sd">    ```python</span>
-</span><span id="L-203"><a href="#L-203"><span class="linenos">203</span></a><span class="sd">    elements = [</span>
-</span><span id="L-204"><a href="#L-204"><span class="linenos">204</span></a><span class="sd">        Entity(id=&quot;cust-001&quot;, name=&quot;Alice Chen&quot;, metadata={&quot;type&quot;: &quot;customer&quot;}),</span>
-</span><span id="L-205"><a href="#L-205"><span class="linenos">205</span></a><span class="sd">        Entity(id=&quot;cust-002&quot;, name=&quot;Bob Gupta&quot;, metadata={&quot;type&quot;: &quot;customer&quot;}),</span>
-</span><span id="L-206"><a href="#L-206"><span class="linenos">206</span></a><span class="sd">        Entity(id=&quot;pros-003&quot;, name=&quot;Dana Rivera&quot;, metadata={&quot;type&quot;: &quot;prospect&quot;}),</span>
-</span><span id="L-207"><a href="#L-207"><span class="linenos">207</span></a><span class="sd">    ]</span>
-</span><span id="L-208"><a href="#L-208"><span class="linenos">208</span></a><span class="sd">    boundaries = [</span>
-</span><span id="L-209"><a href="#L-209"><span class="linenos">209</span></a><span class="sd">        Entity(id=&quot;seg-enterprise&quot;, name=&quot;Enterprise Segment&quot;, metadata={&quot;region&quot;: &quot;NA&quot;}),</span>
-</span><span id="L-210"><a href="#L-210"><span class="linenos">210</span></a><span class="sd">        Entity(id=&quot;seg-smb&quot;, name=&quot;SMB Segment&quot;, metadata={&quot;region&quot;: &quot;EMEA&quot;}),</span>
-</span><span id="L-211"><a href="#L-211"><span class="linenos">211</span></a><span class="sd">        Entity(id=&quot;seg-dormant&quot;, name=&quot;Flight Risk&quot;, metadata={&quot;status&quot;: &quot;inactive&quot;, &quot;last login&quot;: &quot;2024-06-01&quot;}),</span>
-</span><span id="L-212"><a href="#L-212"><span class="linenos">212</span></a><span class="sd">        Entity(id=&quot;seg-prospect&quot;, name=&quot;Active Prospects&quot;, metadata={&quot;status&quot;: &quot;demo given&quot;})</span>
-</span><span id="L-213"><a href="#L-213"><span class="linenos">213</span></a><span class="sd">    ]</span>
-</span><span id="L-214"><a href="#L-214"><span class="linenos">214</span></a>
-</span><span id="L-215"><a href="#L-215"><span class="linenos">215</span></a><span class="sd">    for e in elements:</span>
-</span><span id="L-216"><a href="#L-216"><span class="linenos">216</span></a><span class="sd">        print(f&quot;Element: {e.summary()}&quot;)</span>
+</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a><span class="sd">    print(entity.id)        # cust-001</span>
+</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a><span class="sd">    print(entity.name)      # Alice Chen</span>
+</span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a><span class="sd">    print(entity.metadata)  # {&#39;segment&#39;: &#39;Enterprise&#39;}</span>
+</span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a><span class="sd">    print(entity.summary()) # Element[cust-001] name = Alice Chen {segment=&#39;Enterprise&#39;}</span>
+</span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a><span class="sd">    ```</span>
+</span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-200"><a href="#L-200"><span class="linenos">200</span></a>
+</span><span id="L-201"><a href="#L-201"><span class="linenos">201</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
+</span><span id="L-202"><a href="#L-202"><span class="linenos">202</span></a>
+</span><span id="L-203"><a href="#L-203"><span class="linenos">203</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">):</span>
+</span><span id="L-204"><a href="#L-204"><span class="linenos">204</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
+</span><span id="L-205"><a href="#L-205"><span class="linenos">205</span></a>
+</span><span id="L-206"><a href="#L-206"><span class="linenos">206</span></a>    <span class="nd">@property</span>
+</span><span id="L-207"><a href="#L-207"><span class="linenos">207</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-208"><a href="#L-208"><span class="linenos">208</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
+</span><span id="L-209"><a href="#L-209"><span class="linenos">209</span></a>
+</span><span id="L-210"><a href="#L-210"><span class="linenos">210</span></a>    <span class="nd">@property</span>
+</span><span id="L-211"><a href="#L-211"><span class="linenos">211</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="L-212"><a href="#L-212"><span class="linenos">212</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
+</span><span id="L-213"><a href="#L-213"><span class="linenos">213</span></a>
+</span><span id="L-214"><a href="#L-214"><span class="linenos">214</span></a>    <span class="nd">@property</span>
+</span><span id="L-215"><a href="#L-215"><span class="linenos">215</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="L-216"><a href="#L-216"><span class="linenos">216</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
 </span><span id="L-217"><a href="#L-217"><span class="linenos">217</span></a>
-</span><span id="L-218"><a href="#L-218"><span class="linenos">218</span></a><span class="sd">    for b in boundaries:</span>
-</span><span id="L-219"><a href="#L-219"><span class="linenos">219</span></a><span class="sd">        print(f&quot;Boundary: {b.summary()}&quot;)</span>
-</span><span id="L-220"><a href="#L-220"><span class="linenos">220</span></a><span class="sd">    ```</span>
-</span><span id="L-221"><a href="#L-221"><span class="linenos">221</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-222"><a href="#L-222"><span class="linenos">222</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
-</span><span id="L-223"><a href="#L-223"><span class="linenos">223</span></a>
-</span><span id="L-224"><a href="#L-224"><span class="linenos">224</span></a>    <span class="c1"># noinspection PyProtocol</span>
-</span><span id="L-225"><a href="#L-225"><span class="linenos">225</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="L-226"><a href="#L-226"><span class="linenos">226</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
-</span><span id="L-227"><a href="#L-227"><span class="linenos">227</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
-</span><span id="L-228"><a href="#L-228"><span class="linenos">228</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
-</span><span id="L-229"><a href="#L-229"><span class="linenos">229</span></a>
-</span><span id="L-230"><a href="#L-230"><span class="linenos">230</span></a>    <span class="nd">@property</span>
-</span><span id="L-231"><a href="#L-231"><span class="linenos">231</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-232"><a href="#L-232"><span class="linenos">232</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
-</span><span id="L-233"><a href="#L-233"><span class="linenos">233</span></a>
-</span><span id="L-234"><a href="#L-234"><span class="linenos">234</span></a>    <span class="c1"># noinspection PyProtocol</span>
-</span><span id="L-235"><a href="#L-235"><span class="linenos">235</span></a>    <span class="nd">@property</span>
-</span><span id="L-236"><a href="#L-236"><span class="linenos">236</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-237"><a href="#L-237"><span class="linenos">237</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
-</span><span id="L-238"><a href="#L-238"><span class="linenos">238</span></a>
-</span><span id="L-239"><a href="#L-239"><span class="linenos">239</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-</span><span id="L-240"><a href="#L-240"><span class="linenos">240</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-241"><a href="#L-241"><span class="linenos">241</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
-</span><span id="L-242"><a href="#L-242"><span class="linenos">242</span></a>
-</span><span id="L-243"><a href="#L-243"><span class="linenos">243</span></a>    <span class="nd">@property</span>
-</span><span id="L-244"><a href="#L-244"><span class="linenos">244</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="L-245"><a href="#L-245"><span class="linenos">245</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
-</span><span id="L-246"><a href="#L-246"><span class="linenos">246</span></a>
-</span><span id="L-247"><a href="#L-247"><span class="linenos">247</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-248"><a href="#L-248"><span class="linenos">248</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</span><span id="L-218"><a href="#L-218"><span class="linenos">218</span></a>
+</span><span id="L-219"><a href="#L-219"><span class="linenos">219</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Entity</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">,</span> <span class="n">EntityProtocol</span><span class="p">):</span>
+</span><span id="L-220"><a href="#L-220"><span class="linenos">220</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A default implementation of fully functional entity.</span>
+</span><span id="L-221"><a href="#L-221"><span class="linenos">221</span></a>
+</span><span id="L-222"><a href="#L-222"><span class="linenos">222</span></a><span class="sd">    ```python</span>
+</span><span id="L-223"><a href="#L-223"><span class="linenos">223</span></a><span class="sd">    elements = [</span>
+</span><span id="L-224"><a href="#L-224"><span class="linenos">224</span></a><span class="sd">        Entity(id=&quot;cust-001&quot;, name=&quot;Alice Chen&quot;, metadata={&quot;type&quot;: &quot;customer&quot;}),</span>
+</span><span id="L-225"><a href="#L-225"><span class="linenos">225</span></a><span class="sd">        Entity(id=&quot;cust-002&quot;, name=&quot;Bob Gupta&quot;, metadata={&quot;type&quot;: &quot;customer&quot;}),</span>
+</span><span id="L-226"><a href="#L-226"><span class="linenos">226</span></a><span class="sd">        Entity(id=&quot;pros-003&quot;, name=&quot;Dana Rivera&quot;, metadata={&quot;type&quot;: &quot;prospect&quot;}),</span>
+</span><span id="L-227"><a href="#L-227"><span class="linenos">227</span></a><span class="sd">    ]</span>
+</span><span id="L-228"><a href="#L-228"><span class="linenos">228</span></a><span class="sd">    boundaries = [</span>
+</span><span id="L-229"><a href="#L-229"><span class="linenos">229</span></a><span class="sd">        Entity(id=&quot;seg-enterprise&quot;, name=&quot;Enterprise Segment&quot;, metadata={&quot;region&quot;: &quot;NA&quot;}),</span>
+</span><span id="L-230"><a href="#L-230"><span class="linenos">230</span></a><span class="sd">        Entity(id=&quot;seg-smb&quot;, name=&quot;SMB Segment&quot;, metadata={&quot;region&quot;: &quot;EMEA&quot;}),</span>
+</span><span id="L-231"><a href="#L-231"><span class="linenos">231</span></a><span class="sd">        Entity(id=&quot;seg-dormant&quot;, name=&quot;Flight Risk&quot;, metadata={&quot;status&quot;: &quot;inactive&quot;, &quot;last login&quot;: &quot;2024-06-01&quot;}),</span>
+</span><span id="L-232"><a href="#L-232"><span class="linenos">232</span></a><span class="sd">        Entity(id=&quot;seg-prospect&quot;, name=&quot;Active Prospects&quot;, metadata={&quot;status&quot;: &quot;demo given&quot;})</span>
+</span><span id="L-233"><a href="#L-233"><span class="linenos">233</span></a><span class="sd">    ]</span>
+</span><span id="L-234"><a href="#L-234"><span class="linenos">234</span></a>
+</span><span id="L-235"><a href="#L-235"><span class="linenos">235</span></a><span class="sd">    for e in elements:</span>
+</span><span id="L-236"><a href="#L-236"><span class="linenos">236</span></a><span class="sd">        print(f&quot;Element: {e.summary()}&quot;)</span>
+</span><span id="L-237"><a href="#L-237"><span class="linenos">237</span></a>
+</span><span id="L-238"><a href="#L-238"><span class="linenos">238</span></a><span class="sd">    for b in boundaries:</span>
+</span><span id="L-239"><a href="#L-239"><span class="linenos">239</span></a><span class="sd">        print(f&quot;Boundary: {b.summary()}&quot;)</span>
+</span><span id="L-240"><a href="#L-240"><span class="linenos">240</span></a><span class="sd">    ```</span>
+</span><span id="L-241"><a href="#L-241"><span class="linenos">241</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-242"><a href="#L-242"><span class="linenos">242</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
+</span><span id="L-243"><a href="#L-243"><span class="linenos">243</span></a>
+</span><span id="L-244"><a href="#L-244"><span class="linenos">244</span></a>    <span class="c1"># noinspection PyProtocol</span>
+</span><span id="L-245"><a href="#L-245"><span class="linenos">245</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="L-246"><a href="#L-246"><span class="linenos">246</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+</span><span id="L-247"><a href="#L-247"><span class="linenos">247</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+</span><span id="L-248"><a href="#L-248"><span class="linenos">248</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
+</span><span id="L-249"><a href="#L-249"><span class="linenos">249</span></a>
+</span><span id="L-250"><a href="#L-250"><span class="linenos">250</span></a>    <span class="nd">@property</span>
+</span><span id="L-251"><a href="#L-251"><span class="linenos">251</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-252"><a href="#L-252"><span class="linenos">252</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+</span><span id="L-253"><a href="#L-253"><span class="linenos">253</span></a>
+</span><span id="L-254"><a href="#L-254"><span class="linenos">254</span></a>    <span class="c1"># noinspection PyProtocol</span>
+</span><span id="L-255"><a href="#L-255"><span class="linenos">255</span></a>    <span class="nd">@property</span>
+</span><span id="L-256"><a href="#L-256"><span class="linenos">256</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-257"><a href="#L-257"><span class="linenos">257</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+</span><span id="L-258"><a href="#L-258"><span class="linenos">258</span></a>
+</span><span id="L-259"><a href="#L-259"><span class="linenos">259</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="L-260"><a href="#L-260"><span class="linenos">260</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-261"><a href="#L-261"><span class="linenos">261</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+</span><span id="L-262"><a href="#L-262"><span class="linenos">262</span></a>
+</span><span id="L-263"><a href="#L-263"><span class="linenos">263</span></a>    <span class="nd">@property</span>
+</span><span id="L-264"><a href="#L-264"><span class="linenos">264</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="L-265"><a href="#L-265"><span class="linenos">265</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
+</span><span id="L-266"><a href="#L-266"><span class="linenos">266</span></a>
+</span><span id="L-267"><a href="#L-267"><span class="linenos">267</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-268"><a href="#L-268"><span class="linenos">268</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -475,48 +512,48 @@ to simplify integrating a domain model to the presence calculus.</p>
 
     </div>
     <a class="headerlink" href="#EntityProtocol"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol-85"><a href="#EntityProtocol-85"><span class="linenos"> 85</span></a><span class="nd">@runtime_checkable</span>
-</span><span id="EntityProtocol-86"><a href="#EntityProtocol-86"><span class="linenos"> 86</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-</span><span id="EntityProtocol-87"><a href="#EntityProtocol-87"><span class="linenos"> 87</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="EntityProtocol-88"><a href="#EntityProtocol-88"><span class="linenos"> 88</span></a><span class="sd">    The interface contract for a domain entity to participate in a presence assertion.</span>
-</span><span id="EntityProtocol-89"><a href="#EntityProtocol-89"><span class="linenos"> 89</span></a>
-</span><span id="EntityProtocol-90"><a href="#EntityProtocol-90"><span class="linenos"> 90</span></a><span class="sd">    Each entity requires only a unique identifier, a user-facing name.</span>
-</span><span id="EntityProtocol-91"><a href="#EntityProtocol-91"><span class="linenos"> 91</span></a>
-</span><span id="EntityProtocol-92"><a href="#EntityProtocol-92"><span class="linenos"> 92</span></a><span class="sd">    Optional metadata may be provided and exposes specific attributes of the domain</span>
-</span><span id="EntityProtocol-93"><a href="#EntityProtocol-93"><span class="linenos"> 93</span></a><span class="sd">    entities that are relevant when interpreting or manipulating the results</span>
-</span><span id="EntityProtocol-94"><a href="#EntityProtocol-94"><span class="linenos"> 94</span></a><span class="sd">    of an analysis using the machinery of the calculus.</span>
-</span><span id="EntityProtocol-95"><a href="#EntityProtocol-95"><span class="linenos"> 95</span></a>
-</span><span id="EntityProtocol-96"><a href="#EntityProtocol-96"><span class="linenos"> 96</span></a><span class="sd">    See `Entity` for an example of a concrete implementation.</span>
-</span><span id="EntityProtocol-97"><a href="#EntityProtocol-97"><span class="linenos"> 97</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="EntityProtocol-98"><a href="#EntityProtocol-98"><span class="linenos"> 98</span></a>    <span class="fm">__init__</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
-</span><span id="EntityProtocol-99"><a href="#EntityProtocol-99"><span class="linenos"> 99</span></a>
-</span><span id="EntityProtocol-100"><a href="#EntityProtocol-100"><span class="linenos">100</span></a>    <span class="nd">@property</span>
-</span><span id="EntityProtocol-101"><a href="#EntityProtocol-101"><span class="linenos">101</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="EntityProtocol-102"><a href="#EntityProtocol-102"><span class="linenos">102</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="EntityProtocol-103"><a href="#EntityProtocol-103"><span class="linenos">103</span></a><span class="sd">        A stable, unique identifier for the entity.</span>
-</span><span id="EntityProtocol-104"><a href="#EntityProtocol-104"><span class="linenos">104</span></a><span class="sd">        Used for indexing and identity.</span>
-</span><span id="EntityProtocol-105"><a href="#EntityProtocol-105"><span class="linenos">105</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
-</span><span id="EntityProtocol-106"><a href="#EntityProtocol-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="EntityProtocol-107"><a href="#EntityProtocol-107"><span class="linenos">107</span></a>        <span class="o">...</span>
-</span><span id="EntityProtocol-108"><a href="#EntityProtocol-108"><span class="linenos">108</span></a>
-</span><span id="EntityProtocol-109"><a href="#EntityProtocol-109"><span class="linenos">109</span></a>    <span class="nd">@property</span>
-</span><span id="EntityProtocol-110"><a href="#EntityProtocol-110"><span class="linenos">110</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="EntityProtocol-111"><a href="#EntityProtocol-111"><span class="linenos">111</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="EntityProtocol-112"><a href="#EntityProtocol-112"><span class="linenos">112</span></a><span class="sd">        A user facing name for the entity, defaults to the id if None.</span>
-</span><span id="EntityProtocol-113"><a href="#EntityProtocol-113"><span class="linenos">113</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="EntityProtocol-114"><a href="#EntityProtocol-114"><span class="linenos">114</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol-105"><a href="#EntityProtocol-105"><span class="linenos">105</span></a><span class="nd">@runtime_checkable</span>
+</span><span id="EntityProtocol-106"><a href="#EntityProtocol-106"><span class="linenos">106</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+</span><span id="EntityProtocol-107"><a href="#EntityProtocol-107"><span class="linenos">107</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-108"><a href="#EntityProtocol-108"><span class="linenos">108</span></a><span class="sd">    The interface contract for a domain entity to participate in a presence assertion.</span>
+</span><span id="EntityProtocol-109"><a href="#EntityProtocol-109"><span class="linenos">109</span></a>
+</span><span id="EntityProtocol-110"><a href="#EntityProtocol-110"><span class="linenos">110</span></a><span class="sd">    Each entity requires only a unique identifier, a user-facing name.</span>
+</span><span id="EntityProtocol-111"><a href="#EntityProtocol-111"><span class="linenos">111</span></a>
+</span><span id="EntityProtocol-112"><a href="#EntityProtocol-112"><span class="linenos">112</span></a><span class="sd">    Optional metadata may be provided and exposes specific attributes of the domain</span>
+</span><span id="EntityProtocol-113"><a href="#EntityProtocol-113"><span class="linenos">113</span></a><span class="sd">    entities that are relevant when interpreting or manipulating the results</span>
+</span><span id="EntityProtocol-114"><a href="#EntityProtocol-114"><span class="linenos">114</span></a><span class="sd">    of an analysis using the machinery of the calculus.</span>
 </span><span id="EntityProtocol-115"><a href="#EntityProtocol-115"><span class="linenos">115</span></a>
-</span><span id="EntityProtocol-116"><a href="#EntityProtocol-116"><span class="linenos">116</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-</span><span id="EntityProtocol-117"><a href="#EntityProtocol-117"><span class="linenos">117</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="EntityProtocol-118"><a href="#EntityProtocol-118"><span class="linenos">118</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Setter for name&quot;&quot;&quot;</span>
-</span><span id="EntityProtocol-119"><a href="#EntityProtocol-119"><span class="linenos">119</span></a>        <span class="o">...</span>
-</span><span id="EntityProtocol-120"><a href="#EntityProtocol-120"><span class="linenos">120</span></a>
-</span><span id="EntityProtocol-121"><a href="#EntityProtocol-121"><span class="linenos">121</span></a>    <span class="nd">@property</span>
-</span><span id="EntityProtocol-122"><a href="#EntityProtocol-122"><span class="linenos">122</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="EntityProtocol-123"><a href="#EntityProtocol-123"><span class="linenos">123</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="EntityProtocol-124"><a href="#EntityProtocol-124"><span class="linenos">124</span></a><span class="sd">        Optional extensible key-value metadata.</span>
-</span><span id="EntityProtocol-125"><a href="#EntityProtocol-125"><span class="linenos">125</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="EntityProtocol-126"><a href="#EntityProtocol-126"><span class="linenos">126</span></a>        <span class="o">...</span>
+</span><span id="EntityProtocol-116"><a href="#EntityProtocol-116"><span class="linenos">116</span></a><span class="sd">    See `Entity` for an example of a concrete implementation.</span>
+</span><span id="EntityProtocol-117"><a href="#EntityProtocol-117"><span class="linenos">117</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-118"><a href="#EntityProtocol-118"><span class="linenos">118</span></a>    <span class="fm">__init__</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span>
+</span><span id="EntityProtocol-119"><a href="#EntityProtocol-119"><span class="linenos">119</span></a>
+</span><span id="EntityProtocol-120"><a href="#EntityProtocol-120"><span class="linenos">120</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol-121"><a href="#EntityProtocol-121"><span class="linenos">121</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol-122"><a href="#EntityProtocol-122"><span class="linenos">122</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-123"><a href="#EntityProtocol-123"><span class="linenos">123</span></a><span class="sd">        A stable, unique identifier for the entity.</span>
+</span><span id="EntityProtocol-124"><a href="#EntityProtocol-124"><span class="linenos">124</span></a><span class="sd">        Used for indexing and identity.</span>
+</span><span id="EntityProtocol-125"><a href="#EntityProtocol-125"><span class="linenos">125</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
+</span><span id="EntityProtocol-126"><a href="#EntityProtocol-126"><span class="linenos">126</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-127"><a href="#EntityProtocol-127"><span class="linenos">127</span></a>        <span class="o">...</span>
+</span><span id="EntityProtocol-128"><a href="#EntityProtocol-128"><span class="linenos">128</span></a>
+</span><span id="EntityProtocol-129"><a href="#EntityProtocol-129"><span class="linenos">129</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol-130"><a href="#EntityProtocol-130"><span class="linenos">130</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol-131"><a href="#EntityProtocol-131"><span class="linenos">131</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-132"><a href="#EntityProtocol-132"><span class="linenos">132</span></a><span class="sd">        A user facing name for the entity, defaults to the id if None.</span>
+</span><span id="EntityProtocol-133"><a href="#EntityProtocol-133"><span class="linenos">133</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-134"><a href="#EntityProtocol-134"><span class="linenos">134</span></a>        <span class="o">...</span>
+</span><span id="EntityProtocol-135"><a href="#EntityProtocol-135"><span class="linenos">135</span></a>
+</span><span id="EntityProtocol-136"><a href="#EntityProtocol-136"><span class="linenos">136</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="EntityProtocol-137"><a href="#EntityProtocol-137"><span class="linenos">137</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="EntityProtocol-138"><a href="#EntityProtocol-138"><span class="linenos">138</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Setter for name&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-139"><a href="#EntityProtocol-139"><span class="linenos">139</span></a>        <span class="o">...</span>
+</span><span id="EntityProtocol-140"><a href="#EntityProtocol-140"><span class="linenos">140</span></a>
+</span><span id="EntityProtocol-141"><a href="#EntityProtocol-141"><span class="linenos">141</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol-142"><a href="#EntityProtocol-142"><span class="linenos">142</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="EntityProtocol-143"><a href="#EntityProtocol-143"><span class="linenos">143</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-144"><a href="#EntityProtocol-144"><span class="linenos">144</span></a><span class="sd">        Optional extensible key-value metadata.</span>
+</span><span id="EntityProtocol-145"><a href="#EntityProtocol-145"><span class="linenos">145</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol-146"><a href="#EntityProtocol-146"><span class="linenos">146</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -541,14 +578,14 @@ of an analysis using the machinery of the calculus.</p>
 
     </div>
     <a class="headerlink" href="#EntityProtocol.id"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.id-100"><a href="#EntityProtocol.id-100"><span class="linenos">100</span></a>    <span class="nd">@property</span>
-</span><span id="EntityProtocol.id-101"><a href="#EntityProtocol.id-101"><span class="linenos">101</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="EntityProtocol.id-102"><a href="#EntityProtocol.id-102"><span class="linenos">102</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="EntityProtocol.id-103"><a href="#EntityProtocol.id-103"><span class="linenos">103</span></a><span class="sd">        A stable, unique identifier for the entity.</span>
-</span><span id="EntityProtocol.id-104"><a href="#EntityProtocol.id-104"><span class="linenos">104</span></a><span class="sd">        Used for indexing and identity.</span>
-</span><span id="EntityProtocol.id-105"><a href="#EntityProtocol.id-105"><span class="linenos">105</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
-</span><span id="EntityProtocol.id-106"><a href="#EntityProtocol.id-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="EntityProtocol.id-107"><a href="#EntityProtocol.id-107"><span class="linenos">107</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.id-120"><a href="#EntityProtocol.id-120"><span class="linenos">120</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol.id-121"><a href="#EntityProtocol.id-121"><span class="linenos">121</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol.id-122"><a href="#EntityProtocol.id-122"><span class="linenos">122</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.id-123"><a href="#EntityProtocol.id-123"><span class="linenos">123</span></a><span class="sd">        A stable, unique identifier for the entity.</span>
+</span><span id="EntityProtocol.id-124"><a href="#EntityProtocol.id-124"><span class="linenos">124</span></a><span class="sd">        Used for indexing and identity.</span>
+</span><span id="EntityProtocol.id-125"><a href="#EntityProtocol.id-125"><span class="linenos">125</span></a><span class="sd">        Defaults to a uuid.uuid4().</span>
+</span><span id="EntityProtocol.id-126"><a href="#EntityProtocol.id-126"><span class="linenos">126</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.id-127"><a href="#EntityProtocol.id-127"><span class="linenos">127</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -568,12 +605,12 @@ Defaults to a uuid.uuid4().</p>
 
     </div>
     <a class="headerlink" href="#EntityProtocol.name"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.name-109"><a href="#EntityProtocol.name-109"><span class="linenos">109</span></a>    <span class="nd">@property</span>
-</span><span id="EntityProtocol.name-110"><a href="#EntityProtocol.name-110"><span class="linenos">110</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="EntityProtocol.name-111"><a href="#EntityProtocol.name-111"><span class="linenos">111</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="EntityProtocol.name-112"><a href="#EntityProtocol.name-112"><span class="linenos">112</span></a><span class="sd">        A user facing name for the entity, defaults to the id if None.</span>
-</span><span id="EntityProtocol.name-113"><a href="#EntityProtocol.name-113"><span class="linenos">113</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="EntityProtocol.name-114"><a href="#EntityProtocol.name-114"><span class="linenos">114</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.name-129"><a href="#EntityProtocol.name-129"><span class="linenos">129</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol.name-130"><a href="#EntityProtocol.name-130"><span class="linenos">130</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityProtocol.name-131"><a href="#EntityProtocol.name-131"><span class="linenos">131</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.name-132"><a href="#EntityProtocol.name-132"><span class="linenos">132</span></a><span class="sd">        A user facing name for the entity, defaults to the id if None.</span>
+</span><span id="EntityProtocol.name-133"><a href="#EntityProtocol.name-133"><span class="linenos">133</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.name-134"><a href="#EntityProtocol.name-134"><span class="linenos">134</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -591,12 +628,12 @@ Defaults to a uuid.uuid4().</p>
 
     </div>
     <a class="headerlink" href="#EntityProtocol.metadata"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.metadata-121"><a href="#EntityProtocol.metadata-121"><span class="linenos">121</span></a>    <span class="nd">@property</span>
-</span><span id="EntityProtocol.metadata-122"><a href="#EntityProtocol.metadata-122"><span class="linenos">122</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="EntityProtocol.metadata-123"><a href="#EntityProtocol.metadata-123"><span class="linenos">123</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="EntityProtocol.metadata-124"><a href="#EntityProtocol.metadata-124"><span class="linenos">124</span></a><span class="sd">        Optional extensible key-value metadata.</span>
-</span><span id="EntityProtocol.metadata-125"><a href="#EntityProtocol.metadata-125"><span class="linenos">125</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="EntityProtocol.metadata-126"><a href="#EntityProtocol.metadata-126"><span class="linenos">126</span></a>        <span class="o">...</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityProtocol.metadata-141"><a href="#EntityProtocol.metadata-141"><span class="linenos">141</span></a>    <span class="nd">@property</span>
+</span><span id="EntityProtocol.metadata-142"><a href="#EntityProtocol.metadata-142"><span class="linenos">142</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="EntityProtocol.metadata-143"><a href="#EntityProtocol.metadata-143"><span class="linenos">143</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.metadata-144"><a href="#EntityProtocol.metadata-144"><span class="linenos">144</span></a><span class="sd">        Optional extensible key-value metadata.</span>
+</span><span id="EntityProtocol.metadata-145"><a href="#EntityProtocol.metadata-145"><span class="linenos">145</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityProtocol.metadata-146"><a href="#EntityProtocol.metadata-146"><span class="linenos">146</span></a>        <span class="o">...</span>
 </span></pre></div>
 
 
@@ -617,20 +654,20 @@ Defaults to a uuid.uuid4().</p>
 
     </div>
     <a class="headerlink" href="#EntityMixin"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityMixin-129"><a href="#EntityMixin-129"><span class="linenos">129</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityMixin</span><span class="p">:</span>
-</span><span id="EntityMixin-130"><a href="#EntityMixin-130"><span class="linenos">130</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A mixin class that can be used to inject common shared behavior</span>
-</span><span id="EntityMixin-131"><a href="#EntityMixin-131"><span class="linenos">131</span></a><span class="sd">    of objects satisfying the EntityProtocol  into existing domain entities.</span>
-</span><span id="EntityMixin-132"><a href="#EntityMixin-132"><span class="linenos">132</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="EntityMixin-133"><a href="#EntityMixin-133"><span class="linenos">133</span></a>
-</span><span id="EntityMixin-134"><a href="#EntityMixin-134"><span class="linenos">134</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="EntityMixin-135"><a href="#EntityMixin-135"><span class="linenos">135</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="EntityMixin-136"><a href="#EntityMixin-136"><span class="linenos">136</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
-</span><span id="EntityMixin-137"><a href="#EntityMixin-137"><span class="linenos">137</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="EntityMixin-138"><a href="#EntityMixin-138"><span class="linenos">138</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
-</span><span id="EntityMixin-139"><a href="#EntityMixin-139"><span class="linenos">139</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
-</span><span id="EntityMixin-140"><a href="#EntityMixin-140"><span class="linenos">140</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
-</span><span id="EntityMixin-141"><a href="#EntityMixin-141"><span class="linenos">141</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-</span><span id="EntityMixin-142"><a href="#EntityMixin-142"><span class="linenos">142</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityMixin-149"><a href="#EntityMixin-149"><span class="linenos">149</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityMixin</span><span class="p">:</span>
+</span><span id="EntityMixin-150"><a href="#EntityMixin-150"><span class="linenos">150</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A mixin class that can be used to inject common shared behavior</span>
+</span><span id="EntityMixin-151"><a href="#EntityMixin-151"><span class="linenos">151</span></a><span class="sd">    of objects satisfying the EntityProtocol  into existing domain entities.</span>
+</span><span id="EntityMixin-152"><a href="#EntityMixin-152"><span class="linenos">152</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="EntityMixin-153"><a href="#EntityMixin-153"><span class="linenos">153</span></a>
+</span><span id="EntityMixin-154"><a href="#EntityMixin-154"><span class="linenos">154</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityMixin-155"><a href="#EntityMixin-155"><span class="linenos">155</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityMixin-156"><a href="#EntityMixin-156"><span class="linenos">156</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
+</span><span id="EntityMixin-157"><a href="#EntityMixin-157"><span class="linenos">157</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityMixin-158"><a href="#EntityMixin-158"><span class="linenos">158</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="EntityMixin-159"><a href="#EntityMixin-159"><span class="linenos">159</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
+</span><span id="EntityMixin-160"><a href="#EntityMixin-160"><span class="linenos">160</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
+</span><span id="EntityMixin-161"><a href="#EntityMixin-161"><span class="linenos">161</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</span><span id="EntityMixin-162"><a href="#EntityMixin-162"><span class="linenos">162</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
 </span></pre></div>
 
 
@@ -650,15 +687,15 @@ of objects satisfying the EntityProtocol  into existing domain entities.</p>
 
     </div>
     <a class="headerlink" href="#EntityMixin.summary"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityMixin.summary-134"><a href="#EntityMixin.summary-134"><span class="linenos">134</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="EntityMixin.summary-135"><a href="#EntityMixin.summary-135"><span class="linenos">135</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="EntityMixin.summary-136"><a href="#EntityMixin.summary-136"><span class="linenos">136</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
-</span><span id="EntityMixin.summary-137"><a href="#EntityMixin.summary-137"><span class="linenos">137</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="EntityMixin.summary-138"><a href="#EntityMixin.summary-138"><span class="linenos">138</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
-</span><span id="EntityMixin.summary-139"><a href="#EntityMixin.summary-139"><span class="linenos">139</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
-</span><span id="EntityMixin.summary-140"><a href="#EntityMixin.summary-140"><span class="linenos">140</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
-</span><span id="EntityMixin.summary-141"><a href="#EntityMixin.summary-141"><span class="linenos">141</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-</span><span id="EntityMixin.summary-142"><a href="#EntityMixin.summary-142"><span class="linenos">142</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityMixin.summary-154"><a href="#EntityMixin.summary-154"><span class="linenos">154</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityMixin.summary-155"><a href="#EntityMixin.summary-155"><span class="linenos">155</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityMixin.summary-156"><a href="#EntityMixin.summary-156"><span class="linenos">156</span></a><span class="sd">        Return a human-readable summary based on id and metadata.</span>
+</span><span id="EntityMixin.summary-157"><a href="#EntityMixin.summary-157"><span class="linenos">157</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="EntityMixin.summary-158"><a href="#EntityMixin.summary-158"><span class="linenos">158</span></a>        <span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="EntityMixin.summary-159"><a href="#EntityMixin.summary-159"><span class="linenos">159</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">:</span>
+</span><span id="EntityMixin.summary-160"><a href="#EntityMixin.summary-160"><span class="linenos">160</span></a>            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (no metadata)&quot;</span>
+</span><span id="EntityMixin.summary-161"><a href="#EntityMixin.summary-161"><span class="linenos">161</span></a>        <span class="n">formatted</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</span><span id="EntityMixin.summary-162"><a href="#EntityMixin.summary-162"><span class="linenos">162</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Element[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">] name = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="se">{{</span><span class="si">{</span><span class="n">formatted</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
 </span></pre></div>
 
 
@@ -679,59 +716,59 @@ of objects satisfying the EntityProtocol  into existing domain entities.</p>
 
     </div>
     <a class="headerlink" href="#EntityView"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView-145"><a href="#EntityView-145"><span class="linenos">145</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityView</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">):</span>
-</span><span id="EntityView-146"><a href="#EntityView-146"><span class="linenos">146</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="EntityView-147"><a href="#EntityView-147"><span class="linenos">147</span></a><span class="sd">    A view class that allows domain objects to behave like entities</span>
-</span><span id="EntityView-148"><a href="#EntityView-148"><span class="linenos">148</span></a>
-</span><span id="EntityView-149"><a href="#EntityView-149"><span class="linenos">149</span></a><span class="sd">    ```python</span>
-</span><span id="EntityView-150"><a href="#EntityView-150"><span class="linenos">150</span></a><span class="sd">    class Customer:</span>
-</span><span id="EntityView-151"><a href="#EntityView-151"><span class="linenos">151</span></a><span class="sd">        def __init__(self, id, name, segment):</span>
-</span><span id="EntityView-152"><a href="#EntityView-152"><span class="linenos">152</span></a><span class="sd">            self._id = id</span>
-</span><span id="EntityView-153"><a href="#EntityView-153"><span class="linenos">153</span></a><span class="sd">            self._name = name</span>
-</span><span id="EntityView-154"><a href="#EntityView-154"><span class="linenos">154</span></a><span class="sd">            self._segment = segment</span>
-</span><span id="EntityView-155"><a href="#EntityView-155"><span class="linenos">155</span></a>
-</span><span id="EntityView-156"><a href="#EntityView-156"><span class="linenos">156</span></a><span class="sd">        @property</span>
-</span><span id="EntityView-157"><a href="#EntityView-157"><span class="linenos">157</span></a><span class="sd">        def id(self):</span>
-</span><span id="EntityView-158"><a href="#EntityView-158"><span class="linenos">158</span></a><span class="sd">            return self._id</span>
-</span><span id="EntityView-159"><a href="#EntityView-159"><span class="linenos">159</span></a>
-</span><span id="EntityView-160"><a href="#EntityView-160"><span class="linenos">160</span></a><span class="sd">        @property</span>
-</span><span id="EntityView-161"><a href="#EntityView-161"><span class="linenos">161</span></a><span class="sd">        def name(self):</span>
-</span><span id="EntityView-162"><a href="#EntityView-162"><span class="linenos">162</span></a><span class="sd">            return self._name</span>
-</span><span id="EntityView-163"><a href="#EntityView-163"><span class="linenos">163</span></a>
-</span><span id="EntityView-164"><a href="#EntityView-164"><span class="linenos">164</span></a><span class="sd">        @property</span>
-</span><span id="EntityView-165"><a href="#EntityView-165"><span class="linenos">165</span></a><span class="sd">        def metadata(self):</span>
-</span><span id="EntityView-166"><a href="#EntityView-166"><span class="linenos">166</span></a><span class="sd">            return {&quot;segment&quot;: self._segment}</span>
-</span><span id="EntityView-167"><a href="#EntityView-167"><span class="linenos">167</span></a><span class="sd">    ```</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView-165"><a href="#EntityView-165"><span class="linenos">165</span></a><span class="k">class</span><span class="w"> </span><span class="nc">EntityView</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">):</span>
+</span><span id="EntityView-166"><a href="#EntityView-166"><span class="linenos">166</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="EntityView-167"><a href="#EntityView-167"><span class="linenos">167</span></a><span class="sd">    A view class that allows domain objects to behave like entities</span>
 </span><span id="EntityView-168"><a href="#EntityView-168"><span class="linenos">168</span></a>
-</span><span id="EntityView-169"><a href="#EntityView-169"><span class="linenos">169</span></a><span class="sd">    You can wrap it with `EntityView` to use it with presence-related infrastructure:</span>
-</span><span id="EntityView-170"><a href="#EntityView-170"><span class="linenos">170</span></a>
-</span><span id="EntityView-171"><a href="#EntityView-171"><span class="linenos">171</span></a><span class="sd">    ```python</span>
-</span><span id="EntityView-172"><a href="#EntityView-172"><span class="linenos">172</span></a><span class="sd">    customer = Customer(&quot;cust-001&quot;, &quot;Alice Chen&quot;, &quot;Enterprise&quot;)</span>
-</span><span id="EntityView-173"><a href="#EntityView-173"><span class="linenos">173</span></a><span class="sd">    entity = EntityView(customer)</span>
-</span><span id="EntityView-174"><a href="#EntityView-174"><span class="linenos">174</span></a>
-</span><span id="EntityView-175"><a href="#EntityView-175"><span class="linenos">175</span></a><span class="sd">    print(entity.id)        # cust-001</span>
-</span><span id="EntityView-176"><a href="#EntityView-176"><span class="linenos">176</span></a><span class="sd">    print(entity.name)      # Alice Chen</span>
-</span><span id="EntityView-177"><a href="#EntityView-177"><span class="linenos">177</span></a><span class="sd">    print(entity.metadata)  # {&#39;segment&#39;: &#39;Enterprise&#39;}</span>
-</span><span id="EntityView-178"><a href="#EntityView-178"><span class="linenos">178</span></a><span class="sd">    print(entity.summary()) # Element[cust-001] name = Alice Chen {segment=&#39;Enterprise&#39;}</span>
-</span><span id="EntityView-179"><a href="#EntityView-179"><span class="linenos">179</span></a><span class="sd">    ```</span>
-</span><span id="EntityView-180"><a href="#EntityView-180"><span class="linenos">180</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="EntityView-181"><a href="#EntityView-181"><span class="linenos">181</span></a>
-</span><span id="EntityView-182"><a href="#EntityView-182"><span class="linenos">182</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
+</span><span id="EntityView-169"><a href="#EntityView-169"><span class="linenos">169</span></a><span class="sd">    ```python</span>
+</span><span id="EntityView-170"><a href="#EntityView-170"><span class="linenos">170</span></a><span class="sd">    class Customer:</span>
+</span><span id="EntityView-171"><a href="#EntityView-171"><span class="linenos">171</span></a><span class="sd">        def __init__(self, id, name, segment):</span>
+</span><span id="EntityView-172"><a href="#EntityView-172"><span class="linenos">172</span></a><span class="sd">            self._id = id</span>
+</span><span id="EntityView-173"><a href="#EntityView-173"><span class="linenos">173</span></a><span class="sd">            self._name = name</span>
+</span><span id="EntityView-174"><a href="#EntityView-174"><span class="linenos">174</span></a><span class="sd">            self._segment = segment</span>
+</span><span id="EntityView-175"><a href="#EntityView-175"><span class="linenos">175</span></a>
+</span><span id="EntityView-176"><a href="#EntityView-176"><span class="linenos">176</span></a><span class="sd">        @property</span>
+</span><span id="EntityView-177"><a href="#EntityView-177"><span class="linenos">177</span></a><span class="sd">        def id(self):</span>
+</span><span id="EntityView-178"><a href="#EntityView-178"><span class="linenos">178</span></a><span class="sd">            return self._id</span>
+</span><span id="EntityView-179"><a href="#EntityView-179"><span class="linenos">179</span></a>
+</span><span id="EntityView-180"><a href="#EntityView-180"><span class="linenos">180</span></a><span class="sd">        @property</span>
+</span><span id="EntityView-181"><a href="#EntityView-181"><span class="linenos">181</span></a><span class="sd">        def name(self):</span>
+</span><span id="EntityView-182"><a href="#EntityView-182"><span class="linenos">182</span></a><span class="sd">            return self._name</span>
 </span><span id="EntityView-183"><a href="#EntityView-183"><span class="linenos">183</span></a>
-</span><span id="EntityView-184"><a href="#EntityView-184"><span class="linenos">184</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">):</span>
-</span><span id="EntityView-185"><a href="#EntityView-185"><span class="linenos">185</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
-</span><span id="EntityView-186"><a href="#EntityView-186"><span class="linenos">186</span></a>
-</span><span id="EntityView-187"><a href="#EntityView-187"><span class="linenos">187</span></a>    <span class="nd">@property</span>
-</span><span id="EntityView-188"><a href="#EntityView-188"><span class="linenos">188</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="EntityView-189"><a href="#EntityView-189"><span class="linenos">189</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
+</span><span id="EntityView-184"><a href="#EntityView-184"><span class="linenos">184</span></a><span class="sd">        @property</span>
+</span><span id="EntityView-185"><a href="#EntityView-185"><span class="linenos">185</span></a><span class="sd">        def metadata(self):</span>
+</span><span id="EntityView-186"><a href="#EntityView-186"><span class="linenos">186</span></a><span class="sd">            return {&quot;segment&quot;: self._segment}</span>
+</span><span id="EntityView-187"><a href="#EntityView-187"><span class="linenos">187</span></a><span class="sd">    ```</span>
+</span><span id="EntityView-188"><a href="#EntityView-188"><span class="linenos">188</span></a>
+</span><span id="EntityView-189"><a href="#EntityView-189"><span class="linenos">189</span></a><span class="sd">    You can wrap it with `EntityView` to use it with presence-related infrastructure:</span>
 </span><span id="EntityView-190"><a href="#EntityView-190"><span class="linenos">190</span></a>
-</span><span id="EntityView-191"><a href="#EntityView-191"><span class="linenos">191</span></a>    <span class="nd">@property</span>
-</span><span id="EntityView-192"><a href="#EntityView-192"><span class="linenos">192</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="EntityView-193"><a href="#EntityView-193"><span class="linenos">193</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
+</span><span id="EntityView-191"><a href="#EntityView-191"><span class="linenos">191</span></a><span class="sd">    ```python</span>
+</span><span id="EntityView-192"><a href="#EntityView-192"><span class="linenos">192</span></a><span class="sd">    customer = Customer(&quot;cust-001&quot;, &quot;Alice Chen&quot;, &quot;Enterprise&quot;)</span>
+</span><span id="EntityView-193"><a href="#EntityView-193"><span class="linenos">193</span></a><span class="sd">    entity = EntityView(customer)</span>
 </span><span id="EntityView-194"><a href="#EntityView-194"><span class="linenos">194</span></a>
-</span><span id="EntityView-195"><a href="#EntityView-195"><span class="linenos">195</span></a>    <span class="nd">@property</span>
-</span><span id="EntityView-196"><a href="#EntityView-196"><span class="linenos">196</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="EntityView-197"><a href="#EntityView-197"><span class="linenos">197</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
+</span><span id="EntityView-195"><a href="#EntityView-195"><span class="linenos">195</span></a><span class="sd">    print(entity.id)        # cust-001</span>
+</span><span id="EntityView-196"><a href="#EntityView-196"><span class="linenos">196</span></a><span class="sd">    print(entity.name)      # Alice Chen</span>
+</span><span id="EntityView-197"><a href="#EntityView-197"><span class="linenos">197</span></a><span class="sd">    print(entity.metadata)  # {&#39;segment&#39;: &#39;Enterprise&#39;}</span>
+</span><span id="EntityView-198"><a href="#EntityView-198"><span class="linenos">198</span></a><span class="sd">    print(entity.summary()) # Element[cust-001] name = Alice Chen {segment=&#39;Enterprise&#39;}</span>
+</span><span id="EntityView-199"><a href="#EntityView-199"><span class="linenos">199</span></a><span class="sd">    ```</span>
+</span><span id="EntityView-200"><a href="#EntityView-200"><span class="linenos">200</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="EntityView-201"><a href="#EntityView-201"><span class="linenos">201</span></a>
+</span><span id="EntityView-202"><a href="#EntityView-202"><span class="linenos">202</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
+</span><span id="EntityView-203"><a href="#EntityView-203"><span class="linenos">203</span></a>
+</span><span id="EntityView-204"><a href="#EntityView-204"><span class="linenos">204</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">):</span>
+</span><span id="EntityView-205"><a href="#EntityView-205"><span class="linenos">205</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
+</span><span id="EntityView-206"><a href="#EntityView-206"><span class="linenos">206</span></a>
+</span><span id="EntityView-207"><a href="#EntityView-207"><span class="linenos">207</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView-208"><a href="#EntityView-208"><span class="linenos">208</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityView-209"><a href="#EntityView-209"><span class="linenos">209</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
+</span><span id="EntityView-210"><a href="#EntityView-210"><span class="linenos">210</span></a>
+</span><span id="EntityView-211"><a href="#EntityView-211"><span class="linenos">211</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView-212"><a href="#EntityView-212"><span class="linenos">212</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="EntityView-213"><a href="#EntityView-213"><span class="linenos">213</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
+</span><span id="EntityView-214"><a href="#EntityView-214"><span class="linenos">214</span></a>
+</span><span id="EntityView-215"><a href="#EntityView-215"><span class="linenos">215</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView-216"><a href="#EntityView-216"><span class="linenos">216</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="EntityView-217"><a href="#EntityView-217"><span class="linenos">217</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
 </span></pre></div>
 
 
@@ -783,8 +820,8 @@ of objects satisfying the EntityProtocol  into existing domain entities.</p>
 
     </div>
     <a class="headerlink" href="#EntityView.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.__init__-184"><a href="#EntityView.__init__-184"><span class="linenos">184</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">):</span>
-</span><span id="EntityView.__init__-185"><a href="#EntityView.__init__-185"><span class="linenos">185</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.__init__-204"><a href="#EntityView.__init__-204"><span class="linenos">204</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">EntityProtocol</span><span class="p">):</span>
+</span><span id="EntityView.__init__-205"><a href="#EntityView.__init__-205"><span class="linenos">205</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">base</span>
 </span></pre></div>
 
 
@@ -800,9 +837,9 @@ of objects satisfying the EntityProtocol  into existing domain entities.</p>
 
     </div>
     <a class="headerlink" href="#EntityView.id"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.id-187"><a href="#EntityView.id-187"><span class="linenos">187</span></a>    <span class="nd">@property</span>
-</span><span id="EntityView.id-188"><a href="#EntityView.id-188"><span class="linenos">188</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="EntityView.id-189"><a href="#EntityView.id-189"><span class="linenos">189</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.id-207"><a href="#EntityView.id-207"><span class="linenos">207</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView.id-208"><a href="#EntityView.id-208"><span class="linenos">208</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="EntityView.id-209"><a href="#EntityView.id-209"><span class="linenos">209</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">id</span>
 </span></pre></div>
 
 
@@ -818,9 +855,9 @@ of objects satisfying the EntityProtocol  into existing domain entities.</p>
 
     </div>
     <a class="headerlink" href="#EntityView.name"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.name-191"><a href="#EntityView.name-191"><span class="linenos">191</span></a>    <span class="nd">@property</span>
-</span><span id="EntityView.name-192"><a href="#EntityView.name-192"><span class="linenos">192</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="EntityView.name-193"><a href="#EntityView.name-193"><span class="linenos">193</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.name-211"><a href="#EntityView.name-211"><span class="linenos">211</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView.name-212"><a href="#EntityView.name-212"><span class="linenos">212</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="EntityView.name-213"><a href="#EntityView.name-213"><span class="linenos">213</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">name</span>
 </span></pre></div>
 
 
@@ -836,9 +873,9 @@ of objects satisfying the EntityProtocol  into existing domain entities.</p>
 
     </div>
     <a class="headerlink" href="#EntityView.metadata"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.metadata-195"><a href="#EntityView.metadata-195"><span class="linenos">195</span></a>    <span class="nd">@property</span>
-</span><span id="EntityView.metadata-196"><a href="#EntityView.metadata-196"><span class="linenos">196</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="EntityView.metadata-197"><a href="#EntityView.metadata-197"><span class="linenos">197</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EntityView.metadata-215"><a href="#EntityView.metadata-215"><span class="linenos">215</span></a>    <span class="nd">@property</span>
+</span><span id="EntityView.metadata-216"><a href="#EntityView.metadata-216"><span class="linenos">216</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="EntityView.metadata-217"><a href="#EntityView.metadata-217"><span class="linenos">217</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span><span class="o">.</span><span class="n">metadata</span>
 </span></pre></div>
 
 
@@ -866,56 +903,56 @@ of objects satisfying the EntityProtocol  into existing domain entities.</p>
 
     </div>
     <a class="headerlink" href="#Entity"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity-200"><a href="#Entity-200"><span class="linenos">200</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Entity</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">,</span> <span class="n">EntityProtocol</span><span class="p">):</span>
-</span><span id="Entity-201"><a href="#Entity-201"><span class="linenos">201</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A default implementation of fully functional entity.</span>
-</span><span id="Entity-202"><a href="#Entity-202"><span class="linenos">202</span></a>
-</span><span id="Entity-203"><a href="#Entity-203"><span class="linenos">203</span></a><span class="sd">    ```python</span>
-</span><span id="Entity-204"><a href="#Entity-204"><span class="linenos">204</span></a><span class="sd">    elements = [</span>
-</span><span id="Entity-205"><a href="#Entity-205"><span class="linenos">205</span></a><span class="sd">        Entity(id=&quot;cust-001&quot;, name=&quot;Alice Chen&quot;, metadata={&quot;type&quot;: &quot;customer&quot;}),</span>
-</span><span id="Entity-206"><a href="#Entity-206"><span class="linenos">206</span></a><span class="sd">        Entity(id=&quot;cust-002&quot;, name=&quot;Bob Gupta&quot;, metadata={&quot;type&quot;: &quot;customer&quot;}),</span>
-</span><span id="Entity-207"><a href="#Entity-207"><span class="linenos">207</span></a><span class="sd">        Entity(id=&quot;pros-003&quot;, name=&quot;Dana Rivera&quot;, metadata={&quot;type&quot;: &quot;prospect&quot;}),</span>
-</span><span id="Entity-208"><a href="#Entity-208"><span class="linenos">208</span></a><span class="sd">    ]</span>
-</span><span id="Entity-209"><a href="#Entity-209"><span class="linenos">209</span></a><span class="sd">    boundaries = [</span>
-</span><span id="Entity-210"><a href="#Entity-210"><span class="linenos">210</span></a><span class="sd">        Entity(id=&quot;seg-enterprise&quot;, name=&quot;Enterprise Segment&quot;, metadata={&quot;region&quot;: &quot;NA&quot;}),</span>
-</span><span id="Entity-211"><a href="#Entity-211"><span class="linenos">211</span></a><span class="sd">        Entity(id=&quot;seg-smb&quot;, name=&quot;SMB Segment&quot;, metadata={&quot;region&quot;: &quot;EMEA&quot;}),</span>
-</span><span id="Entity-212"><a href="#Entity-212"><span class="linenos">212</span></a><span class="sd">        Entity(id=&quot;seg-dormant&quot;, name=&quot;Flight Risk&quot;, metadata={&quot;status&quot;: &quot;inactive&quot;, &quot;last login&quot;: &quot;2024-06-01&quot;}),</span>
-</span><span id="Entity-213"><a href="#Entity-213"><span class="linenos">213</span></a><span class="sd">        Entity(id=&quot;seg-prospect&quot;, name=&quot;Active Prospects&quot;, metadata={&quot;status&quot;: &quot;demo given&quot;})</span>
-</span><span id="Entity-214"><a href="#Entity-214"><span class="linenos">214</span></a><span class="sd">    ]</span>
-</span><span id="Entity-215"><a href="#Entity-215"><span class="linenos">215</span></a>
-</span><span id="Entity-216"><a href="#Entity-216"><span class="linenos">216</span></a><span class="sd">    for e in elements:</span>
-</span><span id="Entity-217"><a href="#Entity-217"><span class="linenos">217</span></a><span class="sd">        print(f&quot;Element: {e.summary()}&quot;)</span>
-</span><span id="Entity-218"><a href="#Entity-218"><span class="linenos">218</span></a>
-</span><span id="Entity-219"><a href="#Entity-219"><span class="linenos">219</span></a><span class="sd">    for b in boundaries:</span>
-</span><span id="Entity-220"><a href="#Entity-220"><span class="linenos">220</span></a><span class="sd">        print(f&quot;Boundary: {b.summary()}&quot;)</span>
-</span><span id="Entity-221"><a href="#Entity-221"><span class="linenos">221</span></a><span class="sd">    ```</span>
-</span><span id="Entity-222"><a href="#Entity-222"><span class="linenos">222</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Entity-223"><a href="#Entity-223"><span class="linenos">223</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
-</span><span id="Entity-224"><a href="#Entity-224"><span class="linenos">224</span></a>
-</span><span id="Entity-225"><a href="#Entity-225"><span class="linenos">225</span></a>    <span class="c1"># noinspection PyProtocol</span>
-</span><span id="Entity-226"><a href="#Entity-226"><span class="linenos">226</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="Entity-227"><a href="#Entity-227"><span class="linenos">227</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
-</span><span id="Entity-228"><a href="#Entity-228"><span class="linenos">228</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
-</span><span id="Entity-229"><a href="#Entity-229"><span class="linenos">229</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
-</span><span id="Entity-230"><a href="#Entity-230"><span class="linenos">230</span></a>
-</span><span id="Entity-231"><a href="#Entity-231"><span class="linenos">231</span></a>    <span class="nd">@property</span>
-</span><span id="Entity-232"><a href="#Entity-232"><span class="linenos">232</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Entity-233"><a href="#Entity-233"><span class="linenos">233</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
-</span><span id="Entity-234"><a href="#Entity-234"><span class="linenos">234</span></a>
-</span><span id="Entity-235"><a href="#Entity-235"><span class="linenos">235</span></a>    <span class="c1"># noinspection PyProtocol</span>
-</span><span id="Entity-236"><a href="#Entity-236"><span class="linenos">236</span></a>    <span class="nd">@property</span>
-</span><span id="Entity-237"><a href="#Entity-237"><span class="linenos">237</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Entity-238"><a href="#Entity-238"><span class="linenos">238</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
-</span><span id="Entity-239"><a href="#Entity-239"><span class="linenos">239</span></a>
-</span><span id="Entity-240"><a href="#Entity-240"><span class="linenos">240</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-</span><span id="Entity-241"><a href="#Entity-241"><span class="linenos">241</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Entity-242"><a href="#Entity-242"><span class="linenos">242</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
-</span><span id="Entity-243"><a href="#Entity-243"><span class="linenos">243</span></a>
-</span><span id="Entity-244"><a href="#Entity-244"><span class="linenos">244</span></a>    <span class="nd">@property</span>
-</span><span id="Entity-245"><a href="#Entity-245"><span class="linenos">245</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="Entity-246"><a href="#Entity-246"><span class="linenos">246</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
-</span><span id="Entity-247"><a href="#Entity-247"><span class="linenos">247</span></a>
-</span><span id="Entity-248"><a href="#Entity-248"><span class="linenos">248</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Entity-249"><a href="#Entity-249"><span class="linenos">249</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity-220"><a href="#Entity-220"><span class="linenos">220</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Entity</span><span class="p">(</span><span class="n">EntityMixin</span><span class="p">,</span> <span class="n">EntityProtocol</span><span class="p">):</span>
+</span><span id="Entity-221"><a href="#Entity-221"><span class="linenos">221</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A default implementation of fully functional entity.</span>
+</span><span id="Entity-222"><a href="#Entity-222"><span class="linenos">222</span></a>
+</span><span id="Entity-223"><a href="#Entity-223"><span class="linenos">223</span></a><span class="sd">    ```python</span>
+</span><span id="Entity-224"><a href="#Entity-224"><span class="linenos">224</span></a><span class="sd">    elements = [</span>
+</span><span id="Entity-225"><a href="#Entity-225"><span class="linenos">225</span></a><span class="sd">        Entity(id=&quot;cust-001&quot;, name=&quot;Alice Chen&quot;, metadata={&quot;type&quot;: &quot;customer&quot;}),</span>
+</span><span id="Entity-226"><a href="#Entity-226"><span class="linenos">226</span></a><span class="sd">        Entity(id=&quot;cust-002&quot;, name=&quot;Bob Gupta&quot;, metadata={&quot;type&quot;: &quot;customer&quot;}),</span>
+</span><span id="Entity-227"><a href="#Entity-227"><span class="linenos">227</span></a><span class="sd">        Entity(id=&quot;pros-003&quot;, name=&quot;Dana Rivera&quot;, metadata={&quot;type&quot;: &quot;prospect&quot;}),</span>
+</span><span id="Entity-228"><a href="#Entity-228"><span class="linenos">228</span></a><span class="sd">    ]</span>
+</span><span id="Entity-229"><a href="#Entity-229"><span class="linenos">229</span></a><span class="sd">    boundaries = [</span>
+</span><span id="Entity-230"><a href="#Entity-230"><span class="linenos">230</span></a><span class="sd">        Entity(id=&quot;seg-enterprise&quot;, name=&quot;Enterprise Segment&quot;, metadata={&quot;region&quot;: &quot;NA&quot;}),</span>
+</span><span id="Entity-231"><a href="#Entity-231"><span class="linenos">231</span></a><span class="sd">        Entity(id=&quot;seg-smb&quot;, name=&quot;SMB Segment&quot;, metadata={&quot;region&quot;: &quot;EMEA&quot;}),</span>
+</span><span id="Entity-232"><a href="#Entity-232"><span class="linenos">232</span></a><span class="sd">        Entity(id=&quot;seg-dormant&quot;, name=&quot;Flight Risk&quot;, metadata={&quot;status&quot;: &quot;inactive&quot;, &quot;last login&quot;: &quot;2024-06-01&quot;}),</span>
+</span><span id="Entity-233"><a href="#Entity-233"><span class="linenos">233</span></a><span class="sd">        Entity(id=&quot;seg-prospect&quot;, name=&quot;Active Prospects&quot;, metadata={&quot;status&quot;: &quot;demo given&quot;})</span>
+</span><span id="Entity-234"><a href="#Entity-234"><span class="linenos">234</span></a><span class="sd">    ]</span>
+</span><span id="Entity-235"><a href="#Entity-235"><span class="linenos">235</span></a>
+</span><span id="Entity-236"><a href="#Entity-236"><span class="linenos">236</span></a><span class="sd">    for e in elements:</span>
+</span><span id="Entity-237"><a href="#Entity-237"><span class="linenos">237</span></a><span class="sd">        print(f&quot;Element: {e.summary()}&quot;)</span>
+</span><span id="Entity-238"><a href="#Entity-238"><span class="linenos">238</span></a>
+</span><span id="Entity-239"><a href="#Entity-239"><span class="linenos">239</span></a><span class="sd">    for b in boundaries:</span>
+</span><span id="Entity-240"><a href="#Entity-240"><span class="linenos">240</span></a><span class="sd">        print(f&quot;Boundary: {b.summary()}&quot;)</span>
+</span><span id="Entity-241"><a href="#Entity-241"><span class="linenos">241</span></a><span class="sd">    ```</span>
+</span><span id="Entity-242"><a href="#Entity-242"><span class="linenos">242</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="Entity-243"><a href="#Entity-243"><span class="linenos">243</span></a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">)</span>
+</span><span id="Entity-244"><a href="#Entity-244"><span class="linenos">244</span></a>
+</span><span id="Entity-245"><a href="#Entity-245"><span class="linenos">245</span></a>    <span class="c1"># noinspection PyProtocol</span>
+</span><span id="Entity-246"><a href="#Entity-246"><span class="linenos">246</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Entity-247"><a href="#Entity-247"><span class="linenos">247</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+</span><span id="Entity-248"><a href="#Entity-248"><span class="linenos">248</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+</span><span id="Entity-249"><a href="#Entity-249"><span class="linenos">249</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
+</span><span id="Entity-250"><a href="#Entity-250"><span class="linenos">250</span></a>
+</span><span id="Entity-251"><a href="#Entity-251"><span class="linenos">251</span></a>    <span class="nd">@property</span>
+</span><span id="Entity-252"><a href="#Entity-252"><span class="linenos">252</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Entity-253"><a href="#Entity-253"><span class="linenos">253</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+</span><span id="Entity-254"><a href="#Entity-254"><span class="linenos">254</span></a>
+</span><span id="Entity-255"><a href="#Entity-255"><span class="linenos">255</span></a>    <span class="c1"># noinspection PyProtocol</span>
+</span><span id="Entity-256"><a href="#Entity-256"><span class="linenos">256</span></a>    <span class="nd">@property</span>
+</span><span id="Entity-257"><a href="#Entity-257"><span class="linenos">257</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Entity-258"><a href="#Entity-258"><span class="linenos">258</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+</span><span id="Entity-259"><a href="#Entity-259"><span class="linenos">259</span></a>
+</span><span id="Entity-260"><a href="#Entity-260"><span class="linenos">260</span></a>    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="Entity-261"><a href="#Entity-261"><span class="linenos">261</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Entity-262"><a href="#Entity-262"><span class="linenos">262</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+</span><span id="Entity-263"><a href="#Entity-263"><span class="linenos">263</span></a>
+</span><span id="Entity-264"><a href="#Entity-264"><span class="linenos">264</span></a>    <span class="nd">@property</span>
+</span><span id="Entity-265"><a href="#Entity-265"><span class="linenos">265</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="Entity-266"><a href="#Entity-266"><span class="linenos">266</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
+</span><span id="Entity-267"><a href="#Entity-267"><span class="linenos">267</span></a>
+</span><span id="Entity-268"><a href="#Entity-268"><span class="linenos">268</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Entity-269"><a href="#Entity-269"><span class="linenos">269</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -954,10 +991,10 @@ of objects satisfying the EntityProtocol  into existing domain entities.</p>
 
     </div>
     <a class="headerlink" href="#Entity.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.__init__-226"><a href="#Entity.__init__-226"><span class="linenos">226</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="Entity.__init__-227"><a href="#Entity.__init__-227"><span class="linenos">227</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
-</span><span id="Entity.__init__-228"><a href="#Entity.__init__-228"><span class="linenos">228</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
-</span><span id="Entity.__init__-229"><a href="#Entity.__init__-229"><span class="linenos">229</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.__init__-246"><a href="#Entity.__init__-246"><span class="linenos">246</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Entity.__init__-247"><a href="#Entity.__init__-247"><span class="linenos">247</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">id</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+</span><span id="Entity.__init__-248"><a href="#Entity.__init__-248"><span class="linenos">248</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+</span><span id="Entity.__init__-249"><a href="#Entity.__init__-249"><span class="linenos">249</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
 </span></pre></div>
 
 
@@ -973,9 +1010,9 @@ of objects satisfying the EntityProtocol  into existing domain entities.</p>
 
     </div>
     <a class="headerlink" href="#Entity.id"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.id-231"><a href="#Entity.id-231"><span class="linenos">231</span></a>    <span class="nd">@property</span>
-</span><span id="Entity.id-232"><a href="#Entity.id-232"><span class="linenos">232</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Entity.id-233"><a href="#Entity.id-233"><span class="linenos">233</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.id-251"><a href="#Entity.id-251"><span class="linenos">251</span></a>    <span class="nd">@property</span>
+</span><span id="Entity.id-252"><a href="#Entity.id-252"><span class="linenos">252</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Entity.id-253"><a href="#Entity.id-253"><span class="linenos">253</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
 </span></pre></div>
 
 
@@ -995,9 +1032,9 @@ Defaults to a uuid.uuid4().</p>
 
     </div>
     <a class="headerlink" href="#Entity.name"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.name-236"><a href="#Entity.name-236"><span class="linenos">236</span></a>    <span class="nd">@property</span>
-</span><span id="Entity.name-237"><a href="#Entity.name-237"><span class="linenos">237</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Entity.name-238"><a href="#Entity.name-238"><span class="linenos">238</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.name-256"><a href="#Entity.name-256"><span class="linenos">256</span></a>    <span class="nd">@property</span>
+</span><span id="Entity.name-257"><a href="#Entity.name-257"><span class="linenos">257</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Entity.name-258"><a href="#Entity.name-258"><span class="linenos">258</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
 </span></pre></div>
 
 
@@ -1015,9 +1052,9 @@ Defaults to a uuid.uuid4().</p>
 
     </div>
     <a class="headerlink" href="#Entity.metadata"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.metadata-244"><a href="#Entity.metadata-244"><span class="linenos">244</span></a>    <span class="nd">@property</span>
-</span><span id="Entity.metadata-245"><a href="#Entity.metadata-245"><span class="linenos">245</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="Entity.metadata-246"><a href="#Entity.metadata-246"><span class="linenos">246</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Entity.metadata-264"><a href="#Entity.metadata-264"><span class="linenos">264</span></a>    <span class="nd">@property</span>
+</span><span id="Entity.metadata-265"><a href="#Entity.metadata-265"><span class="linenos">265</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="Entity.metadata-266"><a href="#Entity.metadata-266"><span class="linenos">266</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
 </span></pre></div>
 
 
