@@ -1,107 +1,77 @@
----
-title: "Foundations of Presence Calculus: Signals, Measures, and Assertions"
-author: "Presence Calculus Project"
-date: 2025-05-29
----
+# Mathematical Foundations of the Presence Calculus
 
-# Overview
+**Dr. Krishna Kumar**  
+*The Polaris Advisor Program*
 
-This document provides a formal foundation for the Presence Calculus. It distinguishes between signals and presences, defines presence assertions and measures, and derives the presence invariant from measure-theoretic principles. It also captures the epistemic stance of the framework and the dimensional consistency of its metrics.
+**© 2025 Dr. Krishna Kumar**  
+**License:** SPDX-License-Identifier: MIT
 
----
+## Measure Structure on Time
 
-# 1. Signals and Integrability
+We assume that all reasoning takes place over the real line $\mathbb{R}$ equipped with the Borel $\sigma$-algebra $\mathcal{B}$ and the Lebesgue measure $\lambda$. This gives us a standard measurable space $(\mathbb{R}, \mathcal{B}, \lambda)$.
 
-A **signal** is a measurable, real-valued function of time defined over element–boundary pairs:
+All presence reasoning in the Presence Calculus is grounded in this measurable structure. When working with unbounded intervals or domains that may extend to $\pm\infty$, we consider the extended real line $\overline{\mathbb{R}} = \mathbb{R} \cup \{ -\infty, +\infty \}$. While $\lambda$ is not defined on all subsets of $\overline{\mathbb{R}}$, integration on $[a, +\infty)$ or $(-\infty, b]$ is well-defined for functions that decay appropriately.
 
-$$
-F: (e, b, t) \mapsto \mathbb{R}_{\ge 0}
-$$
+## Domain Signals and Measurability
 
-A signal must be **Lebesgue integrable** over any finite time interval $[t_0, t_1)$. That is:
+Let
 
 $$
-\int_{t_0}^{t_1} F(e, b, t) \, dt < \infty
+F : (e, b, t) \to \mathbb{R}_{\geq 0}
 $$
 
-This ensures that a signal can induce a **presence measure** over time.
+be a function that assigns a non-negative value to each element--boundary--time triple.
+This is the general form of a domain signal in the Presence Calculus.
 
----
+To define a presence over such a function, we require that $F$ induces a measure over $\mathbb{R}$:
+that is, for any fixed pair $(e, b)$, the function $t \mapsto F(e, b, t)$ must be measurable with respect
+to the Borel $\sigma$-algebra $\mathcal{B}$, and Lebesgue integrable over all finite intervals.
 
-# 2. Presence and Mass
-
-Given an integrable signal $F$, we define the **presence mass** over an interval $A \subseteq \mathbb{R}$ as:
-
-$$
-\mu_{e,b}(A) = \int_A F(e, b, t) \, dt
-$$
-
-This presence measure is **finitely additive** and defined over a topology of time intervals (typically half-open intervals). Presence is the **first-order metric** induced by the signal.
-
----
-
-# 3. Presence Assertions
-
-A **presence assertion** is an epistemic claim about presence over a bounded interval:
+This guarantees that for any interval $[t_0, t_1) \subset \mathbb{R}$, the integral
 
 $$
-p = (e, b, [t_0, t_1), m)
+\mu(e, b, [t_0, t_1)) = \int_{t_0}^{t_1} F(e, b, t)\, dt
 $$
 
-where $m = \mu_{e,b}([t_0, t_1))$. Assertions are observer-relative and form the basic units of knowledge in the system.
+is well-defined and finite.
 
----
+We do not require that $F$ be jointly measurable over $(e, b, t)$, nor that $E$ and $B$ carry their own $\sigma$-algebras.
+It is sufficient that $F(e, b, \cdot)$ be measurable for each fixed $(e, b)$.
 
-# 4. The Presence Invariant
+## Finite Additivity and Induced Measures
 
-Let $W \subset \mathbb{R}$ be a finite observation window. Define:
-
-- $M(W) = \sum_i \mu_i(W \cap I_i)$ — total presence mass
-- $N(W)$ — number of presence assertions active in $W$
-- $|W|$ — length of the interval
-
-We derive:
-
-- **Average density**: $H(W) = \frac{M(W)}{|W|}$
-- **Average mass per presence**: $G(W) = \frac{M(W)}{N(W)}$
-- **Incidence rate**: $\lambda(W) = \frac{N(W)}{|W|}$
-
-Then:
+For each fixed $(e, b)$, the function $t \mapsto F(e, b, t)$ induces a measure on $\mathbb{R}$ via:
 
 $$
-H(W) = \lambda(W) \cdot G(W)
+\mu_{e,b}(A) = \int_A F(e, b, t)\, dt \quad \text{for all } A \in \mathcal{B}
 $$
 
-This is the generalized form of Little’s Law in the Presence Calculus.
+This measure $\mu_{e,b}$ is finitely additive over measurable sets:
+if $A$ and $B$ are disjoint and measurable,
 
----
+$$
+\mu_{e,b}(A \cup B) = \mu_{e,b}(A) + \mu_{e,b}(B)
+$$
 
-# 5. Epistemic Foundations
+This follows from standard properties of the Lebesgue integral.
 
-A **system** is the evolving set of presence assertions about a domain. Its dynamics are not defined by state transitions, but by changes in the assertion set:
+## Topology of Time from Presence Intervals
 
-- As assertions are made, revised, or withdrawn, the system evolves.
-- Higher-order metrics such as residence time and incidence rate reflect this evolution.
-- Presences are **phenomenological**: they represent experienced structure, not just raw data.
+Presence intervals are taken to be half-open intervals of the form $[t_0, t_1) \subset \mathbb{R}$.
+The collection of all such intervals forms a basis:
 
----
+$$
+\mathcal{B}_T = \{ [a, b) \mid a < b \in \mathbb{R} \}
+$$
 
-# 6. Dimensional Analysis
+This basis generates a topology $\tau$ on $\mathbb{R}$ via:
 
-| Quantity          | Formula                           | Units              |
-|------------------|------------------------------------|---------------------|
-| Signal $f(t)$    | –                                  | dollars             |
-| Presence Mass $m$| $\int f(t)\,dt$                    | dollar-seconds      |
-| Density $H$      | $M(W)/|W|$                         | dollars             |
-| G                | $M(W)/N(W)$                        | dollars             |
-| $\lambda$        | $N(W)/|W|$                         | 1/sec (dimensionless) |
+$$
+\tau = \left\{ \bigcup \mathcal{F} \mid \mathcal{F} \subset \mathcal{B}_T \right\}
+$$
 
----
+This topology is equivalent to the standard topology on $\mathbb{R}$, since open intervals $(a, b)$ and half-open intervals $[a, b)$ generate the same collection of open sets under union.
 
-# 7. Final Remarks
-
-- Only integrable signals induce valid presences.
-- Presences are finite samples of signals and provide the substrate for reasoning about flow.
-- The invariant $H = \lambda \cdot G$ is a consistency condition that arises from this structure.
-
-This measure-theoretic foundation enables principled modeling of temporal systems where flow, accumulation, and knowledge are central.
+This topological structure supports the finite additivity of presence mass by ensuring that unions,
+intersections, and partitions of presence intervals correspond to open sets in this topology,
+allowing the induced measures $\mu_{e,b}$ to be consistently defined across composed regions of time.

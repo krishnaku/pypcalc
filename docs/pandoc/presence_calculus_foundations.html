@@ -4,9 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="author" content="Presence Calculus Project" />
-  <meta name="dcterms.date" content="2025-05-29" />
-  <title>Foundations of Presence Calculus: Signals, Measures, and Assertions</title>
+  <title>presence_calculus_foundations</title>
   <style>
     html {
       color: #1a1a1a;
@@ -173,150 +171,105 @@
   type="text/javascript"></script>
 </head>
 <body>
-<header id="title-block-header">
-<h1 class="title">Foundations of Presence Calculus: Signals, Measures,
-and Assertions</h1>
-<p class="author">Presence Calculus Project</p>
-<p class="date">2025-05-29</p>
-</header>
-<h1 id="overview">Overview</h1>
-<p>This document provides a formal foundation for the Presence Calculus.
-It distinguishes between signals and presences, defines presence
-assertions and measures, and derives the presence invariant from
-measure-theoretic principles. It also captures the epistemic stance of
-the framework and the dimensional consistency of its metrics.</p>
-<hr />
-<h1 id="signals-and-integrability">1. Signals and Integrability</h1>
-<p>A <strong>signal</strong> is a measurable, real-valued function of
-time defined over element–boundary pairs:</p>
+<h1 id="mathematical-foundations-of-the-presence-calculus">Mathematical
+Foundations of the Presence Calculus</h1>
+<p><strong>Dr. Krishna Kumar</strong><br />
+<em>The Polaris Advisor Program</em></p>
+<p><strong>© 2025 Dr. Krishna Kumar</strong><br />
+<strong>License:</strong> SPDX-License-Identifier: MIT</p>
+<h2 id="measure-structure-on-time">Measure Structure on Time</h2>
+<p>We assume that all reasoning takes place over the real line <span
+class="math inline">\(\mathbb{R}\)</span> equipped with the Borel <span
+class="math inline">\(\sigma\)</span>-algebra <span
+class="math inline">\(\mathcal{B}\)</span> and the Lebesgue measure
+<span class="math inline">\(\lambda\)</span>. This gives us a standard
+measurable space <span class="math inline">\((\mathbb{R}, \mathcal{B},
+\lambda)\)</span>.</p>
+<p>All presence reasoning in the Presence Calculus is grounded in this
+measurable structure. When working with unbounded intervals or domains
+that may extend to <span class="math inline">\(\pm\infty\)</span>, we
+consider the extended real line <span
+class="math inline">\(\overline{\mathbb{R}} = \mathbb{R} \cup \{
+-\infty, +\infty \}\)</span>. While <span
+class="math inline">\(\lambda\)</span> is not defined on all subsets of
+<span class="math inline">\(\overline{\mathbb{R}}\)</span>, integration
+on <span class="math inline">\([a, +\infty)\)</span> or <span
+class="math inline">\((-\infty, b]\)</span> is well-defined for
+functions that decay appropriately.</p>
+<h2 id="domain-signals-and-measurability">Domain Signals and
+Measurability</h2>
+<p>Let</p>
 <p><span class="math display">\[
-F: (e, b, t) \mapsto \mathbb{R}_{\ge 0}
+F : (e, b, t) \to \mathbb{R}_{\geq 0}
 \]</span></p>
-<p>A signal must be <strong>Lebesgue integrable</strong> over any finite
-time interval <span class="math inline">\([t_0, t_1)\)</span>. That
-is:</p>
+<p>be a function that assigns a non-negative value to each
+element–boundary–time triple. This is the general form of a domain
+signal in the Presence Calculus.</p>
+<p>To define a presence over such a function, we require that <span
+class="math inline">\(F\)</span> induces a measure over <span
+class="math inline">\(\mathbb{R}\)</span>: that is, for any fixed pair
+<span class="math inline">\((e, b)\)</span>, the function <span
+class="math inline">\(t \mapsto F(e, b, t)\)</span> must be measurable
+with respect to the Borel <span
+class="math inline">\(\sigma\)</span>-algebra <span
+class="math inline">\(\mathcal{B}\)</span>, and Lebesgue integrable over
+all finite intervals.</p>
+<p>This guarantees that for any interval <span
+class="math inline">\([t_0, t_1) \subset \mathbb{R}\)</span>, the
+integral</p>
 <p><span class="math display">\[
-\int_{t_0}^{t_1} F(e, b, t) \, dt &lt; \infty
+\mu(e, b, [t_0, t_1)) = \int_{t_0}^{t_1} F(e, b, t)\, dt
 \]</span></p>
-<p>This ensures that a signal can induce a <strong>presence
-measure</strong> over time.</p>
-<hr />
-<h1 id="presence-and-mass">2. Presence and Mass</h1>
-<p>Given an integrable signal <span class="math inline">\(F\)</span>, we
-define the <strong>presence mass</strong> over an interval <span
-class="math inline">\(A \subseteq \mathbb{R}\)</span> as:</p>
+<p>is well-defined and finite.</p>
+<p>We do not require that <span class="math inline">\(F\)</span> be
+jointly measurable over <span class="math inline">\((e, b, t)\)</span>,
+nor that <span class="math inline">\(E\)</span> and <span
+class="math inline">\(B\)</span> carry their own <span
+class="math inline">\(\sigma\)</span>-algebras. It is sufficient that
+<span class="math inline">\(F(e, b, \cdot)\)</span> be measurable for
+each fixed <span class="math inline">\((e, b)\)</span>.</p>
+<h2 id="finite-additivity-and-induced-measures">Finite Additivity and
+Induced Measures</h2>
+<p>For each fixed <span class="math inline">\((e, b)\)</span>, the
+function <span class="math inline">\(t \mapsto F(e, b, t)\)</span>
+induces a measure on <span class="math inline">\(\mathbb{R}\)</span>
+via:</p>
 <p><span class="math display">\[
-\mu_{e,b}(A) = \int_A F(e, b, t) \, dt
+\mu_{e,b}(A) = \int_A F(e, b, t)\, dt \quad \text{for all } A \in
+\mathcal{B}
 \]</span></p>
-<p>This presence measure is <strong>finitely additive</strong> and
-defined over a topology of time intervals (typically half-open
-intervals). Presence is the <strong>first-order metric</strong> induced
-by the signal.</p>
-<hr />
-<h1 id="presence-assertions">3. Presence Assertions</h1>
-<p>A <strong>presence assertion</strong> is an epistemic claim about
-presence over a bounded interval:</p>
+<p>This measure <span class="math inline">\(\mu_{e,b}\)</span> is
+finitely additive over measurable sets: if <span
+class="math inline">\(A\)</span> and <span
+class="math inline">\(B\)</span> are disjoint and measurable,</p>
 <p><span class="math display">\[
-p = (e, b, [t_0, t_1), m)
+\mu_{e,b}(A \cup B) = \mu_{e,b}(A) + \mu_{e,b}(B)
 \]</span></p>
-<p>where <span class="math inline">\(m = \mu_{e,b}([t_0, t_1))\)</span>.
-Assertions are observer-relative and form the basic units of knowledge
-in the system.</p>
-<hr />
-<h1 id="the-presence-invariant">4. The Presence Invariant</h1>
-<p>Let <span class="math inline">\(W \subset \mathbb{R}\)</span> be a
-finite observation window. Define:</p>
-<ul>
-<li><span class="math inline">\(M(W) = \sum_i \mu_i(W \cap I_i)\)</span>
-— total presence mass</li>
-<li><span class="math inline">\(N(W)\)</span> — number of presence
-assertions active in <span class="math inline">\(W\)</span></li>
-<li><span class="math inline">\(|W|\)</span> — length of the
-interval</li>
-</ul>
-<p>We derive:</p>
-<ul>
-<li><strong>Average density</strong>: <span class="math inline">\(H(W) =
-\frac{M(W)}{|W|}\)</span></li>
-<li><strong>Average mass per presence</strong>: <span
-class="math inline">\(G(W) = \frac{M(W)}{N(W)}\)</span></li>
-<li><strong>Incidence rate</strong>: <span
-class="math inline">\(\lambda(W) = \frac{N(W)}{|W|}\)</span></li>
-</ul>
-<p>Then:</p>
+<p>This follows from standard properties of the Lebesgue integral.</p>
+<h2 id="topology-of-time-from-presence-intervals">Topology of Time from
+Presence Intervals</h2>
+<p>Presence intervals are taken to be half-open intervals of the form
+<span class="math inline">\([t_0, t_1) \subset \mathbb{R}\)</span>. The
+collection of all such intervals forms a basis:</p>
 <p><span class="math display">\[
-H(W) = \lambda(W) \cdot G(W)
+\mathcal{B}_T = \{ [a, b) \mid a &lt; b \in \mathbb{R} \}
 \]</span></p>
-<p>This is the generalized form of Little’s Law in the Presence
-Calculus.</p>
-<hr />
-<h1 id="epistemic-foundations">5. Epistemic Foundations</h1>
-<p>A <strong>system</strong> is the evolving set of presence assertions
-about a domain. Its dynamics are not defined by state transitions, but
-by changes in the assertion set:</p>
-<ul>
-<li>As assertions are made, revised, or withdrawn, the system
-evolves.</li>
-<li>Higher-order metrics such as residence time and incidence rate
-reflect this evolution.</li>
-<li>Presences are <strong>phenomenological</strong>: they represent
-experienced structure, not just raw data.</li>
-</ul>
-<hr />
-<h1 id="dimensional-analysis">6. Dimensional Analysis</h1>
-<table>
-<colgroup>
-<col style="width: 24%" />
-<col style="width: 48%" />
-<col style="width: 28%" />
-</colgroup>
-<thead>
-<tr>
-<th>Quantity</th>
-<th>Formula</th>
-<th>Units</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Signal <span class="math inline">\(f(t)\)</span></td>
-<td>–</td>
-<td>dollars</td>
-</tr>
-<tr>
-<td>Presence Mass <span class="math inline">\(m\)</span></td>
-<td><span class="math inline">\(\int f(t)\,dt\)</span></td>
-<td>dollar-seconds</td>
-</tr>
-<tr>
-<td>Density <span class="math inline">\(H\)</span></td>
-<td><span class="math inline">\(M(W)/|W|\)</span></td>
-<td>dollars</td>
-</tr>
-<tr>
-<td>G</td>
-<td><span class="math inline">\(M(W)/N(W)\)</span></td>
-<td>dollars</td>
-</tr>
-<tr>
-<td><span class="math inline">\(\lambda\)</span></td>
-<td><span class="math inline">\(N(W)/|W|\)</span></td>
-<td>1/sec (dimensionless)</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h1 id="final-remarks">7. Final Remarks</h1>
-<ul>
-<li>Only integrable signals induce valid presences.</li>
-<li>Presences are finite samples of signals and provide the substrate
-for reasoning about flow.</li>
-<li>The invariant <span class="math inline">\(H = \lambda \cdot
-G\)</span> is a consistency condition that arises from this
-structure.</li>
-</ul>
-<p>This measure-theoretic foundation enables principled modeling of
-temporal systems where flow, accumulation, and knowledge are
-central.</p>
+<p>This basis generates a topology <span
+class="math inline">\(\tau\)</span> on <span
+class="math inline">\(\mathbb{R}\)</span> via:</p>
+<p><span class="math display">\[
+\tau = \left\{ \bigcup \mathcal{F} \mid \mathcal{F} \subset
+\mathcal{B}_T \right\}
+\]</span></p>
+<p>This topology is equivalent to the standard topology on <span
+class="math inline">\(\mathbb{R}\)</span>, since open intervals <span
+class="math inline">\((a, b)\)</span> and half-open intervals <span
+class="math inline">\([a, b)\)</span> generate the same collection of
+open sets under union.</p>
+<p>This topological structure supports the finite additivity of presence
+mass by ensuring that unions, intersections, and partitions of presence
+intervals correspond to open sets in this topology, allowing the induced
+measures <span class="math inline">\(\mu_{e,b}\)</span> to be
+consistently defined across composed regions of time.</p>
 </body>
 </html>
