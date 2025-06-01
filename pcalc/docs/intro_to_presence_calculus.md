@@ -50,8 +50,8 @@ powerful techniques from measure theory, topology, and complex analysis. These
 tools allow us to model and understand the behavior of complex systems—where  
 history is crucial.
 
-The calculus gives us a constructive bridge for working with operational data  
-using more specialized—but more powerful—approaches such as stochastic  
+The calculus gives us a constructive bridging operational data to  
+more specialized—but more powerful—approaches such as stochastic  
 process dynamics, queueing theory, and complex systems science, all grounded  
 in the first principles of a domain.
 
