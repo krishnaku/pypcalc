@@ -5,12 +5,11 @@
 
 ## What is The Presence Calculus?
 
-The Presence Calculus is a new approach for reasoning about the relationship  
-between things, places, and time — through the lens of measurable  
-*presence*.
+The Presence Calculus is a new approach for reasoning quantitatively about the relationship  
+between things and places over time.
 
 The primary goal is to support rigorous modeling and principled  
-decision-making with data in complex, real-world domains, while ensuring  
+decision-making with operational data in complex, real-world domains, while ensuring  
 that the use of data in such decisions rests on a mathematically  
 precise, logically coherent, and epistemically grounded foundation.
 
@@ -19,12 +18,12 @@ reason about operations management in software development, where current
 approaches to quantitative reasoning leave much to be desired in all three  
 aspects.
 
-In this domain, the foundational constructs of the calculus allow us to define  
-informally expressed ideas such as flow, stability, equilibrium, and coherence  
-with mathematical precision, but more importantly, to relate them to  
+Here, the foundational constructs of the calculus give 
+mathematical precision to informally expressed ideas such as flow, stability, 
+equilibrium, and coherence. But more importantly, it allows us to relate them to  
 practically useful measures like delay, cost, revenue, and user experience.
 
-But as you’ll see, the ideas behind it are far more general, with applications  
+But as you’ll see, the ideas behind the calculus are far more general, with applications  
 well beyond software.
 
 <div style="text-align: center; margin:2em">
@@ -35,22 +34,21 @@ well beyond software.
   </div>
 </div>
 
-When working with data, the presence calculus introduces a simple but powerful  
+When working with operational data, the presence calculus introduces a simple but powerful  
 concept of a *presence*—one that helps us move beyond the limited powers of  
 statistics and statistical inference, and apply far more powerful techniques  
 from measure theory, topology, and complex analysis to the modeling and  
 analysis of system behavior.
 
-This gives us constructive tools to bridge statistical reasoning with more  
+It gives us constructive tools to bridge statistical reasoning with more  
 specialized—but more powerful—approaches such as stochastic process dynamics,  
-queueing theory, and complex systems science, all from first principles in any  
-given domain.
+queueing theory, and complex systems science, all from first principles of a domain.
 
 While the calculus was developed with mathematical rigor, an equally important  
 goal was not to let mathematics get in the way of understanding the rather  
 simple but very powerful and general ideas it embodies.
 
-Our goal here is to make this formalism accessible enough to build powerful  
+Our goal in this document is to make this formalism accessible enough to build powerful  
 applications on top of — not just for us, but as a new reasoning tool for  
 anyone working with complex systems.
 
