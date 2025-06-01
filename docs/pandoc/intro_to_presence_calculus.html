@@ -168,28 +168,28 @@
   </style>
 </head>
 <body>
-<h1 id="the-presence-calculus-a-gentle-introduction">The Presence
-Calculus, <br> A Gentle Introduction</h1>
+<h1 id="the-presence-calculus-a-gentle-introduction">The presence
+calculus, <br> A Gentle Introduction</h1>
 <p><strong>Dr. Krishna Kumar</strong><br />
 <em>The Polaris Advisor Program</em></p>
 <h2 id="what-is-the-presence-calculus">What is The Presence
 Calculus?</h2>
-<p>The Presence Calculus is a formalism for reasoning about the
+<p>The Presence Calculus is a new approach for reasoning about the
 relationship<br />
 between things, places, and time — through the lens of measurable<br />
 <em>presence</em>.</p>
-<p>Our primary goal is to support rigorous modeling and principled<br />
+<p>The primary goal is to support rigorous modeling and principled<br />
 decision-making with data in complex, real-world domains, while
 ensuring<br />
 that the use of data in such decisions rests on a mathematically<br />
 precise, logically coherent, and epistemically grounded foundation.</p>
 <p>The presence calculus emerged from a search for better quantitative
 tools to<br />
-reason about complex systems in software development, where the
+reason about complex systems in software development, where
 current<br />
-state of measurement is severely deficient in all of these aspects.</p>
-<p>As you’ll see, these ideas are far more general, with applications
-well<br />
+approaches to measurement are deficient in all of these aspects.</p>
+<p>But as you’ll see, these ideas are far more general, with
+applications well<br />
 beyond software.</p>
 <div style="text-align: center; margin:2em">
 <img src="../assets/pcalc/presence_calculus.png" width="600px" />
@@ -222,26 +222,162 @@ ideas<br />
 embodied by the calculus.</p>
 <p>Our goal is to make this framework accessible enough to build
 powerful<br />
-applications on top of it — not just for us, but for anyone working
-with<br />
-complex systems.</p>
+applications on top of it — not just for us, but as a new reasoning tool
+for<br />
+anyone working with complex systems.</p>
 <h2 id="learning-more-about-the-presence-calculus">Learning more about
 The Presence Calculus</h2>
 <p>In this document, we’ll motivate and introduce the key ideas in the
-calculus informally, with lots of simplified examples to illustrate
-concepts. It is aimed squarely at the non-technical reader. We recommend
-reading and understanding the ideas here before jumping deeper into rest
-of the documentation at this site.</p>
+calculus<br />
+informally, with lots of simplified examples to illustrate concepts. It
+is<br />
+aimed squarely at the non-technical reader. We recommend reading
+and<br />
+understanding the ideas here before jumping deeper into rest of
+the<br />
+documentation at this site.</p>
 <p>The next level of detail is in The API docs for the <a
-href="https://py.pcalc.org">The Presence Calculus Toolkit</a>, Here we
-go into the concepts at a level of rigor and you’ll need to work with
-the pcalc API and build tools using the concepts. Some mathematical
-background will be useful here if you want to work on the core.</p>
+href="https://py.pcalc.org">The Presence Calculus<br />
+Toolkit</a>. Here we go into the concepts at a level of<br />
+rigor that you’ll need to work with the pcalc API and build tools using
+the<br />
+concepts. Some mathematical background will be useful here if you want
+to<br />
+work on the core.</p>
 <p>Finally for those who want to see the underlying mathematical
-underpinnings of the calculus, we have the theory track which perhaps
-goes into more detail than most people will likely need to read or
-understand, but is useful for the mathematically trained to connect the
-ideas in pcalc to its roots in mainstream mathematics.</p>
-<p>Lets jump in with an first example.</p>
+underpinnings of<br />
+the calculus, we have the theory track which perhaps goes into more
+detail<br />
+than most people will likely need to read or understand, but is useful
+for the<br />
+mathematically trained to connect the ideas in pcalc to its roots
+in<br />
+mainstream mathematics.</p>
+<p>Lets jump in…</p>
+<h2 id="why-presence">Why Presence?</h2>
+<p>Presence is how reality discloses itself to us. We do not perceive
+the world<br />
+as a collection of disjointed events, but as a continual
+unfolding—things<br />
+coming into being, enduring for a time, and slipping away.</p>
+<p>What we call permanence is just a form of lasting presence, and what
+we call<br />
+change is the movement of presences in and out of awareness, often
+set<br />
+against this permanence.</p>
+<p>The sense of something being present, or no longer present, is our
+most<br />
+immediate way of detecting change. This applies to the tangible and
+the<br />
+ephemeral—either way, we reason about the world around us by reasoning
+about<br />
+the presences and absences in our environment over time.</p>
+<p>The presence calculus begins here. Before we count, measure, compare,
+or<br />
+optimize, we observe. And what we observe, first and always, is
+presence.</p>
+<h1 id="an-example">An example</h1>
+<p>Imagine you see a dollar bill on the sidewalk on your way to get
+coffee. Later,<br />
+on your way back home, you see it again—still lying in the same spot. It
+would<br />
+be reasonable for you to assume that the dollar bill was present there
+the<br />
+whole time.</p>
+<p>Of course, that may not be true. Someone might have picked it up in
+the<br />
+meantime, felt guilty, and quietly returned it. But in the absence of
+other<br />
+information, your assumption holds: it was there before, and it’s there
+now,<br />
+so it must have been there in between.</p>
+<p>This simple act of inference is something we do all the time. We fill
+in gaps,<br />
+assume continuity, and reason about what must have been present based
+on<br />
+partial glimpses of the world.</p>
+<p>The presence calculus gives formal shape to this kind of
+inference—and shows<br />
+how we can build upon it to <em>reason</em> about presence and
+<em>measure</em> its<br />
+effects in an environment.</p>
+<h1 id="a-software-example">A software example</h1>
+<p>Since this work grew out of studying common operations management
+problems in the software world, let’s begin with a familiar example:
+task work in a software team. By looking closely at how we reason about
+tasks, we can see how a subtle shift to a<br />
+presence-centered perspective changes not just what we observe, but what
+we<br />
+can <em>reason</em> about—and what we can measure.</p>
+<p>In software workflows, we often reason about work using
+<em>events</em> and<br />
+<em>snapshots</em> of the state of a system in time. A task “starts”
+when it enters<br />
+development, and “finishes” when it’s marked complete. We track “cycle
+time”<br />
+by measuring the elapsed time between events, “throughput” by counting
+finish<br />
+events, and “work-in-process” by counting tasks that have started but
+not yet<br />
+finished.</p>
+<p>When we look at a Kanban board, we see a point-in-time snapshot of
+where tasks<br />
+are at that moment—but not how they got there. When we read a summary
+report<br />
+of how many tasks were finished and how long they took on average, much
+of the<br />
+history of the system that produced those outcomes has been lost. That
+makes<br />
+it hard to reason causally about <em>why</em> those measurements are the
+way they<br />
+are.</p>
+<p>And because, in complex knowledge work, each task often has a
+distinct<br />
+history—different from other co-temporaneous tasks—losing this
+information<br />
+makes it hard to reason about the system purely from snapshots. We are
+reduced<br />
+to making inferences about a system shaped by its history, without a way
+to<br />
+represent or reason about that history.</p>
+<p>This is where we begin. While the presence calculus often starts
+from<br />
+the same snapshots, it focuses on the time <em>in between</em>: when the
+task was<br />
+present, where it was present, for how long, and whether its presence
+shifted<br />
+across people, tools, or systems.</p>
+<p>The connective tissue is no longer the task itself, or the steps it
+followed,<br />
+or who was working on it, but a continuous, observable <em>thread of
+presence</em>—<br />
+moving through time, crossing boundaries.</p>
+<p>With the presence calculus, these threads and their interactions
+across time<br />
+and space can now be measured, dissected, and analyzed as
+first-class<br />
+mathematical constructs—built on a remarkably simple primitive - the
+presence.</p>
+<p>The presence calculus, at its core, comes down to the difference
+between the<br />
+two independent statements—“The task started development on Monday” and
+“The<br />
+task completed development on Friday”—and a single, unified assertion:
+“The<br />
+task was present in development from Monday through Friday.”</p>
+<p>The latter is the <em>presence</em>, and it is the foundational
+building block<br />
+of the calculus.</p>
+<p>At first glance, this might not seem like a meaningful
+difference.</p>
+<p>But treating the presence as the primary object of reasoning—as a
+<em>first-class</em><br />
+construct—opens up an entirely new space of possibilities, because it
+allows<br />
+us to apply powerful mathematical tools that exploit the continuity in
+time<br />
+and the algebra of time intervals to reason about <em>sets</em> of
+presences in a<br />
+rigorous and structured, and more importantly, computable way.</p>
 </body>
 </html>
