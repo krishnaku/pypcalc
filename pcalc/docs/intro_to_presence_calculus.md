@@ -34,23 +34,35 @@ well beyond software.
   </div>
 </div>
 
-When working with operational data, the presence calculus introduces a simple but powerful  
-concept of a *presence*—one that helps us move beyond the limited powers of  
-statistics and statistical inference, and apply far more powerful techniques  
-from measure theory, topology, and complex analysis to the modeling and  
-analysis of system behavior.
+# From statistics to history
 
-It gives us constructive tools to bridge statistical reasoning with more  
-specialized—but more powerful—approaches such as stochastic process dynamics,  
-queueing theory, and complex systems science, all from first principles of a domain.
+Classical statistics and probability theory are powerful tools for describing  
+systems and uncertainty. But they often struggle when *history*—the sequence  
+and structure of events over time—is essential. These approaches tend to  
+collapse historical information behind assumptions like stationarity and  
+independence, rather than treating history as a first-class object of  
+reasoning.
 
-While the calculus was developed with mathematical rigor, an equally important  
-goal was not to let mathematics get in the way of understanding the rather  
-simple but very powerful and general ideas it embodies.
+When working with operational data, the presence calculus introduces a simple  
+but powerful concept of a *presence*—one that helps connect descriptive  
+statistics, statistical inference, and probabilistic reasoning to more  
+powerful techniques from measure theory, topology, and complex analysis. These  
+tools allow us to model and understand the behavior of complex systems—where  
+history is crucial.
 
-Our goal in this document is to make this formalism accessible enough to build powerful  
-applications on top of — not just for us, but as a new reasoning tool for  
-anyone working with complex systems.
+The calculus gives us a constructive bridge for working with operational data  
+using more specialized—but more powerful—approaches such as stochastic  
+process dynamics, queueing theory, and complex systems science, all grounded  
+in the first principles of a domain.
+
+While it was developed with mathematical rigor, an equally important goal was  
+not to let mathematics get in the way of understanding the rather simple but  
+very powerful and general ideas the calculus embodies.
+
+Our goal in this document is to make this formalism accessible enough to build  
+powerful applications on top of—not just for us, but as a new reasoning tool  
+for anyone working with complex systems.
+
 
 ## Learning more about The Presence Calculus
 
