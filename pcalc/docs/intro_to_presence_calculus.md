@@ -131,7 +131,7 @@ optimize, we observe what *is*.
 
 And what we model is presence.
 
-# An example
+## An example
 
 Imagine you see a dollar bill on the sidewalk on your way to get coffee.  
 Later, on your way back home, you see it again—still lying in the same spot.  
@@ -151,7 +151,7 @@ The presence calculus gives formal shape to this kind of inference—and shows
 how we can build upon it to *reason* about presence and *measure* its  
 effects in an environment.
 
-# A software example
+## A software example
 
 Since the ideas here emerged from the software world, let’s begin with a  
 mundane, but familiar example: task work in a software team.
@@ -168,24 +168,30 @@ elapsed time between events, "throughput" by counting finish events, and
 
 When we look at a Kanban board, we see a point-in-time snapshot of where tasks  
 are at that moment—but not how they got there. And by the time we read a  
-summary report of how many tasks were finished and how long they took on  
-average, much of the history of the system that produced those measurements  
-has been lost. That makes it hard to reason about *why* those measurements are  
-the way they are.
+summary report of how many tasks were finished and how long they took to go
+through the process on average, much of the history of the system that produced
+those measurements has been lost. That makes it hard to reason about *why*
+those measurements are the way they are.
 
 In complex knowledge work, each task often has a distinct history—different  
 from other tasks present at the same time. Losing history makes it hard to  
 reason about their interactions and how they impact the global behavior of the  
 process.
 
-So we are reduced to trying to make inferences from local descriptive  
-statistics over a rapidly changing system—things like cycle times, throughput,  
-and work-in-process levels. We try to reason about a process, which is shaped  
-by its history, with measurements that struggle to represent or reason about  
-that history.
+This problem is not unique to task work. Similar problems exist in almost all
+areas of business analysis that rely primarily on descriptive statistics as the
+primary measurement tool for system behavior.
 
+We are reduced to trying to make inferences from local descriptive  
+statistics —things like cycle times, throughput, and work-in-process levels-
+over a rapidly changing process.
+
+We try to reason about a process which is shaped by its history, with
+measurement techniques that struggle to represent or reason about that history.
 This is difficult to do, and we have no good tools right now that are fit for  
-this purpose. This is where the presence calculus begins.
+this purpose.
+
+This is where the presence calculus begins.
 
 While it often starts from the same snapshots, the calculus focuses on the  
 time *in between*: when the task was present, where it was present, for how  
@@ -193,14 +199,14 @@ long, and whether its presence shifted across people, tools, or systems.
 
 The connective tissue is no longer the task itself, or the process steps it  
 followed, or who was working on it, but a continuous, observable *thread of  
-presence*—through all of them, moving through time, crossing boundaries—a  
-mathematical representation of history.
+presence*—through all of them, moving through time, interacting, crossing
+boundaries—a mathematical representation of history.
 
 With the presence calculus, these threads and their interactions across time  
 and space can now be measured, dissected, and analyzed as first-class  
 constructs—built on a remarkably simple primitive—the presence.
 
-# The heart of the matter
+## The heart of the matter
 
 At its core, the calculus exploits the difference between the two independent  
 statements—“The task started development on Monday” and “The task completed  
@@ -220,11 +226,9 @@ continuity of time and the algebra of time intervals to reason about the
 interactions and complex assemblages of presences in a rigorous and structured,
 and more importantly, computable way.
 
-Let's start by building intuition for this concept we call a presence. 
+## What is a presence? 
 
-# What is a presence? 
-
-
+Let's start by building intuition for this concept we call a presence.
 
 
 

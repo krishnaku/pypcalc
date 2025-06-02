@@ -306,7 +306,7 @@ absences in our environment over time.</p>
 or<br />
 optimize, we observe what <em>is</em>.</p>
 <p>And what we model is presence.</p>
-<h1 id="an-example">An example</h1>
+<h2 id="an-example">An example</h2>
 <p>Imagine you see a dollar bill on the sidewalk on your way to get
 coffee.<br />
 Later, on your way back home, you see it again—still lying in the same
@@ -331,7 +331,7 @@ inference—and shows<br />
 how we can build upon it to <em>reason</em> about presence and
 <em>measure</em> its<br />
 effects in an environment.</p>
-<h1 id="a-software-example">A software example</h1>
+<h2 id="a-software-example">A software example</h2>
 <p>Since the ideas here emerged from the software world, let’s begin
 with a<br />
 mundane, but familiar example: task work in a software team.</p>
@@ -354,13 +354,10 @@ finished.</p>
 where tasks<br />
 are at that moment—but not how they got there. And by the time we read
 a<br />
-summary report of how many tasks were finished and how long they took
-on<br />
-average, much of the history of the system that produced those
-measurements<br />
-has been lost. That makes it hard to reason about <em>why</em> those
-measurements are<br />
-the way they are.</p>
+summary report of how many tasks were finished and how long they took to
+go through the process on average, much of the history of the system
+that produced those measurements has been lost. That makes it hard to
+reason about <em>why</em> those measurements are the way they are.</p>
 <p>In complex knowledge work, each task often has a distinct
 history—different<br />
 from other tasks present at the same time. Losing history makes it hard
@@ -368,18 +365,19 @@ to<br />
 reason about their interactions and how they impact the global behavior
 of the<br />
 process.</p>
-<p>So we are reduced to trying to make inferences from local
+<p>This problem is not unique to task work. Similar problems exist in
+almost all areas of business analysis that rely primarily on descriptive
+statistics as the primary measurement tool for system behavior.</p>
+<p>We are reduced to trying to make inferences from local
 descriptive<br />
-statistics over a rapidly changing system—things like cycle times,
-throughput,<br />
-and work-in-process levels. We try to reason about a process, which is
-shaped<br />
-by its history, with measurements that struggle to represent or reason
-about<br />
-that history.</p>
-<p>This is difficult to do, and we have no good tools right now that are
-fit for<br />
-this purpose. This is where the presence calculus begins.</p>
+statistics —things like cycle times, throughput, and work-in-process
+levels- over a rapidly changing process.</p>
+<p>We try to reason about a process which is shaped by its history, with
+measurement techniques that struggle to represent or reason about that
+history. This is difficult to do, and we have no good tools right now
+that are fit for<br />
+this purpose.</p>
+<p>This is where the presence calculus begins.</p>
 <p>While it often starts from the same snapshots, the calculus focuses
 on the<br />
 time <em>in between</em>: when the task was present, where it was
@@ -390,15 +388,14 @@ systems.</p>
 steps it<br />
 followed, or who was working on it, but a continuous, observable
 <em>thread of<br />
-presence</em>—through all of them, moving through time, crossing
-boundaries—a<br />
-mathematical representation of history.</p>
+presence</em>—through all of them, moving through time, interacting,
+crossing boundaries—a mathematical representation of history.</p>
 <p>With the presence calculus, these threads and their interactions
 across time<br />
 and space can now be measured, dissected, and analyzed as
 first-class<br />
 constructs—built on a remarkably simple primitive—the presence.</p>
-<h1 id="the-heart-of-the-matter">The heart of the matter</h1>
+<h2 id="the-heart-of-the-matter">The heart of the matter</h2>
 <p>At its core, the calculus exploits the difference between the two
 independent<br />
 statements—“The task started development on Monday” and “The task
@@ -419,8 +416,8 @@ possibilities.</p>
 exploit the continuity of time and the algebra of time intervals to
 reason about the interactions and complex assemblages of presences in a
 rigorous and structured, and more importantly, computable way.</p>
+<h2 id="what-is-a-presence">What is a presence?</h2>
 <p>Let’s start by building intuition for this concept we call a
 presence.</p>
-<h1 id="what-is-a-presence">What is a presence?</h1>
 </body>
 </html>
