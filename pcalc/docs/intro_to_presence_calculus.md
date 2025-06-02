@@ -68,8 +68,8 @@ We claim the presence calculus is a novel, constructive approach to do this - a
 new and powerful reasoning tool for anyone working with complex systems.
 
 But this is a bold claim, and it deserves further scrutiny and validation, and
-so we invite anyone interested in pressure testing the ideas here
-further to collaborate on this as an open source project.
+so we invite anyone interested in pressure testing the ideas here further to
+collaborate on this as an open source project.
 
 While the calculus was developed with mathematical rigor, an equally important  
 goal was not to let mathematics get in the way of understanding the simple but
@@ -108,23 +108,26 @@ Let's jump in...
 
 ## Why Presence?
 
-Presence is how reality reveals itself. We do not perceive the world  
-as disjointed events in time, but rather, as an unfolding—things  
-come into being, endure for a time, and slip away.
+Presence is how reality reveals itself.
 
-Permanence is just a form of lasting presence, and what we call  
-change is the movement of presences in and out of our awareness, often set  
-against this permanence.
+We do not perceive the world as disjointed events in time, but rather as an
+unfolding—things come into being, endure for a time, and slip away.
 
-The sense of something being present, or no longer present, is our most  
-immediate way of detecting change. This applies to both the tangible and the  
-intangible.
+Permanence is just a form of lasting presence. What we call *change* is the  
+movement of presences in and out of our awareness, often set against that  
+permanence.
 
-Either way, we reason about the world around us by reasoning about  
-the presences and absences in our environment over time.
+The sense of something being present—or no longer present—is our most  
+immediate way of detecting change.
 
-The presence calculus begins here. Before counting, measuring, comparing, or  
-optimizing, we observe what *is*.
+This applies to both the tangible—people, places, and things—and the  
+intangible—emotions, feelings, and experiences.
+
+Either way, we reason about the world by reasoning about the presences and  
+absences in our environment over time.
+
+The presence calculus begins here. Before we count, measure, compare, or  
+optimize, we observe what *is*.
 
 And what we model is presence.
 
@@ -150,16 +153,15 @@ effects in an environment.
 
 # A software example
 
-Since the ideas here emerged from the  
-software world, let’s begin with a familiar example: task work in a software  
-team.
+Since the ideas here emerged from the software world, let’s begin with a  
+mundane, but familiar example: task work in a software team.
 
 By looking closely at how we reason about tasks, we can see how a subtle shift  
 to a presence-centered perspective changes not just what we observe, but what  
 we measure, and thus can reason about.
 
 We usually reason about task work using *events* and *snapshots* of the state  
-of a workflow in time. A task “starts” when it enters development, and  
+of a process in time. A task “starts” when it enters development, and  
 “finishes” when it’s marked complete. We track "cycle time" by measuring the  
 elapsed time between events, "throughput" by counting finish events, and  
 "work-in-process" by counting tasks that have started but not yet finished.
@@ -167,28 +169,32 @@ elapsed time between events, "throughput" by counting finish events, and
 When we look at a Kanban board, we see a point-in-time snapshot of where tasks  
 are at that moment—but not how they got there. And by the time we read a  
 summary report of how many tasks were finished and how long they took on  
-average, much of the history of the system that produced those outcomes has  
-been lost. That makes it hard to reason about *why* those measurements are the  
-way they are.
+average, much of the history of the system that produced those measurements  
+has been lost. That makes it hard to reason about *why* those measurements are  
+the way they are.
 
 In complex knowledge work, each task often has a distinct history—different  
-from other co-temporaneous tasks. Losing history makes it hard to  
-reason about the global behavior of the process.
+from other tasks present at the same time. Losing history makes it hard to  
+reason about their interactions and how they impact the global behavior of the  
+process.
 
-We are reduced to trying to make inferences from local descriptive statistics of
-a rapidly changing system. We try to reason about this system, which is shaped
-by its history, without a way to represent or reason about that history. This is
-difficult to do, and we have no tools that are fit for this purpose.
+So we are reduced to trying to make inferences from local descriptive  
+statistics over a rapidly changing system—things like cycle times, throughput,  
+and work-in-process levels. We try to reason about a process, which is shaped  
+by its history, with measurements that struggle to represent or reason about  
+that history.
 
-This is where the presence calculus begins. While it often starts from the  
-same snapshots, the calculus focuses on the time *in between*: when the task  
-was present, where it was present, for how long, and whether its presence  
-shifted across people, tools, or systems.
+This is difficult to do, and we have no good tools right now that are fit for  
+this purpose. This is where the presence calculus begins.
 
-The connective tissue is no longer the task itself, or the steps it followed,  
-or who was working on it, but a continuous, observable *thread of presence*—  
-through all of them, moving through time, crossing boundaries—a mathematical  
-representation of history.
+While it often starts from the same snapshots, the calculus focuses on the  
+time *in between*: when the task was present, where it was present, for how  
+long, and whether its presence shifted across people, tools, or systems.
+
+The connective tissue is no longer the task itself, or the process steps it  
+followed, or who was working on it, but a continuous, observable *thread of  
+presence*—through all of them, moving through time, crossing boundaries—a  
+mathematical representation of history.
 
 With the presence calculus, these threads and their interactions across time  
 and space can now be measured, dissected, and analyzed as first-class  
@@ -196,24 +202,29 @@ constructs—built on a remarkably simple primitive—the presence.
 
 # The heart of the matter
 
-The calculus, at its core, comes down to the difference between the two  
-independent statements—“The task started development on Monday” and “The task  
-completed development on Friday”—and a single, unified assertion: “The task  
-was present in development from Monday through Friday.”
+At its core, the calculus exploits the difference between the two independent  
+statements—“The task started development on Monday” and “The task completed  
+development on Friday”—and a single, unified assertion: “The task was present  
+in development from Monday through Friday.”
 
-The latter is called a *presence*, and it is the foundational building block of
-the  
-calculus.
+The latter is called a *presence*, and it is the foundational building block  
+of the calculus.
 
 At first glance, this might not seem like a meaningful difference.
 
-But treating the presence as the primary object of reasoning—as a
-*first-class*  
-construct—opens up an entirely new space of possibilities, because it allows  
-us to apply powerful mathematical tools that exploit the continuity in time  
-and the algebra of time intervals to reason about complex assemblages of
-presences in a rigorous and structured, and more importantly, computable way.
+But treating the presence as the primary object of reasoning—as a  
+*first-class* construct—opens up an entirely new space of possibilities.
 
-Let's see how.
+Specifically, it allows us to apply powerful mathematical tools that exploit the
+continuity of time and the algebra of time intervals to reason about the
+interactions and complex assemblages of presences in a rigorous and structured,
+and more importantly, computable way.
+
+Let's start by building intuition for this concept we call a presence. 
+
+# What is a presence? 
+
+
+
 
 
