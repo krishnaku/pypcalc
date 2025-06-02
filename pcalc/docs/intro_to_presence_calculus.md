@@ -6,11 +6,12 @@
 ## What is The Presence Calculus?
 
 The Presence Calculus is a new approach for reasoning quantitatively about the  
-relationship between things and places in a domain over time.
+relationships between things and places in a domain over time.
 
 The primary goal is to support rigorous modeling and principled  
-decision-making with business-oriented data in complex, real-world domains,  
-while ensuring that the use of data in such decisions rests on a  
+decision-making with operational data in complex, business-critical domains.
+
+A key objective was ensuring that the use of data in such decisions rests on a  
 mathematically precise, logically coherent, and epistemically grounded  
 foundation.
 
@@ -18,13 +19,16 @@ The presence calculus emerged from a search for better quantitative tools to
 reason about software product development and engineering, where current  
 approaches leave much to be desired in all three aspects.
 
-The foundational constructs of the calculus give mathematical precision to  
-informally expressed ideas such as flow, stability, equilibrium, and  
-coherence. But more importantly, it allows us to relate them to practically  
-useful measures like delay, cost, revenue, and user experience.
+Minimally, the foundational constructs of the calculus bring mathematical  
+precision to widely used—but poorly defined—concepts such as flow, stability,  
+equilibrium, and coherence in a domain. More importantly, it allows us to  
+relate them to business-oriented concerns like delay, cost, revenue, and  
+user experience.
 
-And, as you’ll see, the ideas behind the calculus are far more general, with  
-applications well beyond this domain.
+As you’ll see, however, the ideas behind the calculus are far more general,  
+with potential applications well beyond the software product development  
+context it emerged from.
+
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pcalc/presence_calculus.png" width="600px" />
@@ -36,47 +40,47 @@ applications well beyond this domain.
 
 # The pitch
 
-We introduce a simple but powerful concept of a *presence*—one that helps  
-connect descriptive statistics, statistical inference, and probabilistic  
-reasoning to more powerful techniques from measure theory, topology, and  
-complex analysis.
+We introduce the simple but powerful concept of a *presence*.
 
-The key thing this gives us is a formal model to reason explicitly about time,  
-history, and evolution in a domain. Classical statistics and probability  
-theory often struggle here.
+This lets us reason about time, history and evolution using techniques from
+measure theory, topology and complex analysis.
 
-In domains where understanding *history*—the sequence and structure of changes  
-in the domain over time—is essential, they collapse under assumptions like  
-ergodicity, stationarity, and independence.
+Classical statistics and probability theory often struggle here.
+*History*—the sequence and structure of changes in the domain over time— is
+usually fenced off under assumptions like ergodicity, stationarity, and
+independence.
 
-However, they are very powerful tools for describing local behavior,  
-identifying patterns and correlations in this behavior, and modeling  
-uncertainty—all crucial prerequisites for any meaningful analysis of complex  
-systems.
+However, probability theory and statistic remain very powerful tools for
+describing local behavior, identifying patterns and correlations in this
+behavior, and modeling uncertainty—all crucial aspects of meaningful analysis of
+complex systems.
 
-But we need to be able to treat history and interdependence as first-class  
-concepts we can reason about, if we want to move beyond local behavior and  
-start modeling and reasoning about the long-run behavior of complex systems.
+Our thesis is that to move beyond descriptive statistics, statistical inference
+and probabilistic models, and start reasoning about global and long run behavior
+of complex systems, we need models that treat time and history as first-class
+concepts we can reason and compute with.
 
-The presence calculus gives us a constructive approach to bridging this gap.
+This, in turn, lets us combine local statistical and probabilistic techniques
+with techniques from disclines such as stochastic process dynamics, queueing
+theory, and complex systems science, to reason holistically about global, long
+run behavior of complex systems.
 
-It helps us move from statistical and probabilistic models to more  
-specialized—but more powerful—analysis tools from disciplines such as  
-stochastic process dynamics, queueing theory, and complex systems science—  
-starting from an explicit domain model.
+We claim the presence calculus is a novel, constructive approach to do this - a
+new and powerful reasoning tool for anyone working with complex systems.
 
-This is a bold claim—and deserves careful scrutiny and validation. Our goal in  
-this document is to make the ideas accessible enough for more people to  
-pressure test this claim.
+But this is a bold claim, and it deserves further scrutiny and validation, and
+so we invite anyone interested in developing and pressure testing the ideas here
+further to collaborate on this as an open source project.
 
 While the calculus was developed with mathematical rigor, an equally important  
-goal was not to let mathematics get in the way of understanding the rather  
-simple but very powerful and general ideas the calculus embodies.
+goal was not to let mathematics get in the way of understanding the simple but
+very powerful and general ideas the calculus embodies.
 
-We believe the presence calculus is a fundamental and powerful reasoning tool  
-for anyone working with complex systems, and invite anyone interested in  
-developing and pressure-testing the ideas here further to collaborate on this  
-as an open source project.
+This document is the first step in that direction. We welcome feedback on how it
+can be improved,and the concepts clarified. Please feel free to open a pull
+request with thoughts, suggestions or feedback.
+
+Dr. Krishna Kumar, The Polaris Advisor Program.
 
 ## Learning more about The Presence Calculus
 
@@ -103,7 +107,6 @@ mainstream mathematics.
 
 Let's jump in...
 
-
 ## Why Presence?
 
 Presence is how reality reveals itself. We do not perceive the world  
@@ -116,7 +119,7 @@ against this permanence.
 
 The sense of something being present, or no longer present, is our most  
 immediate way of detecting change. This applies to both the tangible and the  
-intangible. 
+intangible.
 
 Either way, we reason about the world around us by reasoning about  
 the presences and absences in our environment over time.
@@ -171,12 +174,12 @@ way they are.
 
 In complex knowledge work, each task often has a distinct history—different  
 from other co-temporaneous tasks. Losing history makes it hard to  
-reason about the global behavior of the process. 
+reason about the global behavior of the process.
 
-We are reduced to trying to make inferences from local descriptive statistics of a 
-rapidly changing system. We try to reason about this system, which is shaped by its history, 
-without a way to represent or reason about that history. 
-This is difficult to do, and we have no tools that are fit for this purpose.
+We are reduced to trying to make inferences from local descriptive statistics of
+a rapidly changing system. We try to reason about this system, which is shaped
+by its history, without a way to represent or reason about that history. This is
+difficult to do, and we have no tools that are fit for this purpose.
 
 This is where the presence calculus begins. While it often starts from the  
 same snapshots, the calculus focuses on the time *in between*: when the task  
@@ -199,16 +202,18 @@ independent statements—“The task started development on Monday” and “The
 completed development on Friday”—and a single, unified assertion: “The task  
 was present in development from Monday through Friday.”
 
-The latter is called a *presence*, and it is the foundational building block of the  
+The latter is called a *presence*, and it is the foundational building block of
+the  
 calculus.
 
 At first glance, this might not seem like a meaningful difference.
 
-But treating the presence as the primary object of reasoning—as a *first-class*  
+But treating the presence as the primary object of reasoning—as a
+*first-class*  
 construct—opens up an entirely new space of possibilities, because it allows  
 us to apply powerful mathematical tools that exploit the continuity in time  
-and the algebra of time intervals to reason about complex assemblages of presences 
-in a rigorous and structured, and more importantly, computable way.
+and the algebra of time intervals to reason about complex assemblages of
+presences in a rigorous and structured, and more importantly, computable way.
 
 Let's see how.
 
