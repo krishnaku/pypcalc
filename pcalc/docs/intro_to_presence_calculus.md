@@ -55,21 +55,20 @@ describing local behavior, identifying patterns and correlations in this
 behavior, and modeling uncertainty—all crucial aspects of meaningful analysis of
 complex systems.
 
-Our thesis is that to move beyond descriptive statistics, statistical inference
-and probabilistic models, and start reasoning about global and long run behavior
-of complex systems, we need models that treat time and history as first-class
-concepts we can reason and compute with.
+Our thesis is that to move beyond simple descriptive statistics, statistical
+inference and probabilistic models, and start reasoning about global and long
+run behavior of complex systems, we need models that treat time and history as
+first-class concepts we can reason and compute with.
 
-This, in turn, lets us combine local statistical and probabilistic techniques
-with techniques from disclines such as stochastic process dynamics, queueing
-theory, and complex systems science, to reason holistically about global, long
-run behavior of complex systems.
+This, in turn, lets us apply techniques from disclines such as stochastic
+process dynamics, queueing theory, and complex systems science, to reason
+holistically about global, long run behavior of complex systems.
 
 We claim the presence calculus is a novel, constructive approach to do this - a
 new and powerful reasoning tool for anyone working with complex systems.
 
 But this is a bold claim, and it deserves further scrutiny and validation, and
-so we invite anyone interested in developing and pressure testing the ideas here
+so we invite anyone interested in pressure testing the ideas here
 further to collaborate on this as an open source project.
 
 While the calculus was developed with mathematical rigor, an equally important  
