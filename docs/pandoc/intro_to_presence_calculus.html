@@ -175,28 +175,30 @@ Calculus, <br> A Gentle Introduction</h1>
 <h2 id="what-is-the-presence-calculus">What is The Presence
 Calculus?</h2>
 <p>The Presence Calculus is a new approach for reasoning quantitatively
-about the relationship<br />
-between things and places over time.</p>
+about the<br />
+relationship between things and places in a domain over time.</p>
 <p>The primary goal is to support rigorous modeling and principled<br />
-decision-making with operational data in complex, real-world domains,
-while ensuring<br />
-that the use of data in such decisions rests on a mathematically<br />
-precise, logically coherent, and epistemically grounded foundation.</p>
-<p>The presence calculus emerged from a search for better tools to<br />
-reason about operations management in software development, where
+decision-making with business-oriented data in complex, real-world
+domains,<br />
+while ensuring that the use of data in such decisions rests on a<br />
+mathematically precise, logically coherent, and epistemically
+grounded<br />
+foundation.</p>
+<p>The presence calculus emerged from a search for better quantitative
+tools to<br />
+reason about software product development and engineering, where
 current<br />
-approaches to quantitative reasoning leave much to be desired in all
-three<br />
-aspects.</p>
-<p>Here, the foundational constructs of the calculus give mathematical
-precision to informally expressed ideas such as flow, stability,
-equilibrium, and coherence. But more importantly, it allows us to relate
-them to<br />
-practically useful measures like delay, cost, revenue, and user
-experience.</p>
-<p>But as you’ll see, the ideas behind the calculus are far more
-general, with applications<br />
-well beyond software.</p>
+approaches leave much to be desired in all three aspects.</p>
+<p>The foundational constructs of the calculus give mathematical
+precision to<br />
+informally expressed ideas such as flow, stability, equilibrium,
+and<br />
+coherence. But more importantly, it allows us to relate them to
+practically<br />
+useful measures like delay, cost, revenue, and user experience.</p>
+<p>And, as you’ll see, the ideas behind the calculus are far more
+general, with<br />
+applications well beyond this domain.</p>
 <div style="text-align: center; margin:2em">
 <img src="../assets/pcalc/presence_calculus.png" width="600px" />
 <div
@@ -205,45 +207,63 @@ style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
 and basis topology</code></pre>
 </div>
 </div>
-<h1 id="from-statistics-to-history">From statistics to history</h1>
-<p>Classical statistics and probability theory are powerful tools for
-describing<br />
-systems and uncertainty. But they often struggle when
-<em>history</em>—the sequence<br />
-and structure of events over time—is essential. These approaches tend
-to<br />
-collapse historical information behind assumptions like stationarity
+<h1 id="the-pitch">The pitch</h1>
+<p>We introduce a simple but powerful concept of a <em>presence</em>—one
+that helps<br />
+connect descriptive statistics, statistical inference, and
+probabilistic<br />
+reasoning to more powerful techniques from measure theory, topology,
 and<br />
-independence, rather than treating history as a first-class object
-of<br />
-reasoning.</p>
-<p>When working with operational data, the presence calculus introduces
-a simple<br />
-but powerful concept of a <em>presence</em>—one that helps connect
-descriptive<br />
-statistics, statistical inference, and probabilistic reasoning to
+complex analysis.</p>
+<p>The key thing this gives us is a formal model to reason explicitly
+about time,<br />
+history, and evolution in a domain. Classical statistics and
+probability<br />
+theory often struggle here.</p>
+<p>In domains where understanding <em>history</em>—the sequence and
+structure of changes<br />
+in the domain over time—is essential, they collapse under assumptions
+like<br />
+ergodicity, stationarity, and independence.</p>
+<p>However, they are very powerful tools for describing local
+behavior,<br />
+identifying patterns and correlations in this behavior, and
+modeling<br />
+uncertainty—all crucial prerequisites for any meaningful analysis of
+complex<br />
+systems.</p>
+<p>But we need to be able to treat history and interdependence as
+first-class<br />
+concepts we can reason about, if we want to move beyond local behavior
+and<br />
+start modeling and reasoning about the long-run behavior of complex
+systems.</p>
+<p>The presence calculus gives us a constructive approach to bridging
+this gap.</p>
+<p>It helps us move from statistical and probabilistic models to
 more<br />
-powerful techniques from measure theory, topology, and complex analysis.
-These<br />
-tools allow us to model and understand the behavior of complex
-systems—where<br />
-history is crucial.</p>
-<p>The calculus gives us a constructive bridging operational data
+specialized—but more powerful—analysis tools from disciplines such
+as<br />
+stochastic process dynamics, queueing theory, and complex systems
+science—<br />
+starting from an explicit domain model.</p>
+<p>This is a bold claim—and deserves careful scrutiny and validation.
+Our goal in<br />
+this document is to make the ideas accessible enough for more people
 to<br />
-more specialized—but more powerful—approaches such as stochastic<br />
-process dynamics, queueing theory, and complex systems science, all
-grounded<br />
-in the first principles of a domain.</p>
-<p>While it was developed with mathematical rigor, an equally important
-goal was<br />
-not to let mathematics get in the way of understanding the rather simple
-but<br />
-very powerful and general ideas the calculus embodies.</p>
-<p>Our goal in this document is to make this formalism accessible enough
-to build<br />
-powerful applications on top of—not just for us, but as a new reasoning
-tool<br />
-for anyone working with complex systems.</p>
+pressure test this claim.</p>
+<p>While the calculus was developed with mathematical rigor, an equally
+important<br />
+goal was not to let mathematics get in the way of understanding the
+rather<br />
+simple but very powerful and general ideas the calculus embodies.</p>
+<p>We believe the presence calculus is a fundamental and powerful
+reasoning tool<br />
+for anyone working with complex systems, and invite anyone interested
+in<br />
+developing and pressure-testing the ideas here further to collaborate on
+this<br />
+as an open source project.</p>
 <h2 id="learning-more-about-the-presence-calculus">Learning more about
 The Presence Calculus</h2>
 <p>In this document, we’ll motivate and introduce the key ideas in the
@@ -254,9 +274,9 @@ illustrate concepts. It is aimed squarely at the non-technical
 reader.</p>
 <p>We recommend reading and understanding the ideas here before jumping
 deeper<br />
-into rest of the documentation at this site which does get a fair bit
-more<br />
-dense. We’ll also continue with ongoing informal exposition on our
+into the rest of the documentation at this site, which does get a fair
+bit<br />
+more dense. We’ll also continue with ongoing informal exposition on our
 blog<br />
 <a href="https://www.polaris-flow-dispatch.com">The Polaris Flow
 Dispatch</a>.</p>
@@ -270,20 +290,19 @@ to<br />
 work on the core.</p>
 <p>Finally, for those who want to dive deeper into the formal
 mathematical<br />
-underpinnings of the calculus, we have the theory track which perhaps
+underpinnings of the calculus, we have the theory track, which perhaps
 goes<br />
-into more detail than most people will likely need to read or
-understand, but<br />
-is useful for the mathematically trained to connect the ideas to its
+into more detail than most people will need to read or understand, but
+is<br />
+useful for the mathematically trained to connect the ideas to their
 roots in<br />
 mainstream mathematics.</p>
-<p>Lets jump in…</p>
+<p>Let’s jump in…</p>
 <h2 id="why-presence">Why Presence?</h2>
 <p>Presence is how reality reveals itself. We do not perceive the
 world<br />
-as disjointed events in time, but rather, as a continual
-unfolding—things<br />
-coming into being, enduring for a time, and slipping away.</p>
+as disjointed events in time, but rather, as an unfolding—things<br />
+come into being, endure for a time, and slip away.</p>
 <p>Permanence is just a form of lasting presence, and what we call<br />
 change is the movement of presences in and out of our awareness, often
 set<br />
@@ -292,14 +311,14 @@ against this permanence.</p>
 most<br />
 immediate way of detecting change. This applies to both the tangible and
 the<br />
-intangible—either way, we reason about the world around us by reasoning
+intangible.</p>
+<p>Either way, we reason about the world around us by reasoning
 about<br />
 the presences and absences in our environment over time.</p>
 <p>The presence calculus begins here. Before counting, measuring,
 comparing, or<br />
 optimizing, we observe what <em>is</em>.</p>
-<p>And what we observe and reason about, first and always, is
-presence.</p>
+<p>And what we model is presence.</p>
 <h1 id="an-example">An example</h1>
 <p>Imagine you see a dollar bill on the sidewalk on your way to get
 coffee.<br />
@@ -326,8 +345,7 @@ how we can build upon it to <em>reason</em> about presence and
 <em>measure</em> its<br />
 effects in an environment.</p>
 <h1 id="a-software-example">A software example</h1>
-<p>Since this work grew from the study of operations management problems
-in the<br />
+<p>Since the ideas here emerged from the<br />
 software world, let’s begin with a familiar example: task work in a
 software<br />
 team.</p>
@@ -336,7 +354,7 @@ subtle shift<br />
 to a presence-centered perspective changes not just what we observe, but
 what<br />
 we measure, and thus can reason about.</p>
-<p>We often reason about task work using <em>events</em> and
+<p>We usually reason about task work using <em>events</em> and
 <em>snapshots</em> of the state<br />
 of a workflow in time. A task “starts” when it enters development,
 and<br />
@@ -359,17 +377,13 @@ measurements are the<br />
 way they are.</p>
 <p>In complex knowledge work, each task often has a distinct
 history—different<br />
-from other co-temporaneous tasks. Losing this information makes it hard
-to<br />
-reason about the system. We are reduced to trying to make inferences
-from<br />
-descriptive statistics of a rapidly changing system. We try to reason
-about<br />
-this system, shaped by its history, without a way to represent or
-reason<br />
-about that history. This is difficult to do, and our current tools are
-not fit<br />
-for this purpose.</p>
+from other co-temporaneous tasks. Losing history makes it hard to<br />
+reason about the global behavior of the process.</p>
+<p>We are reduced to trying to make inferences from local descriptive
+statistics of a rapidly changing system. We try to reason about this
+system, which is shaped by its history, without a way to represent or
+reason about that history. This is difficult to do, and we have no tools
+that are fit for this purpose.</p>
 <p>This is where the presence calculus begins. While it often starts
 from the<br />
 same snapshots, the calculus focuses on the time <em>in between</em>:
@@ -399,8 +413,7 @@ task<br />
 was present in development from Monday through Friday.”</p>
 <p>The latter is called a <em>presence</em>, and it is the foundational
 building block of the<br />
-calculus<a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a>.</p>
+calculus.</p>
 <p>At first glance, this might not seem like a meaningful
 difference.</p>
 <p>But treating the presence as the primary object of reasoning—as a
@@ -412,17 +425,6 @@ time<br />
 and the algebra of time intervals to reason about complex assemblages of
 presences in a rigorous and structured, and more importantly, computable
 way.</p>
-<p>Let’s see how by applying it to the simple task work problem
-first.</p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>If you read this and think, “is this all it is?” - the
-answer is yes. It really is all “it” is. But it turns out to be quite
-powerful.<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
+<p>Let’s see how.</p>
 </body>
 </html>

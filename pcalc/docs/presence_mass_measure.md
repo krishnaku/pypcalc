@@ -53,7 +53,8 @@ To support slicing, countable decompositions, and integration, we extend $\mu_0$
 - We define the **outer measure**:
 
 $$ 
-\mu^*(A) = \inf \left\{ \sum_{i=1}^\infty \lambda(I_i) \mid A \subseteq igcup I_i 	ext{ with each } I_i 	ext{ open} ight\} 
+\mu^*(A) = \inf \left\{ \sum_{i=1}^\infty \lambda(I_i) \mid A \subseteq igcup I_i 	ext{ with each } I_i 	ext{ open} 
+ight\} 
 $$
 
 - Then extend $\mu_0$ to $\mu$, a **Borel measure**, using Carathéodory’s extension theorem.
