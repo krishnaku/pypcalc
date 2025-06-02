@@ -223,7 +223,7 @@ But treating the presence as the primary object of reasoning—as a
 
 Specifically, it allows us to apply powerful mathematical tools that exploit the
 continuity of time and the algebra of time intervals to reason about the
-interactions and complex assemblages of presences in a rigorous and structured,
+interactions and emergent assemblages of presences in a rigorous and structured,
 and more importantly, computable way.
 
 ## What is a presence? 
