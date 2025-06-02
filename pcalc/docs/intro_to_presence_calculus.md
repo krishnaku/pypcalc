@@ -218,7 +218,7 @@ of the calculus.
 
 At first glance, this might not seem like a meaningful difference.
 
-But treating the presence as the primary object of reasoning—as a  
+But treating the presence as the primary object of reasoning—as a
 *first-class* construct—opens up an entirely new space of possibilities.
 
 Specifically, it allows us to apply powerful mathematical tools that exploit the
@@ -226,7 +226,7 @@ continuity of time and the algebra of time intervals to reason about the
 interactions and emergent assemblages of presences in a rigorous and structured,
 and more importantly, computable way.
 
-## What is a presence? 
+## What is a presence?
 
 Let's start by building intuition for this concept we call a presence.
 
