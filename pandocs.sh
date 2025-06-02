@@ -12,7 +12,7 @@ mkdir -p "$OUTPUT_DIR"
 for file in "$SOURCE_DIR"/*.md; do
   if [ -f "$file" ]; then
     filename=$(basename "$file" .md)
-    pandoc "$file" -s -o "$OUTPUT_DIR/${filename}.html" $MATH_ENGINE
+    pandoc --wrap=auto "$file" -s -o "$OUTPUT_DIR/${filename}.html" $MATH_ENGINE
     echo "✓ Converted $file → $OUTPUT_DIR/${filename}.html"
   fi
 done
