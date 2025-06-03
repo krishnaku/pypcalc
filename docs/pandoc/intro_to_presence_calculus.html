@@ -166,6 +166,9 @@
       vertical-align: middle;
     }
   </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 </head>
 <body>
 <h1 id="the-presence-calculus-a-gentle-introduction">The Presence
@@ -238,41 +241,38 @@ complex systems.</p>
 do this - a new and powerful reasoning tool for anyone working with
 complex systems.</p>
 <p>But this is a bold claim, and it deserves further scrutiny and
-validation, and so we invite anyone interested in pressure testing the
-ideas here further to collaborate on this as an open source project.</p>
+validation, and so we invite anyone interested in doing so to
+collaborate with us on this open source project.</p>
+<h2 id="learning-more-about-the-presence-calculus">Learning more about
+The Presence Calculus</h2>
 <p>While the calculus was developed with mathematical rigor, an equally
 important<br />
 goal was not to let mathematics get in the way of understanding the
-simple but very powerful and general ideas the calculus embodies.</p>
-<p>This document is the first step in that direction. We welcome
-feedback on how it can be improved,and the concepts clarified. Please
-feel free to open a pull request with thoughts, suggestions or
-feedback.</p>
-<p>Dr. Krishna Kumar, The Polaris Advisor Program.</p>
-<h2 id="learning-more-about-the-presence-calculus">Learning more about
-The Presence Calculus</h2>
+simple but very powerful and general ideas the calculus embodies<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>.</p>
 <p>In this document, we’ll motivate and introduce the key ideas in the
 calculus<br />
 informally, with lots of highly simplified examples and allusions
 to<br />
-illustrate concepts. It is aimed squarely at the non-technical
-reader.</p>
+illustrate concepts.</p>
+<p>It is aimed squarely at the non-technical reader. We’ll also continue
+with ongoing informal exposition on our blog<br />
+<a href="https://www.polaris-flow-dispatch.com">The Polaris Flow
+Dispatch</a>.</p>
 <p>We recommend reading and understanding the ideas here before jumping
 deeper<br />
 into the rest of the documentation at this site, which does get a fair
 bit<br />
-more dense. We’ll also continue with ongoing informal exposition on our
-blog<br />
-<a href="https://www.polaris-flow-dispatch.com">The Polaris Flow
-Dispatch</a>.</p>
+more dense.</p>
 <p>The next level of detail is in the API docs for the <a
 href="https://py.pcalc.org">The Presence Calculus<br />
-Toolkit</a>. Here we go into the concepts at a level of<br />
-rigor that you’ll need to work with the pcalc API and build tools using
-the<br />
-concepts. Some mathematical background will be useful here if you want
-to<br />
-work on the core.</p>
+Toolkit</a>. The toolkit is an open source python library that is
+designed to provide efficient implementions for all the core concepts in
+the presence calculus. In the API documentation, we go into the concepts
+at a level of rigor that you’ll need to work with the pcalc API and
+apply the concepts. Some mathematical background will be useful here if
+you want to develop extensions to the core.</p>
 <p>Finally, for those who want to dive deeper into the formal
 mathematical<br />
 underpinnings of the calculus, we have the theory track, which perhaps
@@ -417,6 +417,192 @@ reason about the interactions and emergent assemblages of presences in a
 rigorous and structured, and more importantly, computable way.</p>
 <h2 id="what-is-a-presence">What is a presence?</h2>
 <p>Let’s start by building intuition for this concept we call a
-presence.</p>
+<em>presence</em>.<br />
+Consider the statement: “The task <span class="math inline">\(X\)</span>
+was in Development from Monday to<br />
+Friday.”</p>
+<p>In the presence calculus, this would be expressed as a presence of
+the form:<br />
+“The element <span class="math inline">\(X\)</span> was in boundary
+<span class="math inline">\(Y\)</span> from <span
+class="math inline">\(t_0\)</span> to <span
+class="math inline">\(t_1\)</span> with mass 1.”<br />
+Presences are statements about elements (from some domain) being present
+in a<br />
+boundary (from a defined set of boundaries) over a <em>continuous</em>
+period of time,<br />
+measured using some time scale.</p>
+<p>So why do we say “with mass 1”?</p>
+<p>The presence calculus treats time as a physical dimension, much like
+space.<br />
+Just as matter occupies space, presences occupy time. Just as mass
+quantifies<br />
+<em>how</em> matter occupies space, the mass of a presence quantifies
+<em>how</em> a<br />
+presence occupies time.</p>
+<p>The statement “The task <span class="math inline">\(X\)</span> was in
+Development from Monday through Friday” is<br />
+a <strong>binary presence</strong> with a uniform mass of 1 over the
+entire duration. The<br />
+units of this mass are element-time—in this case, task-days.</p>
+<p>Binary presences are sufficient to describe the <em>fact</em> of
+presence or absence<br />
+of things in places in a domain. These presences always have mass 1 in
+whatever<br />
+units we use for elements and time.</p>
+<h2 id="what-is-the-mass-of-a-presence">What is the mass of a
+presence?</h2>
+<p>Let’s consider a more detailed set of statements:</p>
+<blockquote>
+<p>“Task <span class="math inline">\(X\)</span> had 2 developers working
+on it from Monday to Wednesday,<br />
+3 developers on Thursday, and 1 developer on Friday.”</p>
+</blockquote>
+<p>These are no longer about just presence, but about the
+<em>effects</em> of presence.<br />
+They describe the <strong>load</strong> that task <span
+class="math inline">\(X\)</span> placed on the Development
+boundary<br />
+over time.</p>
+<p>The units of this presence are developer-days - potentially in a
+completely different space from the task, but grounded over the same
+time interval as the task.</p>
+<p>Here we are saying: “the task being in this boundary over this time
+period, had this effect.”</p>
+<p>We will describe such presences using a <em>presence density
+function,</em> called <span class="math inline">\(\mathsf{load}\)</span>
+in this case:</p>
+<ul>
+<li><span class="math inline">\((\mathsf{load}, X, \text{Development},
+\text{Monday}, \text{Wednesday}, 2)\)</span></li>
+<li><span class="math inline">\((\mathsf{load}, X, \text{Development},
+\text{Thursday}, \text{Thursday}, 3)\)</span></li>
+<li><span class="math inline">\((\mathsf{load}, X, \text{Development},
+\text{Friday}, \text{Friday}, 1)\)</span></li>
+</ul>
+<p>Here, <span class="math inline">\(\mathsf{load}(e, b, t)\)</span> is
+a time-varying function that takes an<br />
+element <span class="math inline">\(e\)</span>, a boundary <span
+class="math inline">\(b\)</span>, and a time <span
+class="math inline">\(t\)</span>, and returns a real-valued number<br />
+describing how much presence is concentrated at that point in time.</p>
+<p>The <em>presence mass</em> of such a presence is the total presence
+over the<br />
+interval <span class="math inline">\([t_0, t_1]\)</span>, defined
+as:</p>
+<p><span class="math display">\[ \text{mass} = \int_{t_0}^{t_1} f(e, b,
+t)\, dt \]</span></p>
+<p>where <span class="math inline">\(f\)</span> is the presence density
+function <a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>.</p>
+<h2 id="presence-density-functions-and-measure-theory">Presence density
+functions and measure theory</h2>
+<p>Binary presence functions are much easier to understand intuitively,
+and we’ll<br />
+continue using them in our examples. But the real power of the
+presence<br />
+calculus comes from generalizing to <em>presence density
+functions</em>.</p>
+<p>In our earlier example, we interpreted the presence density function
+(PDF) as<br />
+expressing the <em>load</em> placed on an element at a boundary. But
+more generally,<br />
+a PDF can be <em>any</em> real-valued function over time. The only
+requirement is<br />
+that you can interpret <em>presence mass</em>—defined as the integral of
+the function<br />
+over a finite interval—as a meaningful <em>measure</em> of the effect of
+presence in<br />
+your domain.</p>
+<p>This is where measure theory enters the picture. It’s not essential
+to<br />
+understand the full technical details, but at its core, measure theory
+tells<br />
+us which kinds of functions are <em>measurable</em>—in other words,
+which functions<br />
+can support meaningful accumulation, comparison, and composition of
+values.</p>
+<p>Measurability gives us the confidence to do things like compute
+statistics,<br />
+aggregate over elements or boundaries, and compose presence
+effects—while<br />
+preserving the semantics of the domain. When a PDF is measurable, we
+can<br />
+treat its values like any other real number and do math over them, as
+long as<br />
+we carefully respect the units involved.</p>
+<p>From our perspective, a presence density function captures a kind
+of<br />
+measurement that can be <em>accumulated</em> across time and across
+presences. This<br />
+lets us reason mathematically about presences with confidence—and since
+most<br />
+of this reasoning will be performed by algorithms, we need
+technical<br />
+constraints that ensure those calculations are both mathematically valid
+and<br />
+semantically sound.</p>
+<p>To summarize:</p>
+<p>A general presence is defined by:</p>
+<ul>
+<li>a density function <span class="math inline">\(f(e, b,
+t)\)</span>,</li>
+<li>an element <span class="math inline">\(e\)</span>,</li>
+<li>a boundary <span class="math inline">\(b\)</span>,</li>
+<li>and a time interval <span class="math inline">\([t_0,
+t_1]\)</span>.</li>
+</ul>
+<p>Its <strong>mass</strong> is the integral of <span
+class="math inline">\(f\)</span> over the interval:</p>
+<p><span class="math display">\[ \text{mass}(e, b, [t_0, t_1]) =
+\int_{t_0}^{t_1} f(e, b, t)\, dt \]</span></p>
+<p>This mass captures both <em>that</em> the element was present, and
+<em>how</em> it was<br />
+present—uniformly, variably, or intermittently—over the time interval of
+the presence<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This document is the first step in that direction. We
+welcome feedback on how it can be improved,and the concepts clarified.
+Please feel free to open a pull request with thoughts, suggestions or
+feedback.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>If integration signs in a “gentle” introduction feels
+like a bait-and-switch, rest assured, this is the last time you will
+need to think of them in this document - <em>provided</em> you accept
+the statement that anything that we can do it in presences calculus with
+binary presences can also be done with general presence density
+functions. Besides, we had to say something about why we call this a
+<em>calculus</em>, and this is as good a point to do that as any!<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The way we’ve defined presence density functions and
+mass is directly<br />
+analogous to how mass is defined for matter occupying space in
+physics.</p>
+<p>A binary PDF can be thought of as defining a one-dimensional interval
+over<br />
+time. For a fixed element and boundary, this gives us an area under
+the<br />
+curve in two dimensions: time vs. density.</p>
+<p>If we treat elements and boundaries as additional independent
+dimensions,<br />
+then the PDF defines a <em>volume</em> in three dimensions, with time as
+one axis.</p>
+<p>This interpretation—presence as a physical manifestation of density
+over<br />
+time—is a powerful way to reason intuitively and computationally about
+duration, overlap, and accumulation in time.</p>
+<p>And when we allow multiple PDFs to interact over the same time
+periods, we<br />
+begin to model complex, higher-dimensional effects of presence—exactly
+the<br />
+kind of generality we’ll need when we move beyond simple binary
+presences.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 </body>
 </html>
