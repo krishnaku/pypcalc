@@ -561,6 +561,150 @@ class="math inline">\(f\)</span> over the interval:</p>
 present—uniformly, variably, or intermittently—over the time interval of
 the presence<a href="#fn3" class="footnote-ref" id="fnref3"
 role="doc-noteref"><sup>3</sup></a>.</p>
+<h2 id="more-examples">More examples</h2>
+<p>Let’s firm up our intuition about what presences can describe with a
+few more<br />
+examples.</p>
+<h3 id="work-in-software">“Work” in software</h3>
+<p>If you’ve ever written a line of code in your life, you’ve heard the
+question:<br />
+“When will it be done?” Work in software can be a slippery, fungible
+concept—<br />
+and the presence calculus offers a useful way to describe it.</p>
+<p>We can express the work on a task using a presence density function
+whose<br />
+value at time <span class="math inline">\(t\)</span> is the
+<em>remaining</em> work on the task at that moment.</p>
+<p>This lets us model tasks whose duration is uncertain in general, but
+whose<br />
+remaining duration can be described at any given time—a common scenario
+in<br />
+software contexts.</p>
+<p>A series of presences, where the (non-zero) mass of each presence
+corresponds<br />
+to the total remaining work over its interval (interpreting the integral
+as a<br />
+sum), gives us a way to represent <em>work as presence</em>.</p>
+<p>Such presences can represent estimates, forecasts, or
+confidence-weighted<br />
+projections—and as we’ll see shortly, they can be reasoned about and
+computed<br />
+with just like any other kind of presence.</p>
+<h3 id="the-effects-of-interruptions">The effects of interruptions</h3>
+<p>Another useful example from the software world illustrates a
+different<br />
+application of a presence. Let’s assume the boundary in this case is
+a<br />
+developer, the element is an interruption (defined appropriately in
+the<br />
+domain), and the presence density function captures the <em>context
+switching<br />
+cost</em>—measured in lost time—associated with that interruption.</p>
+<p>The key insight here is that the <em>effects</em> of the presence
+extend beyond the<br />
+interval of the interruption itself. This is a classic case of a delayed
+or<br />
+<em>decaying effect</em>—a pattern that appears frequently in real-world
+systems.</p>
+<p>The presence density function can be modeled in different ways:</p>
+<ul>
+<li>As a constant cost: for example, each interruption causes a
+fixed<br />
+15-minute recovery period, regardless of its duration.<br />
+</li>
+<li>As a decaying function: the cost is highest at the moment of
+interruption<br />
+and gradually decreases to zero over a defined recovery window
+(e.g.<br />
+15 minutes), representing a return to full focus.</li>
+</ul>
+<p>This approach gives us a precise way to model and reason about
+the<br />
+<em>aftereffects</em> of events—effects that outlast the events
+themselves and<br />
+accumulate in subtle but measurable ways over longer timeframes.</p>
+<p>In this case, we measured an effect that decayed from a peak, but a
+similar<br />
+approach can be taken, for example, with a presence density function
+that<br />
+grows from zero and plateaus over the duration of the presence—such as
+the net<br />
+increase in revenue due to a released feature.</p>
+<p>Used this way, presence density functions give us a powerful tool for
+modeling<br />
+the impact of binary presences—capturing their downstream or
+distributed<br />
+effects over time, and reasoning about their relationship over a
+shared<br />
+timeline.</p>
+<p>Another important use case in the same vein is modeling the cost of
+delay for a<br />
+portfolio-level element—and analyzing its cascading impact across
+the<br />
+portfolio.</p>
+<p>These use cases show that it is possible to analyze not just binary
+presences,<br />
+but entire chains of influence they exert across a timeline—a key
+prerequisite<br />
+for reasoning about causality.</p>
+<h3 id="self-reported-developer-productivity">Self-reported developer
+productivity</h3>
+<p>Imagine a developer filling out a simple daily check-in:<br />
+“How productive did you feel today?”—scored from 1 to 5, or sketched out
+as a<br />
+rough curve over the day<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a>.</p>
+<p>Over a week, this forms a presence density function—not of the
+developer in a<br />
+place, but of their <em>sense</em> of productivity over time.</p>
+<p>These types of presences, representing perceptions, are
+powerful—helping<br />
+teams track experience, spot early signs of burnout, or correlate
+perceived<br />
+flow with meetings, environment changes, build failures, or
+interruptions.</p>
+<hr />
+<p>Now, let’s look at some examples outside software development.</p>
+<h3 id="browsing-behavior-on-an-e-commerce-site">Browsing behavior on an
+e-commerce site</h3>
+<p>Imagine a shopper visiting an online store. They spend 90 seconds
+browsing<br />
+kitchen gadgets, then linger for five full minutes comparing
+high-end<br />
+headphones, before briefly glancing at a discounted blender.</p>
+<p>Each of these interactions can be modeled as a presence: the
+shopper’s<br />
+(element) attention occupying different parts of the site (boundaries)
+over<br />
+time. The varying durations reflect interest, and the shifting presence
+reveals<br />
+patterns of engagement.</p>
+<p>By analyzing these presences—where and for how long attention
+dwells—we can<br />
+begin to understand preferences, intent, and even the likelihood of
+conversion<br />
+(modeled as a different presence density function).</p>
+<h3 id="patient-movement-in-a-hospital">Patient movement in a
+hospital</h3>
+<p>Consider a patient navigating a hospital stay. They spend the morning
+in<br />
+radiology, move to a recovery ward for several hours, then are
+briefly<br />
+transferred to the ICU overnight.</p>
+<p>Each location records a presence—when and where the patient was, and
+for how<br />
+long. These presences can reveal bottlenecks, resource utilization,
+and<br />
+potential risks.</p>
+<p>Over time, analyzing patient presences helps surface patterns in
+care<br />
+delivery, delays in treatment, and opportunities for improving patient
+flow.</p>
+<p>These are examples of classic operations management problems
+expressed in the<br />
+language of the presence calculus. The calculus is well-suited to
+modeling<br />
+scenarios like these as a base case.</p>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
@@ -601,6 +745,18 @@ begin to model complex, higher-dimensional effects of presence—exactly
 the<br />
 kind of generality we’ll need when we move beyond simple binary
 presences.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The use of a rough curve here is an example of how
+presences can encode<br />
+continuous inputs more effectively than discrete techniques, thanks to
+their<br />
+explicit model of time. Forcing a developer to rank their productivity
+on a<br />
+Likert scale often loses valuable nuance—whereas a fine-grained
+presence<br />
+captures temporal variation with ease, making it available for
+downstream<br />
+analysis.<a href="#fnref4" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
