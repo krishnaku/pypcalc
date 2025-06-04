@@ -92,7 +92,7 @@ ongoing informal exposition on our blog
 We recommend reading and understanding the ideas here before jumping deeper  
 into the rest of the documentation at this site, which does get a fair bit  
 more dense. The next level of detail is in the API docs for
-the [The Presence Calculus  
+[The Presence Calculus  
 Toolkit](https://py.pcalc.org).
 
 The toolkit is an open source python library that is designed to provide
@@ -240,7 +240,7 @@ In the presence calculus, this would be expressed as a presence of the form:
 Presences are statements about elements (from some domain) being present in a  
 boundary (from a defined set of boundaries) over a *continuous* period of
 time,  
-measured using some time scale.
+measured using some timescale.
 
 So why do we say “with mass 1”?
 
@@ -533,7 +533,8 @@ times over its lifecycle.
   </div>
 </div>
 
-A presence may be defined over *any* subinterval of a PDF, as shown in Figure 3.
+A presence may be defined over *any* sub-interval of a PDF, as shown in 
+Figure 3.
 
 There are many possible ways of defining a presence from a PDF, including across
 disjoint support intervals. All we require is that the interval in question  
