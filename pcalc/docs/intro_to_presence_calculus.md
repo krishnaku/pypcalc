@@ -254,8 +254,7 @@ a **binary presence** with a uniform mass of 1 over the entire duration. The
 units of this mass are element-time—in this case, task-days.
 
 Binary presences are sufficient to describe the *fact* of presence or absence  
-of things in places in a domain. These presences always have mass 1 in
-whatever  
+of things in places in a domain. These presences always have mass 1 in whatever
 units we use for elements and time.
 
 ## What is the mass of a presence?
@@ -290,9 +289,9 @@ describing how much presence is concentrated at that point in time.
 The *presence mass* of such a presence is the total presence over the  
 interval $[t_0, t_1]$, defined as:
 
-$$ \text{mass} = \int_{t_0}^{t_1} f(e, b, t)\, dt $$
+$$ \text{mass} = \int_{t_0}^{t_1} \mathsf{load}(e, b, t)\, dt $$
 
-where $f$ is the presence density function [^2].
+where $\mathsf{load}$ is the presence density function [^2].
 
 [^2]: If integration signs in a "gentle" introduction feels like a
 bait-and-switch, rest assured, this is the last time you will need to think of
@@ -310,10 +309,41 @@ calculus comes from generalizing to *presence density functions*.
 
 In our earlier example, we interpreted the presence density function (PDF) as  
 expressing the *load* placed on an element at a boundary. But more generally,  
-a PDF can be *any* real-valued function over time. The only requirement is  
-that you can interpret *presence mass*—defined as the integral of the function  
-over a finite interval—as a meaningful *measure* of the effect of presence in  
-your domain.
+a PDF can be *any* real-valued function over time.
+
+The mass of a presence, over any given time *interval* $[t_0, t1)$ is the
+integral above, which is also the area under the presence density function over
+that interval[^3].
+
+[^3]: The way we've defined presence density functions and mass is directly  
+analogous to how mass is defined for matter occupying space in physics.
+
+    A binary PDF can be thought of as defining a one-dimensional interval over  
+    time. For a fixed element and boundary, this gives us an area under the  
+    curve in two dimensions: time vs. density.
+
+    If we treat elements and boundaries as additional independent dimensions,  
+    then the PDF defines a *volume* in three dimensions, with time as one axis.  
+
+    This interpretation—presence as a physical manifestation of density over  
+    time—is a powerful way to reason intuitively and computationally about 
+    duration, overlap, and accumulation in time.
+
+    And when we allow multiple PDFs to interact over the same time periods, we  
+    begin to model complex, higher-dimensional effects of presence—exactly the  
+    kind of generality we’ll need when we move beyond simple binary presences.
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/presence_definition.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 2: Presence, Presence Density Function and Presence Mass
+  </div>
+</div>
+
+The only requirement for a function to be a presence density function is  
+that it is *measurable*, and that you can interpret *presence mass*—defined as
+the integral of the function over a finite interval—as a meaningful
+*measure* of the effect of presence in your domain.
 
 This is where measure theory enters the picture. It’s not essential to  
 understand the full technical details, but at its core, measure theory tells  
@@ -322,9 +352,9 @@ can support meaningful accumulation, comparison, and composition of values.
 
 Measurability gives us the confidence to do things like compute statistics,  
 aggregate over elements or boundaries, and compose presence effects—while  
-preserving the semantics of the domain. When a PDF is measurable, we can  
-treat its values like any other real number and do math over them, as long as  
-we carefully respect the units involved.
+preserving the semantics of the domain. Informally, when a PDF is measurable, we
+can treat its values like any other real number and do math over them, as long
+as we carefully respect the units involved.
 
 From our perspective, a presence density function captures a kind of  
 measurement that can be *accumulated* across time and across presences. This  
@@ -348,25 +378,25 @@ $$ \text{mass}(e, b, [t_0, t_1]) = \int_{t_0}^{t_1} f(e, b, t)\, dt $$
 
 This mass captures both *that* the element was present, and *how* it was  
 present—uniformly, variably, or intermittently—over the time interval of the
-presence[^3].
+presence.
 
-[^3]: The way we've defined presence density functions and mass is directly  
-analogous to how mass is defined for matter occupying space in physics.
+The figure above also denotes the *onset* and *reset* times of the presence
+density function. In the interval between an onset and a reset, called a
+*support* of the PDF, the presence density function is greater than zero.
 
-    A binary PDF can be thought of as defining a one-dimensional interval over  
-    time. For a fixed element and boundary, this gives us an area under the  
-    curve in two dimensions: time vs. density.
+A given PDF may have *many* such disjoint support intervals.
 
-    If we treat elements and boundaries as additional independent dimensions,  
-    then the PDF defines a *volume* in three dimensions, with time as one axis.  
+A presence may be defined over any *sub-interval* of PDF, as shown above, so
+there are many possible ways of defining a presence from a PDF.
 
-    This interpretation—presence as a physical manifestation of density over  
-    time—is a powerful way to reason intuitively and computationally about 
-    duration, overlap, and accumulation in time.
+A presence is best viewed as a sampled measurement of the underlying PDF taken
+by an observer over two specific points in time. A given observer may not even "
+see" the whole underlying PDF, just the *mass*
+of the presence they experience over the two intervals.
 
-    And when we allow multiple PDFs to interact over the same time periods, we  
-    begin to model complex, higher-dimensional effects of presence—exactly the  
-    kind of generality we’ll need when we move beyond simple binary presences.
+A bit later, we’ll introduce *presence assertions*, which formalize this idea of
+an observer recording presence based on their view of the underlying density
+function.
 
 ## More examples
 
@@ -409,7 +439,7 @@ interval of the interruption itself. This is a classic case of a delayed or
 The presence density function can be modeled in different ways:
 
 - As a constant cost: for example, each interruption causes a fixed  
-  15-minute recovery period, regardless of its duration.  
+  15-minute recovery period, regardless of its duration.
 - As a decaying function: the cost is highest at the moment of interruption  
   and gradually decreases to zero over a defined recovery window (e.g.  
   15 minutes), representing a return to full focus.
@@ -428,7 +458,8 @@ the impact of binary presences—capturing their downstream or distributed
 effects over time, and reasoning about their relationship over a shared  
 timeline.
 
-Another important use case in the same vein is modeling the cost of delay for a  
+Another important use case in the same vein is modeling the cost of delay for
+a  
 portfolio-level element—and analyzing its cascading impact across the  
 portfolio.
 
@@ -456,8 +487,6 @@ These types of presences, representing perceptions, are powerful—helping
 teams track experience, spot early signs of burnout, or correlate perceived  
 flow with meetings, environment changes, build failures, or interruptions.
 
----
-
 Now, let's look at some examples outside software development.
 
 ### Browsing behavior on an e-commerce site
@@ -468,7 +497,8 @@ headphones, before briefly glancing at a discounted blender.
 
 Each of these interactions can be modeled as a presence: the shopper's  
 (element) attention occupying different parts of the site (boundaries) over  
-time. The varying durations reflect interest, and the shifting presence reveals  
+time. The varying durations reflect interest, and the shifting presence
+reveals  
 patterns of engagement.
 
 By analyzing these presences—where and for how long attention dwells—we can  
@@ -492,6 +522,41 @@ These are examples of classic operations management problems expressed in the
 language of the presence calculus. The calculus is well-suited to modeling  
 scenarios like these as a base case.
 
+## Systems of Presences
+
+Let's summarize what we've described so far.
+
+With presence density functions and presences, we now have a general structure  
+for describing and measuring the behavior and evolution of complex systems over
+time. The key feature of a presence is that it abstracts these behaviors into a
+uniform representation—one that we can reason about and compute with.
+
+We'll now move on to describing what we can do with *systems of presences*. 
+These are sets of presences, over one or more presence density functions 
+defined over a domain. 
+
+When we've represented a problem domain as a *system of presences*, much of the
+machinery of the presence calculus (which we'll introduce next) can be applied  
+uniformly.
+
+In particular, there are no fundamental differences in behavior between systems
+of binary presences and systems of presences with arbitrary mass—once they've  
+been reduced to a canonical, presence-oriented representation[^5].
+
+[^5]: There are several technical conditions that must be satisfied when  
+mapping PDFs to a canonical system of presences in order for this claim  
+to hold. To avoid getting bogged down in those details, we’ll simply claim it
+for now. The API docs go into more detail about the mechanics of this  
+canonical representation, and what’s needed to ensure a "clean" mapping from  
+an underlying PDF to a system of presences—or more precisely, a system of  
+presence assertions.
+
+Since systems of binary presences are much easier to visualize and build
+intuition around, we'll explain most of the remaining machinery of the presence
+calculus using binary presences to illustrate things.
+
+Everything we describe will apply to systems of presences where the mass is an
+arbitrary real number rather than just a value in $\\\{ 0,1 \\\}$
 
 
 

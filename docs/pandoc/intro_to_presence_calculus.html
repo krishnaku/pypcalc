@@ -448,8 +448,7 @@ units of this mass are element-time—in this case, task-days.</p>
 <p>Binary presences are sufficient to describe the <em>fact</em> of
 presence or absence<br />
 of things in places in a domain. These presences always have mass 1 in
-whatever<br />
-units we use for elements and time.</p>
+whatever units we use for elements and time.</p>
 <h2 id="what-is-the-mass-of-a-presence">What is the mass of a
 presence?</h2>
 <p>Let’s consider a more detailed set of statements:</p>
@@ -490,11 +489,11 @@ describing how much presence is concentrated at that point in time.</p>
 over the<br />
 interval <span class="math inline">\([t_0, t_1]\)</span>, defined
 as:</p>
-<p><span class="math display">\[ \text{mass} = \int_{t_0}^{t_1} f(e, b,
-t)\, dt \]</span></p>
-<p>where <span class="math inline">\(f\)</span> is the presence density
-function <a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a>.</p>
+<p><span class="math display">\[ \text{mass} = \int_{t_0}^{t_1}
+\mathsf{load}(e, b, t)\, dt \]</span></p>
+<p>where <span class="math inline">\(\mathsf{load}\)</span> is the
+presence density function <a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <h2 id="presence-density-functions-and-measure-theory">Presence density
 functions and measure theory</h2>
 <p>Binary presence functions are much easier to understand intuitively,
@@ -507,12 +506,24 @@ functions</em>.</p>
 (PDF) as<br />
 expressing the <em>load</em> placed on an element at a boundary. But
 more generally,<br />
-a PDF can be <em>any</em> real-valued function over time. The only
-requirement is<br />
-that you can interpret <em>presence mass</em>—defined as the integral of
-the function<br />
-over a finite interval—as a meaningful <em>measure</em> of the effect of
-presence in<br />
+a PDF can be <em>any</em> real-valued function over time.</p>
+<p>The mass of a presence, over any given time <em>interval</em> <span
+class="math inline">\([t_0, t1)\)</span> is the integral above, which is
+also the area under the presence density function over that interval<a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>.</p>
+<div style="text-align: center; margin:2em">
+<img src="../assets/pandoc/presence_definition.png" width="600px" />
+<div
+style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+<pre><code>Figure 2: Presence, Presence Density Function and Presence Mass</code></pre>
+</div>
+</div>
+<p>The only requirement for a function to be a presence density function
+is<br />
+that it is <em>measurable</em>, and that you can interpret <em>presence
+mass</em>—defined as the integral of the function over a finite
+interval—as a meaningful <em>measure</em> of the effect of presence in
 your domain.</p>
 <p>This is where measure theory enters the picture. It’s not essential
 to<br />
@@ -526,11 +537,9 @@ values.</p>
 statistics,<br />
 aggregate over elements or boundaries, and compose presence
 effects—while<br />
-preserving the semantics of the domain. When a PDF is measurable, we
-can<br />
-treat its values like any other real number and do math over them, as
-long as<br />
-we carefully respect the units involved.</p>
+preserving the semantics of the domain. Informally, when a PDF is
+measurable, we can treat its values like any other real number and do
+math over them, as long as we carefully respect the units involved.</p>
 <p>From our perspective, a presence density function captures a kind
 of<br />
 measurement that can be <em>accumulated</em> across time and across
@@ -559,8 +568,24 @@ class="math inline">\(f\)</span> over the interval:</p>
 <p>This mass captures both <em>that</em> the element was present, and
 <em>how</em> it was<br />
 present—uniformly, variably, or intermittently—over the time interval of
-the presence<a href="#fn3" class="footnote-ref" id="fnref3"
-role="doc-noteref"><sup>3</sup></a>.</p>
+the presence.</p>
+<p>The figure above also denotes the <em>onset</em> and <em>reset</em>
+times of the presence density function. In the interval between an onset
+and a reset, called a <em>support</em> of the PDF, the presence density
+function is greater than zero.</p>
+<p>A given PDF may have <em>many</em> such disjoint support
+intervals.</p>
+<p>A presence may be defined over any <em>sub-interval</em> of PDF, as
+shown above, so there are many possible ways of defining a presence from
+a PDF.</p>
+<p>A presence is best viewed as a sampled measurement of the underlying
+PDF taken by an observer over two specific points in time. A given
+observer may not even ” see” the whole underlying PDF, just the
+<em>mass</em> of the presence they experience over the two
+intervals.</p>
+<p>A bit later, we’ll introduce <em>presence assertions</em>, which
+formalize this idea of an observer recording presence based on their
+view of the underlying density function.</p>
 <h2 id="more-examples">More examples</h2>
 <p>Let’s firm up our intuition about what presences can describe with a
 few more<br />
@@ -610,8 +635,7 @@ systems.</p>
 <ul>
 <li>As a constant cost: for example, each interruption causes a
 fixed<br />
-15-minute recovery period, regardless of its duration.<br />
-</li>
+15-minute recovery period, regardless of its duration.</li>
 <li>As a decaying function: the cost is highest at the moment of
 interruption<br />
 and gradually decreases to zero over a defined recovery window
@@ -663,7 +687,6 @@ teams track experience, spot early signs of burnout, or correlate
 perceived<br />
 flow with meetings, environment changes, build failures, or
 interruptions.</p>
-<hr />
 <p>Now, let’s look at some examples outside software development.</p>
 <h3 id="browsing-behavior-on-an-e-commerce-site">Browsing behavior on an
 e-commerce site</h3>
@@ -705,6 +728,33 @@ expressed in the<br />
 language of the presence calculus. The calculus is well-suited to
 modeling<br />
 scenarios like these as a base case.</p>
+<h2 id="systems-of-presences">Systems of Presences</h2>
+<p>Let’s summarize what we’ve described so far.</p>
+<p>With presence density functions and presences, we now have a general
+structure<br />
+for describing and measuring the behavior and evolution of complex
+systems over time. The key feature of a presence is that it abstracts
+these behaviors into a uniform representation—one that we can reason
+about and compute with.</p>
+<p>We’ll now move on to describing what we can do with <em>systems of
+presences</em>. These are sets of presences, over one or more presence
+density functions defined over a domain.</p>
+<p>When we’ve represented a problem domain as a <em>system of
+presences</em>, much of the machinery of the presence calculus (which
+we’ll introduce next) can be applied<br />
+uniformly.</p>
+<p>In particular, there are no fundamental differences in behavior
+between systems of binary presences and systems of presences with
+arbitrary mass—once they’ve<br />
+been reduced to a canonical, presence-oriented representation<a
+href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a>.</p>
+<p>Since systems of binary presences are much easier to visualize and
+build intuition around, we’ll explain most of the remaining machinery of
+the presence calculus using binary presences to illustrate things.</p>
+<p>Everything we describe will apply to systems of presences where the
+mass is an arbitrary real number rather than just a value in <span
+class="math inline">\(\\\{ 0,1 \\\}\)</span></p>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
@@ -757,6 +807,19 @@ presence<br />
 captures temporal variation with ease, making it available for
 downstream<br />
 analysis.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>There are several technical conditions that must be
+satisfied when<br />
+mapping PDFs to a canonical system of presences in order for this
+claim<br />
+to hold. To avoid getting bogged down in those details, we’ll simply
+claim it for now. The API docs go into more detail about the mechanics
+of this<br />
+canonical representation, and what’s needed to ensure a “clean” mapping
+from<br />
+an underlying PDF to a system of presences—or more precisely, a system
+of<br />
+presence assertions.<a href="#fnref5" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
