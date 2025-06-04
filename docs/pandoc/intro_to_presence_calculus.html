@@ -569,23 +569,6 @@ class="math inline">\(f\)</span> over the interval:</p>
 <em>how</em> it was<br />
 present—uniformly, variably, or intermittently—over the time interval of
 the presence.</p>
-<p>The figure above also denotes the <em>onset</em> and <em>reset</em>
-times of the presence density function. In the interval between an onset
-and a reset, called a <em>support</em> of the PDF, the presence density
-function is greater than zero.</p>
-<p>A given PDF may have <em>many</em> such disjoint support
-intervals.</p>
-<p>A presence may be defined over any <em>sub-interval</em> of PDF, as
-shown above, so there are many possible ways of defining a presence from
-a PDF.</p>
-<p>A presence is best viewed as a sampled measurement of the underlying
-PDF taken by an observer over two specific points in time. A given
-observer may not even ” see” the whole underlying PDF, just the
-<em>mass</em> of the presence they experience over the two
-intervals.</p>
-<p>A bit later, we’ll introduce <em>presence assertions</em>, which
-formalize this idea of an observer recording presence based on their
-view of the underlying density function.</p>
 <h2 id="more-examples">More examples</h2>
 <p>Let’s firm up our intuition about what presences can describe with a
 few more<br />
@@ -733,28 +716,105 @@ scenarios like these as a base case.</p>
 <p>With presence density functions and presences, we now have a general
 structure<br />
 for describing and measuring the behavior and evolution of complex
-systems over time. The key feature of a presence is that it abstracts
-these behaviors into a uniform representation—one that we can reason
-about and compute with.</p>
-<p>We’ll now move on to describing what we can do with <em>systems of
-presences</em>. These are sets of presences, over one or more presence
-density functions defined over a domain.</p>
-<p>When we’ve represented a problem domain as a <em>system of
-presences</em>, much of the machinery of the presence calculus (which
-we’ll introduce next) can be applied<br />
-uniformly.</p>
+systems over<br />
+time. The key feature of a presence is that it abstracts these behaviors
+into a<br />
+uniform representation—one that we can reason about and compute
+with.</p>
+<h3 id="presence-assertions">Presence Assertions</h3>
+<p>In Figure 2, we showed the <em>onset</em> and <em>reset</em> times of
+a presence density<br />
+function. The interval between an onset and a reset is called the
+<em>support</em> of<br />
+the PDF. Within this interval, the function is non-zero.</p>
+<p>As we see in Figure 3, a given PDF may have <em>multiple</em> such
+disjoint support<br />
+intervals.</p>
+<div style="text-align: center; margin:2em">
+<img src="../assets/pandoc/multiple_support.png" width="600px" />
+<div
+style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+<pre><code>Figure 3: A presence as a sample of a PDF over an interval.</code></pre>
+</div>
+</div>
+<p>A presence may be defined over <em>any</em> subinterval of a PDF, as
+shown in Figure 3.<br />
+There are many possible ways of defining a presence from a PDF,
+including across<br />
+disjoint support intervals. All we require is that the interval in
+question<br />
+intersects a region of non-zero area that can be reduced to a presence
+mass.</p>
+<p>So, a presence is best thought of as a <em>sampled measurement</em>
+of the underlying<br />
+PDF, taken by an <em>observer</em> over two specific points in time and
+reduced to a<br />
+point-mass measurement over that interval.</p>
+<p>A given observer may not even “see” the full underlying PDF—only the
+<em>mass</em><br />
+of the presence they experience over the interval they observed.</p>
+<p>Different observers may observe different intervals of the same PDF
+and derive<br />
+different presence values, depending on what part of the function
+they<br />
+encounter.</p>
+<p>This brings us to the concept of <strong>presence
+assertions</strong>, which formalize this<br />
+idea of an observer recording a presence based on their local view of
+the<br />
+underlying density function.</p>
+<p>A <em>presence assertion</em> is simply a presence augmented with
+metadata:<br />
+- <em>who</em> the observer was<br />
+- and an <em>assertion timestamp</em>—the time at which the observation
+was made.</p>
+<p>The assertion time doesn’t need to align with the time interval of
+the presence.<br />
+This allows assertions to refer to the past, reflect the present, or
+even<br />
+anticipate the future behavior of a PDF.</p>
+<p>Presence assertions give us the ability to assign <em>provenance</em>
+to a presence—<br />
+not just <em>what</em> we know, but <em>how</em> we know it. This is
+essential in<br />
+representing complex systems where the observer and the act of
+observation<br />
+are first-class concerns.</p>
+<p>We won’t go too deeply into the epistemological aspects of the
+presence<br />
+calculus here—this remains an active and open area of research. But
+it’s<br />
+important to acknowledge that this layer exists, and that modeling
+and<br />
+interpreting the output of the presence calculus requires an explicit
+treatment<br />
+of how observations are made and by whom.</p>
+<p>With this caveat in place, once we’ve represented a problem domain as
+a<br />
+<em>system of presences</em>, much of the machinery of the presence
+calculus (which<br />
+we’ll introduce next) can be applied uniformly.</p>
 <p>In particular, there are no fundamental differences in behavior
-between systems of binary presences and systems of presences with
-arbitrary mass—once they’ve<br />
+between systems<br />
+of binary presences and systems of presences with arbitrary mass—once
+they’ve<br />
 been reduced to a canonical, presence-oriented representation<a
 href="#fn5" class="footnote-ref" id="fnref5"
 role="doc-noteref"><sup>5</sup></a>.</p>
-<p>Since systems of binary presences are much easier to visualize and
-build intuition around, we’ll explain most of the remaining machinery of
-the presence calculus using binary presences to illustrate things.</p>
-<p>Everything we describe will apply to systems of presences where the
-mass is an arbitrary real number rather than just a value in <span
-class="math inline">\(\\\{ 0,1 \\\}\)</span></p>
+<p>Since systems of binary presences are easier to visualize and reason
+about,<br />
+we’ll illustrate most of the remaining ideas in the calculus using
+binary<br />
+presences.</p>
+<p>We’ll simply assert that everything we describe also applies to
+systems of<br />
+presences with arbitrary mass—not just those restricted to values
+in<br />
+<span class="math inline">\(\{0, 1\}\)</span>. Validating that claim
+involves deeper technical foundations, which<br />
+are explored in the Presence Calculus Toolkit documentation and
+the<br />
+mathematical exposition found in the theory track.</p>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
@@ -810,16 +870,16 @@ analysis.<a href="#fnref4" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>There are several technical conditions that must be
 satisfied when<br />
-mapping PDFs to a canonical system of presences in order for this
-claim<br />
-to hold. To avoid getting bogged down in those details, we’ll simply
-claim it for now. The API docs go into more detail about the mechanics
-of this<br />
-canonical representation, and what’s needed to ensure a “clean” mapping
-from<br />
-an underlying PDF to a system of presences—or more precisely, a system
-of<br />
-presence assertions.<a href="#fnref5" class="footnote-back"
+mapping PDFs to a canonical system of presences in order for this claim
+to<br />
+hold. To avoid getting bogged down in those details, we’ll simply claim
+it for<br />
+now. The API docs go into more detail about the mechanics of this
+canonical<br />
+representation, and what’s needed to ensure a “clean” mapping from a PDF
+to a<br />
+system of presences—or more precisely, a system of presence
+assertions.<a href="#fnref5" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
