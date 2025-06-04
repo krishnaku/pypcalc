@@ -226,8 +226,8 @@ But treating the presence as the primary object of reasoning—as a
 
 Specifically, it allows us to apply powerful mathematical tools that exploit the
 continuity of time and the algebra of time intervals to reason about the
-interactions and emergent assemblages of presences in a rigorous and structured,
-and more importantly, computable way.
+interactions and emergent configurations of presences in a rigorous and
+structured, and more importantly, computable way.
 
 ## What is a presence?
 
@@ -533,8 +533,8 @@ times over its lifecycle.
   </div>
 </div>
 
-A presence may be defined over *any* sub-interval of a PDF, as shown in 
-Figure 3.
+A presence may be defined over *any* sub-interval of a PDF, as shown in Figure
+3.
 
 There are many possible ways of defining a presence from a PDF, including across
 disjoint support intervals. All we require is that the interval in question  
