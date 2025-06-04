@@ -233,7 +233,7 @@ statistical inference and probabilistic models, and start reasoning
 about global and long run behavior of complex systems, we need models
 that treat time and history as first-class concepts we can reason and
 compute with.</p>
-<p>This, in turn, lets us apply techniques from disclines such as
+<p>This, in turn, lets us apply techniques from disciplines such as
 stochastic process dynamics, queueing theory, and complex systems
 science, to reason holistically about global, long run behavior of
 complex systems.</p>
@@ -253,7 +253,7 @@ href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>.</p>
 <p>In this document, we’ll motivate and introduce the key ideas in the
 calculus<br />
-informally, with lots of highly simplified examples and allusions
+informally, with lots of highly evocative examples and simplifications
 to<br />
 illustrate concepts.</p>
 <p>It is aimed squarely at the non-technical reader. We’ll also continue
@@ -264,15 +264,15 @@ Dispatch</a>.</p>
 deeper<br />
 into the rest of the documentation at this site, which does get a fair
 bit<br />
-more dense.</p>
-<p>The next level of detail is in the API docs for the <a
+more dense. The next level of detail is in the API docs for the <a
 href="https://py.pcalc.org">The Presence Calculus<br />
-Toolkit</a>. The toolkit is an open source python library that is
-designed to provide efficient implementions for all the core concepts in
-the presence calculus. In the API documentation, we go into the concepts
-at a level of rigor that you’ll need to work with the pcalc API and
-apply the concepts. Some mathematical background will be useful here if
-you want to develop extensions to the core.</p>
+Toolkit</a>.</p>
+<p>The toolkit is an open source python library that is designed to
+provide efficient implementations for all the core concepts in the
+presence calculus. In the API documentation, we go into the concepts at
+a level of rigor that you’ll need to work with the pcalc API and apply
+the concepts. Some mathematical background will be useful here if you
+want to develop extend the core.</p>
 <p>Finally, for those who want to dive deeper into the formal
 mathematical<br />
 underpinnings of the calculus, we have the theory track, which perhaps
@@ -715,12 +715,10 @@ scenarios like these as a base case.</p>
 <p>Let’s summarize what we’ve described so far.</p>
 <p>With presence density functions and presences, we now have a general
 structure<br />
-for describing and measuring the behavior and evolution of complex
-systems over<br />
-time. The key feature of a presence is that it abstracts these behaviors
-into a<br />
-uniform representation—one that we can reason about and compute
-with.</p>
+for describing and measuring the behaviour of an arbitrary time varying
+function. The key feature of a presence is that it abstracts these
+behaviors into a uniform representation—one that we can reason about and
+compute with.</p>
 <h3 id="presence-assertions">Presence Assertions</h3>
 <p>In Figure 2, we showed the <em>onset</em> and <em>reset</em> times of
 a presence density<br />
@@ -729,7 +727,11 @@ function. The interval between an onset and a reset is called the
 the PDF. Within this interval, the function is non-zero.</p>
 <p>As we see in Figure 3, a given PDF may have <em>multiple</em> such
 disjoint support<br />
-intervals.</p>
+intervals. These represent non-contigous presences of the same element
+within the same boundary over time. These may correspond, to episodic
+behavior in the underlying domain, for example, user sessions in an
+e-commerce context, or rework loops in software development when a task
+“returns” to development many times over its lifecycle.</p>
 <div style="text-align: center; margin:2em">
 <img src="../assets/pandoc/multiple_support.png" width="600px" />
 <div
@@ -738,11 +740,10 @@ style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
 </div>
 </div>
 <p>A presence may be defined over <em>any</em> subinterval of a PDF, as
-shown in Figure 3.<br />
-There are many possible ways of defining a presence from a PDF,
-including across<br />
-disjoint support intervals. All we require is that the interval in
-question<br />
+shown in Figure 3.</p>
+<p>There are many possible ways of defining a presence from a PDF,
+including across disjoint support intervals. All we require is that the
+interval in question<br />
 intersects a region of non-zero area that can be reduced to a presence
 mass.</p>
 <p>So, a presence is best thought of as a <em>sampled measurement</em>
@@ -764,15 +765,15 @@ idea of an observer recording a presence based on their local view of
 the<br />
 underlying density function.</p>
 <p>A <em>presence assertion</em> is simply a presence augmented with
-metadata:<br />
-- <em>who</em> the observer was<br />
-- and an <em>assertion timestamp</em>—the time at which the observation
-was made.</p>
+metadata:</p>
+<ul>
+<li><em>who</em> the observer was</li>
+<li>and an <em>assertion timestamp</em>—the time at which the
+observation was made.</li>
+</ul>
 <p>The assertion time doesn’t need to align with the time interval of
-the presence.<br />
-This allows assertions to refer to the past, reflect the present, or
-even<br />
-anticipate the future behavior of a PDF.</p>
+the presence. This allows assertions to refer to the past, reflect the
+present, or even anticipate the future behavior of a PDF.</p>
 <p>Presence assertions give us the ability to assign <em>provenance</em>
 to a presence—<br />
 not just <em>what</em> we know, but <em>how</em> we know it. This is
@@ -787,25 +788,22 @@ it’s<br />
 important to acknowledge that this layer exists, and that modeling
 and<br />
 interpreting the output of the presence calculus requires an explicit
-treatment<br />
-of how observations are made and by whom.</p>
+treatment of how observations are made and by whom.</p>
 <p>With this caveat in place, once we’ve represented a problem domain as
 a<br />
 <em>system of presences</em>, much of the machinery of the presence
 calculus (which<br />
 we’ll introduce next) can be applied uniformly.</p>
 <p>In particular, there are no fundamental differences in behavior
-between systems<br />
-of binary presences and systems of presences with arbitrary mass—once
-they’ve<br />
-been reduced to a canonical, presence-oriented representation<a
-href="#fn5" class="footnote-ref" id="fnref5"
-role="doc-noteref"><sup>5</sup></a>.</p>
+between systems of binary presences and systems of presences with
+arbitrary mass—once they’ve been reduced to a canonical,
+presence-oriented representation<a href="#fn5" class="footnote-ref"
+id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
 <p>Since systems of binary presences are easier to visualize and reason
 about,<br />
 we’ll illustrate most of the remaining ideas in the calculus using
 binary<br />
-presences.</p>
+presences when it is easier to do so.</p>
 <p>We’ll simply assert that everything we describe also applies to
 systems of<br />
 presences with arbitrary mass—not just those restricted to values
