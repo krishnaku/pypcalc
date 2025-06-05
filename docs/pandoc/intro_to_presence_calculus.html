@@ -837,38 +837,44 @@ t_0\)</span>.</p>
 the quantity <span class="math inline">\(\frac{A}{T}\)</span> represents
 the <em>average presence density</em> over the observation interval. We
 can now decompose this as:</p>
-<p><span class="math display">\[ \frac{A}{T} = \frac{A}{N} \times
-\frac{N}{T} \]</span></p>
+<p><span class="math display">\[ \delta = \frac{A}{T} = \frac{A}{N}
+\times \frac{N}{T} \]</span></p>
 <p>This separates the average presence density into two interpretable
 components:</p>
 <ul>
-<li><span class="math inline">\(\frac{A}{N}\)</span>: the <em>average
-mass contribution</em> per active PDF,</li>
-<li><span class="math inline">\(\frac{N}{T}\)</span>: the <em>incidence
-rate</em>—i.e., the number of active PDFs per unit time.</li>
+<li><span class="math inline">\(\bar{m} = \frac{A}{N}\)</span>: the
+<em>average mass contribution</em> per active PDF,</li>
+<li><span class="math inline">\(\iota = \frac{N}{T}\)</span>: the
+<em>incidence rate</em>—i.e., the number of active PDFs per unit
+time.</li>
 </ul>
 <p>This leads to the <em>presence invariant</em>:</p>
 <p><span class="math display">\[ \text{Average Presence Density} =
 \text{Incidence Rate} \times \text{Average
-Mass Contribution} \]</span></p>
+Mass Contribution} \]</span> or in our notation</p>
+<p><span class="math display">\[ \delta = \iota \cdot \bar{m}
+\]</span></p>
 <p>This identity holds for <em>any</em> co-present subset of PDFs over
 <em>any</em> finite time interval.</p>
-<p>The relationship is a tautology—independent of the specific system,
-semantics, or sampling granularity—and forms a foundational conservation
-law of the presence calculus: the <em>conservation of mass
-(contributions)</em>.</p>
+<p>While algebraically, this relationship is a tautology, it imposes a
+powerful constraint on system behavior—one that is independent of the
+specific system, semantics, or timescale.</p>
+<p>Indeed, it forms a foundational conservation law of the presence
+calculus: the <em>conservation of mass (contributions)</em>.</p>
 <p>Just as the conservation of energy or mass constrains the evolution
 of physical systems—regardless of the specific materials or forces
 involved—the conservation of presence mass constrains how observable
 activity is distributed over time in a system of presences.</p>
 <p>It is independent of the semantics of what is being observed: like
-energy, presence mass can shift, accumulate, or redistribute, but its
-total balance over a finite interval remains invariant.</p>
+energy, presence mass can shift, accumulate, or redistribute, but it
+remains balanced when distributed across presences over a finite
+interval remains invariant.</p>
 <p>Thus, the conservation of mass plays a role in the presence calculus
 similar to that of other conservation laws in physics. It constrains the
 behavior of three key observable, measurable parameters of any system of
-presences. More importantly, it allows us to study and characterize the
-long-run behavior of the system.</p>
+presences.</p>
+<p>More importantly, exploiting this constraint allows us to study and
+characterize the long-run behavior of the system.</p>
 <p>This provides a rigorous framework for reasoning about the history of
 a path-dependent system of presences—a key prerequisite for analyzing
 the long-run evolution of presence systems and understanding emergent
@@ -899,8 +905,8 @@ style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
 <pre><code>Figure 6: The Presence Invariant for Binary PDFs</code></pre>
 </div>
 </div>
-<p>Figure 6 shows several various configurations of binary PDFs
-intersecting a finite observation interval.</p>
+<p>Figure 6 shows possible configurations of binary PDFs intersecting a
+finite observation interval.</p>
 <p>Suppose the unit of time is days.</p>
 <p>The total presence mass accumulation <span
 class="math inline">\(A\)</span> is <span
@@ -912,18 +918,20 @@ It is straightforward to verify that the presence invariant holds.</p>
 <p>Now, let’s unpack its meaning.</p>
 <p>Since each task contributes <span class="math inline">\(1\)</span>
 unit of mass for each unit of time it is present, the average presence
-density <span class="math inline">\(\frac{A}{T}\)</span> represents the
-<em>average number of tasks</em> present per unit time in the
-interval—denoted <span class="math inline">\(L\)</span>.</p>
+density $ = $ represents the <em>average number of tasks</em> present
+per unit time in the interval—denoted <span
+class="math inline">\(L\)</span>.</p>
 <p>Conversely, since each unit of mass corresponds to a unit of time
-associated with a task, the average mass per PDF, <span
-class="math inline">\(\frac{A}{N}\)</span>, is the <em>average residence
-time</em> <span class="math inline">\(w\)</span> of a task in the
-observation window.</p>
-<p>The incidence rate <span class="math inline">\(\frac{N}{T}\)</span>
-may be interpreted as the <em>activation rate</em> of tasks in the
-interval—a proxy for the rate at which tasks start (onset) or finish
-(reset) within the window.</p>
+associated with a task, the average mass per active presence, <span
+class="math inline">\(\bar{m} = \frac{A}{N}\)</span>, is the average
+time a task spends in the observation window. This value is typically
+called the <em>residence time</em> <span
+class="math inline">\(w\)</span> of a task in the observation window, a
+term we will adopt in general for presences.</p>
+<p>The incidence rate <span class="math inline">\(\iota =
+\frac{N}{T}\)</span> may be interpreted as the <em>activation rate</em>
+of tasks in the interval—a proxy for the rate at which tasks start
+(onset) or finish (reset) within the window.</p>
 <p>For example, <span class="math inline">\(N\)</span> may be counted as
 the number of tasks that start inside the interval, plus the number that
 started before but are still active. Thus, <span
@@ -935,6 +943,13 @@ onset rate</em> <span class="math inline">\(\Lambda\)</span>.</p>
 finite observation window. Thus, the presence invariant serves as a
 <strong>generalization of Little’s Law</strong>—extending it to
 arbitrary systems of presence density functions.</p>
+<p>We’ll also note that for any arbitrary PDF, we can always define a
+binary presence corresponding to the intervals over which the value of
+the density function is non-zero (the support interval) and so in
+general, we can say the finite window version of Little’s Law, with the
+above definitions, always applies to <em>any</em> presence density
+function, <em>in addition</em> to the general presence invariant, which
+applies to the full presence density function, not just its support.</p>
 <p>It is important to note that we are referring to <em>Little’s Law
 over a finite observation window</em>, rather than the steady-state
 equilibrium form of Little’s Law. Just like the presence invariant in
@@ -987,8 +1002,6 @@ f_{(e,b)}(t) \, dt \]</span></p></li>
 representation of this system of presences. Since we are accumulating
 presence masses over an interval, the value of presence mass in a matrix
 entry is always a a real number.</p>
-<p>Lets illustrate with a set of binary presences to keep things
-simple.</p>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
