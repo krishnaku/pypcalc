@@ -534,6 +534,7 @@ times over its lifecycle.
 </div>
 
 A presence may be defined over *any* sub-interval of a PDF, as shown in Figure
+
 3.
 
 There are many possible ways of defining a presence from a PDF, including across
@@ -551,7 +552,7 @@ Different observers may observe different intervals of the same PDF and derive
 different presence values, depending on what part of the function they  
 encounter.
 
-This brings us to the concept of **presence assertions**, which formalize this  
+This brings us to the concept of *presence assertions*, which formalize this  
 idea of an observer recording a presence based on their local view of the  
 underlying density function.
 
@@ -590,15 +591,210 @@ now. The API docs go into more detail about the mechanics of this canonical
 representation, and what’s needed to ensure a "clean" mapping from a PDF to a  
 system of presences—or more precisely, a system of presence assertions.
 
-Since systems of binary presences are easier to visualize and reason about,  
-we'll illustrate most of the remaining ideas in the calculus using binary  
-presences when it is easier to do so.
+## The Presence Invariant
 
-We’ll simply assert that everything we describe also applies to systems of  
-presences with arbitrary mass—not just those restricted to values in  
-$\{0, 1\}$. Validating that claim involves deeper technical foundations, which  
-are explored in the Presence Calculus Toolkit documentation and the  
-mathematical exposition found in the theory track.
+In the last section, we introduced *systems of presences* as collections of
+presence assertions defined over a set of presence density functions (PDFs).
+
+Figure 5 illustrates an example of such a system, where we focus on the subset
+of presences defined over a *shared observation interval*.
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/presence_invariant_continuous.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 5: The Presence Invariant
+  </div>
+</div>
+
+These presences are called *co-present*—they represent an observer making
+simultaneous measurements of presence mass across multiple PDFs over a common
+interval of time.
+
+Each presence density function contributes a *presence mass*, defined as the
+integral of the density over the observation interval. The sum of these
+individual *mass contributions* gives the total presence mass observed across
+the system in that interval.
+
+In this section, we introduce a key construct in the presence calculus: the
+*presence invariant*. It expresses a general and powerful relationship that
+holds for any co-present subset of presences within a finite observation window.
+
+Let
+
+$$ A = M_0 + M_1 + M_3 $$
+
+be the total mass contribution from the PDFs that have non-zero mass over the
+interval $[t_0, t_1)$. The length of this interval is $T = t_1 - t_0$.
+
+Since the mass comes from integrating a density function over time, the quantity
+$\frac{A}{T}$ represents the *average presence density* over the observation
+interval. We can now decompose this as:
+
+$$ \frac{A}{T} = \frac{A}{N} \times \frac{N}{T} $$
+
+This separates the average presence density into two interpretable components:
+
+- $\frac{A}{N}$: the *average mass contribution* per active PDF,
+- $\frac{N}{T}$: the *incidence rate*—i.e., the number of active PDFs per unit
+  time.
+
+This leads to the *presence invariant*:
+
+$$ \text{Average Presence Density} = \text{Incidence Rate} \times \text{Average
+Mass Contribution} $$
+
+This identity holds for *any* co-present subset of PDFs over *any* finite time
+interval.
+
+The relationship is a tautology—independent of the specific system, semantics,
+or sampling granularity—and forms a foundational conservation law of the
+presence calculus: the *conservation of mass (contributions)*.
+
+Just as the conservation of energy or mass constrains the evolution of physical
+systems—regardless of the specific materials or forces involved—the conservation
+of presence mass constrains how observable activity is distributed over time in
+a system of presences.
+
+It is independent of the semantics of what is being observed: like energy,
+presence mass can shift, accumulate, or redistribute, but its total balance over
+a finite interval remains invariant.
+
+Thus, the conservation of mass plays a role in the presence calculus similar to
+that of other conservation laws in physics. It constrains the behavior of three
+key observable, measurable parameters of any system of presences. More
+importantly, it allows us to study and characterize the long-run behavior of the
+system.
+
+This provides a rigorous framework for reasoning about the history of a
+path-dependent system of presences—a key prerequisite for analyzing the long-run
+evolution of presence systems and understanding emergent patterns in that
+evolution.
+
+### The Presence Invariant for Binary Presences
+
+One of the key features of the presence calculus is that it provides very
+general mechanisms for computing over functions—but the value of this machinery
+is only realized through modeling and reinterpreting its results in the language
+of the domain.
+
+At this stage, the presence invariant may still feel rather abstract. Let's make
+it more concrete by interpreting this identity in the special case of *binary*
+presences.
+
+Recall that a *binary* PDF is a function whose density is either $0$ or $1$.
+That is, we are modeling the presence or absence of an underlying signal in the
+domain.
+
+In this case, the *mass contribution* of a PDF becomes an element-time duration.
+For example, if the PDF represents the time during which a task is present in
+development, the mass contribution of that task over an observation interval is
+the portion of its duration that intersects the interval. This is also called
+the _residence time_ for the task in the observation window.
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/presence_invariant_binary.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 6: The Presence Invariant for Binary PDFs
+  </div>
+</div>
+
+Figure 6 shows several various configurations of binary PDFs intersecting a
+finite observation interval.
+
+Suppose the unit of time is days.
+
+The total presence mass accumulation $A$ is $11$ task-days. The number $N$ of
+tasks that intersect the observation interval is $4$. The length of the
+observation window is $T = 4$ days. It is straightforward to verify that the
+presence invariant holds.
+
+Now, let's unpack its meaning.
+
+Since each task contributes $1$ unit of mass for each unit of time it is
+present, the average presence density $\frac{A}{T}$ represents the *average
+number of tasks* present per unit time in the interval—denoted $L$.
+
+Conversely, since each unit of mass corresponds to a unit of time associated
+with a task, the average mass per PDF, $\frac{A}{N}$, is the *average residence
+time* $w$ of a task in the observation window.
+
+The incidence rate $\frac{N}{T}$ may be interpreted as the *activation rate* of
+tasks in the interval—a proxy for the rate at which tasks start (onset) or
+finish (reset) within the window.
+
+For example, $N$ may be counted as the number of tasks that start inside the
+interval, plus the number that started before but are still active. Thus,
+$\frac{N}{T}$ approximates a *cumulative onset rate* $\Lambda$.
+
+The presence invariant can now be rewritten as:
+
+$$ L = \Lambda \times w $$
+
+which you may recognize as *Little's Law* applied over a finite observation
+window. Thus, the presence invariant serves as a **generalization of Little’s
+Law**—extending it to arbitrary systems of presence density functions.
+
+It is important to note that we are referring to *Little's Law over a finite
+observation window*, rather than the steady-state equilibrium form of Little's
+Law. Just like the presence invariant in the general case, this version of the
+law holds *unconditionally*. The key is that the quantities involved are
+*observer-relative*: the time tasks spend *within the observation window*, and
+the *activation rate* of tasks *over the window*, rather than the task-relative
+durations or steady-state arrival/departure rates used in classical queueing
+theory.
+
+Indeed, in the general case, the difference between these two forms of the
+identity will serve as the basis for how we *define* whether a system of
+presences is in equilibrium or not. The idea is that the system of presences is
+at equilibrium when observed over sufficiently long observation windows such
+that the observer-relative and task-relative values of average presence density,
+incidence rate and average presence mass converge.
+
+Since complex systems often operate far from equilibrium—and since the presence
+invariant holds *regardless* of equilibrium—the finite-window form becomes far
+more valuable for analyzing the long-run behavior of such systems as they *move
+into and between* equilibrium states.
+
+We will return to this important topic shortly. But first, let's build a bit
+more machinery so that we can work computationally with sets of presences in a
+more natural and systematic way.
+
+## The Presence Matrix
+
+In the previous section, we introduced a *system of presences* as a collection
+of presence assertions, where each assertion corresponds to the *mass* of an
+underlying presence density function over a time interval.
+
+We noted that such presence assertions can be derived in many ways, depending on
+how time is partitioned—that is, on the *choice of sampling intervals* used to
+evaluate the density functions.
+
+A *presence matrix* captures this structure by sampling a set of presence
+density functions over a fixed set of time intervals. Specifically, if we fix a
+time granularity—such as hours or days—we can construct a matrix in which:
+
+- *Rows* correspond to individual presence density functions (e.g., for each $(
+  e, b)$ pair),
+- *Columns* correspond to non-overlapping time intervals _that cover the time
+  axis_,
+- *Entries* contain the *presence mass*, i.e., the integral of the density
+  function over the corresponding interval:
+
+  $$ M_{(e,b),j} = \int_{t_j}^{t_{j+1}} f_{(e,b)}(t) \, dt $$
+
+The resulting matrix provides a discrete, temporally-aligned representation of
+this system of presences. Since we are accumulating presence masses over an
+interval, the value of presence mass in a matrix entry is always a a real
+number.
+
+Lets illustrate with a set of binary presences to keep things simple. 
+
+
+
+
+
+
+
 
 
 
