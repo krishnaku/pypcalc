@@ -704,8 +704,8 @@ the _residence time_ for the task in the observation window.
   </div>
 </div>
 
-Figure 6 shows possible configurations of binary PDFs intersecting a
-finite observation interval.
+Figure 6 shows possible configurations of binary PDFs intersecting a finite
+observation interval.
 
 Suppose the unit of time is days.
 
@@ -775,15 +775,60 @@ We will return to this important topic shortly. But first, let's build a bit
 more machinery so that we can work computationally with sets of presences in a
 more natural and systematic way.
 
-## The Presence Matrix
+## The Presence Invariant and Causal Reasoning
 
-In the previous section, we introduced a *system of presences* as a collection
-of presence assertions, where each assertion corresponds to the *mass* of an
-underlying presence density function over a time interval.
+The presence invariant gave us an important constraint that applies to the
+behavior of three key parameters of a system of presences when measured over any
+finite time interval: the average presence density, the incidence rate, and the
+average mass contribution per presence.
 
-We noted that such presence assertions can be derived in many ways, depending on
-how time is partitioned—that is, on the *choice of sampling intervals* used to
-evaluate the density functions.
+This means that if we observe the behavior of a system of presences over a
+continuous sequence of non-overlapping time intervals, the presence invariant
+holds in _each_ such interval, and given the value of any two of the parameters,
+the third is completely determined.
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/system_presences_discrete.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 7: Sampling a system of presence across uniform intervals. 
+  </div>
+</div>
+
+
+The requirement that presence mass is conserved across each interval means that
+there are only two degrees of freedom in how the three variables can change.
+
+This implies that if we study how these parameters change in concert as we move
+_across_ time intervals, we will get unique insights into how a _particular_
+system of presences evolves over time.
+
+If, for example, we know that the average presence density has increased between
+one interval and the next, then we know for sure that either the incidence rate,
+or average mass per presence (or both) have increased.
+
+Moreover, these are the _only_ possible explanations for the increase in the
+average presence mass. Any other explanation must also lead to the changes in
+one of the two primary drivers of the average presence density.
+
+This is a powerful tool in being able to analyze _why_ a system of presences
+behaves the way it does and this is a fundamental benefit of having a tool like
+the presence invariant at our disposal.
+
+Specifically, if we think of these three parameters of a system as defining the
+unique co-ordinates of the state of the system over a small finite interval, we
+can "trace" the movement of the system by following these co-ordinates. But
+since there are only two degrees of freedom these coordinates will always lie on
+a two dimensional surface, called a manifold in a 3 dimensional space.
+
+If fact, remarkably, the state of every possible system of presences, no matter
+how general, always has a trajectory in time that lies on this *same* manifold.
+
+This is a powerful constraint and insight that we can use to study the behavior
+of complex systems, and in order to make this easier to calculate we will 
+introduce a tool called the presence matrix that makes it easier to keep track of the
+computations involved in doing this.
+
+## The Presence Matrix 
 
 A *presence matrix* captures this structure by sampling a set of presence
 density functions over a fixed set of time intervals. Specifically, if we fix a
@@ -803,6 +848,12 @@ this system of presences. Since we are accumulating presence masses over an
 interval, the value of presence mass in a matrix entry is always a a real
 number.
 
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/presence_matrix.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 8: Presence Matrix for a system of presences. 
+  </div>
+</div>
 
 
 
