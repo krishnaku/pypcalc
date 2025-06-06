@@ -307,42 +307,47 @@ Binary presence functions are much easier to understand intuitively, and we'll
 continue using them in our examples. But the real power of the presence  
 calculus comes from generalizing to *presence density functions*.
 
-In our earlier example, we interpreted the presence density function (PDF) as  
+We may think of presence density functions as *domain signals* that we are
+interesting in observing and measuring, and the presence density functions can
+model a very large and general class of domain signals, so in what follows we
+will often refer to presence density functions as *signals* and use the two 
+terms interchangeably. 
+
+In our earlier example, we interpreted the signal as  
 expressing the *load* placed on an element at a boundary. But more generally,  
-a PDF can be *any* real-valued function over time.
+a signal can be *any* real-valued function over time.
 
 The mass of a presence, over any given time *interval* $[t_0, t1)$ is the
-integral above, which is also the area under the presence density function over
-that interval[^3].
+integral above, which is also the area under the signal over that interval[^3].
 
-[^3]: The way we've defined presence density functions and mass is directly  
+[^3]: The way we've defined signals and mass is directly  
 analogous to how mass is defined for matter occupying space in physics.
 
-    A binary PDF can be thought of as defining a one-dimensional interval over  
+    A binary signal can be thought of as defining a one-dimensional interval over  
     time. For a fixed element and boundary, this gives us an area under the  
     curve in two dimensions: time vs. density.
 
     If we treat elements and boundaries as additional independent dimensions,  
-    then the PDF defines a *volume* in three dimensions, with time as one axis.  
+    then the signal defines a *volume* in three dimensions, with time as one axis.  
 
     This interpretation—presence as a physical manifestation of density over  
     time—is a powerful way to reason intuitively and computationally about 
     duration, overlap, and accumulation in time.
 
-    And when we allow multiple PDFs to interact over the same time periods, we  
+    And when we allow multiple signals to interact over the same time periods, we  
     begin to model complex, higher-dimensional effects of presence—exactly the  
     kind of generality we’ll need when we move beyond simple binary presences.
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/presence_definition.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-    Figure 2: Presence, Presence Density Function and Presence Mass
+    Figure 2: Signals, Presence,  and Presence Mass
   </div>
 </div>
 
-The only requirement for a function to be a presence density function is  
-that it is *measurable*, and that you can interpret *presence mass*—defined as
-the integral of the function over a finite interval—as a meaningful
+The only requirement for a function to be a presence density function (signal)
+is that it is *measurable*, and that you can interpret *presence mass*—defined
+as the integral of the function over a finite interval—as a meaningful
 *measure* of the effect of presence in your domain.
 
 This is where measure theory enters the picture. It’s not essential to  
@@ -352,12 +357,12 @@ can support meaningful accumulation, comparison, and composition of values.
 
 Measurability gives us the confidence to do things like compute statistics,  
 aggregate over elements or boundaries, and compose presence effects—while  
-preserving the semantics of the domain. Informally, when a PDF is measurable, we
-can treat its values like any other real number and do math over them, as long
-as we carefully respect the units involved.
+preserving the semantics of the domain. Informally, when a signal is measurable,
+we can treat its values like any other real number and do math over them, as
+long as we carefully respect the units involved.
 
-From our perspective, a presence density function captures a kind of  
-measurement that can be *accumulated* across time and across presences. This  
+From our perspective, a presence density function represents a signal whose
+value that can be *accumulated* across time and across presences. This  
 lets us reason mathematically about presences with confidence—and since most  
 of this reasoning will be performed by algorithms, we need technical  
 constraints that ensure those calculations are both mathematically valid and  
@@ -441,8 +446,7 @@ effects over time, and reasoning about their relationship over a shared
 timeline.
 
 Another important use case in the same vein is modeling the cost of delay for
-a  
-portfolio-level element—and analyzing its cascading impact across the  
+a portfolio-level element—and analyzing its cascading impact across the  
 portfolio.
 
 These use cases show that it is possible to analyze not just binary presences,  
@@ -508,7 +512,7 @@ scenarios like these as a base case.
 
 Let's summarize what we've described so far.
 
-With presence density functions and presences, we now have a general structure  
+With signals and presences, we now have a general structure  
 for describing and measuring the behaviour of an arbitrary time varying
 function. The key feature of a presence is that it abstracts these behaviors
 into a uniform representation—one that we can reason about and compute with.
@@ -517,9 +521,10 @@ into a uniform representation—one that we can reason about and compute with.
 
 In Figure 2, we showed the *onset* and *reset* times of a presence density  
 function. The interval between an onset and a reset is called the *support* of  
-the PDF. Within this interval, the function is non-zero.
+the signal. Within this interval, the function is non-zero.
 
-As we see in Figure 3, a given PDF may have *multiple* such disjoint support  
+As we see in Figure 3, a given signal may have *multiple* such disjoint
+support  
 intervals. These represent non-contigous presences of the same element within
 the same boundary over time. These may correspond, to episodic behavior in the
 underlying domain, for example, user sessions in an e-commerce context, or
@@ -529,26 +534,30 @@ times over its lifecycle.
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/multiple_support.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-    Figure 3: A presence as a sample of a PDF over an interval.
+    Figure 3: A presence as a sample of a signal over an interval.
   </div>
 </div>
 
-A presence may be defined over *any* sub-interval of a PDF, as shown in Figure
+A presence may be defined over *any* sub-interval of a signal, as shown in
+Figure
 
 3.
 
-There are many possible ways of defining a presence from a PDF, including across
-disjoint support intervals. All we require is that the interval in question  
+There are many possible ways of defining a presence from a signal, including
+across disjoint support intervals. All we require is that the interval in
+question  
 intersects a region of non-zero area that can be reduced to a presence mass.
 
 So, a presence is best thought of as a *sampled measurement* of the underlying  
-PDF, taken by an *observer* over two specific points in time and reduced to a  
+signal, taken by an *observer* over two specific points in time and reduced to
+a  
 point-mass measurement over that interval.
 
-A given observer may not even "see" the full underlying PDF—only the *mass*  
+A given observer may not even "see" the full underlying signal—only the *mass*  
 of the presence they experience over the interval they observed.
 
-Different observers may observe different intervals of the same PDF and derive  
+Different observers may observe different intervals of the same signal and
+derive  
 different presence values, depending on what part of the function they  
 encounter.
 
@@ -563,7 +572,7 @@ A *presence assertion* is simply a presence augmented with metadata:
 
 The assertion time doesn't need to align with the time interval of the presence.
 This allows assertions to refer to the past, reflect the present, or even
-anticipate the future behavior of a PDF.
+anticipate the future behavior of a signal.
 
 Presence assertions give us the ability to assign *provenance* to a presence—  
 not just *what* we know, but *how* we know it. This is essential in  
@@ -585,16 +594,17 @@ of binary presences and systems of presences with arbitrary mass—once they've
 been reduced to a canonical, presence-oriented representation[^5].
 
 [^5]: There are several technical conditions that must be satisfied when  
-mapping PDFs to a canonical system of presences in order for this claim to  
+mapping signals to a canonical system of presences in order for this claim to  
 hold. To avoid getting bogged down in those details, we’ll simply claim it for  
 now. The API docs go into more detail about the mechanics of this canonical  
-representation, and what’s needed to ensure a "clean" mapping from a PDF to a  
+representation, and what’s needed to ensure a "clean" mapping from a signal to
+a  
 system of presences—or more precisely, a system of presence assertions.
 
 ## The Presence Invariant
 
 In the last section, we introduced *systems of presences* as collections of
-presence assertions defined over a set of presence density functions (PDFs).
+presence assertions defined over a set of presence density functions (signals).
 
 Figure 5 illustrates an example of such a system, where we focus on the subset
 of presences defined over a *shared observation interval*.
@@ -607,23 +617,32 @@ of presences defined over a *shared observation interval*.
 </div>
 
 These presences are called *co-present*—they represent an observer making
-simultaneous measurements of presence mass across multiple PDFs over a common
+simultaneous measurements of presence mass across multiple signals over a common
 interval of time.
 
-Each presence density function contributes a *presence mass*, defined as the
-integral of the density over the observation interval. The sum of these
+Co-presence is a necessary (but not sufficient) condition for interaction
+between one or more signals. In this section, we introduce a key construct in
+the presence calculus: the *presence invariant*. It expresses a general and
+powerful relationship that holds for any co-present subset of presences within a
+finite observation window. and is fundamental relationship tha governs how the
+masses of co-present signal's interact.
+
+Let's establish this relationship.
+
+Given, any finite observation interval, we've already shown that each presence
+density function has a *presence mass*, defined as the integral of the density
+over the observation interval.
+
+These can be thought of as
+*mass contribution* from that presence to that interval. The sum of these
 individual *mass contributions* gives the total presence mass observed across
 the system in that interval.
-
-In this section, we introduce a key construct in the presence calculus: the
-*presence invariant*. It expresses a general and powerful relationship that
-holds for any co-present subset of presences within a finite observation window.
 
 Let
 
 $$ A = M_0 + M_1 + M_3 $$
 
-be the total mass contribution from the PDFs that have non-zero mass over the
+be the total mass contribution from the signals that have non-zero mass over the
 interval $[t_0, t_1)$. The length of this interval is $T = t_1 - t_0$.
 
 Since the mass comes from integrating a density function over time, the quantity
@@ -634,8 +653,8 @@ $$ \delta = \frac{A}{T} = \frac{A}{N} \times \frac{N}{T} $$
 
 This separates the average presence density into two interpretable components:
 
-- $\bar{m} = \frac{A}{N}$: the *average mass contribution* per active PDF,
-- $\iota = \frac{N}{T}$: the *incidence rate*—i.e., the number of active PDFs
+- $\bar{m} = \frac{A}{N}$: the *average mass contribution* per active signal,
+- $\iota = \frac{N}{T}$: the *incidence rate*—i.e., the number of active signals
   per unit time.
 
 This leads to the *presence invariant*:
@@ -645,8 +664,8 @@ Mass Contribution} $$ or in our notation
 
 $$ \delta = \iota \cdot \bar{m} $$
 
-This identity holds for *any* co-present subset of PDFs over *any* finite time
-interval.
+This identity holds for *any* co-present subset of signals over *any* finite
+time interval.
 
 While algebraically, this relationship is a tautology, it imposes a powerful
 constraint on system behavior—one that is independent of the specific system,
@@ -687,24 +706,24 @@ At this stage, the presence invariant may still feel rather abstract. Let's make
 it more concrete by interpreting this identity in the special case of *binary*
 presences.
 
-Recall that a *binary* PDF is a function whose density is either $0$ or $1$.
+Recall that a *binary* signal is a function whose density is either $0$ or $1$.
 That is, we are modeling the presence or absence of an underlying signal in the
 domain.
 
-In this case, the *mass contribution* of a PDF becomes an element-time duration.
-For example, if the PDF represents the time during which a task is present in
-development, the mass contribution of that task over an observation interval is
-the portion of its duration that intersects the interval. This is also called
-the _residence time_ for the task in the observation window.
+In this case, the *mass contribution* of a signal becomes an element-time
+duration. For example, if the signal represents the time during which a task is
+present in development, the mass contribution of that task over an observation
+interval is the portion of its duration that intersects the interval. This is
+also called the _residence time_ for the task in the observation window.
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/presence_invariant_binary.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-    Figure 6: The Presence Invariant for Binary PDFs
+    Figure 6: The Presence Invariant for Binary signals
   </div>
 </div>
 
-Figure 6 shows possible configurations of binary PDFs intersecting a finite
+Figure 6 shows possible configurations of binary signals intersecting a finite
 observation interval.
 
 Suppose the unit of time is days.
@@ -740,14 +759,14 @@ $$ L = \Lambda \times w $$
 
 which you may recognize as *Little's Law* applied over a finite observation
 window. Thus, the presence invariant serves as a **generalization of Little’s
-Law**—extending it to arbitrary systems of presence density functions.
+Law**—extending it to arbitrary systems of presence density functions (signals).
 
-We'll also note that for any arbitrary PDF, we can always define a binary
+We'll also note that for any arbitrary signal, we can always define a binary
 presence corresponding to the intervals over which the value of the density
 function is non-zero (the support interval) and so in general, we can say the
 finite window version of Little's Law, with the above definitions, always
-applies to _any_ presence density function, _in addition_ to the general
-presence invariant, which applies to the full presence density function, not
+applies to _any_ signal, _in addition_ to the general
+presence invariant, which applies to the full signal, not
 just its support.
 
 It is important to note that we are referring to *Little's Law over a finite
@@ -824,17 +843,17 @@ If fact, remarkably, the state of every possible system of presences, no matter
 how general, always has a trajectory in time that lies on this *same* manifold.
 
 This is a powerful constraint and insight that we can use to study the behavior
-of complex systems, and in order to make this easier to calculate we will 
-introduce a tool called the presence matrix that makes it easier to keep track of the
-computations involved in doing this.
+of complex systems, and in order to make this easier to calculate we will
+introduce a tool called the presence matrix that makes it easier to keep track
+of the computations involved in doing this.
 
-## The Presence Matrix 
+## The Presence Matrix
 
 A *presence matrix* captures this structure by sampling a set of presence
 density functions over a fixed set of time intervals. Specifically, if we fix a
 time granularity—such as hours or days—we can construct a matrix in which:
 
-- *Rows* correspond to individual presence density functions (e.g., for each $(
+- *Rows* correspond to individual signals (e.g., for each $(
   e, b)$ pair),
 - *Columns* correspond to non-overlapping time intervals _that cover the time
   axis_,
