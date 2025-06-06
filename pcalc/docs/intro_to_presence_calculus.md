@@ -301,7 +301,7 @@ general presence density functions. Besides, we had to say something about why
 we call this a
 *calculus*, and this is as good a point to do that as any!
 
-## Presence density functions and measure theory
+## Domain Signals, presence density functions and measure theory
 
 Binary presence functions are much easier to understand intuitively, and we'll  
 continue using them in our examples. But the real power of the presence  
@@ -310,8 +310,8 @@ calculus comes from generalizing to *presence density functions*.
 We may think of presence density functions as *domain signals* that we are
 interesting in observing and measuring, and the presence density functions can
 model a very large and general class of domain signals, so in what follows we
-will often refer to presence density functions as *signals* and use the two 
-terms interchangeably. 
+will often refer to presence density functions as *signals* and use the two
+terms interchangeably.
 
 In our earlier example, we interpreted the signal as  
 expressing the *load* placed on an element at a boundary. But more generally,  
@@ -445,8 +445,8 @@ the impact of binary presences—capturing their downstream or distributed
 effects over time, and reasoning about their relationship over a shared  
 timeline.
 
-Another important use case in the same vein is modeling the cost of delay for
-a portfolio-level element—and analyzing its cascading impact across the  
+Another important use case in the same vein is modeling the cost of delay for a
+portfolio-level element—and analyzing its cascading impact across the  
 portfolio.
 
 These use cases show that it is possible to analyze not just binary presences,  
@@ -539,26 +539,22 @@ times over its lifecycle.
 </div>
 
 A presence may be defined over *any* sub-interval of a signal, as shown in
-Figure
-
-3.
+Figure 3.
 
 There are many possible ways of defining a presence from a signal, including
 across disjoint support intervals. All we require is that the interval in
-question  
-intersects a region of non-zero area that can be reduced to a presence mass.
+question intersects a region of non-zero area that can be reduced to a presence
+mass.
 
 So, a presence is best thought of as a *sampled measurement* of the underlying  
-signal, taken by an *observer* over two specific points in time and reduced to
-a  
+signal, taken by an *observer* over two specific points in time and reduced to a
 point-mass measurement over that interval.
 
 A given observer may not even "see" the full underlying signal—only the *mass*  
 of the presence they experience over the interval they observed.
 
 Different observers may observe different intervals of the same signal and
-derive  
-different presence values, depending on what part of the function they  
+derive different presence values, depending on what part of the function they  
 encounter.
 
 This brings us to the concept of *presence assertions*, which formalize this  
@@ -580,28 +576,44 @@ representing complex systems where the observer and the act of observation
 are first-class concerns.
 
 We won’t go too deeply into the epistemological aspects of the presence  
-calculus here—this remains an active and open area of research. But it’s  
-important to acknowledge that this layer exists, and that modeling and  
+calculus here—this remains an active and open area of research.
+
+But it’s important to acknowledge that this layer exists, that modeling and
 interpreting the output of the presence calculus requires an explicit treatment
-of how observations are made and by whom.
+of how observations are made and by whom, and the fact that this has a huge
+impact on the validity of the inferences one makes using the machinery of the
+calculus.
 
 With this caveat in place, once we've represented a problem domain as a  
 *system of presences*, much of the machinery of the presence calculus (which  
 we'll introduce next) can be applied uniformly.
 
-In particular, there are no fundamental differences in behavior between systems
-of binary presences and systems of presences with arbitrary mass—once they've
-been reduced to a canonical, presence-oriented representation[^5].
+For the next couple of sections, where we will introduce this machinery, we will
+operate under the assumption that there is a _signal_ that can be observed and
+what we observe about the signal reflects what an observer knows about the
+domain. We don't presume anything about the "truth" of the observations, we
+treat them uniformly as signals.
+
+One thing we will see is that from the perspective of this machinery, there are
+no fundamental differences in behavior between binary signals and arbitrary
+signals once they've been reduced to a canonical, presence-mass oriented
+representation[^5].
+
+This greatly increases the scope of the problem domains where this machinery can
+be applied, and our examples in the previous section began to hint at the
+possibilities.
+
+This, in the end, is the source of the generality and power of the presence
+calculus.
 
 [^5]: There are several technical conditions that must be satisfied when  
 mapping signals to a canonical system of presences in order for this claim to  
 hold. To avoid getting bogged down in those details, we’ll simply claim it for  
 now. The API docs go into more detail about the mechanics of this canonical  
-representation, and what’s needed to ensure a "clean" mapping from a signal to
-a  
+representation, and what’s needed to ensure a "clean" mapping from a signal to a
 system of presences—or more precisely, a system of presence assertions.
 
-## The Presence Invariant
+## Co-Presence and The Presence Invariant
 
 In the last section, we introduced *systems of presences* as collections of
 presence assertions defined over a set of presence density functions (signals).
@@ -624,7 +636,7 @@ Co-presence is a necessary (but not sufficient) condition for interaction
 between one or more signals. In this section, we introduce a key construct in
 the presence calculus: the *presence invariant*. It expresses a general and
 powerful relationship that holds for any co-present subset of presences within a
-finite observation window. and is fundamental relationship tha governs how the
+finite observation window. and is a fundamental relationship tha governs how the
 masses of co-present signal's interact.
 
 Let's establish this relationship.
@@ -633,10 +645,9 @@ Given, any finite observation interval, we've already shown that each presence
 density function has a *presence mass*, defined as the integral of the density
 over the observation interval.
 
-These can be thought of as
-*mass contribution* from that presence to that interval. The sum of these
-individual *mass contributions* gives the total presence mass observed across
-the system in that interval.
+These can be thought of These can be thought of as mass contributions from those
+presences to that interval. The sum of these individual *mass contributions*
+gives the total presence mass observed across the system in that interval.
 
 Let
 
@@ -719,7 +730,7 @@ also called the _residence time_ for the task in the observation window.
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/presence_invariant_binary.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-    Figure 6: The Presence Invariant for Binary signals
+    Figure 6: The Presence Invariant for binary signals
   </div>
 </div>
 
@@ -765,9 +776,8 @@ We'll also note that for any arbitrary signal, we can always define a binary
 presence corresponding to the intervals over which the value of the density
 function is non-zero (the support interval) and so in general, we can say the
 finite window version of Little's Law, with the above definitions, always
-applies to _any_ signal, _in addition_ to the general
-presence invariant, which applies to the full signal, not
-just its support.
+applies to _any_ signal, _in addition_ to the general presence invariant, which
+applies to the full signal, not just its support.
 
 It is important to note that we are referring to *Little's Law over a finite
 observation window*, rather than the steady-state equilibrium form of Little's

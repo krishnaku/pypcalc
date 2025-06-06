@@ -494,8 +494,9 @@ as:</p>
 <p>where <span class="math inline">\(\mathsf{load}\)</span> is the
 presence density function <a href="#fn2" class="footnote-ref"
 id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
-<h2 id="presence-density-functions-and-measure-theory">Presence density
-functions and measure theory</h2>
+<h2
+id="domain-signals-presence-density-functions-and-measure-theory">Domain
+Signals, presence density functions and measure theory</h2>
 <p>Binary presence functions are much easier to understand intuitively,
 and we’ll<br />
 continue using them in our examples. But the real power of the
@@ -740,27 +741,21 @@ style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
 </div>
 </div>
 <p>A presence may be defined over <em>any</em> sub-interval of a signal,
-as shown in Figure</p>
-<ol start="3" type="1">
-<li></li>
-</ol>
+as shown in Figure 3.</p>
 <p>There are many possible ways of defining a presence from a signal,
 including across disjoint support intervals. All we require is that the
-interval in question<br />
-intersects a region of non-zero area that can be reduced to a presence
-mass.</p>
+interval in question intersects a region of non-zero area that can be
+reduced to a presence mass.</p>
 <p>So, a presence is best thought of as a <em>sampled measurement</em>
 of the underlying<br />
 signal, taken by an <em>observer</em> over two specific points in time
-and reduced to a<br />
-point-mass measurement over that interval.</p>
+and reduced to a point-mass measurement over that interval.</p>
 <p>A given observer may not even “see” the full underlying signal—only
 the <em>mass</em><br />
 of the presence they experience over the interval they observed.</p>
 <p>Different observers may observe different intervals of the same
-signal and derive<br />
-different presence values, depending on what part of the function
-they<br />
+signal and derive different presence values, depending on what part of
+the function they<br />
 encounter.</p>
 <p>This brings us to the concept of <em>presence assertions</em>, which
 formalize this<br />
@@ -786,23 +781,35 @@ observation<br />
 are first-class concerns.</p>
 <p>We won’t go too deeply into the epistemological aspects of the
 presence<br />
-calculus here—this remains an active and open area of research. But
-it’s<br />
-important to acknowledge that this layer exists, and that modeling
-and<br />
-interpreting the output of the presence calculus requires an explicit
-treatment of how observations are made and by whom.</p>
+calculus here—this remains an active and open area of research.</p>
+<p>But it’s important to acknowledge that this layer exists, that
+modeling and interpreting the output of the presence calculus requires
+an explicit treatment of how observations are made and by whom, and the
+fact that this has a huge impact on the validity of the inferences one
+makes using the machinery of the calculus.</p>
 <p>With this caveat in place, once we’ve represented a problem domain as
 a<br />
 <em>system of presences</em>, much of the machinery of the presence
 calculus (which<br />
 we’ll introduce next) can be applied uniformly.</p>
-<p>In particular, there are no fundamental differences in behavior
-between systems of binary presences and systems of presences with
-arbitrary mass—once they’ve been reduced to a canonical,
-presence-oriented representation<a href="#fn5" class="footnote-ref"
+<p>For the next couple of sections, where we will introduce this
+machinery, we will operate under the assumption that there is a
+<em>signal</em> that can be observed and what we observe about the
+signal reflects what an observer knows about the domain. We don’t
+presume anything about the “truth” of the observations, we treat them
+uniformly as signals.</p>
+<p>One thing we will see is that from the perspective of this machinery,
+there are no fundamental differences in behavior between binary signals
+and arbitrary signals once they’ve been reduced to a canonical,
+presence-mass oriented representation<a href="#fn5" class="footnote-ref"
 id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
-<h2 id="the-presence-invariant">The Presence Invariant</h2>
+<p>This greatly increases the scope of the problem domains where this
+machinery can be applied, and our examples in the previous section began
+to hint at the possibilities.</p>
+<p>This, in the end, is the source of the generality and power of the
+presence calculus.</p>
+<h2 id="co-presence-and-the-presence-invariant">Co-Presence and The
+Presence Invariant</h2>
 <p>In the last section, we introduced <em>systems of presences</em> as
 collections of presence assertions defined over a set of presence
 density functions (signals).</p>
@@ -824,16 +831,16 @@ interaction between one or more signals. In this section, we introduce a
 key construct in the presence calculus: the <em>presence invariant</em>.
 It expresses a general and powerful relationship that holds for any
 co-present subset of presences within a finite observation window. and
-is fundamental relationship tha governs how the masses of co-present
+is a fundamental relationship tha governs how the masses of co-present
 signal’s interact.</p>
 <p>Let’s establish this relationship.</p>
 <p>Given, any finite observation interval, we’ve already shown that each
 presence density function has a <em>presence mass</em>, defined as the
 integral of the density over the observation interval.</p>
-<p>These can be thought of as <em>mass contribution</em> from that
-presence to that interval. The sum of these individual <em>mass
-contributions</em> gives the total presence mass observed across the
-system in that interval.</p>
+<p>These can be thought of These can be thought of as mass contributions
+from those presences to that interval. The sum of these individual
+<em>mass contributions</em> gives the total presence mass observed
+across the system in that interval.</p>
 <p>Let</p>
 <p><span class="math display">\[ A = M_0 + M_1 + M_3 \]</span></p>
 <p>be the total mass contribution from the signals that have non-zero
@@ -909,7 +916,7 @@ time</em> for the task in the observation window.</p>
 <img src="../assets/pandoc/presence_invariant_binary.png" width="600px" />
 <div
 style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-<pre><code>Figure 6: The Presence Invariant for Binary signals</code></pre>
+<pre><code>Figure 6: The Presence Invariant for binary signals</code></pre>
 </div>
 </div>
 <p>Figure 6 shows possible configurations of binary signals intersecting
@@ -1120,8 +1127,7 @@ it for<br />
 now. The API docs go into more detail about the mechanics of this
 canonical<br />
 representation, and what’s needed to ensure a “clean” mapping from a
-signal to a<br />
-system of presences—or more precisely, a system of presence
+signal to a system of presences—or more precisely, a system of presence
 assertions.<a href="#fnref5" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
