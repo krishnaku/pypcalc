@@ -273,6 +273,11 @@ presence calculus. In the API documentation, we go into the concepts at
 a level of rigor that you’ll need to work with the pcalc API and apply
 the concepts. Some mathematical background will be useful here if you
 want to develop extend the core.</p>
+<p>The toolkit provides a reference implementation of the concepts in
+this document, and is designed as an analytical middleware layer
+suitable for interfacing real world operational systems and complex
+system simulation, to the analytical machinery of the presence
+calculus.</p>
 <p>Finally, for those who want to dive deeper into the formal
 mathematical<br />
 underpinnings of the calculus, we have the theory track, which perhaps
@@ -965,12 +970,12 @@ above definitions, always applies to <em>any</em> signal, <em>in
 addition</em> to the general presence invariant, which applies to the
 full signal, not just its support.</p>
 <p>It is important to note that we are referring to <em>Little’s Law
-over a finite observation window</em>, rather than the steady-state
-equilibrium form of Little’s Law. Just like the presence invariant in
-the general case, this version of the law holds
-<em>unconditionally</em>. The key is that the quantities involved are
-<em>observer-relative</em>: the time tasks spend <em>within the
-observation window</em>, and the <em>activation rate</em> of tasks
+over a finite observation window</em>, rather than the much more
+familiar, steady-state equilibrium form of Little’s Law.</p>
+<p>Just like the presence invariant in the general case, this version of
+the law holds <em>unconditionally</em>. The key is that the quantities
+involved are <em>observer-relative</em>: the time tasks spend <em>within
+the observation window</em>, and the <em>activation rate</em> of tasks
 <em>over the window</em>, rather than the task-relative durations or
 steady-state arrival/departure rates used in classical queueing
 theory.</p>
@@ -987,8 +992,8 @@ finite-window form becomes far more valuable for analyzing the long-run
 behavior of such systems as they <em>move into and between</em>
 equilibrium states.</p>
 <p>We will return to this important topic shortly. But first, let’s
-build a bit more machinery so that we can work computationally with sets
-of presences in a more natural and systematic way.</p>
+build a bit more machinery so that we can work computationally with
+systems of presences in a more natural and systematic way.</p>
 <h2 id="the-presence-invariant-and-causal-reasoning">The Presence
 Invariant and Causal Reasoning</h2>
 <p>The presence invariant gave us an important constraint that applies
@@ -1066,6 +1071,13 @@ style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
 <pre><code>Figure 8: Presence Matrix for a system of presences. </code></pre>
 </div>
 </div>
+<p>We wont spend too much more time on the presence matrix in this
+document, except to note that it is a general and useful data structure
+to efficiently represent and measure long run behavior of systems of
+presence derived from real world signals.</p>
+<p>The Presence Calculus Toolkit has more details on the mechanics of
+its construction and how it is used to compute the parameters in the
+presence invariant efficiently for general systems of presence.</p>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />

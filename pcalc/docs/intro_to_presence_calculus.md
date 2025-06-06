@@ -101,6 +101,11 @@ the API documentation, we go into the concepts at a level of rigor that you'll
 need to work with the pcalc API and apply the concepts. Some mathematical
 background will be useful here if you want to develop extend the core.
 
+The toolkit provides a reference implementation of the concepts in this 
+document, and is designed as an analytical middleware layer suitable for 
+interfacing real world operational systems and complex system simulation, 
+to the analytical machinery of the presence calculus. 
+
 Finally, for those who want to dive deeper into the formal mathematical  
 underpinnings of the calculus, we have the theory track, which perhaps goes  
 into more detail than most people will need to read or understand, but is  
@@ -780,9 +785,11 @@ applies to _any_ signal, _in addition_ to the general presence invariant, which
 applies to the full signal, not just its support.
 
 It is important to note that we are referring to *Little's Law over a finite
-observation window*, rather than the steady-state equilibrium form of Little's
-Law. Just like the presence invariant in the general case, this version of the
-law holds *unconditionally*. The key is that the quantities involved are
+observation window*, rather than the much more familiar, steady-state
+equilibrium form of Little's Law.
+
+Just like the presence invariant in the general case, this version of the law
+holds *unconditionally*. The key is that the quantities involved are
 *observer-relative*: the time tasks spend *within the observation window*, and
 the *activation rate* of tasks *over the window*, rather than the task-relative
 durations or steady-state arrival/departure rates used in classical queueing
@@ -801,8 +808,8 @@ more valuable for analyzing the long-run behavior of such systems as they *move
 into and between* equilibrium states.
 
 We will return to this important topic shortly. But first, let's build a bit
-more machinery so that we can work computationally with sets of presences in a
-more natural and systematic way.
+more machinery so that we can work computationally with systems of presences 
+in a more natural and systematic way.
 
 ## The Presence Invariant and Causal Reasoning
 
@@ -822,7 +829,6 @@ the third is completely determined.
     Figure 7: Sampling a system of presence across uniform intervals. 
   </div>
 </div>
-
 
 The requirement that presence mass is conserved across each interval means that
 there are only two degrees of freedom in how the three variables can change.
@@ -883,6 +889,15 @@ number.
     Figure 8: Presence Matrix for a system of presences. 
   </div>
 </div>
+
+We wont spend too much more time on the presence matrix in this document, 
+except to note that it is a general and useful data structure to efficiently 
+represent and measure long run behavior of systems of presence derived from 
+real world signals. 
+
+The Presence Calculus Toolkit has more details on the mechanics of its 
+construction and how it is used to compute the parameters in the presence 
+invariant efficiently for general systems of presence. 
 
 
 
