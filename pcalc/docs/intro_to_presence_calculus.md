@@ -6,7 +6,7 @@
 ## What is The Presence Calculus?
 
 The Presence Calculus is a new approach for reasoning quantitatively about the  
-relationships between things and places in a domain over time.
+relationships between signals in a domain over time.
 
 The primary goal is to support rigorous modeling and principled  
 decision-making with operational data in complex, business-critical domains.
@@ -38,7 +38,7 @@ context it emerged from.
   </div>
 </div>
 
-# The pitch
+## The pitch
 
 We introduce the simple but powerful concept of a *presence*.
 
@@ -50,7 +50,7 @@ Classical statistics and probability theory often struggle here.
 usually fenced off under assumptions like ergodicity, stationarity, and
 independence.
 
-However, probability theory and statistic remain very powerful tools for
+However, probability theory and statistics remain very powerful tools for
 describing local behavior, identifying patterns and correlations in this
 behavior, and modeling uncertainty—all crucial aspects of meaningful analysis of
 complex systems.
@@ -299,12 +299,9 @@ $$ \text{mass} = \int_{t_0}^{t_1} \mathsf{load}(e, b, t)\, dt $$
 where $\mathsf{load}$ is the presence density function [^2].
 
 [^2]: If integration signs in a "gentle" introduction feels like a
-bait-and-switch, rest assured, this is the last time you will need to think of
-them in this document - *provided* you accept the statement that anything that
-we can do it in presences calculus with binary presences can also be done with
-general presence density functions. Besides, we had to say something about why
-we call this a
-*calculus*, and this is as good a point to do that as any!
+bait-and-switch, rest assured, for the puposes of this document you just need to
+think of them as a way to add up presence masses, in a way that the ideas we use
+for binary presences will generalize when we apply them to arbitrary functions.
 
 ## Domain Signals, presence density functions and measure theory
 
@@ -389,6 +386,18 @@ $$ \text{mass}(e, b, [t_0, t_1]) = \int_{t_0}^{t_1} f(e, b, t)\, dt $$
 This mass captures both *that* the element was present, and *how* it was  
 present—uniformly, variably, or intermittently—over the time interval of the
 presence.
+
+A domain signal, in general, may consist of one or more disjoint presences over
+time - the entire sequence of presences constitutes the signal. Figure 3 shows
+the relationship between signals and presences and the types of presences we
+will typically encounter in practice.
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/pdf_examples.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 3: Signals and Presences
+  </div>
+</div>
 
 ## More examples
 
@@ -539,19 +548,20 @@ times over its lifecycle.
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/multiple_support.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-    Figure 3: A presence as a sample of a signal over an interval.
+    Figure 3: A presence mass as a sample of a signal over an interval.
   </div>
 </div>
 
-A presence may be defined over *any* sub-interval of a signal, as shown in
+A presence mass may be computed over *any* sub-interval of a signal, as shown in
 Figure 3.
 
-There are many possible ways of defining a presence from a signal, including
+There are many possible ways of deriving presence mass from a signal, including
 across disjoint support intervals. All we require is that the interval in
 question intersects a region of non-zero area that can be reduced to a presence
 mass.
 
-So, a presence is best thought of as a *sampled measurement* of the underlying  
+So, a presence mass is best thought of as a *sampled measurement* of the
+underlying  
 signal, taken by an *observer* over two specific points in time and reduced to a
 point-mass measurement over that interval.
 
@@ -667,7 +677,18 @@ interval. We can now decompose this as:
 
 $$ \delta = \frac{A}{T} = \frac{A}{N} \times \frac{N}{T} $$
 
-This separates the average presence density into two interpretable components:
+Here $N$ is the number of distinct signals with a presence in the observation
+window[^6]. This separates the average presence density into two interpretable
+components:
+
+[^6]: It is equally valid to define $N$ as the number of distinct _presences_ in
+the observation window. For example for the signal $P2$ in Figure 5, this
+corresponds to asking if $N=5$ (if we count the disjoing presences individually)
+or $N=3$ (if we count the signals). These give different values for $\bar{m}$
+and $\iota$ but their product _still equals_ $\delta$, as long as a single
+consistent definition of N is used. This is ultimately a modeling decision that
+depends on what you are trying to measure. By default we will assume that $N$ is
+measured at the signal granularity.
 
 - $\bar{m} = \frac{A}{N}$: the *average mass contribution* per active signal,
 - $\iota = \frac{N}{T}$: the *incidence rate*—i.e., the number of active signals
@@ -675,8 +696,8 @@ This separates the average presence density into two interpretable components:
 
 This leads to the *presence invariant*:
 
-$$ \text{Average Presence Density} = \text{Incidence Rate} \times \text{Average
-Mass Contribution} $$ or in our notation
+$$ \text{Average Presence Density} = \text{Signal Incidence Rate} \times \text{Average Mass Contribution per Signal} $$
+or in our notation
 
 $$ \delta = \iota \cdot \bar{m} $$
 
@@ -688,7 +709,7 @@ constraint on system behavior—one that is independent of the specific system,
 semantics, or timescale.
 
 Indeed, it forms a foundational conservation law of the presence calculus: the
-*conservation of mass (contributions)*.
+*conservation of mass (contribution)*.
 
 Just as the conservation of energy or mass constrains the evolution of physical
 systems—regardless of the specific materials or forces involved—the conservation
@@ -697,26 +718,16 @@ a system of presences.
 
 It is independent of the semantics of what is being observed: like energy,
 presence mass can shift, accumulate, or redistribute, but it remains balanced
-when distributed across presences over a finite interval remains invariant.
+when distributed across presences over a finite time interval.
 
 Thus, the conservation of mass plays a role in the presence calculus similar to
-that of other conservation laws in physics. It constrains the behavior of three
+that of other conservation laws in physics: it constrains the behavior of three
 key observable, measurable parameters of any system of presences.
 
-More importantly, exploiting this constraint allows us to study and characterize
-the long-run behavior of the system.
-
-This provides a rigorous framework for reasoning about the history of a
-path-dependent system of presences—a key prerequisite for analyzing the long-run
-evolution of presence systems and understanding emergent patterns in that
-evolution.
+Exploiting this constraint allows us to study and characterize the long-run
+behavior of a system.
 
 ### The Presence Invariant for Binary Presences
-
-One of the key features of the presence calculus is that it provides very
-general mechanisms for computing over functions—but the value of this machinery
-is only realized through modeling and reinterpreting its results in the language
-of the domain.
 
 At this stage, the presence invariant may still feel rather abstract. Let's make
 it more concrete by interpreting this identity in the special case of *binary*
@@ -726,8 +737,8 @@ Recall that a *binary* signal is a function whose density is either $0$ or $1$.
 That is, we are modeling the presence or absence of an underlying signal in the
 domain.
 
-In this case, the *mass contribution* of a signal becomes an element-time
-duration. For example, if the signal represents the time during which a task is
+In this case, the *mass contribution* of a signal becomes an _element-time
+duration_. For example, if the signal represents the time during which a task is
 present in development, the mass contribution of that task over an observation
 interval is the portion of its duration that intersects the interval. This is
 also called the _residence time_ for the task in the observation window.
@@ -740,9 +751,7 @@ also called the _residence time_ for the task in the observation window.
 </div>
 
 Figure 6 shows possible configurations of binary signals intersecting a finite
-observation interval.
-
-Suppose the unit of time is days.
+observation interval. Suppose the unit of time is days.
 
 The total presence mass accumulation $A$ is $11$ task-days. The number $N$ of
 tasks that intersect the observation interval is $4$. The length of the
@@ -752,14 +761,13 @@ presence invariant holds.
 Now, let's unpack its meaning.
 
 Since each task contributes $1$ unit of mass for each unit of time it is
-present, the average presence density $ \delta = \frac{A}{T}$ represents the
+present, the average presence density $\delta=\frac{A}{T}$ represents the
 *average number of tasks* present per unit time in the interval—denoted $L$.
 
 Conversely, since each unit of mass corresponds to a unit of time associated
-with a task, the average mass per active presence, $\bar{m} = \frac{A}{N}$, is
+with a task, the average mass per active signal, $\bar{m} = \frac{A}{N}$, is
 the average time a task spends in the observation window. This value is
-typically called the *residence time* $w$ of a task in the observation window, a
-term we will adopt in general for presences.
+typically called the *residence time* $w$ of a task in the observation window.
 
 The incidence rate $\iota = \frac{N}{T}$ may be interpreted as the *activation
 rate* of tasks in the interval—a proxy for the rate at which tasks start (onset)
@@ -767,7 +775,7 @@ or finish (reset) within the window.
 
 For example, $N$ may be counted as the number of tasks that start inside the
 interval, plus the number that started before but are still active. Thus,
-$\frac{N}{T}$ approximates a *cumulative onset rate* $\Lambda$.
+$\frac{N}{T}$ is a *cumulative onset rate* $\Lambda$.
 
 The presence invariant can now be rewritten as:
 
@@ -776,13 +784,6 @@ $$ L = \Lambda \times w $$
 which you may recognize as *Little's Law* applied over a finite observation
 window. Thus, the presence invariant serves as a **generalization of Little’s
 Law**—extending it to arbitrary systems of presence density functions (signals).
-
-We'll also note that for any arbitrary signal, we can always define a binary
-presence corresponding to the intervals over which the value of the density
-function is non-zero (the support interval) and so in general, we can say the
-finite window version of Little's Law, with the above definitions, always
-applies to _any_ signal, _in addition_ to the general presence invariant, which
-applies to the full signal, not just its support.
 
 It is important to note that we are referring to *Little's Law over a finite
 observation window*, rather than the much more familiar, steady-state
@@ -807,16 +808,22 @@ invariant holds *regardless* of equilibrium—the finite-window form becomes far
 more valuable for analyzing the long-run behavior of such systems as they *move
 into and between* equilibrium states.
 
-We will return to this important topic shortly. But first, let's build a bit
-more machinery so that we can work computationally with systems of presences
-in a more natural and systematic way.
+We'll also note that for any arbitrary signal, we can always define a binary
+presence corresponding to the intervals over which the value of the density
+function is non-zero (the support interval). In general then, we can say the
+finite window version of Little's Law, with the above definitions, always
+applies to _any_ signal under this interpretation. _In addition,_ the general
+presence invariant also applies to the full signal.
 
-## The Presence Invariant and Causal Reasoning
+We will return to this important topic shortly. But first, let's understand the
+implications of the presence invariant.
+
+### The Presence Invariant and Causal Reasoning
 
 The presence invariant gave us an important constraint that applies to the
 behavior of three key parameters of a system of presences when measured over any
 finite time interval: the average presence density, the incidence rate, and the
-average mass contribution per presence.
+average mass contribution per signal.
 
 This means that if we observe the behavior of a system of presences over a
 continuous sequence of non-overlapping time intervals, the presence invariant
@@ -831,11 +838,7 @@ the third is completely determined.
 </div>
 
 The requirement that presence mass is conserved across each interval means that
-there are only two degrees of freedom in how the three variables can change.
-
-This implies that if we study how these parameters change in concert as we move
-_across_ time intervals, we will get unique insights into how a _particular_
-system of presences evolves over time.
+there are only two degrees of freedom between three variables.
 
 If, for example, we know that the average presence density has increased between
 one interval and the next, then we know for sure that either the incidence rate,
@@ -849,39 +852,54 @@ This is a powerful tool in being able to analyze _why_ a system of presences
 behaves the way it does and this is a fundamental benefit of having a tool like
 the presence invariant at our disposal.
 
+This implies that if we study how these parameters change in concert as we move
+_across_ time intervals, we will get unique insights into how a _particular_
+system of presences evolves over time.
+
 Specifically, if we think of these three parameters of a system as defining the
 unique co-ordinates of the state of the system over a small finite interval, we
 can "trace" the movement of the system by following these co-ordinates. But
 since there are only two degrees of freedom these coordinates will always lie on
-a two dimensional surface, called a manifold in a 3 dimensional space.
+a two dimensional manifold[^7], in a 3 dimensional space.
+
+[^7]: All solutions to an equation of the form $x=y \times z,$ which is the form
+of the presence invariant, lie on a 2D surface, called a manifold in 3
+dimensions: think of the manifold a rubber sheet suspended in a 3 dimensional
+space. All the values of $x, y, \text{ and } z$  that satisfy this equation will
+lie on the surface of this rubber sheet. This is a powerful geometric constraint
+that we can exploit to reason about the possible behavior of a system of
+presences over time.
 
 If fact, remarkably, the state of every possible system of presences, no matter
 how general, always has a trajectory in time that lies on this *same* manifold.
-
 This is a powerful constraint and insight that we can use to study the behavior
-of complex systems, and in order to make this easier to calculate we will
-introduce a tool called the presence matrix that makes it easier to keep track
-of the computations involved in doing this.
+of a system of presences over time.
+
+We will now introduce a tool called the presence matrix that makes it easier to
+visualize and manage the computations involved.
 
 ## The Presence Matrix
 
-A *presence matrix* captures this structure by sampling a set of presence
-density functions over a fixed set of time intervals. Specifically, if we fix a
-time granularity—such as hours or days—we can construct a matrix in which:
+A *presence matrix* records the presence mass distribution obtained by sampling
+a set of presence density functions over a fixed set of time intervals.
+Specifically, if we fix a time granularity—such as hours, days or weeks—we can
+construct a matrix in which:
 
 - *Rows* correspond to individual signals (e.g., for each $(
   e, b)$ pair),
-- *Columns* correspond to non-overlapping time intervals _that cover the time
-  axis_,
+- *Columns* correspond to non-overlapping time intervals at that fixed time
+  granularity _that cover the time axis_,
 - *Entries* contain the *presence mass*, i.e., the integral of the density
   function over the corresponding interval:
 
   $$ M_{(e,b),j} = \int_{t_j}^{t_{j+1}} f_{(e,b)}(t) \, dt $$
 
 The resulting matrix provides a discrete, temporally-aligned representation of
-this system of presences. Since we are accumulating presence masses over an
-interval, the value of presence mass in a matrix entry is always a a real
-number.
+this system of presences.
+
+Since we are accumulating presence masses over an interval, the value of
+presence mass in a matrix entry is always a a real number. Figure 8 shows the
+presence matrix for the system in Figure 7[^8].
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/presence_matrix.png" width="600px" />
@@ -890,16 +908,124 @@ number.
   </div>
 </div>
 
-We wont spend too much more time on the presence matrix in this document, except
-to note that it is a general and useful data structure to efficiently represent
-and measure long run behavior of systems of presence derived from real world
-signals.
+[^8]: The alert reader will note the difference between the first two rows in
+the matrix. The first signal is represented by a single presence, while the
+second is broken up into two disjoint presences. This is entirely an artifact of
+the granularity at which the timeline is divided. At a suitably fine sampling
+granularity, the first signal could also be represented by two presences. As
+discussed earlier, this has no real impact on the behavior of the invariant. In
+general we will use signals as the unit at which incidence is measured.
 
-The Presence Calculus Toolkit has more details on the mechanics of its
-construction and how it is used to compute the parameters in the presence
-invariant efficiently for general systems of presence.
+The presence matrix encodes some deep structural properties of a system of
+presences. Many of key concepts we want to highlight are easier to define and
+understand in terms of this representation.
 
-## Interpreting the Presence Invariant
+The Presence Calculus Toolkit documentation has more details on the mechanics of
+its construction and the computations it enables. For now, these details are not
+critical, and we will focus on the insights it surfaces.
+
+### The presence invariant and the presence matrix.
+
+Let's revisit Figure 3, reproduced below, which introduced the idea of thinking
+of presence mass as a sample of an underlying signal.
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/multiple_support.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 3: A presence as a sample of a signal over an interval.
+  </div>
+</div>
+
+When we observe a system of presences across a finite observation window, as we
+do in deriving the presence invariant, we are looking at presence mass across
+a "vertical" slice of time across all signals.
+
+<div style="text-align: center; margin:2em">
+<table>
+  <thead>
+    <tr>
+      <th>E\B</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>e1_b1</td>
+      <td style="background-color: #c6f6c6">0.3</td>
+      <td style="background-color: #c6f6c6">2.3</td>
+      <td style="background-color: #c6f6c6">3.4</td>
+      <td style="background-color: #c6f6c6">1.1</td>
+      <td style="background-color: #c6f6c6">2.9</td>
+      <td style="background-color: #c6f6c6">3.2</td>
+      <td style="background-color: #c6f6c6">1.1</td>
+      <td>0.0</td><td>0.0</td><td>0.0</td>
+    </tr>
+    <tr>
+      <td>e1_b2</td>
+      <td style="background-color: #c6f6c6">0.3</td>
+      <td style="background-color: #c6f6c6">2.3</td>
+      <td style="background-color: #c6f6c6">3.4</td>
+      <td style="background-color: #c6f6c6">1.1</td>
+      <td>0.0</td>
+      <td style="background-color: #c6f6c6">1.1</td>
+      <td style="background-color: #c6f6c6">2.2</td>
+      <td style="background-color: #c6f6c6">2.4</td>
+      <td style="background-color: #c6f6c6">2.3</td>
+      <td style="background-color: #c6f6c6">0.8</td>
+    </tr>
+    <tr>
+      <td>e2_b2</td>
+      <td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td>
+      <td>0.0</td>
+      <td style="background-color: #c6f6c6">0.9</td>
+      <td style="background-color: #c6f6c6">1.8</td>
+      <td style="background-color: #c6f6c6">3.2</td>
+      <td style="background-color: #c6f6c6">0.9</td>
+    </tr>
+    <tr>
+      <td>e2_b1</td>
+      <td style="background-color: #c6f6c6">0.8</td>
+      <td style="background-color: #c6f6c6">1.3</td>
+      <td style="background-color: #c6f6c6">2.4</td>
+      <td style="background-color: #c6f6c6">2.8</td>
+      <td style="background-color: #c6f6c6">3.0</td>
+      <td style="background-color: #c6f6c6">3.2</td>
+      <td style="background-color: #c6f6c6">3.4</td>
+      <td style="background-color: #c6f6c6">2.4</td>
+      <td>0.0</td><td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 9: The presence matrix from Figure 8, reproduced
+  </div>
+</div>
+
+The presence matrix, shown in figure 9, makes this notion explict - assuming
+some fixed granularity of observation window, a vertical slice in time
+corresponds to a column in the presence matrix.
+
+Looking at the sums of the presence masses along the rows of the matrix gives us
+the mass contributions per signal (or presence) and the row sums give us
+cumulative presence mass per signal across all presences.
+
+Given a sequence of columns of the presence matrix, the signal incidences are
+simply the number of rows that have non-zero values those rows. It's
+straightforward now to interpret the presence invariant in terms of the presence
+matrix.
+
+Further, you can see that we can construct a presence matrix from any subset of
+the rows of another presence matrix, and it would still be a presence matrix,
+for which the presence invariant applies. What is more, the presence invariant
+applies for any _consecutive_ sequence of columns of the presence matrix.
+
+Thus the presence invariant encodes very strong _local_ constraints in how
+presence mass distributes in time across signals, and we can use these to derive
+meaningful constraints on the global accumulation of presence mass across a
+system of presences.
+
+## Application of the Presence Invariant
 
 The presence calculus might seem like a highly abstract, theoretical framework,
 but much of its utility emerges when we *interpret* its concepts in a specific,
@@ -929,17 +1055,524 @@ certain limits remain: the general three-body problem has no closed-form
 solution, and systems like the double pendulum exhibit chaotic behavior that
 defies long-term prediction.
 
-Still, we can represent such systems as deterministic trajectories through a
-parameter space, uncovering structure even where precise global behavior remain
-unpredictable. In much the same way, the presence calculus does not seek to
-forecast the exact evolution of complex systems. Instead, by explicitly modeling
-signal histories and representing element trajectories over time, it equips us
-with powerful descriptive and explanatory tools.
+Still, we can represent the behavior and evolutions of such systems as
+deterministic trajectories through a parameter space, uncovering structure even
+where precise global behavior remain unpredictable. In much the same way, the
+presence calculus does not seek to forecast the exact evolution of complex
+systems. Instead, by explicitly modeling signal histories and representing
+element trajectories over time, it equips us with powerful descriptive and
+explanatory tools.
 
-These structural constraints and local invariants help us interpret observed
-dynamics and, in certain cases, make verifiable predictions of system behavior
-at the macro scale.
+In this way, structural constraints and local invariants help us interpret
+locally observed dynamics and connect it to system behavior at the macro scale.
 
+Let's see how.
+
+## The Presence Accumulation Matrix
+
+To visualize and reason about both the micro and macro behaviors of a system of
+presences in a natural way, we will need the help of a data structure called the
+Presence Accumulation matrix. It compresses a lot of information about the
+interaction between local and global behavior of a system of presences across
+time scales and relies heavily on the fact that the presence invariant is
+scale-independent.
+
+We'll continue with the presence matrix of Figure 9, to illustrate how it is
+constructed. 
+
+Recall that the columns of the presence matrix represent time intervals at the finest level of granularity at which an underlying system of signals and presences is sampled. If we have an $MxN$ of $M$ signal sampled at $N$ consecutive intervals, the value in the presence matrix at row $i$ and column $j$ represents the sampled presence mass of signal $i$ at time interval $j$. 
+
+Consider the matrix $A$ that we accumulates presences masses across consecutive time intervals of various length between 1 and $N$. This is a square matrix of size $NxN$ and is constructed as follows. For our example, this is a 10x10 matrix. 
+
+The diagonal of the matrix contains the accumulated presence mass across each interval of length 1. This corresponds to the sum of each column of the presence matrix. 
+
+<div style="text-align: center; margin:2em">
+  <table>
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td style="background-color:#e6ffe6">1.4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td></td><td style="background-color:#e6ffe6">5.9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td></td><td></td><td style="background-color:#e6ffe6">9.2</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td style="background-color:#e6ffe6">5.0</td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>5</td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">5.9</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">7.5</td><td></td><td></td><td></td></tr>
+    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">7.6</td><td></td><td></td></tr>
+    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">6.6</td><td></td></tr>
+    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">5.5</td></tr>
+    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">1.7</td></tr>
+  </tbody>
+</table>
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 10: Cumulative presence mass along intervals of length 1. 
+  </div>
+</div>
+
+The next diagonal row contains the cumulative presence mass for intervals of length 2 - ie $A(1,2)$ contains the sum of all entries in columns 1 and 2. $A(2,3)$ contains the sum of all entries column 2 and 3 and so on.. 
+
+<div style="text-align: center; margin:2em">
+  <table>
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td style="background-color:#e6ffe6">1.4</td>
+      <td style="background-color:#e6f0ff">7.3</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td></td>
+      <td style="background-color:#e6ffe6">5.9</td>
+      <td style="background-color:#e6f0ff">15.1</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td></td><td></td>
+      <td style="background-color:#e6ffe6">9.2</td>
+      <td style="background-color:#e6f0ff">14.2</td>
+      <td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.0</td>
+      <td style="background-color:#e6f0ff">10.9</td>
+      <td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.9</td>
+      <td style="background-color:#e6f0ff">13.4</td>
+      <td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">7.5</td>
+      <td style="background-color:#e6f0ff">15.1</td>
+      <td></td><td></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">7.6</td>
+      <td style="background-color:#e6f0ff">14.2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">6.6</td>
+      <td style="background-color:#e6f0ff">12.1</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.5</td>
+      <td style="background-color:#e6f0ff">7.2</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">1.7</td>
+    </tr>
+  </tbody>
+</table>
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 11: Cumulative presence mass along intervals of length 2. 
+  </div>
+</div>
+We can continue filling the matrix out in diagonal order this way until we get the presence accumulation matrix shown below. 
+<div style="text-align: center; margin:2em">
+  <table>
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Row 1 -->
+    <tr>
+      <td>1</td>
+      <td style="background-color:#e6ffe6">1.4</td>
+      <td style="background-color:#e6f0ff">7.3</td>
+      <td style="background-color:#e6ffe6">16.5</td>
+      <td style="background-color:#e6f0ff">21.5</td>
+      <td style="background-color:#e6ffe6">27.4</td>
+      <td style="background-color:#e6f0ff">34.9</td>
+      <td style="background-color:#e6ffe6">42.5</td>
+      <td style="background-color:#e6f0ff">49.1</td>
+      <td style="background-color:#e6ffe6">54.6</td>
+      <td style="background-color:#e6f0ff">56.3</td>
+    </tr>
+    <!-- Row 2 -->
+    <tr>
+      <td>2</td>
+      <td></td>
+      <td style="background-color:#e6ffe6">5.9</td>
+      <td style="background-color:#e6f0ff">15.1</td>
+      <td style="background-color:#e6ffe6">20.1</td>
+      <td style="background-color:#e6f0ff">26.0</td>
+      <td style="background-color:#e6ffe6">33.5</td>
+      <td style="background-color:#e6f0ff">41.1</td>
+      <td style="background-color:#e6ffe6">47.7</td>
+      <td style="background-color:#e6f0ff">53.2</td>
+      <td style="background-color:#e6ffe6">54.9</td>
+    </tr>
+    <!-- Row 3 -->
+    <tr>
+      <td>3</td>
+      <td></td><td></td>
+      <td style="background-color:#e6ffe6">9.2</td>
+      <td style="background-color:#e6f0ff">14.2</td>
+      <td style="background-color:#e6ffe6">20.1</td>
+      <td style="background-color:#e6f0ff">27.6</td>
+      <td style="background-color:#e6ffe6">35.2</td>
+      <td style="background-color:#e6f0ff">41.8</td>
+      <td style="background-color:#e6ffe6">47.3</td>
+      <td style="background-color:#e6f0ff">49.0</td>
+    </tr>
+    <!-- Row 4 -->
+    <tr>
+      <td>4</td>
+      <td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.0</td>
+      <td style="background-color:#e6f0ff">10.9</td>
+      <td style="background-color:#e6ffe6">18.4</td>
+      <td style="background-color:#e6f0ff">26.0</td>
+      <td style="background-color:#e6ffe6">32.6</td>
+      <td style="background-color:#e6f0ff">38.1</td>
+      <td style="background-color:#e6ffe6">39.8</td>
+    </tr>
+    <!-- Row 5 -->
+    <tr>
+      <td>5</td>
+      <td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.9</td>
+      <td style="background-color:#e6f0ff">13.4</td>
+      <td style="background-color:#e6ffe6">21.0</td>
+      <td style="background-color:#e6f0ff">27.6</td>
+      <td style="background-color:#e6ffe6">33.1</td>
+      <td style="background-color:#e6f0ff">34.8</td>
+    </tr>
+    <!-- Row 6 -->
+    <tr>
+      <td>6</td>
+      <td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">7.5</td>
+      <td style="background-color:#e6f0ff">15.1</td>
+      <td style="background-color:#e6ffe6">21.7</td>
+      <td style="background-color:#e6f0ff">27.2</td>
+      <td style="background-color:#e6ffe6">28.9</td>
+    </tr>
+    <!-- Row 7 -->
+    <tr>
+      <td>7</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">7.6</td>
+      <td style="background-color:#e6f0ff">14.2</td>
+      <td style="background-color:#e6ffe6">19.7</td>
+      <td style="background-color:#e6f0ff">21.4</td>
+    </tr>
+    <!-- Row 8 -->
+    <tr>
+      <td>8</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">6.6</td>
+      <td style="background-color:#e6f0ff">12.1</td>
+      <td style="background-color:#e6ffe6">13.8</td>
+    </tr>
+    <!-- Row 9 -->
+    <tr>
+      <td>9</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.5</td>
+      <td style="background-color:#e6f0ff">7.2</td>
+    </tr>
+    <!-- Row 10 -->
+    <tr>
+      <td>10</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">1.7</td>
+    </tr>
+  </tbody>
+</table>
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 12: Final presence accumulation matrix for the presence matrix of Figure 9. 
+  </div>
+</div>
+
+ We can see that in practice, this matrix compresses a large amount of information in a very compact form. For example if the columns represent weekly samples of signals a 52x52 matrix allows us to analyze a whole years worth of presence accumulation across every time-scale ranging from a single week to a whole year in one compact structure. We'll shortly see why this is useful. 
+
+First lets define the general structure of the presence accumulation matrix.
+
+Let $P \in \mathbb{R}^{M \times N}$ be the presence matrix of $M$ signals 
+sampled at $N$ consecutive time intervals. The **Presence Accumulation Matrix** 
+$A \in \mathbb{R}^{N \times N}$ is defined by:
+
+$$
+A(i, j) = \sum_{k=1}^{M} \sum_{\ell=i}^{j} P(k, \ell)
+\quad \text{for all } 1 \leq i \leq j \leq N
+$$
+
+That is, $A(i,j)$ gives the total presence mass of all signals across the 
+interval $[i,j]$.
+
+### Properties
+
+- $A$ is upper triangular: $A(i,j)$ is defined only when $i \leq j$.
+- The diagonal entries $A(i,i)$ equal the column sums of $P$.
+- Each entry $A(i,j)$ reflects the cumulative presence mass over the interval 
+  $[i,j]$.
+
+
+As we will see below, this matrix compactly encodes multi-scale information about system behavior 
+and supports the analysis of both micro and macro scale behavior of a system of presences. 
+
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td style="background-color:#e6ffe6">1.4</td>
+      <td style="background-color:#ffffcc">7.3</td>
+      <td style="background-color:#ffffcc">16.5</td>
+      <td style="background-color:#ffffcc">21.5</td>
+      <td style="background-color:#ffffcc">27.4</td>
+      <td style="background-color:#ffffcc">34.9</td>
+      <td style="background-color:#ffffcc">42.5</td>
+      <td style="background-color:#ffffcc">49.1</td>
+      <td style="background-color:#ffffcc">54.6</td>
+      <td style="background-color:#ffffcc">56.3</td>
+    </tr>
+    <tr><td>2</td><td></td><td style="background-color:#e6ffe6">5.9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td></td><td></td><td style="background-color:#e6ffe6">9.2</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td style="background-color:#e6ffe6">5.0</td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>5</td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">5.9</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">7.5</td><td></td><td></td><td></td></tr>
+    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">7.6</td><td></td><td></td></tr>
+    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">6.6</td><td></td></tr>
+    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">5.5</td></tr>
+    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">1.7</td></tr>
+  </tbody>
+</table>
+
+<div style="width: 100%; display: flex; justify-content: center; margin-top: 1em; margin-bottom: 1em;">
+<table style="border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td style="background-color:#e6ffe6">1.4</td>
+      <td style="background-color:#ffffcc">3.6</td>
+      <td style="background-color:#ffffcc">5.5</td>
+      <td style="background-color:#ffffcc">5.4</td>
+      <td style="background-color:#ffffcc">5.5</td>
+      <td style="background-color:#ffffcc">5.8</td>
+      <td style="background-color:#ffffcc">6.1</td>
+      <td style="background-color:#ffffcc">6.1</td>
+      <td style="background-color:#ffffcc">6.1</td>
+      <td style="background-color:#ffffcc">5.6</td>
+    </tr>
+    <tr><td>2</td><td></td><td style="background-color:#e6ffe6">5.9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td></td><td></td><td style="background-color:#e6ffe6">9.2</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td style="background-color:#e6ffe6">5.0</td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>5</td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">5.9</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">7.5</td><td></td><td></td><td></td></tr>
+    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">7.6</td><td></td><td></td></tr>
+    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">6.6</td><td></td></tr>
+    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">5.5</td></tr>
+    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">1.7</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/first_row_vs_main_diagonal.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 9: Convergence of long run average presence density.
+  </div>
+</div>
+
+
+
+
+<table style="border-collapse: collapse; margin: auto;">
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
+    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
+    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
+  </tbody>
+</table><table style="border-collapse: collapse; margin: auto;">
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
+    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
+    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
+  </tbody>
+</table><table style="border-collapse: collapse; margin: auto;">
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
+    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
+    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
+  </tbody>
+</table><table style="border-collapse: collapse; margin: auto;">
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
+    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
+    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
+  </tbody>
+</table><table style="border-collapse: collapse; margin: auto;">
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
+    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
+    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
+  </tbody>
+</table><table style="border-collapse: collapse; margin: auto;">
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
+    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
+    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
+  </tbody>
+</table>
+
+
+
+<table style="border-collapse: collapse; margin: auto;">
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>0.13 ∠ -0.29</td><td>0.68 ∠ -0.3</td><td>0.9 ∠ -0.29</td><td>1.08 ∠ -0.31</td><td>1.15 ∠ -0.33</td><td>1.2 ∠ -0.38</td><td>1.22 ∠ -0.43</td><td>1.24 ∠ -0.47</td><td>1.26 ∠ -0.51</td><td>1.26 ∠ -0.55</td></tr>
+    <tr><td>2</td><td></td><td>0.86 ∠ -0.29</td><td>1.02 ∠ -0.29</td><td>1.17 ∠ -0.31</td><td>1.26 ∠ -0.34</td><td>1.29 ∠ -0.39</td><td>1.31 ∠ -0.44</td><td>1.32 ∠ -0.48</td><td>1.34 ∠ -0.52</td><td>1.34 ∠ -0.56</td></tr>
+    <tr><td>3</td><td></td><td></td><td>0.71 ∠ -0.23</td><td>0.94 ∠ -0.26</td><td>1.14 ∠ -0.3</td><td>1.2 ∠ -0.35</td><td>1.26 ∠ -0.41</td><td>1.31 ∠ -0.46</td><td>1.34 ∠ -0.5</td><td>1.36 ∠ -0.54</td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td>0.06 ∠ 0.0</td><td>0.42 ∠ 0.19</td><td>0.61 ∠ 0.18</td><td>0.8 ∠ 0.16</td><td>0.91 ∠ 0.14</td><td>0.97 ∠ 0.13</td><td>1.01 ∠ 0.12</td></tr>
+    <tr><td>5</td><td></td><td></td><td></td><td></td><td>0.1 ∠ 0.0</td><td>0.46 ∠ 0.21</td><td>0.69 ∠ 0.2</td><td>0.83 ∠ 0.18</td><td>0.91 ∠ 0.17</td><td>0.97 ∠ 0.16</td></tr>
+    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>0.19 ∠ 0.0</td><td>0.56 ∠ 0.23</td><td>0.75 ∠ 0.22</td><td>0.88 ∠ 0.21</td><td>0.97 ∠ 0.2</td></tr>
+    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>0.15 ∠ 0.0</td><td>0.51 ∠ 0.24</td><td>0.73 ∠ 0.23</td><td>0.89 ∠ 0.22</td></tr>
+    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>0.06 ∠ 0.0</td><td>0.43 ∠ 0.23</td><td>0.67 ∠ 0.22</td></tr>
+    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>0.08 ∠ 0.0</td><td>0.44 ∠ 0.25</td></tr>
+    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>0.0 ∠ 0.0</td></tr>
+  </tbody>
+</table>
 
 
 
