@@ -426,9 +426,8 @@ possibilities.</p>
 exploit the continuity of time and the algebra of time intervals to
 reason about the interactions and emergent configurations of presences
 in a rigorous and structured, and more importantly, computable way.</p>
-<h2 id="what-is-a-presence">2. What is a presence?</h2>
-<p>Let’s start by building intuition for this concept we call a
-<em>presence</em>.<br />
+<h2 id="what-is-a-presence">2. What is a Presence?</h2>
+<p>Let’s start by building intuition for the concept of presence.<br />
 Consider the statement: “The task <span class="math inline">\(X\)</span>
 was in Development from Monday to<br />
 Friday.”</p>
@@ -441,8 +440,7 @@ class="math inline">\(t_1\)</span> with mass 1.”<br />
 Presences are statements about elements (from some domain) being present
 in a<br />
 boundary (from a defined set of boundaries) over a <em>continuous</em>
-period of time,<br />
-measured using some timescale.</p>
+period of time, measured using some timescale.</p>
 <p>So why do we say “with mass 1”?</p>
 <p>The presence calculus treats time as a physical dimension, much like
 space.<br />
@@ -460,8 +458,7 @@ units of this mass are element-time—in this case, task-days.</p>
 presence or absence<br />
 of things in places in a domain. These presences always have mass 1 in
 whatever units we use for elements and time.</p>
-<h3 id="what-is-the-mass-of-a-presence">What is the mass of a
-presence?</h3>
+<h3 id="presence-mass">Presence mass</h3>
 <p>Let’s consider a more detailed set of statements:</p>
 <blockquote>
 <p>“Task <span class="math inline">\(X\)</span> had 2 developers working
@@ -505,29 +502,29 @@ as:</p>
 <p>where <span class="math inline">\(\mathsf{load}\)</span> is the
 presence density function <a href="#fn2" class="footnote-ref"
 id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
-<h3
-id="domain-signals-presence-density-functions-and-measure-theory">Domain
-Signals, presence density functions and measure theory</h3>
-<p>Binary presence functions are much easier to understand intuitively,
-and we’ll<br />
-continue using them in our examples. But the real power of the
-presence<br />
-calculus comes from generalizing to <em>presence density
-functions</em>.</p>
-<p>We may think of presence density functions as <em>domain signals</em>
-that we are interesting in observing and measuring, and the presence
-density functions can model a very large and general class of domain
-signals, so in what follows we will often refer to presence density
-functions as <em>signals</em> and use the two terms interchangeably.</p>
-<p>In our earlier example, we interpreted the signal as<br />
-expressing the <em>load</em> placed on an element at a boundary. But
-more generally, a signal can be <em>any</em> real-valued function over
-time.</p>
-<p>The mass of a presence, over any given time <em>interval</em> <span
-class="math inline">\([t_0, t1)\)</span> is the integral above, which is
-also the area under the signal over that interval<a href="#fn3"
-class="footnote-ref" id="fnref3"
-role="doc-noteref"><sup>3</sup></a>.</p>
+<h3 id="domain-signals-and-presence-density-functions">Domain Signals
+and Presence Density Functions</h3>
+<p>Binary presences are much easier to understand intuitively, but the
+real power of the presence calculus comes from generalizing to
+<em>presence density functions</em>.</p>
+<p>In our earlier example, we showed a presence that described the
+<em>load</em> placed on an element at a boundary, and this has a
+real-valued presence mass. More generally, we can think of defining a
+presence over an arbitrary time varying function with real numbers as
+values.</p>
+<p>Such functions are called <em>presence density functions</em>. In
+general, these presence density function represent some underlying
+signal from the domain that we are interested in measuring. So, in what
+follows, we will use the terms signal and presence density functions
+interchangeably in what follows, opting for the latter only those cases
+where we want to focus specifically on the fact that what we are
+representing about the signal is the “amount” of the signal ( its
+presence) over time.</p>
+<p>As shown in Figure 2, the mass of a presence density function, over
+any given time <em>interval</em> <span class="math inline">\([t_0,
+t1)\)</span> is the integral over the interval, which is also the area
+under the signal over that interval<a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
 <div style="text-align: center; margin:2em">
 <img src="../assets/pandoc/presence_definition.png" width="600px" />
 <div
@@ -541,59 +538,26 @@ style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
 finite interval—as a meaningful <em>measure</em> of the effect of
 presence in your domain.</p>
 <p>This is where measure theory enters the picture. It’s not essential
-to<br />
-understand the full technical details, but at its core, measure theory
-tells<br />
-us which kinds of functions are <em>measurable</em>—in other words,
-which functions<br />
-can support meaningful accumulation, comparison, and composition of
-values.</p>
-<p>Measurability gives us the confidence to do things like compute
-statistics,<br />
-aggregate over elements or boundaries, and compose presence
-effects—while<br />
-preserving the semantics of the domain. Informally, when a signal is
-measurable, we can treat its values like any other real number and do
-math over them, as long as we carefully respect the units involved.</p>
-<p>From our perspective, a presence density function represents a signal
+to understand the full technical details, but at its core, measure
+theory tells us which kinds of functions are measurable—in other words,
+which functions can support meaningful accumulation, comparison, and
+composition of values via integration.</p>
+<p>When a presence density functions (signal) is measurable,it gives us
+the confidence to do things like compute statistics, aggregate over
+elements or boundaries, and compose presence effects—while preserving
+the semantics of the domain.</p>
+<p>Informally, when a presence density function is a measurable we can
+treat its values like any other real number and do math over them, as
+long as we carefully respect the units involved.</p>
+<p>From our perspective, a presence density function is a domain signal
 whose value that can be <em>accumulated</em> across time and across
-presences. This<br />
-lets us reason mathematically about presences with confidence—and since
-most<br />
-of this reasoning will be performed by algorithms, we need
-technical<br />
+presences.</p>
+<p>This lets us reason mathematically about presences with
+confidence—and since most of this reasoning will be performed by
+algorithms, we need technical<br />
 constraints that ensure those calculations are both mathematically valid
 and<br />
 semantically sound.</p>
-<p>To summarize:</p>
-<p>A general presence is defined by:</p>
-<ul>
-<li>a density function <span class="math inline">\(f(e, b,
-t)\)</span>,</li>
-<li>an element <span class="math inline">\(e\)</span>,</li>
-<li>a boundary <span class="math inline">\(b\)</span>,</li>
-<li>and a time interval <span class="math inline">\([t_0,
-t_1]\)</span>.</li>
-</ul>
-<p>Its <strong>mass</strong> is the integral of <span
-class="math inline">\(f\)</span> over the interval:</p>
-<p><span class="math display">\[ \text{mass}(e, b, [t_0, t_1]) =
-\int_{t_0}^{t_1} f(e, b, t)\, dt \]</span></p>
-<p>This mass captures both <em>that</em> the element was present, and
-<em>how</em> it was<br />
-present—uniformly, variably, or intermittently—over the time interval of
-the presence.</p>
-<p>A domain signal, in general, may consist of one or more disjoint
-presences over time - the entire sequence of presences constitutes the
-signal. Figure 3 shows the relationship between signals and presences
-and the types of presences we will typically encounter in practice.</p>
-<div style="text-align: center; margin:2em">
-<img src="../assets/pandoc/pdf_examples.png" width="600px" />
-<div
-style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-<pre><code>Figure 3: Signals and Presences</code></pre>
-</div>
-</div>
 <h3 id="more-examples">More examples</h3>
 <p>Let’s firm up our intuition about what presences can describe with a
 few more<br />
@@ -737,41 +701,76 @@ modeling<br />
 scenarios like these as a base case.</p>
 <h2 id="systems-of-presences">3. Systems of Presences</h2>
 <p>Let’s summarize what we’ve described so far.</p>
-<p>With signals and presences, we now have a general structure<br />
-for describing and measuring the behaviour of an arbitrary time varying
-function. The key feature of a presence is that it abstracts these
-behaviors into a uniform representation—one that we can reason about and
-compute with.</p>
-<h3 id="presence-assertions">Presence Assertions</h3>
-<p>In Figure 2, we showed the <em>onset</em> and <em>reset</em> times of
-a presence density<br />
-function. The interval between an onset and a reset is called the
-<em>support</em> of<br />
-the signal. Within this interval, the function is non-zero.</p>
-<p>As we see in Figure 3, a given signal may have <em>multiple</em> such
-disjoint support<br />
-intervals. These represent non-contigous presences of the same element
-within the same boundary over time. These may correspond, to episodic
-behavior in the underlying domain, for example, user sessions in an
-e-commerce context, or rework loops in software development when a task
-“returns” to development many times over its lifecycle.</p>
+<p>With signals and presences, we now have the framework for describing
+and measuring the behavior of time-varying domain signals, each
+representing how a specific element behaves within a given boundary.</p>
+<p>The key feature of a presence is that it abstracts these behaviors
+into a uniform representation—one that we can reason about and compute
+with.</p>
+<p>To summarize:</p>
+<p>A general presence is defined by:</p>
+<ul>
+<li>a density function <span class="math inline">\(f(e, b,
+t)\)</span>,</li>
+<li>an element <span class="math inline">\(e\)</span>,</li>
+<li>a boundary <span class="math inline">\(b\)</span>,</li>
+<li>and a time interval <span class="math inline">\([t_0,
+t_1]\)</span>.</li>
+</ul>
+<p>Its <strong>mass</strong> is the integral of <span
+class="math inline">\(f\)</span> over the interval:</p>
+<p><span class="math display">\[ \text{mass}(e, b, [t_0, t_1]) =
+\int_{t_0}^{t_1} f(e, b, t)\, dt \]</span></p>
+<p>This mass captures both <em>that</em> the element was present, and
+<em>how</em> it was<br />
+present—uniformly, variably, or intermittently—over the time interval of
+the presence.</p>
+<div style="text-align: center; margin:2em">
+<img src="../assets/pandoc/pdf_examples.png" width="600px" />
+<div
+style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+<pre><code>Figure 3: Signals and Presences</code></pre>
+</div>
+</div>
+<h3 id="presence-as-a-sample-of-a-signal">Presence as a sample of a
+signal</h3>
+<p>A domain signal, in general, describes the continuous behavior of an
+element within a boundary over time. This continuous signal may have one
+or more disjoint periods where its value is non-zero. These non-zero
+periods are called the <em>support</em> of the signal.</p>
+<p>As we see in Figure 4, a single signal (for a given element and
+boundary) might have multiple support intervals. These may correspond to
+episodic behavior in the underlying domain, for example, user sessions
+in an e-commerce context, or rework loops in software development when a
+task “returns” to development many times over its lifecycle.</p>
 <div style="text-align: center; margin:2em">
 <img src="../assets/pandoc/multiple_support.png" width="600px" />
 <div
 style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-<pre><code>Figure 3: A presence mass as a sample of a signal over an interval.</code></pre>
+<pre><code>Figure 4: A presence mass as a sample of a signal over an interval.</code></pre>
 </div>
 </div>
-<p>A presence mass may be computed over <em>any</em> sub-interval of a
-signal, as shown in Figure 3.</p>
-<p>There are many possible ways of deriving presence mass from a signal,
-including across disjoint support intervals. All we require is that the
-interval in question intersects a region of non-zero area that can be
-reduced to a presence mass.</p>
-<p>So, a presence mass is best thought of as a <em>sampled
-measurement</em> of the underlying<br />
-signal, taken by an <em>observer</em> over two specific points in time
-and reduced to a point-mass measurement over that interval.</p>
+<p>A <em>presence</em> (the 5-tuple <span class="math inline">\(p = (e,
+b, t_0, t_1, m)\)</span> that we work with in the calculus) is generated
+by taking an <em>observation</em> of this underlying signal over a
+specific time interval <span class="math inline">\([t_0, t_1)\)</span>,
+and computing its mass. This interval can be chosen in many ways:</p>
+<ul>
+<li>It might perfectly align with a single period of activity (a ‘hill’
+in the signal).</li>
+<li>It might span multiple disjoint periods of activity, including the
+“zero” times in between.</li>
+<li>It might capture only a portion of a period of activity.</li>
+</ul>
+<p>All we require is that the interval chosen for the presence
+calculation intersects a region of non-zero area from the signal that
+can be reduced to a presence mass.</p>
+<p>Thus presence is best thought of as a <em>sampled measurement</em> of
+the underlying signal, taken by an <em>observer</em> over a specific
+time interval, which yields a total presence mass for that interval.
+This means that a single presence assertion can aggregate the mass from
+multiple disjoint periods of activity of a signal, depending on how the
+observer defines their measurement interval.</p>
 <p>A given observer may not even “see” the full underlying signal—only
 the <em>mass</em><br />
 of the presence they experience over the interval they observed.</p>
@@ -784,6 +783,7 @@ formalize this<br />
 idea of an observer recording a presence based on their local view of
 the<br />
 underlying density function.</p>
+<h3 id="presence-assertions">Presence Assertions</h3>
 <p>A <em>presence assertion</em> is simply a presence augmented with
 metadata:</p>
 <ul>
@@ -803,7 +803,9 @@ observation<br />
 are first-class concerns.</p>
 <p>We won’t go too deeply into the epistemological aspects of the
 presence<br />
-calculus here—this remains an active and open area of research.</p>
+calculus in this document—this remains an active and open area of
+research and development and complements much of what we discuss
+here.</p>
 <p>But it’s important to acknowledge that this layer exists, that
 modeling and interpreting the output of the presence calculus requires
 an explicit treatment of how observations are made and by whom, and the
@@ -830,6 +832,17 @@ machinery can be applied, and our examples in the previous section began
 to hint at the possibilities.</p>
 <p>This, in the end, is the source of the generality and power of the
 presence calculus.</p>
+<h4 id="a-note-on-path-dependence">A note on path dependence</h4>
+<p>By representing a presence at the granularity of a element in a
+boundary, we explicitly recognize the path dependent nature of the
+domain signals. Even if they represent the same underlying quantity we
+recognize that the behavior of the system emerges from individual
+signals at the element-boundary granularity and that we are interested
+in studying <em>how</em> the system level behavior emerges from the
+interactions between these signals.</p>
+<p>To summarize, this is what we refer to as a “system of presences” - a
+time indexed collection of presence assertions derived from a an
+underlying set of path dependent element-boundary signals.</p>
 <h2 id="co-presence-and-the-presence-invariant">4. Co-Presence and The
 Presence Invariant</h2>
 <p>In the last section, we introduced systems of presences as
