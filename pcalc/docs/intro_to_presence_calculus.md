@@ -38,7 +38,7 @@ context it emerged from.
   </div>
 </div>
 
-## The pitch
+### The pitch
 
 We introduce the simple but powerful concept of a *presence*.
 
@@ -71,7 +71,7 @@ But this is a bold claim, and it deserves further scrutiny and validation, and
 so we invite anyone interested in doing so to collaborate with us on this open
 source project.
 
-## Learning more about The Presence Calculus
+### Learning more about The Presence Calculus
 
 While the calculus was developed with mathematical rigor, an equally important  
 goal was not to let mathematics get in the way of understanding the simple but
@@ -120,7 +120,7 @@ mainstream mathematics.
 
 Let's jump in...
 
-## Why Presence?
+### Why Presence?
 
 Presence is how reality reveals itself.
 
@@ -145,7 +145,7 @@ optimize, we observe what *is*.
 
 And what we model is presence.
 
-## An example
+### An example
 
 Imagine you see a dollar bill on the sidewalk on your way to get coffee.  
 Later, on your way back home, you see it again—still lying in the same spot.  
@@ -165,7 +165,7 @@ The presence calculus gives formal shape to this kind of inference—and shows
 how we can build upon it to *reason* about presence and *measure* its  
 effects in an environment.
 
-## A software example
+### A software example
 
 Since the ideas here emerged from the software world, let’s begin with a  
 mundane, but familiar example: task work in a software team.
@@ -220,7 +220,7 @@ With the presence calculus, these threads and their interactions across time
 and space can now be measured, dissected, and analyzed as first-class  
 constructs—built on a remarkably simple primitive—the presence.
 
-## The heart of the matter
+### The heart of the matter
 
 At its core, the calculus exploits the difference between the two independent  
 statements—“The task started development on Monday” and “The task completed  
@@ -268,7 +268,7 @@ Binary presences are sufficient to describe the *fact* of presence or absence
 of things in places in a domain. These presences always have mass 1 in whatever
 units we use for elements and time.
 
-## What is the mass of a presence?
+### What is the mass of a presence?
 
 Let's consider a more detailed set of statements:
 
@@ -309,7 +309,7 @@ bait-and-switch, rest assured, for the puposes of this document you just need to
 think of them as a way to add up presence masses, in a way that the ideas we use
 for binary presences will generalize when we apply them to arbitrary functions.
 
-## Domain Signals, presence density functions and measure theory
+### Domain Signals, presence density functions and measure theory
 
 Binary presence functions are much easier to understand intuitively, and we'll  
 continue using them in our examples. But the real power of the presence  
@@ -405,12 +405,12 @@ will typically encounter in practice.
   </div>
 </div>
 
-## More examples
+### More examples
 
 Let's firm up our intuition about what presences can describe with a few more  
 examples.
 
-### "Work" in software
+#### "Work" in software
 
 If you've ever written a line of code in your life, you’ve heard the question:  
 “When will it be done?” Work in software can be a slippery, fungible concept—  
@@ -431,7 +431,7 @@ Such presences can represent estimates, forecasts, or confidence-weighted
 projections—and as we'll see shortly, they can be reasoned about and computed  
 with just like any other kind of presence.
 
-### The effects of interruptions
+#### The effects of interruptions
 
 Another useful example from the software world illustrates a different  
 application of a presence. Let’s assume the boundary in this case is a  
@@ -473,7 +473,7 @@ These use cases show that it is possible to analyze not just binary presences,
 but entire chains of influence they exert across a timeline—a key prerequisite  
 for reasoning about causality.
 
-### Self-reported developer productivity
+#### Self-reported developer productivity
 
 Imagine a developer filling out a simple daily check-in:  
 "How productive did you feel today?"—scored from 1 to 5, or sketched out as a  
@@ -495,7 +495,7 @@ flow with meetings, environment changes, build failures, or interruptions.
 
 Now, let's look at some examples outside software development.
 
-### Browsing behavior on an e-commerce site
+#### Browsing behavior on an e-commerce site
 
 Imagine a shopper visiting an online store. They spend 90 seconds browsing  
 kitchen gadgets, then linger for five full minutes comparing high-end  
@@ -511,7 +511,7 @@ By analyzing these presences—where and for how long attention dwells—we can
 begin to understand preferences, intent, and even the likelihood of conversion  
 (modeled as a different presence density function).
 
-### Patient movement in a hospital
+#### Patient movement in a hospital
 
 Consider a patient navigating a hospital stay. They spend the morning in  
 radiology, move to a recovery ward for several hours, then are briefly  
@@ -770,7 +770,7 @@ that directly govern how a system of presences behaves in time.
 Exploiting this constraint allows us to study and characterize the long-run
 behavior of a system.
 
-## The Presence Invariant for Binary Presences
+### Binary Presences and Little's Law
 
 At this stage, the presence invariant may still feel a bit abstract. Let's make
 it more concrete by interpreting this identity in the special case of *binary*
@@ -864,7 +864,7 @@ presence invariant also applies to the full signal.
 We will return to this important topic shortly. But first, let's understand the
 implications of the presence invariant.
 
-### The Presence Invariant and Causal Reasoning
+### Causal Reasoning
 
 The presence invariant gave us an important constraint that applies to the
 behavior of three key parameters of a system of presences when measured over any
@@ -1078,7 +1078,7 @@ presence mass distributes in time across signals, and we can use these to derive
 meaningful constraints on the global accumulation of presence mass across a
 system of presences.
 
-## Application of the Presence Invariant
+## Applying the Presence Calculus
 
 The presence calculus might seem like a highly abstract, theoretical framework,
 but much of its utility emerges when we *interpret* its concepts in a specific,
@@ -1121,7 +1121,7 @@ locally observed dynamics and connect it to system behavior at the macro scale.
 
 Let's see how.
 
-## The Presence Accumulation Matrix
+### The Presence Accumulation Matrix
 
 To visualize and reason about both the micro and macro behaviors of a system of
 presences in a natural way, we will need the help of a data structure called the
@@ -1398,7 +1398,7 @@ interval $[i,j]$.
 As we will see below, this matrix compactly encodes multi-scale information about system behavior 
 and supports the analysis of both micro and macro scale behavior of a system of presences. 
 
-## Sample Paths and Convergence
+### Sample Paths and Convergence
 
 Consider the highlighted portions of the accumulation matrix $A$ in figure 13.
 <div style="text-align: center; margin:2em">
