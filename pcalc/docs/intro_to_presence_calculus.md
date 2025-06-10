@@ -316,8 +316,8 @@ will often refer to presence density functions as *signals* and use the two
 terms interchangeably.
 
 In our earlier example, we interpreted the signal as  
-expressing the *load* placed on an element at a boundary. But more generally,  
-a signal can be *any* real-valued function over time.
+expressing the *load* placed on an element at a boundary. But more generally, a
+signal can be *any* real-valued function over time.
 
 The mass of a presence, over any given time *interval* $[t_0, t1)$ is the
 integral above, which is also the area under the signal over that interval[^3].
@@ -822,8 +822,8 @@ implications of the presence invariant.
 
 The presence invariant gave us an important constraint that applies to the
 behavior of three key parameters of a system of presences when measured over any
-finite time interval: the average presence density, the incidence rate, and the
-average mass contribution per signal.
+finite time interval: the average presence density, the signa incidence rate,
+and the average mass contribution per signal.
 
 This means that if we observe the behavior of a system of presences over a
 continuous sequence of non-overlapping time intervals, the presence invariant
@@ -840,21 +840,28 @@ the third is completely determined.
 The requirement that presence mass is conserved across each interval means that
 there are only two degrees of freedom between three variables.
 
-If, for example, we know that the average presence density has increased between
-one interval and the next, then we know for sure that either the incidence rate,
-or average mass per presence (or both) have increased.
+Furthermore, within the structure of this identity, presence density is the
+resultant variable, while the incidence rate and signal mass contribution act as
+its fundamental, independent components.
 
-Moreover, these are the _only_ possible explanations for the increase in the
-average presence mass. Any other explanation must also lead to the changes in
-one of the two primary drivers of the average presence density.
+Thus, the invariant explicitly states that any change in presence density is an
+_outcome_ that is necessarily accounted for by a change in incidence rate or
+signal mass contribution.
 
-This is a powerful tool in being able to analyze _why_ a system of presences
-behaves the way it does and this is a fundamental benefit of having a tool like
-the presence invariant at our disposal.
+This means that if you observe a shift in presence density, you know it must
+originate from changes in either how frequently signals appear (incidence rate)
+or how much 'mass' each signal contributes on average (average mass
+contribution), or both.
 
-This implies that if we study how these parameters change in concert as we move
-_across_ time intervals, we will get unique insights into how a _particular_
-system of presences evolves over time.
+Since the invariant holds across *any* finite interval, this also implies that
+if we study how these parameters change in concert as we move _across_ time
+intervals, we will get unique insights into how a _particular_ system of
+presences evolves over time.
+
+This is a powerful tool in causal reasoning: being able to analyze _why_ a
+system of presences behaves the way it does. Specifically, it provides a
+powerful framework for structural causal attribution when analyzing the changes
+in behavior of a system or presences.
 
 Specifically, if we think of these three parameters of a system as defining the
 unique co-ordinates of the state of the system over a small finite interval, we
@@ -870,13 +877,13 @@ lie on the surface of this rubber sheet. This is a powerful geometric constraint
 that we can exploit to reason about the possible behavior of a system of
 presences over time.
 
-If fact, remarkably, the state of every possible system of presences, no matter
+If fact, remarkably, the state of _every_ possible system of presences, no matter
 how general, always has a trajectory in time that lies on this *same* manifold.
 This is a powerful constraint and insight that we can use to study the behavior
 of a system of presences over time.
 
 We will now introduce a tool called the presence matrix that makes it easier to
-visualize and manage the computations involved.
+visualize and manage the computations involved in doing so.
 
 ## The Presence Matrix
 
@@ -1345,10 +1352,11 @@ interval $[i,j]$.
 As we will see below, this matrix compactly encodes multi-scale information about system behavior 
 and supports the analysis of both micro and macro scale behavior of a system of presences. 
 
+### Sample Paths and Convergence
 
-
-
-<table>
+Consider the highlighted portions of the accumulation matrix $A$ in figure 13.
+<div style="text-align: center; margin:2em">
+  <table>
   <thead>
     <tr>
       <th>i\\j</th>
@@ -1381,6 +1389,22 @@ and supports the analysis of both micro and macro scale behavior of a system of 
     <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">1.7</td></tr>
   </tbody>
 </table>
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 13: Sample paths, micro and macro scale accumulation. 
+  </div>
+</div>
+
+The diagonal represents a sequence of measurements of independent intervals at
+the finest measurement granularity. The top row represents the other extreme, a
+series of measurements along a single long interval, each of which contains the
+presences in all the previous intervals. The top row in the matrix represents
+the presence history over all the intervals - the cumulative presences for
+intervale $[0,j) \text{for} 1 \le j \lt N.$
+
+We can divide each of the entries in the accumulation matrix with the length of
+the time interval it covers to get the presence density for each interval. For
+the diagonal interval has length 1 (time unit) and for the top row the lengths
+range from 1 to $N-1.$
 
 <div style="width: 100%; display: flex; justify-content: center; margin-top: 1em; margin-bottom: 1em;">
 <table style="border-collapse: collapse;">
@@ -1418,6 +1442,22 @@ and supports the analysis of both micro and macro scale behavior of a system of 
 </table>
 </div>
 
+So now we have the left hand side of the presence invariant encoded matrix form
+for every pair of continuous intervals in the system.
+
+We refer to the diagonal of the accumulation matrix as a *sample path* through
+the presence history of the system. It records the presence mass observed at
+each time interval independently, forming a discrete, time-indexed sequence.
+This captures the micro-scale behavior of the system of presences.
+
+The top row of the matrix represents the cumulative presence mass across each
+prefix of that path — that is, the total presence observed from the beginning of
+the observation period up to each point along the path. It reflects the long-run
+trend in average presence density and captures the macro-scale behavior of the
+system.
+
+Let's chart the values in both of these rows in the matrix.
+
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/first_row_vs_main_diagonal.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
@@ -1425,6 +1465,33 @@ and supports the analysis of both micro and macro scale behavior of a system of 
   </div>
 </div>
 
+We note that while the values measured along a sample path can be volatile, the
+long-run averages along that path often stabilize and converge to a finite
+value.
+
+We call a system of presences *convergent* if there exists a sufficiently long
+sample path along which this stabilization occurs. Otherwise, we say the system
+is *divergent*.
+
+In a convergent system, the average presence density over time settles toward a
+finite value. Intuitively, this means that after observing enough of the
+system's history, additional observation does not significantly alter our
+understanding of its long-term behavior.
+
+Some systems converge rapidly to a single stable limit. Others may not settle on
+one fixed point, but instead move between a small number of such limits. These
+represent dominant behavioral modes—equilibrium states that the system can enter
+and sustain for extended periods.
+
+Divergent systems, by contrast, exhibit no such limiting behavior. The presence
+density in these systems continues to grow without bound, indicating that no
+stable long-term pattern emerges.
+
+It is important to emphasize that convergence and divergence are properties of
+the observed *behavior* of a system of presences, not of the underlying system
+itself. We cannot infer the nature of the underlying system solely from whether
+it appears convergent or divergent. We can only observe the presence dynamics
+over time and assess whether they exhibit convergence.
 
 
 
