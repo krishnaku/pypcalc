@@ -624,15 +624,11 @@ similar<br />
 approach can be taken, for example, with a presence density function
 that<br />
 grows from zero and plateaus over the duration of the presence—such as
-the net<br />
-increase in revenue due to a released feature.</p>
+the net increase in revenue due to a released feature.</p>
 <p>Used this way, presence density functions give us a powerful tool for
-modeling<br />
-the impact of binary presences—capturing their downstream or
-distributed<br />
-effects over time, and reasoning about their relationship over a
-shared<br />
-timeline.</p>
+modeling the impact of binary presences—capturing their downstream or
+distributed effects over time, and reasoning about their relationship
+over a shared timeline.</p>
 <p>Another important use case in the same vein is modeling the cost of
 delay for a portfolio-level element—and analyzing its cascading impact
 across the<br />
@@ -707,8 +703,7 @@ representing how a specific element behaves within a given boundary.</p>
 <p>The key feature of a presence is that it abstracts these behaviors
 into a uniform representation—one that we can reason about and compute
 with.</p>
-<p>To summarize:</p>
-<p>A general presence is defined by:</p>
+<p>To summarize, a general presence is defined by:</p>
 <ul>
 <li>a density function <span class="math inline">\(f(e, b,
 t)\)</span>,</li>
@@ -756,21 +751,19 @@ by taking an <em>observation</em> of this underlying signal over a
 specific time interval <span class="math inline">\([t_0, t_1)\)</span>,
 and computing its mass. This interval can be chosen in many ways:</p>
 <ul>
-<li>It might perfectly align with a single period of activity (a ‘hill’
-in the signal).</li>
-<li>It might span multiple disjoint periods of activity, including the
+<li>It might perfectly align with a single support interval (a ‘hill’ in
+the signal).</li>
+<li>It might span multiple disjoint support intervals, including the
 “zero” times in between.</li>
-<li>It might capture only a portion of a period of activity.</li>
+<li>It might capture only a portion of a single support.</li>
 </ul>
 <p>All we require is that the interval chosen for the presence
 calculation intersects a region of non-zero area from the signal that
-can be reduced to a presence mass.</p>
+can be reduced to a non-zero presence mass.</p>
+<h3 id="presence-assertions">Presence Assertions</h3>
 <p>Thus presence is best thought of as a <em>sampled measurement</em> of
 the underlying signal, taken by an <em>observer</em> over a specific
-time interval, which yields a total presence mass for that interval.
-This means that a single presence assertion can aggregate the mass from
-multiple disjoint periods of activity of a signal, depending on how the
-observer defines their measurement interval.</p>
+time interval, which yields a total presence mass for that interval.</p>
 <p>A given observer may not even “see” the full underlying signal—only
 the <em>mass</em><br />
 of the presence they experience over the interval they observed.</p>
@@ -780,10 +773,9 @@ the function they<br />
 encounter.</p>
 <p>This brings us to the concept of <em>presence assertions</em>, which
 formalize this<br />
-idea of an observer recording a presence based on their local view of
+idea of an observer recording a presence based on their local “view” of
 the<br />
 underlying density function.</p>
-<h3 id="presence-assertions">Presence Assertions</h3>
 <p>A <em>presence assertion</em> is simply a presence augmented with
 metadata:</p>
 <ul>
@@ -794,6 +786,7 @@ observation was made.</li>
 <p>The assertion time doesn’t need to align with the time interval of
 the presence. This allows assertions to refer to the past, reflect the
 present, or even anticipate the future behavior of a signal.</p>
+<h4 id="a-note-on-epistemology">A note on epistemology</h4>
 <p>Presence assertions give us the ability to assign <em>provenance</em>
 to a presence—<br />
 not just <em>what</em> we know, but <em>how</em> we know it. This is
