@@ -842,7 +842,7 @@ there are only two degrees of freedom between three variables.
 
 Furthermore, within the structure of this identity, presence density is the
 resultant variable, while the incidence rate and signal mass contribution act as
-its fundamental, independent components.
+its fundamental, independent variables.
 
 Thus, the invariant explicitly states that any change in presence density is an
 _outcome_ that is necessarily accounted for by a change in incidence rate or
