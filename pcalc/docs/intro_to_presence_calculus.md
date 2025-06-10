@@ -3,7 +3,7 @@
 **Dr. Krishna Kumar**  
 *The Polaris Advisor Program*
 
-## What is The Presence Calculus?
+## 1. What is The Presence Calculus?
 
 The Presence Calculus is a new approach for reasoning quantitatively about the  
 relationships between signals in a domain over time.
@@ -240,7 +240,7 @@ continuity of time and the algebra of time intervals to reason about the
 interactions and emergent configurations of presences in a rigorous and
 structured, and more importantly, computable way.
 
-## What is a presence?
+## 2. What is a presence?
 
 Let's start by building intuition for this concept we call a *presence*.  
 Consider the statement: “The task $X$ was in Development from Monday to  
@@ -528,7 +528,7 @@ These are examples of classic operations management problems expressed in the
 language of the presence calculus. The calculus is well-suited to modeling  
 scenarios like these as a base case.
 
-## Systems of Presences
+## 3. Systems of Presences
 
 Let's summarize what we've described so far.
 
@@ -634,7 +634,7 @@ now. The API docs go into more detail about the mechanics of this canonical
 representation, and what’s needed to ensure a "clean" mapping from a signal to a
 system of presences—or more precisely, a system of presence assertions.
 
-## Co-Presence and The Presence Invariant
+## 4. Co-Presence and The Presence Invariant
 
 In the last section, we introduced systems of presences as collections of
 presence assertions, which are derived from observable signals.
@@ -931,7 +931,7 @@ of a system of presences over time.
 We will now introduce a tool called the presence matrix that makes it easier to
 visualize and manage the computations involved in doing so.
 
-## The Presence Matrix
+## 5. The Presence Matrix
 
 A *presence matrix* records the presence mass distribution obtained by sampling
 a set of presence density functions over a fixed set of time intervals.
@@ -1077,49 +1077,6 @@ Thus the presence invariant encodes very strong _local_ constraints in how
 presence mass distributes in time across signals, and we can use these to derive
 meaningful constraints on the global accumulation of presence mass across a
 system of presences.
-
-## Applying the Presence Calculus
-
-The presence calculus might seem like a highly abstract, theoretical framework,
-but much of its utility emerges when we *interpret* its concepts in a specific,
-applied context.
-
-Concepts such as presence mass, incidence rates, and density are not unlike
-abstract physical notions like force, mass, and acceleration. In principle,
-these are measurable quantities that nature constrains to behave in prescribed
-ways at a micro scale.
-
-Once we understand the rules governing their micro-scale behavior, we gain tools
-to systematically measure, reason about, and explain a vast range of observable
-macro-scale phenomena. Much of physics is built on this principle.
-
-In a similar vein, the presence calculus—and especially the *presence invariant*
-—provides a foundational law that governs the local, time-based behavior of any
-system composed of time-varying signals and the presences they induce.
-
-Once we recognize that such a governing constraint exists, the presence calculus
-equips us with tools to describe, interpret, explain, and, in certain cases,  
-make verifiable predictions about the macro-scale behavior of these systems.
-
-Newtonian mechanics, for example, allows us to describe and predict the motion
-of physical systems with remarkable precision—such as planetary orbits or the
-paths of falling objects. Yet even within this well-established framework,
-certain limits remain: the general three-body problem has no closed-form
-solution, and systems like the double pendulum exhibit chaotic behavior that
-defies long-term prediction.
-
-Still, we can represent the behavior and evolutions of such systems as
-deterministic trajectories through a parameter space, uncovering structure even
-where precise global behavior remain unpredictable. In much the same way, the
-presence calculus does not seek to forecast the exact evolution of complex
-systems. Instead, by explicitly modeling signal histories and representing
-element trajectories over time, it equips us with powerful descriptive and
-explanatory tools.
-
-In this way, structural constraints and local invariants help us interpret
-locally observed dynamics and connect it to system behavior at the macro scale.
-
-Let's see how.
 
 ### The Presence Accumulation Matrix
 
@@ -1397,6 +1354,49 @@ interval $[i,j]$.
 
 As we will see below, this matrix compactly encodes multi-scale information about system behavior 
 and supports the analysis of both micro and macro scale behavior of a system of presences. 
+
+## 6. Applying the Presence Calculus
+
+The presence calculus might seem like a highly abstract, theoretical framework,
+but much of its utility emerges when we *interpret* its concepts in a specific,
+applied context.
+
+Concepts such as presence mass, incidence rates, and density are not unlike
+abstract physical notions like force, mass, and acceleration. In principle,
+these are measurable quantities that nature constrains to behave in prescribed
+ways at a micro scale.
+
+Once we understand the rules governing their micro-scale behavior, we gain tools
+to systematically measure, reason about, and explain a vast range of observable
+macro-scale phenomena. Much of physics is built on this principle.
+
+In a similar vein, the presence calculus—and especially the *presence invariant*
+—provides a foundational law that governs the local, time-based behavior of any
+system composed of time-varying signals and the presences they induce.
+
+Once we recognize that such a governing constraint exists, the presence calculus
+equips us with tools to describe, interpret, explain, and, in certain cases,  
+make verifiable predictions about the macro-scale behavior of these systems.
+
+Newtonian mechanics, for example, allows us to describe and predict the motion
+of physical systems with remarkable precision—such as planetary orbits or the
+paths of falling objects. Yet even within this well-established framework,
+certain limits remain: the general three-body problem has no closed-form
+solution, and systems like the double pendulum exhibit chaotic behavior that
+defies long-term prediction.
+
+Still, we can represent the behavior and evolutions of such systems as
+deterministic trajectories through a parameter space, uncovering structure even
+where precise global behavior remain unpredictable. In much the same way, the
+presence calculus does not seek to forecast the exact evolution of complex
+systems. Instead, by explicitly modeling signal histories and representing
+element trajectories over time, it equips us with powerful descriptive and
+explanatory tools.
+
+In this way, structural constraints and local invariants help us interpret
+locally observed dynamics and connect it to system behavior at the macro scale.
+
+Let's see how.
 
 ### Sample Paths and Convergence
 
