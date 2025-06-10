@@ -85,26 +85,32 @@ In this document, we'll motivate and introduce the key ideas in the calculus
 informally, with lots of highly evocative examples and simplifications to  
 illustrate concepts.
 
-It is aimed squarely at the non-technical reader. We'll also continue with
-ongoing informal exposition on our blog  
-[The Polaris Flow Dispatch](https://www.polaris-flow-dispatch.com).
+While it is aimed squarely at the non-technical reader, in order to understand
+the ideas, some basic mathematical notation is used in key sections. We do
+augment these with examples to build intuition throughout.
 
-We recommend reading and understanding the ideas here before jumping deeper  
-into the rest of the documentation at this site, which does get a fair bit  
-more dense. The next level of detail is in the API docs for
-[The Presence Calculus  
+We recommend reading and understanding all the main ideas here before jumping
+deeper into the rest of the documentation at this site, which does get a fair bit more dense.
+
+If that deeper dive is  not your cup of tea, we'll continue with ongoing informal exposition on our blog [The Polaris Flow Dispatch](https://www.polaris-flow-dispatch.com), where we will focus mostly on applications of the ideas. 
+
+So this document can be thought as the middle ground: detailed enough to
+understand the concepts and ideas clearly and precisely, but just a starting
+point if you want to really dig deeper.
+
+The next level of detail is in the API docs for [The Presence Calculus  
 Toolkit](https://py.pcalc.org).
 
-The toolkit is an open source python library that is designed to provide
-efficient implementations for all the core concepts in the presence calculus. In
-the API documentation, we go into the concepts at a level of rigor that you'll
-need to work with the pcalc API and apply the concepts. Some mathematical
-background will be useful here if you want to develop extend the core.
+The toolkit is an open source python library that implements all the core
+concepts in the presence calculus. In the API documentation, we go into the
+concepts at a level of rigor that you'll need to work with the pcalc API and
+apply the concepts. Some mathematical background will be useful here if you want
+to apply the concepts and extend beyond the core.
 
-The toolkit provides a reference implementation of the concepts in this
-document, and is designed as an analytical middleware layer suitable for
-interfacing real world operational systems and complex system simulation, to the
-analytical machinery of the presence calculus.
+The toolkit is reference implementation of the presence calculus. It is designed
+as an analytical middleware layer suitable for interfacing real world
+operational systems and complex system simulation, to the analytical machinery
+of the presence calculus.
 
 Finally, for those who want to dive deeper into the formal mathematical  
 underpinnings of the calculus, we have the theory track, which perhaps goes  
@@ -821,21 +827,22 @@ The presence invariant can now be rewritten as:
 $$ L = \Lambda \times w $$
 
 which you may recognize as *Little's Law* applied over a finite observation
-window. Thus, the presence invariant serves as a **generalization of Little’s
-Law**—extending it to arbitrary systems of presence density functions (signals).
+window. Thus, the presence invariant serves as a *generalization of Little’s
+Law*—extending it to arbitrary systems of presence density functions (signals)
+measured over finite observation windows.
 
 It is important to note that we are referring to *Little's Law over a finite
 observation window*, rather than the much more familiar, steady-state
 equilibrium form of Little's Law.
 
-Just like the presence invariant in the general case, this version of the law
+Unlike the equilibrium form of the law, this version
 holds *unconditionally*. The key is that the quantities involved are
-*observer-relative*: the time tasks spend *within the observation window*, and
-the *activation rate* of tasks *over the window*, rather than the task-relative
-durations or steady-state arrival/departure rates used in classical queueing
-theory.
+*observer-relative*: the time tasks spend *within a finite observation window*,
+and the *activation rate* of tasks *over the window*, rather than the
+task-relative durations or steady-state arrival/departure rates used in the
+equilibrium form.
 
-Indeed, in the general case, the difference between these two forms of the
+Indeed, the difference between these two forms of the
 identity will serve as the basis for how we *define* whether a system of
 presences is in equilibrium or not. The idea is that the system of presences is
 at equilibrium when observed over sufficiently long observation windows such
