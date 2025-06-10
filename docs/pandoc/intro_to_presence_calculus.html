@@ -826,9 +826,9 @@ to hint at the possibilities.</p>
 presence calculus.</p>
 <h2 id="co-presence-and-the-presence-invariant">Co-Presence and The
 Presence Invariant</h2>
-<p>In the last section, we introduced <em>systems of presences</em> as
-collections of presence assertions defined over a set of presence
-density functions (signals).</p>
+<p>In the last section, we introduced systems of presences as
+collections of presence assertions, which are derived from observable
+signals.</p>
 <p>Figure 5 illustrates an example of such a system, where we focus on
 the subset of presences defined over a <em>shared observation
 interval</em>.</p>
@@ -843,41 +843,41 @@ style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
 observer making simultaneous measurements of presence mass across
 multiple signals over a common interval of time.</p>
 <p>Co-presence is a necessary (but not sufficient) condition for
-interaction between one or more signals. In this section, we introduce a
-key construct in the presence calculus: the <em>presence invariant</em>.
-It expresses a general and powerful relationship that holds for any
-co-present subset of presences within a finite observation window. and
-is a fundamental relationship tha governs how the masses of co-present
-signal’s interact.</p>
+interaction between one or more signals. This section introduces a key
+construct: the presence invariant. It expresses a general and powerful
+relationship that holds for any co-present subset of presences within a
+finite observation window, and it is a fundamental relationship that
+governs how the masses of co-present signals interact.</p>
 <p>Let’s establish this relationship.</p>
 <p>Given, any finite observation interval, we’ve already shown that each
 presence density function has a <em>presence mass</em>, defined as the
 integral of the density over the observation interval.</p>
-<p>These can be thought of These can be thought of as mass contributions
-from those presences to that interval. The sum of these individual
-<em>mass contributions</em> gives the total presence mass observed
-across the system in that interval.</p>
-<p>Let</p>
+<p>These can be thought of as mass <em>contributions</em> from those
+presences to that interval. The sum of these individual mass
+contributions gives the total presence mass observed across the system
+in that interval.</p>
+<p>In our example from Figure 5,</p>
 <p><span class="math display">\[ A = M_0 + M_1 + M_3 \]</span></p>
-<p>be the total mass contribution from the signals that have non-zero
+<p>is the total mass contribution from the signals that have non-zero
 mass over the interval <span class="math inline">\([t_0, t_1)\)</span>.
 The length of this interval is <span class="math inline">\(T = t_1 -
 t_0\)</span>.</p>
 <p>Since the mass comes from integrating a density function over time,
-the quantity <span class="math inline">\(\frac{A}{T}\)</span> represents
-the <em>average presence density</em> over the observation interval. We
-can now decompose this as:</p>
+the quantity <span class="math inline">\(\delta = \frac{A}{T}\)</span>
+represents the <em>average presence density</em> over the observation
+interval <span class="math inline">\(T\)</span>.</p>
+<p>We can now decompose this as:</p>
 <p><span class="math display">\[ \delta = \frac{A}{T} = \frac{A}{N}
 \times \frac{N}{T} \]</span></p>
-<p>Here <span class="math inline">\(N\)</span> is the number of distinct
-signals with a presence in the observation window<a href="#fn6"
-class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.
-This separates the average presence density into two interpretable
-components:</p>
+<p>Here <span class="math inline">\(N\)</span> is the number of
+<em>active signals</em>: distinct signals with a presence in the
+observation window<a href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a>. This separates the average presence
+density into two interpretable components:</p>
 <ul>
 <li><span class="math inline">\(\bar{m} = \frac{A}{N}\)</span>: the
 <em>average mass contribution</em> per active signal,</li>
-<li><span class="math inline">\(\iota = \frac{N}{T}\)</span>: the
+<li><span class="math inline">\(\iota = \frac{N}{T}\)</span>: the signal
 <em>incidence rate</em>—i.e., the number of active signals per unit
 time.</li>
 </ul>
@@ -889,28 +889,61 @@ Signal} \]</span> or in our notation</p>
 \]</span></p>
 <p>This identity holds for <em>any</em> co-present subset of signals
 over <em>any</em> finite time interval.</p>
-<p>While algebraically, this relationship is a tautology, it imposes a
-powerful constraint on system behavior—one that is independent of the
-specific system, semantics, or timescale.</p>
+<h3 id="an-example-1">An example</h3>
+<p>To build intuition for these abstract terms, let’s look at a
+practical example.</p>
+<p>For example, suppose our signals represent revenues from customer
+purchase over some time period. If we look at a system of presences,
+across an interval of time, say a week, the total presence mass <span
+class="math inline">\(A\)</span> represents the total revenues across
+all customers who contributed to that revenue. <span
+class="math inline">\(T\)</span> is the time period measured in some
+unit of time (say days) and <span class="math inline">\(N\)</span> is
+the number of paying customers in that period.</p>
+<p>The average presence density is the daily revenue rate, the signal
+mass contribution for each signal is revenue for each customer, the
+average signal mass contribution is the average revenue per customer for
+that week, and the incidence rate represents the average daily rate of
+active customers over the week.</p>
+<p>So the presence invariant is stating that the revenue rate for the
+week is the product of the average revenue per customer and the average
+number of active customers over the week.</p>
+<h3 id="why-it-matters">Why it matters</h3>
+<p>While algebraically, the presence invariant is a tautology, it
+imposes a powerful constraint on system behavior—one that is independent
+of the specific system, semantics, or timescale. Think of it as the
+generalization of our intuitive revenue example to any arbitrary system
+of presences.</p>
 <p>Indeed, it forms a foundational conservation law of the presence
 calculus: the <em>conservation of mass (contribution)</em>.</p>
 <p>Just as the conservation of energy or mass constrains the evolution
 of physical systems—regardless of the specific materials or forces
 involved—the conservation of presence mass constrains how observable
-activity is distributed over time in a system of presences.</p>
-<p>It is independent of the semantics of what is being observed: like
-energy, presence mass can shift, accumulate, or redistribute, but it
-remains balanced when distributed across presences over a finite time
-interval.</p>
+activity is distributed over time in a system of presences. This
+conservation law applies to how presence mass is conserved across time.
+While independent of the semantics of what is being observed, like
+energy, presence mass can shift, accumulate, or redistribute, but its
+total balance across presences within a finite time interval remains
+invariant</p>
+<p>While independent of the semantics of what is being observed, like
+energy, presence mass can shift, accumulate, or redistribute, but its
+total balance across presences within a finite time interval remains
+invariant.</p>
 <p>Thus, the conservation of mass plays a role in the presence calculus
 similar to that of other conservation laws in physics: it constrains the
 behavior of three key observable, measurable parameters of any system of
 presences.</p>
+<p>It is important to note that this makes the “averages” in the
+presence invariant much more than descriptive statistics. While they may
+be interpreted as such, these are not simply measures of centrality on a
+set of observed presences, but quantities with a concrete physical
+interpretation, expressed via the invariant, that directly govern how a
+system of presences behaves in time.</p>
 <p>Exploiting this constraint allows us to study and characterize the
 long-run behavior of a system.</p>
-<h3 id="the-presence-invariant-for-binary-presences">The Presence
-Invariant for Binary Presences</h3>
-<p>At this stage, the presence invariant may still feel rather abstract.
+<h2 id="the-presence-invariant-for-binary-presences">The Presence
+Invariant for Binary Presences</h2>
+<p>At this stage, the presence invariant may still feel a bit abstract.
 Let’s make it more concrete by interpreting this identity in the special
 case of <em>binary</em> presences.</p>
 <p>Recall that a <em>binary</em> signal is a function whose density is
@@ -922,7 +955,9 @@ or absence of an underlying signal in the domain.</p>
 the time during which a task is present in development, the mass
 contribution of that task over an observation interval is the portion of
 its duration that intersects the interval. This is also called the
-<em>residence time</em> for the task in the observation window.</p>
+<em>residence time</em><a href="#fn7" class="footnote-ref" id="fnref7"
+role="doc-noteref"><sup>7</sup></a> for the task in the observation
+window.</p>
 <div style="text-align: center; margin:2em">
 <img src="../assets/pandoc/presence_invariant_binary.png" width="600px" />
 <div
@@ -1044,8 +1079,8 @@ defining the unique co-ordinates of the state of the system over a small
 finite interval, we can “trace” the movement of the system by following
 these co-ordinates. But since there are only two degrees of freedom
 these coordinates will always lie on a two dimensional manifold<a
-href="#fn7" class="footnote-ref" id="fnref7"
-role="doc-noteref"><sup>7</sup></a>, in a 3 dimensional space.</p>
+href="#fn8" class="footnote-ref" id="fnref8"
+role="doc-noteref"><sup>8</sup></a>, in a 3 dimensional space.</p>
 <p>If fact, remarkably, the state of <em>every</em> possible system of
 presences, no matter how general, always has a trajectory in time that
 lies on this <em>same</em> manifold. This is a powerful constraint and
@@ -1074,9 +1109,9 @@ f_{(e,b)}(t) \, dt \]</span></p></li>
 representation of this system of presences.</p>
 <p>Since we are accumulating presence masses over an interval, the value
 of presence mass in a matrix entry is always a a real number. Figure 8
-shows the presence matrix for the system in Figure 7<a href="#fn8"
-class="footnote-ref" id="fnref8"
-role="doc-noteref"><sup>8</sup></a>.</p>
+shows the presence matrix for the system in Figure 7<a href="#fn9"
+class="footnote-ref" id="fnref9"
+role="doc-noteref"><sup>9</sup></a>.</p>
 <div style="text-align: center; margin:2em">
 <img src="../assets/pandoc/presence_matrix.png" width="600px" />
 <div
@@ -2377,7 +2412,7 @@ class="math inline">\([i,j]\)</span>.</li>
 <p>As we will see below, this matrix compactly encodes multi-scale
 information about system behavior and supports the analysis of both
 micro and macro scale behavior of a system of presences.</p>
-<h3 id="sample-paths-and-convergence">Sample Paths and Convergence</h3>
+<h2 id="sample-paths-and-convergence">Sample Paths and Convergence</h2>
 Consider the highlighted portions of the accumulation matrix <span
 class="math inline">\(A\)</span> in figure 13.
 <div style="text-align: center; margin:2em">
@@ -3010,8 +3045,8 @@ style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
 </div>
 </div>
 <p>We note that while the values measured along a sample path can be
-volatile, the long-run averages along that path often stabilize and
-converge to a finite value.</p>
+volatile, the long-run averages along that path stabilize and converge
+to a finite value.</p>
 <p>We call a system of presences <em>convergent</em> if there exists a
 sufficiently long sample path along which this stabilization occurs.
 Otherwise, we say the system is <em>divergent</em>.</p>
@@ -5521,7 +5556,7 @@ class="math inline">\(N\)</span> as the number of distinct
 <em>presences</em> in the observation window. For example for the signal
 <span class="math inline">\(P2\)</span> in Figure 5, this corresponds to
 asking if <span class="math inline">\(N=5\)</span> (if we count the
-disjoing presences individually) or <span
+disjoint presences individually) or <span
 class="math inline">\(N=3\)</span> (if we count the signals). These give
 different values for <span class="math inline">\(\bar{m}\)</span> and
 <span class="math inline">\(\iota\)</span> but their product <em>still
@@ -5531,7 +5566,14 @@ decision that depends on what you are trying to measure. By default we
 will assume that <span class="math inline">\(N\)</span> is measured at
 the signal granularity.<a href="#fnref6" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>All solutions to an equation of the form <span
+<li id="fn7"><p>We note that the residence time represents only the
+portion of the duration of the task in some arbitrary observation
+window. This is a different quantity from the overall duration of the
+task from start to finish (or from signal onset to reset in our
+terminology). This is the more familiar metric typically called the
+cycle time.<a href="#fnref7" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>All solutions to an equation of the form <span
 class="math inline">\(x=y \times z,\)</span> which is the form of the
 presence invariant, lie on a 2D surface, called a manifold in 3
 dimensions: think of the manifold a rubber sheet suspended in a 3
@@ -5539,9 +5581,9 @@ dimensional space. All the values of <span class="math inline">\(x, y,
 \text{ and } z\)</span> that satisfy this equation will lie on the
 surface of this rubber sheet. This is a powerful geometric constraint
 that we can exploit to reason about the possible behavior of a system of
-presences over time.<a href="#fnref7" class="footnote-back"
+presences over time.<a href="#fnref8" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>The alert reader will note the difference between the
+<li id="fn9"><p>The alert reader will note the difference between the
 first two rows in the matrix. The first signal is represented by a
 single presence, while the second is broken up into two disjoint
 presences. This is entirely an artifact of the granularity at which the
@@ -5549,7 +5591,7 @@ timeline is divided. At a suitably fine sampling granularity, the first
 signal could also be represented by two presences. As discussed earlier,
 this has no real impact on the behavior of the invariant. In general we
 will use signals as the unit at which incidence is measured.<a
-href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>
