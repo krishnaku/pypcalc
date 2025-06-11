@@ -777,10 +777,7 @@ Just as the conservation of energy or mass constrains the evolution of physical
 systems—regardless of the specific materials or forces involved—the conservation
 of presence mass constrains how observable activity is distributed over time in
 a system of presences. This conservation law applies to how presence mass is
-conserved across time. While independent of the semantics of what is being
-observed, like energy, presence mass can shift, accumulate, or redistribute, but
-its total balance across presences within a finite time interval remains
-invariant
+conserved across time.
 
 While independent of the semantics of what is being observed, like energy,
 presence mass can shift, accumulate, or redistribute, but its total balance
@@ -995,8 +992,9 @@ the matrix. The first signal is represented by a single presence, while the
 second is broken up into two disjoint presences. This is entirely an artifact of
 the granularity at which the timeline is divided. At a suitably fine sampling
 granularity, the first signal could also be represented by two presences. As
-discussed earlier, this has no real impact on the behavior of the invariant. In
-general we will use signals as the unit at which incidence is measured.
+discussed in footnote 6 above, this has no real impact on the behavior of the
+invariant. In general we will use signals as the unit at which incidence is
+measured.
 
 The presence matrix encodes some deep structural properties of a system of
 presences. Many of key concepts we want to highlight are easier to define and
@@ -1465,24 +1463,68 @@ Consider the highlighted portions of the accumulation matrix $A$ in figure 13.
   </tbody>
 </table>
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-    Figure 13: Sample paths, micro and macro scale accumulation. 
+    Figure 13: Diagonal and top row of the accumulation matrix
   </div>
 </div>
 
-The diagonal represents a sequence of measurements of independent intervals at
-the finest measurement granularity. The top row represents the other extreme, a
-series of measurements along a single long interval, each of which contains the
-presences in all the previous intervals. The top row in the matrix represents
-the presence history over all the intervals - the cumulative presences for
-intervale $[0,j) \text{for} 1 \le j \lt N.$
+Each diagonal entry represents the total presence mass observed across all
+signals in a single time interval. Thus, the diagonal traces the discrete-time
+evolution of the system's observable activity—one step at a time. We will call
+the sequence of values on the diagonal a _sample path_ for the system of
+presences.
 
-We can divide each of the entries in the accumulation matrix with the length of
-the time interval it covers to get the presence density for each interval. For
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/diagonal_values.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 14: The values on the diagonal of the accumulation matrix.  
+  </div>
+</div>
+
+
+Recall that each entry on the diagonal represents the sum of the presence masses
+of the signals active in a time window. This implies that each entry on the top
+row is an approximation of an integral[^10] and equals the _area under the
+sample path_ represented by the diagonal.
+
+[^10]: Specifically, the Riemann sum approximation of the integral $$
+A(1, j) = \sum_{k=1}^j A(k,k)
+\approx \int_0^j \left( \sum_{(e,b)} P_{(e,b)}(t) \right) dt
+$$
+where each $P_{(e,b)}(t)$ represents the presence density function of an
+underlying element-boundary signal.
+
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/top_row_values.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 15: The values on the top row accumulation matrix.  
+  </div>
+</div>
+
+In other words, the diagonal and top row represent fundamentally different views
+of the system: the diagonal captures the *micro-level behavior*—instantaneous  
+presence mass across signals in each interval—while the top row encodes the  
+*macro-level behavior*—the cumulative effect of those presences over time.  
+Both views are compactly encoded in the structure of the  
+accumulation matrix.
+
+Figure 16 shows this geometric interpretation of the diagonal and top rows of
+the accumulation matrix.
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/sample_path_area.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 16: Sample path and the area under it.   
+  </div>
+</div>
+
+If we divide each of the entries in the accumulation matrix by the length of the
+time interval it covers, we get the presence density for each interval. For
 the diagonal interval has length 1 (time unit) and for the top row the lengths
 range from 1 to $N-1.$
 
-<div style="width: 100%; display: flex; justify-content: center; margin-top: 1em; margin-bottom: 1em;">
-<table style="border-collapse: collapse;">
+<div style="text-align: center; margin:2em">
+  <table style="border-collapse: collapse;">
   <thead>
     <tr>
       <th>i\\j</th>
@@ -1515,182 +1557,144 @@ range from 1 to $N-1.$
     <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color:#e6ffe6">1.7</td></tr>
   </tbody>
 </table>
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 17: Presence density: diagonal and top row.   
+  </div>
 </div>
 
-So now we have the left hand side of the presence invariant encoded matrix form
-for every pair of continuous intervals in the system.
-
-We refer to the diagonal of the accumulation matrix as a *sample path* through
-the presence history of the system. It records the presence mass observed at
-each time interval independently, forming a discrete, time-indexed sequence.
-This captures the micro-scale behavior of the system of presences.
-
-The top row of the matrix represents the cumulative presence mass across each
-prefix of that path — that is, the total presence observed from the beginning of
-the observation period up to each point along the path. It reflects the long-run
-trend in average presence density and captures the macro-scale behavior of the
-system.
+So now we have the left-hand side of the presence invariant encoded in matrix  
+form for every pair of continuous intervals in the system.
 
 Let's chart the values in both of these rows in the matrix.
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/first_row_vs_main_diagonal.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-    Figure 9: Convergence of long run average presence density.
+    Figure 18: Convergence of long-run average presence density.
   </div>
 </div>
 
-We note that while the values measured along a sample path can be volatile, the
-long-run averages along that path stabilize and converge to a finite
-value.
+We can define this notion of convergence precisely using the mathematical
+concept of a limit. Let:
 
-We call a system of presences *convergent* if there exists a sufficiently long
-sample path along which this stabilization occurs. Otherwise, we say the system
-is *divergent*.
+$$
+\Delta = \lim_{T \to \infty} \frac{1}{T} \int_0^T \delta(t) \, dt
+$$
 
-In a convergent system, the average presence density over time settles toward a
-finite value. Intuitively, this means that after observing enough of the
-system's history, additional observation does not significantly alter our
-understanding of its long-term behavior.
+Here, $\delta(t)$ is the instantaneous presence density introduced in the
+presence invariant.  
+The quantity $\Delta$, by contrast, represents the long-run average presence
+density —  
+the time-averaged total presence across all signals in the system.
 
-Some systems converge rapidly to a single stable limit. Others may not settle on
-one fixed point, but instead move between a small number of such limits. These
-represent dominant behavioral modes—equilibrium states that the system can enter
-and sustain for extended periods.
+In the discrete setting, this corresponds to the limiting value of the top row
+of the  
+accumulation matrix — a value toward which the green line in Figure 18 appears
+to converge:
 
-Divergent systems, by contrast, exhibit no such limiting behavior. The presence
-density in these systems continues to grow without bound, indicating that no
-stable long-term pattern emerges.
+$$
+\Delta = \lim_{j \to \infty} \frac{A(1,j)}{j}
+$$
 
-It is important to emphasize that convergence and divergence are properties of
-the observed *behavior* of a system of presences, not of the underlying system
-itself. We cannot infer the nature of the underlying system solely from whether
-it appears convergent or divergent. We can only observe the presence dynamics
+where $A(1,j)$ is the total presence mass accumulated from time 0 through
+interval $j$.
+
+Not every system of presences has such a limit. We call a system *convergent*
+if  
+$\Delta$ exists and is finite, and *divergent* otherwise.
+
+To summarize: in a convergent system, the average presence density over time  
+settles toward a finite value. Intuitively, this means that after observing  
+enough of the system’s history, additional observation does not significantly  
+alter our understanding of its long-term behavior.
+
+Some systems converge rapidly to a single stable limit. Others may not settle  
+at all, but instead move among a small number of such limits. These  
+represent dominant behavioral modes — quasi-equilibrium states that the system  
+can enter and sustain for extended periods. Such behavior is called  
+*metastable* or *multi-modal*.
+
+Divergence, by contrast, implies the absence of such limiting behavior. The  
+presence density in these systems continues to grow without bound,  
+indicating that no stable long-term pattern emerges.
+
+Figure 19 shows examples of each of these behaviors.
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/convergence_divergence.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 19: Convergent, Divergent, and Metastable behavior in systems of presences.
+  </div>
+</div>
+
+If a limit $\Delta$ exists and is sustained over time, it signifies a stable
+long-run average presence density for the system. This value represents a
+specific pattern of average behavior toward which the system's observable
+presence density gravitates over extended periods, regardless of short-term
+fluctuations.
+
+This concept aligns with the broader notion of attractors in dynamical systems.
+While a system's full, high-dimensional state might exhibit complex dynamics,
+the long-run average presence density can itself stabilize around a particular
+value or set of values. When the presence density consistently settles around
+such a limit, it indicates that the system's observable behavior has entered a
+sustainable regime.
+
+This provides a powerful way to characterize the system's overall operational
+modes in the long term, even if its micro-level details remain complex and
+unpredictable. We will have more to say on this topic shortly.
+
+It is important to emphasize that convergence and divergence are properties  
+of the *observed long-run behavior* of a system of presences — not intrinsic  
+properties of the underlying system itself.
+
+We cannot infer the system’s nature solely from whether it appears convergent or
+divergent at any given time. We can only observe the dynamics of presence  
 over time and assess whether they exhibit convergence.
 
+The key difference between convergence and the other two modes is that a  
+convergent system can effectively *forget* its history beyond the point of
+stabilization.Its future behavior becomes representative of its past, allowing
+the system to be characterized by a stable long-run average.
 
+The presence calculus equips us with the operational tools needed to observe  
+and characterize the behavior of such systems over time.
 
-<table style="border-collapse: collapse; margin: auto;">
-  <thead>
-    <tr>
-      <th>i\\j</th>
-      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
-    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
-    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
-  </tbody>
-</table><table style="border-collapse: collapse; margin: auto;">
-  <thead>
-    <tr>
-      <th>i\\j</th>
-      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
-    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
-    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
-  </tbody>
-</table><table style="border-collapse: collapse; margin: auto;">
-  <thead>
-    <tr>
-      <th>i\\j</th>
-      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
-    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
-    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
-  </tbody>
-</table><table style="border-collapse: collapse; margin: auto;">
-  <thead>
-    <tr>
-      <th>i\\j</th>
-      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
-    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
-    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
-  </tbody>
-</table><table style="border-collapse: collapse; margin: auto;">
-  <thead>
-    <tr>
-      <th>i\\j</th>
-      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
-    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
-    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
-  </tbody>
-</table><table style="border-collapse: collapse; margin: auto;">
-  <thead>
-    <tr>
-      <th>i\\j</th>
-      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>2</td><td></td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>3</td><td></td><td></td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>4</td><td></td><td></td><td></td><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>5</td><td></td><td></td><td></td><td></td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
-    <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>3</td><td>4</td><td>4</td></tr>
-    <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td><td>3</td></tr>
-    <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
-  </tbody>
-</table>
+#### The Semantics of Convergence
+
+An important point to emphasize is that, depending on how presence density  
+is interpreted in a given domain, *any* of the three behavioral modes —  
+convergent, divergent, or metastable — may be desirable.  
+Convergence is not inherently "good," nor is divergence necessarily "bad."
+
+For example, in repetitive manufacturing or many customer service domains,  
+convergence is often desired. In these contexts, presence typically  
+represents *demand* on a constrained resource, and keeping that demand  
+stable is essential for ensuring consistent service times, throughput,  
+and resource utilization. Traditional operations management and queueing theory
+therefore seek out — and emphasize — stability and convergence in key  
+operational signals.
+
+By contrast, if presence represents a company’s *customer base* or *market  
+share*, we *want* the long-run presence density to look like the chart on  
+the right: up and to the right — that is, *divergent*.
+
+Metastable modes are common and often highly desirable in software  
+development, where teams must shift between modes of operation in  
+response to external demands or changing market conditions. Indeed, the  
+ability to transition between such modes effectively is a hallmark of a
+well-run, adaptive organization — *provided* it is done intentionally and with  
+awareness.
+
+All too often, however, organizations drift from metastable to chaotic  
+behavior, losing the capacity to stabilize in any mode. This often results  
+from a lack of visibility into — or the inability to reason about — their  
+operational state.
+
+One of the major practical applications of the presence calculus is to  
+bring new analytical tools to *observe*, *categorize*, and *steer* the  
+behavior of such complex systems — aligning them with the desired modes of  
+operation in a given domain, *before* critical tipping points are reached.
 
 
 
