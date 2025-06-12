@@ -913,7 +913,7 @@ tasks that intersect the observation interval is $4$. The length of the
 observation window is $T = 4$ days. It is straightforward to verify that the
 presence invariant holds.
 
-Now, let's unpack its meaning.
+Now, let's interpret its meaning.
 
 Since each task contributes $1$ unit of mass for each unit of time it is
 present, the average presence density $\delta=\frac{A}{T}$ represents the
@@ -936,8 +936,9 @@ The presence invariant can now be rewritten as:
 
 $$ L = \Lambda \times w $$
 
-which you may recognize as *Little's Law* applied over a finite observation
-window. Thus, the presence invariant serves as a *generalization of Little’s
+which you may recognize as *Little's Law* in its finite-window form.
+
+Thus, the presence invariant serves as a *generalization of Little’s
 Law*—extending it to arbitrary systems of presence density functions (signals)
 measured over finite observation windows.
 
@@ -949,7 +950,7 @@ Unlike the equilibrium form of the law, this version
 holds *unconditionally*. The key is that the quantities involved are
 *observer-relative*: the time tasks spend *within a finite observation window*,
 and the *activation rate* of tasks *over the window*, rather than the
-task-relative durations or steady-state arrival/departure rates used in the
+task-relative durations or long-run arrival/departure rates assumed in the
 equilibrium form.
 
 Indeed, the difference between these two forms of the
@@ -964,12 +965,21 @@ invariant holds *regardless* of equilibrium—the finite-window form becomes far
 more valuable for analyzing the long-run behavior of such systems as they *move
 into and between* equilibrium states.
 
-We'll also note that for any arbitrary signal, we can always define a binary
-presence corresponding to the intervals over which the value of the density
-function is non-zero (the support interval). In general then, we can say the
-finite window version of Little's Law, with the above definitions, always
-applies to _any_ signal under this interpretation. _In addition,_ the general
-presence invariant also applies to the full signal.
+All this is the focus of section 6, where we will formally make the connections
+between the presence invariant and equilibrium states in systems of presence
+with the help of a very general form of Little's Law originally proven by
+Stidham.
+
+For now, we will note that for any arbitrary signal, we can always define a
+binary presence corresponding to the intervals over which the value of the
+density function is non-zero (the support interval). In general then, we can say
+the finite window version of Little's Law, with the above definitions, always
+applies to _any_ signal under this interpretation.
+
+_In addition,_ the general presence invariant also applies to the full signal.
+Yet another version applies in equilibrium states—but all are, in effect,
+different manifestations of the same underlying relationship captured in the
+presence invariant.
 
 We will return to this important topic shortly. But first, let's understand the
 implications of the presence invariant.
