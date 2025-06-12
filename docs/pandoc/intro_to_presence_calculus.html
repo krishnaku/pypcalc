@@ -695,8 +695,8 @@ modeling<br />
 scenarios like these as a base case.</p>
 <h2 id="systems-of-presences">3. Systems of Presences</h2>
 <p>Let’s summarize what we’ve described so far.</p>
-<p>With signals and presences, we now have the framework for describing
-and measuring the behavior of time-varying domain signals, each
+<p>With signals and presences, we now have a framework for describing
+and measuring the behavior of time-varying domain signals—each
 representing how a specific element behaves within a given boundary.</p>
 <p>The key feature of a presence is that it abstracts these behaviors
 into a uniform representation—one that we can reason about and compute
@@ -752,7 +752,7 @@ and computing its mass. This interval can be chosen in many ways:</p>
 <li>It might perfectly align with a single support interval (a ‘hill’ in
 the signal).</li>
 <li>It might span multiple disjoint support intervals, including the
-“zero” times in between.</li>
+“zero” regions in between.</li>
 <li>It might capture only a portion of a single support.</li>
 </ul>
 <p>All we require is that the interval chosen for the presence
@@ -770,10 +770,8 @@ signal and derive different presence values, depending on what part of
 the function they<br />
 encounter.</p>
 <p>This brings us to the concept of <em>presence assertions</em>, which
-formalize this<br />
-idea of an observer recording a presence based on their local “view” of
-the<br />
-underlying density function.</p>
+formalize the act of recording a presence based on an observer’s local
+“view” of the underlying density function.</p>
 <p>A <em>presence assertion</em> is simply a presence augmented with
 metadata:</p>
 <ul>
@@ -784,6 +782,29 @@ observation was made.</li>
 <p>The assertion time doesn’t need to align with the time interval of
 the presence. This allows assertions to refer to the past, reflect the
 present, or even anticipate the future behavior of a signal.</p>
+<h4 id="the-open-world-assumption">The open world assumption</h4>
+<p>Time in the presence calculus is explicitly defined to be over
+<em>extended</em> reals <span
+class="math inline">\(\overline{\mathbb{R}}\)</span>: the real line
+<span class="math inline">\(\mathbb{R}\)</span> extended with the
+symbols <span class="math inline">\(-\infty\)</span> and <span
+class="math inline">\(+\infty\)</span>.</p>
+<p>This is a mathematical representation of an open world assumption,
+which holds that the history of a system of presences extends
+indefinitely into the past and future.</p>
+<p>An observer will typically only see a finite portion of this history
+and has to make inferences on the basis of those observations, but in
+general, we need to make inferences with partial information about the
+past and contingent assumptions about the future.</p>
+<p>A presence with <span class="math inline">\(t_0 = -\infty\)</span>
+represents a presence whose beginning is unknown, and <span
+class="math inline">\(t_1 = +\infty\)</span> represents a presence whose
+end is unknown.</p>
+<p>Presences with both start and end unknown are valid constructs and
+represent eternal presences.</p>
+<p>Many of the most interesting questions in the presence calculus
+involve reasoning about the dynamics of a domain under the epistemic
+uncertainty introduced by such presences.</p>
 <h4 id="a-note-on-epistemology">A note on epistemology</h4>
 <p>Presence assertions give us the ability to assign <em>provenance</em>
 to a presence—<br />
@@ -792,6 +813,10 @@ essential in<br />
 representing complex systems where the observer and the act of
 observation<br />
 are first-class concerns.</p>
+<p>Further, since reasoning about time and history is a primary focus of
+the calculus, presences with unknown beginnings or endings provide a way
+to explicitly model what is known—and unknown—about that history. This
+will prove more valuable than it might initially seem.</p>
 <p>We won’t go too deeply into the epistemological aspects of the
 presence<br />
 calculus in this document—this remains an active and open area of
@@ -807,34 +832,68 @@ a<br />
 <em>system of presences</em>, much of the machinery of the presence
 calculus (which<br />
 we’ll introduce next) can be applied uniformly.</p>
-<p>For the next couple of sections, where we will introduce this
-machinery, we will operate under the assumption that there is a
-<em>signal</em> that can be observed and what we observe about the
-signal reflects what an observer knows about the domain. We don’t
-presume anything about the “truth” of the observations, we treat them
-uniformly as signals.</p>
+<p>In the next sections, where we introduce this machinery, we will
+operate under the assumption that there exists an observable
+<em>signal</em>, and that what is observed reflects what an observer
+knows about the domain. We don’t presume anything about the “truth” of
+the observations, we treat them uniformly as signals.</p>
 <p>One thing we will see is that from the perspective of this machinery,
 there are no fundamental differences in behavior between binary signals
 and arbitrary signals once they’ve been reduced to a canonical,
 presence-mass oriented representation<a href="#fn5" class="footnote-ref"
 id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
-<p>This greatly increases the scope of the problem domains where this
-machinery can be applied, and our examples in the previous section began
-to hint at the possibilities.</p>
+<p>This greatly increases the scope of the problem domains where the
+presence calculus can be applied, and our examples in the previous
+section only begin to hint at the possibilities.</p>
 <p>This, in the end, is the source of the generality and power of the
 presence calculus.</p>
 <h4 id="a-note-on-path-dependence">A note on path dependence</h4>
-<p>By representing a presence at the granularity of a element in a
+<p>By representing a presence at the granularity of an element in a
 boundary, we explicitly recognize the path dependent nature of the
-domain signals. Even if they represent the same underlying quantity we
-recognize that the behavior of the system emerges from individual
-signals at the element-boundary granularity that have very different
-presence density functions, and that we are interested in studying
-<em>how</em> the system level behavior emerges from the
+domain signals.</p>
+<p>In the presence calculus, signals represent some behavior of domain
+elements in boundaries. The calculus itself is agnostic to what counts
+as an “element” or a “boundary”— this is a domain modeling decision.</p>
+<p>Even if they represent the same underlying quantity, we recognize
+that system behavior emerges from the interactions between
+<em>individual</em> signals at the element-boundary granularity—each
+potentially with distinct presence density functions. We are interested
+in studying <em>how</em> system-level behavior arises from the
 <em>interactions</em> between these signals over time.</p>
-<p>To summarize, this is what we refer to as a “system of presences” - a
-time indexed collection of presence assertions derived from a an
+<p>Modeling boundaries are crucial because, for a given domain element,
+the boundary typically determines both which signals are relevant and
+how we wish to analyze system behavior using them.</p>
+<p>For example, a software feature (an element) may be modeled using one
+set of signals during development (one boundary), another during
+production (a second boundary), and yet another when customers begin
+using it (a third boundary).</p>
+<p>All three signals are part of the feature’s history. Each feature
+follows a unique path through these boundaries, producing its own
+independent set of signals with a distinct history and evolution. These
+signals interact in complex ways—over time, within boundaries, and with
+each other. The boundary is what brings coherence to the analysis—it
+defines which signals and interactions we choose to focus on, and
+why.</p>
+<p>In summary, the boundary allows us to bring a coherent set of
+elements and related signals together for analysis. That analysis
+focuses on how these signals interact in <em>time</em>.</p>
+<p>Constructing an appropriate set of element-boundary signals is
+<em>the</em> key modeling decision. But once these are defined, much of
+the machinery of the presence calculus can be applied without regard to
+the semantics of the specific element-boundaries involved.</p>
+<p>Semantics are, of course, crucial in <em>interpreting</em> the
+inferences one draws<br />
+using the machinery of the calculus.</p>
+<p>When we refer to a “system” in the presence calculus we are
+explicitly defining it as an <em>evolving</em> set of presence
+assertions—i.e., the “system” is what we can assert about a domain using
+presence assertions at a given time.</p>
+<p>In summary, this is what we refer to as a “system of presences” - a
+time-indexed collection of presence assertions derived from an
 underlying set of path dependent element-boundary signals.</p>
+<p>What we choose to model fundamentally shapes the system we are able
+to reason about—and the presence calculus provides a powerful foundation
+for doing so.</p>
 <h2 id="co-presence-and-the-presence-invariant">4. Co-Presence and The
 Presence Invariant</h2>
 <p>In the last section, we introduced systems of presences as
@@ -900,6 +959,14 @@ Signal} \]</span> or in our notation</p>
 \]</span></p>
 <p>This identity holds for <em>any</em> co-present subset of signals
 over <em>any</em> finite time interval.</p>
+<p>The key insight here is that the presence invariant establishes a
+fundamental relationship between the mass contributions of individual
+signals and what is observable about their interactions at a boundary
+over time—that is, their presence density. This is precisely the kind of
+relationship the presence calculus is designed to capture.</p>
+<p>The fact that this invariant holds for any finite observation
+interval is a powerful constraint—one we will exploit in reasoning about
+system behavior with the calculus.</p>
 <h3 id="an-example-1">An example</h3>
 <p>To build intuition for these abstract terms, let’s look at a
 practical example.</p>
