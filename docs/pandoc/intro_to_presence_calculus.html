@@ -1049,7 +1049,7 @@ class="math inline">\(N\)</span> of tasks that intersect the observation
 interval is <span class="math inline">\(4\)</span>. The length of the
 observation window is <span class="math inline">\(T = 4\)</span> days.
 It is straightforward to verify that the presence invariant holds.</p>
-<p>Now, let’s unpack its meaning.</p>
+<p>Now, let’s interpret its meaning.</p>
 <p>Since each task contributes <span class="math inline">\(1\)</span>
 unit of mass for each unit of time it is present, the average presence
 density <span class="math inline">\(\delta=\frac{A}{T}\)</span>
@@ -1073,11 +1073,11 @@ class="math inline">\(\frac{N}{T}\)</span> is a <em>cumulative onset
 rate</em> <span class="math inline">\(\Lambda\)</span>.</p>
 <p>The presence invariant can now be rewritten as:</p>
 <p><span class="math display">\[ L = \Lambda \times w \]</span></p>
-<p>which you may recognize as <em>Little’s Law</em> applied over a
-finite observation window. Thus, the presence invariant serves as a
-<em>generalization of Little’s Law</em>—extending it to arbitrary
-systems of presence density functions (signals) measured over finite
-observation windows.</p>
+<p>which you may recognize as <em>Little’s Law</em> in its finite-window
+form.</p>
+<p>Thus, the presence invariant serves as a <em>generalization of
+Little’s Law</em>—extending it to arbitrary systems of presence density
+functions (signals) measured over finite observation windows.</p>
 <p>It is important to note that we are referring to <em>Little’s Law
 over a finite observation window</em>, rather than the much more
 familiar, steady-state equilibrium form of Little’s Law.</p>
@@ -1086,7 +1086,7 @@ familiar, steady-state equilibrium form of Little’s Law.</p>
 <em>observer-relative</em>: the time tasks spend <em>within a finite
 observation window</em>, and the <em>activation rate</em> of tasks
 <em>over the window</em>, rather than the task-relative durations or
-steady-state arrival/departure rates used in the equilibrium form.</p>
+long-run arrival/departure rates assumed in the equilibrium form.</p>
 <p>Indeed, the difference between these two forms of the identity will
 serve as the basis for how we <em>define</em> whether a system of
 presences is in equilibrium or not. The idea is that the system of
@@ -1099,13 +1099,20 @@ the presence invariant holds <em>regardless</em> of equilibrium—the
 finite-window form becomes far more valuable for analyzing the long-run
 behavior of such systems as they <em>move into and between</em>
 equilibrium states.</p>
-<p>We’ll also note that for any arbitrary signal, we can always define a
-binary presence corresponding to the intervals over which the value of
-the density function is non-zero (the support interval). In general
-then, we can say the finite window version of Little’s Law, with the
-above definitions, always applies to <em>any</em> signal under this
-interpretation. <em>In addition,</em> the general presence invariant
-also applies to the full signal.</p>
+<p>All this is the focus of section 6, where we will formally make the
+connections between the presence invariant and equilibrium states in
+systems of presence with the help of a very general form of Little’s Law
+originally proven by Stidham.</p>
+<p>For now, we will note that for any arbitrary signal, we can always
+define a binary presence corresponding to the intervals over which the
+value of the density function is non-zero (the support interval). In
+general then, we can say the finite window version of Little’s Law, with
+the above definitions, always applies to <em>any</em> signal under this
+interpretation.</p>
+<p><em>In addition,</em> the general presence invariant also applies to
+the full signal. Yet another version applies in equilibrium states—but
+all are, in effect, different manifestations of the same underlying
+relationship captured in the presence invariant.</p>
 <p>We will return to this important topic shortly. But first, let’s
 understand the implications of the presence invariant.</p>
 <h3 id="causal-reasoning">Causal Reasoning</h3>
