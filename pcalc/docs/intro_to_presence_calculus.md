@@ -1776,9 +1776,9 @@ the right: up and to the right — that is, *divergent*.
 Metastable modes are common and often highly desirable in software  
 development, where teams must shift between modes of operation in  
 response to external demands or changing market conditions. Indeed, the  
-ability to transition between such modes effectively is a hallmark of a
-well-run, adaptive organization — *provided* it is done intentionally and with  
-awareness.
+ability to transition between such modes effectively is often a hallmark of a
+high-functioning, adaptive organization — *provided* it is done intentionally
+and with awareness.
 
 All too often, however, organizations drift from metastable to chaotic  
 behavior, losing the capacity to stabilize in any mode. This often results  
@@ -1802,7 +1802,7 @@ If we can identify these conditions, we gain levers to begin *steering*
 systems toward desired modes of operation.
 
 It turns out the answer is hiding in plain sight — in the presence  
-invariant itself, which, as we've seen, holds for *any* finite observation  
+invariant, which, as we've seen, holds for *any* finite observation  
 window. The limit $\Delta$ represents the asymptotic average of $\delta(t)$,  
 the left-hand side of the invariant, measured over a sequence of consecutive  
 overlapping intervals, each one a prefix of the sample path.
@@ -1820,40 +1820,46 @@ and $\bar{m}(t)$, the average mass contribution per signal.
 To understand when the long-run average of $\delta(t)$ converges, we can ask  
 a simpler question: do the corresponding long-run averages of $\iota(t)$  
 and $\bar{m}(t)$ converge? If both do, we should expect that their product —  
-and hence $\Delta$ — converges as well[^11].
+and hence $\Delta$ — converges as well,and it does, with some technical
+conditions in place[^11].
 
-[^11]: This follows from a fundamental theorem in real analysis that states that
-the limit of a product of two real valued functions is the product of their
-limits.
+[^11]: While it’s tempting to assume that the limit of a product is simply the
+product of the limits, this doesn’t automatically hold here. The long-run
+average of presence density, $\Delta$, is defined as a time-based average, while
+the average signal mass contribution, $\bar{M}$, is defined over the number of
+signals. Since these limits are taken over different denominators, additional
+technical conditions are required to ensure that their product equals the limit
+of the product.
 
 So, let’s write down precise definitions for the limits of $\iota(t)$ and  
 $\bar{m}(t)$ and examine how these limits behave.
 
-We will start with the limit for $\bar{m}$. We will denote this by $\bar{M}$.
+#### Convergence of Average Signal Mass Contribution
+
+We will derive the limit for $\bar{m}$. We will denote this by $\bar{M}$.
 
 $$
 \bar{M} = \lim_{T \to \infty} \frac{1}{N(0,T)} \sum_{(e,b)} \int_0^T P_{(e,b)}(t) \, dt
 $$
 
-It is the limit of average mass contribution per signal over a sufficiently long
-observation interval. Here, $P_{(e,b)}(t)$ is the presence density function for
-signal $(e,b)$, and $N(0,T)$ is the total number of signals observed during the
-interval $[0,T]$.
-
 This expression means: for each signal $(e,b)$, accumulate its total presence
 mass over time, then sum across all signals, and divide by the total number of
-signals active during that window.
+signals active during that window. Each integral in the sum is a row sum in the
+original presence matrix - the mass contribution of an individual signal over
+the interval.
 
-Each integral in the sum is a row sum in the original presence matrix - the mass
-contribution of an individual signal over the interval.
-
-Thus we can write this as
+Thus we can also write this as
 
 $$
 \bar{M} = \lim_{j \to \infty} \frac{1}{N(1,j)} \sum_{(e,b)} \sum_{k=1}^j P_{(e,b)}(k)
 $$
 
-Let's write this out for our running example and see what it means. We'll
+$\bar{M}$ is the limit of average mass contribution per signal over a
+sufficiently long observation interval. Here, $P_{(e,b)}(t)$ is the presence
+density function for signal $(e,b)$, and $N(0,T)$ is the total number of signals
+observed during the interval $[0,T]$.
+
+Let's work this out for our running example and see what it means. We'll
 reproduce Figure 9, our starting presence matrix, here for easy reference.
 
 <div style="text-align: center; margin:2em">
@@ -1919,7 +1925,8 @@ reproduce Figure 9, our starting presence matrix, here for easy reference.
 </div>
 
 The cumulative mass per signal over each interval $[1, j], j \le 10$ is shown
-below.
+below. Each value in this matrix is the sum of all the values in that row to the
+left (inclusive) of the value.
 
 <div style="text-align: center; margin:2em">
 <table>
@@ -1959,7 +1966,7 @@ below.
 </div>
 
 Now lets chart each row of this matrix to see how this cumulative mass grows
-over time.
+over time. Here we are showing each row in the matrix as a line in the chart.
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/mass_contribution_per_signal.png" width="600px" />
@@ -1968,10 +1975,12 @@ over time.
   </div>
 </div>
 
+Finally figure 22 shows the cumulative average of the mass contribution. Each
+point in this chart represents the cumulative average of the mass contributions
+for the window $[1,j]$  which is the sum of the value in column j divided by the
+number of non-zero rows in the sub-matrix spanned by the columns in $[1,j]
 
-
-Finally figure 22 shows the cumulative average of the mass contribution, which
-as we can see converges to a limit.
+As we can see, this curve converges to a limit.
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/avg_mass_contribution_per_signal.png" width="600px" />
@@ -2021,6 +2030,161 @@ If, on the other hand, a signal onset represents a new unfinished task on your
 to-do list, then a reset marks its completion — and convergence becomes
 desirable, as it indicates tasks are being completed in a timely manner and that
 your todo list is not growing without limit.
+
+#### Convergence of Incidence Rate
+
+We now define the long-run incidence rate, denoted $I$, in exact analogy to how
+we defined the average mass contribution per signal $\bar{M}$. Recall that
+$\iota(t)$ is the incidence rate observed over the interval $[0, t]$, defined as
+the number of signals observed in that interval divided by its duration. Then we
+define the long-run incidence rate as the following limit:
+
+$$
+I = \lim_{T \to \infty} \iota(T) = \lim_{T \to \infty} \frac{N(0, T)}{T}
+$$
+
+where $N(0, T)$ is the number of signals observed over the interval $[0, T]$—
+that is, the number of distinct element-boundary signals that are active at some
+point during the interval. The incidence rate measures how many such signals are
+activated, on average, per unit time.
+
+This limit $I$, when it exists, represents the asymptotic rate at which signals
+appear in the system. It plays a symmetric role to $\bar{M}$ in the convergence
+of the presence density, and its existence is the second key condition we will
+examine next.
+
+To better understand the behavior of the incidence rate $\iota(T)$, let’s now
+examine the cumulative signal count $N(0,T)$ over the interval $[0,T]$ for
+increasing values of $T$. This is directly analogous to how we analyzed the
+growth of cumulative mass contributions per signal when analyzing $\bar{M}$.
+
+Recall that for a given observation window $[0,T]$, $N(0,T)$ counts the number
+of element-boundary signals that are active at some point within the interval.
+We can compute this by scanning across the presence matrix and, for each column
+(from $t=1$ to $t=T$), counting how many *new* signals appear—that is, how many
+unique element-boundary rows have non-zero values in that column.
+
+The result is a sequence of signal counts, which we can arrange as
+a $1 \times T$
+row vector:
+
+<div style="text-align: center; margin:2em">
+<table>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Signal Count</td>
+      <td>3</td><td>3</td><td>3</td><td>3</td><td>3</td>
+      <td>3</td><td>4</td><td>4</td><td>4</td><td>4</td>
+    </tr>
+  </tbody>
+</table>
+<div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 23: Cumulative count of distinct signals observed over the interval $[0, T]$.
+</div>
+</div>
+
+
+where $n_j$ is the total number of distinct signals that have appeared at or
+before time $j$. Each $n_j$ counts the number of signals with support
+intersecting the interval $[0, j]$.
+
+We can chart this row to visualize how the cumulative number of observed signals
+grows over time. If $N(0,T)$ grows linearly in $T$, then the incidence rate
+$\iota(T) = N(0,T)/T$ should converge to a finite value $I$. On the other hand,
+if $N(0,T)$ grows faster than linearly, the incidence rate will diverge—and if
+it grows sublinearly, the rate will decay toward zero.
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/avg_incidence_rate.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 24: Average signal incidence rate 
+  </div>
+</div>
+
+Figure 24 shows the incidence rate $\iota(T) = N(0,T)/T$ over time. In this
+example, the rate initially decreases and then stabilizes, since the number of
+distinct signals $N(0,T)$ stops increasing after a point. In general, the
+incidence rate will converge to a finite limit if $N(0,T)$ grows no faster than
+linearly with $T$. If $N(0,T)$ grows *faster* than $T$, the ratio $\iota(T)$
+will diverge—indicating that signals are being activated at an unbounded rate.
+Conversely, if $N(0,T)$ grows *slower* than $T$, the incidence rate will decay
+toward zero. Thus, convergence of $\iota(T)$ requires that $N(0,T)$ grows
+approximately linearly in $T$.
+
+This kind of divergence typically arises in systems where the *onset rate*— the
+rate at which new signals are activated—exceeds the *reset rate*, which closes
+those signals. While transient imbalances between onsets and resets are common
+during transitions between equilibrium states, divergence only occurs if this
+imbalance is sustained indefinitely. In that case, $N(0,T)$ grows without bound
+relative to $T$, and the system exhibits an asymptotically increasing incidence
+rate. So, divergence of $\iota(T)$ directly reflects a persistent structural
+imbalance between signal onsets and resets over time.
+
+
+<div style="border: 1px solid #ccc; border-radius: 6px; padding: 1em; background-color: #f9f9f9; margin: 2em 0;">
+<b>Boundedness of incidence rate</b>
+
+<i>
+In a convergent system of presences, the long-run rate of signal onsets does not
+exceed the long-run rate of resets, when observed over a sufficiently long time
+interval.
+</i>
+</div>
+
+#### Recap
+
+We began by defining convergence in terms of the existence of a long-run limit
+for average presence density.
+
+We then showed how the existence of this global limit depends on the existence
+of two other measurable limits: the average incidence rate of signals and their
+average mass contribution.
+
+Next, we traced each of these limits back to the local behavior of individual
+signals—specifically, the presence or absence of well-behaved signal onsets and
+resets.
+
+With this connection in place, we now have a principled way to reason about the
+global convergence or divergence of a system by analyzing the patterns of local
+signal behavior over time. In the next section, we’ll see how to apply this
+principle in practice.
+
+### Formal Proof of Convergence
+
+In this document, we have presented an accurate—though somewhat simplified—
+account of the criteria required to ensure that a system of presences is
+convergent. Specifically, based on the definitions above, we assert that for a
+given system of presences, if the limits $I$ and $\bar{M}$ exist and are
+finite, then the limit $\Delta$ also exists and is finite. Furthermore, we
+claim that
+
+$$
+\Delta = I \times \bar{M}
+$$
+
+Technically, this relationship does not follow automatically from the arguments
+we have presented so far. In fact, the statement above is a restatement of a
+generalized form of Little’s Law originally proven by Brumelle, and later by
+Heyman and Stidham. The full proof—along with the additional technical
+conditions required to ensure that the limit of the product equals the product
+of the limits—is beyond the scope of this document.
+
+For our purposes, it is safe to state that this relationship, and the
+conditions under which it holds, *constitute* the general form of Little’s Law
+for a system of presences.
+
+With the exception of certain carefully constructed pathological cases, the
+criteria we have outlined—bounded signal mass and balanced onset/reset
+rates—will typically suffice to determine whether a system is convergent or
+divergent.
+
 
 
 
