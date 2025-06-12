@@ -224,10 +224,6 @@ techniques from measure theory, topology and complex analysis.</p>
 <em>History</em>—the sequence and structure of changes in the domain
 over time— is usually fenced off under assumptions like ergodicity,
 stationarity, and independence.</p>
-<p>However, probability theory and statistics remain very powerful tools
-for describing local behavior, identifying patterns and correlations in
-this behavior, and modeling uncertainty—all crucial aspects of
-meaningful analysis of complex systems.</p>
 <p>Our thesis is that to move beyond simple descriptive statistics,
 statistical inference and probabilistic models, and start reasoning
 about global and long run behavior of complex systems, we need models
@@ -235,7 +231,7 @@ that treat time and history as first-class concepts we can reason and
 compute with.</p>
 <p>This, in turn, lets us apply techniques from disciplines such as
 stochastic process dynamics, queueing theory, and complex systems
-science, to reason holistically about global, long run behavior of
+science, to reason holistically about global emergent behavior of
 complex systems.</p>
 <p>We claim the presence calculus is a novel, constructive approach to
 do this - a new and powerful reasoning tool for anyone working with
@@ -260,9 +256,14 @@ illustrate concepts.</p>
 understand the ideas, some basic mathematical notation is used in key
 sections. We do augment these with examples to build intuition
 throughout.</p>
+<p>If you are inclined to skim over anything with mathematical notation
+in it, working through the examples should be sufficient to grasp the
+key ideas and claims. However, for those who are comfortable with it,
+the mathematical notation gives precise and rigorous definitions that
+are easy to understand and verify.</p>
 <p>We recommend reading and understanding all the main ideas here before
 jumping deeper into the rest of the documentation at this site, which
-does get a fair bit more dense.</p>
+does get a fair bit more dense and technical.</p>
 <p>If that deeper dive is not your cup of tea, we’ll continue with
 ongoing informal exposition on our blog <a
 href="https://www.polaris-flow-dispatch.com">The Polaris Flow
@@ -378,23 +379,21 @@ of the<br />
 process.</p>
 <p>This problem is not unique to task work. Similar problems exist in
 almost all areas of business analysis that rely primarily on descriptive
-statistics as the primary measurement tool for system behavior.</p>
+statistics as the primary measurement tool for analyzing system
+behavior.</p>
 <p>We are reduced to trying to make inferences from local
 descriptive<br />
 statistics —things like cycle times, throughput, and work-in-process
 levels- over a rapidly changing process.</p>
-<p>We try to reason about a process which is shaped by its history, with
-measurement techniques that struggle to represent or reason about that
-history. This is difficult to do, and we have no good tools right now
-that are fit for<br />
-this purpose.</p>
-<p>This is where the presence calculus begins.</p>
-<p>While it often starts from the same snapshots, the calculus focuses
-on the<br />
-time <em>in between</em>: when the task was present, where it was
-present, for how<br />
-long, and whether its presence shifted across people, tools, or
-systems.</p>
+<p>We try to reason about a process which is shaped by its history,
+whose behavior emerges from non-uniform interactions of individual
+signals, with measurement techniques that struggle to represent or
+reason about that history or the interactions.</p>
+<p>This is difficult to do, and we have no good tools right now that are
+fit for this purpose. This is where the presence calculus begins.</p>
+<p>The calculus focuses on the time <em>in between</em> snapshots of
+history: when a task was present, where it was present, for how long,
+and whether its presence shifted across people, tools, or systems.</p>
 <p>The connective tissue is no longer the task itself, or the process
 steps it<br />
 followed, or who was working on it, but a continuous, observable
@@ -427,18 +426,17 @@ exploit the continuity of time and the algebra of time intervals to
 reason about the interactions and emergent configurations of presences
 in a rigorous and structured, and more importantly, computable way.</p>
 <h2 id="what-is-a-presence">2. What is a Presence?</h2>
-<p>Let’s start by building intuition for the concept of presence.<br />
+<p>Let’s start by building intuition for the concept of presence.
 Consider the statement: “The task <span class="math inline">\(X\)</span>
-was in Development from Monday to<br />
-Friday.”</p>
-<p>In the presence calculus, this would be expressed as a presence of
+was in Development from Monday to Friday.”</p>
+<p>In the presence calculus, this would be expressed as a statement of
 the form:<br />
 “The element <span class="math inline">\(X\)</span> was in boundary
 <span class="math inline">\(Y\)</span> from <span
 class="math inline">\(t_0\)</span> to <span
-class="math inline">\(t_1\)</span> with mass 1.”<br />
-Presences are statements about elements (from some domain) being present
-in a<br />
+class="math inline">\(t_1\)</span> with mass 1.”</p>
+<p>Presences are statements about elements (from some domain) being
+present in a<br />
 boundary (from a defined set of boundaries) over a <em>continuous</em>
 period of time, measured using some timescale.</p>
 <p>So why do we say “with mass 1”?</p>
@@ -502,11 +500,11 @@ as:</p>
 <p>where <span class="math inline">\(\mathsf{load}\)</span> is the
 presence density function <a href="#fn2" class="footnote-ref"
 id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
-<h3 id="domain-signals-and-presence-density-functions">Domain Signals
-and Presence Density Functions</h3>
 <p>Binary presences are much easier to understand intuitively, but the
 real power of the presence calculus comes from generalizing to
 <em>presence density functions</em>.</p>
+<h3 id="domain-signals-and-presence-density-functions">Domain Signals
+and Presence Density Functions</h3>
 <p>In our earlier example, we showed a presence that described the
 <em>load</em> placed on an element at a boundary, and this has a
 real-valued presence mass. More generally, we can think of defining a
@@ -561,7 +559,7 @@ semantically sound.</p>
 <h3 id="more-examples">More examples</h3>
 <p>Let’s firm up our intuition about what presences can describe with a
 few more<br />
-examples.</p>
+examples of presence density functions.</p>
 <h4 id="work-in-software">“Work” in software</h4>
 <p>If you’ve ever written a line of code in your life, you’ve heard the
 question:<br />
@@ -571,12 +569,12 @@ and the presence calculus offers a useful way to describe it.</p>
 <p>We can express the work on a task using a presence density function
 whose<br />
 value at time <span class="math inline">\(t\)</span> is the
-<em>remaining</em> work on the task at that moment.</p>
+<em>remaining</em> work on the task at <span
+class="math inline">\(t\)</span>.</p>
 <p>This lets us model tasks whose duration is uncertain in general, but
 whose<br />
-remaining duration can be described at any given time—a common scenario
-in<br />
-software contexts.</p>
+remaining duration can be estimated, subject to revision, at any given
+time—a common scenario in software contexts.</p>
 <p>A series of presences, where the (non-zero) mass of each presence
 corresponds<br />
 to the total remaining work over its interval (interpreting the integral
@@ -830,9 +828,10 @@ presence calculus.</p>
 boundary, we explicitly recognize the path dependent nature of the
 domain signals. Even if they represent the same underlying quantity we
 recognize that the behavior of the system emerges from individual
-signals at the element-boundary granularity and that we are interested
-in studying <em>how</em> the system level behavior emerges from the
-interactions between these signals.</p>
+signals at the element-boundary granularity that have very different
+presence density functions, and that we are interested in studying
+<em>how</em> the system level behavior emerges from the
+<em>interactions</em> between these signals over time.</p>
 <p>To summarize, this is what we refer to as a “system of presences” - a
 time indexed collection of presence assertions derived from a an
 underlying set of path dependent element-boundary signals.</p>
@@ -3219,6 +3218,511 @@ behavior of such complex systems — aligning them with the desired modes
 of<br />
 operation in a given domain, <em>before</em> critical tipping points are
 reached.</p>
+<h3 id="conditions-for-convergence">Conditions for Convergence</h3>
+<p>In the last section, we <em>defined</em> convergent behavior in terms
+of the<br />
+existence of the limit <span class="math inline">\(\Delta\)</span>, the
+long-run average presence density<br />
+of the system.</p>
+<p>Now we ask: under what observable conditions does such a limit
+exist?</p>
+<p>If we can identify these conditions, we gain levers to begin
+<em>steering</em><br />
+systems toward desired modes of operation.</p>
+<p>It turns out the answer is hiding in plain sight — in the
+presence<br />
+invariant itself, which, as we’ve seen, holds for <em>any</em> finite
+observation<br />
+window. The limit <span class="math inline">\(\Delta\)</span> represents
+the asymptotic average of <span
+class="math inline">\(\delta(t)\)</span>,<br />
+the left-hand side of the invariant, measured over a sequence of
+consecutive<br />
+overlapping intervals, each one a prefix of the sample path.</p>
+<p>For each such prefix interval <span class="math inline">\(t\)</span>
+, the <em>presence invariant</em> gives us:</p>
+<p><span class="math display">\[
+\delta(t) = \iota(t) \times \bar{m}(t)
+\]</span></p>
+<p>This tells us that each value of <span
+class="math inline">\(\delta(t)\)</span> is determined by the<br />
+product of two measurable quantities: <span
+class="math inline">\(\iota(t)\)</span>, the incidence rate,<br />
+and <span class="math inline">\(\bar{m}(t)\)</span>, the average mass
+contribution per signal.</p>
+<p>To understand when the long-run average of <span
+class="math inline">\(\delta(t)\)</span> converges, we can ask<br />
+a simpler question: do the corresponding long-run averages of <span
+class="math inline">\(\iota(t)\)</span><br />
+and <span class="math inline">\(\bar{m}(t)\)</span> converge? If both
+do, we should expect that their product —<br />
+and hence <span class="math inline">\(\Delta\)</span> — converges as
+well<a href="#fn11" class="footnote-ref" id="fnref11"
+role="doc-noteref"><sup>11</sup></a>.</p>
+<p>So, let’s write down precise definitions for the limits of <span
+class="math inline">\(\iota(t)\)</span> and<br />
+<span class="math inline">\(\bar{m}(t)\)</span> and examine how these
+limits behave.</p>
+<p>We will start with the limit for <span
+class="math inline">\(\bar{m}\)</span>. We will denote this by <span
+class="math inline">\(\bar{M}\)</span>.</p>
+<p><span class="math display">\[
+\bar{M} = \lim_{T \to \infty} \frac{1}{N(0,T)} \sum_{(e,b)} \int_0^T
+P_{(e,b)}(t) \, dt
+\]</span></p>
+<p>It is the limit of average mass contribution per signal over a
+sufficiently long observation interval. Here, <span
+class="math inline">\(P_{(e,b)}(t)\)</span> is the presence density
+function for signal <span class="math inline">\((e,b)\)</span>, and
+<span class="math inline">\(N(0,T)\)</span> is the total number of
+signals observed during the interval <span
+class="math inline">\([0,T]\)</span>.</p>
+<p>This expression means: for each signal <span
+class="math inline">\((e,b)\)</span>, accumulate its total presence mass
+over time, then sum across all signals, and divide by the total number
+of signals active during that window.</p>
+<p>Each integral in the sum is a row sum in the original presence matrix
+- the mass contribution of an individual signal over the interval.</p>
+<p>Thus we can write this as</p>
+<p><span class="math display">\[
+\bar{M} = \lim_{j \to \infty} \frac{1}{N(1,j)} \sum_{(e,b)} \sum_{k=1}^j
+P_{(e,b)}(k)
+\]</span></p>
+<p>Let’s write this out for our running example and see what it means.
+We’ll reproduce Figure 9, our starting presence matrix, here for easy
+reference.</p>
+<div style="text-align: center; margin:2em">
+<table>
+<thead>
+<tr>
+<th>
+E
+</th>
+<th>
+1
+</th>
+<th>
+2
+</th>
+<th>
+3
+</th>
+<th>
+4
+</th>
+<th>
+5
+</th>
+<th>
+6
+</th>
+<th>
+7
+</th>
+<th>
+8
+</th>
+<th>
+9
+</th>
+<th>
+10
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+e1_b1
+</td>
+<td style="background-color: #c6f6c6">
+0.3
+</td>
+<td style="background-color: #c6f6c6">
+2.3
+</td>
+<td style="background-color: #c6f6c6">
+3.4
+</td>
+<td style="background-color: #c6f6c6">
+1.1
+</td>
+<td style="background-color: #c6f6c6">
+2.9
+</td>
+<td style="background-color: #c6f6c6">
+3.2
+</td>
+<td style="background-color: #c6f6c6">
+1.1
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<td>
+e1_b2
+</td>
+<td style="background-color: #c6f6c6">
+0.3
+</td>
+<td style="background-color: #c6f6c6">
+2.3
+</td>
+<td style="background-color: #c6f6c6">
+3.4
+</td>
+<td style="background-color: #c6f6c6">
+1.1
+</td>
+<td>
+0.0
+</td>
+<td style="background-color: #c6f6c6">
+1.1
+</td>
+<td style="background-color: #c6f6c6">
+2.2
+</td>
+<td style="background-color: #c6f6c6">
+2.4
+</td>
+<td style="background-color: #c6f6c6">
+2.3
+</td>
+<td style="background-color: #c6f6c6">
+0.8
+</td>
+</tr>
+<tr>
+<td>
+e2_b2
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td style="background-color: #c6f6c6">
+0.9
+</td>
+<td style="background-color: #c6f6c6">
+1.8
+</td>
+<td style="background-color: #c6f6c6">
+3.2
+</td>
+<td style="background-color: #c6f6c6">
+0.9
+</td>
+</tr>
+<tr>
+<td>
+e2_b1
+</td>
+<td style="background-color: #c6f6c6">
+0.8
+</td>
+<td style="background-color: #c6f6c6">
+1.3
+</td>
+<td style="background-color: #c6f6c6">
+2.4
+</td>
+<td style="background-color: #c6f6c6">
+2.8
+</td>
+<td style="background-color: #c6f6c6">
+3.0
+</td>
+<td style="background-color: #c6f6c6">
+3.2
+</td>
+<td style="background-color: #c6f6c6">
+3.4
+</td>
+<td style="background-color: #c6f6c6">
+2.4
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+</tbody>
+</table>
+<div
+style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+<pre><code>Figure 9: The presence matrix from Figure 8, reproduced</code></pre>
+</div>
+</div>
+<p>The cumulative mass per signal over each interval <span
+class="math inline">\([1, j], j \le 10\)</span> is shown below.</p>
+<div style="text-align: center; margin:2em">
+<table>
+<thead>
+<tr>
+<th>
+E
+</th>
+<th>
+1
+</th>
+<th>
+2
+</th>
+<th>
+3
+</th>
+<th>
+4
+</th>
+<th>
+5
+</th>
+<th>
+6
+</th>
+<th>
+7
+</th>
+<th>
+8
+</th>
+<th>
+9
+</th>
+<th>
+10
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+e1_b1
+</td>
+<td>
+0.3
+</td>
+<td>
+2.6
+</td>
+<td>
+6.0
+</td>
+<td>
+7.1
+</td>
+<td>
+10.0
+</td>
+<td>
+13.2
+</td>
+<td>
+14.3
+</td>
+<td>
+14.3
+</td>
+<td>
+14.3
+</td>
+<td>
+14.3
+</td>
+</tr>
+<tr>
+<td>
+e1_b2
+</td>
+<td>
+0.3
+</td>
+<td>
+2.6
+</td>
+<td>
+6.0
+</td>
+<td>
+7.1
+</td>
+<td>
+7.1
+</td>
+<td>
+8.2
+</td>
+<td>
+10.4
+</td>
+<td>
+12.8
+</td>
+<td>
+15.1
+</td>
+<td>
+15.9
+</td>
+</tr>
+<tr>
+<td>
+e2_b2
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.9
+</td>
+<td>
+2.7
+</td>
+<td>
+5.9
+</td>
+<td>
+6.8
+</td>
+</tr>
+<tr>
+<td>
+e2_b1
+</td>
+<td>
+0.8
+</td>
+<td>
+2.1
+</td>
+<td>
+4.5
+</td>
+<td>
+7.3
+</td>
+<td>
+10.3
+</td>
+<td>
+13.5
+</td>
+<td>
+16.9
+</td>
+<td>
+19.3
+</td>
+<td>
+19.3
+</td>
+<td>
+19.3
+</td>
+</tr>
+</tbody>
+</table>
+<div
+style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+<pre><code>Figure 20: The cumulative mass contribution matrix for the presence matrix.</code></pre>
+</div>
+</div>
+<p>Now lets chart each row of this matrix to see how this cumulative
+mass grows over time.</p>
+<div style="text-align: center; margin:2em">
+<img src="../assets/pandoc/mass_contribution_per_signal.png" width="600px" />
+<div
+style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+<pre><code>Figure 21: Mass contribution per signal</code></pre>
+</div>
+</div>
+<p>Finally figure 22 shows the cumulative average of the mass
+contribution, which as we can see converges to a limit.</p>
+<div style="text-align: center; margin:2em">
+<img src="../assets/pandoc/avg_mass_contribution_per_signal.png" width="600px" />
+<div
+style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+<pre><code>Figure 22: Average Mass contribution per signal</code></pre>
+</div>
+</div>
+<p>So lets ask, what would make the average mass contribution
+<em>not</em> converge to a finite value?</p>
+<p>Figure 21 suggests that the mass contribution of every individual
+signal is monotonically non-decreasing and it increases continuously
+over every non-zero support interval of the signal and flattens out over
+every interval where the underlying signal is zero.</p>
+<p>Suppose when measured over a sufficient long interval, each signal
+remains bounded, that is every onset is matched with a corresponding
+reset, then each individual signal contributes a finite mass to the
+cumulative average.</p>
+<p>Thus, the only way the cumulative average mass can grow without limit
+is if <em>some</em> signal grows without limit.</p>
+<p>For example, in figure 3 we show some onset-reset patterns for
+signals and the last signal in Figure 3, which has an onset but no
+apparent reset within the observation window, would grow without limit
+in Figure 21 if there was no reset.</p>
+<p>This gives us the first condition for convergence of <span
+class="math inline">\(\Delta\)</span> :</p>
+<div
+style="border: 1px solid #ccc; border-radius: 6px; padding: 1em; background-color: #f9f9f9; margin: 2em 0;">
+<p><strong>Boundedness of Signal Mass</strong></p>
+<p><em>In a convergent system of presences, every signal onset is
+eventually followed by a corresponding reset, when observed over a
+sufficiently long time interval.</em></p>
+</div>
+<p>We’ll note, once again, that depending upon the semantics of the
+domain, we may or may not want to have this condition hold depending
+upon whether we are looking to steer the system towards convergence or
+towards divergence.</p>
+<p>For example, if a signal represents a new revenue source, a mass
+contribution represents incremental revenues and ideally we want many
+onsets without matching resets: every reset corresponds to a lost
+revenue stream.</p>
+<p>If, on the other hand, a signal onset represents a new unfinished
+task on your to-do list, then a reset marks its completion — and
+convergence becomes desirable, as it indicates tasks are being completed
+in a timely manner and that your todo list is not growing without
+limit.</p>
 <table style="border-collapse: collapse; margin: auto;">
 <thead>
 <tr>
@@ -3677,6 +4181,10 @@ A(1, j) = \sum_{k=1}^j A(k,k)
 represents the presence density function of an underlying
 element-boundary signal.<a href="#fnref10" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>This follows from a fundamental theorem in real
+analysis that states that the limit of a product of two real valued
+functions is the product of their limits.<a href="#fnref11"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>

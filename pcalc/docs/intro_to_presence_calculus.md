@@ -50,11 +50,6 @@ Classical statistics and probability theory often struggle here.
 usually fenced off under assumptions like ergodicity, stationarity, and
 independence.
 
-However, probability theory and statistics remain very powerful tools for
-describing local behavior, identifying patterns and correlations in this
-behavior, and modeling uncertainty—all crucial aspects of meaningful analysis of
-complex systems.
-
 Our thesis is that to move beyond simple descriptive statistics, statistical
 inference and probabilistic models, and start reasoning about global and long
 run behavior of complex systems, we need models that treat time and history as
@@ -62,7 +57,7 @@ first-class concepts we can reason and compute with.
 
 This, in turn, lets us apply techniques from disciplines such as stochastic
 process dynamics, queueing theory, and complex systems science, to reason
-holistically about global, long run behavior of complex systems.
+holistically about global emergent behavior of complex systems.
 
 We claim the presence calculus is a novel, constructive approach to do this - a
 new and powerful reasoning tool for anyone working with complex systems.
@@ -89,9 +84,15 @@ While it is aimed squarely at the non-technical reader, in order to understand
 the ideas, some basic mathematical notation is used in key sections. We do
 augment these with examples to build intuition throughout.
 
+If you are inclined to skim over anything with mathematical notation in it,
+working through the examples should be sufficient to grasp the key ideas and
+claims. However, for those who are comfortable with it, the mathematical
+notation gives precise and rigorous definitions that are easy to understand and
+verify.
+
 We recommend reading and understanding all the main ideas here before jumping
 deeper into the rest of the documentation at this site, which does get a fair
-bit more dense.
+bit more dense and technical.
 
 If that deeper dive is not your cup of tea, we'll continue with ongoing informal
 exposition on our
@@ -198,22 +199,23 @@ process.
 
 This problem is not unique to task work. Similar problems exist in almost all
 areas of business analysis that rely primarily on descriptive statistics as the
-primary measurement tool for system behavior.
+primary measurement tool for analyzing system behavior.
 
 We are reduced to trying to make inferences from local descriptive  
 statistics —things like cycle times, throughput, and work-in-process levels-
 over a rapidly changing process.
 
-We try to reason about a process which is shaped by its history, with
-measurement techniques that struggle to represent or reason about that history.
-This is difficult to do, and we have no good tools right now that are fit for  
-this purpose.
+We try to reason about a process which is shaped by its history, whose behavior
+emerges from non-uniform interactions of individual signals, with measurement
+techniques that struggle to represent or reason about that history or the
+interactions.
 
-This is where the presence calculus begins.
+This is difficult to do, and we have no good tools right now that are fit for
+this purpose. This is where the presence calculus begins.
 
-While it often starts from the same snapshots, the calculus focuses on the  
-time *in between*: when the task was present, where it was present, for how  
-long, and whether its presence shifted across people, tools, or systems.
+The calculus focuses on the time *in between* snapshots of history: when a task
+was present, where it was present, for how long, and whether its presence
+shifted across people, tools, or systems.
 
 The connective tissue is no longer the task itself, or the process steps it  
 followed, or who was working on it, but a continuous, observable *thread of  
@@ -246,12 +248,12 @@ structured, and more importantly, computable way.
 
 ## 2. What is a Presence?
 
-Let's start by building intuition for the concept of presence.  
-Consider the statement: “The task $X$ was in Development from Monday to  
-Friday.”
+Let's start by building intuition for the concept of presence. Consider the
+statement: “The task $X$ was in Development from Monday to Friday.”
 
-In the presence calculus, this would be expressed as a presence of the form:  
+In the presence calculus, this would be expressed as a statement of the form:  
 “The element $X$ was in boundary $Y$ from $t_0$ to $t_1$ with mass 1.”  
+
 Presences are statements about elements (from some domain) being present in a  
 boundary (from a defined set of boundaries) over a *continuous* period of time,
 measured using some timescale.
@@ -312,11 +314,13 @@ bait-and-switch, rest assured, for the puposes of this document you just need to
 think of them as a way to add up presence masses, in a way that the ideas we use
 for binary presences will generalize when we apply them to arbitrary functions.
 
-### Domain Signals and Presence Density Functions
-
 Binary presences are much easier to understand intuitively, but the real power
 of the presence calculus comes from generalizing to *presence density
 functions*.
+
+### Domain Signals and Presence Density Functions
+
+
 
 In our earlier example, we showed a presence that described the *load* placed on
 an element at a boundary, and this has a real-valued presence mass. More
@@ -391,7 +395,7 @@ semantically sound.
 ### More examples
 
 Let's firm up our intuition about what presences can describe with a few more  
-examples.
+examples of presence density functions.
 
 #### "Work" in software
 
@@ -400,11 +404,11 @@ If you've ever written a line of code in your life, you’ve heard the question:
 and the presence calculus offers a useful way to describe it.
 
 We can express the work on a task using a presence density function whose  
-value at time $t$ is the *remaining* work on the task at that moment.
+value at time $t$ is the *remaining* work on the task at $t$.
 
 This lets us model tasks whose duration is uncertain in general, but whose  
-remaining duration can be described at any given time—a common scenario in  
-software contexts.
+remaining duration can be estimated, subject to revision, at any given time—a
+common scenario in software contexts.
 
 A series of presences, where the (non-zero) mass of each presence corresponds  
 to the total remaining work over its interval (interpreting the integral as a  
@@ -656,8 +660,8 @@ By representing a presence at the granularity of a element in a boundary, we
 explicitly recognize the path dependent nature of the domain signals. Even if
 they represent the same underlying quantity we recognize that the behavior of
 the system emerges from individual signals at the element-boundary granularity
-and that we are interested in studying _how_ the system level behavior emerges
-from the interactions between these signals.
+that have very different presence density functions, and that we are interested in studying _how_ the system level behavior emerges
+from the _interactions_ between these signals over time.
 
 To summarize, this is what we refer to as a "system of presences" - a time
 indexed collection of presence assertions derived from a an underlying set of
@@ -1695,6 +1699,240 @@ One of the major practical applications of the presence calculus is to
 bring new analytical tools to *observe*, *categorize*, and *steer* the  
 behavior of such complex systems — aligning them with the desired modes of  
 operation in a given domain, *before* critical tipping points are reached.
+
+### Conditions for Convergence
+
+In the last section, we *defined* convergent behavior in terms of the  
+existence of the limit $\Delta$, the long-run average presence density  
+of the system.
+
+Now we ask: under what observable conditions does such a limit exist?
+
+If we can identify these conditions, we gain levers to begin *steering*  
+systems toward desired modes of operation.
+
+It turns out the answer is hiding in plain sight — in the presence  
+invariant itself, which, as we've seen, holds for *any* finite observation  
+window. The limit $\Delta$ represents the asymptotic average of $\delta(t)$,  
+the left-hand side of the invariant, measured over a sequence of consecutive  
+overlapping intervals, each one a prefix of the sample path.
+
+For each such prefix interval $t$ , the _presence invariant_ gives us:
+
+$$
+\delta(t) = \iota(t) \times \bar{m}(t)
+$$
+
+This tells us that each value of $\delta(t)$ is determined by the  
+product of two measurable quantities: $\iota(t)$, the incidence rate,  
+and $\bar{m}(t)$, the average mass contribution per signal.
+
+To understand when the long-run average of $\delta(t)$ converges, we can ask  
+a simpler question: do the corresponding long-run averages of $\iota(t)$  
+and $\bar{m}(t)$ converge? If both do, we should expect that their product —  
+and hence $\Delta$ — converges as well[^11].
+
+[^11]: This follows from a fundamental theorem in real analysis that states that
+the limit of a product of two real valued functions is the product of their
+limits.
+
+So, let’s write down precise definitions for the limits of $\iota(t)$ and  
+$\bar{m}(t)$ and examine how these limits behave.
+
+We will start with the limit for $\bar{m}$. We will denote this by $\bar{M}$.
+
+$$
+\bar{M} = \lim_{T \to \infty} \frac{1}{N(0,T)} \sum_{(e,b)} \int_0^T P_{(e,b)}(t) \, dt
+$$
+
+It is the limit of average mass contribution per signal over a sufficiently long
+observation interval. Here, $P_{(e,b)}(t)$ is the presence density function for
+signal $(e,b)$, and $N(0,T)$ is the total number of signals observed during the
+interval $[0,T]$.
+
+This expression means: for each signal $(e,b)$, accumulate its total presence
+mass over time, then sum across all signals, and divide by the total number of
+signals active during that window.
+
+Each integral in the sum is a row sum in the original presence matrix - the mass
+contribution of an individual signal over the interval.
+
+Thus we can write this as
+
+$$
+\bar{M} = \lim_{j \to \infty} \frac{1}{N(1,j)} \sum_{(e,b)} \sum_{k=1}^j P_{(e,b)}(k)
+$$
+
+Let's write this out for our running example and see what it means. We'll
+reproduce Figure 9, our starting presence matrix, here for easy reference.
+
+<div style="text-align: center; margin:2em">
+<table>
+  <thead>
+    <tr>
+      <th>E\B</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>e1_b1</td>
+      <td style="background-color: #c6f6c6">0.3</td>
+      <td style="background-color: #c6f6c6">2.3</td>
+      <td style="background-color: #c6f6c6">3.4</td>
+      <td style="background-color: #c6f6c6">1.1</td>
+      <td style="background-color: #c6f6c6">2.9</td>
+      <td style="background-color: #c6f6c6">3.2</td>
+      <td style="background-color: #c6f6c6">1.1</td>
+      <td>0.0</td><td>0.0</td><td>0.0</td>
+    </tr>
+    <tr>
+      <td>e1_b2</td>
+      <td style="background-color: #c6f6c6">0.3</td>
+      <td style="background-color: #c6f6c6">2.3</td>
+      <td style="background-color: #c6f6c6">3.4</td>
+      <td style="background-color: #c6f6c6">1.1</td>
+      <td>0.0</td>
+      <td style="background-color: #c6f6c6">1.1</td>
+      <td style="background-color: #c6f6c6">2.2</td>
+      <td style="background-color: #c6f6c6">2.4</td>
+      <td style="background-color: #c6f6c6">2.3</td>
+      <td style="background-color: #c6f6c6">0.8</td>
+    </tr>
+    <tr>
+      <td>e2_b2</td>
+      <td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td>
+      <td>0.0</td>
+      <td style="background-color: #c6f6c6">0.9</td>
+      <td style="background-color: #c6f6c6">1.8</td>
+      <td style="background-color: #c6f6c6">3.2</td>
+      <td style="background-color: #c6f6c6">0.9</td>
+    </tr>
+    <tr>
+      <td>e2_b1</td>
+      <td style="background-color: #c6f6c6">0.8</td>
+      <td style="background-color: #c6f6c6">1.3</td>
+      <td style="background-color: #c6f6c6">2.4</td>
+      <td style="background-color: #c6f6c6">2.8</td>
+      <td style="background-color: #c6f6c6">3.0</td>
+      <td style="background-color: #c6f6c6">3.2</td>
+      <td style="background-color: #c6f6c6">3.4</td>
+      <td style="background-color: #c6f6c6">2.4</td>
+      <td>0.0</td><td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 9: The presence matrix from Figure 8, reproduced
+  </div>
+</div>
+
+The cumulative mass per signal over each interval $[1, j], j \le 10$ is shown
+below.
+
+<div style="text-align: center; margin:2em">
+<table>
+  <thead>
+    <tr>
+      <th>E\B</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>e1_b1</td>
+      <td>0.3</td><td>2.6</td><td>6.0</td><td>7.1</td><td>10.0</td>
+      <td>13.2</td><td>14.3</td><td>14.3</td><td>14.3</td><td>14.3</td>
+    </tr>
+    <tr>
+      <td>e1_b2</td>
+      <td>0.3</td><td>2.6</td><td>6.0</td><td>7.1</td><td>7.1</td>
+      <td>8.2</td><td>10.4</td><td>12.8</td><td>15.1</td><td>15.9</td>
+    </tr>
+    <tr>
+      <td>e2_b2</td>
+      <td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td>
+      <td>0.0</td><td>0.9</td><td>2.7</td><td>5.9</td><td>6.8</td>
+    </tr>
+    <tr>
+      <td>e2_b1</td>
+      <td>0.8</td><td>2.1</td><td>4.5</td><td>7.3</td><td>10.3</td>
+      <td>13.5</td><td>16.9</td><td>19.3</td><td>19.3</td><td>19.3</td>
+    </tr>
+  </tbody>
+</table>
+<div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 20: The cumulative mass contribution matrix for the presence matrix.
+</div>
+</div>
+
+Now lets chart each row of this matrix to see how this cumulative mass grows
+over time.
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/mass_contribution_per_signal.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 21: Mass contribution per signal
+  </div>
+</div>
+
+
+
+Finally figure 22 shows the cumulative average of the mass contribution, which
+as we can see converges to a limit.
+
+<div style="text-align: center; margin:2em">
+  <img src="../assets/pandoc/avg_mass_contribution_per_signal.png" width="600px" />
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 22: Average Mass contribution per signal
+  </div>
+</div>
+
+So lets ask, what would make the average mass contribution _not_ converge to a
+finite value?
+
+Figure 21 suggests that the mass contribution of every individual signal is
+monotonically non-decreasing and it increases continuously over every non-zero
+support interval of the signal and flattens out over every interval where the
+underlying signal is zero.
+
+Suppose when measured over a sufficient long interval, each signal remains
+bounded, that is every onset is matched with a corresponding reset, then each
+individual signal contributes a finite mass to the cumulative average.
+
+Thus, the only way the cumulative average mass can grow without limit is if
+_some_ signal grows without limit.
+
+For example, in figure 3 we show some onset-reset patterns for signals and the
+last signal in Figure 3, which has an onset but no apparent reset within the
+observation window, would grow without limit in Figure 21 if there was no reset.
+
+This gives us the first condition for convergence of $\Delta$ :
+
+<div style="border: 1px solid #ccc; border-radius: 6px; padding: 1em; background-color: #f9f9f9; margin: 2em 0;">
+**Boundedness of
+Signal Mass**
+
+*In a convergent system of presences, every signal onset is eventually followed
+by a corresponding reset, when observed over a sufficiently long time interval.*
+</div>
+
+We'll note, once again, that depending upon the semantics of the domain, we may
+or may not want to have this condition hold depending upon whether we are
+looking to steer the system towards convergence or towards divergence.
+
+For example, if a signal represents a new revenue source, a mass contribution
+represents incremental revenues and ideally we want many onsets without matching
+resets: every reset corresponds to a lost revenue stream.
+
+If, on the other hand, a signal onset represents a new unfinished task on your
+to-do list, then a reset marks its completion — and convergence becomes
+desirable, as it indicates tasks are being completed in a timely manner and that
+your todo list is not growing without limit.
+
+
 
 
 
