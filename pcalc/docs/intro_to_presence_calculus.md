@@ -8,10 +8,10 @@
 The Presence Calculus is a new approach for reasoning quantitatively about the  
 relationships between signals in a domain over time.
 
-The primary goal is to support rigorous modeling and principled  
+We aim to better support rigorous modeling and principled  
 decision-making with operational data in complex, business-critical domains.
 
-A key objective was ensuring that the use of data in such decisions rests on a  
+A key objective was to ensure that the use of data in such decisions rests on a
 mathematically precise, logically coherent, and epistemically grounded  
 foundation.
 
@@ -29,7 +29,6 @@ As you’ll see, however, the ideas behind the calculus are far more general,
 with potential applications well beyond the software product development  
 context it emerged from.
 
-
 <div style="text-align: center; margin:2em">
   <img src="../assets/pcalc/presence_calculus.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
@@ -42,8 +41,8 @@ context it emerged from.
 
 We introduce the simple but powerful concept of a *presence*.
 
-This lets us reason about time, history and evolution using techniques from
-measure theory, topology and complex analysis.
+This lets us reason about time, history and evolution of complex systems using
+techniques from measure theory, topology and complex analysis.
 
 Classical statistics and probability theory often struggle here.
 *History*—the sequence and structure of changes in the domain over time— is
@@ -56,8 +55,8 @@ run behavior of complex systems, we need models that treat time and history as
 first-class concepts we can reason and compute with.
 
 This, in turn, lets us apply techniques from disciplines such as stochastic
-process dynamics, queueing theory, and complex systems science, to reason
-holistically about global emergent behavior of complex systems.
+process dynamics, queueing theory, and of course, complex systems science, to
+reason holistically about global emergent behavior of such systems.
 
 We claim the presence calculus is a novel, constructive approach to do this - a
 new and powerful reasoning tool for anyone working with complex systems.
@@ -77,12 +76,14 @@ how it can be improved,and the concepts clarified. Please feel free to open a
 pull request with thoughts, suggestions or feedback.
 
 In this document, we'll motivate and introduce the key ideas in the calculus  
-informally, with lots of highly evocative examples and simplifications to  
+informally, with lots of evocative examples and simplifications to  
 illustrate concepts.
 
-While it is aimed squarely at the non-technical reader, in order to understand
-the ideas, some basic mathematical notation is used in key sections. We do
-augment these with examples to build intuition throughout.
+While it is aimed at conveying the main concepts intuitively, in order to
+understand the ideas, some basic mathematical notation is used in key sections.
+We augment these with examples to build intuition throughout. However, given the
+nature of the material we have opted to stay on the side of rigor rather than
+dilute the concepts, even in this "gentle" introduction.
 
 If you are inclined to skim over anything with mathematical notation in it,
 working through the examples should be sufficient to grasp the key ideas and
@@ -116,6 +117,10 @@ The toolkit is reference implementation of the presence calculus. It is designed
 as an analytical middleware layer suitable for interfacing real world
 operational systems and complex system simulation, to the analytical machinery
 of the presence calculus.
+
+If reading code is more your style than reading mathematical notation, then we
+recommend jumping into the code and running the examples (or writing your own)
+to understand how things work. If you find bugs, please raise them!
 
 Finally, for those who want to dive deeper into the formal mathematical  
 underpinnings of the calculus, we have the theory track, which perhaps goes  
