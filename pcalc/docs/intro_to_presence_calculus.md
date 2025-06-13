@@ -1673,7 +1673,9 @@ Let's chart the values in both of these rows in the matrix.
   </div>
 </div>
 
-We can define this notion of convergence precisely using the mathematical
+We can see that while the values on the sample path are volatile, the values on
+the top row converge towards a finite value. We can define this notion of
+convergence precisely using the mathematical
 concept of a limit. Let:
 
 $$
@@ -1756,8 +1758,9 @@ convergent system can effectively *forget* its history beyond the point of
 stabilization.Its future behavior becomes representative of its past, allowing
 the system to be characterized by a stable long-run average.
 
-The presence calculus equips us with the operational tools needed to observe  
-and characterize the behavior of such systems over time.
+Among other things, the presence calculus equips us with the computational tools
+needed to identify convergent, divergent and metastable states of a system of
+presences.
 
 #### The Semantics of Convergence
 
@@ -1795,7 +1798,7 @@ bring new analytical tools to *observe*, *categorize*, and *steer* the
 behavior of such complex systems — aligning them with the desired modes of  
 operation in a given domain, *before* critical tipping points are reached.
 
-### Conditions for Convergence
+### Detecting Convergence
 
 In the last section, we *defined* convergent behavior in terms of the  
 existence of the limit $\Delta$, the long-run average presence density  
@@ -2161,7 +2164,7 @@ global convergence or divergence of a system by analyzing the patterns of local
 signal behavior over time. In the next section, we’ll see how to apply this
 principle in practice.
 
-### Formal Proof of Convergence
+#### Formal Proof of Convergence and Little's Law
 
 In this document, we have presented an accurate—though somewhat simplified—
 account of the criteria required to ensure that a system of presences is
@@ -2189,6 +2192,84 @@ With the exception of certain carefully constructed pathological cases, the
 criteria we have outlined—bounded signal mass and balanced onset/reset
 rates—will typically suffice to determine whether a system is convergent or
 divergent.
+
+#### Convergence, Coherence, and Little's Law
+
+One important point to note is that “Little’s Law” is not a single law, but
+rather a family of related laws that apply at different time scales, in
+different forms, and with different interpretations. The presence invariant is
+the most general version of this law.
+
+In this document, we stated it as a relationship between average presence
+density, signal incidence rate, and average mass contribution per signal over
+any finite observation window. This relationship holds at all time scales,
+_including_ those sufficiently long windows where the limits $\Delta$, $I$, and
+$\bar{M}$ exist.
+
+It is natural to ask: what is special, if anything, about those limiting values?
+
+Without going too deeply into technical arguments here, we note that the limits
+are indeed special. When a system is observed over a non-convergent interval,
+the quantities in the presence invariant are dominated by _partial_ mass
+contributions from signals that have not yet completed. Figure 8 shows an
+example of this behavior. The system may _appear_ convergent when the window is
+long enough for _complete_ signals to dominate the averages. For example, if we
+extended the window in Figure 8 to include the full duration of each signal, the
+system would appear convergent over that interval.
+
+The important point here is that in such situations, the presence invariant is
+not just a relationship about mass _contributions_, but also implicitly a
+relationship about the _masses_ of the signals involved. This distinction has
+direct operational implications.
+
+For instance, if the signals in Figure 8 represent customer service times, then
+over a convergent interval, mass contributions reflect what the customer
+experiences. But over shorter, non-convergent intervals, the same contributions
+reflect only what a system operator sees day to day. In this way, convergence
+can be seen as aligning two perspectives: the customer’s and the operator’s.
+When their averages match, we achieve a state of epistemic coherence—observers
+agree on what they are measuring.
+
+We will return to this idea in more detail later, particularly in the context of
+flow measurement in systems that operate far from equilibrium. But for now, it
+is enough to recognize that identifying whether a system is operating in a
+convergent or divergent mode is fundamental to making meaningful decisions when
+reasoning about a system of presences.
+
+#### A Note on Determinism
+
+A final point we emphasize in this section is that the form of Little’s Law
+derived here is entirely deterministic. It does not depend on any probabilistic
+or stochastic assumptions about the behavior of the system. In fact, the notion
+of a sample path used here originates in a deterministic proof of Little’s Law
+by Stidham in 1972. The presence invariant, as we have introduced it, is a
+direct analogue of the finite-window constructs used in that proof.
+
+It is important to recognize that Little’s Law is not a statistical artifact. It
+is a structural property deeply woven into the behavior of of _any_ system of
+presences. Convergence and divergence are deterministic features of how signals
+evolve and interact over time—regardless of whether the underlying signals are
+random or not.
+
+Even when the system is driven by randomness, the _observed_ evolution of
+presence density is deterministic and governed by the law of conservation of
+presence mass—that is, the presence invariant. This determinism extends to any
+functional quantity that depends on presence density. As we will see, a large
+and operationally useful class of system behaviors can be characterized in terms
+of the presence density of domain signals. That is why the machinery developed
+here is more than just a theoretical curiosity.
+
+This is our main point of departure in the presence calculus: we treat
+equilibrium not as a precondition for Little’s Law, but as a special case of a
+more general principle. We place the finite version of Little’s Law at the
+center of our analysis, because it continues to hold and yield meaningful
+insight even when the system is far from equilibrium—precisely where classical
+applications of Little’s Law begin to break down.
+
+### Steering the System
+
+Convergence, as discussed in the last section, is a fundamental concept in the
+presence calculus, and we now have
 
 
 
