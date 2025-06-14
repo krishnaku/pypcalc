@@ -8,7 +8,7 @@
 The Presence Calculus is a new approach for reasoning quantitatively about the  
 relationships between signals in a domain over time.
 
-We aim to better support rigorous modeling and principled  
+It's purpose is to better support principled modeling and rigorous  
 decision-making with operational data in complex, business-critical domains.
 
 A key objective was to ensure that the use of data in such decisions rests on a
@@ -16,8 +16,9 @@ mathematically precise, logically coherent, and epistemically grounded
 foundation.
 
 The presence calculus emerged from a search for better quantitative tools to  
-reason about software product development and engineering, where current  
-approaches leave much to be desired in all three aspects.
+reason about operations management in software product development and
+engineering, where current approaches to measurement leave much to be desired in
+all three aspects.
 
 Minimally, the foundational constructs of the calculus bring mathematical  
 precision to widely used—but poorly defined—concepts such as flow, stability,  
@@ -25,9 +26,9 @@ equilibrium, and coherence in a domain. More importantly, it allows us to
 relate them to business-oriented concerns like delay, cost, revenue, and  
 user experience.
 
-As you’ll see, however, the ideas behind the calculus are far more general,  
-with potential applications well beyond the software product development  
-context it emerged from.
+As you’ll see, however, the core concepts behind the calculus are far more
+general,  
+with potential applications well beyond the software context it emerged from.
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pcalc/presence_calculus.png" width="600px" />
@@ -49,29 +50,29 @@ Classical statistics and probability theory often struggle here.
 usually fenced off under assumptions like ergodicity, stationarity, and
 independence.
 
-Our thesis is that to move beyond simple descriptive statistics, statistical
-inference and probabilistic models, and start reasoning about global and long
-run behavior of complex systems, we need models that treat time and history as
-first-class concepts we can reason and compute with.
+Our thesis is that to move beyond simple descriptive statistics and statistical
+or probabilistic inference, that work well with stationary systems, and reason
+effectively about global and long run behavior of complex systems, we need
+analytical techniques that treat time and history as first-class concepts we can
+model and calculate with.
 
-This, in turn, lets us apply techniques from disciplines such as stochastic
-process dynamics, queueing theory, and of course, complex systems science, to
-reason holistically about global emergent behavior of such systems.
+This lets us combine statistical techniques with techniques from disciplines
+such as stochastic process dynamics, queueing theory, and of course, complex
+systems science, to reason holistically about global emergent behavior of such
+systems.
 
-We claim the presence calculus is a novel, constructive approach to do this - a
-new and powerful reasoning tool for anyone working with complex systems.
+We claim the presence calculus is a novel, constructive approach to do this from
+first principles in a domain - a new, general set of analytical tools for
+working with complex systems.
 
-But this is a bold claim, and it deserves further scrutiny and validation, and
-so we invite anyone interested in doing so to collaborate with us on this open
-source project.
 
 ### Learning more about The Presence Calculus
 
 While the calculus was developed with mathematical rigor, an equally important  
 goal was not to let mathematics get in the way of understanding the simple but
-very powerful and general ideas the calculus embodies[^1].
+very powerful and general ideas the calculus embodies[^F1].
 
-[^1]: This document is the first step in that direction. We welcome feedback on
+[^F1]: This document is the first step in that direction. We welcome feedback on
 how it can be improved,and the concepts clarified. Please feel free to open a
 pull request with thoughts, suggestions or feedback.
 
@@ -312,9 +313,9 @@ interval $[t_0, t_1]$, defined as:
 
 $$ \text{mass} = \int_{t_0}^{t_1} \mathsf{load}(e, b, t)\, dt $$
 
-where $\mathsf{load}$ is the presence density function [^2].
+where $\mathsf{load}$ is the presence density function [^F2].
 
-[^2]: If integration signs in a "gentle" introduction feels like a
+[^F2]: If integration signs in a "gentle" introduction feels like a
 bait-and-switch, rest assured, for the puposes of this document you just need to
 think of them as a way to add up presence masses, in a way that the ideas we use
 for binary presences will generalize when we apply them to arbitrary functions.
@@ -342,9 +343,9 @@ its presence) over time.
 
 As shown in Figure 2, the mass of a presence density function, over any given
 time *interval* $[t_0, t1)$ is the integral over the interval, which is also the
-area under the signal over that interval[^3].
+area under the signal over that interval[^F3].
 
-[^3]: The way we've defined signals and mass is directly  
+[^F3]: The way we've defined signals and mass is directly  
 analogous to how mass is defined for matter occupying space in physics.
 
     A binary signal can be thought of as defining a one-dimensional interval over  
@@ -468,9 +469,9 @@ for reasoning about causality.
 
 Imagine a developer filling out a simple daily check-in:  
 "How productive did you feel today?"—scored from 1 to 5, or sketched out as a  
-rough curve over the day[^4].
+rough curve over the day[^F4].
 
-[^4]: The use of a rough curve here is an example of how presences can encode  
+[^F4]: The use of a rough curve here is an example of how presences can encode  
 continuous inputs more effectively than discrete techniques, thanks to their  
 explicit model of time. Forcing a developer to rank their productivity on a  
 Likert scale often loses valuable nuance—whereas a fine-grained presence  
@@ -673,7 +674,7 @@ signals.
 One thing we will see is that from the perspective of this machinery, there are
 no fundamental differences in behavior between binary signals and arbitrary
 signals once they've been reduced to a canonical, presence-mass oriented
-representation[^5].
+representation[^F5].
 
 This greatly increases the scope of the problem domains where the presence
 calculus can be applied, and our examples in the previous section only begin to
@@ -682,7 +683,7 @@ hint at the possibilities.
 This, in the end, is the source of the generality and power of the presence
 calculus.
 
-[^5]: There are several technical conditions that must be satisfied when  
+[^F5]: There are several technical conditions that must be satisfied when  
 mapping signals to a canonical system of presences in order for this claim to  
 hold. To avoid getting bogged down in those details, we’ll simply claim it for  
 now. The API docs go into more detail about the mechanics of this canonical  
@@ -794,10 +795,12 @@ We can now decompose this as:
 $$ \delta = \frac{A}{T} = \frac{A}{N} \times \frac{N}{T} $$
 
 Here $N$ is the number of *active signals*: distinct signals with a presence in
-the observation window[^6]. This separates the average presence density into two
+the observation window[^F6]. This separates the average presence density into
+two
 interpretable components:
 
-[^6]: It is equally valid to define $N$ as the number of distinct _presences_ in
+[^F6]: It is equally valid to define $N$ as the number of distinct _presences_
+in
 the observation window. For example for the signal $P2$ in Figure 5, this
 corresponds to asking if $N=5$ (if we count the disjoint presences individually)
 or $N=3$ (if we count the signals). These give different values for $\bar{m}$
@@ -899,9 +902,13 @@ In this case, the *mass contribution* of a signal becomes an _element-time
 duration_. For example, if the signal represents the time during which a task is
 present in development, the mass contribution of that task over an observation
 interval is the portion of its duration that intersects the interval. This is
-also called the _residence time_[^7] for the task in the observation window.
+also called the _residence time_[^F7] for the task in the observation window.
 
-[^7]: We note that the residence time represents only the portion of the duration of the task in some arbitrary observation window. This is a different quantity from the overall duration of the task from start to finish (or from signal onset to reset in our terminology). This is the more familiar metric typically called the cycle time. 
+[^F7]: We note that the residence time represents only the portion of the
+duration of the task in some arbitrary observation window. This is a different
+quantity from the overall duration of the task from start to finish (or from
+signal onset to reset in our terminology). This is the more familiar metric
+typically called the cycle time.
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/presence_invariant_binary.png" width="600px" />
@@ -1038,9 +1045,10 @@ Specifically, if we think of these three parameters of a system as defining the
 unique co-ordinates of the state of the system over a small finite interval, we
 can "trace" the movement of the system by following these co-ordinates. But
 since there are only two degrees of freedom these coordinates will always lie on
-a two dimensional manifold[^8], in a 3 dimensional space.
+a two dimensional manifold[^F8], in a 3 dimensional space.
 
-[^8]: All solutions to an equation of the form $x=y \times z,$ which is the form
+[^F8]: All solutions to an equation of the form $x=y \times z,$ which is the
+form
 of the presence invariant, lie on a 2D surface, called a manifold in 3
 dimensions: think of the manifold a rubber sheet suspended in a 3 dimensional
 space. All the values of $x, y, \text{ and } z$  that satisfy this equation will
@@ -1077,7 +1085,7 @@ this system of presences.
 
 Since we are accumulating presence masses over an interval, the value of
 presence mass in a matrix entry is always a a real number. Figure 8 shows the
-presence matrix for the system in Figure 7[^9].
+presence matrix for the system in Figure 7[^F9].
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/presence_matrix.png" width="600px" />
@@ -1086,7 +1094,7 @@ presence matrix for the system in Figure 7[^9].
   </div>
 </div>
 
-[^9]: The alert reader will note the difference between the first two rows in
+[^F9]: The alert reader will note the difference between the first two rows in
 the matrix. The first signal is represented by a single presence, while the
 second is broken up into two disjoint presences. This is entirely an artifact of
 the granularity at which the timeline is divided. At a suitably fine sampling
@@ -1474,8 +1482,8 @@ interval $[i,j]$.
 
 - $A$ is upper triangular: $A(i,j)$ is defined only when $i \leq j$.
 - The diagonal entries $A(i,i)$ equal the column sums of $P$.
-- Each entry $A(i,j)$ reflects the cumulative presence mass over the interval 
-  $[i,j]$.
+- Each entry $A(i,j)$ reflects the cumulative presence mass over the interval
+  $[i,j]$ in the original presence matrix.
 
 
 As we will see below, this matrix compactly encodes multi-scale information about system behavior 
@@ -1524,7 +1532,7 @@ locally observed dynamics and connect it to system behavior at the macro scale.
 
 Let's see how.
 
-### Sample Paths and Convergence
+### Equilibrium: Convergence and Divergence
 
 Consider the highlighted portions of the accumulation matrix $A$ in figure 13.
 <div style="text-align: center; margin:2em">
@@ -1582,10 +1590,10 @@ presences.
 
 Recall that each entry on the diagonal represents the sum of the presence masses
 of the signals active in a time window. This implies that each entry on the top
-row is an approximation of an integral[^10] and equals the _area under the
+row is an approximation of an integral[^F10] and equals the _area under the
 sample path_ represented by the diagonal.
 
-[^10]: Specifically, the Riemann sum approximation of the integral $$
+[^F10]: Specifically, the Riemann sum approximation of the integral $$
 A(1, j) = \sum_{k=1}^j A(k,k)
 \approx \int_0^j \left( \sum_{(e,b)} P_{(e,b)}(t) \right) dt
 $$
@@ -1829,9 +1837,9 @@ To understand when the long-run average of $\delta(t)$ converges, we can ask
 a simpler question: do the corresponding long-run averages of $\iota(t)$  
 and $\bar{m}(t)$ converge? If both do, we should expect that their product —  
 and hence $\Delta$ — converges as well,and it does, with some technical
-conditions in place[^11].
+conditions in place[^F11].
 
-[^11]: While it’s tempting to assume that the limit of a product is simply the
+[^F11]: While it’s tempting to assume that the limit of a product is simply the
 product of the limits, this doesn’t automatically hold here. The long-run
 average of presence density, $\Delta$, is defined as a time-based average, while
 the average signal mass contribution, $\bar{M}$, is defined over the number of
@@ -2211,10 +2219,12 @@ It is natural to ask: what is special, if anything, about those limiting values?
 Without going too deeply into technical arguments here, we note that the limits
 are indeed special. When a system is observed over a non-convergent interval,
 the quantities in the presence invariant are dominated by _partial_ mass
-contributions from signals that have not yet completed. Figure 8 shows an
-example of this behavior. The system may _appear_ convergent when the window is
-long enough for _complete_ signals to dominate the averages. For example, if we
-extended the window in Figure 8 to include the full duration of each signal, the
+contributions from signals that have not yet completed. Figure 5 shows an
+example of this behavior.
+
+The system may _appear_ convergent when the window is long enough for _complete_
+signals to dominate the averages. For example, if we extended the window in
+Figure 5 to include the full duration of each signal, the
 system would appear convergent over that interval.
 
 The important point here is that in such situations, the presence invariant is
@@ -2222,19 +2232,31 @@ not just a relationship about mass _contributions_, but also implicitly a
 relationship about the _masses_ of the signals involved. This distinction has
 direct operational implications.
 
-For instance, if the signals in Figure 8 represent customer service times, then
+For instance, if the signals in Figure 5 represent customer service times, then
 over a convergent interval, mass contributions reflect what the customer
-experiences. But over shorter, non-convergent intervals, the same contributions
-reflect only what a system operator sees day to day. In this way, convergence
-can be seen as aligning two perspectives: the customer’s and the operator’s.
-When their averages match, we achieve a state of epistemic coherence—observers
-agree on what they are measuring.
+actually experiences. But over shorter, non-convergent intervals, those same
+contributions primarily reflect what a system operator observes on a day-to-day
+basis.
 
-We will return to this idea in more detail later, particularly in the context of
-flow measurement in systems that operate far from equilibrium. But for now, it
-is enough to recognize that identifying whether a system is operating in a
-convergent or divergent mode is fundamental to making meaningful decisions when
-reasoning about a system of presences.
+In Figure 5, for example, if we extend the observation window far enough to
+include the full duration of all signals shown, the system will appear
+convergent over that interval. When we measure presence density, signal masses,
+and incidence rates over this longer window, we are implicitly aligning the
+customer’s perspective of the system with the operator’s perspective.
+
+In this way, convergence brings these two perspectives—the customer’s and the
+operator’s—into alignment. More generally, it aligns time-based averages with
+signal-based averages. When these quantities agree, we enter a state of
+epistemic coherence: multiple observers, using different vantage points, arrive
+at consistent measurements of system behavior.
+
+This alignment occurs only when the system is operating at or near equilibrium.
+
+We will return to this important idea in other posts, particularly in the
+context of flow measurement in systems that operate far from equilibrium. But
+for now, it is enough to recognize that identifying whether a system is
+operating in a convergent or divergent mode is fundamental to making meaningful
+decisions when reasoning about a system of presences.
 
 #### A Note on Determinism
 
@@ -2251,30 +2273,369 @@ presences. Convergence and divergence are deterministic features of how signals
 evolve and interact over time—regardless of whether the underlying signals are
 random or not.
 
-Even when the system is driven by randomness, the _observed_ evolution of
-presence density is deterministic and governed by the law of conservation of
+Even when the signals have randomness, the _observed_ evolution of presence
+density is deterministic[^F12] and governed by the law of conservation of
 presence mass—that is, the presence invariant. This determinism extends to any
 functional quantity that depends on presence density. As we will see, a large
 and operationally useful class of system behaviors can be characterized in terms
 of the presence density of domain signals. That is why the machinery developed
 here is more than just a theoretical curiosity.
 
+[^F12]: It is worth emphasizing the word _observed_ in this statement. Even
+though the evolution is deterministic, this does not mean the future behavior of
+the system is predictable based on past behavior. That depends entirely on the
+nature of the signals involved, which may or may not be predictable. What we can
+say is that, given a sufficiently complete history of the system, we can
+deterministically reconstruct the current state of presence density from any
+starting point. This explanatory power is useful in its own right, as we will
+soon see.
+
 This is our main point of departure in the presence calculus: we treat
 equilibrium not as a precondition for Little’s Law, but as a special case of a
-more general principle. We place the finite version of Little’s Law at the
-center of our analysis, because it continues to hold and yield meaningful
-insight even when the system is far from equilibrium—precisely where classical
-applications of Little’s Law begin to break down.
+more general principle. We place the finite version of Little’s Law - in the
+general form of the presence invariant at the center of our analysis, because it
+continues to hold and yield meaningful insight even when the system is far from
+equilibrium—precisely the operating modes traditional queuing theory and other
+classical approaches de-emphasize, but where most real-world systems actually
+live.
 
-### Steering the System
+In fact, there is an even more general principle at work. Miyazawa was among the
+first to note the existence of a broader class of *rate conservation laws* that
+exhibit structural similarities to Little's Law across diverse domains. Sigman
+later demonstrated that the generalized form of Little’s Law can be viewed as an
+equivalent formulation of such rate conservation principles.
 
-Convergence, as discussed in the last section, is a fundamental concept in the
-presence calculus, and we now have
+From this perspective, the presence calculus offers constructive tools to
+_discover_ and formulate such laws within a domain. The interactions of
+element-boundary signals in any system of presences naturally give rise to rate
+conservation laws based on the principle of conserved signal mass. Mapping these
+laws back to the language of the domain appears to be a fruitful path toward
+uncovering the mechanisms by which systems in that domain behave.
+
+## 7. Navigation: defining place and direction
+
+Convergence, as discussed in the last section, is a fundamental concept in the  
+presence calculus. We now have the tools to detect convergence or divergence in
+the long-run behavior of a system of presences—specifically, the evolution of  
+presence density and its underlying drivers: signal mass contributions and  
+signal incidence rates.
+
+As noted earlier, _whenever we can model the meaningful behaviors of a system as
+interactions between element-boundary signals within a system of presences_,  
+this provides a constructive analytical framework for studying system  
+dynamics. This framework applies to a wide range of operational problems across
+many domains.
+
+We also observed that much of the structure in the presence calculus is  
+deterministic. That is, given the observed behavior of a system of presences,  
+we can deterministically explain the evolution of presence density in terms of  
+its drivers, signal mass and incidence rate—across time and across different
+timescales.
+
+In this section, we elaborate on this deterministic structure and introduce  
+new tools that help us analyze how local behaviors evolve into global patterns,
+and help us understand the dynamics of a system of presence.
+
+First we will develop fundamental tools that help us establish a uniform sense
+of place and direction of the system evolution, tha scales from the local to
+global timescales. While convergence and divergence establish this for longer
+timescales, these concepts are somewhat unwieldy and inapplicable when the
+system is operating far from equilibrium, and we need some better tools to
+navigate in this complementary region.
+
+We will show how to detect emerging patterns in this evolution that reveal the  
+*direction* in which the system is moving—and just as importantly, how to  
+detect when that direction is *changing*.
+
+These are essential capabilities for building mechanisms that can steer system
+behavior in a desired direction—toward convergence or divergence of presence
+density.
+
+### The Presence Accumulation Recurrence
+
+We noted at the end of the last section that the observed evolution of a the
+presence density of a system of presences is deterministic. Let's see why this
+is the case.
+
+We have reproduced the presence accumulation matrix from Figure 12 below. Recall
+from section 5 that given an $MxN$ presence matrix, the accumulation matrix is
+an $NxN$ upper triangular matrix where each cell $A[i,j], 1 \le i \lt j \le N$
+records the cumulative presence mass in columns $[i,j]$ in the original presence
+matrix.
+
+We also noted that the diagonal in the accumulation matrix is a sample path
+through the system history and the top row records the cumulative presence mass
+over an observation period. It represents the area under the sample path. In
+essence, the accumulation matrix is a compact encoding of the evolution of
+presence density across timescales.
 
 
+<div style="text-align: center; margin:2em">
+  <table>
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Row 1 -->
+    <tr>
+      <td>1</td>
+      <td style="background-color:#e6ffe6">1.4</td>
+      <td style="background-color:#e6f0ff">7.3</td>
+      <td style="background-color:#e6ffe6">16.5</td>
+      <td style="background-color:#e6f0ff">21.5</td>
+      <td style="background-color:#e6ffe6">27.4</td>
+      <td style="background-color:#e6f0ff">34.9</td>
+      <td style="background-color:#e6ffe6">42.5</td>
+      <td style="background-color:#e6f0ff">49.1</td>
+      <td style="background-color:#e6ffe6">54.6</td>
+      <td style="background-color:#e6f0ff">56.3</td>
+    </tr>
+    <!-- Row 2 -->
+    <tr>
+      <td>2</td>
+      <td></td>
+      <td style="background-color:#e6ffe6">5.9</td>
+      <td style="background-color:#e6f0ff">15.1</td>
+      <td style="background-color:#e6ffe6">20.1</td>
+      <td style="background-color:#e6f0ff">26.0</td>
+      <td style="background-color:#e6ffe6">33.5</td>
+      <td style="background-color:#e6f0ff">41.1</td>
+      <td style="background-color:#e6ffe6">47.7</td>
+      <td style="background-color:#e6f0ff">53.2</td>
+      <td style="background-color:#e6ffe6">54.9</td>
+    </tr>
+    <!-- Row 3 -->
+    <tr>
+      <td>3</td>
+      <td></td><td></td>
+      <td style="background-color:#e6ffe6">9.2</td>
+      <td style="background-color:#e6f0ff">14.2</td>
+      <td style="background-color:#e6ffe6">20.1</td>
+      <td style="background-color:#e6f0ff">27.6</td>
+      <td style="background-color:#e6ffe6">35.2</td>
+      <td style="background-color:#e6f0ff">41.8</td>
+      <td style="background-color:#e6ffe6">47.3</td>
+      <td style="background-color:#e6f0ff">49.0</td>
+    </tr>
+    <!-- Row 4 -->
+    <tr>
+      <td>4</td>
+      <td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.0</td>
+      <td style="background-color:#e6f0ff">10.9</td>
+      <td style="background-color:#e6ffe6">18.4</td>
+      <td style="background-color:#e6f0ff">26.0</td>
+      <td style="background-color:#e6ffe6">32.6</td>
+      <td style="background-color:#e6f0ff">38.1</td>
+      <td style="background-color:#e6ffe6">39.8</td>
+    </tr>
+    <!-- Row 5 -->
+    <tr>
+      <td>5</td>
+      <td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.9</td>
+      <td style="background-color:#e6f0ff">13.4</td>
+      <td style="background-color:#e6ffe6">21.0</td>
+      <td style="background-color:#e6f0ff">27.6</td>
+      <td style="background-color:#e6ffe6">33.1</td>
+      <td style="background-color:#e6f0ff">34.8</td>
+    </tr>
+    <!-- Row 6 -->
+    <tr>
+      <td>6</td>
+      <td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">7.5</td>
+      <td style="background-color:#e6f0ff">15.1</td>
+      <td style="background-color:#e6ffe6">21.7</td>
+      <td style="background-color:#e6f0ff">27.2</td>
+      <td style="background-color:#e6ffe6">28.9</td>
+    </tr>
+    <!-- Row 7 -->
+    <tr>
+      <td>7</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">7.6</td>
+      <td style="background-color:#e6f0ff">14.2</td>
+      <td style="background-color:#e6ffe6">19.7</td>
+      <td style="background-color:#e6f0ff">21.4</td>
+    </tr>
+    <!-- Row 8 -->
+    <tr>
+      <td>8</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">6.6</td>
+      <td style="background-color:#e6f0ff">12.1</td>
+      <td style="background-color:#e6ffe6">13.8</td>
+    </tr>
+    <!-- Row 9 -->
+    <tr>
+      <td>9</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.5</td>
+      <td style="background-color:#e6f0ff">7.2</td>
+    </tr>
+    <!-- Row 10 -->
+    <tr>
+      <td>10</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">1.7</td>
+    </tr>
+  </tbody>
+</table>
+  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+    Figure 12: Final presence accumulation matrix for the presence matrix of Figure 9. 
+  </div>
+</div>
 
+If we look closely at the entries in the matrix though, we will see that there
+is much tighter local relationship between the matrix entries. We can, in
+general, write the following recurrence describing the entries in the matrix.
 
+We can express this local relationship using the following recurrence:
 
+$$
+A[i,j] = A[i,j-1] + A[i+1,j] - A[i+1,j-1]
+\quad \text{for } 1 \le i < j \le N
+$$
+
+It tells us that the cumulative mass from column $i$ to column $j$ can be  
+computed from three nearby entries:
+
+- $A[i,j-1]$: the cumulative mass from $i$ to $j{-}1$
+- $A[i+1, j]$: the mass from $i{+}1$ to $j$
+- a correction term subtracting the overlap $A[i+1, j-1]$ from $i{+}1$
+  to $j{-}1$
+
+This equation reflects the additivity of cumulative presence mass over  
+rectangular regions in the presence matrix [^F13].
+
+[^F13]: Recall that we required signals to be measurable. This recurrence  
+reflects the finite additivity of measures over overlapping regions. If we  
+interpret $A[i,j]$ as the measure of the union of two intervals, then the  
+recurrence follows the
+identity $$\mu(A \cup B) = \mu(A) + \mu(B) - \mu(A \cap B)$$,  
+where $$A = [i, j{-}1] \text{ and } B = [i{+}1, j]$$. The subtraction removes
+the overlap $[i{+}1, j{-}1]$, ensuring the correct cumulative mass is assigned
+to $[i, j]$.
+
+Thus, the presence accumulation matrix—and by extension, the evolution of  
+presence density—is governed by a simple local rule. Given the values on the  
+diagonal, the rest of the matrix is fully determined.
+
+The physical interpretation of this is that, given the first $N{-}1$ points  
+on the sample path, knowing the $N^{\text{th}}$ point allows us to trace how  
+the macro behavior of the system—across every timescale—evolved up to that  
+point.
+
+This is the foundation for  
+the next tools we will develop: tools for detecting direction and change in  
+system behavior based on how these recurrence relationships evolve over time.
+
+### A Phase Space Representation of the presence invariant
+
+So now that we know presence accumulates over timescales according to a  
+deterministic rule, let's assemble some machinery that gives us a sense of the  
+*direction* in which the system as a whole is moving. For this, it is useful
+to  
+construct an alternate view of the entries in this matrix using our favorite  
+tool: the presence invariant.
+
+We'll start by noting that the presence invariant holds for every entry in the  
+accumulation matrix. Therefore, we can write:
+
+$$
+\frac{A(i,j)}{T} = \frac{N}{T} \times \frac{A(i,j)}{N} \quad \text{where } T = j - i
+$$
+
+Which is just the presence invariant $\delta = \iota \cdot \bar{m}$ written out
+for every entry in the matrix A.
+
+Now, let’s revisit the relationship $\delta = \iota \cdot \bar{m}$.  
+As noted earlier, this expresses that each entry in the accumulation matrix
+can  
+be factored into two components: the incidence rate $\iota$ and the average
+mass  
+$\bar{m}$ per incident signal. There are useful insights to be gained by  
+examining this multiplicative structure in log space.
+
+Taking the logarithm of both sides of the presence invariant  
+$\delta = \iota \cdot \bar{m}$, we obtain:
+
+$$
+\log \delta = \log \iota + \log \bar{m}
+$$
+
+This expresses the invariant as an additive relation in log space, which  
+provides a natural coordinate system for analyzing system behavior.
+
+Each component now contributes linearly to the overall presence density (in log
+space), and changes in incidence rate or average mass can be interpreted as  
+vector displacements along orthogonal axes in this space.
+
+This gives us a mapping of the presence invariant in the complex plane.
+
+We now introduce a geometric interpretation of this relation in the complex  
+plane. Let’s define a mapping:
+
+$$
+z = \log \iota + i \log \bar{m}
+$$
+
+Here, the real part of $z$ encodes the logarithm of the incidence rate, and the
+imaginary part encodes the logarithm of the average mass.
+
+This mapping allows us to compactly represent the two degrees of freedom in
+presence density as a vector in a two-dimensional plane, with the magnitude of
+the vector encoding the intensity of the presence: increasing or decreasing, and
+the direction of the vector encoding what is driving the increase or decrease:
+incidence rate or presence mass.
+
+This vector representation gives us a compact and precise definition of the
+magnitude and direction of the _flow_ of presence density in the system at any
+point in time. This is what we will use as the  _definition_ of flow in a system
+of presences.
+
+Lets formalize these notions.
+
+Following standard techniques in complex analysis, we now introduce two derived
+quantities: the norm and the phase angle for the complex number that represents
+a presence density of system of presences over a finite interval of time in
+log-space.
+
+- The **norm** of $z$ represents the overall intensity of presence
+  accumulation  
+  in log space:
+
+  $$
+  \|z\| = \sqrt{(\log \iota)^2 + (\log \bar{m})^2}
+  $$
+
+  This gives a scale-invariant measure of the strength of presence density  
+  combining the effects of incidence and mass into a single magnitude.
+
+- The **phase angle** of $z$ represents the balance between rate and mass  
+  contributions:
+
+  $$
+  \theta = \arg(z) = \tan^{-1} \left( \frac{\log \bar{m}}{\log \iota} \right)
+  $$
+
+  This tells us whether the system’s current trajectory is more rate-dominant
+  -ie due to lots of small signals with small mass  
+  (small $\theta$) or mass-dominant (larger $\theta$) or fewer signals with
+  large mass. It provides a directional sense of what’s driving the observed
+  evolution of presence density.
+
+Together, $\|z\|$ and $\theta$ allow us to decompose each matrix entry’s
+behavior into *how fast* it is growing (norm) and *in what direction* the
+contributing factors lie (phase).
+
+This sets the stage for analyzing trajectories across the accumulation matrix as
+geometric flows in this complex coordinate space.
 
 <table style="border-collapse: collapse; margin: auto;">
   <thead>
