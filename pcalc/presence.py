@@ -57,7 +57,7 @@ over the half-open interval $[t_0, t_1)$ (meaning it
 includes $t_0$ but excludes $t_1$).
 
 <div style="text-align: center; margin: 2em 0;">
-  <img src="../assets/pcalc/half_open_presence.png" width="400px" />
+  <img src="../../assets/pcalc/half_open_presence.png" width="400px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 0.5em;">
     Figure: A presence interval $[t_0, t_1)$ with $t_0$ included (●) and
     $t_1$ excluded (○).
@@ -298,7 +298,7 @@ the presence function might represent revenue from that customer at time `t`. If
 represents the customer lifetime, then customer revenue is zero outside that interval. 
 
 <div style="text-align: center; margin:2em">
-  <img src="../assets/pcalc/presence_function.png" width="600px" />
+  <img src="../../assets/pcalc/presence_function.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
     Figure 1: A presence function for customer revenues in the sales domain. 
   </div>

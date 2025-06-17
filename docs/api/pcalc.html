@@ -415,7 +415,7 @@ SPDX-License-Identifier: MIT</p>
 <h2 id="introduction">Introduction</h2>
 
 <p>The Presence Calculus provides a mathematical formalism for reasoning about
-the relationship between measures on <em>things</em> and <em>places</em> over <em>time</em>.</p>
+the relationship between measures on <em>elements</em> and <em>boundaries</em> in a domain over <em>time</em>.</p>
 
 <p>It begins with the concept of a Presence—a measure over the real numbers, associated with
 a particular <em>Element</em> (thing) in a domain, observed within a <em>Boundary</em> (place),
@@ -431,8 +431,7 @@ It also enables rigorous reasoning about temporal constructs like time value,
 delayed value, and the option value of presence.</p>
 
 <p>The Presence Calculus is built on rigorous mathematical foundations—
-measure theory and topology—but what makes it powerful is its epistemic stance
-on measurement: the primitive construct is a presence <em>assertion</em>.</p>
+measure theory and topology—anchored by presence as an epistemic primitive.</p>
 
 <p>This frames each presence as an observation made by a specific observer
 at a specific time, within an open-world setting across an infinite timeline.
@@ -442,13 +441,13 @@ noise, delay, ambiguity, and the provenance of observations play a critical role
 <p>Given a set of presence assertions over a domain $D$, the calculus provides
 rigorously defined primitives and constructs for analyzing element timelines
 and trajectories, presence-induced topologies on $D$, and the effects of
-co-presence—simultaneous element presence—within and across boundaries.</p>
+co-presence—simultaneous element presence—within and across boundaries.#233</p>
 
 <p>These techniques apply consistently across a wide range of domains, including
 stochastic, non-linear, adaptive, and complex systems.</p>
 
 <div style="text-align: center; margin:2em">
-  <img src="./assets/pcalc/presence_calculus.svg" width="600px" />
+  <img src="../assets/pcalc/presence_calculus.svg" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
     Figure 1: Key constructs—presences, element paths, presence matrix, and co-presence topology
   </div>
@@ -549,7 +548,7 @@ have questions or would like to collaborate with me on helping develop it furthe
 </span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="sd">## Introduction</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a>
 </span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="sd">The Presence Calculus provides a mathematical formalism for reasoning about</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="sd">the relationship between measures on *things* and *places* over *time*.</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="sd">the relationship between measures on *elements* and *boundaries* in a domain over *time*.</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="sd">It begins with the concept of a Presence—a measure over the real numbers, associated with</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="sd">a particular *Element* (thing) in a domain, observed within a *Boundary* (place),</span>
@@ -565,24 +564,24 @@ have questions or would like to collaborate with me on helping develop it furthe
 </span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">delayed value, and the option value of presence.</span>
 </span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>
 </span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="sd">The Presence Calculus is built on rigorous mathematical foundations—</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">measure theory and topology—but what makes it powerful is its epistemic stance</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">on measurement: the primitive construct is a presence *assertion*.</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a><span class="sd">This frames each presence as an observation made by a specific observer</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">at a specific time, within an open-world setting across an infinite timeline.</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="sd">It enables meaningful reasoning about complex systems where</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="sd">noise, delay, ambiguity, and the provenance of observations play a critical role.</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="sd">Given a set of presence assertions over a domain $D$, the calculus provides</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">rigorously defined primitives and constructs for analyzing element timelines</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="sd">and trajectories, presence-induced topologies on $D$, and the effects of</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="sd">co-presence—simultaneous element presence—within and across boundaries.</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">measure theory and topology—anchored by presence as an epistemic primitive.</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="sd">This frames each presence as an observation made by a specific observer</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a><span class="sd">at a specific time, within an open-world setting across an infinite timeline.</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">It enables meaningful reasoning about complex systems where</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="sd">noise, delay, ambiguity, and the provenance of observations play a critical role.</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="sd">Given a set of presence assertions over a domain $D$, the calculus provides</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="sd">rigorously defined primitives and constructs for analyzing element timelines</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">and trajectories, presence-induced topologies on $D$, and the effects of</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="sd">co-presence—simultaneous element presence—within and across boundaries.#233</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>
 </span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a>
 </span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a><span class="sd">These techniques apply consistently across a wide range of domains, including</span>
 </span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="sd">stochastic, non-linear, adaptive, and complex systems.</span>
 </span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>
 </span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a><span class="sd">&lt;div style=&quot;text-align: center; margin:2em&quot;&gt;</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="sd">  &lt;img src=&quot;./assets/pcalc/presence_calculus.svg&quot; width=&quot;600px&quot; /&gt;</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="sd">  &lt;img src=&quot;../assets/pcalc/presence_calculus.svg&quot; width=&quot;600px&quot; /&gt;</span>
 </span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a><span class="sd">  &lt;div style=&quot;font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;&quot;&gt;</span>
 </span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a><span class="sd">    Figure 1: Key constructs—presences, element paths, presence matrix, and co-presence topology</span>
 </span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="sd">  &lt;/div&gt;</span>

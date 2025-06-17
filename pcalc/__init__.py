@@ -10,7 +10,7 @@ SPDX-License-Identifier: MIT
 ## Introduction
 
 The Presence Calculus provides a mathematical formalism for reasoning about
-the relationship between measures on *things* and *places* over *time*.
+the relationship between measures on *elements* and *boundaries* in a domain over *time*.
 
 It begins with the concept of a Presence—a measure over the real numbers, associated with
 a particular *Element* (thing) in a domain, observed within a *Boundary* (place),
@@ -26,8 +26,7 @@ It also enables rigorous reasoning about temporal constructs like time value,
 delayed value, and the option value of presence.
 
 The Presence Calculus is built on rigorous mathematical foundations—
-measure theory and topology—but what makes it powerful is its epistemic stance
-on measurement: the primitive construct is a presence *assertion*.
+measure theory and topology—anchored by presence as an epistemic primitive.
 
 This frames each presence as an observation made by a specific observer
 at a specific time, within an open-world setting across an infinite timeline.
@@ -37,13 +36,14 @@ noise, delay, ambiguity, and the provenance of observations play a critical role
 Given a set of presence assertions over a domain $D$, the calculus provides
 rigorously defined primitives and constructs for analyzing element timelines
 and trajectories, presence-induced topologies on $D$, and the effects of
-co-presence—simultaneous element presence—within and across boundaries.
+co-presence—simultaneous element presence—within and across boundaries.#233
+
 
 These techniques apply consistently across a wide range of domains, including
 stochastic, non-linear, adaptive, and complex systems.
 
 <div style="text-align: center; margin:2em">
-  <img src="./assets/pcalc/presence_calculus.svg" width="600px" />
+  <img src="../assets/pcalc/presence_calculus.svg" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
     Figure 1: Key constructs—presences, element paths, presence matrix, and co-presence topology
   </div>

@@ -165,129 +165,228 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Georgia, serif;
+      font-size: 19px;
+      line-height: 1.75;
+      background: #fff;
+      color: #111;
+
+      /* flex centering */
+      display: flex;
+      justify-content: center;
+    }
+
+    #page {
+      max-width: 880px;
+      width: 100%;
+      padding: 2.5rem 1.5rem;
+      box-sizing: border-box;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: Georgia, serif;
+      font-weight: bold;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    p {
+      margin: 1.25rem 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 2rem auto;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 1rem;
+      overflow-x: auto;
+      border-radius: 6px;
+    }
+
+    code {
+      font-family: SFMono-Regular, Consolas, monospace;
+      background: #f5f5f5;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+
+    blockquote {
+      margin: 2rem 0;
+      padding-left: 1rem;
+      border-left: 4px solid #ddd;
+      color: #666;
+      font-style: italic;
+    }
+
+    .subtitle, .author, .date {
+      color: #666;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    nav#TOC {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid #eee;
+      background: #fafafa;
+    }
   </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
   type="text/javascript"></script>
 </head>
 <body>
-<h1
-id="conjectures-on-sheaf-convergence-in-the-presence-calculus">Conjectures
-on Sheaf Convergence in the presence calculus</h1>
-<p>This document introduces conjectures regarding the convergence
-behavior of presence assertions modeled as sheaves over topological
-domains. The conjectures aim to provide a topologically grounded
-understanding of when flow systems stabilize and how unbounded or
-incomplete presences affect this behavior.</p>
-<h2 id="background">Background</h2>
-<p>In the presence calculus, a <strong>presence assertion</strong> is a
-tuple:</p>
-<p><span class="math display">\[
-p = (e, b, t_0, t_1)
-\]</span></p>
-<p>where:</p>
-<ul>
-<li><span class="math inline">\(e\)</span> is an element,<br />
-</li>
-<li><span class="math inline">\(b\)</span> is a boundary,<br />
-</li>
-<li><span class="math inline">\(t_0\)</span> is the onset time,<br />
-</li>
-<li><span class="math inline">\(t_1\)</span> is the reset time.</li>
-</ul>
-<p>These presences are modeled as sections over open sets in a
-topological space <span class="math inline">\(E \\\times B \\\times
-\\\mathbb{R}\)</span>. The goal is to understand how such systems behave
-as the observation window expands over time.</p>
-<p>We define <span class="math inline">\(\\\mathcal{T}_T\)</span> as the
-topology on <span class="math inline">\(E \\\times B \\\times [T_0,
-T_1)\)</span>, and <span class="math inline">\(\\\mathcal{S}_T\)</span>
-as the sheaf of presence sections over this topology.</p>
-<h2 id="epistemically-incomplete-presences">Epistemically Incomplete
-Presences</h2>
-<p>To handle presences with unknown start or end times, we introduce
-special values:</p>
-<ul>
-<li><span class="math inline">\(t_0 = \\\bot\)</span> (unknown or
-infinite past)<br />
-</li>
-<li><span class="math inline">\(t_1 = \\\top\)</span> (unknown or
-infinite future)</li>
-</ul>
-<p>These encode epistemically incomplete assertions and are critical
-when discussing convergence and divergence.</p>
-<p>Such assertions:</p>
-<ul>
-<li>Contribute partially to residence and incidence metrics.</li>
-<li>May intersect all future windows (<span class="math inline">\(t_1 =
-\\\top\)</span>), thereby affecting convergence.</li>
-<li>Are treated as presences with <strong>non-compact
-support</strong>.</li>
-</ul>
-<h2
-id="conjecture-1-boundedness-is-necessary-for-convergence">Conjecture 1:
-Boundedness is Necessary for Convergence</h2>
-<p>A presence sheaf <span class="math inline">\(\\\mathcal{S}_T\)</span>
-is <strong>divergent</strong> if it contains any assertion with <span
-class="math inline">\(t_1 = \\\top\)</span>.</p>
-<p><strong>Conjecture:</strong> Boundedness of all presence assertions
-is a <strong>necessary</strong> condition for convergence:</p>
-<p><span class="math display">\[
-\\\forall p \\\in \\\bigcup_T \\\mathcal{P}_T,\quad t_1 &lt; \\\infty
-\]</span></p>
-<p>This ensures that all presences fully resolve within finite
-observation windows.</p>
-<h2
-id="conjecture-2-stabilization-is-sufficient-for-convergence">Conjecture
-2: Stabilization is Sufficient for Convergence</h2>
-<p>Let <span
-class="math inline">\(\\\operatorname{res}_{T+\\\delta,T}\)</span> be
-the restriction map:</p>
-<p><span class="math display">\[
-\\\operatorname{res}_{T+\\\delta,T}: \\\mathcal{S}_{T+\\\delta} \\\to
-\\\mathcal{S}_T
-\]</span></p>
-<p><strong>Conjecture:</strong> If there exists <span
-class="math inline">\(T^*\)</span> such that for all <span
-class="math inline">\(T &gt; T^*\)</span>, these maps are isomorphisms,
-then the sheaf has <strong>converged</strong>:</p>
-<ul>
-<li>No new global sections appear.</li>
-<li>Existing global sections stabilize.</li>
-</ul>
-<h2
-id="conjecture-3-local-finiteness-required-for-metric-convergence">Conjecture
-3: Local Finiteness Required for Metric Convergence</h2>
-<p>Let <span class="math inline">\(U \\\subseteq E \\\times B \\\times
-\\\mathbb{R}\)</span> be any bounded open set.</p>
-<p><strong>Conjecture:</strong> The sheaf <span
-class="math inline">\(\\\mathcal{S}_T\)</span> supports meaningful
-metric convergence (e.g., residence time, incidence rate) only if:</p>
-<p><span class="math display">\[
-\\\forall U,\quad \\\text{the number of presence assertions intersecting
-} U \\\text{ is finite}
-\]</span></p>
-<p>This implies that the sheaf is <strong>locally of finite
-type</strong>.</p>
-<h2 id="summary">Summary</h2>
-<p>We propose that convergence of presence sheaves requires:</p>
-<ol type="1">
-<li><strong>Boundedness</strong> — no presence persists
-indefinitely.<br />
-</li>
-<li><strong>Stabilization</strong> — restriction maps stabilize global
-sections.<br />
-</li>
-<li><strong>Local Finiteness</strong> — only finitely many presences
-intersect any bounded region.</li>
-</ol>
-<p>These conditions together characterize when a flow system modeled in
-the presence calculus can be said to converge topologically. Each is
-individually testable and contributes to a coherent foundation for
-reasoning about dynamic systems and evolving domains.</p>
-<blockquote>
-<p>These are currently proposed as <strong>conjectures</strong> pending
-formal proof.</p>
-</blockquote>
+  <div id="page">
+                <h1
+                id="conjectures-on-sheaf-convergence-in-the-presence-calculus">Conjectures
+                on Sheaf Convergence in the presence calculus</h1>
+                <p>This document introduces conjectures regarding the
+                convergence behavior of presence assertions modeled as
+                sheaves over topological domains. The conjectures aim to
+                provide a topologically grounded understanding of when
+                flow systems stabilize and how unbounded or incomplete
+                presences affect this behavior.</p>
+                <h2 id="background">Background</h2>
+                <p>In the presence calculus, a <strong>presence
+                assertion</strong> is a tuple:</p>
+                <p><span class="math display">\[
+                p = (e, b, t_0, t_1)
+                \]</span></p>
+                <p>where:</p>
+                <ul>
+                <li><span class="math inline">\(e\)</span> is an
+                element,<br />
+                </li>
+                <li><span class="math inline">\(b\)</span> is a
+                boundary,<br />
+                </li>
+                <li><span class="math inline">\(t_0\)</span> is the
+                onset time,<br />
+                </li>
+                <li><span class="math inline">\(t_1\)</span> is the
+                reset time.</li>
+                </ul>
+                <p>These presences are modeled as sections over open
+                sets in a topological space <span
+                class="math inline">\(E \\\times B \\\times
+                \\\mathbb{R}\)</span>. The goal is to understand how
+                such systems behave as the observation window expands
+                over time.</p>
+                <p>We define <span
+                class="math inline">\(\\\mathcal{T}_T\)</span> as the
+                topology on <span class="math inline">\(E \\\times B
+                \\\times [T_0, T_1)\)</span>, and <span
+                class="math inline">\(\\\mathcal{S}_T\)</span> as the
+                sheaf of presence sections over this topology.</p>
+                <h2
+                id="epistemically-incomplete-presences">Epistemically
+                Incomplete Presences</h2>
+                <p>To handle presences with unknown start or end times,
+                we introduce special values:</p>
+                <ul>
+                <li><span class="math inline">\(t_0 = \\\bot\)</span>
+                (unknown or infinite past)<br />
+                </li>
+                <li><span class="math inline">\(t_1 = \\\top\)</span>
+                (unknown or infinite future)</li>
+                </ul>
+                <p>These encode epistemically incomplete assertions and
+                are critical when discussing convergence and
+                divergence.</p>
+                <p>Such assertions:</p>
+                <ul>
+                <li>Contribute partially to residence and incidence
+                metrics.</li>
+                <li>May intersect all future windows (<span
+                class="math inline">\(t_1 = \\\top\)</span>), thereby
+                affecting convergence.</li>
+                <li>Are treated as presences with <strong>non-compact
+                support</strong>.</li>
+                </ul>
+                <h2
+                id="conjecture-1-boundedness-is-necessary-for-convergence">Conjecture
+                1: Boundedness is Necessary for Convergence</h2>
+                <p>A presence sheaf <span
+                class="math inline">\(\\\mathcal{S}_T\)</span> is
+                <strong>divergent</strong> if it contains any assertion
+                with <span class="math inline">\(t_1 =
+                \\\top\)</span>.</p>
+                <p><strong>Conjecture:</strong> Boundedness of all
+                presence assertions is a <strong>necessary</strong>
+                condition for convergence:</p>
+                <p><span class="math display">\[
+                \\\forall p \\\in \\\bigcup_T \\\mathcal{P}_T,\quad t_1
+                &lt; \\\infty
+                \]</span></p>
+                <p>This ensures that all presences fully resolve within
+                finite observation windows.</p>
+                <h2
+                id="conjecture-2-stabilization-is-sufficient-for-convergence">Conjecture
+                2: Stabilization is Sufficient for Convergence</h2>
+                <p>Let <span
+                class="math inline">\(\\\operatorname{res}_{T+\\\delta,T}\)</span>
+                be the restriction map:</p>
+                <p><span class="math display">\[
+                \\\operatorname{res}_{T+\\\delta,T}:
+                \\\mathcal{S}_{T+\\\delta} \\\to \\\mathcal{S}_T
+                \]</span></p>
+                <p><strong>Conjecture:</strong> If there exists <span
+                class="math inline">\(T^*\)</span> such that for all
+                <span class="math inline">\(T &gt; T^*\)</span>, these
+                maps are isomorphisms, then the sheaf has
+                <strong>converged</strong>:</p>
+                <ul>
+                <li>No new global sections appear.</li>
+                <li>Existing global sections stabilize.</li>
+                </ul>
+                <h2
+                id="conjecture-3-local-finiteness-required-for-metric-convergence">Conjecture
+                3: Local Finiteness Required for Metric Convergence</h2>
+                <p>Let <span class="math inline">\(U \\\subseteq E
+                \\\times B \\\times \\\mathbb{R}\)</span> be any bounded
+                open set.</p>
+                <p><strong>Conjecture:</strong> The sheaf <span
+                class="math inline">\(\\\mathcal{S}_T\)</span> supports
+                meaningful metric convergence (e.g., residence time,
+                incidence rate) only if:</p>
+                <p><span class="math display">\[
+                \\\forall U,\quad \\\text{the number of presence
+                assertions intersecting } U \\\text{ is finite}
+                \]</span></p>
+                <p>This implies that the sheaf is <strong>locally of
+                finite type</strong>.</p>
+                <h2 id="summary">Summary</h2>
+                <p>We propose that convergence of presence sheaves
+                requires:</p>
+                <ol type="1">
+                <li><strong>Boundedness</strong> — no presence persists
+                indefinitely.<br />
+                </li>
+                <li><strong>Stabilization</strong> — restriction maps
+                stabilize global sections.<br />
+                </li>
+                <li><strong>Local Finiteness</strong> — only finitely
+                many presences intersect any bounded region.</li>
+                </ol>
+                <p>These conditions together characterize when a flow
+                system modeled in the presence calculus can be said to
+                converge topologically. Each is individually testable
+                and contributes to a coherent foundation for reasoning
+                about dynamic systems and evolving domains.</p>
+                <blockquote>
+                <p>These are currently proposed as
+                <strong>conjectures</strong> pending formal proof.</p>
+                </blockquote>
+      </div>
 </body>
 </html>

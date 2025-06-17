@@ -166,99 +166,186 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Georgia, serif;
+      font-size: 19px;
+      line-height: 1.75;
+      background: #fff;
+      color: #111;
+
+      /* flex centering */
+      display: flex;
+      justify-content: center;
+    }
+
+    #page {
+      max-width: 880px;
+      width: 100%;
+      padding: 2.5rem 1.5rem;
+      box-sizing: border-box;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: Georgia, serif;
+      font-weight: bold;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    p {
+      margin: 1.25rem 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 2rem auto;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 1rem;
+      overflow-x: auto;
+      border-radius: 6px;
+    }
+
+    code {
+      font-family: SFMono-Regular, Consolas, monospace;
+      background: #f5f5f5;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+
+    blockquote {
+      margin: 2rem 0;
+      padding-left: 1rem;
+      border-left: 4px solid #ddd;
+      color: #666;
+      font-style: italic;
+    }
+
+    .subtitle, .author, .date {
+      color: #666;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    nav#TOC {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid #eee;
+      background: #fafafa;
+    }
   </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
   type="text/javascript"></script>
 </head>
 <body>
-<header id="title-block-header">
-<h1 class="title">Presence Signatures as Complex Log Coordinates</h1>
-<p class="author">Dr. Krishna Kumar, The Polaris Advisor Program</p>
-</header>
-<p>© 2025 Dr. Krishna Kumar, The Polaris Advisor Program,
-SPDX-License-Identifier: MIT</p>
-<p>This document proposes a natural complex-valued representation for
-presence dynamics, based on the multiplicative structure of the presence
-invariant.</p>
-<h2 id="the-presence-invariant">The Presence Invariant</h2>
-<p>Let:</p>
-<ul>
-<li>Average mass of presence: <span class="math display">\[ H
-\]</span></li>
-<li>Incidence rate (activations per unit time): <span
-class="math display">\[ \\\Lambda \]</span></li>
-<li>Residence time (average duration per activation): <span
-class="math display">\[ G \]</span></li>
-</ul>
-<p>Then the presence invariant is:</p>
-<p><span class="math display">\[
-H = \\\Lambda \\\cdot G
-\]</span></p>
-<p>This constraint defines a 2D surface in <span class="math display">\[
-\\\mathbb{R}^3 \]</span>:</p>
-<p><span class="math display">\[
-M = \\\{ (H, \\\Lambda, G) \\\in \\\mathbb{R}^3_{\\\geq 0} \\\mid H =
-\\\Lambda \\\cdot G \\\}
-\]</span></p>
-<h2 id="complex-embedding">Complex Embedding</h2>
-<p>Define the <strong>presence signature</strong> as a complex
-number:</p>
-<p><span class="math display">\[
-z := \\\log \\\Lambda + i \\\log G
-\]</span></p>
-<p>This gives:</p>
-<ul>
-<li><span class="math display">\[ \\\text{Re}(z) = \\\log \\\Lambda
-\]</span></li>
-<li><span class="math display">\[ \\\text{Im}(z) = \\\log G
-\]</span></li>
-<li><span class="math display">\[ H = e^z \]</span></li>
-</ul>
-<p>That is:</p>
-<p><span class="math display">\[
-\\\log H = \\\text{Re}(z) + \\\text{Im}(z)
-\]</span></p>
-<p>So:</p>
-<ul>
-<li><span class="math display">\[ \\\Lambda = e^{\\\text{Re}(z)}
-\]</span></li>
-<li><span class="math display">\[ G = e^{\\\text{Im}(z)} \]</span></li>
-<li><span class="math display">\[ H = e^z = e^{\\\log \\\Lambda + i
-\\\log G} = \\\Lambda \\\cdot G^i \]</span></li>
-</ul>
-<h2 id="interpretation">Interpretation</h2>
-<p>The complex number <span class="math display">\[ z \]</span>
-represents the <strong>log-flow signature</strong> of a presence
-regime:</p>
-<ul>
-<li>The <strong>angle</strong> <span class="math display">\[ \\\theta =
-\\\text{Arg}(z) = \\\tan^{-1}(\\\log G / \\\log \\\Lambda) \]</span>
-encodes the relative dominance of duration vs incidence.</li>
-<li>The <strong>modulus</strong> <span class="math display">\[ |z| =
-\\\sqrt{(\\\log \\\Lambda)^2 + (\\\log G)^2} \]</span> encodes the
-intensity of the regime.</li>
-<li>Total presence mass is recovered as <span class="math display">\[ H
-= e^z \]</span>.</li>
-</ul>
-<h2 id="geometric-insights">Geometric Insights</h2>
-<p>This embedding enables:</p>
-<ul>
-<li>Visualization of presence regimes as points in <span
-class="math display">\[ \\\mathbb{C} \]</span></li>
-<li>Clustering of flow modes by angular sectors</li>
-<li>A metric space over presence regimes:</li>
-</ul>
-<p><span class="math display">\[
-d(z_1, z_2) = |z_1 - z_2| = \\\sqrt{(\\\log \\\Lambda_1 - \\\log
-\\\Lambda_2)^2 + (\\\log G_1 - \\\log G_2)^2}
-\]</span></p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Mapping presence invariants to the complex plane via log-linear
-coordinates yields a rich geometric and algebraic structure. It captures
-the balance between incidence and residence as a
-<strong>direction</strong>, and the total flow accumulation as an
-<strong>exponential magnitude</strong>. This representation supports
-both visualization and metric analysis of dynamic flow systems.</p>
+  <div id="page">
+            <header id="title-block-header">
+      <h1 class="title">Presence Signatures as Complex Log
+Coordinates</h1>
+      
+      <p class="author">Dr. Krishna Kumar, The Polaris Advisor
+Program</p>
+      
+          </header>
+            <p>© 2025 Dr. Krishna Kumar, The Polaris Advisor Program,
+            SPDX-License-Identifier: MIT</p>
+            <p>This document proposes a natural complex-valued
+            representation for presence dynamics, based on the
+            multiplicative structure of the presence invariant.</p>
+            <h2 id="the-presence-invariant">The Presence Invariant</h2>
+            <p>Let:</p>
+            <ul>
+            <li>Average mass of presence: <span class="math display">\[
+            H \]</span></li>
+            <li>Incidence rate (activations per unit time): <span
+            class="math display">\[ \\\Lambda \]</span></li>
+            <li>Residence time (average duration per activation): <span
+            class="math display">\[ G \]</span></li>
+            </ul>
+            <p>Then the presence invariant is:</p>
+            <p><span class="math display">\[
+            H = \\\Lambda \\\cdot G
+            \]</span></p>
+            <p>This constraint defines a 2D surface in <span
+            class="math display">\[ \\\mathbb{R}^3 \]</span>:</p>
+            <p><span class="math display">\[
+            M = \\\{ (H, \\\Lambda, G) \\\in \\\mathbb{R}^3_{\\\geq 0}
+            \\\mid H = \\\Lambda \\\cdot G \\\}
+            \]</span></p>
+            <h2 id="complex-embedding">Complex Embedding</h2>
+            <p>Define the <strong>presence signature</strong> as a
+            complex number:</p>
+            <p><span class="math display">\[
+            z := \\\log \\\Lambda + i \\\log G
+            \]</span></p>
+            <p>This gives:</p>
+            <ul>
+            <li><span class="math display">\[ \\\text{Re}(z) = \\\log
+            \\\Lambda \]</span></li>
+            <li><span class="math display">\[ \\\text{Im}(z) = \\\log G
+            \]</span></li>
+            <li><span class="math display">\[ H = e^z \]</span></li>
+            </ul>
+            <p>That is:</p>
+            <p><span class="math display">\[
+            \\\log H = \\\text{Re}(z) + \\\text{Im}(z)
+            \]</span></p>
+            <p>So:</p>
+            <ul>
+            <li><span class="math display">\[ \\\Lambda =
+            e^{\\\text{Re}(z)} \]</span></li>
+            <li><span class="math display">\[ G = e^{\\\text{Im}(z)}
+            \]</span></li>
+            <li><span class="math display">\[ H = e^z = e^{\\\log
+            \\\Lambda + i \\\log G} = \\\Lambda \\\cdot G^i
+            \]</span></li>
+            </ul>
+            <h2 id="interpretation">Interpretation</h2>
+            <p>The complex number <span class="math display">\[ z
+            \]</span> represents the <strong>log-flow signature</strong>
+            of a presence regime:</p>
+            <ul>
+            <li>The <strong>angle</strong> <span class="math display">\[
+            \\\theta = \\\text{Arg}(z) = \\\tan^{-1}(\\\log G / \\\log
+            \\\Lambda) \]</span> encodes the relative dominance of
+            duration vs incidence.</li>
+            <li>The <strong>modulus</strong> <span
+            class="math display">\[ |z| = \\\sqrt{(\\\log \\\Lambda)^2 +
+            (\\\log G)^2} \]</span> encodes the intensity of the
+            regime.</li>
+            <li>Total presence mass is recovered as <span
+            class="math display">\[ H = e^z \]</span>.</li>
+            </ul>
+            <h2 id="geometric-insights">Geometric Insights</h2>
+            <p>This embedding enables:</p>
+            <ul>
+            <li>Visualization of presence regimes as points in <span
+            class="math display">\[ \\\mathbb{C} \]</span></li>
+            <li>Clustering of flow modes by angular sectors</li>
+            <li>A metric space over presence regimes:</li>
+            </ul>
+            <p><span class="math display">\[
+            d(z_1, z_2) = |z_1 - z_2| = \\\sqrt{(\\\log \\\Lambda_1 -
+            \\\log \\\Lambda_2)^2 + (\\\log G_1 - \\\log G_2)^2}
+            \]</span></p>
+            <h2 id="conclusion">Conclusion</h2>
+            <p>Mapping presence invariants to the complex plane via
+            log-linear coordinates yields a rich geometric and algebraic
+            structure. It captures the balance between incidence and
+            residence as a <strong>direction</strong>, and the total
+            flow accumulation as an <strong>exponential
+            magnitude</strong>. This representation supports both
+            visualization and metric analysis of dynamic flow
+            systems.</p>
+      </div>
 </body>
 </html>
