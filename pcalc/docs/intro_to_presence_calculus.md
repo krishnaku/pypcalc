@@ -2617,21 +2617,21 @@ log-space.
   This gives a scale-invariant measure of the strength of presence density  
   combining the effects of incidence and mass into a single magnitude.
 
-- The **phase angle** of $z$ represents the balance between rate and mass  
-  contributions:
+  - The **phase angle** of $z$ represents the balance between rate and mass  
+    contributions:
 
-  $$
-  \theta = \arg(z) = \tan^{-1} \left( \frac{\log \bar{m}}{\log \iota} \right)
-  $$
+    $$
+    \theta = \arg(z) = \tan^{-1} \left( \frac{\log \bar{m}}{\log \iota} \right)
+    $$
 
-  This tells us whether the system’s current trajectory is more rate-dominant
-  -ie due to lots of small signals with small mass  
-  (small $\theta$) or mass-dominant (larger $\theta$) or fewer signals with
-  large mass. It provides a directional sense of what’s driving the observed
-  evolution of presence density.
+    This tells us whether the system’s current trajectory is more rate-dominant
+    -ie due to lots of small signals with small mass (small $\theta$) or
+    mass-dominant (larger $\theta$) or fewer signals with large mass. $\theta$
+    provides a directional sense of what’s driving the observed evolution of
+    presence density.
 
-Together this allows us to represent the present density over any interval in
-polar co-ordinates as
+Put together $\|z\|$ and $\theta$ allow us to represent the present density over
+any interval in polar co-ordinates in log-space as
 $$
 z = \|z\| \cdot e^{i.\theta}
 $$
@@ -2667,32 +2667,50 @@ co-ordinates in the complex plane.
 </div>
 </div>
 
-This is obviously not particularly insightful in this form, but lets visualize
-this as a field of vectors with magnitude.
+Figure 25 is not particularly insightful, so let's visualize this as a field of
+vectors as in Figure 26. We will call this the flow field for the system.
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/flow_field.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-    Figure 26: Figure 25 visualized as a vector field 
+    Figure 26: Figure 25 visualized as a flow field 
   </div>
 </div>
 
-In this visualization, the grid represents rows and columns of the accumulation
-matrix which you will recall represents time intervals at different time scales.
+Lets dig into how this flow field is constructed and what it means.
+
+Starting with Figure 25, the grid represents rows and columns of the
+accumulation matrix.
 
 * Each cell is represented by the log-space vector of the presence density over
   that interval in polar coordinates.
-* The length of the vector encodes magnitude
-  %\|z\|$ and the orientation of the vector encodes $\theta$ in radians.
+* The length of the vector encodes magnitude $\|z\|$ and the orientation of the
+  vector encodes $\theta$ in radians.
 
-We will discuss how to interpret these visual indicators shortly.
+Since the matrix in Figure 25 is upper triangular, there is no significant
+information encoded in the bottom half of the matrix.
 
-Since the matrix is upper triangular, there is no significant information
-encoded in the bottom half of the matrix. So as a convention, we will show the
-flow field rotated by 90 degrees and interpret the coordinates on the flow field
-directly as time intervals instead of the rows and columns of the accumulation
-matrix. We will call this representation the flow field for the system of
-presences and it is a well-defined construct.
+So as a convention, when we visualize it we will drop the bottom half of the
+matrix and only show the entries in the upper diagonal.
+
+Now imagine this matrix rotated by 90 degrees so that entries on the diagonal
+are on the bottom row, the entries on the next diagonal are laid out above it,
+and so on until the we get to the top left entry in the matrix. The result in
+the pyramid shape of the flow field diagram in figure 26.
+
+Each vector in the flow field is drawn with a proportional magnitude and theta.
+
+Figure 26 compresses a tremendous amount information about the dynamics of a
+system into a very compact representation that is easy to scan and interpret
+visually as well as analytically.
+
+For the most part, in this view, we are not interested in absolute magnitudes or
+angles, but rather the relative change in magnitude and direction of these
+vectors as we sweep left to right in time along a row and from bottom to top in
+time scales across the rows. That is, the flow field encodes the _dynamics_ of
+the system across time and time scales. 
+
+Lets see how this encoding works. 
 
 
 <div style="text-align: center; margin:2em">
