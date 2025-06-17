@@ -2704,9 +2704,9 @@ Figure 26 compresses a tremendous amount information about the dynamics of a
 system into a very compact representation that is easy to scan and interpret
 visually as well as analytically.
 
-For the most part, in this view, we are not interested in absolute magnitudes or
-angles, but rather the relative change in magnitude and direction of these
-vectors as we sweep left to right in time along a row and from bottom to top in
+In this view, we are not interested in absolute magnitudes or angles for the
+most part. Rather we focus on the relative change in magnitude and direction of
+these vectors as we sweep left to right in time along a row and from bottom to top in
 time scales across the rows. That is, the flow field encodes the _dynamics_ of
 the system across time and time scales. 
 
