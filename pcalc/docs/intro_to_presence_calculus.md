@@ -338,7 +338,7 @@ an element at a boundary, and this has a real-valued presence mass. More
 generally, we can think of defining a presence over an arbitrary time varying
 function with real numbers as values.
 
-In general, such presence density function represent some underlying signal from
+In general, such presence density functions represent an underlying _signal_ from
 the domain that we are interested in measuring. So, in what follows, we will use
 the terms signal and presence density functions interchangeably, opting for the
 latter only those cases where we want to focus specifically on the fact that
