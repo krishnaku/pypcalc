@@ -1,75 +1,80 @@
-# The Presence Calculus, <br> A Gentle Introduction
+---
+title: "<strong>The Presence Calculus</strong>"
+subtitle: "<span style='font-size:1.2em;'>A Gentle Introduction</span>"
+author: |
+  Dr. Krishna Kumar  
+  <em>The Polaris Advisor Program</em>
+number-sections: true
+toc-depth: 2
+---
 
-**Dr. Krishna Kumar**  
-*The Polaris Advisor Program*
+## What is The Presence Calculus?
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pcalc/presence_calculus.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-    Figure 1: A System of Presences
+    Figure 1: The Presence Calculus - Key Concepts
   </div>
 </div>
 
-## 1. What is The Presence Calculus?
+The Presence Calculus is a quantitative model for reasoning about signal
+dynamics in a domain.
 
-The Presence Calculus is a quantitative model for reasoning about the  
-relationships between signals in a domain over time.
+Its purpose is to support principled modeling and rigorous decision-making using
+operational data and signals in business-critical contexts. It aims to ensure
+that such decisions rest on a mathematically precise, logically coherent, and
+epistemically grounded foundation.
 
-It's purpose is to better support principled modeling and rigorous
-decision-making with operational data in business-critical domains. A key
-objective was to ensure that the use of data in such decisions rests on a
-mathematically precise, logically coherent, and epistemically grounded
-foundation.
+The presence calculus emerged from a search for better tools to reason about
+operations management in software product development and engineering—domains
+where prevailing approaches to measurement fall short in all three dimensions.
 
-The presence calculus emerged from a search for better quantitative tools to
-reason about operations management in software product development and
-engineering, where current approaches to measurement leave much to be desired in
-all three aspects.
+At a minimum, its foundational constructs bring mathematical precision to widely
+used—but poorly defined—concepts such as flow, stability, equilibrium, and
+coherence for measurable signals in a domain.
 
-Minimally, the foundational constructs of the calculus bring mathematical  
-precision to widely used—but poorly defined—concepts such as flow, stability,
-equilibrium, and coherence in a domain. More importantly, it allows us to relate
-them to business-oriented concerns like delay, cost, revenue, and user
-experience.
+More importantly, it offers a set of uniform abstractions and computational
+tools that connect low-level activity signals to business-relevant signals such
+as delay, cost, revenue, and user experience.
 
-As you’ll see, however, the core concepts behind the calculus are far more
-general, with potential applications well beyond the software context it emerged
-from.
+For software development, this enables the construction of context-specific
+measurement models for operational improvement.
+
+As we’ll see, however, the core ideas of the calculus are more general, with
+potential applications well beyond the software domain in which it originated.
 
 ### The pitch
 
 We introduce the simple but powerful concept of a *presence*.
 
-This lets us reason about time, history and evolution of a set of _signals_ that
-measure time-varying properties of a domain using techniques from measure
-theory, topology and complex analysis.
+This lets us reason about the history and evolution of a set of _signals_ that
+measure time-varying properties of _elements_ that are present in a defined
+_boundary_ in a domain using techniques from measure theory, topology and
+complex analysis.
 
 Classical statistics and probability theory often struggle here.
+
 *History*—the sequence and structure of changes in the domain over time— is
 usually fenced off under assumptions like ergodicity, stationarity, and
 independence.
 
 Our thesis is that to move beyond simple descriptive statistics and statistical
 or probabilistic inference, and reason effectively about global and long run
-behavior of real world systems, we need
-analytical techniques that treat time and history as first-class concepts we can
-model and calculate with.
+behavior of many real world systems, we need analytical techniques that treat
+time and the history of signal interactions as first-class concepts we can model
+and calculate with.
 
-The presence calculus is a bridge that lets us combine statistical techniques
-with techniques from disciplines such as stochastic process dynamics, queueing
-theory, and complex systems science, to reason about the dynamics of such
-systems.
+The Presence Calculus is a novel, _constructive_ approach to this problem—an
+analytical framework for modeling _observed behavior_ in systems ranging from
+simple, linear, and ordered to non-linear, stochastic, adaptive, and complex,
+all based on a small, uniform set of underlying concepts rooted in a primitive
+notion called _presence_.
 
-We claim that it is a novel, constructive approach to do this from first
-principles in a domain - a new, general set of modeling and analytical tools for
-working with real world systems including non-linear, stochastic and complex
-adaptive systems.
-
-### Learning more about The Presence Calculus
+### Learning about the presence calculus
 
 While the calculus was developed with mathematical rigor, an equally important
 goal was not to let mathematics get in the way of understanding the simple but
-very powerful and general ideas the calculus embodies[^F1].
+very powerful ideas the calculus embodies[^F1].
 
 [^F1]: This document is the first step in that direction. We welcome feedback on
 how it can be improved,and the concepts clarified. Please feel free to open a
@@ -79,80 +84,88 @@ In this document, we'll motivate and introduce the key ideas in the calculus
 informally, with lots of evocative examples and simplifications to  
 illustrate concepts.
 
-In order to maintain rigor, some basic mathematical notation is used in key
-sections.
-We augment these with examples to build intuition throughout. However, given the
-nature of the material we have opted to stay on the side of precision rather
-than
-dilute the concepts, even in this "gentle" introduction.
+In order to maintain precision, mathematical definitions are used in key
+sections. We augment these with examples to build intuition throughout. However,
+given the nature of the material we have opted to stay on the side of rigor
+rather than dilute the concepts, even in this "gentle" introduction.
 
 If you are inclined to skim over anything with mathematical notation in it,
 working through the examples should be sufficient to grasp the key ideas and
 claims. However, for those who are comfortable with it, the mathematics should
 be easy to understand and verify.
 
-We recommend reading and understanding all the main ideas here before jumping
-deeper into the rest of the documentation at this site, which does get a fair
-bit more dense and technical.
+The presence calculus is constructive - specifically everything in the calculus
+has a computational aspect, and this document is designed to lay the framework
+for describing how to perform those computations in a step by step manner.
+
+This means that it is best to read the sections in order, as each section builds
+on the concepts from the previous sections systematically. The concepts are not
+particularly difficult to grasp, but they will make more sense if you take time
+to understand how they fit together in the order they are presented here.
+
+So even though it is a gentle introduction, it is not the kind of introduction
+that you will get as much value from if you simply skim this document.
 
 If that deeper dive is not your cup of tea, we'll continue with ongoing informal
 exposition on our
 blog [The Polaris Flow Dispatch](https://www.polaris-flow-dispatch.com), where
-we will focus mostly on applications of the ideas.
+we will focus mostly on informal exposition and applications of the ideas.
 
-This document can be thought as the middle ground: detailed enough to
-understand the concepts and ideas clearly and precisely, but just a starting
-point if you want to really dig deeper.
+If you are interested in working with the calculus, we recommend reading and
+understanding all the main ideas here before jumping deeper into the rest of the
+documentation at this site, which get a fair
+bit more dense and technical.
+
+This document can be thought as the middle ground: detailed enough to understand
+the concepts and even implement and extend them yourself if you are so inclined,
+but just a starting point if you want to really dig deeper.
 
 That next level of detail is in the API docs for [The Presence Calculus  
 Toolkit](https://py.pcalc.org).
 
-The toolkit is an open source python library that implements all the core
-concepts in the presence calculus. It is designed as an analytical middleware
+The toolkit is an open source reference implementation of the core concepts in
+the presence calculus. It is currently situated as a middleware
 layer suitable for interfacing real world operational systems and complex system
 simulation, to the analytical machinery of the presence calculus.
 
-In the API documentation, we go into the
-concepts at a level of rigor that you'll need to work with the pcalc API and
-apply the concepts. Some mathematical background will be useful here if you want
-to apply the concepts and extend beyond the core.
-
-If reading code is more your style than reading mathematical notation, then we
-recommend jumping into the code and running the examples (or writing your own)
-to understand how things work. If you find bugs, please raise them!
+In the API documentation, we go into the concepts at a level of rigor that
+you'll need to compute with the presence calculus and apply the concepts. The
+background and context from this document will be important if you want to apply
+the concepts from first principles and develop new applications.
 
 Finally, for those who want to dive deeper into the formal mathematical  
-underpinnings of the calculus, we have the theory track, which perhaps goes into
-more detail than most people will need to read or understand, but is useful for
-the mathematically trained to connect the ideas to their roots in mainstream
-mathematics.
+underpinnings of the calculus, there are links in the references and footnotes
+of this document. These go into more detail than a practitioner will need to
+read or understand, but is useful for the mathematically trained to validate the
+rationale for _why_ the presence calculus works.
 
 Let's jump in...
 
-### What is Presence?
+### Why presence?
 
-Presence is how reality reveals itself.
+Presence is what we observe about the world.
 
-We do not perceive the world as disjointed events in time, but rather as an
-unfolding—things come into being, endure for a time, and slip away.
+We do not experience reality as a sequence of discrete events in time, but as an
+unfolding—things are present, endure for a while, and then slip away.
 
-Permanence is just a form of lasting presence. What we call *change* is the  
-movement of presences in and out of our awareness, often set against that  
+Permanence is simply a form of lasting presence. What we call *change* is the
+movement of presences into and out of awareness, often set against that
 permanence.
 
-The sense of something being present—or no longer present—is our most  
-immediate way of detecting change. This applies to both the tangible—people,
-places, and things—and the intangible—emotions, feelings, and experiences.
+The sense that something is present—or no longer present—is our most immediate
+way of detecting change. This applies equally to the tangible—people, places,
+and things—and the intangible—emotions, feelings, and experiences.
 
-Either way, we reason about the world by reasoning about the presences and
-absences in our environment over time.
+Either way, reasoning about the presences and absences in our environment over
+time is key to understanding the dynamics of the world around us.
 
-The presence calculus begins here. Before we count, measure, compare, or  
-optimize, we observe what *is*.
+The Presence Calculus begins here.
 
-And what we model is presence.
+Before we count, measure, compare, or optimize, we observe what *is*.
 
-### An example
+And what we observe is presence.
+
+#### An example
 
 Imagine you see a dollar bill on the sidewalk on your way to get coffee.  
 Later, on your way back home, you see it again—still lying in the same spot. It
@@ -168,18 +181,15 @@ This simple act of inference is something we do all the time. We fill in gaps,
 assume continuity, and reason about what must have been present based on what we
 know from partial glimpses of the world.
 
-The presence calculus gives formal shape to this kind of inference—and shows how
-we can build upon it to *reason* about presence and *measure* its  
-effects in an environment.
+The presence calculus gives formal shape to this kind of inference about
+_things_,
+_places_ and _time_—and shows how we can build upon it to *reason* about
+presence and *measure* its effects in an environment.
 
-### A software example
+#### A software example
 
 Since the ideas here emerged from the software world, let’s begin with a  
 mundane, but familiar example: task work in a software team.
-
-By looking closely at how we reason about tasks, we can see how a subtle shift
-from an event-centered to a presence-centered perspective changes not just what
-we observe, but what we measure, and thus can reason about.
 
 We usually reason about task work using *events* and *snapshots* of the state  
 of a process in time. A task “starts” when it enters development, and  
@@ -191,7 +201,8 @@ When we look at a Kanban board, we see a point-in-time snapshot of where tasks
 are at that moment—but not how they got there. And by the time we read a summary
 report of how many tasks were finished and how long they took to go
 through the process on average, much of the history of the system that produced
-those measurements has been lost. That makes it hard to reason about *why*
+those measurements has been lost. They become mere descriptive statistics about
+the system at a point in time. That makes it hard to reason about *why*
 those measurements are the way they are.
 
 In software development, each task often has a distinct history—different  
@@ -209,12 +220,17 @@ statistics —things like cycle times, throughput, and work-in-process levels-
 over a rapidly changing process.
 
 We try to reason about a process which is shaped by its history, whose behavior
-emerges from non-uniform interactions of individual signals, with measurement
-techniques that struggle to represent or reason about that history or the
-interactions.
+emerges from non-uniform interactions of individual tasks, with measurement
+techniques that lack the ability to represent or reason about that history or
+the interactions.
 
 This is difficult to do, and we have no good tools right now that are fit for
 this purpose. This is where the presence calculus begins.
+
+By looking closely at how we reason about tasks in the presence calculus, we can
+see how a subtle shift from an event-centered to a presence-centered perspective
+changes not just what we observe, but what we measure, and thus can reason
+about.
 
 The calculus focuses on the time *in between* snapshots of history: when a task
 was present, where it was present, for how long, and whether its presence
@@ -226,10 +242,10 @@ presence*—through all of them, moving through time, interacting, crossing
 boundaries—a mathematical representation of history.
 
 With the presence calculus, these threads and their interactions across time and
-space can now be measured directly, dissected, and analyzed as first-class
-constructs—built on a remarkably simple primitive—the presence.
+space can now be measured directly, dissected, composed, and analyzed as
+first-class constructs—built on a remarkably simple primitive—the presence.
 
-### The heart of the matter
+#### The heart of the matter
 
 At its core, the calculus exploits the difference between the two independent
 statements—“The task started development on Monday” and “The task completed
@@ -245,12 +261,12 @@ But treating the presence as the primary object of reasoning—as a
 
 Specifically, it allows us to apply powerful mathematical tools that exploit the
 topology of time and the algebra of time intervals to reason about the
-interactions and emergent configurations of presences in a rigorous and
+interactions and configurations of presences in a rigorous and
 structured, and more importantly, computable way.
 
-## 2. What is a Presence?
+## What is a presence?
 
-Let's start by building intuition for the concept of presence. Consider the
+Let's start by building intuition for the concept. Consider the
 statement: “The task $X$ was in Development from Monday to Friday.”
 
 In the presence calculus, this would be expressed as a statement of the form:
@@ -262,20 +278,24 @@ measured using some timescale.
 
 So why do we say “with mass 1”?
 
-The presence calculus treats time as a physical dimension, much like space. Just
-as matter occupies space, presences occupy time. Just as mass quantifies *how*
-matter occupies space, the mass of a presence quantifies *how* a presence
-occupies time.
+> The presence calculus treats time as a physical dimension, much like space.
+> Just
+> as matter occupies space, presences occupy time. Just as mass quantifies *how*
+> matter occupies space, the mass of a presence quantifies *how* a presence
+> occupies time.
 
 The statement “The task $X$ was in Development from Monday through Friday” is a
-**binary presence** with a uniform mass of 1 over the entire duration. The units
+*binary presence* with a uniform mass of 1 over the entire duration. The units
 of this mass are element-time—in this case, task-days.
 
 Binary presences are sufficient to describe the *fact* of presence or absence  
 of things in places in a domain. These presences always have mass 1 in whatever
 units we use for elements and time.
 
-### Presence mass
+Typically, but not always, these represent the presence or absence of activity
+in a domain and can also be considered _activity signals_.
+
+### Presence mass: the manifestation of presence
 
 Let's consider a different set of statements:
 
@@ -287,15 +307,16 @@ They describe the **load** that task $X$ placed on the Development boundary
 over time.
 
 The units of this presence are developer-days - potentially in a completely
-different space from the task, but grounded over the same time interval as the
+different dimension from the task, but grounded over the same time interval as
+the
 task.
 
 Here we are saying: "the task being in this boundary over this time period, had
-this effect."
+this effect in a related dimension."
 
-We will describe this using a presence with an arbitrary real valued mass. We
-will assume that there is some function, called $\mathsf{load}$ in this case,
-that computes this mass.
+We will describe this using a presence with an arbitrary _real valued mass_. We
+will assume that there is some function, that computes this mass. In our
+example, let's call this function $\mathsf{load}.$
 
 The presence can then be described as
 
@@ -312,7 +333,7 @@ interval $[t_0, t_1]$, defined as:
 
 $$ \text{mass} = \int_{t_0}^{t_1} \mathsf{load}(e, b, t)\, dt $$
 
-where $\mathsf{load}$ is called a presence density function [^F2].
+where $\mathsf{load}$ is called a _presence density function_ [^F2].
 
 [^F2]: If integration signs in a "gentle" introduction feels like a
 bait-and-switch, rest assured, for the purposes of this document you just need
@@ -324,7 +345,7 @@ Binary presences are much easier to understand intuitively, but the real power
 of the presence calculus comes from generalizing to *presence density
 functions*.
 
-### Domain Signals and Presence Density Functions
+### Presence density functions _aka_ Signals
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/presence_definition.png" width="600px" />
@@ -333,21 +354,20 @@ functions*.
   </div>
 </div>
 
-In our earlier example, we showed a presence that described the *load* placed on
-an element at a boundary, and this has a real-valued presence mass. More
-generally, we can think of defining a presence over an arbitrary time varying
-function with real numbers as values.
+We can extrapolate from the example of the load function and think of defining a
+presence over an arbitrary time varying function with real numbers as values. We
+will call these _presence density functions._
 
-In general, such presence density functions represent an underlying _signal_ from
-the domain that we are interested in measuring. So, in what follows, we will use
-the terms signal and presence density functions interchangeably, opting for the
+Such functions represent an underlying _signal_ from the domain that we are
+interested in measuring. In what follows, we will use the terms signal and
+presence density functions interchangeably, opting for the
 latter only those cases where we want to focus specifically on the fact that
 what we are representing about the signal is the "amount" of the signal (its
 presence) over time.
 
 As shown in Figure 2, the mass of a presence density function, over any given
-time *interval* $[t_0, t1)$ is the integral over the interval, which is also the
-area under the signal over that interval[^F3].
+time *interval* $[t_0, t1)$ is the _integral of the function_ over the interval,
+which is also the area under the signal over that interval[^F3].
 
 [^F3]: The way we've defined signals and mass is directly  
 analogous to how mass is defined for matter occupying space in physics.
@@ -376,16 +396,12 @@ This is where measure theory enters the picture. It’s not essential to
 understand the full technical details, but at its core, measure theory tells us
 which kinds of functions are measurable—in other words, which functions can
 support meaningful accumulation, comparison, and composition of values via
-integration.
+_integration_.
 
-When a presence density functions (signal) is measurable,it gives us the
+When a presence density functions (signal) is measurable, it gives us the
 confidence to do things like compute statistics, aggregate over elements or
 boundaries, and compose presence effects—while preserving the semantics of the
 domain.
-
-Informally, when a presence density function is a measurable we can treat its
-values like any other real number and do math over them, as long as we carefully
-respect the units involved.
 
 From our perspective, a presence density function is a domain signal whose value
 that can be *accumulated* across time and across presences.
@@ -397,29 +413,29 @@ semantically sound.
 
 ### More examples
 
-Let's firm up our intuition about what presences can describe with a few more  
-examples of presence density functions.
+Let's firm up our intuition about what signals in the presence calculus can
+describe with a few more examples of presence density functions.
 
 #### "Work" in software
 
 If you've ever written a line of code in your life, you’ve heard the question:  
-“When will it be done?” Work in software can be a slippery, fungible concept—  
+“When will it be done?” Work in software can be a slippery, fungible concept—
 and the presence calculus offers a useful way to describe it.
 
-We can express the work on a task using a presence density function whose  
-value at time $t$ is the *remaining* work on the task at $t$.
+We can express the work on a task using a presence density function whose value
+at time $t$ is the *remaining* work on the task at $t$.
 
 This lets us model tasks whose duration is uncertain in general, but whose  
 remaining duration can be estimated, subject to revision, at any given time—a
 common scenario in software contexts.
 
-A series of presences, where the (non-zero) mass of each presence corresponds  
-to the total remaining work over its interval (interpreting the integral as a  
-sum), gives us a way to represent *work as presence*.
+A series of presences, where the (non-zero) mass of each presence corresponds to
+the total remaining work over its interval (interpreting the integral as a sum),
+gives us a way to represent *work as presence*.
 
 Such presences can represent estimates, forecasts, or confidence-weighted  
-projections—and as we'll see shortly, they can be reasoned about and computed  
-with just like any other kind of presence.
+projections—and as we'll see, they can be reasoned about and computed with just
+like any other kind of presence.
 
 #### The effects of interruptions
 
@@ -455,18 +471,17 @@ the impact of binary presences—capturing their downstream or distributed effec
 over time, and reasoning about their relationship over a shared timeline.
 
 Another important use case in the same vein is modeling the cost of delay for a
-portfolio-level element—and analyzing its cascading impact across the  
-portfolio.
+portfolio-level element—and analyzing its cascading impact across a portfolio.
 
-These use cases show that it is possible to analyze not just binary presences,  
-but entire chains of influence they exert across a timeline—a key prerequisite  
-for reasoning about causality.
+These use cases show that it is possible to analyze not just binary presences,
+but entire chains of influence they exert across a timeline—a key prerequisite
+for causal reasoning.
 
 #### Self-reported developer productivity
 
-Imagine a developer filling out a simple daily check-in:  
-"How productive did you feel today?"—scored from 1 to 5, or sketched out as a  
-rough curve over the day[^F4].
+Imagine a developer filling out a simple daily check-in: "How productive did you
+feel today?"—scored from 1 to 5, or sketched out as a rough curve over the
+day[^F4].
 
 [^F4]: The use of a rough curve here is an example of how presences can encode  
 continuous inputs more effectively than discrete techniques, thanks to their  
@@ -475,30 +490,32 @@ Likert scale often loses valuable nuance—whereas a fine-grained presence
 captures temporal variation with ease, making it available for downstream  
 analysis.
 
-Over a week, this forms a presence density function—not of the developer in a  
+Over a week, this forms a presence density function—not of the developer in a
 place, but of their *sense* of productivity over time.
 
 These types of presences, representing perceptions, are powerful—helping  
 teams track experience, spot early signs of burnout, or correlate perceived  
-flow with meetings, environment changes, build failures, or interruptions.
+productivity with meetings, environment changes, build failures, or
+interruptions.
 
 Now, let's look at some examples outside software development.
 
 #### Browsing behavior on an e-commerce site
 
-Imagine a shopper visiting an online store. They spend 90 seconds browsing  
-kitchen gadgets, then linger for five full minutes comparing high-end  
+Imagine a shopper visiting an online store. They spend 90 seconds browsing
+kitchen gadgets, then linger for five full minutes comparing high-end
 headphones, before briefly glancing at a discounted blender.
 
 Each of these interactions can be modeled as a presence: the shopper's  
 (element) attention occupying different parts of the site (boundaries) over  
-time. The varying durations reflect interest, and the shifting presence
-reveals  
-patterns of engagement.
+time. The varying durations reflect interest, and the shifting presence reveals
+patterns of engagement in a population of visitors in a boundary (an area of the
+site).
 
-By analyzing these presences—where and for how long attention dwells—we can  
-begin to understand preferences, intent, and even the likelihood of conversion  
-(modeled as a different presence density function).
+By analyzing these presences across visitors to the site —where and for how long
+attention dwells—we can begin to understand population level preferences,
+intent, and even the likelihood of conversion (modeled as a different presence
+density function).
 
 #### Patient movement in a hospital
 
@@ -506,31 +523,31 @@ Consider a patient navigating a hospital stay. They spend the morning in
 radiology, move to a recovery ward for several hours, then are briefly  
 transferred to the ICU overnight.
 
-Each location records a presence—when and where the patient was, and for how  
-long. These presences can reveal bottlenecks, resource utilization, and  
+Each location records a presence—when and where the patient was, and for how
+long. These presences can reveal bottlenecks, resource utilization, and
 potential risks.
 
 Over time, analyzing patient presences helps surface patterns in care  
 delivery, delays in treatment, and opportunities for improving patient flow.
 
-These are examples of classic operations management problems expressed in the  
-language of the presence calculus. The calculus is well-suited to modeling  
+These are examples of classic operations management problems expressed in the
+language of the presence calculus. The calculus is well-suited to modeling
 scenarios like these as a base case.
 
-## 3. Systems of Presences
+### Presence: a summary
 
 Let's summarize what we've described so far.
 
 With signals and presences, we now have a framework for describing and measuring
-the behavior of time-varying domain signals—each representing how a
-specific element behaves within a given boundary.
+the behavior of time-varying domain signals—each representing how a specific
+element behaves within a given boundary.
 
 The key feature of a presence is that it abstracts these behaviors into a
-uniform representation—one that we can reason about and compute with.
+uniform representation—one we can reason about and compute with.
 
-To summarize, a general presence is defined by:
+Formally, a general presence is defined by:
 
-- a density function $f(e, b, t)$,
+- a presence density function (or signal) $f(e, b, t)$,
 - an element $e$,
 - a boundary $b$,
 - and a time interval $[t_0, t_1]$.
@@ -540,13 +557,31 @@ Its **mass** is the integral of $f$ over the interval:
 $$ \text{mass}(e, b, [t_0, t_1]) = \int_{t_0}^{t_1} f(e, b, t)\, dt $$
 
 This mass captures both *that* the element was present, and *how* it was  
-present—uniformly, variably, or intermittently—over the time interval of the
-presence.
+present—uniformly, variably, or intermittently—over the interval.
+
+Intuitively, you can think of _integration_ as the mathematical process by
+which we construct a continuous temporal model from discrete events in a domain.
+
+Sensors in the real world often generate both discrete event streams and
+continuous signals. Modeling all signals uniformly as presences with temporal
+mass is the first step toward analyzing interactions and dynamics _across_
+heterogeneous signals within a domain.
+
+## Systems of presences
+
+In this section we will move from single presence density functions to systems
+of signals representing presence density functions for many elements and
+boundaries in a domain.
+
+A key aspect to note about the presence calculus is that we represent fine
+grained signals corresponding to indiviudal elements in a domain and study how
+these interact in time to produce cumulative effects.
+
 
 <div style="text-align: center; margin:2em">
   <img src="../assets/pandoc/pdf_examples.png" width="600px" />
   <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-    Figure 3: Signals and Presences
+    Figure 3: A System of Presences
   </div>
 </div>
 
@@ -585,7 +620,7 @@ All we require is that the interval chosen for the presence calculation
 intersects a region of non-zero area from the signal that can be reduced to a
 non-zero presence mass.
 
-### Presence Assertions
+### Presence assertions
 
 Thus presence is best thought of as a *sampled measurement* of the underlying
 signal, taken by an *observer* over a specific time interval, which yields a
@@ -740,7 +775,7 @@ path dependent element-boundary signals.
 What we choose to model fundamentally shapes the system we are able to reason
 about—and the presence calculus provides a powerful foundation for doing so.
 
-## 4. Co-Presence and The Presence Invariant
+## Co-Presence and the Presence Invariant
 
 In the last section, we introduced systems of presences as collections of
 presence assertions, which are derived from observable signals.
@@ -885,7 +920,7 @@ that directly govern how a system of presences behaves in time.
 Exploiting this constraint allows us to study and characterize the long-run
 behavior of a system.
 
-### Binary Presences and Little's Law
+### Binary presences and Little's Law
 
 At this stage, the presence invariant may still feel a bit abstract. Let's make
 it more concrete by interpreting this identity in the special case of *binary*
@@ -969,7 +1004,8 @@ at equilibrium when observed over sufficiently long observation windows such
 that the observer-relative and task-relative values of average presence density,
 incidence rate and average presence mass converge.
 
-Since complex systems often operate far from equilibrium—and since the presence
+Since real-world systems often operate far from equilibrium—and since the
+presence
 invariant holds *regardless* of equilibrium—the finite-window form becomes far
 more valuable for analyzing the long-run behavior of such systems as they *move
 into and between* equilibrium states.
@@ -1061,7 +1097,7 @@ of a system of presences over time.
 We will now introduce a tool called the presence matrix that makes it easier to
 visualize and manage the computations involved in doing so.
 
-## 5. The Presence Matrix
+## The Presence Matrix
 
 A *presence matrix* records the presence mass distribution obtained by sampling
 a set of presence density functions over a fixed set of time intervals.
@@ -1475,7 +1511,7 @@ $$
 That is, $A(i,j)$ gives the total presence mass of all signals across the 
 interval $[i,j]$.
 
-### Properties
+#### Properties
 
 - $A$ is upper triangular: $A(i,j)$ is defined only when $i \leq j$.
 - The diagonal entries $A(i,i)$ equal the column sums of $P$.
@@ -1486,7 +1522,7 @@ interval $[i,j]$.
 As we will see below, this matrix compactly encodes multi-scale information about system behavior 
 and supports the analysis of both micro and macro scale behavior of a system of presences. 
 
-## 6. Applying the Presence Calculus
+## Applying the Presence Calculus
 
 The presence calculus might seem like a highly abstract, theoretical framework,
 but much of its utility emerges when we *interpret* its concepts in a specific,
@@ -1519,10 +1555,10 @@ defies long-term prediction.
 Still, we can represent the behavior and evolutions of such systems as
 deterministic trajectories through a parameter space, uncovering structure even
 where precise global behavior remain unpredictable. In much the same way, the
-presence calculus does not seek to forecast the exact evolution of complex
-systems. Instead, by explicitly modeling signal histories and representing
-element trajectories over time, it equips us with powerful descriptive and
-explanatory tools.
+presence calculus does not seek to forecast the exact evolution of systems of
+presences. Instead, by explicitly modeling signal histories and representing
+element trajectories over time, it equips us with powerful descriptive and tools
+to explain how these systems evolved retrospectively.
 
 In this way, structural constraints and local invariants help us interpret
 locally observed dynamics and connect it to system behavior at the macro scale.
@@ -1800,7 +1836,7 @@ operational state.
 
 One of the major practical applications of the presence calculus is to  
 bring new analytical tools to *observe*, *categorize*, and *steer* the  
-behavior of such complex systems — aligning them with the desired modes of  
+behavior of such systems — aligning them with the desired modes of  
 operation in a given domain, *before* critical tipping points are reached.
 
 ### Detecting Convergence

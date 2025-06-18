@@ -247,444 +247,571 @@
 </head>
 <body>
   <div id="page">
-                <h1
-                id="presence-calculus-topology-sheaf-semantics-and-matrix-representations">Presence
-                Calculus: Topology, Sheaf Semantics, and Matrix
-                Representations</h1>
-                <p>This document presents a mathematically coherent view
-                of the presence calculus, tracing its topological
-                underpinnings and their expression through sheaf theory.
-                It addresses practical representations such as the
-                presence matrix while ensuring that all definitions are
-                compatible with formal mathematical constraints.</p>
-                <p>We begin by defining the topology induced by presence
-                assertions, then describe how element trajectories arise
-                as connected components. We show how the notion of an
-                observation window fits within this topological
-                framework and explain the relationship between presence
-                matrices and the sheaf of presence assertions.</p>
-                <h1 id="presence-assertions">Presence Assertions</h1>
-                <p>The fundamental object of the presence calculus is
-                the <strong>presence assertion</strong>.</p>
-                <p>A <strong>presence assertion</strong> is a
-                4-tuple:</p>
-                <p><span class="math display">\[
-                p = (e, b, t_0, t_1)
-                \]</span></p>
-                <p>where: - <span class="math inline">\(e \in E\)</span>
-                is an element (a thing that can be present), - <span
-                class="math inline">\(b \in B\)</span> is a boundary (a
-                place or context), - <span class="math inline">\([t_0,
-                t_1) \subset \mathbb{R}\)</span> is a half-open time
-                interval during which <span
-                class="math inline">\(e\)</span> is asserted to be
-                present in <span class="math inline">\(b\)</span>.</p>
-                <h3 id="the-space-of-all-potential-presences">The Space
-                of All Potential Presences</h3>
-                <p>The set of all <em>possible</em> presence assertions
-                is the product space:</p>
-                <p><span class="math display">\[
-                \mathcal{P}_{\text{all}} = E \times B \times \mathbb{R}
-                \times \mathbb{R}
-                \]</span></p>
-                <p>subject to the constraint that <span
-                class="math inline">\(t_0 &lt; t_1\)</span>.</p>
-                <h3 id="the-set-of-actual-presences">The Set of Actual
-                Presences</h3>
-                <p>In any given system or model, only a subset of these
-                possible tuples are asserted to hold. This subset is
-                denoted:</p>
-                <p><span class="math display">\[
-                \mathcal{P}_{\text{obs}} \subset
-                \mathcal{P}_{\text{all}}
-                \]</span></p>
-                <p>and is treated as given (e.g., from observation,
-                logs, or domain assertions). The presence calculus
-                operates entirely on this set of <strong>actual presence
-                assertions</strong>.</p>
-                <h3
-                id="characteristic-function-view-clarification">Characteristic
-                Function View (Clarification)</h3>
-                <p>While earlier formulations introduced a function:</p>
-                <p><span class="math display">\[
-                P : E \times B \times \mathbb{R} \times \mathbb{R} \to
-                \mathbb{R}
-                \]</span></p>
-                <p>such a function should be interpreted, if used, as
-                the <strong>characteristic function</strong> of the set
-                <span
-                class="math inline">\(\mathcal{P}_{\text{obs}}\)</span>:</p>
-                <p><span class="math display">\[
-                P(e, b, t_0, t_1) =
-                \begin{cases}
-                1 &amp; \text{if } (e, b, t_0, t_1) \in
-                \mathcal{P}_{\text{obs}} \\
-                0 &amp; \text{otherwise}
-                \end{cases}
-                \]</span></p>
-                <p>This representation is useful for certain forms of
-                analysis or aggregation, but the presence assertion
-                itself is fundamentally the <strong>tuple</strong> <span
-                class="math inline">\((e, b, t_0, t_1)\)</span>, not the
-                value of a function.</p>
-                <hr />
-                <h2 id="practical-interpretation">Practical
-                Interpretation</h2>
-                <p>A presence assertion is a primitive fact: “Element
-                <span class="math inline">\(e\)</span> was present in
-                boundary <span class="math inline">\(b\)</span>
-                continuously from time <span
-                class="math inline">\(t_0\)</span> to <span
-                class="math inline">\(t_1\)</span>.” No assumptions are
-                made about how this assertion was derived—whether from
-                physical sensors, logs, or logical inference. The
-                presence calculus treats all such assertions as
-                axiomatic inputs. We will use the example below to
-                illustrate how we define and construct the topology of
-                presences assertions over a domain.</p>
-                <div style="text-align: center; margin:2em">
-                <img src="../assets/pandoc/presence_topology_example.png" width="600px" />
-                <div
-                style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-                <pre><code>Figure 1: A set of presence assertions over a domain</code></pre>
-                </div>
-                </div>
-                <hr />
-                <hr />
-                <h1 id="presence-topology">Presence Topology</h1>
-                <p>Let <span class="math inline">\(D\)</span> be the
-                domain of entities and boundaries, and let presence
-                assertions be defined over the space <span
-                class="math inline">\(E \times B \times \mathbb{R}
-                \times \mathbb{R}\)</span>, where each presence
-                assertion corresponds to a tuple <span
-                class="math inline">\((e, b, t_0, t_1)\)</span>.</p>
-                <p>We define a topology <span
-                class="math inline">\(\mathcal{T}\)</span> on this space
-                by specifying a basis of open sets. Each basis element
-                is defined by a tuple of the form:</p>
-                <p><span class="math display">\[
-                U_{e,b,I} = \{ (e&#39;, b&#39;, t_0&#39;, t_1&#39;) \mid
-                e&#39; = e, b&#39; = b, [t_0&#39;, t_1&#39;) \subset I
-                \}
-                \]</span></p>
-                <p>where <span class="math inline">\(e \in E\)</span>,
-                <span class="math inline">\(b \in B\)</span>, and <span
-                class="math inline">\(I = (a, b) \subset
-                \mathbb{R}\)</span> is an open interval on the time
-                axis.</p>
-                <p>The collection of all such <span
-                class="math inline">\(U_{e,b,I}\)</span> for all <span
-                class="math inline">\(e\)</span>, <span
-                class="math inline">\(b\)</span>, and open intervals
-                <span class="math inline">\(I\)</span> forms a basis for
-                the presence topology <span
-                class="math inline">\(\mathcal{T}\)</span>.</p>
-                <h2 id="intuition">Intuition</h2>
-                <p>Each basis element isolates a specific element and
-                boundary, and considers all presence intervals entirely
-                contained within a given time window. This yields a
-                natural notion of “local neighborhood” around a
-                presence, and allows us to define continuity,
-                clustering, and flow across the space of presences.</p>
-                <h2 id="use">Use</h2>
-                <p>This topology underpins definitions of co-presence,
-                continuity, and topological observables such as
-                connected components, accumulation zones, and
-                persistence regions.</p>
-                <hr />
-                <h1
-                id="topological-basis-for-presence-assertions">Topological
-                Basis for Presence Assertions</h1>
-                <p>Based on the provided presence diagram, we define the
-                topological basis over the space <span
-                class="math inline">\(E \times B \times \mathbb{R}
-                \times \mathbb{R}\)</span> using the presence
-                calculus.</p>
-                <h2 id="observed-presence-assertions">Observed Presence
-                Assertions</h2>
-                <p>Each presence assertion corresponds to a 4-tuple
-                <span class="math inline">\((e, b, t_0, t_1)\)</span>,
-                where: - <span class="math inline">\(e\)</span> is an
-                entity (element), - <span
-                class="math inline">\(b\)</span> is a boundary, - <span
-                class="math inline">\([t_0, t_1)\)</span> is the
-                half-open time interval of presence.</p>
-                <p>From the diagram, we identify the following presence
-                assertions:</p>
-                <table>
-                <thead>
-                <tr>
-                <th>Element</th>
-                <th>Boundary</th>
-                <th>Interval</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                <td>e1</td>
-                <td>B1</td>
-                <td>[1, 6)</td>
-                </tr>
-                <tr>
-                <td>e3</td>
-                <td>B1</td>
-                <td>[3, 10)</td>
-                </tr>
-                <tr>
-                <td>e1</td>
-                <td>B1</td>
-                <td>[11, 13)</td>
-                </tr>
-                <tr>
-                <td>e1</td>
-                <td>B2</td>
-                <td>[1, 6)</td>
-                </tr>
-                <tr>
-                <td>e4</td>
-                <td>B2</td>
-                <td>[3, 10)</td>
-                </tr>
-                <tr>
-                <td>e1</td>
-                <td>B2</td>
-                <td>[11, 13)</td>
-                </tr>
-                </tbody>
-                </table>
-                <h2 id="topological-basis-construction">Topological
-                Basis Construction</h2>
-                <p>We define a topology <span
-                class="math inline">\(\mathcal{T}\)</span> on the
-                presence space by specifying a basis of open sets. Each
-                basis element is of the form:</p>
-                <p><span class="math display">\[
-                U_{e,b,I} = \{ (e&#39;, b&#39;, t_0&#39;, t_1&#39;) \mid
-                e&#39; = e, b&#39; = b, [t_0&#39;, t_1&#39;) \subset I
-                \}
-                \]</span></p>
-                <p>where <span class="math inline">\(I \subset
-                \mathbb{R}\)</span> is an open interval containing the
-                presence interval <span class="math inline">\([t_0,
-                t_1)\)</span>.</p>
-                <h2 id="example-basis-elements">Example Basis
-                Elements</h2>
-                <ul>
-                <li><span class="math inline">\(U_{e1, B1, (0.9,\
-                6.1)}\)</span></li>
-                <li><span class="math inline">\(U_{e3, B1, (2.9,\
-                10.1)}\)</span></li>
-                <li><span class="math inline">\(U_{e1, B1, (10.9,\
-                13.1)}\)</span></li>
-                <li><span class="math inline">\(U_{e1, B2, (0.9,\
-                6.1)}\)</span></li>
-                <li><span class="math inline">\(U_{e4, B2, (2.9,\
-                10.1)}\)</span></li>
-                <li><span class="math inline">\(U_{e1, B2, (10.9,\
-                13.1)}\)</span></li>
-                </ul>
-                <p>Each basis element defines a neighborhood around a
-                specific element in a specific boundary, over an open
-                interval containing a full presence span.</p>
-                <h2 id="interpretation">Interpretation</h2>
-                <p>These basis elements allow us to reason about local
-                neighborhoods of presence, enabling analysis of
-                continuity, clustering, transitions, and proximity in
-                presence space.</p>
-                <h1
-                id="from-topological-basis-to-connected-components-and-element-trajectories">From
-                Topological Basis to Connected Components and Element
-                Trajectories</h1>
-                <h2 id="connecting-presences">Connecting Presences</h2>
-                <p>Two presence assertions are topologically connected
-                if they: - Share the same element <span
-                class="math inline">\(e\)</span> - Have overlapping or
-                adjacent time intervals - Possibly occur in different
-                boundaries</p>
-                <p>By linking such assertions through overlapping basis
-                elements, we define connected components in the presence
-                topology.</p>
-                <h2 id="example">Example</h2>
-                <table>
-                <thead>
-                <tr>
-                <th>Element</th>
-                <th>Boundary</th>
-                <th>Interval</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                <td>e1</td>
-                <td>B1</td>
-                <td>[1, 6)</td>
-                </tr>
-                <tr>
-                <td>e1</td>
-                <td>B1</td>
-                <td>[6, 10)</td>
-                </tr>
-                <tr>
-                <td>e1</td>
-                <td>B2</td>
-                <td>[10, 13)</td>
-                </tr>
-                </tbody>
-                </table>
-                <p>These form a single connected component for <span
-                class="math inline">\(e1\)</span> across boundaries.</p>
-                <p>Other elements (e2, e3, e4) have isolated
-                components.</p>
-                <h2 id="element-trajectories">Element Trajectories</h2>
-                <p>A <strong>maximal connected component</strong> of
-                presence assertions for a given element defines its
-                <strong>trajectory</strong> through time and space.</p>
-                <p>Trajectories can span multiple boundaries and time
-                intervals and form the structural basis of presence
-                dynamics.</p>
-                <hr />
-                <h1
-                id="topological-foundations-and-sheaf-semantics-of-the-presence-calculus">Topological
-                Foundations and Sheaf Semantics of the presence
-                calculus</h1>
-                <h2 id="observation-windows-and-open-sets">Observation
-                Windows and Open Sets</h2>
-                <p>Observation windows of the form <span
-                class="math inline">\(E&#39; \times B&#39; \times [t_0,
-                t_1)\)</span> are not open in the base topology.
-                Instead, we use open covers formed from the basis:</p>
-                <p><span class="math display">\[
-                \mathcal{U} = \{ U_{e,b,(t_i - \epsilon, t_i +
-                \epsilon)} \}
-                \]</span></p>
-                <h2 id="from-pre-sheaf-to-sheaf">From Pre-sheaf to
-                Sheaf</h2>
-                <p>A <strong>pre-sheaf</strong> <span
-                class="math inline">\(\mathcal{P}\)</span> over the
-                space <span class="math inline">\(X = E \times B \times
-                \mathbb{R} \times \mathbb{R}\)</span> is defined as:</p>
-                <ul>
-                <li><span class="math inline">\(\mathcal{P}(U)\)</span>
-                = all presence assertions <span
-                class="math inline">\((e, b, t_0, t_1) \in
-                U\)</span></li>
-                <li>Restriction: <span class="math inline">\(\rho^U_V(S)
-                = S \cap V\)</span></li>
-                </ul>
-                <h3 id="sheaf-conditions">Sheaf Conditions</h3>
-                <ul>
-                <li><strong>Locality</strong>: If <span
-                class="math inline">\(s_i = s_j\)</span> on overlaps,
-                they represent the same global section</li>
-                <li><strong>Gluing</strong>: Compatible local sections
-                <span class="math inline">\(s_i\)</span> over <span
-                class="math inline">\(U_i\)</span> glue uniquely to a
-                global <span class="math inline">\(s \in
-                \mathcal{P}(U)\)</span></li>
-                </ul>
-                <h2 id="the-gluing-operator">The Gluing Operator</h2>
-                <p>In the presence calculus, the <strong>gluing
-                operator</strong> formalizes the process by which local
-                presence assertions—defined over overlapping open
-                subsets of presence space—are combined into a coherent,
-                global trajectory.</p>
-                <p>This is the constructive content of the sheaf gluing
-                axiom.</p>
-                <h3 id="definition">Definition</h3>
-                <p>Let <span class="math inline">\(\mathcal{P}\)</span>
-                be the sheaf of presence assertions over the topological
-                space <span class="math inline">\(X = E \times B \times
-                \mathbb{R} \times \mathbb{R}\)</span>, and let <span
-                class="math inline">\(\{ U_i \}_{i \in I}\)</span> be an
-                open cover of <span class="math inline">\(U \subseteq
-                X\)</span>.</p>
-                <p>Suppose we have a family of local sections <span
-                class="math inline">\(\{ s_i \in \mathcal{P}(U_i)
-                \}\)</span> such that:</p>
-                <p><span class="math display">\[
-                \forall i, j \in I: \quad s_i|_{U_i \cap U_j} =
-                s_j|_{U_i \cap U_j}
-                \]</span></p>
-                <p>Then the <strong>gluing operator</strong> is a
-                function:</p>
-                <p><span class="math display">\[
-                \text{glue} : \prod_{i \in I} \mathcal{P}(U_i) \to
-                \mathcal{P}(U)
-                \]</span></p>
-                <p>such that:</p>
-                <p><span class="math display">\[
-                \text{glue}(\{ s_i \}) = s \quad \text{where } s|_{U_i}
-                = s_i \text{ for all } i
-                \]</span></p>
-                <p>This operator returns the unique global section <span
-                class="math inline">\(s\)</span> whose restriction to
-                each <span class="math inline">\(U_i\)</span> is the
-                given local section <span
-                class="math inline">\(s_i\)</span>.</p>
-                <h3 id="interpretation-1">Interpretation</h3>
-                <p>The glue operator is the formal mechanism that
-                reconstructs a continuous trajectory from overlapping
-                presence assertions that agree on their overlaps.</p>
-                <p>In implementation terms, it merges sequences of
-                presence assertions—across time and boundaries—into a
-                <strong>connected component</strong>, or a
-                <strong>maximal presence trajectory</strong>.</p>
-                <hr />
-                <h1 id="presence-matrix-and-sheaf-restriction">Presence
-                Matrix and Sheaf Restriction</h1>
-                <p>In the presence calculus, the <strong>presence
-                matrix</strong> is a concrete, computable representation
-                of presence assertions restricted to an
-                <strong>observation window</strong>.</p>
-                <h2 id="observation-window-as-an-open-set">Observation
-                Window as an Open Set</h2>
-                <p>An observation window is modeled as:</p>
-                <p><span class="math display">\[
-                U = E&#39; \times B&#39; \times [t_0, t_1)
-                \]</span></p>
-                <p>However, this is not open in the base topology <span
-                class="math inline">\(\mathcal{T}\)</span> because: -
-                <span class="math inline">\([t_0, t_1)\)</span> is not
-                open in <span class="math inline">\(\mathbb{R}\)</span>
-                - Arbitrary subsets <span class="math inline">\(E&#39;
-                \subseteq E\)</span> and <span
-                class="math inline">\(B&#39; \subseteq B\)</span> are
-                not open unless <span class="math inline">\(E\)</span>
-                and <span class="math inline">\(B\)</span> have the
-                discrete topology</p>
-                <h3 id="resolution">Resolution</h3>
-                <p>We interpret an observation window as being covered
-                by open sets of the form:</p>
-                <p><span class="math display">\[
-                U_{e,b,(t_i - \epsilon, t_i + \epsilon)}
-                \]</span></p>
-                <p>This allows us to treat the presence matrix as a
-                discrete approximation of a restriction of the sheaf to
-                an open cover.</p>
-                <h2 id="presence-matrix-definition">Presence Matrix
-                Definition</h2>
-                <p>Let <span class="math inline">\(\{t_i\}\)</span> be a
-                discrete time grid in <span class="math inline">\([t_0,
-                t_1)\)</span>. The matrix:</p>
-                <p><span class="math display">\[
-                P_{e,b}(t_i) =
-                \begin{cases}
-                1 &amp; \text{if } (e, b, t_i) \text{ lies within a
-                presence assertion} \\
-                0 &amp; \text{otherwise}
-                \end{cases}
-                \]</span></p>
-                <p>encodes the observed presence at that time step.</p>
-                <h2 id="summary">Summary</h2>
-                <p>The presence matrix represents a <strong>sampled
-                restriction</strong> of the sheaf over an open cover of
-                a bounded domain. It enables computation of metrics like
-                residence time, flow rate, and co-presence.</p>
-                <p>The presence matrix samples values from sections over
-                neighborhoods in a grid covering a bounded domain.</p>
-                <p>It is not a literal sheaf section but a discrete
-                approximation using open set evaluations.</p>
+                <nav id="TOC" role="doc-toc">
+      
+      <ul>
+      <li><a
+      href="#presence-calculus-topology-sheaf-semantics-and-matrix-representations"
+      id="toc-presence-calculus-topology-sheaf-semantics-and-matrix-representations"><span
+      class="toc-section-number">1</span> Presence Calculus: Topology,
+      Sheaf Semantics, and Matrix Representations</a></li>
+      <li><a href="#presence-assertions"
+      id="toc-presence-assertions"><span
+      class="toc-section-number">2</span> Presence Assertions</a>
+      <ul>
+      <li><a href="#the-space-of-all-potential-presences"
+      id="toc-the-space-of-all-potential-presences"><span
+      class="toc-section-number">2.0.1</span> The Space of All Potential
+      Presences</a></li>
+      <li><a href="#the-set-of-actual-presences"
+      id="toc-the-set-of-actual-presences"><span
+      class="toc-section-number">2.0.2</span> The Set of Actual
+      Presences</a></li>
+      <li><a href="#characteristic-function-view-clarification"
+      id="toc-characteristic-function-view-clarification"><span
+      class="toc-section-number">2.0.3</span> Characteristic Function
+      View (Clarification)</a></li>
+      <li><a href="#practical-interpretation"
+      id="toc-practical-interpretation"><span
+      class="toc-section-number">2.1</span> Practical
+      Interpretation</a></li>
+      </ul></li>
+      <li><a href="#presence-topology" id="toc-presence-topology"><span
+      class="toc-section-number">3</span> Presence Topology</a>
+      <ul>
+      <li><a href="#intuition" id="toc-intuition"><span
+      class="toc-section-number">3.1</span> Intuition</a></li>
+      <li><a href="#use" id="toc-use"><span
+      class="toc-section-number">3.2</span> Use</a></li>
+      </ul></li>
+      <li><a href="#topological-basis-for-presence-assertions"
+      id="toc-topological-basis-for-presence-assertions"><span
+      class="toc-section-number">4</span> Topological Basis for Presence
+      Assertions</a>
+      <ul>
+      <li><a href="#observed-presence-assertions"
+      id="toc-observed-presence-assertions"><span
+      class="toc-section-number">4.1</span> Observed Presence
+      Assertions</a></li>
+      <li><a href="#topological-basis-construction"
+      id="toc-topological-basis-construction"><span
+      class="toc-section-number">4.2</span> Topological Basis
+      Construction</a></li>
+      <li><a href="#example-basis-elements"
+      id="toc-example-basis-elements"><span
+      class="toc-section-number">4.3</span> Example Basis
+      Elements</a></li>
+      <li><a href="#interpretation" id="toc-interpretation"><span
+      class="toc-section-number">4.4</span> Interpretation</a></li>
+      </ul></li>
+      <li><a
+      href="#from-topological-basis-to-connected-components-and-element-trajectories"
+      id="toc-from-topological-basis-to-connected-components-and-element-trajectories"><span
+      class="toc-section-number">5</span> From Topological Basis to
+      Connected Components and Element Trajectories</a>
+      <ul>
+      <li><a href="#connecting-presences"
+      id="toc-connecting-presences"><span
+      class="toc-section-number">5.1</span> Connecting
+      Presences</a></li>
+      <li><a href="#example" id="toc-example"><span
+      class="toc-section-number">5.2</span> Example</a></li>
+      <li><a href="#element-trajectories"
+      id="toc-element-trajectories"><span
+      class="toc-section-number">5.3</span> Element
+      Trajectories</a></li>
+      </ul></li>
+      <li><a
+      href="#topological-foundations-and-sheaf-semantics-of-the-presence-calculus"
+      id="toc-topological-foundations-and-sheaf-semantics-of-the-presence-calculus"><span
+      class="toc-section-number">6</span> Topological Foundations and
+      Sheaf Semantics of the presence calculus</a>
+      <ul>
+      <li><a href="#observation-windows-and-open-sets"
+      id="toc-observation-windows-and-open-sets"><span
+      class="toc-section-number">6.1</span> Observation Windows and Open
+      Sets</a></li>
+      <li><a href="#from-pre-sheaf-to-sheaf"
+      id="toc-from-pre-sheaf-to-sheaf"><span
+      class="toc-section-number">6.2</span> From Pre-sheaf to Sheaf</a>
+      <ul>
+      <li><a href="#sheaf-conditions" id="toc-sheaf-conditions"><span
+      class="toc-section-number">6.2.1</span> Sheaf Conditions</a></li>
+      </ul></li>
+      <li><a href="#the-gluing-operator"
+      id="toc-the-gluing-operator"><span
+      class="toc-section-number">6.3</span> The Gluing Operator</a>
+      <ul>
+      <li><a href="#definition" id="toc-definition"><span
+      class="toc-section-number">6.3.1</span> Definition</a></li>
+      <li><a href="#interpretation-1" id="toc-interpretation-1"><span
+      class="toc-section-number">6.3.2</span> Interpretation</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#presence-matrix-and-sheaf-restriction"
+      id="toc-presence-matrix-and-sheaf-restriction"><span
+      class="toc-section-number">7</span> Presence Matrix and Sheaf
+      Restriction</a>
+      <ul>
+      <li><a href="#observation-window-as-an-open-set"
+      id="toc-observation-window-as-an-open-set"><span
+      class="toc-section-number">7.1</span> Observation Window as an
+      Open Set</a>
+      <ul>
+      <li><a href="#resolution" id="toc-resolution"><span
+      class="toc-section-number">7.1.1</span> Resolution</a></li>
+      </ul></li>
+      <li><a href="#presence-matrix-definition"
+      id="toc-presence-matrix-definition"><span
+      class="toc-section-number">7.2</span> Presence Matrix
+      Definition</a></li>
+      <li><a href="#summary" id="toc-summary"><span
+      class="toc-section-number">7.3</span> Summary</a></li>
+      </ul></li>
+      </ul>
+    </nav>
+        <h1 data-number="1"
+        id="presence-calculus-topology-sheaf-semantics-and-matrix-representations"><span
+        class="header-section-number">1</span> Presence Calculus:
+        Topology, Sheaf Semantics, and Matrix Representations</h1>
+        <p>This document presents a mathematically coherent view of the
+        presence calculus, tracing its topological underpinnings and
+        their expression through sheaf theory. It addresses practical
+        representations such as the presence matrix while ensuring that
+        all definitions are compatible with formal mathematical
+        constraints.</p>
+        <p>We begin by defining the topology induced by presence
+        assertions, then describe how element trajectories arise as
+        connected components. We show how the notion of an observation
+        window fits within this topological framework and explain the
+        relationship between presence matrices and the sheaf of presence
+        assertions.</p>
+        <h1 data-number="2" id="presence-assertions"><span
+        class="header-section-number">2</span> Presence Assertions</h1>
+        <p>The fundamental object of the presence calculus is the
+        <strong>presence assertion</strong>.</p>
+        <p>A <strong>presence assertion</strong> is a 4-tuple:</p>
+        <p><span class="math display">\[
+        p = (e, b, t_0, t_1)
+        \]</span></p>
+        <p>where: - <span class="math inline">\(e \in E\)</span> is an
+        element (a thing that can be present), - <span
+        class="math inline">\(b \in B\)</span> is a boundary (a place or
+        context), - <span class="math inline">\([t_0, t_1) \subset
+        \mathbb{R}\)</span> is a half-open time interval during which
+        <span class="math inline">\(e\)</span> is asserted to be present
+        in <span class="math inline">\(b\)</span>.</p>
+        <h3 data-number="2.0.1"
+        id="the-space-of-all-potential-presences"><span
+        class="header-section-number">2.0.1</span> The Space of All
+        Potential Presences</h3>
+        <p>The set of all <em>possible</em> presence assertions is the
+        product space:</p>
+        <p><span class="math display">\[
+        \mathcal{P}_{\text{all}} = E \times B \times \mathbb{R} \times
+        \mathbb{R}
+        \]</span></p>
+        <p>subject to the constraint that <span
+        class="math inline">\(t_0 &lt; t_1\)</span>.</p>
+        <h3 data-number="2.0.2" id="the-set-of-actual-presences"><span
+        class="header-section-number">2.0.2</span> The Set of Actual
+        Presences</h3>
+        <p>In any given system or model, only a subset of these possible
+        tuples are asserted to hold. This subset is denoted:</p>
+        <p><span class="math display">\[
+        \mathcal{P}_{\text{obs}} \subset \mathcal{P}_{\text{all}}
+        \]</span></p>
+        <p>and is treated as given (e.g., from observation, logs, or
+        domain assertions). The presence calculus operates entirely on
+        this set of <strong>actual presence assertions</strong>.</p>
+        <h3 data-number="2.0.3"
+        id="characteristic-function-view-clarification"><span
+        class="header-section-number">2.0.3</span> Characteristic
+        Function View (Clarification)</h3>
+        <p>While earlier formulations introduced a function:</p>
+        <p><span class="math display">\[
+        P : E \times B \times \mathbb{R} \times \mathbb{R} \to
+        \mathbb{R}
+        \]</span></p>
+        <p>such a function should be interpreted, if used, as the
+        <strong>characteristic function</strong> of the set <span
+        class="math inline">\(\mathcal{P}_{\text{obs}}\)</span>:</p>
+        <p><span class="math display">\[
+        P(e, b, t_0, t_1) =
+        \begin{cases}
+        1 &amp; \text{if } (e, b, t_0, t_1) \in \mathcal{P}_{\text{obs}}
+        \\
+        0 &amp; \text{otherwise}
+        \end{cases}
+        \]</span></p>
+        <p>This representation is useful for certain forms of analysis
+        or aggregation, but the presence assertion itself is
+        fundamentally the <strong>tuple</strong> <span
+        class="math inline">\((e, b, t_0, t_1)\)</span>, not the value
+        of a function.</p>
+        <hr />
+        <h2 data-number="2.1" id="practical-interpretation"><span
+        class="header-section-number">2.1</span> Practical
+        Interpretation</h2>
+        <p>A presence assertion is a primitive fact: “Element <span
+        class="math inline">\(e\)</span> was present in boundary <span
+        class="math inline">\(b\)</span> continuously from time <span
+        class="math inline">\(t_0\)</span> to <span
+        class="math inline">\(t_1\)</span>.” No assumptions are made
+        about how this assertion was derived—whether from physical
+        sensors, logs, or logical inference. The presence calculus
+        treats all such assertions as axiomatic inputs. We will use the
+        example below to illustrate how we define and construct the
+        topology of presences assertions over a domain.</p>
+        <div style="text-align: center; margin:2em">
+        <img src="../assets/pandoc/presence_topology_example.png" width="600px" />
+        <div
+        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+        <pre><code>Figure 1: A set of presence assertions over a domain</code></pre>
+        </div>
+        </div>
+        <hr />
+        <hr />
+        <h1 data-number="3" id="presence-topology"><span
+        class="header-section-number">3</span> Presence Topology</h1>
+        <p>Let <span class="math inline">\(D\)</span> be the domain of
+        entities and boundaries, and let presence assertions be defined
+        over the space <span class="math inline">\(E \times B \times
+        \mathbb{R} \times \mathbb{R}\)</span>, where each presence
+        assertion corresponds to a tuple <span class="math inline">\((e,
+        b, t_0, t_1)\)</span>.</p>
+        <p>We define a topology <span
+        class="math inline">\(\mathcal{T}\)</span> on this space by
+        specifying a basis of open sets. Each basis element is defined
+        by a tuple of the form:</p>
+        <p><span class="math display">\[
+        U_{e,b,I} = \{ (e&#39;, b&#39;, t_0&#39;, t_1&#39;) \mid e&#39;
+        = e, b&#39; = b, [t_0&#39;, t_1&#39;) \subset I \}
+        \]</span></p>
+        <p>where <span class="math inline">\(e \in E\)</span>, <span
+        class="math inline">\(b \in B\)</span>, and <span
+        class="math inline">\(I = (a, b) \subset \mathbb{R}\)</span> is
+        an open interval on the time axis.</p>
+        <p>The collection of all such <span
+        class="math inline">\(U_{e,b,I}\)</span> for all <span
+        class="math inline">\(e\)</span>, <span
+        class="math inline">\(b\)</span>, and open intervals <span
+        class="math inline">\(I\)</span> forms a basis for the presence
+        topology <span class="math inline">\(\mathcal{T}\)</span>.</p>
+        <h2 data-number="3.1" id="intuition"><span
+        class="header-section-number">3.1</span> Intuition</h2>
+        <p>Each basis element isolates a specific element and boundary,
+        and considers all presence intervals entirely contained within a
+        given time window. This yields a natural notion of “local
+        neighborhood” around a presence, and allows us to define
+        continuity, clustering, and flow across the space of
+        presences.</p>
+        <h2 data-number="3.2" id="use"><span
+        class="header-section-number">3.2</span> Use</h2>
+        <p>This topology underpins definitions of co-presence,
+        continuity, and topological observables such as connected
+        components, accumulation zones, and persistence regions.</p>
+        <hr />
+        <h1 data-number="4"
+        id="topological-basis-for-presence-assertions"><span
+        class="header-section-number">4</span> Topological Basis for
+        Presence Assertions</h1>
+        <p>Based on the provided presence diagram, we define the
+        topological basis over the space <span class="math inline">\(E
+        \times B \times \mathbb{R} \times \mathbb{R}\)</span> using the
+        presence calculus.</p>
+        <h2 data-number="4.1" id="observed-presence-assertions"><span
+        class="header-section-number">4.1</span> Observed Presence
+        Assertions</h2>
+        <p>Each presence assertion corresponds to a 4-tuple <span
+        class="math inline">\((e, b, t_0, t_1)\)</span>, where: - <span
+        class="math inline">\(e\)</span> is an entity (element), - <span
+        class="math inline">\(b\)</span> is a boundary, - <span
+        class="math inline">\([t_0, t_1)\)</span> is the half-open time
+        interval of presence.</p>
+        <p>From the diagram, we identify the following presence
+        assertions:</p>
+        <table>
+        <thead>
+        <tr>
+        <th>Element</th>
+        <th>Boundary</th>
+        <th>Interval</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>e1</td>
+        <td>B1</td>
+        <td>[1, 6)</td>
+        </tr>
+        <tr>
+        <td>e3</td>
+        <td>B1</td>
+        <td>[3, 10)</td>
+        </tr>
+        <tr>
+        <td>e1</td>
+        <td>B1</td>
+        <td>[11, 13)</td>
+        </tr>
+        <tr>
+        <td>e1</td>
+        <td>B2</td>
+        <td>[1, 6)</td>
+        </tr>
+        <tr>
+        <td>e4</td>
+        <td>B2</td>
+        <td>[3, 10)</td>
+        </tr>
+        <tr>
+        <td>e1</td>
+        <td>B2</td>
+        <td>[11, 13)</td>
+        </tr>
+        </tbody>
+        </table>
+        <h2 data-number="4.2" id="topological-basis-construction"><span
+        class="header-section-number">4.2</span> Topological Basis
+        Construction</h2>
+        <p>We define a topology <span
+        class="math inline">\(\mathcal{T}\)</span> on the presence space
+        by specifying a basis of open sets. Each basis element is of the
+        form:</p>
+        <p><span class="math display">\[
+        U_{e,b,I} = \{ (e&#39;, b&#39;, t_0&#39;, t_1&#39;) \mid e&#39;
+        = e, b&#39; = b, [t_0&#39;, t_1&#39;) \subset I \}
+        \]</span></p>
+        <p>where <span class="math inline">\(I \subset
+        \mathbb{R}\)</span> is an open interval containing the presence
+        interval <span class="math inline">\([t_0, t_1)\)</span>.</p>
+        <h2 data-number="4.3" id="example-basis-elements"><span
+        class="header-section-number">4.3</span> Example Basis
+        Elements</h2>
+        <ul>
+        <li><span class="math inline">\(U_{e1, B1, (0.9,\
+        6.1)}\)</span></li>
+        <li><span class="math inline">\(U_{e3, B1, (2.9,\
+        10.1)}\)</span></li>
+        <li><span class="math inline">\(U_{e1, B1, (10.9,\
+        13.1)}\)</span></li>
+        <li><span class="math inline">\(U_{e1, B2, (0.9,\
+        6.1)}\)</span></li>
+        <li><span class="math inline">\(U_{e4, B2, (2.9,\
+        10.1)}\)</span></li>
+        <li><span class="math inline">\(U_{e1, B2, (10.9,\
+        13.1)}\)</span></li>
+        </ul>
+        <p>Each basis element defines a neighborhood around a specific
+        element in a specific boundary, over an open interval containing
+        a full presence span.</p>
+        <h2 data-number="4.4" id="interpretation"><span
+        class="header-section-number">4.4</span> Interpretation</h2>
+        <p>These basis elements allow us to reason about local
+        neighborhoods of presence, enabling analysis of continuity,
+        clustering, transitions, and proximity in presence space.</p>
+        <h1 data-number="5"
+        id="from-topological-basis-to-connected-components-and-element-trajectories"><span
+        class="header-section-number">5</span> From Topological Basis to
+        Connected Components and Element Trajectories</h1>
+        <h2 data-number="5.1" id="connecting-presences"><span
+        class="header-section-number">5.1</span> Connecting
+        Presences</h2>
+        <p>Two presence assertions are topologically connected if they:
+        - Share the same element <span class="math inline">\(e\)</span>
+        - Have overlapping or adjacent time intervals - Possibly occur
+        in different boundaries</p>
+        <p>By linking such assertions through overlapping basis
+        elements, we define connected components in the presence
+        topology.</p>
+        <h2 data-number="5.2" id="example"><span
+        class="header-section-number">5.2</span> Example</h2>
+        <table>
+        <thead>
+        <tr>
+        <th>Element</th>
+        <th>Boundary</th>
+        <th>Interval</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>e1</td>
+        <td>B1</td>
+        <td>[1, 6)</td>
+        </tr>
+        <tr>
+        <td>e1</td>
+        <td>B1</td>
+        <td>[6, 10)</td>
+        </tr>
+        <tr>
+        <td>e1</td>
+        <td>B2</td>
+        <td>[10, 13)</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>These form a single connected component for <span
+        class="math inline">\(e1\)</span> across boundaries.</p>
+        <p>Other elements (e2, e3, e4) have isolated components.</p>
+        <h2 data-number="5.3" id="element-trajectories"><span
+        class="header-section-number">5.3</span> Element
+        Trajectories</h2>
+        <p>A <strong>maximal connected component</strong> of presence
+        assertions for a given element defines its
+        <strong>trajectory</strong> through time and space.</p>
+        <p>Trajectories can span multiple boundaries and time intervals
+        and form the structural basis of presence dynamics.</p>
+        <hr />
+        <h1 data-number="6"
+        id="topological-foundations-and-sheaf-semantics-of-the-presence-calculus"><span
+        class="header-section-number">6</span> Topological Foundations
+        and Sheaf Semantics of the presence calculus</h1>
+        <h2 data-number="6.1"
+        id="observation-windows-and-open-sets"><span
+        class="header-section-number">6.1</span> Observation Windows and
+        Open Sets</h2>
+        <p>Observation windows of the form <span
+        class="math inline">\(E&#39; \times B&#39; \times [t_0,
+        t_1)\)</span> are not open in the base topology. Instead, we use
+        open covers formed from the basis:</p>
+        <p><span class="math display">\[
+        \mathcal{U} = \{ U_{e,b,(t_i - \epsilon, t_i + \epsilon)} \}
+        \]</span></p>
+        <h2 data-number="6.2" id="from-pre-sheaf-to-sheaf"><span
+        class="header-section-number">6.2</span> From Pre-sheaf to
+        Sheaf</h2>
+        <p>A <strong>pre-sheaf</strong> <span
+        class="math inline">\(\mathcal{P}\)</span> over the space <span
+        class="math inline">\(X = E \times B \times \mathbb{R} \times
+        \mathbb{R}\)</span> is defined as:</p>
+        <ul>
+        <li><span class="math inline">\(\mathcal{P}(U)\)</span> = all
+        presence assertions <span class="math inline">\((e, b, t_0, t_1)
+        \in U\)</span></li>
+        <li>Restriction: <span class="math inline">\(\rho^U_V(S) = S
+        \cap V\)</span></li>
+        </ul>
+        <h3 data-number="6.2.1" id="sheaf-conditions"><span
+        class="header-section-number">6.2.1</span> Sheaf Conditions</h3>
+        <ul>
+        <li><strong>Locality</strong>: If <span
+        class="math inline">\(s_i = s_j\)</span> on overlaps, they
+        represent the same global section</li>
+        <li><strong>Gluing</strong>: Compatible local sections <span
+        class="math inline">\(s_i\)</span> over <span
+        class="math inline">\(U_i\)</span> glue uniquely to a global
+        <span class="math inline">\(s \in \mathcal{P}(U)\)</span></li>
+        </ul>
+        <h2 data-number="6.3" id="the-gluing-operator"><span
+        class="header-section-number">6.3</span> The Gluing
+        Operator</h2>
+        <p>In the presence calculus, the <strong>gluing
+        operator</strong> formalizes the process by which local presence
+        assertions—defined over overlapping open subsets of presence
+        space—are combined into a coherent, global trajectory.</p>
+        <p>This is the constructive content of the sheaf gluing
+        axiom.</p>
+        <h3 data-number="6.3.1" id="definition"><span
+        class="header-section-number">6.3.1</span> Definition</h3>
+        <p>Let <span class="math inline">\(\mathcal{P}\)</span> be the
+        sheaf of presence assertions over the topological space <span
+        class="math inline">\(X = E \times B \times \mathbb{R} \times
+        \mathbb{R}\)</span>, and let <span class="math inline">\(\{ U_i
+        \}_{i \in I}\)</span> be an open cover of <span
+        class="math inline">\(U \subseteq X\)</span>.</p>
+        <p>Suppose we have a family of local sections <span
+        class="math inline">\(\{ s_i \in \mathcal{P}(U_i) \}\)</span>
+        such that:</p>
+        <p><span class="math display">\[
+        \forall i, j \in I: \quad s_i|_{U_i \cap U_j} = s_j|_{U_i \cap
+        U_j}
+        \]</span></p>
+        <p>Then the <strong>gluing operator</strong> is a function:</p>
+        <p><span class="math display">\[
+        \text{glue} : \prod_{i \in I} \mathcal{P}(U_i) \to
+        \mathcal{P}(U)
+        \]</span></p>
+        <p>such that:</p>
+        <p><span class="math display">\[
+        \text{glue}(\{ s_i \}) = s \quad \text{where } s|_{U_i} = s_i
+        \text{ for all } i
+        \]</span></p>
+        <p>This operator returns the unique global section <span
+        class="math inline">\(s\)</span> whose restriction to each <span
+        class="math inline">\(U_i\)</span> is the given local section
+        <span class="math inline">\(s_i\)</span>.</p>
+        <h3 data-number="6.3.2" id="interpretation-1"><span
+        class="header-section-number">6.3.2</span> Interpretation</h3>
+        <p>The glue operator is the formal mechanism that reconstructs a
+        continuous trajectory from overlapping presence assertions that
+        agree on their overlaps.</p>
+        <p>In implementation terms, it merges sequences of presence
+        assertions—across time and boundaries—into a <strong>connected
+        component</strong>, or a <strong>maximal presence
+        trajectory</strong>.</p>
+        <hr />
+        <h1 data-number="7"
+        id="presence-matrix-and-sheaf-restriction"><span
+        class="header-section-number">7</span> Presence Matrix and Sheaf
+        Restriction</h1>
+        <p>In the presence calculus, the <strong>presence
+        matrix</strong> is a concrete, computable representation of
+        presence assertions restricted to an <strong>observation
+        window</strong>.</p>
+        <h2 data-number="7.1"
+        id="observation-window-as-an-open-set"><span
+        class="header-section-number">7.1</span> Observation Window as
+        an Open Set</h2>
+        <p>An observation window is modeled as:</p>
+        <p><span class="math display">\[
+        U = E&#39; \times B&#39; \times [t_0, t_1)
+        \]</span></p>
+        <p>However, this is not open in the base topology <span
+        class="math inline">\(\mathcal{T}\)</span> because: - <span
+        class="math inline">\([t_0, t_1)\)</span> is not open in <span
+        class="math inline">\(\mathbb{R}\)</span> - Arbitrary subsets
+        <span class="math inline">\(E&#39; \subseteq E\)</span> and
+        <span class="math inline">\(B&#39; \subseteq B\)</span> are not
+        open unless <span class="math inline">\(E\)</span> and <span
+        class="math inline">\(B\)</span> have the discrete topology</p>
+        <h3 data-number="7.1.1" id="resolution"><span
+        class="header-section-number">7.1.1</span> Resolution</h3>
+        <p>We interpret an observation window as being covered by open
+        sets of the form:</p>
+        <p><span class="math display">\[
+        U_{e,b,(t_i - \epsilon, t_i + \epsilon)}
+        \]</span></p>
+        <p>This allows us to treat the presence matrix as a discrete
+        approximation of a restriction of the sheaf to an open
+        cover.</p>
+        <h2 data-number="7.2" id="presence-matrix-definition"><span
+        class="header-section-number">7.2</span> Presence Matrix
+        Definition</h2>
+        <p>Let <span class="math inline">\(\{t_i\}\)</span> be a
+        discrete time grid in <span class="math inline">\([t_0,
+        t_1)\)</span>. The matrix:</p>
+        <p><span class="math display">\[
+        P_{e,b}(t_i) =
+        \begin{cases}
+        1 &amp; \text{if } (e, b, t_i) \text{ lies within a presence
+        assertion} \\
+        0 &amp; \text{otherwise}
+        \end{cases}
+        \]</span></p>
+        <p>encodes the observed presence at that time step.</p>
+        <h2 data-number="7.3" id="summary"><span
+        class="header-section-number">7.3</span> Summary</h2>
+        <p>The presence matrix represents a <strong>sampled
+        restriction</strong> of the sheaf over an open cover of a
+        bounded domain. It enables computation of metrics like residence
+        time, flow rate, and co-presence.</p>
+        <p>The presence matrix samples values from sections over
+        neighborhoods in a grid covering a bounded domain.</p>
+        <p>It is not a literal sheaf section but a discrete
+        approximation using open set evaluations.</p>
       </div>
 </body>
 </html>
