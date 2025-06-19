@@ -256,7 +256,7 @@ Introduction</span></p>
       
           </header>
             <nav id="TOC" role="doc-toc">
-      
+      <h2 id="toc-title">Contents</h2>
       <ul>
       <li><a href="#what-is-the-presence-calculus"
       id="toc-what-is-the-presence-calculus"><span
@@ -292,7 +292,7 @@ Introduction</span></p>
       </ul></li>
       <li><a href="#systems-of-presences"
       id="toc-systems-of-presences"><span
-      class="toc-section-number">3</span> Systems of presences</a>
+      class="toc-section-number">3</span> Systems of Presences</a>
       <ul>
       <li><a href="#presence-as-a-sample-of-a-signal"
       id="toc-presence-as-a-sample-of-a-signal"><span
@@ -315,8 +315,8 @@ Introduction</span></p>
       id="toc-binary-presences-and-littles-law"><span
       class="toc-section-number">4.3</span> Binary presences and
       Little’s Law</a></li>
-      <li><a href="#causal-reasoning" id="toc-causal-reasoning"><span
-      class="toc-section-number">4.4</span> Causal Reasoning</a></li>
+      <li><a href="#signal-dynamics" id="toc-signal-dynamics"><span
+      class="toc-section-number">4.4</span> Signal Dynamics</a></li>
       </ul></li>
       <li><a href="#the-presence-matrix"
       id="toc-the-presence-matrix"><span
@@ -347,8 +347,8 @@ Introduction</span></p>
       </ul></li>
       <li><a href="#navigation-defining-place-and-direction"
       id="toc-navigation-defining-place-and-direction"><span
-      class="toc-section-number">7</span> 7. Navigation: defining place
-      and direction</a>
+      class="toc-section-number">7</span> Navigation: defining place and
+      direction</a>
       <ul>
       <li><a href="#the-presence-accumulation-recurrence"
       id="toc-the-presence-accumulation-recurrence"><span
@@ -360,6 +360,8 @@ Introduction</span></p>
       class="toc-section-number">7.2</span> A phase space representation
       of the presence invariant</a></li>
       </ul></li>
+      <li><a href="#attractors" id="toc-attractors"><span
+      class="toc-section-number">8</span> Attractors</a></li>
       </ul>
     </nav>
         <h2 data-number="1" id="what-is-the-presence-calculus"><span
@@ -391,9 +393,11 @@ Introduction</span></p>
         computational tools that connect low-level activity signals to
         business-relevant signals such as delay, cost, revenue, and user
         experience.</p>
-        <p>For software development, this enables the construction of
-        context-specific measurement models for operational
-        improvement.</p>
+        <p>For software development, this simplifies the construction of
+        bespoke, context-specific measurement models for operational
+        improvement, a powerful alternative to one-size-fits all metrics
+        frameworks and visibility tools that are the only option
+        available today.</p>
         <p>As we’ll see, however, the core ideas of the calculus are
         more general, with potential applications well beyond the
         software domain in which it originated.</p>
@@ -496,10 +500,10 @@ Introduction</span></p>
         <p>Let’s jump in…</p>
         <h3 data-number="1.3" id="why-presence"><span
         class="header-section-number">1.3</span> Why presence?</h3>
-        <p>Presence is what we observe about the world.</p>
-        <p>We do not experience reality as a sequence of discrete events
-        in time, but as an unfolding—things are present, endure for a
-        while, and then slip away.</p>
+        <p>Presence is what we observe in the world.</p>
+        <p>We dont experience reality as a sequence of discrete events
+        in time, but as a continuous unfolding—things are present, or
+        they appear, endure for a while, and then slip away.</p>
         <p>Permanence is simply a form of lasting presence. What we call
         <em>change</em> is the movement of presences into and out of
         awareness, often set against that permanence.</p>
@@ -949,14 +953,20 @@ Introduction</span></p>
         analyzing interactions and dynamics <em>across</em>
         heterogeneous signals within a domain.</p>
         <h2 data-number="3" id="systems-of-presences"><span
-        class="header-section-number">3</span> Systems of presences</h2>
-        <p>In this section we will move from single presence density
-        functions to systems of signals representing presence density
-        functions for many elements and boundaries in a domain.</p>
-        <p>A key aspect to note about the presence calculus is that we
-        represent fine grained signals corresponding to indiviudal
-        elements in a domain and study how these interact in time to
-        produce cumulative effects.</p>
+        class="header-section-number">3</span> Systems of Presences</h2>
+        <p>In this section, we move from individual presence density
+        functions to systems of signals—each representing the presence
+        behavior of many elements across many boundaries within a
+        domain.</p>
+        <p>A key aspect of the Presence Calculus is that it represents
+        fine-grained signals corresponding to individual elements. We
+        study how the presence masses of these signals interact over
+        time to produce observable <em>cumulative</em> effects.</p>
+        <p>A signal describes the continuous behavior of a specific
+        domain element within a boundary over time. The calculus
+        emphasizes that each of these signals traces a distinct path
+        through time, and seeks to derive insights from their
+        <em>interactions</em> over a shared interval.</p>
         <div style="text-align: center; margin:2em">
         <img src="../assets/pandoc/pdf_examples.png" width="600px" />
         <div
@@ -964,15 +974,37 @@ Introduction</span></p>
         <pre><code>Figure 3: A System of Presences</code></pre>
         </div>
         </div>
+        <p>From the standpoint of the calculus itself, it does not
+        matter what the signals represent—we treat them uniformly as
+        real-valued presence masses and define a standard set of
+        mathematical operations over them.</p>
+        <p>From the standpoint of semantics, however, the
+        <em>meaningfulness</em> of these operations depends on the
+        domain. What it means to combine signals, which ones to combine,
+        and how to interpret the result—all of this is context-dependent
+        and crucial for producing useful insights.</p>
+        <p>This aspect—modeling and model development—is essential for
+        applying the machinery effectively. However, our focus here is
+        on the calculus itself: what it can say in general about
+        arbitrary systems of signals and presence density functions that
+        interact in time.</p>
+        <p>In what follows, we will treat signals and presence density
+        functions as abstract mathematical objects and describe the
+        properties and operations of such systems. We will build some
+        domain-specific intuition through examples, but will not focus
+        on applications.</p>
+        <p>Those will be the subject of future posts—an area that is
+        both rich and complex, and which will depend heavily on the
+        foundational machinery developed in this document.</p>
         <h3 data-number="3.1"
         id="presence-as-a-sample-of-a-signal"><span
         class="header-section-number">3.1</span> Presence as a sample of
         a signal</h3>
-        <p>A domain signal, in general, describes the continuous
-        behavior of an element within a boundary over time. This
-        continuous signal may have one or more disjoint periods where
-        its value is non-zero. These non-zero periods are called the
-        <em>support</em> of the signal.</p>
+        <p>A signal, in general, describes the continuous behavior of an
+        element within a boundary over time. This continuous signal may
+        have one or more disjoint periods where its value is non-zero.
+        These non-zero periods are called the <em>support</em> of the
+        signal.</p>
         <p>As we see in Figure 4, a single signal (for a given element
         and boundary) might have multiple support intervals. These may
         correspond to episodic behavior in the underlying domain, for
@@ -1011,13 +1043,22 @@ Introduction</span></p>
         <em>observer</em> over a specific time interval, which yields a
         total presence mass for that interval.</p>
         <p>A given observer may not even “see” the full underlying
-        signal—only the <em>mass</em><br />
-        of the presence they experience over the interval they
-        observed.</p>
+        signal—only the <em>mass</em> of the presence they experience
+        over the interval they observed.</p>
         <p>Different observers may observe different intervals of the
         same signal and derive different presence values, depending on
-        what part of the function they<br />
-        encounter.</p>
+        what part of the function they encounter.</p>
+        <p>So here is the first key assumption of the presence
+        calculus:</p>
+        <blockquote>
+        <p>A system of presences refers to a collection of discrete
+        observations drawn from an underlying set of presence density
+        functions. In general, we do not assume we have access to the
+        “true” underlying functions. Instead, we reason about these
+        functions based their observed presence masses over interval and
+        treat these observations as the basis for all inference within
+        the calculus.</p>
+        </blockquote>
         <p>This brings us to the concept of <em>presence
         assertions</em>, which formalize the act of recording a presence
         based on an observer’s local “view” of the underlying density
@@ -1057,18 +1098,17 @@ Introduction</span></p>
         <p>Presences with both start and end unknown are valid
         constructs and represent eternal presences.</p>
         <p>Many of the most interesting questions in the presence
-        calculus involve reasoning about the dynamics of a domain under
-        the epistemic uncertainty introduced by such presences.</p>
+        calculus involve reasoning about the signal dynamics of a domain
+        under the epistemic uncertainty introduced by such
+        presences.</p>
         <h4 data-number="3.2.2" id="a-note-on-epistemology"><span
         class="header-section-number">3.2.2</span> A note on
         epistemology</h4>
         <p>Presence assertions give us the ability to assign
-        <em>provenance</em> to a presence—<br />
-        not just <em>what</em> we know, but <em>how</em> we know it.
-        This is essential in<br />
+        <em>provenance</em> to a presence— not just <em>what</em> we
+        know, but <em>how</em> we know it. This is essential in<br />
         representing complex systems where the observer and the act of
-        observation<br />
-        are first-class concerns.</p>
+        observation are first-class concerns.</p>
         <p>Further, since reasoning about time and history is a primary
         focus of the calculus, presences with unknown beginnings or
         endings provide a way to explicitly model what is known—and
@@ -1088,25 +1128,8 @@ Introduction</span></p>
         <p>With this caveat in place, once we’ve represented a problem
         domain as a<br />
         <em>system of presences</em>, much of the machinery of the
-        presence calculus (which<br />
-        we’ll introduce next) can be applied uniformly.</p>
-        <p>In the next sections, where we introduce this machinery, we
-        will operate under the assumption that there exists an
-        observable <em>signal</em>, and that what is observed reflects
-        what an observer knows about the domain. We don’t presume
-        anything about the “truth” of the observations, we treat them
-        uniformly as signals.</p>
-        <p>One thing we will see is that from the perspective of this
-        machinery, there are no fundamental differences in behavior
-        between binary signals and arbitrary signals once they’ve been
-        reduced to a canonical, presence-mass oriented representation<a
-        href="#fn5" class="footnote-ref" id="fnref5"
-        role="doc-noteref"><sup>5</sup></a>.</p>
-        <p>This greatly increases the scope of the problem domains where
-        the presence calculus can be applied, and our examples in the
-        previous section only begin to hint at the possibilities.</p>
-        <p>This, in the end, is the source of the generality and power
-        of the presence calculus.</p>
+        presence calculus (which we’ll introduce next) can be applied
+        uniformly.</p>
         <h4 data-number="3.2.3" id="a-note-on-path-dependence"><span
         class="header-section-number">3.2.3</span> A note on path
         dependence</h4>
@@ -1140,10 +1163,11 @@ Introduction</span></p>
         boundary is what brings coherence to the analysis—it defines
         which signals and interactions we choose to focus on, and
         why.</p>
-        <p>In summary, the boundary allows us to bring a coherent set of
-        elements and related signals together for analysis. That
-        analysis focuses on how these signals interact in
-        <em>time</em>.</p>
+        <blockquote>
+        <p>The boundary allows us to bring a coherent set of elements
+        and related signals together for analysis. That analysis focuses
+        on how these signals interact in <em>time</em>.</p>
+        </blockquote>
         <p>Constructing an appropriate set of element-boundary signals
         is <em>the</em> key modeling decision. But once these are
         defined, much of the machinery of the presence calculus can be
@@ -1152,32 +1176,28 @@ Introduction</span></p>
         <p>Semantics are, of course, crucial in <em>interpreting</em>
         the inferences one draws<br />
         using the machinery of the calculus.</p>
+        <blockquote>
         <p>When we refer to a “system” in the presence calculus we are
         explicitly defining it as an <em>evolving</em> set of presence
         assertions—i.e., the “system” is what we can assert about a
         domain using presence assertions at a given time.</p>
+        </blockquote>
         <p>In summary, this is what we refer to as a “system of
         presences” - a time-indexed collection of presence assertions
         derived from an underlying set of path dependent
         element-boundary signals.</p>
-        <p>What we choose to model fundamentally shapes the system we
-        are able to reason about—and the presence calculus provides a
-        powerful foundation for doing so.</p>
         <h2 data-number="4"
         id="co-presence-and-the-presence-invariant"><span
         class="header-section-number">4</span> Co-Presence and the
         Presence Invariant</h2>
-        <p>In the last section, we introduced systems of presences as
-        collections of presence assertions, which are derived from
-        observable signals.</p>
-        <p>Figure 5 illustrates an example of such a system, where we
-        focus on the subset of presences defined over a <em>shared
-        observation interval</em>.</p>
+        <p>Figure 5 illustrates an example of a system of presences,
+        where we focus on the subset of presences observed over a
+        <em>common interval</em>.</p>
         <div style="text-align: center; margin:2em">
         <img src="../assets/pandoc/presence_invariant_continuous.png" width="600px" />
         <div
         style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 5: The Presence Invariant</code></pre>
+        <pre><code>Figure 5: Co-Presence and The Presence Invariant</code></pre>
         </div>
         </div>
         <p>These presences are called <em>co-present</em>—they represent
@@ -1202,25 +1222,30 @@ Introduction</span></p>
         <p>In our example from Figure 5,</p>
         <p><span class="math display">\[ A = M_0 + M_1 + M_3
         \]</span></p>
-        <p>is the total mass contribution from the signals that have
-        non-zero mass over the interval <span
+        <p>is the cumulative mass contribution from the signals that
+        have non-zero mass over the interval <span
         class="math inline">\([t_0, t_1)\)</span>. The length of this
         interval is <span class="math inline">\(T = t_1 -
         t_0\)</span>.</p>
+        <p>Let <span class="math inline">\(N\)</span> be the number of
+        <em>active signals</em>: distinct signals with a presence in the
+        observation window<a href="#fn5" class="footnote-ref"
+        id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+        <p>Now let’s consider the quantity <span class="math display">\[
+        \delta = \frac{A}{T}
+        \]</span></p>
         <p>Since the mass comes from integrating a density function over
-        time, the quantity <span class="math inline">\(\delta =
-        \frac{A}{T}\)</span> represents the <em>average presence
-        density</em> over the observation interval <span
-        class="math inline">\(T\)</span>.</p>
+        time, the quantity <span
+        class="math inline">\(\frac{A}{T}\)</span> represents the
+        <em>average presence density</em> over the observation interval
+        <span class="math inline">\(T\)</span> <a href="#fn6"
+        class="footnote-ref" id="fnref6"
+        role="doc-noteref"><sup>6</sup></a>.</p>
         <p>We can now decompose this as:</p>
         <p><span class="math display">\[ \delta = \frac{A}{T} =
         \frac{A}{N} \times \frac{N}{T} \]</span></p>
-        <p>Here <span class="math inline">\(N\)</span> is the number of
-        <em>active signals</em>: distinct signals with a presence in the
-        observation window<a href="#fn6" class="footnote-ref"
-        id="fnref6" role="doc-noteref"><sup>6</sup></a>. This separates
-        the average presence density into two interpretable
-        components:</p>
+        <p>This separates the average presence density into two
+        interpretable components:</p>
         <ul>
         <li><span class="math inline">\(\bar{m} = \frac{A}{N}\)</span>:
         the <em>average mass contribution</em> per active signal,</li>
@@ -1236,15 +1261,21 @@ Introduction</span></p>
         \]</span></p>
         <p>This identity holds for <em>any</em> co-present subset of
         signals over <em>any</em> finite time interval.</p>
+        <blockquote>
         <p>The key insight here is that the presence invariant
-        establishes a fundamental relationship between the mass
-        contributions of individual signals and what is observable about
-        their interactions at a boundary over time—that is, their
-        presence density. This is precisely the kind of relationship the
-        presence calculus is designed to capture.</p>
-        <p>The fact that this invariant holds for any finite observation
-        interval is a powerful constraint—one we will exploit in
-        reasoning about system behavior with the calculus.</p>
+        establishes a fundamental relationship between the individual
+        mass contributions of signals and their cumulative, observable
+        effect over a shared time interval—that is, the presence density
+        they induce together over time.</p>
+        </blockquote>
+        <p>That this identity holds for <em>any</em> co-present subset
+        over <em>any</em> finite observation window makes it a powerful
+        constraint. It connects local behaviors of individual signals to
+        a global, observable quantity.</p>
+        <p>As we’ll see, this constraint—linking contributions from
+        parts of the system to measurable properties of the whole— are
+        central to how the calculus enables reasoning about the dynamics
+        of a system of presences.</p>
         <h3 data-number="4.1" id="an-example-1"><span
         class="header-section-number">4.1</span> An example</h3>
         <p>To build intuition for these abstract terms, let’s look at a
@@ -1274,23 +1305,22 @@ Introduction</span></p>
         independent of the specific system, semantics, or timescale.
         Think of it as the generalization of our intuitive revenue
         example to any arbitrary system of presences.</p>
-        <p>Indeed, it forms a foundational conservation law of the
-        presence calculus: the <em>conservation of mass
+        <p>The presence invariant is a foundational conservation law of
+        the presence calculus: the <em>conservation of mass
         (contribution)</em>.</p>
         <p>Just as the conservation of energy or mass constrains the
         evolution of physical systems—regardless of the specific
         materials or forces involved—the conservation of presence mass
-        constrains how observable activity is distributed over time in a
-        system of presences. This conservation law applies to how
-        presence mass is conserved across time.</p>
-        <p>While independent of the semantics of what is being observed,
-        like energy, presence mass can shift, accumulate, or
-        redistribute, but its total balance across presences within a
-        finite time interval remains invariant.</p>
+        constrains how observable mass is distributed over time in a
+        system of presences.</p>
         <p>Thus, the conservation of mass plays a role in the presence
         calculus similar to that of other conservation laws in physics:
         it constrains the behavior of three key observable, measurable
         parameters of any system of presences.</p>
+        <p>While independent of the semantics of what is being observed,
+        like energy, presence mass can shift, accumulate, or
+        redistribute, but its total balance across presences within a
+        finite time interval remains invariant.</p>
         <p>It is important to note that this makes the “averages” in the
         presence invariant much more than descriptive statistics. While
         they may be interpreted as such, these are not simply measures
@@ -1304,8 +1334,7 @@ Introduction</span></p>
         id="binary-presences-and-littles-law"><span
         class="header-section-number">4.3</span> Binary presences and
         Little’s Law</h3>
-        <p>At this stage, the presence invariant may still feel a bit
-        abstract. Let’s make it more concrete by interpreting this
+        <p>Let’s make things a bit more concrete by interpreting this
         identity in the special case of <em>binary</em> presences.</p>
         <p>Recall that a <em>binary</em> signal is a function whose
         density is either <span class="math inline">\(0\)</span> or
@@ -1318,7 +1347,7 @@ Introduction</span></p>
         development, the mass contribution of that task over an
         observation interval is the portion of its duration that
         intersects the interval. This is also called the <em>residence
-        time</em><a href="#fn7" class="footnote-ref" id="fnref7"
+        time</em> <a href="#fn7" class="footnote-ref" id="fnref7"
         role="doc-noteref"><sup>7</sup></a> for the task in the
         observation window.</p>
         <div style="text-align: center; margin:2em">
@@ -1401,87 +1430,64 @@ Introduction</span></p>
         equilibrium states in systems of presence with the help of a
         very general form of Little’s Law originally proven by
         Stidham.</p>
-        <p>For now, we will note that for any arbitrary signal, we can
-        always define a binary presence corresponding to the intervals
-        over which the value of the density function is non-zero (the
-        support interval). In general then, we can say the finite window
-        version of Little’s Law, with the above definitions, always
-        applies to <em>any</em> signal under this interpretation.</p>
-        <p><em>In addition,</em> the general presence invariant also
-        applies to the full signal. Yet another version applies in
-        equilibrium states—but all are, in effect, different
-        manifestations of the same underlying relationship captured in
-        the presence invariant.</p>
-        <p>We will return to this important topic shortly. But first,
-        let’s understand the implications of the presence invariant.</p>
-        <h3 data-number="4.4" id="causal-reasoning"><span
-        class="header-section-number">4.4</span> Causal Reasoning</h3>
-        <p>The presence invariant gave us an important constraint that
-        applies to the behavior of three key parameters of a system of
-        presences when measured over any finite time interval: the
-        average presence density, the signa incidence rate, and the
-        average mass contribution per signal.</p>
-        <p>This means that if we observe the behavior of a system of
-        presences over a continuous sequence of non-overlapping time
-        intervals, the presence invariant holds in <em>each</em> such
-        interval, and given the value of any two of the parameters, the
-        third is completely determined.</p>
+        <h3 data-number="4.4" id="signal-dynamics"><span
+        class="header-section-number">4.4</span> Signal Dynamics</h3>
+        <p>Now that we’ve defined how we observe a system of presences
+        over a finite time interval, we turn to what happens when we
+        observe the system across a continuous sequence of
+        non-overlapping intervals.</p>
         <div style="text-align: center; margin:2em">
         <img src="../assets/pandoc/system_presences_discrete.png" width="600px" />
         <div
         style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 7: Sampling a system of presence across uniform intervals. </code></pre>
+        <pre><code>Figure 7: Sampling a system of presences across uniform intervals. </code></pre>
         </div>
         </div>
-        <p>The requirement that presence mass is conserved across each
-        interval means that there are only two degrees of freedom
-        between three variables.</p>
-        <p>Furthermore, within the structure of this identity, presence
-        density is the resultant variable, while the incidence rate and
-        signal mass contribution act as its fundamental, independent
-        variables.</p>
-        <p>Thus, the invariant explicitly states that any change in
-        presence density is an <em>outcome</em> that is necessarily
-        accounted for by a change in incidence rate or signal mass
-        contribution.</p>
-        <p>This means that if you observe a shift in presence density,
-        you know it must originate from changes in either how frequently
-        signals appear (incidence rate) or how much ‘mass’ each signal
-        contributes on average (average mass contribution), or both.</p>
-        <p>Since the invariant holds across <em>any</em> finite
-        interval, this also implies that if we study how these
-        parameters change in concert as we move <em>across</em> time
-        intervals, we will get unique insights into how a
-        <em>particular</em> system of presences evolves over time.</p>
-        <p>This is a powerful tool in causal reasoning: being able to
-        analyze <em>why</em> a system of presences behaves the way it
-        does. Specifically, it provides a powerful framework for
-        structural causal attribution when analyzing the changes in
-        behavior of a system or presences.</p>
-        <p>Specifically, if we think of these three parameters of a
-        system as defining the unique co-ordinates of the state of the
-        system over a small finite interval, we can “trace” the movement
-        of the system by following these co-ordinates. But since there
-        are only two degrees of freedom these coordinates will always
-        lie on a two dimensional manifold<a href="#fn8"
-        class="footnote-ref" id="fnref8"
-        role="doc-noteref"><sup>8</sup></a>, in a 3 dimensional
-        space.</p>
-        <p>If fact, remarkably, the state of <em>every</em> possible
-        system of presences, no matter how general, always has a
-        trajectory in time that lies on this <em>same</em> manifold.
-        This is a powerful constraint and insight that we can use to
-        study the behavior of a system of presences over time.</p>
-        <p>We will now introduce a tool called the presence matrix that
-        makes it easier to visualize and manage the computations
-        involved in doing so.</p>
+        <p>This is a fundamental construct in the presence calculus—it
+        allows us to study the evolution of presence density over time:
+        the <em>signal dynamics</em> of the system.</p>
+        <p>The presence invariant defines a constraint among three key
+        parameters measured in each interval: average presence density,
+        signal incidence rate, and average mass contribution per
+        signal.</p>
+        <blockquote>
+        <p>Given any two of these, the third is completely
+        determined.<br />
+        Among them, presence density is the output; incidence rate and
+        average mass contribution are the inputs.</p>
+        </blockquote>
+        <p>At each interval, presence density can be directly
+        observed—but the invariant requires that it always equal the
+        product of incidence rate and average mass contribution:</p>
+        <blockquote>
+        <p>Any change in presence density must result from a change in
+        incidence rate, average mass contribution, or both.</p>
+        <p>In other words, the system has only <em>two degrees of
+        freedom</em> among three interdependent variables.</p>
+        </blockquote>
+        <p>Because the invariant holds across <em>any</em> finite
+        interval, tracking how these parameters shift reveals how a
+        particular system of presences evolves.</p>
+        <p>In Section 7, we’ll explore a geometric view of this idea. If
+        we treat these three parameters as coordinates of the system’s
+        state in each interval, we can “trace” its evolution as a
+        trajectory through time.</p>
+        <blockquote>
+        <p>This makes the presence invariant a powerful tool for causal
+        reasoning—one that helps explain <em>why</em> presence density
+        changes the way it does.</p>
+        </blockquote>
+        <p>In the next section, we’ll introduce the <em>presence
+        matrix</em>—a compact representation of the sampled signals
+        shown in Figure 7. It is a key building block in the machinery
+        for computing these trajectories.</p>
         <h2 data-number="5" id="the-presence-matrix"><span
         class="header-section-number">5</span> The Presence Matrix</h2>
         <p>A <em>presence matrix</em> records the presence mass
         distribution obtained by sampling a set of presence density
-        functions over a fixed set of time intervals. Specifically, if
-        we fix a time granularity—such as hours, days or weeks—we can
-        construct a matrix in which:</p>
+        functions over a consecutive set of time intervals of fixed
+        size. Specifically, if we fix a time granularity—such as hours,
+        days or weeks—we can construct a matrix in which:</p>
         <ul>
         <li><p><em>Rows</em> correspond to individual signals (e.g., for
         each <span class="math inline">\((
@@ -1500,23 +1506,40 @@ Introduction</span></p>
         <p>Since we are accumulating presence masses over an interval,
         the value of presence mass in a matrix entry is always a a real
         number. Figure 8 shows the presence matrix for the system in
-        Figure 7<a href="#fn9" class="footnote-ref" id="fnref9"
-        role="doc-noteref"><sup>9</sup></a>.</p>
+        Figure 7.</p>
         <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/presence_matrix.png" width="600px" />
+        <img src="../assets/pandoc/presence_matrix_neat.png" width="600px" />
         <div
         style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
         <pre><code>Figure 8: Presence Matrix for a system of presences. </code></pre>
         </div>
         </div>
-        <p>The presence matrix encodes some deep structural properties
-        of a system of presences. Many of key concepts we want to
-        highlight are easier to define and understand in terms of this
+        <p>In Figure 8,</p>
+        <ul>
+        <li>Each row in the matrix maps to a single element-boundary
+        signal.</li>
+        <li>Each column represents an observation window, and we are
+        assuming that the signal is sampled across non-overlapping time
+        intervals that cover the timeline.</li>
+        <li>Each matrix entry consists of the observed presence mass of
+        the signal a time interval. This is computed by taking the
+        integral the underlying signal over the observation window.</li>
+        </ul>
+        <p>The alert reader will note the difference between the first
+        two rows in the matrix. Even though the underlying signals both
+        have two distinct support intervals, the first signal is
+        represented by a single presence in the matrix, while the second
+        is broken up into two disjoint presences.</p>
+        <p>This is entirely an artifact of the granularity at which the
+        signal is sampled. At a suitably fine sampling granularity, the
+        first signal could also be represented by two presences.
+        However, this has no real impact on the behavior of the
+        invariant (see <a href="#fn8" class="footnote-ref" id="fnref8"
+        role="doc-noteref"><sup>8</sup></a>).</p>
+        <p>The presence matrix encodes deep structural properties of a
+        system of presences. Many of key concepts we want to highlight
+        are easier to define and understand in terms of this
         representation.</p>
-        <p>The Presence Calculus Toolkit documentation has more details
-        on the mechanics of its construction and the computations it
-        enables. For now, these details are not critical, and we will
-        focus on the insights it surfaces.</p>
         <h3 data-number="5.1"
         id="the-presence-invariant-and-the-presence-matrix."><span
         class="header-section-number">5.1</span> The presence invariant
@@ -1726,37 +1749,67 @@ Introduction</span></p>
         explict - assuming some fixed granularity of observation window,
         a vertical slice in time corresponds to a column in the presence
         matrix.</p>
-        <p>Looking at the sums of the presence masses along the rows of
-        the matrix gives us the mass contributions per signal (or
-        presence) and the row sums give us cumulative presence mass per
-        signal across all presences.</p>
-        <p>Given a sequence of columns of the presence matrix, the
-        signal incidences are simply the number of rows that have
-        non-zero values those rows. It’s straightforward now to
-        interpret the presence invariant in terms of the presence
-        matrix.</p>
         <p>Further, you can see that we can construct a presence matrix
         from any subset of the rows of another presence matrix, and it
-        would still be a presence matrix, for which the presence
-        invariant applies. What is more, the presence invariant applies
-        for any <em>consecutive</em> sequence of columns of the presence
-        matrix.</p>
-        <p>Thus the presence invariant encodes very strong
-        <em>local</em> constraints in how presence mass distributes in
-        time across signals, and we can use these to derive meaningful
-        constraints on the global accumulation of presence mass across a
-        system of presences.</p>
+        would still be a presence matrix. What is more, the presence
+        invariant applies for any <em>consecutive</em> sequence of
+        columns of any such presence matrix.</p>
+        <p>It’s straightforward now to interpret the presence invariant
+        in terms of a presence matrix.</p>
+        <div style="text-align: center; margin:2em">
+        <img src="../assets/pandoc/matrix_invariant.png" width="600px" />
+        <div
+        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
+        <pre><code>Figure 9: Computing the invariant from the matrix.</code></pre>
+        </div>
+        </div>
+        <p>For any observation window:</p>
+        <ul>
+        <li>The sums of the presence masses along the rows of the
+        sub-matrix induced by the window gives us the mass contributions
+        per signal for that window.</li>
+        <li>The total of these row sums give us cumulative presence mass
+        <span class="math inline">\(A\)</span> across all signals for
+        the window.</li>
+        <li>The number of active signals <span
+        class="math inline">\(N\)</span> is simply the number of
+        distinct rows that have non-zero values those rows in the
+        induced matrix.</li>
+        <li><span class="math inline">\(T\)</span> is simply the number
+        of columns in the window expressed in units of the sampling
+        granularity.</li>
+        </ul>
+        <p>Given that we can interpret <span
+        class="math inline">\(A\)</span>, <span
+        class="math inline">\(N\)</span> and <span
+        class="math inline">\(T\)</span> as matrix properties, we can
+        also derive the three parameters: presence density <span
+        class="math inline">\(\delta\)</span>, signal incidence rate
+        <span class="math inline">\(\iota\)</span> and average mass
+        contribution per signal <span
+        class="math inline">\(\bar{m}\)</span> of the presence invariant
+        from this matrix for any observation window.</p>
+        <p>Next, we will look at a structure that is well suited for
+        analyzing these parameters <em>across</em> multiple observation
+        windows.</p>
         <h3 data-number="5.2"
         id="the-presence-accumulation-matrix"><span
         class="header-section-number">5.2</span> The Presence
         Accumulation Matrix</h3>
+        <p>The presence invariant encodes very strong <em>local</em>
+        constraints in how presence mass distributes in time across
+        signals, and we can use these to derive meaningful constraints
+        on the global accumulation of presence mass across a system of
+        presences.</p>
         <p>To visualize and reason about both the micro and macro
         behaviors of a system of presences in a natural way, we will
         need the help of a data structure called the Presence
         Accumulation matrix. It compresses a lot of information about
         the interaction between local and global behavior of a system of
-        presences across time scales and relies heavily on the fact that
-        the presence invariant is scale-independent.</p>
+        presences as encoded in the presence matrix, across time windows
+        and time scales.</p>
+        <p>It highlights clearly the fact that the presence invariant is
+        scale-independent.</p>
         <p>We’ll continue with the presence matrix of Figure 9, to
         illustrate how it is constructed.</p>
         <p>Recall that the columns of the presence matrix represent time
@@ -3148,8 +3201,8 @@ Introduction</span></p>
         <p>Recall that each entry on the diagonal represents the sum of
         the presence masses of the signals active in a time window. This
         implies that each entry on the top row is an approximation of an
-        integral<a href="#fn10" class="footnote-ref" id="fnref10"
-        role="doc-noteref"><sup>10</sup></a> and equals the <em>area
+        integral<a href="#fn9" class="footnote-ref" id="fnref9"
+        role="doc-noteref"><sup>9</sup></a> and equals the <em>area
         under the sample path</em> represented by the diagonal.</p>
         <div style="text-align: center; margin:2em">
         <img src="../assets/pandoc/top_row_values.png" width="600px" />
@@ -3687,8 +3740,8 @@ Introduction</span></p>
         both do, we should expect that their product —<br />
         and hence <span class="math inline">\(\Delta\)</span> —
         converges as well,and it does, with some technical conditions in
-        place<a href="#fn11" class="footnote-ref" id="fnref11"
-        role="doc-noteref"><sup>11</sup></a>.</p>
+        place<a href="#fn10" class="footnote-ref" id="fnref10"
+        role="doc-noteref"><sup>10</sup></a>.</p>
         <p>So, let’s write down precise definitions for the limits of
         <span class="math inline">\(\iota(t)\)</span> and<br />
         <span class="math inline">\(\bar{m}(t)\)</span> and examine how
@@ -4491,9 +4544,9 @@ Introduction</span></p>
         signals evolve and interact over time—regardless of whether the
         underlying signals are random or not.</p>
         <p>Even when the signals have randomness, the <em>observed</em>
-        evolution of presence density is deterministic<a href="#fn12"
-        class="footnote-ref" id="fnref12"
-        role="doc-noteref"><sup>12</sup></a> and governed by the law of
+        evolution of presence density is deterministic<a href="#fn11"
+        class="footnote-ref" id="fnref11"
+        role="doc-noteref"><sup>11</sup></a> and governed by the law of
         conservation of presence mass—that is, the presence invariant.
         This determinism extends to any functional quantity that depends
         on presence density. As we will see, a large and operationally
@@ -4528,7 +4581,7 @@ Introduction</span></p>
         in that domain behave.</p>
         <h2 data-number="7"
         id="navigation-defining-place-and-direction"><span
-        class="header-section-number">7</span> 7. Navigation: defining
+        class="header-section-number">7</span> Navigation: defining
         place and direction</h2>
         <p>Convergence, as discussed in the last section, is a
         fundamental concept in the<br />
@@ -4985,9 +5038,9 @@ Introduction</span></p>
         </ul>
         <p>This equation reflects the additivity of cumulative presence
         mass over<br />
-        rectangular regions in the presence matrix <a href="#fn13"
-        class="footnote-ref" id="fnref13"
-        role="doc-noteref"><sup>13</sup></a>.</p>
+        rectangular regions in the presence matrix <a href="#fn12"
+        class="footnote-ref" id="fnref12"
+        role="doc-noteref"><sup>12</sup></a>.</p>
         <p>Thus, the presence accumulation matrix—and by extension, the
         evolution of<br />
         presence density—is governed by a simple local rule. Given the
@@ -5676,6 +5729,20 @@ Introduction</span></p>
         <pre><code>Table: Interpretation of θ as directional flow in log-space between incidence rate and average mass, with fully rendered vector arrows.</code></pre>
         </div>
         </div>
+        <h2 data-number="8" id="attractors"><span
+        class="header-section-number">8</span> Attractors</h2>
+        <p>Since there are only two degrees of freedom theses system
+        trajectories will always lie on a two dimensional manifold <a
+        href="#fn13" class="footnote-ref" id="fnref13"
+        role="doc-noteref"><sup>13</sup></a> in a 3 dimensional
+        space.</p>
+        <blockquote>
+        <p>Remarkably, the state of <em>every</em> possible system of
+        presences, no matter how general, always has a trajectory in
+        time that lies on this <em>same</em> manifold. This is a
+        powerful constraint and insight that we can use to study the
+        behavior of a system of presences over time.</p>
+        </blockquote>
         <section id="footnotes"
         class="footnotes footnotes-end-of-document" role="doc-endnotes">
         <hr />
@@ -5728,19 +5795,7 @@ Introduction</span></p>
         downstream<br />
         analysis.<a href="#fnref4" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn5"><p>There are several technical conditions that must
-        be satisfied when<br />
-        mapping signals to a canonical system of presences in order for
-        this claim to<br />
-        hold. To avoid getting bogged down in those details, we’ll
-        simply claim it for<br />
-        now. The API docs go into more detail about the mechanics of
-        this canonical<br />
-        representation, and what’s needed to ensure a “clean” mapping
-        from a signal to a system of presences—or more precisely, a
-        system of presence assertions.<a href="#fnref5"
-        class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn6"><p>It is equally valid to define <span
+        <li id="fn5"><p>It is equally valid to define <span
         class="math inline">\(N\)</span> as the number of distinct
         <em>presences</em> in the observation window. For example for
         the signal <span class="math inline">\(P2\)</span> in Figure 5,
@@ -5756,7 +5811,13 @@ Introduction</span></p>
         ultimately a modeling decision that depends on what you are
         trying to measure. By default we will assume that <span
         class="math inline">\(N\)</span> is measured at the signal
-        granularity.<a href="#fnref6" class="footnote-back"
+        granularity.<a href="#fnref5" class="footnote-back"
+        role="doc-backlink">↩︎</a></p></li>
+        <li id="fn6"><p><span class="math inline">\(\delta\)</span> may
+        also be considered the rate at which presence density
+        <em>accumulates</em> over the interval. This latter view will be
+        useful when interpreting the dynamics of the system.<a
+        href="#fnref6" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
         <li id="fn7"><p>We note that the residence time represents only
         the portion of the duration of the task in some arbitrary
@@ -5766,38 +5827,34 @@ Introduction</span></p>
         familiar metric typically called the cycle time.<a
         href="#fnref7" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn8"><p>All solutions to an equation of the form <span
-        class="math inline">\(x=y \times z,\)</span> which is the form
-        of the presence invariant, lie on a 2D surface, called a
-        manifold in 3 dimensions: think of the manifold a rubber sheet
-        suspended in a 3 dimensional space. All the values of <span
-        class="math inline">\(x, y, \text{ and } z\)</span> that satisfy
-        this equation will lie on the surface of this rubber sheet. This
-        is a powerful geometric constraint that we can exploit to reason
-        about the possible behavior of a system of presences over
-        time.<a href="#fnref8" class="footnote-back"
+        <li id="fn8"><p>It is equally valid to define <span
+        class="math inline">\(N\)</span> as the number of distinct
+        <em>presences</em> in the observation window. For example for
+        the signal <span class="math inline">\(P2\)</span> in Figure 5,
+        this corresponds to asking if <span
+        class="math inline">\(N=5\)</span> (if we count the disjoint
+        presences individually) or <span
+        class="math inline">\(N=3\)</span> (if we count the signals).
+        These give different values for <span
+        class="math inline">\(\bar{m}\)</span> and <span
+        class="math inline">\(\iota\)</span> but their product <em>still
+        equals</em> <span class="math inline">\(\delta\)</span>, as long
+        as a single consistent definition of N is used. This is
+        ultimately a modeling decision that depends on what you are
+        trying to measure. By default we will assume that <span
+        class="math inline">\(N\)</span> is measured at the signal
+        granularity.<a href="#fnref8" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn9"><p>The alert reader will note the difference
-        between the first two rows in the matrix. The first signal is
-        represented by a single presence, while the second is broken up
-        into two disjoint presences. This is entirely an artifact of the
-        granularity at which the timeline is divided. At a suitably fine
-        sampling granularity, the first signal could also be represented
-        by two presences. As discussed in footnote 6 above, this has no
-        real impact on the behavior of the invariant. In general we will
-        use signals as the unit at which incidence is measured.<a
-        href="#fnref9" class="footnote-back"
-        role="doc-backlink">↩︎</a></p></li>
-        <li id="fn10"><p>Specifically, the Riemann sum approximation of
+        <li id="fn9"><p>Specifically, the Riemann sum approximation of
         the integral <span class="math display">\[
         A(1, j) = \sum_{k=1}^j A(k,k)
         \approx \int_0^j \left( \sum_{(e,b)} P_{(e,b)}(t) \right) dt
         \]</span> where each <span
         class="math inline">\(P_{(e,b)}(t)\)</span> represents the
         presence density function of an underlying element-boundary
-        signal.<a href="#fnref10" class="footnote-back"
+        signal.<a href="#fnref9" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn11"><p>While it’s tempting to assume that the limit of
+        <li id="fn10"><p>While it’s tempting to assume that the limit of
         a product is simply the product of the limits, this doesn’t
         automatically hold here. The long-run average of presence
         density, <span class="math inline">\(\Delta\)</span>, is defined
@@ -5806,9 +5863,9 @@ Introduction</span></p>
         defined over the number of signals. Since these limits are taken
         over different denominators, additional technical conditions are
         required to ensure that their product equals the limit of the
-        product.<a href="#fnref11" class="footnote-back"
+        product.<a href="#fnref10" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn12"><p>It is worth emphasizing the word
+        <li id="fn11"><p>It is worth emphasizing the word
         <em>observed</em> in this statement. Even though the evolution
         is deterministic, this does not mean the future behavior of the
         system is predictable based on past behavior. That depends
@@ -5817,9 +5874,9 @@ Introduction</span></p>
         sufficiently complete history of the system, we can
         deterministically reconstruct the current state of presence
         density from any starting point. This explanatory power is
-        useful in its own right, as we will soon see.<a href="#fnref12"
+        useful in its own right, as we will soon see.<a href="#fnref11"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn13"><p>Recall that we required signals to be
+        <li id="fn12"><p>Recall that we required signals to be
         measurable. This recurrence<br />
         reflects the finite additivity of measures over overlapping
         regions. If we<br />
@@ -5832,8 +5889,19 @@ Introduction</span></p>
         = [i{+}1, j]\]</span>. The subtraction removes the overlap <span
         class="math inline">\([i{+}1, j{-}1]\)</span>, ensuring the
         correct cumulative mass is assigned to <span
-        class="math inline">\([i, j]\)</span>.<a href="#fnref13"
+        class="math inline">\([i, j]\)</span>.<a href="#fnref12"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+        <li id="fn13"><p>All solutions to an equation of the form <span
+        class="math inline">\(x=y \times z,\)</span> which is the form
+        of the presence invariant, lie on a 2D surface, called a
+        manifold in 3 dimensions: think of the manifold a rubber sheet
+        suspended in a 3 dimensional space. All the values of <span
+        class="math inline">\(x, y, \text{ and } z\)</span> that satisfy
+        this equation will lie on the surface of this rubber sheet. This
+        is a powerful geometric constraint that we can exploit to reason
+        about the possible behavior of a system of presences over
+        time.<a href="#fnref13" class="footnote-back"
+        role="doc-backlink">↩︎</a></p></li>
         </ol>
         </section>
       </div>
