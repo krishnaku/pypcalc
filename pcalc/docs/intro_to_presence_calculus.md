@@ -1080,7 +1080,7 @@ will measure _change_ in the system.
 
 > Choosing the right sampling granularity is a key modeling decision and
 > affects the kind of insights we can generate from all the machinery we develop
-below.
+> below.
 
 Given an observation granularity, we can construct a matrix in which:
 
@@ -1394,7 +1394,8 @@ The next diagonal row contains the cumulative presence mass for intervals of len
 Cumulative presence mass along intervals of length 2
 :::
 
-We can continue filling the matrix out in diagonal order this way until we get the presence accumulation matrix shown below. 
+We can continue filling the matrix out in diagonal order this way until we get
+the presence accumulation matrix shown below.
 
 ::: {.figure #fig:acc-matrix-full}
 ![](../assets/placeholder.png){#fig:acc-matrix-full style="display: none;"}
@@ -1563,16 +1564,207 @@ interval $[i,j]$.
 As we will see below, this matrix compactly encodes multi-scale information about system behavior 
 and supports the analysis of both micro and macro scale behavior of a system of presences. 
 
-## Applying the Presence Calculus
+### The Presence Accumulation Recurrence
 
-The presence calculus might seem like a highly abstract, theoretical framework,
-but much of its utility emerges when we *interpret* its concepts in a specific,
-applied context.
+In this section, we demonstrate a key implication of modeling signals as
+sampled presences over time: that the relationship between presence mass
+accumulation at micro and macro timescales can be described _deterministically_.
 
-Concepts such as presence mass, incidence rates, and density are not unlike
-abstract physical notions like force, mass, and acceleration. In principle,
-these are measurable quantities that nature constrains to behave in prescribed
-ways at a micro scale.
+
+This powerful property arises directly from the fact that presence masses are
+measures over time intervals—and that such measures satisfy a mathematical
+property called *finite additivity*.
+
+To explain this, we reproduce the presence accumulation matrix from Figure 12 below. 
+<div style="text-align: center; margin:2em">
+  <table>
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Row 1 -->
+    <tr>
+      <td>1</td>
+      <td style="background-color:#e6ffe6">1.4</td>
+      <td style="background-color:#e6f0ff">7.3</td>
+      <td style="background-color:#e6ffe6">16.5</td>
+      <td style="background-color:#e6f0ff">21.5</td>
+      <td style="background-color:#e6ffe6">27.4</td>
+      <td style="background-color:#e6f0ff">34.9</td>
+      <td style="background-color:#e6ffe6">42.5</td>
+      <td style="background-color:#e6f0ff">49.1</td>
+      <td style="background-color:#e6ffe6">54.6</td>
+      <td style="background-color:#e6f0ff">56.3</td>
+    </tr>
+    <!-- Row 2 -->
+    <tr>
+      <td>2</td>
+      <td></td>
+      <td style="background-color:#e6ffe6">5.9</td>
+      <td style="background-color:#e6f0ff">15.1</td>
+      <td style="background-color:#e6ffe6">20.1</td>
+      <td style="background-color:#e6f0ff">26.0</td>
+      <td style="background-color:#e6ffe6">33.5</td>
+      <td style="background-color:#e6f0ff">41.1</td>
+      <td style="background-color:#e6ffe6">47.7</td>
+      <td style="background-color:#e6f0ff">53.2</td>
+      <td style="background-color:#e6ffe6">54.9</td>
+    </tr>
+    <!-- Row 3 -->
+    <tr>
+      <td>3</td>
+      <td></td><td></td>
+      <td style="background-color:#e6ffe6">9.2</td>
+      <td style="background-color:#e6f0ff">14.2</td>
+      <td style="background-color:#e6ffe6">20.1</td>
+      <td style="background-color:#e6f0ff">27.6</td>
+      <td style="background-color:#e6ffe6">35.2</td>
+      <td style="background-color:#e6f0ff">41.8</td>
+      <td style="background-color:#e6ffe6">47.3</td>
+      <td style="background-color:#e6f0ff">49.0</td>
+    </tr>
+    <!-- Row 4 -->
+    <tr>
+      <td>4</td>
+      <td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.0</td>
+      <td style="background-color:#e6f0ff">10.9</td>
+      <td style="background-color:#e6ffe6">18.4</td>
+      <td style="background-color:#e6f0ff">26.0</td>
+      <td style="background-color:#e6ffe6">32.6</td>
+      <td style="background-color:#e6f0ff">38.1</td>
+      <td style="background-color:#e6ffe6">39.8</td>
+    </tr>
+    <!-- Row 5 -->
+    <tr>
+      <td>5</td>
+      <td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.9</td>
+      <td style="background-color:#e6f0ff">13.4</td>
+      <td style="background-color:#e6ffe6">21.0</td>
+      <td style="background-color:#e6f0ff">27.6</td>
+      <td style="background-color:#e6ffe6">33.1</td>
+      <td style="background-color:#e6f0ff">34.8</td>
+    </tr>
+    <!-- Row 6 -->
+    <tr>
+      <td>6</td>
+      <td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">7.5</td>
+      <td style="background-color:#e6f0ff">15.1</td>
+      <td style="background-color:#e6ffe6">21.7</td>
+      <td style="background-color:#e6f0ff">27.2</td>
+      <td style="background-color:#e6ffe6">28.9</td>
+    </tr>
+    <!-- Row 7 -->
+    <tr>
+      <td>7</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">7.6</td>
+      <td style="background-color:#e6f0ff">14.2</td>
+      <td style="background-color:#e6ffe6">19.7</td>
+      <td style="background-color:#e6f0ff">21.4</td>
+    </tr>
+    <!-- Row 8 -->
+    <tr>
+      <td>8</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">6.6</td>
+      <td style="background-color:#e6f0ff">12.1</td>
+      <td style="background-color:#e6ffe6">13.8</td>
+    </tr>
+    <!-- Row 9 -->
+    <tr>
+      <td>9</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">5.5</td>
+      <td style="background-color:#e6f0ff">7.2</td>
+    </tr>
+    <!-- Row 10 -->
+    <tr>
+      <td>10</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td style="background-color:#e6ffe6">1.7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+As noted earlier, the diagonal of the matrix represents a sample path through
+the system’s history, and the top row records cumulative presence mass over the
+entire observed history. The diagonal shows accumulation at the finest
+(micro) timescale; the top row reflects accumulation at the coarsest (macro)
+timescale. Each diagonal represents accumulation across intervals of
+increasingly coarse granularity.
+
+In essence, the accumulation matrix is a compact encoding of how presence mass
+builds up across timescales.
+
+But there’s more: the matrix entries obey a *local recurrence relationship*,
+which allows us to reconstruct the entire matrix from its diagonal:
+
+$$
+A[i,j] = A[i,j-1] + A[i+1,j] - A[i+1,j-1]
+\quad \text{for } 1 \le i < j \le N
+$$
+
+It tells us that the cumulative mass from column $i$ to column $j$ can be  
+computed from three nearby entries:
+
+- $A[i,j-1]$: the cumulative mass from $i$ to $j{-}1$
+- $A[i+1, j]$: the mass from $i{+}1$ to $j$
+- a correction term subtracting the overlap $A[i+1, j-1]$ from $i{+}1$
+  to $j{-}1$
+
+This equation reflects the finite additivity of cumulative presence mass over  
+rectangular regions in the presence matrix [^F13].
+
+[^F13]: Recall that we required signals to be measurable functions.
+Mathematically, this implies presence masses are measures over time intervals.
+Measures satisfy the property of finite additivity. If we  
+interpret $A[i,j]$ as the measure of the union of two intervals, then the  
+recurrence follows from the property of finite additivity
+identity $$\mu(A \cup B) = \mu(A) + \mu(B) - \mu(A \cap B)$$,  
+where $$A = [i, j{-}1] \text{ and } B = [i{+}1, j]$$. The subtraction removes
+the overlap $[i{+}1, j{-}1]$, ensuring the correct cumulative mass is assigned
+to $[i, j]$.
+
+So, the entire matrix—and thus, the system’s accumulation dynamics—is governed
+by a simple, local rule. Given the values on the diagonal, the rest of the
+matrix is completely determined.
+
+The physical meaning is this: if we know the first $N{-}1$ values along a
+sample path, then observing the $N^\text{th}$ value allows us to explain how the macro
+behavior of the system evolved across _all_ timescales up to that point.
+
+What’s remarkable is that this determinism holds regardless of the nature of the
+underlying processes. The signals might come from deterministic, stochastic,
+linear, non-linear, or even chaotic processes. As long as the signals they
+generate are *measurable* and we sample their *observed* presence masses, this
+local recurrence always applies [^F-determinism-caveat].
+
+[^F-determinism-caveat] We'll note at this point, that the determinism is _retrospective_. 
+Since it is based on _observed_ presence, this recurrence in no way implies we can 
+predict how the presences will evolve in the future. We will have more to say about
+this in the next section. 
+
+Combined with the presence invariant—which also holds at every level of this
+accumulation—this gives us a powerful framework for dissecting the dynamics of
+a system of presences.
+
+This forms the foundation for the next set of tools we’ll develop in the next section.
+
+## Computing Signal Dynamics
+
+Presence calculus concepts such as presence mass, incidence rates, and density
+are not unlike abstract physical notions like force, mass, and acceleration. In
+principle, these are measurable quantities that nature constrains to behave in
+prescribed ways at a micro scale.
 
 Once we understand the rules governing their micro-scale behavior, we gain tools
 to systematically measure, reason about, and explain a vast range of observable
@@ -1583,28 +1775,26 @@ In a similar vein, the presence calculus—and especially the *presence invarian
 system composed of time-varying signals and the presences they induce.
 
 Once we recognize that such a governing constraint exists, the presence calculus
-equips us with tools to describe, interpret, explain, and, in certain cases,  
+equips us with tools to describe, interpret, explain, and, in certain cases,
 make verifiable predictions about the macro-scale behavior of these systems.
 
 Newtonian mechanics, for example, allows us to describe and predict the motion
-of physical systems with remarkable precision—such as planetary orbits or the
+of some physical systems with remarkable precision—such as planetary orbits or the
 paths of falling objects. Yet even within this well-established framework,
 certain limits remain: the general three-body problem has no closed-form
 solution, and systems like the double pendulum exhibit chaotic behavior that
-defies long-term prediction.
+defies closed-form prediction.
 
 Still, we can represent the behavior and evolutions of such systems as
-deterministic trajectories through a parameter space, uncovering structure even
+_deterministic_ trajectories through a parameter space, uncovering structure even
 where precise global behavior remain unpredictable. In much the same way, the
-presence calculus does not seek to forecast the exact evolution of systems of
+presence calculus cannot forecast the exact evolution of systems of
 presences. Instead, by explicitly modeling signal histories and representing
 element trajectories over time, it equips us with powerful descriptive and tools
 to explain how these systems evolved retrospectively.
 
-In this way, structural constraints and local invariants help us interpret
-locally observed dynamics and connect it to system behavior at the macro scale.
-
-Let's see how.
+This is an important consequence of the presence invariant. It shows that the
+macro-scale behavior of presence density in a system of presences can be deterministically composed Let's see how.
 
 ### Equilibrium: Convergence and Divergence
 
@@ -2434,189 +2624,7 @@ These are essential capabilities for building mechanisms that can steer system
 behavior in a desired direction—toward convergence or divergence of presence
 density.
 
-### The Presence Accumulation Recurrence
 
-We noted at the end of the last section that the observed evolution of a the
-presence density of a system of presences is deterministic. Let's see why this
-is the case.
-
-We have reproduced the presence accumulation matrix from Figure 12 below. Recall
-from section 5 that given an $MxN$ presence matrix, the accumulation matrix is
-an $NxN$ upper triangular matrix where each cell $A[i,j], 1 \le i \lt j \le N$
-records the cumulative presence mass in columns $[i,j]$ in the original presence
-matrix.
-
-We also noted that the diagonal in the accumulation matrix is a sample path
-through the system history and the top row records the cumulative presence mass
-over an observation period. It represents the area under the sample path. In
-essence, the accumulation matrix is a compact encoding of the evolution of
-presence density across timescales.
-
-
-<div style="text-align: center; margin:2em">
-  <table>
-  <thead>
-    <tr>
-      <th>i\\j</th>
-      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Row 1 -->
-    <tr>
-      <td>1</td>
-      <td style="background-color:#e6ffe6">1.4</td>
-      <td style="background-color:#e6f0ff">7.3</td>
-      <td style="background-color:#e6ffe6">16.5</td>
-      <td style="background-color:#e6f0ff">21.5</td>
-      <td style="background-color:#e6ffe6">27.4</td>
-      <td style="background-color:#e6f0ff">34.9</td>
-      <td style="background-color:#e6ffe6">42.5</td>
-      <td style="background-color:#e6f0ff">49.1</td>
-      <td style="background-color:#e6ffe6">54.6</td>
-      <td style="background-color:#e6f0ff">56.3</td>
-    </tr>
-    <!-- Row 2 -->
-    <tr>
-      <td>2</td>
-      <td></td>
-      <td style="background-color:#e6ffe6">5.9</td>
-      <td style="background-color:#e6f0ff">15.1</td>
-      <td style="background-color:#e6ffe6">20.1</td>
-      <td style="background-color:#e6f0ff">26.0</td>
-      <td style="background-color:#e6ffe6">33.5</td>
-      <td style="background-color:#e6f0ff">41.1</td>
-      <td style="background-color:#e6ffe6">47.7</td>
-      <td style="background-color:#e6f0ff">53.2</td>
-      <td style="background-color:#e6ffe6">54.9</td>
-    </tr>
-    <!-- Row 3 -->
-    <tr>
-      <td>3</td>
-      <td></td><td></td>
-      <td style="background-color:#e6ffe6">9.2</td>
-      <td style="background-color:#e6f0ff">14.2</td>
-      <td style="background-color:#e6ffe6">20.1</td>
-      <td style="background-color:#e6f0ff">27.6</td>
-      <td style="background-color:#e6ffe6">35.2</td>
-      <td style="background-color:#e6f0ff">41.8</td>
-      <td style="background-color:#e6ffe6">47.3</td>
-      <td style="background-color:#e6f0ff">49.0</td>
-    </tr>
-    <!-- Row 4 -->
-    <tr>
-      <td>4</td>
-      <td></td><td></td><td></td>
-      <td style="background-color:#e6ffe6">5.0</td>
-      <td style="background-color:#e6f0ff">10.9</td>
-      <td style="background-color:#e6ffe6">18.4</td>
-      <td style="background-color:#e6f0ff">26.0</td>
-      <td style="background-color:#e6ffe6">32.6</td>
-      <td style="background-color:#e6f0ff">38.1</td>
-      <td style="background-color:#e6ffe6">39.8</td>
-    </tr>
-    <!-- Row 5 -->
-    <tr>
-      <td>5</td>
-      <td></td><td></td><td></td><td></td>
-      <td style="background-color:#e6ffe6">5.9</td>
-      <td style="background-color:#e6f0ff">13.4</td>
-      <td style="background-color:#e6ffe6">21.0</td>
-      <td style="background-color:#e6f0ff">27.6</td>
-      <td style="background-color:#e6ffe6">33.1</td>
-      <td style="background-color:#e6f0ff">34.8</td>
-    </tr>
-    <!-- Row 6 -->
-    <tr>
-      <td>6</td>
-      <td></td><td></td><td></td><td></td><td></td>
-      <td style="background-color:#e6ffe6">7.5</td>
-      <td style="background-color:#e6f0ff">15.1</td>
-      <td style="background-color:#e6ffe6">21.7</td>
-      <td style="background-color:#e6f0ff">27.2</td>
-      <td style="background-color:#e6ffe6">28.9</td>
-    </tr>
-    <!-- Row 7 -->
-    <tr>
-      <td>7</td>
-      <td></td><td></td><td></td><td></td><td></td><td></td>
-      <td style="background-color:#e6ffe6">7.6</td>
-      <td style="background-color:#e6f0ff">14.2</td>
-      <td style="background-color:#e6ffe6">19.7</td>
-      <td style="background-color:#e6f0ff">21.4</td>
-    </tr>
-    <!-- Row 8 -->
-    <tr>
-      <td>8</td>
-      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-      <td style="background-color:#e6ffe6">6.6</td>
-      <td style="background-color:#e6f0ff">12.1</td>
-      <td style="background-color:#e6ffe6">13.8</td>
-    </tr>
-    <!-- Row 9 -->
-    <tr>
-      <td>9</td>
-      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-      <td style="background-color:#e6ffe6">5.5</td>
-      <td style="background-color:#e6f0ff">7.2</td>
-    </tr>
-    <!-- Row 10 -->
-    <tr>
-      <td>10</td>
-      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-      <td style="background-color:#e6ffe6">1.7</td>
-    </tr>
-  </tbody>
-</table>
-  <div style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-    Figure 12: Final presence accumulation matrix for the presence matrix of Figure 9. 
-  </div>
-</div>
-
-If we look closely at the entries in the matrix though, we will see that there
-is much tighter local relationship between the matrix entries. We can, in
-general, write the following recurrence describing the entries in the matrix.
-
-We can express this local relationship using the following recurrence:
-
-$$
-A[i,j] = A[i,j-1] + A[i+1,j] - A[i+1,j-1]
-\quad \text{for } 1 \le i < j \le N
-$$
-
-It tells us that the cumulative mass from column $i$ to column $j$ can be  
-computed from three nearby entries:
-
-- $A[i,j-1]$: the cumulative mass from $i$ to $j{-}1$
-- $A[i+1, j]$: the mass from $i{+}1$ to $j$
-- a correction term subtracting the overlap $A[i+1, j-1]$ from $i{+}1$
-  to $j{-}1$
-
-This equation reflects the additivity of cumulative presence mass over  
-rectangular regions in the presence matrix [^F13].
-
-[^F13]: Recall that we required signals to be measurable. This recurrence  
-reflects the finite additivity of measures over overlapping regions. If we  
-interpret $A[i,j]$ as the measure of the union of two intervals, then the  
-recurrence follows the
-identity $$\mu(A \cup B) = \mu(A) + \mu(B) - \mu(A \cap B)$$,  
-where $$A = [i, j{-}1] \text{ and } B = [i{+}1, j]$$. The subtraction removes
-the overlap $[i{+}1, j{-}1]$, ensuring the correct cumulative mass is assigned
-to $[i, j]$.
-
-Thus, the presence accumulation matrix—and by extension, the evolution of  
-presence density—is governed by a simple local rule. Given the values on the  
-diagonal, the rest of the matrix is fully determined.
-
-The physical interpretation of this is that, given the first $N{-}1$ points  
-on the sample path, knowing the $N^{\text{th}}$ point allows us to trace how  
-the macro behavior of the system—across every timescale—evolved up to that  
-point.
-
-This is the foundation for  
-the next tools we will develop: tools for detecting direction and change in  
-system behavior based on how these recurrence relationships evolve over time.
 
 ### A phase space representation of the presence invariant
 
