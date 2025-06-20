@@ -240,6 +240,27 @@
       border: 1px solid #eee;
       background: #fafafa;
     }
+
+    figure {
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    figure img {
+      width: 600px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 2rem auto;
+    }
+
+
+    figcaption {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 0.75rem;
+    }
+
   </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
@@ -367,13 +388,12 @@ Introduction</span></p>
         <h2 data-number="1" id="what-is-the-presence-calculus"><span
         class="header-section-number">1</span> What is The Presence
         Calculus?</h2>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pcalc/presence_calculus.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 1: The Presence Calculus - Key Concepts</code></pre>
-        </div>
-        </div>
+        <figure id="fig:key-concepts">
+        <img src="../assets/pcalc/presence_calculus.png"
+        alt="Figure 1: The Presence Calculus - Key Concepts" />
+        <figcaption aria-hidden="true">Figure 1: The Presence Calculus -
+        Key Concepts</figcaption>
+        </figure>
         <p>The Presence Calculus is a quantitative model for reasoning
         about signal dynamics in a domain.</p>
         <p>Its purpose is to support principled modeling and rigorous
@@ -725,13 +745,12 @@ Introduction</span></p>
         id="presence-density-functions-aka-signals"><span
         class="header-section-number">2.2</span> Presence density
         functions <em>aka</em> Signals</h3>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/presence_definition.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 2: Signals, Presence,  and Presence Mass</code></pre>
-        </div>
-        </div>
+        <figure id="fig:presence-definition">
+        <img src="../assets/pandoc/presence_definition.png"
+        alt="Figure 2: Signals, Presence and Presence Mass" />
+        <figcaption aria-hidden="true">Figure 2: Signals, Presence and
+        Presence Mass</figcaption>
+        </figure>
         <p>We can extrapolate from the example of the load function and
         think of defining a presence over an arbitrary time varying
         function with real numbers as values. We will call these
@@ -743,7 +762,7 @@ Introduction</span></p>
         want to focus specifically on the fact that what we are
         representing about the signal is the “amount” of the signal (its
         presence) over time.</p>
-        <p>As shown in Figure 2, the mass of a presence density
+        <p>As shown in Figure 2, the mass of a presence density
         function, over any given time <em>interval</em> <span
         class="math inline">\([t_0, t1)\)</span> is the <em>integral of
         the function</em> over the interval, which is also the area
@@ -967,13 +986,12 @@ Introduction</span></p>
         emphasizes that each of these signals traces a distinct path
         through time, and seeks to derive insights from their
         <em>interactions</em> over a shared interval.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/pdf_examples.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 3: A System of Presences</code></pre>
-        </div>
-        </div>
+        <figure id="fig:pdf-examples">
+        <img src="../assets/pandoc/pdf_examples.png"
+        alt="Figure 3: A System of Presences" />
+        <figcaption aria-hidden="true">Figure 3: A System of
+        Presences</figcaption>
+        </figure>
         <p>From the standpoint of the calculus itself, it does not
         matter what the signals represent—we treat them uniformly as
         real-valued presence masses and define a standard set of
@@ -1005,19 +1023,18 @@ Introduction</span></p>
         have one or more disjoint periods where its value is non-zero.
         These non-zero periods are called the <em>support</em> of the
         signal.</p>
-        <p>As we see in Figure 4, a single signal (for a given element
+        <p>As we see in Figure 4, a single signal (for a given element
         and boundary) might have multiple support intervals. These may
         correspond to episodic behavior in the underlying domain, for
         example, user sessions in an e-commerce context, or rework loops
         in software development when a task “returns” to development
         many times over its lifecycle.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/multiple_support.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 4: A presence mass as a sample of a signal over an interval.</code></pre>
-        </div>
-        </div>
+        <figure id="fig:multiple-support">
+        <img src="../assets/pandoc/multiple_support.png"
+        alt="Figure 4: A presence mass as a sample of a signal over an interval" />
+        <figcaption aria-hidden="true">Figure 4: A presence mass as a
+        sample of a signal over an interval</figcaption>
+        </figure>
         <p>A <em>presence</em> (the 5-tuple <span
         class="math inline">\(p = (e, b, t_0, t_1, m)\)</span> that we
         work with in the calculus) is generated by taking an
@@ -1041,13 +1058,13 @@ Introduction</span></p>
         <p>Thus presence is best thought of as a <em>sampled
         measurement</em> of the underlying signal, taken by an
         <em>observer</em> over a specific time interval, which yields a
-        total presence mass for that interval.</p>
-        <p>A given observer may not even “see” the full underlying
-        signal—only the <em>mass</em> of the presence they experience
-        over the interval they observed.</p>
+        non-zero mass for that interval.</p>
+        <p>A given observer may not “see” the underlying signal—only the
+        <em>mass</em> of the presence they sampled over an observation
+        window.</p>
         <p>Different observers may observe different intervals of the
-        same signal and derive different presence values, depending on
-        what part of the function they encounter.</p>
+        same signal and derive different presence masses for the same
+        signal.</p>
         <p>So here is the first key assumption of the presence
         calculus:</p>
         <blockquote>
@@ -1055,25 +1072,22 @@ Introduction</span></p>
         observations drawn from an underlying set of presence density
         functions. In general, we do not assume we have access to the
         “true” underlying functions. Instead, we reason about these
-        functions based their observed presence masses over interval and
-        treat these observations as the basis for all inference within
+        functions based sampled presence masses and treat these
+        presences as the basis of representation and inference within
         the calculus.</p>
         </blockquote>
         <p>This brings us to the concept of <em>presence
         assertions</em>, which formalize the act of recording a presence
         based on an observer’s local “view” of the underlying density
         function.</p>
-        <p>A <em>presence assertion</em> is simply a presence augmented
-        with metadata:</p>
+        <p>A <em>presence assertion</em> is simply a presence as defined
+        in the previous section augmented with additional
+        attributes:</p>
         <ul>
         <li><em>who</em> the observer was</li>
         <li>and an <em>assertion timestamp</em>—the time at which the
         observation was made.</li>
         </ul>
-        <p>The assertion time doesn’t need to align with the time
-        interval of the presence. This allows assertions to refer to the
-        past, reflect the present, or even anticipate the future
-        behavior of a signal.</p>
         <h4 data-number="3.2.1" id="the-open-world-assumption"><span
         class="header-section-number">3.2.1</span> The open world
         assumption</h4>
@@ -1101,13 +1115,18 @@ Introduction</span></p>
         calculus involve reasoning about the signal dynamics of a domain
         under the epistemic uncertainty introduced by such
         presences.</p>
+        <p>Further we will note that the assertion time in a presence
+        assertion doesn’t need to align with the time interval of the
+        presence. This allows assertions to refer to the past, reflect
+        the present, or even anticipate the future behavior of a
+        signal.</p>
         <h4 data-number="3.2.2" id="a-note-on-epistemology"><span
         class="header-section-number">3.2.2</span> A note on
         epistemology</h4>
         <p>Presence assertions give us the ability to assign
         <em>provenance</em> to a presence— not just <em>what</em> we
         know, but <em>how</em> we know it. This is essential in<br />
-        representing complex systems where the observer and the act of
+        representing contexts where the observer and the act of
         observation are first-class concerns.</p>
         <p>Further, since reasoning about time and history is a primary
         focus of the calculus, presences with unknown beginnings or
@@ -1128,8 +1147,8 @@ Introduction</span></p>
         <p>With this caveat in place, once we’ve represented a problem
         domain as a<br />
         <em>system of presences</em>, much of the machinery of the
-        presence calculus (which we’ll introduce next) can be applied
-        uniformly.</p>
+        presence calculus (which we’ll introduce in the next few
+        sections) can be applied uniformly.</p>
         <h4 data-number="3.2.3" id="a-note-on-path-dependence"><span
         class="header-section-number">3.2.3</span> A note on path
         dependence</h4>
@@ -1190,16 +1209,15 @@ Introduction</span></p>
         id="co-presence-and-the-presence-invariant"><span
         class="header-section-number">4</span> Co-Presence and the
         Presence Invariant</h2>
-        <p>Figure 5 illustrates an example of a system of presences,
+        <p>Figure 5 illustrates an example of a system of presences,
         where we focus on the subset of presences observed over a
         <em>common interval</em>.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/presence_invariant_continuous.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 5: Co-Presence and The Presence Invariant</code></pre>
-        </div>
-        </div>
+        <figure id="fig:presence-invariant-continuous">
+        <img src="../assets/pandoc/presence_invariant_continuous.png"
+        alt="Figure 5: Co-Presence and The Presence Invariant" />
+        <figcaption aria-hidden="true">Figure 5: Co-Presence and The
+        Presence Invariant</figcaption>
+        </figure>
         <p>These presences are called <em>co-present</em>—they represent
         an observer making simultaneous measurements of presence mass
         across multiple signals over a common interval of time.</p>
@@ -1219,7 +1237,7 @@ Introduction</span></p>
         those presences to that interval. The sum of these individual
         mass contributions gives the total presence mass observed across
         the system in that interval.</p>
-        <p>In our example from Figure 5,</p>
+        <p>In our example from Figure 5,</p>
         <p><span class="math display">\[ A = M_0 + M_1 + M_3
         \]</span></p>
         <p>is the cumulative mass contribution from the signals that
@@ -1350,14 +1368,13 @@ Introduction</span></p>
         time</em> <a href="#fn7" class="footnote-ref" id="fnref7"
         role="doc-noteref"><sup>7</sup></a> for the task in the
         observation window.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/presence_invariant_binary.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 6: The Presence Invariant for binary signals</code></pre>
-        </div>
-        </div>
-        <p>Figure 6 shows possible configurations of binary signals
+        <figure id="fig:presence-invariant-binary">
+        <img src="../assets/pandoc/presence_invariant_binary.png"
+        alt="Figure 6: The Presence Invariant for binary signals" />
+        <figcaption aria-hidden="true">Figure 6: The Presence Invariant
+        for binary signals</figcaption>
+        </figure>
+        <p>Figure 6 shows possible configurations of binary signals
         intersecting a finite observation interval. Suppose the unit of
         time is days.</p>
         <p>The total presence mass accumulation <span
@@ -1436,13 +1453,12 @@ Introduction</span></p>
         over a finite time interval, we turn to what happens when we
         observe the system across a continuous sequence of
         non-overlapping intervals.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/system_presences_discrete.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 7: Sampling a system of presences across uniform intervals. </code></pre>
-        </div>
-        </div>
+        <figure id="fig:system-presences-discrete">
+        <img src="../assets/pandoc/system_presences_discrete.png"
+        alt="Figure 7: Sampling a system of presences across uniform intervals" />
+        <figcaption aria-hidden="true">Figure 7: Sampling a system of
+        presences across uniform intervals</figcaption>
+        </figure>
         <p>This is a fundamental construct in the presence calculus—it
         allows us to study the evolution of presence density over time:
         the <em>signal dynamics</em> of the system.</p>
@@ -1479,21 +1495,31 @@ Introduction</span></p>
         </blockquote>
         <p>In the next section, we’ll introduce the <em>presence
         matrix</em>—a compact representation of the sampled signals
-        shown in Figure 7. It is a key building block in the machinery
+        shown in Figure 7. It is a key building block in the machinery
         for computing these trajectories.</p>
         <h2 data-number="5" id="the-presence-matrix"><span
         class="header-section-number">5</span> The Presence Matrix</h2>
         <p>A <em>presence matrix</em> records the presence mass
         distribution obtained by sampling a set of presence density
         functions over a consecutive set of time intervals of fixed
-        size. Specifically, if we fix a time granularity—such as hours,
-        days or weeks—we can construct a matrix in which:</p>
+        size.</p>
+        <p>The sampling granularity normalizes the unit of time against
+        which a set of signals are sampled. This establishes the
+        smallest unit of time for which we will measure <em>change</em>
+        in the system.</p>
+        <blockquote>
+        <p>Choosing the right sampling granularity is a key modeling
+        decision and affects the kind of insights we can generate from
+        all the machinery we develop below.</p>
+        </blockquote>
+        <p>Given an observation granularity, we can construct a matrix
+        in which:</p>
         <ul>
         <li><p><em>Rows</em> correspond to individual signals (e.g., for
         each <span class="math inline">\((
         e, b)\)</span> pair),</p></li>
         <li><p><em>Columns</em> correspond to non-overlapping time
-        intervals at that fixed time granularity <em>that cover the time
+        intervals at the sampling granularity <em>that cover the time
         axis</em>,</p></li>
         <li><p><em>Entries</em> contain the <em>presence mass</em>,
         i.e., the integral of the density function over the
@@ -1505,22 +1531,20 @@ Introduction</span></p>
         representation of this system of presences.</p>
         <p>Since we are accumulating presence masses over an interval,
         the value of presence mass in a matrix entry is always a a real
-        number. Figure 8 shows the presence matrix for the system in
-        Figure 7.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/presence_matrix_neat.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 8: Presence Matrix for a system of presences. </code></pre>
-        </div>
-        </div>
-        <p>In Figure 8,</p>
+        number. Figure 8 shows the presence matrix for the system in
+        Figure 7.</p>
+        <figure id="fig:presence-matrix-neat">
+        <img src="../assets/pandoc/presence_matrix_neat.png"
+        alt="Figure 8: Presence Matrix for a system of presences" />
+        <figcaption aria-hidden="true">Figure 8: Presence Matrix for a
+        system of presences</figcaption>
+        </figure>
+        <p>In Figure 8,</p>
         <ul>
         <li>Each row in the matrix maps to a single element-boundary
         signal.</li>
-        <li>Each column represents an observation window, and we are
-        assuming that the signal is sampled across non-overlapping time
-        intervals that cover the timeline.</li>
+        <li>Each column represents an observation window at the sampling
+        granularity.</li>
         <li>Each matrix entry consists of the observed presence mass of
         the signal a time interval. This is computed by taking the
         integral the underlying signal over the observation window.</li>
@@ -1533,9 +1557,14 @@ Introduction</span></p>
         <p>This is entirely an artifact of the granularity at which the
         signal is sampled. At a suitably fine sampling granularity, the
         first signal could also be represented by two presences.
-        However, this has no real impact on the behavior of the
-        invariant (see <a href="#fn8" class="footnote-ref" id="fnref8"
-        role="doc-noteref"><sup>8</sup></a>).</p>
+        <em>However, we are not losing any information</em> - the total
+        presence mass is simply distributed across different observation
+        windows during the integration step that computes the presence
+        mass.</p>
+        <p>In other words, this has no real impact on the behavior of
+        the invariant <a href="#fn8" class="footnote-ref" id="fnref8"
+        role="doc-noteref"><sup>8</sup></a> <em>provided we cover the
+        timeline with our observations.</em></p>
         <p>The presence matrix encodes deep structural properties of a
         system of presences. Many of key concepts we want to highlight
         are easier to define and understand in terms of this
@@ -1544,21 +1573,20 @@ Introduction</span></p>
         id="the-presence-invariant-and-the-presence-matrix."><span
         class="header-section-number">5.1</span> The presence invariant
         and the presence matrix.</h3>
-        <p>Let’s revisit Figure 3, reproduced below, which introduced
+        <p>Let’s revisit Figure 4, reproduced below, which introduced
         the idea of thinking of presence mass as a sample of an
         underlying signal.</p>
         <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/multiple_support.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 3: A presence as a sample of a signal over an interval.</code></pre>
-        </div>
+        <p><img src="../assets/pandoc/multiple_support.png" width="600px" /></p>
         </div>
         <p>When we observe a system of presences across a finite
         observation window, as we do in deriving the presence invariant,
         we are looking at presence mass across a “vertical” slice of
         time across all signals.</p>
-        <div style="text-align: center; margin:2em">
+        <figure id="fig:presence-matrix-table"
+        class="subfigures figure">
+        <img src="../assets/placeholder.png"
+        id="fig:presence-matrix-table" style="display: none;" alt="a" />
         <table>
         <thead>
         <tr>
@@ -1740,30 +1768,28 @@ Introduction</span></p>
         </tr>
         </tbody>
         </table>
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 9: The presence matrix from Figure 8, reproduced</code></pre>
-        </div>
-        </div>
-        <p>The presence matrix, shown in figure 9, makes this notion
+        <figcaption><p>Figure 9: Mass contributions by signal.
+        </p></figcaption>
+        </figure>
+        <p>The presence matrix, shown in Figure 9, makes this notion
         explict - assuming some fixed granularity of observation window,
-        a vertical slice in time corresponds to a column in the presence
-        matrix.</p>
+        a vertical slice in time corresponds to one or more column in
+        the presence matrix <a href="#fn9" class="footnote-ref"
+        id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
         <p>Further, you can see that we can construct a presence matrix
         from any subset of the rows of another presence matrix, and it
         would still be a presence matrix. What is more, the presence
         invariant applies for any <em>consecutive</em> sequence of
         columns of any such presence matrix.</p>
         <p>It’s straightforward now to interpret the presence invariant
-        in terms of a presence matrix.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/matrix_invariant.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 9: Computing the invariant from the matrix.</code></pre>
-        </div>
-        </div>
-        <p>For any observation window:</p>
+        in terms of a presence matrix as we show in Figure 10.</p>
+        <figure id="fig:matrix-invariant">
+        <img src="../assets/pandoc/matrix_invariant.png"
+        alt="Figure 10: Computing the invariant from the matrix" />
+        <figcaption aria-hidden="true">Figure 10: Computing the
+        invariant from the matrix</figcaption>
+        </figure>
+        <p>For an observation window:</p>
         <ul>
         <li>The sums of the presence masses along the rows of the
         sub-matrix induced by the window gives us the mass contributions
@@ -1783,56 +1809,65 @@ Introduction</span></p>
         class="math inline">\(A\)</span>, <span
         class="math inline">\(N\)</span> and <span
         class="math inline">\(T\)</span> as matrix properties, we can
-        also derive the three parameters: presence density <span
-        class="math inline">\(\delta\)</span>, signal incidence rate
-        <span class="math inline">\(\iota\)</span> and average mass
-        contribution per signal <span
-        class="math inline">\(\bar{m}\)</span> of the presence invariant
-        from this matrix for any observation window.</p>
-        <p>Next, we will look at a structure that is well suited for
-        analyzing these parameters <em>across</em> multiple observation
-        windows.</p>
-        <h3 data-number="5.2"
-        id="the-presence-accumulation-matrix"><span
-        class="header-section-number">5.2</span> The Presence
-        Accumulation Matrix</h3>
+        also derive the three parameters of the presence invariant:</p>
+        <ul>
+        <li>presence density <span class="math inline">\(\delta =
+        \frac{A}{T}\)</span>,</li>
+        <li>signal incidence rate <span class="math inline">\(\iota =
+        \frac{N}{T}\)</span> and</li>
+        <li>average mass contribution per signal <span
+        class="math inline">\(\bar{m} = \frac{A}{N}\)</span></li>
+        </ul>
+        <p>for any observation window.</p>
         <p>The presence invariant encodes very strong <em>local</em>
         constraints in how presence mass distributes in time across
         signals, and we can use these to derive meaningful constraints
         on the global accumulation of presence mass across a system of
         presences.</p>
-        <p>To visualize and reason about both the micro and macro
-        behaviors of a system of presences in a natural way, we will
-        need the help of a data structure called the Presence
-        Accumulation matrix. It compresses a lot of information about
-        the interaction between local and global behavior of a system of
-        presences as encoded in the presence matrix, across time windows
-        and time scales.</p>
-        <p>It highlights clearly the fact that the presence invariant is
-        scale-independent.</p>
-        <p>We’ll continue with the presence matrix of Figure 9, to
-        illustrate how it is constructed.</p>
-        <p>Recall that the columns of the presence matrix represent time
-        intervals at the finest level of granularity at which an
-        underlying system of signals and presences is sampled. If we
-        have an <span class="math inline">\(MxN\)</span> of <span
+        <p>Next, we will look at a structure that is well suited for
+        analyzing these parameters <em>across</em> multiple observation
+        windows - the last piece we need to compute signal dynamics for
+        a system of presences.</p>
+        <h3 data-number="5.2"
+        id="the-presence-accumulation-matrix"><span
+        class="header-section-number">5.2</span> The Presence
+        Accumulation Matrix</h3>
+        <p>Signal dynamics requires us to reason about both the micro
+        and macro behaviors of a system of presences. To do this
+        efficiently we will use a data structure called the <em>Presence
+        Accumulation Matrix</em>.</p>
+        <p>This compresses information about the interaction between
+        micro and macro behavior of a system of presences across time
+        windows and time scales. The compression takes advantage of the
+        fact that the presence invariant is scale-independent and
+        applies across any finite observation window.</p>
+        <p>Let’s see how it is constructed. We will start with the
+        presence matrix of Figure 10</p>
+        <p>Recall that in a presence matrix we have an <span
+        class="math inline">\(M \times N\)</span> matrix of <span
         class="math inline">\(M\)</span> signal sampled at <span
-        class="math inline">\(N\)</span> consecutive intervals, the
-        value in the presence matrix at row <span
-        class="math inline">\(i\)</span> and column <span
-        class="math inline">\(j\)</span> represents the sampled presence
-        mass of signal <span class="math inline">\(i\)</span> at time
-        interval <span class="math inline">\(j\)</span>.</p>
-        <p>Consider the matrix <span class="math inline">\(A\)</span>
-        that we accumulates presences masses across consecutive time
-        intervals of various length between 1 and <span
-        class="math inline">\(N\)</span>. This is a square matrix of
-        size <span class="math inline">\(NxN\)</span> and is constructed
-        as follows. For our example, this is a 10x10 matrix.</p>
-        <p>The diagonal of the matrix contains the accumulated presence
-        mass across each interval of length 1. This corresponds to the
-        sum of each column of the presence matrix.</p>
-        <div style="text-align: center; margin:2em">
+        class="math inline">\(N\)</span> consecutive intervals, and the
+        value at row <span class="math inline">\(i\)</span> and column
+        <span class="math inline">\(j\)</span> represents the sampled
+        presence mass of signal <span class="math inline">\(i\)</span>
+        over the observation window <span
+        class="math inline">\(j\)</span>.</p>
+        <p>Now, consider the matrix <span
+        class="math inline">\(A\)</span> that accumulates presences
+        masses across consecutive observation windows of various length
+        between 1 and <span class="math inline">\(N\)</span>. So the
+        entry in <span class="math inline">\(A[i,j]\)</span> equals the
+        value of the total presence mass <span
+        class="math inline">\(A\)</span> for the columns <span
+        class="math inline">\([i,..,j]\)</span> in the original presence
+        matrix.</p>
+        <p>As shown in Figure 11, the diagonal of the matrix contains
+        the accumulated presence mass across signals in a single
+        observation window. Each entry here is the sum of a single
+        column in the presence matrix.</p>
+        <figure id="fig:acc-diagonal" class="subfigures figure">
+        <img src="../assets/pandoc/placeholder.png"
+        id="fig:acc-diagonal" style="display: none;" alt="a" />
         <table>
         <thead>
         <tr>
@@ -2118,18 +2153,18 @@ Introduction</span></p>
         </tr>
         </tbody>
         </table>
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 10: Cumulative presence mass along intervals of length 1. </code></pre>
-        </div>
-        </div>
+        <figcaption><p>Figure 11: Presence mass for single observation
+        window.. </p></figcaption>
+        </figure>
         <p>The next diagonal row contains the cumulative presence mass
         for intervals of length 2 - ie <span
         class="math inline">\(A(1,2)\)</span> contains the sum of all
         entries in columns 1 and 2. <span
         class="math inline">\(A(2,3)\)</span> contains the sum of all
         entries column 2 and 3 and so on..</p>
-        <div style="text-align: center; margin:2em">
+        <figure id="fig:acc-second-diagonal" class="subfigures figure">
+        <img src="../assets/placeholder.png"
+        id="fig:acc-second-diagonal" style="display: none;" alt="a" />
         <table>
         <thead>
         <tr>
@@ -2424,14 +2459,15 @@ Introduction</span></p>
         </tr>
         </tbody>
         </table>
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 11: Cumulative presence mass along intervals of length 2. </code></pre>
-        </div>
-        </div>
-        We can continue filling the matrix out in diagonal order this
-        way until we get the presence accumulation matrix shown below.
-        <div style="text-align: center; margin:2em">
+        <figcaption><p>Figure 12: Cumulative presence mass along
+        intervals of length 2. </p></figcaption>
+        </figure>
+        <p>We can continue filling the matrix out in diagonal order this
+        way until we get the presence accumulation matrix shown
+        below.</p>
+        <figure id="fig:acc-matrix-full" class="subfigures figure">
+        <img src="../assets/placeholder.png" id="fig:acc-matrix-full"
+        style="display: none;" alt="a" />
         <table>
         <thead>
         <tr>
@@ -2788,27 +2824,47 @@ Introduction</span></p>
         </tr>
         </tbody>
         </table>
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 12: Final presence accumulation matrix for the presence matrix of Figure 9. </code></pre>
-        </div>
-        </div>
+        <figcaption><p>Figure 13: Final accumulation matrix.
+        </p></figcaption>
+        </figure>
+        <p>As shown in Figure 14, we can think of this matrix as
+        computing the value <span class="math inline">\(A\)</span> in
+        the derivation of the presence invariant above, <em>for each
+        possible continuous observation window</em> represented by the
+        presence matrix.</p>
+        <figure id="fig:acc-matrix-construction">
+        <img src="../assets/pandoc/acc_matrix_construction.png"
+        alt="Figure 14: Accumulation Matrix Construction" />
+        <figcaption aria-hidden="true">Figure 14: Accumulation Matrix
+        Construction</figcaption>
+        </figure>
+        <blockquote>
+        <p>At the observation granularity we have windows of length 1,
+        next we have accumulated presence from two consecutive
+        observation windows, next we have accumulated presence from
+        three consecutive windows, and so on.</p>
+        </blockquote>
         <p>We can see that in practice, this matrix compresses a large
-        amount of information in a very compact form. For example if the
-        columns represent weekly samples of signals a 52x52 matrix
-        allows us to analyze a whole years worth of presence
-        accumulation across every time-scale ranging from a single week
-        to a whole year in one compact structure. We’ll shortly see why
-        this is useful.</p>
-        <p>First lets define the general structure of the presence
-        accumulation matrix.</p>
+        amount of information in a very compact form.</p>
+        <blockquote>
+        <p>For example if the columns represent weekly samples of
+        signals a 52x52 matrix allows us to analyze a whole years worth
+        of presence accumulation across every time-scale ranging from a
+        single week to a whole year in one compact structure.</p>
+        </blockquote>
+        <h4 data-number="5.2.1"
+        id="presence-accumulation-matrix---definition"><span
+        class="header-section-number">5.2.1</span> Presence Accumulation
+        Matrix - Definition</h4>
+        <p>To summarize lets define the general structure of the
+        presence accumulation matrix, formally.</p>
         <p>Let <span class="math inline">\(P \in \mathbb{R}^{M \times
         N}\)</span> be the presence matrix of <span
         class="math inline">\(M\)</span> signals sampled at <span
         class="math inline">\(N\)</span> consecutive time intervals. The
-        <strong>Presence Accumulation Matrix</strong> <span
+        <em>Presence Accumulation Matrix</em> <span
         class="math inline">\(A \in \mathbb{R}^{N \times N}\)</span> is
-        defined by:</p>
+        defined as:</p>
         <p><span class="math display">\[
         A(i, j) = \sum_{k=1}^{M} \sum_{\ell=i}^{j} P(k, \ell)
         \quad \text{for all } 1 \leq i \leq j \leq N
@@ -2816,8 +2872,6 @@ Introduction</span></p>
         <p>That is, <span class="math inline">\(A(i,j)\)</span> gives
         the total presence mass of all signals across the interval <span
         class="math inline">\([i,j]\)</span>.</p>
-        <h4 data-number="5.2.1" id="properties"><span
-        class="header-section-number">5.2.1</span> Properties</h4>
         <ul>
         <li><span class="math inline">\(A\)</span> is upper triangular:
         <span class="math inline">\(A(i,j)\)</span> is defined only when
@@ -2883,9 +2937,11 @@ Introduction</span></p>
         id="equilibrium-convergence-and-divergence"><span
         class="header-section-number">6.1</span> Equilibrium:
         Convergence and Divergence</h3>
-        Consider the highlighted portions of the accumulation matrix
-        <span class="math inline">\(A\)</span> in figure 13.
-        <div style="text-align: center; margin:2em">
+        <p>Consider the highlighted portions of the accumulation matrix
+        <span class="math inline">\(A\)</span> in Figure 15.</p>
+        <figure id="fig:diagonal-top-row" class="subfigures figure">
+        <img src="../assets/placeholder.png" id="fig:diagonal-top-row"
+        style="display: none;" alt="a" />
         <table>
         <thead>
         <tr>
@@ -3180,46 +3236,44 @@ Introduction</span></p>
         </tr>
         </tbody>
         </table>
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 13: Diagonal and top row of the accumulation matrix</code></pre>
-        </div>
-        </div>
+        <figcaption><p>Figure 15: Diagonal and top row of the
+        accumulation matrix. </p></figcaption>
+        </figure>
         <p>Each diagonal entry represents the total presence mass
-        observed across all signals in a single time interval. Thus, the
-        diagonal traces the discrete-time evolution of the system’s
-        observable activity—one step at a time. We will call the
-        sequence of values on the diagonal a <em>sample path</em> for
-        the system of presences.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/diagonal_values.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 14: The values on the diagonal of the accumulation matrix.  </code></pre>
-        </div>
-        </div>
-        <p>Recall that each entry on the diagonal represents the sum of
-        the presence masses of the signals active in a time window. This
-        implies that each entry on the top row is an approximation of an
-        integral<a href="#fn9" class="footnote-ref" id="fnref9"
-        role="doc-noteref"><sup>9</sup></a> and equals the <em>area
-        under the sample path</em> represented by the diagonal.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/top_row_values.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 15: The values on the top row accumulation matrix.  </code></pre>
-        </div>
-        </div>
-        <p>In other words, the diagonal and top row represent
-        fundamentally different views of the system: the diagonal
-        captures the <em>micro-level behavior</em>—instantaneous<br />
-        presence mass across signals in each interval—while the top row
-        encodes the<br />
+        observed across all signals at the observation granularity.
+        Thus, the diagonal traces the discrete-time evolution of the
+        system’s directly observed activity—one time unit at a time.</p>
+        <p>We will call the sequence of values on the diagonal a
+        <em>sample path</em> for the system of presences.</p>
+        <p><img src="../assets/pandoc/diagonal_values.png"
+        alt="Computing the accumulated values on the sample path" />
+        {#fig:diagonal-values}</p>
+        <p>By contrast, each entry on the top row represents the
+        accumulated presence mass along a <em>prefix</em> of the sample
+        path (diagonal). In other words, the top row represents the
+        observed <em>history</em> of the system of presences.</p>
+        <p><img src="../assets/pandoc/top_row_values.png"
+        alt="Computing the values on the top row of the accumulation matrix" />
+        {#fig:top-row-values}</p>
+        <p>In other words, the diagonal and top row represent presence
+        mass accumulations in the system at fundamentally different
+        timescales: the diagonal captures the <em>micro-level
+        behavior</em>— presence mass across signals in each interval at
+        the observation granularity—while the top row encodes the<br />
         <em>macro-level behavior</em>—the cumulative effect of those
-        presences over time.<br />
-        Both views are compactly encoded in the structure of the<br />
+        presences over the entire history of the system.</p>
+        <p>Both views are compactly encoded in the structure of
+        the<br />
         accumulation matrix.</p>
+        <p>The relationship between the values on the two rows is the
+        following:</p>
+        <blockquote>
+        <p>Each entry on the top row is an integral <a href="#fn10"
+        class="footnote-ref" id="fnref10"
+        role="doc-noteref"><sup>10</sup></a> and equals the <em>area
+        under a prefix of the sample path</em> represented by the
+        diagonal.</p>
+        </blockquote>
         <p>Figure 16 shows this geometric interpretation of the diagonal
         and top rows of the accumulation matrix.</p>
         <div style="text-align: center; margin:2em">
@@ -3740,8 +3794,8 @@ Introduction</span></p>
         both do, we should expect that their product —<br />
         and hence <span class="math inline">\(\Delta\)</span> —
         converges as well,and it does, with some technical conditions in
-        place<a href="#fn10" class="footnote-ref" id="fnref10"
-        role="doc-noteref"><sup>10</sup></a>.</p>
+        place<a href="#fn11" class="footnote-ref" id="fnref11"
+        role="doc-noteref"><sup>11</sup></a>.</p>
         <p>So, let’s write down precise definitions for the limits of
         <span class="math inline">\(\iota(t)\)</span> and<br />
         <span class="math inline">\(\bar{m}(t)\)</span> and examine how
@@ -3965,7 +4019,7 @@ Introduction</span></p>
         </table>
         <div
         style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 9: The presence matrix from Figure 8, reproduced</code></pre>
+        <pre><code>Figure 9: The presence matrix (reproduced)</code></pre>
         </div>
         </div>
         <p>The cumulative mass per signal over each interval <span
@@ -4487,11 +4541,11 @@ Introduction</span></p>
         note that the limits are indeed special. When a system is
         observed over a non-convergent interval, the quantities in the
         presence invariant are dominated by <em>partial</em> mass
-        contributions from signals that have not yet completed. Figure 5
+        contributions from signals that have not yet completed. Figure 5
         shows an example of this behavior.</p>
         <p>The system may <em>appear</em> convergent when the window is
         long enough for <em>complete</em> signals to dominate the
-        averages. For example, if we extended the window in Figure 5 to
+        averages. For example, if we extended the window in Figure 5 to
         include the full duration of each signal, the system would
         appear convergent over that interval.</p>
         <p>The important point here is that in such situations, the
@@ -4499,13 +4553,13 @@ Introduction</span></p>
         <em>contributions</em>, but also implicitly a relationship about
         the <em>masses</em> of the signals involved. This distinction
         has direct operational implications.</p>
-        <p>For instance, if the signals in Figure 5 represent customer
+        <p>For instance, if the signals in Figure 5 represent customer
         service times, then over a convergent interval, mass
         contributions reflect what the customer actually experiences.
         But over shorter, non-convergent intervals, those same
         contributions primarily reflect what a system operator observes
         on a day-to-day basis.</p>
-        <p>In Figure 5, for example, if we extend the observation window
+        <p>In Figure 5, for example, if we extend the observation window
         far enough to include the full duration of all signals shown,
         the system will appear convergent over that interval. When we
         measure presence density, signal masses, and incidence rates
@@ -4544,9 +4598,9 @@ Introduction</span></p>
         signals evolve and interact over time—regardless of whether the
         underlying signals are random or not.</p>
         <p>Even when the signals have randomness, the <em>observed</em>
-        evolution of presence density is deterministic<a href="#fn11"
-        class="footnote-ref" id="fnref11"
-        role="doc-noteref"><sup>11</sup></a> and governed by the law of
+        evolution of presence density is deterministic<a href="#fn12"
+        class="footnote-ref" id="fnref12"
+        role="doc-noteref"><sup>12</sup></a> and governed by the law of
         conservation of presence mass—that is, the presence invariant.
         This determinism extends to any functional quantity that depends
         on presence density. As we will see, a large and operationally
@@ -5038,9 +5092,9 @@ Introduction</span></p>
         </ul>
         <p>This equation reflects the additivity of cumulative presence
         mass over<br />
-        rectangular regions in the presence matrix <a href="#fn12"
-        class="footnote-ref" id="fnref12"
-        role="doc-noteref"><sup>12</sup></a>.</p>
+        rectangular regions in the presence matrix <a href="#fn13"
+        class="footnote-ref" id="fnref13"
+        role="doc-noteref"><sup>13</sup></a>.</p>
         <p>Thus, the presence accumulation matrix—and by extension, the
         evolution of<br />
         presence density—is governed by a simple local rule. Given the
@@ -5733,8 +5787,8 @@ Introduction</span></p>
         class="header-section-number">8</span> Attractors</h2>
         <p>Since there are only two degrees of freedom theses system
         trajectories will always lie on a two dimensional manifold <a
-        href="#fn13" class="footnote-ref" id="fnref13"
-        role="doc-noteref"><sup>13</sup></a> in a 3 dimensional
+        href="#fn14" class="footnote-ref" id="fnref14"
+        role="doc-noteref"><sup>14</sup></a> in a 3 dimensional
         space.</p>
         <blockquote>
         <p>Remarkably, the state of <em>every</em> possible system of
@@ -5798,7 +5852,7 @@ Introduction</span></p>
         <li id="fn5"><p>It is equally valid to define <span
         class="math inline">\(N\)</span> as the number of distinct
         <em>presences</em> in the observation window. For example for
-        the signal <span class="math inline">\(P2\)</span> in Figure 5,
+        the signal <span class="math inline">\(P2\)</span> in Figure 5,
         this corresponds to asking if <span
         class="math inline">\(N=5\)</span> (if we count the disjoint
         presences individually) or <span
@@ -5830,7 +5884,7 @@ Introduction</span></p>
         <li id="fn8"><p>It is equally valid to define <span
         class="math inline">\(N\)</span> as the number of distinct
         <em>presences</em> in the observation window. For example for
-        the signal <span class="math inline">\(P2\)</span> in Figure 5,
+        the signal <span class="math inline">\(P2\)</span> in Figure 5,
         this corresponds to asking if <span
         class="math inline">\(N=5\)</span> (if we count the disjoint
         presences individually) or <span
@@ -5845,16 +5899,24 @@ Introduction</span></p>
         class="math inline">\(N\)</span> is measured at the signal
         granularity.<a href="#fnref8" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn9"><p>Specifically, the Riemann sum approximation of
+        <li id="fn9"><p>When we work with a presence matrix, there is
+        also the additional assumption that we will aggregate
+        observation windows at the sampling granularity. That is, we
+        will make inferences about intervals that are composed of
+        consecutive columns. This is usually not a limitation, since the
+        sampling granularity should be chosen with this requirement in
+        mind, and can usually be so chosen.<a href="#fnref9"
+        class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+        <li id="fn10"><p>Specifically, the Riemann sum approximation of
         the integral <span class="math display">\[
         A(1, j) = \sum_{k=1}^j A(k,k)
         \approx \int_0^j \left( \sum_{(e,b)} P_{(e,b)}(t) \right) dt
         \]</span> where each <span
         class="math inline">\(P_{(e,b)}(t)\)</span> represents the
         presence density function of an underlying element-boundary
-        signal.<a href="#fnref9" class="footnote-back"
+        signal.<a href="#fnref10" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn10"><p>While it’s tempting to assume that the limit of
+        <li id="fn11"><p>While it’s tempting to assume that the limit of
         a product is simply the product of the limits, this doesn’t
         automatically hold here. The long-run average of presence
         density, <span class="math inline">\(\Delta\)</span>, is defined
@@ -5863,9 +5925,9 @@ Introduction</span></p>
         defined over the number of signals. Since these limits are taken
         over different denominators, additional technical conditions are
         required to ensure that their product equals the limit of the
-        product.<a href="#fnref10" class="footnote-back"
+        product.<a href="#fnref11" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn11"><p>It is worth emphasizing the word
+        <li id="fn12"><p>It is worth emphasizing the word
         <em>observed</em> in this statement. Even though the evolution
         is deterministic, this does not mean the future behavior of the
         system is predictable based on past behavior. That depends
@@ -5874,9 +5936,9 @@ Introduction</span></p>
         sufficiently complete history of the system, we can
         deterministically reconstruct the current state of presence
         density from any starting point. This explanatory power is
-        useful in its own right, as we will soon see.<a href="#fnref11"
+        useful in its own right, as we will soon see.<a href="#fnref12"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn12"><p>Recall that we required signals to be
+        <li id="fn13"><p>Recall that we required signals to be
         measurable. This recurrence<br />
         reflects the finite additivity of measures over overlapping
         regions. If we<br />
@@ -5889,9 +5951,9 @@ Introduction</span></p>
         = [i{+}1, j]\]</span>. The subtraction removes the overlap <span
         class="math inline">\([i{+}1, j{-}1]\)</span>, ensuring the
         correct cumulative mass is assigned to <span
-        class="math inline">\([i, j]\)</span>.<a href="#fnref12"
+        class="math inline">\([i, j]\)</span>.<a href="#fnref13"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn13"><p>All solutions to an equation of the form <span
+        <li id="fn14"><p>All solutions to an equation of the form <span
         class="math inline">\(x=y \times z,\)</span> which is the form
         of the presence invariant, lie on a 2D surface, called a
         manifold in 3 dimensions: think of the manifold a rubber sheet
@@ -5900,7 +5962,7 @@ Introduction</span></p>
         this equation will lie on the surface of this rubber sheet. This
         is a powerful geometric constraint that we can exploit to reason
         about the possible behavior of a system of presences over
-        time.<a href="#fnref13" class="footnote-back"
+        time.<a href="#fnref14" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
         </ol>
         </section>
