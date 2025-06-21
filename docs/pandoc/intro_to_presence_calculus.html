@@ -360,9 +360,9 @@ Introduction</span></p>
       id="toc-computing-signal-dynamics"><span
       class="toc-section-number">6</span> Computing Signal Dynamics</a>
       <ul>
-      <li><a href="#equilibrium-convergence-and-divergence"
-      id="toc-equilibrium-convergence-and-divergence"><span
-      class="toc-section-number">6.1</span> Equilibrium: Convergence and
+      <li><a href="#convergence-and-divergence"
+      id="toc-convergence-and-divergence"><span
+      class="toc-section-number">6.1</span> Convergence and
       Divergence</a></li>
       <li><a href="#detecting-convergence"
       id="toc-detecting-convergence"><span
@@ -3292,9 +3292,8 @@ Introduction</span></p>
         class="math inline">\(j{-}1\)</span></li>
         </ul>
         <p>This equation reflects the finite additivity of cumulative
-        presence mass over<br />
-        rectangular regions in the presence matrix <a href="#fn10"
-        class="footnote-ref" id="fnref10"
+        presence mass over rectangular regions in the presence matrix <a
+        href="#fn10" class="footnote-ref" id="fnref10"
         role="doc-noteref"><sup>10</sup></a>.</p>
         <p>So, the entire matrix—and thus, the system’s accumulation
         dynamics—is governed by a simple, local rule. Given the values
@@ -3322,52 +3321,54 @@ Introduction</span></p>
         every level of this accumulation—this gives us a powerful
         framework for dissecting the dynamics of a system of
         presences.</p>
-        <p>This forms the foundation for the next set of tools we’ll
-        develop in the next section.</p>
+        <p>This forms the foundation for computing the dynamic evolution
+        of a presence mass in a system of presences.</p>
         <h2 data-number="6" id="computing-signal-dynamics"><span
         class="header-section-number">6</span> Computing Signal
         Dynamics</h2>
-        <p>Presence calculus concepts such as presence mass, incidence
-        rates, and density are not unlike abstract physical notions like
+        <p>Presence calculus concepts—such as presence mass, incidence
+        rate, and density— are not unlike abstract physical notions like
         force, mass, and acceleration. In principle, these are
-        measurable quantities that nature constrains to behave in
+        measurable quantities constrained by nature to behave in
         prescribed ways at a micro scale.</p>
         <p>Once we understand the rules governing their micro-scale
-        behavior, we gain tools to systematically measure, reason about,
-        and explain a vast range of observable macro-scale phenomena.
-        Much of physics is built on this principle.</p>
+        behavior, we gain the ability to measure, reason about, and
+        explain a wide range of macro-scale phenomena. Much of physics
+        is built on this principle.</p>
         <p>In a similar vein, the presence calculus—and especially the
-        <em>presence invariant</em> —provides a foundational law that
-        governs the local, time-based behavior of any system composed of
-        time-varying signals and the presences they induce.</p>
-        <p>Once we recognize that such a governing constraint exists,
-        the presence calculus equips us with tools to describe,
-        interpret, explain, and, in certain cases, make verifiable
-        predictions about the macro-scale behavior of these systems.</p>
+        <em>presence invariant</em>— provides a foundational constraint
+        that governs the local, time-based behavior of any system
+        described by measurable, time-varying signals and the measures
+        they induce: presence masses.</p>
+        <p>Recognizing that such a governing constraint exists allows us
+        to build tools that describe, interpret, and explain macro-scale
+        system behavior. With additional domain knowledge, these tools
+        can also support verifiable prediction.</p>
         <p>Newtonian mechanics, for example, allows us to describe and
-        predict the motion of some physical systems with remarkable
-        precision—such as planetary orbits or the paths of falling
-        objects. Yet even within this well-established framework,
-        certain limits remain: the general three-body problem has no
-        closed-form solution, and systems like the double pendulum
-        exhibit chaotic behavior that defies closed-form prediction.</p>
-        <p>Still, we can represent the behavior and evolutions of such
-        systems as <em>deterministic</em> trajectories through a
-        parameter space, uncovering structure even where precise global
-        behavior remain unpredictable. In much the same way, the
-        presence calculus cannot forecast the exact evolution of systems
-        of presences. Instead, by explicitly modeling signal histories
-        and representing element trajectories over time, it equips us
-        with powerful descriptive and tools to explain how these systems
-        evolved retrospectively.</p>
-        <p>This is an important consequence of the presence invariant.
-        It shows that the macro-scale behavior of presence density in a
-        system of presences can be deterministically composed Let’s see
-        how.</p>
-        <h3 data-number="6.1"
-        id="equilibrium-convergence-and-divergence"><span
-        class="header-section-number">6.1</span> Equilibrium:
-        Convergence and Divergence</h3>
+        predict the motion of physical systems with remarkable
+        precision—such as planetary orbits or the trajectories of
+        falling objects. Yet even within this well-established
+        framework, limitations persist: the general three-body problem
+        has no closed-form solution, and systems like the double
+        pendulum exhibit chaotic behavior that defies exact
+        prediction.</p>
+        <p>Still, such systems can be represented as
+        <em>deterministic</em> trajectories through a parameter space.
+        Even when precise long-term behavior is inaccessible, we can
+        still uncover structure and causal explanation.</p>
+        <p>In much the same way, the presence calculus does not aim to
+        predict the precise evolution of a system of presences. Instead,
+        by explicitly modeling signal histories and representing element
+        trajectories over time, it provides powerful descriptive tools
+        to explain how such systems evolve.</p>
+        <p>Within this context, <em>convergence</em> and
+        <em>divergence</em> are the two most important kinds of dynamic
+        macro-scale behavior we can study. They allow us to define—
+        formally and operationally—what it means for the accumulation of
+        presence mass in a system to be in equilibrium.</p>
+        <h3 data-number="6.1" id="convergence-and-divergence"><span
+        class="header-section-number">6.1</span> Convergence and
+        Divergence</h3>
         <p>Consider the highlighted portions of the accumulation matrix
         <span class="math inline">\(A\)</span> in Figure 15.</p>
         <figure id="fig:diagonal-top-row" class="subfigures figure">
@@ -3671,14 +3672,18 @@ Introduction</span></p>
         accumulation matrix. </p></figcaption>
         </figure>
         <p>Each diagonal entry represents the total presence mass
-        observed across all signals at the observation granularity.
-        Thus, the diagonal traces the discrete-time evolution of the
-        system’s directly observed activity—one time unit at a time.</p>
-        <p>We will call the sequence of values on the diagonal a
-        <em>sample path</em> for the system of presences.</p>
-        <p><img src="../assets/pandoc/diagonal_values.png"
-        alt="Computing the accumulated values on the sample path" />
-        {#fig:diagonal-values}</p>
+        observed across all signals at the sampling granularity. Thus,
+        the diagonal traces the discrete-time evolution of the system’s
+        directly observed activity—one sample at a time.</p>
+        <p>We will call the sequence of values on the diagonal the
+        <em>sample path</em> for the system of presences up to certain
+        point in time.</p>
+        <figure id="fig:diagonal-values">
+        <img src="../assets/pandoc/diagonal_values.png"
+        alt="Figure 16: Computing the accumulated values on the sample path" />
+        <figcaption aria-hidden="true">Figure 16: Computing the
+        accumulated values on the sample path</figcaption>
+        </figure>
         <p>By contrast, each entry on the top row represents the
         accumulated presence mass along a <em>prefix</em> of the sample
         path (diagonal). In other words, the top row represents the
@@ -3690,14 +3695,14 @@ Introduction</span></p>
         mass accumulations in the system at fundamentally different
         timescales: the diagonal captures the <em>micro-level
         behavior</em>— presence mass across signals in each interval at
-        the observation granularity—while the top row encodes the<br />
+        the sampling granularity—while the top row encodes the
         <em>macro-level behavior</em>—the cumulative effect of those
-        presences over the entire history of the system.</p>
+        presences over the observed history of the system.</p>
         <p>Both views are compactly encoded in the structure of
         the<br />
         accumulation matrix.</p>
-        <p>The relationship between the values on the two rows is the
-        following:</p>
+        <p>The relationship between the values on the diagonal and the
+        top row is the following:</p>
         <blockquote>
         <p>Each entry on the top row is an integral <a href="#fn11"
         class="footnote-ref" id="fnref11"
@@ -3717,8 +3722,9 @@ Introduction</span></p>
         <p>If we divide each of the entries in the accumulation matrix
         by the length of the time interval it covers, we get the
         presence density for each interval. For the diagonal interval
-        has length 1 (time unit) and for the top row the lengths range
-        from 1 to <span class="math inline">\(N-1.\)</span></p>
+        has length 1 (time unit at sampling granularity) and for the top
+        row the lengths range from 1 to <span
+        class="math inline">\(N-1.\)</span></p>
         <div style="text-align: center; margin:2em">
         <table style="border-collapse: collapse;">
         <thead>
@@ -4020,9 +4026,9 @@ Introduction</span></p>
         </div>
         </div>
         <p>So now we have the left-hand side of the presence invariant
-        encoded in matrix<br />
-        form for every pair of continuous intervals in the system.</p>
-        <p>Let’s chart the values in both of these rows in the
+        encoded in matrix form for every pair of continuous intervals in
+        the system.</p>
+        <p>Let’s chart the values on the diagonal and the top row in the
         matrix.</p>
         <div style="text-align: center; margin:2em">
         <img src="../assets/pandoc/first_row_vs_main_diagonal.png" width="600px" />
@@ -4033,22 +4039,21 @@ Introduction</span></p>
         </div>
         <p>We can see that while the values on the sample path are
         volatile, the values on the top row converge towards a finite
-        value. We can define this notion of convergence precisely using
-        the mathematical concept of a limit. Let:</p>
+        value. We can define this notion of convergence of the values on
+        the top row precisely using the mathematical concept of a
+        limit.</p>
+        <p>Let:</p>
         <p><span class="math display">\[
         \Delta = \lim_{T \to \infty} \frac{1}{T} \int_0^T \delta(t) \,
         dt
         \]</span></p>
         <p>Here, <span class="math inline">\(\delta(t)\)</span> is the
-        instantaneous presence density introduced in the presence
-        invariant.<br />
-        The quantity <span class="math inline">\(\Delta\)</span>, by
-        contrast, represents the long-run average presence density
-        —<br />
-        the time-averaged total presence across all signals in the
+        instantaneous presence density at each sampling interval.</p>
+        <p>The quantity <span class="math inline">\(\Delta\)</span>,
+        represents the long-run average presence density — the
+        time-averaged total presence across all signals in the
         system.</p>
-        <p>In the discrete setting, this corresponds to the limiting
-        value of the top row of the<br />
+        <p>This corresponds to the limiting value of the top row of the
         accumulation matrix — a value toward which the green line in
         Figure 18 appears to converge:</p>
         <p><span class="math display">\[
@@ -4057,31 +4062,31 @@ Introduction</span></p>
         <p>where <span class="math inline">\(A(1,j)\)</span> is the
         total presence mass accumulated from time 0 through interval
         <span class="math inline">\(j\)</span>.</p>
-        <p>Not every system of presences has such a limit. We call a
-        system <em>convergent</em> if<br />
-        <span class="math inline">\(\Delta\)</span> exists and is
-        finite, and <em>divergent</em> otherwise.</p>
-        <p>To summarize: in a convergent system, the average presence
-        density over time<br />
-        settles toward a finite value. Intuitively, this means that
-        after observing<br />
-        enough of the system’s history, additional observation does not
-        significantly<br />
-        alter our understanding of its long-term behavior.</p>
+        <p>Not every system of presences has such a limit.</p>
+        <blockquote>
+        <p>We call a system <em>convergent</em> if <span
+        class="math inline">\(\Delta\)</span> exists and is finite, and
+        <em>divergent</em> otherwise.</p>
+        </blockquote>
+        <p>To summarize: in a fully convergent system, the average
+        presence density over time converges toward a finite value and
+        stays there. Intuitively, this means that after observing enough
+        of the system’s history, additional observation does not
+        significantly alter our understanding of its long-term
+        behavior.</p>
         <p>Some systems converge rapidly to a single stable limit.
-        Others may not settle<br />
-        at all, but instead move among a small number of such limits.
-        These<br />
+        Others may not settle at all, but instead move among a small
+        number of such limits. These<br />
         represent dominant behavioral modes — quasi-equilibrium states
-        that the system<br />
-        can enter and sustain for extended periods. Such behavior is
-        called<br />
+        that the system can enter and sustain for extended periods. Such
+        behavior is called<br />
         <em>metastable</em> or <em>multi-modal</em>.</p>
         <p>Divergence, by contrast, implies the absence of such limiting
         behavior. The<br />
-        presence density in these systems continues to grow without
+        presence density in divergent systems continues to grow without
         bound,<br />
-        indicating that no stable long-term pattern emerges.</p>
+        indicating that the dominant behavior of the system is an
+        unbounded accumulation of presence.</p>
         <p>Figure 19 shows examples of each of these behaviors.</p>
         <div style="text-align: center; margin:2em">
         <img src="../assets/pandoc/convergence_divergence.png" width="600px" />
@@ -4104,9 +4109,7 @@ Introduction</span></p>
         such a limit, it indicates that the system’s observable behavior
         has entered a sustainable regime.</p>
         <p>This provides a powerful way to characterize the system’s
-        overall operational modes in the long term, even if its
-        micro-level details remain complex and unpredictable. We will
-        have more to say on this topic shortly.</p>
+        overall operational modes in the long term.</p>
         <p>It is important to emphasize that convergence and divergence
         are properties<br />
         of the <em>observed long-run behavior</em> of a system of
@@ -4114,12 +4117,12 @@ Introduction</span></p>
         properties of the underlying system itself.</p>
         <p>We cannot infer the system’s nature solely from whether it
         appears convergent or divergent at any given time. We can only
-        observe the dynamics of presence<br />
-        over time and assess whether they exhibit convergence.</p>
+        observe the dynamics of presence accumulation over time and
+        assess whether they exhibit convergence.</p>
         <p>The key difference between convergence and the other two
         modes is that a<br />
         convergent system can effectively <em>forget</em> its history
-        beyond the point of stabilization.Its future behavior becomes
+        beyond the point of convergence. Its future behavior becomes
         representative of its past, allowing the system to be
         characterized by a stable long-run average.</p>
         <p>Among other things, the presence calculus equips us with the
@@ -5913,10 +5916,10 @@ Introduction</span></p>
         measure of the union of two intervals, then the<br />
         recurrence follows from the property of finite additivity
         identity <span class="math display">\[\mu(A \cup B) = \mu(A) +
-        \mu(B) - \mu(A \cap B)\]</span>,<br />
-        where <span class="math display">\[A = [i, j{-}1] \text{ and } B
-        = [i{+}1, j]\]</span>. The subtraction removes the overlap <span
-        class="math inline">\([i{+}1, j{-}1]\)</span>, ensuring the
+        \mu(B) - \mu(A \cap B),\]</span> where <span
+        class="math display">\[A = [i, j{-}1] \text{ and } B = [i{+}1,
+        j].\]</span> The subtraction removes the overlap <span
+        class="math inline">\([i{+}1, j{-}1],\)</span> ensuring the
         correct cumulative mass is assigned to <span
         class="math inline">\([i, j]\)</span>.<a href="#fnref10"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
