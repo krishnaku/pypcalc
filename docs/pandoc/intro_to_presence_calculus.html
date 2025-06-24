@@ -343,10 +343,10 @@ Introduction</span></p>
       id="toc-the-presence-matrix"><span
       class="toc-section-number">5</span> The Presence Matrix</a>
       <ul>
-      <li><a href="#the-presence-invariant-and-the-presence-matrix."
-      id="toc-the-presence-invariant-and-the-presence-matrix."><span
-      class="toc-section-number">5.1</span> The presence invariant and
-      the presence matrix.</a></li>
+      <li><a href="#the-presence-invariant-and-the-presence-matrix"
+      id="toc-the-presence-invariant-and-the-presence-matrix"><span
+      class="toc-section-number">5.1</span> The Presence Invariant and
+      the Presence Matrix</a></li>
       <li><a href="#the-presence-accumulation-matrix"
       id="toc-the-presence-accumulation-matrix"><span
       class="toc-section-number">5.2</span> The Presence Accumulation
@@ -360,13 +360,15 @@ Introduction</span></p>
       id="toc-computing-signal-dynamics"><span
       class="toc-section-number">6</span> Computing Signal Dynamics</a>
       <ul>
-      <li><a href="#convergence-and-divergence"
-      id="toc-convergence-and-divergence"><span
-      class="toc-section-number">6.1</span> Convergence and
-      Divergence</a></li>
+      <li><a href="#sample-paths" id="toc-sample-paths"><span
+      class="toc-section-number">6.1</span> Sample paths</a></li>
+      <li><a href="#convergence-and-divergence-of-presence-density"
+      id="toc-convergence-and-divergence-of-presence-density"><span
+      class="toc-section-number">6.2</span> Convergence and divergence
+      of presence density</a></li>
       <li><a href="#detecting-convergence"
       id="toc-detecting-convergence"><span
-      class="toc-section-number">6.2</span> Detecting
+      class="toc-section-number">6.3</span> Detecting
       Convergence</a></li>
       </ul></li>
       <li><a href="#navigation-defining-place-and-direction"
@@ -577,17 +579,16 @@ Introduction</span></p>
         snapshot of where tasks are at that moment—but not how they got
         there. And by the time we read a summary report of how many
         tasks were finished and how long they took to go through the
-        process on average, much of the history of the system that
-        produced those measurements has been lost. They become mere
-        descriptive statistics about the system at a point in time. That
-        makes it hard to reason about <em>why</em> those measurements
-        are the way they are.</p>
-        <p>In software development, each task often has a distinct
-        history—different<br />
-        from other tasks present at the same time. Losing history makes
-        it hard to<br />
-        reason about the interactions between tasks and how they impact
-        the global behavior of the process.</p>
+        process, much of the history of the system that produced those
+        measurements has been lost. They become mere descriptive
+        statistics about the system at a point in time. That makes it
+        hard to reason about <em>why</em> those measurements are the way
+        they are.</p>
+        <p>In software development, workflows are path-dependent: each
+        task often has a distinct history—different from other tasks
+        present at the same time. Losing history makes it hard to reason
+        about the interactions between tasks and how they impact the
+        global behavior of the process.</p>
         <p>This problem is not unique to task work. Similar problems
         exist in almost all areas of business analysis that rely
         primarily on event models and descriptive statistics derived
@@ -596,7 +597,7 @@ Introduction</span></p>
         <p>We are reduced to trying to make inferences from local
         descriptive<br />
         statistics —things like cycle times, throughput, and
-        work-in-process levels- over a rapidly changing process.</p>
+        work-in-process levels- over path-dependent processes.</p>
         <p>We try to reason about a process which is shaped by its
         history, whose behavior emerges from non-uniform interactions of
         individual tasks, with measurement techniques that lack the
@@ -1254,26 +1255,26 @@ Introduction</span></p>
         <p>Since the mass comes from integrating a density function over
         time, the quantity <span
         class="math inline">\(\frac{A}{T}\)</span> represents the
-        <em>average presence density</em> over the observation interval
-        <span class="math inline">\(T\)</span> <a href="#fn6"
+        <em>presence density</em> over the observation interval <span
+        class="math inline">\(T\)</span> <a href="#fn6"
         class="footnote-ref" id="fnref6"
         role="doc-noteref"><sup>6</sup></a>.</p>
         <p>We can now decompose this as:</p>
         <p><span class="math display">\[ \delta = \frac{A}{T} =
         \frac{A}{N} \times \frac{N}{T} \]</span></p>
-        <p>This separates the average presence density into two
-        interpretable components:</p>
+        <p>This separates the presence density into two interpretable
+        components:</p>
         <ul>
         <li><span class="math inline">\(\bar{m} = \frac{A}{N}\)</span>:
-        the <em>average mass contribution</em> per active signal,</li>
+        the <em>mass contribution</em> per active signal,</li>
         <li><span class="math inline">\(\iota = \frac{N}{T}\)</span>:
         the signal <em>incidence rate</em>—i.e., the number of active
         signals per unit time.</li>
         </ul>
         <p>This leads to the <em>presence invariant</em>:</p>
-        <p><span class="math display">\[ \text{Average Presence Density}
-        = \text{Signal Incidence Rate} \times \text{Average Mass
-        Contribution per Signal} \]</span> or in our notation</p>
+        <p><span class="math display">\[ \text{Presence Density} =
+        \text{Signal Incidence Rate} \times \text{Mass Contribution per
+        Signal} \]</span> or in our notation</p>
         <p><span class="math display">\[ \delta = \iota \cdot \bar{m}
         \]</span></p>
         <p>This identity holds for <em>any</em> co-present subset of
@@ -1306,15 +1307,14 @@ Introduction</span></p>
         period measured in some unit of time (say days) and <span
         class="math inline">\(N\)</span> is the number of paying
         customers in that period.</p>
-        <p>The average presence density is the daily revenue rate, the
-        signal mass contribution for each signal is revenue for each
-        customer, the average signal mass contribution is the average
-        revenue per customer for that week, and the incidence rate
-        represents the average daily rate of active customers over the
-        week.</p>
+        <p>The presence density is the daily revenue rate, the signal
+        mass contribution for each signal is revenue for each customer,
+        the signal mass contribution is the revenue per customer for
+        that week, and the incidence rate represents the daily rate of
+        active customers over the week.</p>
         <p>So the presence invariant is stating that the revenue rate
-        for the week is the product of the average revenue per customer
-        and the average number of active customers over the week.</p>
+        for the week is the product of the revenue per customer and the
+        number of active customers over the week.</p>
         <h3 data-number="4.2" id="why-it-matters"><span
         class="header-section-number">4.2</span> Why it matters</h3>
         <p>While algebraically, the presence invariant is a tautology,
@@ -1338,13 +1338,6 @@ Introduction</span></p>
         like energy, presence mass can shift, accumulate, or
         redistribute, but its total balance across presences within a
         finite time interval remains invariant.</p>
-        <p>It is important to note that this makes the “averages” in the
-        presence invariant much more than descriptive statistics. While
-        they may be interpreted as such, these are not simply measures
-        of centrality on a set of observed presences, but quantities
-        with a concrete physical interpretation, expressed via the
-        invariant, that directly govern how a system of presences
-        behaves in time.</p>
         <p>Exploiting this constraint allows us to study and
         characterize the long-run behavior of a system.</p>
         <h3 data-number="4.3"
@@ -1387,15 +1380,15 @@ Introduction</span></p>
         <p>Now, let’s interpret its meaning.</p>
         <p>Since each task contributes <span
         class="math inline">\(1\)</span> unit of mass for each unit of
-        time it is present, the average presence density <span
+        time it is present, the presence density <span
         class="math inline">\(\delta=\frac{A}{T}\)</span> represents the
-        <em>average number of tasks</em> present per unit time in the
-        interval—denoted <span class="math inline">\(L\)</span>.</p>
+        * number of tasks* present per unit time in the interval—denoted
+        <span class="math inline">\(L\)</span>.</p>
         <p>Conversely, since each unit of mass corresponds to a unit of
-        time associated with a task, the average mass per active signal,
-        <span class="math inline">\(\bar{m} = \frac{A}{N}\)</span>, is
-        the average time a task spends in the observation window. This
-        value is typically called the <em>residence time</em> <span
+        time associated with a task, the mass per active signal, <span
+        class="math inline">\(\bar{m} = \frac{A}{N}\)</span>, is the
+        time a task spends in the observation window. This value is
+        typically called the <em>residence time</em> <span
         class="math inline">\(w\)</span> of a task in the observation
         window.</p>
         <p>The incidence rate <span class="math inline">\(\iota =
@@ -1433,8 +1426,8 @@ Introduction</span></p>
         whether a system of presences is in equilibrium or not. The idea
         is that the system of presences is at equilibrium when observed
         over sufficiently long observation windows such that the
-        observer-relative and task-relative values of average presence
-        density, incidence rate and average presence mass converge.</p>
+        observer-relative and task-relative values of presence density,
+        incidence rate and presence mass converge.</p>
         <p>Since real-world systems often operate far from
         equilibrium—and since the presence invariant holds
         <em>regardless</em> of equilibrium—the finite-window form
@@ -1448,35 +1441,35 @@ Introduction</span></p>
         Stidham.</p>
         <h3 data-number="4.4" id="signal-dynamics"><span
         class="header-section-number">4.4</span> Signal Dynamics</h3>
-        <p>Now that we’ve defined how we observe a system of presences
-        over a finite time interval, we turn to what happens when we
-        observe the system across a continuous sequence of
-        non-overlapping intervals.</p>
+        <p>Now that we’ve defined how to observe a system of presences
+        over a single finite interval, we turn to what happens when we
+        observe the system continuously over time—computing the
+        parameters of the presence invariant across consecutive,
+        equal-sized, half-open intervals.</p>
         <figure id="fig:system-presences-discrete">
         <img src="../assets/pandoc/system_presences_discrete.png"
         alt="Figure 7: Sampling a system of presences across uniform intervals" />
         <figcaption aria-hidden="true">Figure 7: Sampling a system of
         presences across uniform intervals</figcaption>
         </figure>
-        <p>This is a fundamental construct in the presence calculus—it
-        allows us to study the evolution of presence density over time:
-        the <em>signal dynamics</em> of the system.</p>
-        <p>The presence invariant defines a constraint among three key
-        parameters measured in each interval: average presence density,
-        signal incidence rate, and average mass contribution per
-        signal.</p>
+        <p>This step is fundamental to the presence calculus: it allows
+        us to study how presence density evolves across consecutive
+        observations—the <em>signal dynamics</em> of the system.</p>
+        <p>The presence invariant holds at each interval and defines a
+        constraint among the three key parameters: presence density,
+        signal incidence rate, and mass contribution per signal.</p>
         <blockquote>
         <p>Given any two of these, the third is completely
         determined.<br />
         Among them, presence density is the output; incidence rate and
-        average mass contribution are the inputs.</p>
+        mass contribution are the inputs.</p>
         </blockquote>
         <p>At each interval, presence density can be directly
         observed—but the invariant requires that it always equal the
-        product of incidence rate and average mass contribution:</p>
+        product of incidence rate and mass contribution:</p>
         <blockquote>
         <p>Any change in presence density must result from a change in
-        incidence rate, average mass contribution, or both.</p>
+        incidence rate, mass contribution, or both.</p>
         <p>In other words, the system has only <em>two degrees of
         freedom</em> among three interdependent variables.</p>
         </blockquote>
@@ -1485,7 +1478,7 @@ Introduction</span></p>
         particular system of presences evolves.</p>
         <p>In Section 7, we’ll explore a geometric view of this idea. If
         we treat these three parameters as coordinates of the system’s
-        state in each interval, we can “trace” its evolution as a
+        state in each interval, we can trace its evolution as a
         trajectory through time.</p>
         <blockquote>
         <p>This makes the presence invariant a powerful tool for causal
@@ -1498,36 +1491,46 @@ Introduction</span></p>
         for computing these trajectories.</p>
         <h2 data-number="5" id="the-presence-matrix"><span
         class="header-section-number">5</span> The Presence Matrix</h2>
-        <p>A <em>presence matrix</em> records the presence mass
-        distribution obtained by sampling a set of presence density
-        functions over a consecutive set of time intervals of fixed
-        size.</p>
-        <p>The sampling granularity normalizes the unit of time against
-        which a set of signals are sampled. This establishes the
-        smallest unit of time for which we will measure <em>change</em>
-        in the system.</p>
+        <p>A <em>presence matrix</em> is the data structure that records
+        the presence mass values resulting from the sampling process
+        described in Figure 7.</p>
+        <p>The length of each sampling interval is called the
+        <em>sampling granularity</em>. This defines the smallest time
+        resolution at which the <em>matrix</em> represents presence <a
+        href="#fn8" class="footnote-ref" id="fnref8"
+        role="doc-noteref"><sup>8</sup></a>.</p>
+        <p>The union of these intervals is called the <em>observation
+        window</em> of the matrix.</p>
         <blockquote>
         <p>Choosing the right sampling granularity is a key modeling
-        decision and affects the kind of insights we can generate from
-        all the machinery we develop below.</p>
+        decision. It directly affects the kinds of insights we can
+        extract from the presence matrix using the machinery we develop
+        later.</p>
         </blockquote>
-        <p>Given an observation granularity, we can construct a matrix
-        in which:</p>
+        <p>Given <span class="math inline">\(M\)</span> presence density
+        functions and an observation window consisting of <span
+        class="math inline">\(N\)</span> intervals at some fixed
+        sampling granularity, the presence matrix <span
+        class="math inline">\(P\)</span> is an <span
+        class="math inline">\(M \times N\)</span> matrix where:</p>
         <ul>
-        <li><p><em>Rows</em> correspond to individual signals (e.g., for
-        each <span class="math inline">\((
-        e, b)\)</span> pair),</p></li>
-        <li><p><em>Columns</em> correspond to non-overlapping time
-        intervals at the sampling granularity <em>that cover the time
-        axis</em>,</p></li>
-        <li><p><em>Entries</em> contain the <em>presence mass</em>,
-        i.e., the integral of the density function over the
-        corresponding interval:</p>
-        <p><span class="math display">\[ M_{(e,b),j} =
-        \int_{t_j}^{t_{j+1}} f_{(e,b)}(t) \, dt \]</span></p></li>
+        <li><p><em>Rows</em> correspond to individual presence density
+        functions (typically indexed by <span class="math inline">\((e,
+        b)\)</span> pairs),</p></li>
+        <li><p><em>Columns</em> correspond to half-open time intervals
+        at the sampling granularity,</p></li>
+        <li><p><em>Entries</em> contain the <em>presence mass</em>—that
+        is, the integral of the corresponding density function over the
+        associated time interval:</p>
+        <p><span class="math display">\[
+        P(i,j) = M_{(e,b),j} = \int_{t_j}^{t_{j+1}} f_{(e,b)}(t) \, dt
+        \]</span></p></li>
         </ul>
-        <p>The resulting matrix provides a discrete, temporally-aligned
-        representation of this system of presences.</p>
+        <blockquote>
+        <p>The presence matrix <span class="math inline">\(P\)</span> is
+        a discrete, time-aligned representation of presence mass for a
+        given system of presences.</p>
+        </blockquote>
         <p>Since we are accumulating presence masses over an interval,
         the value of presence mass in a matrix entry is always a a real
         number. Figure 8 shows the presence matrix for the system in
@@ -1542,11 +1545,10 @@ Introduction</span></p>
         <ul>
         <li>Each row in the matrix maps to a single element-boundary
         signal.</li>
-        <li>Each column represents an observation window at the sampling
+        <li>Each column represents a sampling interval at the sampling
         granularity.</li>
         <li>Each matrix entry consists of the observed presence mass of
-        the signal a time interval. This is computed by taking the
-        integral the underlying signal over the observation window.</li>
+        a signal at that time interval.</li>
         </ul>
         <p>The alert reader will note the difference between the first
         two rows in the matrix. Even though the underlying signals both
@@ -1561,27 +1563,27 @@ Introduction</span></p>
         windows during the integration step that computes the presence
         mass.</p>
         <p>In other words, this has no real impact on the behavior of
-        the invariant <a href="#fn8" class="footnote-ref" id="fnref8"
-        role="doc-noteref"><sup>8</sup></a> <em>provided we cover the
+        the invariant <a href="#fn9" class="footnote-ref" id="fnref9"
+        role="doc-noteref"><sup>9</sup></a> <em>provided we cover the
         timeline with our observations.</em></p>
         <p>The presence matrix encodes deep structural properties of a
         system of presences. Many of key concepts we want to highlight
         are easier to define and understand in terms of this
         representation.</p>
         <h3 data-number="5.1"
-        id="the-presence-invariant-and-the-presence-matrix."><span
-        class="header-section-number">5.1</span> The presence invariant
-        and the presence matrix.</h3>
+        id="the-presence-invariant-and-the-presence-matrix"><span
+        class="header-section-number">5.1</span> The Presence Invariant
+        and the Presence Matrix</h3>
         <p>Let’s revisit Figure 4, reproduced below, which introduced
-        the idea of thinking of presence mass as a sample of an
+        the idea of interpreting presence mass as a sample from an
         underlying signal.</p>
         <div style="text-align: center; margin:2em">
         <p><img src="../assets/pandoc/multiple_support.png" width="600px" /></p>
         </div>
         <p>When we observe a system of presences across a finite
-        observation window, as we do in deriving the presence invariant,
-        we are looking at presence mass across a “vertical” slice of
-        time across all signals.</p>
+        observation window—as we do when deriving the presence
+        invariant—we are looking at presence mass across a “vertical”
+        slice of time, spanning many signals.</p>
         <figure id="fig:presence-matrix-table"
         class="subfigures figure">
         <img src="../assets/placeholder.png"
@@ -1770,100 +1772,100 @@ Introduction</span></p>
         <figcaption><p>Figure 9: Mass contributions by signal.
         </p></figcaption>
         </figure>
-        <p>The presence matrix, shown in Figure 9, makes this notion
-        explict - assuming some fixed granularity of observation window,
-        a vertical slice in time corresponds to one or more column in
-        the presence matrix <a href="#fn9" class="footnote-ref"
-        id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
-        <p>Further, you can see that we can construct a presence matrix
-        from any subset of the rows of another presence matrix, and it
-        would still be a presence matrix. What is more, the presence
-        invariant applies for any <em>consecutive</em> sequence of
-        columns of any such presence matrix.</p>
-        <p>It’s straightforward now to interpret the presence invariant
-        in terms of a presence matrix as we show in Figure 10.</p>
+        <p>In the presence matrix from Figure 8, reproduced in Figure 9,
+        each entry represents the presence mass obtained by sampling a
+        signal over a particular interval. Rows correspond to distinct
+        signals, and columns represent sampling intervals.</p>
+        <p>We can construct a presence matrix from any subset of the
+        rows of another presence matrix—and it would still be a valid
+        presence matrix for the underlying system. Similarly, any
+        <em>consecutive sub-sequence</em> of columns within such a
+        matrix also constitutes a presence matrix over a sub-interval of
+        the system’s history.</p>
+        <p>Let’s see what this means in terms of the presence
+        invariant.</p>
         <figure id="fig:matrix-invariant">
         <img src="../assets/pandoc/matrix_invariant.png"
         alt="Figure 10: Computing the invariant from the matrix" />
         <figcaption aria-hidden="true">Figure 10: Computing the
         invariant from the matrix</figcaption>
         </figure>
-        <p>For an observation window:</p>
+        <p>In Figure 10 we interpret a consecutive sequence of columns
+        in the matrix as an <em>observation window</em>. Given such a
+        window and the submatrix it induces:</p>
         <ul>
-        <li>The sums of the presence masses along the rows of the
-        sub-matrix induced by the window gives us the mass contributions
-        per signal for that window.</li>
-        <li>The total of these row sums give us cumulative presence mass
-        <span class="math inline">\(A\)</span> across all signals for
-        the window.</li>
-        <li>The number of active signals <span
-        class="math inline">\(N\)</span> is simply the number of
-        distinct rows that have non-zero values those rows in the
-        induced matrix.</li>
-        <li><span class="math inline">\(T\)</span> is simply the number
-        of columns in the window expressed in units of the sampling
-        granularity.</li>
+        <li>The row sums of the submatrix give us the <em>mass
+        contributions per signal</em> within the window.</li>
+        <li>The sum of these row sums gives us the <em>cumulative
+        presence mass</em> <span class="math inline">\(A\)</span> across
+        all signals for the window.</li>
+        <li>The number of <em>incident signals</em> <span
+        class="math inline">\(N\)</span> is the number of rows in the
+        submatrix with non-zero values.</li>
+        <li><span class="math inline">\(T\)</span> is the number of
+        columns in the submatrix, measured in units of the sampling
+        granularity <a href="#fn10" class="footnote-ref" id="fnref10"
+        role="doc-noteref"><sup>10</sup></a>.</li>
         </ul>
-        <p>Given that we can interpret <span
-        class="math inline">\(A\)</span>, <span
-        class="math inline">\(N\)</span> and <span
-        class="math inline">\(T\)</span> as matrix properties, we can
-        also derive the three parameters of the presence invariant:</p>
+        <blockquote>
+        <p>Because <span class="math inline">\(A\)</span>, <span
+        class="math inline">\(N\)</span>, and <span
+        class="math inline">\(T\)</span> are directly computable from
+        the submatrix, we can derive the three parameters of the
+        presence invariant:</p>
         <ul>
-        <li>presence density <span class="math inline">\(\delta =
-        \frac{A}{T}\)</span>,</li>
-        <li>signal incidence rate <span class="math inline">\(\iota =
-        \frac{N}{T}\)</span> and</li>
-        <li>average mass contribution per signal <span
+        <li>presence density: <span class="math inline">\(\delta =
+        \frac{A}{T}\)</span></li>
+        <li>signal incidence rate: <span class="math inline">\(\iota =
+        \frac{N}{T}\)</span></li>
+        <li>mass contribution per signal: <span
         class="math inline">\(\bar{m} = \frac{A}{N}\)</span></li>
         </ul>
-        <p>for any observation window.</p>
-        <p>The presence invariant encodes very strong <em>local</em>
-        constraints in how presence mass distributes in time across
-        signals, and we can use these to derive meaningful constraints
-        on the global accumulation of presence mass across a system of
-        presences.</p>
-        <p>Next, we will look at a structure that is well suited for
-        analyzing these parameters <em>across</em> multiple observation
-        windows - the last piece we need to compute signal dynamics for
-        a system of presences.</p>
+        </blockquote>
+        <p>Thus the parameters of the presence invariant are well
+        defined for <em>any observation window</em> over a presence
+        matrix.</p>
+        <p>Next, we introduce a structure that allows us to compute and
+        analyze these parameters <em>across multiple observation
+        windows</em>—the final piece we need to compute signal dynamics
+        for the system.</p>
         <h3 data-number="5.2"
         id="the-presence-accumulation-matrix"><span
         class="header-section-number">5.2</span> The Presence
         Accumulation Matrix</h3>
         <p>Signal dynamics requires us to reason about both the micro
         and macro behaviors of a system of presences. To do this
-        efficiently we will use a data structure called the <em>Presence
-        Accumulation Matrix</em>.</p>
-        <p>This compresses information about the interaction between
-        micro and macro behavior of a system of presences across time
-        windows and time scales. The compression takes advantage of the
-        fact that the presence invariant is scale-independent and
-        applies across any finite observation window.</p>
-        <p>Let’s see how it is constructed. We will start with the
-        presence matrix of Figure 10</p>
-        <p>Recall that in a presence matrix we have an <span
-        class="math inline">\(M \times N\)</span> matrix of <span
-        class="math inline">\(M\)</span> signal sampled at <span
-        class="math inline">\(N\)</span> consecutive intervals, and the
-        value at row <span class="math inline">\(i\)</span> and column
-        <span class="math inline">\(j\)</span> represents the sampled
-        presence mass of signal <span class="math inline">\(i\)</span>
-        over the observation window <span
-        class="math inline">\(j\)</span>.</p>
+        efficiently we will derive a data structure called the
+        <em>Presence Accumulation Matrix</em>.</p>
+        <p>This matrix compresses information about the interaction
+        between micro and macro behavior of a system of presences across
+        time windows and time scales. Let’s see how it is
+        constructed.</p>
+        <p>We will start with the presence matrix of Figure 10. Recall
+        that this is an <span class="math inline">\(M \times N\)</span>
+        matrix of <span class="math inline">\(M\)</span> signal sampled
+        at <span class="math inline">\(N\)</span> consecutive intervals,
+        and the value at row <span class="math inline">\(i\)</span> and
+        column <span class="math inline">\(j\)</span> represents the
+        sampled presence mass of signal <span
+        class="math inline">\(i\)</span> over the observation window
+        <span class="math inline">\(j\)</span>.</p>
         <p>Now, consider the matrix <span
         class="math inline">\(A\)</span> that accumulates presences
-        masses across consecutive observation windows of various length
-        between 1 and <span class="math inline">\(N\)</span>. So the
-        entry in <span class="math inline">\(A[i,j]\)</span> equals the
-        value of the total presence mass <span
-        class="math inline">\(A\)</span> for the columns <span
+        masses by applying the windowing operation of Figure 10 across
+        <em>all possible observation windows</em> over the original
+        matrix.</p>
+        <p>So, for each <em>pair</em> of columns <span
+        class="math inline">\(i,j,\)</span> the entry in <span
+        class="math inline">\(A[i,j]\)</span> equals the value of the
+        total presence mass <span class="math inline">\(A\)</span> for
+        the submatrix induced by the columns <span
         class="math inline">\([i,..,j]\)</span> in the original presence
         matrix.</p>
         <p>As shown in Figure 11, the diagonal of the matrix contains
-        the accumulated presence mass across signals in a single
-        observation window. Each entry here is the sum of a single
-        column in the presence matrix.</p>
+        the accumulated presence mass across signals at the sampling
+        granularity. Each entry here is the sum of a single column in
+        the presence matrix.</p>
         <figure id="fig:acc-diagonal" class="subfigures figure">
         <img src="../assets/pandoc/placeholder.png"
         id="fig:acc-diagonal" style="display: none;" alt="a" />
@@ -2155,8 +2157,8 @@ Introduction</span></p>
         <figcaption><p>Figure 11: Presence mass for single observation
         window.. </p></figcaption>
         </figure>
-        <p>The next diagonal row contains the cumulative presence mass
-        for intervals of length 2 - ie <span
+        <p>The next diagonal contains the cumulative presence mass for
+        intervals of length 2 - ie <span
         class="math inline">\(A(1,2)\)</span> contains the sum of all
         entries in columns 1 and 2. <span
         class="math inline">\(A(2,3)\)</span> contains the sum of all
@@ -2826,11 +2828,7 @@ Introduction</span></p>
         <figcaption><p>Figure 13: Final accumulation matrix.
         </p></figcaption>
         </figure>
-        <p>As shown in Figure 14, we can think of this matrix as
-        computing the value <span class="math inline">\(A\)</span> in
-        the derivation of the presence invariant above, <em>for each
-        possible continuous observation window</em> represented by the
-        presence matrix.</p>
+        <p>Figure 14, shows this computation.</p>
         <figure id="fig:acc-matrix-construction">
         <img src="../assets/pandoc/acc_matrix_construction.png"
         alt="Figure 14: Accumulation Matrix Construction" />
@@ -3293,8 +3291,8 @@ Introduction</span></p>
         </ul>
         <p>This equation reflects the finite additivity of cumulative
         presence mass over rectangular regions in the presence matrix <a
-        href="#fn10" class="footnote-ref" id="fnref10"
-        role="doc-noteref"><sup>10</sup></a>.</p>
+        href="#fn11" class="footnote-ref" id="fnref11"
+        role="doc-noteref"><sup>11</sup></a>.</p>
         <p>So, the entire matrix—and thus, the system’s accumulation
         dynamics—is governed by a simple, local rule. Given the values
         on the diagonal, the rest of the matrix is completely
@@ -3309,26 +3307,23 @@ Introduction</span></p>
         of the nature of the underlying processes. The signals might
         come from deterministic, stochastic, linear, non-linear, or even
         chaotic processes. As long as the signals they generate are
-        <em>measurable</em> and we sample their <em>observed</em>
-        presence masses, this local recurrence always applies
-        [^F-determinism-caveat].</p>
-        <p>[^F-determinism-caveat] We’ll note at this point, that the
-        determinism is <em>retrospective</em>. Since it is based on
-        <em>observed</em> presence, this recurrence in no way implies we
-        can predict how the presences will evolve in the future. We will
-        have more to say about this in the next section.</p>
+        <em>measurable</em> they satisfy the finite additivity property
+        and when we sample their <em>observed</em> presence masses, this
+        local recurrence always applies <a href="#fn12"
+        class="footnote-ref" id="fnref12"
+        role="doc-noteref"><sup>12</sup></a>.</p>
         <p>Combined with the presence invariant—which also holds at
         every level of this accumulation—this gives us a powerful
         framework for dissecting the dynamics of a system of
         presences.</p>
-        <p>This forms the foundation for computing the dynamic evolution
-        of a presence mass in a system of presences.</p>
         <h2 data-number="6" id="computing-signal-dynamics"><span
         class="header-section-number">6</span> Computing Signal
         Dynamics</h2>
         <p>Presence calculus concepts—such as presence mass, incidence
         rate, and density— are not unlike abstract physical notions like
-        force, mass, and acceleration. In principle, these are
+        force, mass, and acceleration <a href="#fn13"
+        class="footnote-ref" id="fnref13"
+        role="doc-noteref"><sup>13</sup></a>. In principle, these are
         measurable quantities constrained by nature to behave in
         prescribed ways at a micro scale.</p>
         <p>Once we understand the rules governing their micro-scale
@@ -3340,35 +3335,42 @@ Introduction</span></p>
         that governs the local, time-based behavior of any system
         described by measurable, time-varying signals and the measures
         they induce: presence masses.</p>
-        <p>Recognizing that such a governing constraint exists allows us
-        to build tools that describe, interpret, and explain macro-scale
-        system behavior. With additional domain knowledge, these tools
-        can also support verifiable prediction.</p>
-        <p>Newtonian mechanics, for example, allows us to describe and
-        predict the motion of physical systems with remarkable
-        precision—such as planetary orbits or the trajectories of
-        falling objects. Yet even within this well-established
-        framework, limitations persist: the general three-body problem
-        has no closed-form solution, and systems like the double
-        pendulum exhibit chaotic behavior that defies exact
+        <p>Recognizing that such a constraint exists allows us to
+        construct tools that describe, interpret, and explain
+        macro-scale system behavior.</p>
+        <p>Newtonian mechanics, for example, enables us to describe and
+        predict the motion of certain physical systems—such as planetary
+        orbits or the trajectories of falling objects—with remarkable
+        precision. Yet even within this well-established framework,
+        limitations persist: the general three-body problem, for
+        example, has no closed-form solution, and systems like the
+        double pendulum exhibit chaotic behavior that defies exact
         prediction.</p>
-        <p>Still, such systems can be represented as
+        <p>Still, such systems can be represented and observed as
         <em>deterministic</em> trajectories through a parameter space.
         Even when precise long-term behavior is inaccessible, we can
-        still uncover structure and causal explanation.</p>
-        <p>In much the same way, the presence calculus does not aim to
-        predict the precise evolution of a system of presences. Instead,
-        by explicitly modeling signal histories and representing element
-        trajectories over time, it provides powerful descriptive tools
-        to explain how such systems evolve.</p>
+        often uncover structure and explain <em>observed</em>
+        behavior.</p>
+        <p>In much the same way, by explicitly modeling signal histories
+        and representing system trajectories in a parameter space—the
+        parameters of the presence invariant—the presence calculus
+        provides powerful descriptive tools for explaining how systems
+        of presence evolve.</p>
         <p>Within this context, <em>convergence</em> and
-        <em>divergence</em> are the two most important kinds of dynamic
-        macro-scale behavior we can study. They allow us to define—
-        formally and operationally—what it means for the accumulation of
-        presence mass in a system to be in equilibrium.</p>
-        <h3 data-number="6.1" id="convergence-and-divergence"><span
-        class="header-section-number">6.1</span> Convergence and
-        Divergence</h3>
+        <em>divergence</em> of presence density are the two most
+        important macro-scale behaviors we can study. These allow us to
+        define—formally and operationally—what it means for the
+        accumulation of presence mass in a system to be in
+        equilibrium.</p>
+        <blockquote>
+        <p>It’s important to note that the presence calculus is, at its
+        core, a tool for explanation, not prediction. However, when
+        supplemented with additional domain knowledge and assumptions,
+        it can provide a distinct, non-statistical substrate on which to
+        base predictive reasoning.</p>
+        </blockquote>
+        <h3 data-number="6.1" id="sample-paths"><span
+        class="header-section-number">6.1</span> Sample paths</h3>
         <p>Consider the highlighted portions of the accumulation matrix
         <span class="math inline">\(A\)</span> in Figure 15.</p>
         <figure id="fig:diagonal-top-row" class="subfigures figure">
@@ -3675,9 +3677,8 @@ Introduction</span></p>
         observed across all signals at the sampling granularity. Thus,
         the diagonal traces the discrete-time evolution of the system’s
         directly observed activity—one sample at a time.</p>
-        <p>We will call the sequence of values on the diagonal the
-        <em>sample path</em> for the system of presences up to certain
-        point in time.</p>
+        <p>We will call the sequence of values on the diagonal a
+        <em>sample path</em> for the system of presences.</p>
         <figure id="fig:diagonal-values">
         <img src="../assets/pandoc/diagonal_values.png"
         alt="Figure 16: Computing the accumulated values on the sample path" />
@@ -3686,11 +3687,14 @@ Introduction</span></p>
         </figure>
         <p>By contrast, each entry on the top row represents the
         accumulated presence mass along a <em>prefix</em> of the sample
-        path (diagonal). In other words, the top row represents the
-        observed <em>history</em> of the system of presences.</p>
-        <p><img src="../assets/pandoc/top_row_values.png"
-        alt="Computing the values on the top row of the accumulation matrix" />
-        {#fig:top-row-values}</p>
+        path. In other words, the top row represents the accumulated
+        presence over the observed <em>history</em> of the system.</p>
+        <figure id="fig:top-row-values">
+        <img src="../assets/pandoc/top_row_values.png"
+        alt="Figure 17: The top row: accumuleted presences over system history" />
+        <figcaption aria-hidden="true">Figure 17: The top row:
+        accumuleted presences over system history</figcaption>
+        </figure>
         <p>In other words, the diagonal and top row represent presence
         mass accumulations in the system at fundamentally different
         timescales: the diagonal captures the <em>micro-level
@@ -3700,33 +3704,39 @@ Introduction</span></p>
         presences over the observed history of the system.</p>
         <p>Both views are compactly encoded in the structure of
         the<br />
-        accumulation matrix.</p>
-        <p>The relationship between the values on the diagonal and the
-        top row is the following:</p>
+        accumulation matrix, as are every timescale <em>in
+        between.</em></p>
+        <p>As shown in Figure 18, the following geometric relationship
+        holds between the values on the diagonal and the top row:</p>
+        <figure id="fig:sample-path-area">
+        <img src="../assets/pandoc/sample_path_area.png"
+        alt="Figure 18: Top row as the area under the sample path" />
+        <figcaption aria-hidden="true">Figure 18: Top row as the area
+        under the sample path</figcaption>
+        </figure>
         <blockquote>
-        <p>Each entry on the top row is an integral <a href="#fn11"
-        class="footnote-ref" id="fnref11"
-        role="doc-noteref"><sup>11</sup></a> and equals the <em>area
+        <p>Each entry on the top row is an integral <a href="#fn14"
+        class="footnote-ref" id="fnref14"
+        role="doc-noteref"><sup>14</sup></a> and equals the <em>area
         under a prefix of the sample path</em> represented by the
         diagonal.</p>
         </blockquote>
-        <p>Figure 16 shows this geometric interpretation of the diagonal
-        and top rows of the accumulation matrix.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/sample_path_area.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 16: Sample path and the area under it.   </code></pre>
-        </div>
-        </div>
+        <h3 data-number="6.2"
+        id="convergence-and-divergence-of-presence-density"><span
+        class="header-section-number">6.2</span> Convergence and
+        divergence of presence density</h3>
         <p>If we divide each of the entries in the accumulation matrix
         by the length of the time interval it covers, we get the
         presence density for each interval. For the diagonal interval
         has length 1 (time unit at sampling granularity) and for the top
         row the lengths range from 1 to <span
         class="math inline">\(N-1.\)</span></p>
-        <div style="text-align: center; margin:2em">
-        <table style="border-collapse: collapse;">
+        <figure id="fig:presence-density-diag-top-row"
+        class="subfigures figure">
+        <img src="../assets/placeholder.png"
+        id="fig:presence-density-diag-top-row" style="display: none;"
+        alt="a" />
+        <table>
         <thead>
         <tr>
         <th>
@@ -4020,42 +4030,44 @@ Introduction</span></p>
         </tr>
         </tbody>
         </table>
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 17: Presence density: diagonal and top row.   </code></pre>
-        </div>
-        </div>
+        <figcaption><p>Figure 19: Presence density: diagonal and top
+        row.. </p></figcaption>
+        </figure>
         <p>So now we have the left-hand side of the presence invariant
         encoded in matrix form for every pair of continuous intervals in
         the system.</p>
         <p>Let’s chart the values on the diagonal and the top row in the
         matrix.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/first_row_vs_main_diagonal.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 18: Convergence of long-run average presence density.</code></pre>
-        </div>
-        </div>
-        <p>We can see that while the values on the sample path are
-        volatile, the values on the top row converge towards a finite
-        value. We can define this notion of convergence of the values on
-        the top row precisely using the mathematical concept of a
-        limit.</p>
+        <figure id="fig:presence-density-chart">
+        <img src="../assets/pandoc/first_row_vs_main_diagonal.png"
+        alt="Figure 20: Convergence of long-run presence density." />
+        <figcaption aria-hidden="true">Figure 20: Convergence of
+        long-run presence density.</figcaption>
+        </figure>
+        <p>We can see from Figure 20 that while the values on the sample
+        path are volatile, the values on the top row converge towards a
+        finite value.</p>
+        <p>We can define this notion of convergence of the values on the
+        top row precisely using the mathematical concept of a limit.</p>
         <p>Let:</p>
         <p><span class="math display">\[
         \Delta = \lim_{T \to \infty} \frac{1}{T} \int_0^T \delta(t) \,
         dt
         \]</span></p>
         <p>Here, <span class="math inline">\(\delta(t)\)</span> is the
-        instantaneous presence density at each sampling interval.</p>
-        <p>The quantity <span class="math inline">\(\Delta\)</span>,
-        represents the long-run average presence density — the
-        time-averaged total presence across all signals in the
-        system.</p>
-        <p>This corresponds to the limiting value of the top row of the
-        accumulation matrix — a value toward which the green line in
-        Figure 18 appears to converge:</p>
+        presence density across all signals, measured at the base
+        sampling granularity <span class="math inline">\(t\)</span>—that
+        is, the total presence mass per unit time over a single
+        co-presence interval of width <span
+        class="math inline">\(t\)</span>.</p>
+        <p>The quantity <span class="math inline">\(\Delta\)</span>
+        represents the presence density over the system’s sample path,
+        that is, its observed history.</p>
+        <p>To make this correspondence explicit in terms of the
+        accumulation matrix, we can express <span
+        class="math inline">\(\Delta\)</span> as the limiting value of
+        the presence density along the top row - the value towards which
+        the value on the top row in</p>
         <p><span class="math display">\[
         \Delta = \lim_{j \to \infty} \frac{A(1,j)}{j}
         \]</span></p>
@@ -4068,10 +4080,10 @@ Introduction</span></p>
         class="math inline">\(\Delta\)</span> exists and is finite, and
         <em>divergent</em> otherwise.</p>
         </blockquote>
-        <p>To summarize: in a fully convergent system, the average
-        presence density over time converges toward a finite value and
-        stays there. Intuitively, this means that after observing enough
-        of the system’s history, additional observation does not
+        <p>To summarize: in a fully convergent system, the presence
+        density over time converges toward a finite value and stays
+        there. Intuitively, this means that after observing enough of
+        the system’s history, additional observation does not
         significantly alter our understanding of its long-term
         behavior.</p>
         <p>Some systems converge rapidly to a single stable limit.
@@ -4087,69 +4099,73 @@ Introduction</span></p>
         bound,<br />
         indicating that the dominant behavior of the system is an
         unbounded accumulation of presence.</p>
-        <p>Figure 19 shows examples of each of these behaviors.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/convergence_divergence.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 19: Convergent, Divergent, and Metastable behavior in systems of presences.</code></pre>
-        </div>
-        </div>
+        <p>Figure 21 shows examples of each of these behaviors.</p>
+        <figure id="fig:convergence-divergence">
+        <img src="../assets/pandoc/convergence_divergence.png"
+        alt="Figure 21: Convergent, divergent, and metastable behavior in systems of presences." />
+        <figcaption aria-hidden="true">Figure 21: Convergent, divergent,
+        and metastable behavior in systems of presences.</figcaption>
+        </figure>
         <p>If a limit <span class="math inline">\(\Delta\)</span> exists
         and is sustained over time, it signifies a stable long-run
-        average presence density for the system. This value represents a
-        specific pattern of average behavior toward which the system’s
+        presence density for the system. This value represents a
+        specific pattern of behavior toward which the system’s
         observable presence density gravitates over extended periods,
         regardless of short-term fluctuations.</p>
         <p>This concept aligns with the broader notion of attractors in
         dynamical systems. While a system’s full, high-dimensional state
-        might exhibit complex dynamics, the long-run average presence
-        density can itself stabilize around a particular value or set of
-        values. When the presence density consistently settles around
-        such a limit, it indicates that the system’s observable behavior
-        has entered a sustainable regime.</p>
+        might exhibit complex dynamics, the long-run presence density
+        can itself stabilize around a particular value or set of values.
+        When the presence density consistently settles around such a
+        limit, it indicates that the system’s observable behavior has
+        entered a stable regime.</p>
         <p>This provides a powerful way to characterize the system’s
         overall operational modes in the long term.</p>
         <p>It is important to emphasize that convergence and divergence
-        are properties<br />
-        of the <em>observed long-run behavior</em> of a system of
-        presences — not intrinsic<br />
-        properties of the underlying system itself.</p>
-        <p>We cannot infer the system’s nature solely from whether it
-        appears convergent or divergent at any given time. We can only
+        are properties of the <em>observed long-run behavior</em> of a
+        system of presences — not intrinsic properties of the underlying
+        system.</p>
+        <p>We cannot infer the system’s nature (whether it is
+        deterministic, stochastic, linear, non-linear, chaotic etc)
+        solely from whether it appears convergent or divergent at any
+        given time. Any of these <em>types</em> of systems may be
+        convergent or divergent at different points in time. We can only
         observe the dynamics of presence accumulation over time and
-        assess whether they exhibit convergence.</p>
+        assess whether they <em>exhibit</em> convergence over an
+        observation interval.</p>
         <p>The key difference between convergence and the other two
         modes is that a<br />
-        convergent system can effectively <em>forget</em> its history
-        beyond the point of convergence. Its future behavior becomes
-        representative of its past, allowing the system to be
-        characterized by a stable long-run average.</p>
+        fully convergent system can effectively <em>forget</em> its
+        history beyond the point of convergence. Its future behavior
+        becomes representative of its past, allowing the system to be
+        characterized by a stable long-run value.</p>
+        <p>Such systems are relatively rare in the real world. This is
+        where much of the utility of the presence calculus lies. It
+        shines when analyzing the behavior of systems of presence when
+        they operate in those liminal phases between convergence and
+        divergence - the states where most real-world systems spend most
+        of their time.</p>
         <p>Among other things, the presence calculus equips us with the
         computational tools needed to identify convergent, divergent and
-        metastable states of a system of presences.</p>
-        <h4 data-number="6.1.1" id="the-semantics-of-convergence"><span
-        class="header-section-number">6.1.1</span> The Semantics of
+        metastable states of a system of presences and monitor how they
+        move in between these states over time.</p>
+        <h4 data-number="6.2.1" id="the-semantics-of-convergence"><span
+        class="header-section-number">6.2.1</span> The Semantics of
         Convergence</h4>
         <p>An important point to emphasize is that, depending on how
-        presence density<br />
-        is interpreted in a given domain, <em>any</em> of the three
-        behavioral modes —<br />
-        convergent, divergent, or metastable — may be desirable.<br />
-        Convergence is not inherently “good,” nor is divergence
-        necessarily “bad.”</p>
+        presence density is interpreted in a given domain, <em>any</em>
+        of the three behavioral modes — convergent, divergent, or
+        metastable — may be desirable. Convergence is not inherently ”
+        good,” nor is divergence necessarily “bad.”</p>
         <p>For example, in repetitive manufacturing or many customer
-        service domains,<br />
-        convergence is often desired. In these contexts, presence
-        typically<br />
-        represents <em>demand</em> on a constrained resource, and
-        keeping that demand<br />
-        stable is essential for ensuring consistent service times,
-        throughput,<br />
-        and resource utilization. Traditional operations management and
-        queueing theory therefore seek out — and emphasize — stability
-        and convergence in key<br />
-        operational signals.</p>
+        service domains, convergence is often desired. In these
+        contexts, presence typically represents <em>demand</em> on a
+        constrained resource, and managing the demand is essential for
+        ensuring consistent service times, throughput,<br />
+        and resource utilization.</p>
+        <p>Traditional operations management and queueing theory
+        therefore seek out — and emphasize — stability and convergence
+        in key operational signals.</p>
         <p>By contrast, if presence represents a company’s <em>customer
         base</em> or <em>market<br />
         share</em>, we <em>want</em> the long-run presence density to
@@ -4181,14 +4197,14 @@ Introduction</span></p>
         of<br />
         operation in a given domain, <em>before</em> critical tipping
         points are reached.</p>
-        <h3 data-number="6.2" id="detecting-convergence"><span
-        class="header-section-number">6.2</span> Detecting
+        <h3 data-number="6.3" id="detecting-convergence"><span
+        class="header-section-number">6.3</span> Detecting
         Convergence</h3>
         <p>In the last section, we <em>defined</em> convergent behavior
         in terms of the<br />
         existence of the limit <span
-        class="math inline">\(\Delta\)</span>, the long-run average
-        presence density<br />
+        class="math inline">\(\Delta\)</span>, the long-run presence
+        density<br />
         of the system.</p>
         <p>Now we ask: under what observable conditions does such a
         limit exist?</p>
@@ -4200,7 +4216,7 @@ Introduction</span></p>
         invariant, which, as we’ve seen, holds for <em>any</em> finite
         observation<br />
         window. The limit <span class="math inline">\(\Delta\)</span>
-        represents the asymptotic average of <span
+        represents the asymptotic value of <span
         class="math inline">\(\delta(t)\)</span>,<br />
         the left-hand side of the invariant, measured over a sequence of
         consecutive<br />
@@ -4217,27 +4233,27 @@ Introduction</span></p>
         product of two measurable quantities: <span
         class="math inline">\(\iota(t)\)</span>, the incidence
         rate,<br />
-        and <span class="math inline">\(\bar{m}(t)\)</span>, the average
-        mass contribution per signal.</p>
-        <p>To understand when the long-run average of <span
+        and <span class="math inline">\(\bar{m}(t)\)</span>, the mass
+        contribution per signal.</p>
+        <p>To understand when the long-run value of <span
         class="math inline">\(\delta(t)\)</span> converges, we can
         ask<br />
-        a simpler question: do the corresponding long-run averages of
-        <span class="math inline">\(\iota(t)\)</span><br />
+        a simpler question: do the corresponding long-run s of <span
+        class="math inline">\(\iota(t)\)</span><br />
         and <span class="math inline">\(\bar{m}(t)\)</span> converge? If
         both do, we should expect that their product —<br />
         and hence <span class="math inline">\(\Delta\)</span> —
         converges as well,and it does, with some technical conditions in
-        place<a href="#fn12" class="footnote-ref" id="fnref12"
-        role="doc-noteref"><sup>12</sup></a>.</p>
+        place<a href="#fn15" class="footnote-ref" id="fnref15"
+        role="doc-noteref"><sup>15</sup></a>.</p>
         <p>So, let’s write down precise definitions for the limits of
         <span class="math inline">\(\iota(t)\)</span> and<br />
         <span class="math inline">\(\bar{m}(t)\)</span> and examine how
         these limits behave.</p>
-        <h4 data-number="6.2.1"
-        id="convergence-of-average-signal-mass-contribution"><span
-        class="header-section-number">6.2.1</span> Convergence of
-        Average Signal Mass Contribution</h4>
+        <h4 data-number="6.3.1"
+        id="convergence-of-mass-contribution-per-signal"><span
+        class="header-section-number">6.3.1</span> Convergence of mass
+        contribution per signal</h4>
         <p>We will derive the limit for <span
         class="math inline">\(\bar{m}\)</span>. We will denote this by
         <span class="math inline">\(\bar{M}\)</span>.</p>
@@ -4258,7 +4274,7 @@ Introduction</span></p>
         \sum_{k=1}^j P_{(e,b)}(k)
         \]</span></p>
         <p><span class="math inline">\(\bar{M}\)</span> is the limit of
-        average mass contribution per signal over a sufficiently long
+        mass contribution per signal over a sufficiently long
         observation interval. Here, <span
         class="math inline">\(P_{(e,b)}(t)\)</span> is the presence
         density function for signal <span
@@ -4451,16 +4467,16 @@ Introduction</span></p>
         </tr>
         </tbody>
         </table>
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 9: The presence matrix (reproduced)</code></pre>
-        </div>
         </div>
         <p>The cumulative mass per signal over each interval <span
         class="math inline">\([1, j], j \le 10\)</span> is shown below.
         Each value in this matrix is the sum of all the values in that
         row to the left (inclusive) of the value.</p>
-        <div style="text-align: center; margin:2em">
+        <figure id="fig:signal-mass-contribution-matrix"
+        class="subfigures figure">
+        <img src="../assets/placeholder.png"
+        id="fig:signal-mass-contribution-matrix" style="display: none;"
+        alt="a" />
         <table>
         <thead>
         <tr>
@@ -4642,38 +4658,35 @@ Introduction</span></p>
         </tr>
         </tbody>
         </table>
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 20: The cumulative mass contribution matrix for the presence matrix.</code></pre>
-        </div>
-        </div>
-        <p>Now lets chart each row of this matrix to see how this
-        cumulative mass grows over time. Here we are showing each row in
-        the matrix as a line in the chart.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/mass_contribution_per_signal.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 21: Mass contribution per signal</code></pre>
-        </div>
-        </div>
-        <p>Finally figure 22 shows the cumulative average of the mass
-        contribution. Each point in this chart represents the cumulative
-        average of the mass contributions for the window <span
+        <figcaption><p>Figure 22: Signal mass contribution matrix.
+        </p></figcaption>
+        </figure>
+        <p>Now lets chart each row of this matrix to see how the mass
+        contribution for each signal grows over time. In Figure 23 we
+        are showing each row in the matrix as a line in the chart.</p>
+        <figure id="fig:mass-contribution-per-signal">
+        <img src="../assets/pandoc/mass_contribution_per_signal.png"
+        alt="Figure 23: Mass contributions of each signal over time" />
+        <figcaption aria-hidden="true">Figure 23: Mass contributions of
+        each signal over time</figcaption>
+        </figure>
+        <p>Finally Figure 24 shows the how mass contribution per signal
+        grows over time. Each point in this chart represents the mass
+        contributions per signal for the window <span
         class="math inline">\([1,j]\)</span> which is the sum of the
         value in column j divided by the number of non-zero rows in the
-        sub-matrix spanned by the columns in $[1,j]</p>
+        sub-matrix spanned by the columns in <span
+        class="math inline">\([1,j]\)</span>.</p>
         <p>As we can see, this curve converges to a limit.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/avg_mass_contribution_per_signal.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 22: Average Mass contribution per signal</code></pre>
-        </div>
-        </div>
-        <p>So lets ask, what would make the average mass contribution
+        <figure id="fig:avg-mass-contribution-per-signal">
+        <img src="../assets/pandoc/avg_mass_contribution_per_signal.png"
+        alt="Figure 24: Convergence of mass contribution per signal" />
+        <figcaption aria-hidden="true">Figure 24: Convergence of mass
+        contribution per signal</figcaption>
+        </figure>
+        <p>So lets ask, what would make the mass contribution per signal
         <em>not</em> converge to a finite value?</p>
-        <p>Figure 21 suggests that the mass contribution of every
+        <p>Figure 23 suggests that the mass contribution of every
         individual signal is monotonically non-decreasing and it
         increases continuously over every non-zero support interval of
         the signal and flattens out over every interval where the
@@ -4681,14 +4694,19 @@ Introduction</span></p>
         <p>Suppose when measured over a sufficient long interval, each
         signal remains bounded, that is every onset is matched with a
         corresponding reset, then each individual signal contributes a
-        finite mass to the cumulative average.</p>
-        <p>Thus, the only way the cumulative average mass can grow
-        without limit is if <em>some</em> signal grows without
-        limit.</p>
-        <p>For example, in figure 3 we show some onset-reset patterns
-        for signals and the last signal in Figure 3, which has an onset
-        but no apparent reset within the observation window, would grow
-        without limit in Figure 21 if there was no reset.</p>
+        finite mass to the cumulative value.</p>
+        <p>Thus, the only way the cumulative mass can grow without limit
+        is if <em>some</em> signal grows without limit.</p>
+        <figure id="fig:onset-reset-patterns">
+        <img src="../assets/pandoc/pdf_examples.png"
+        alt="Figure 25: Onset-reset-patterns" />
+        <figcaption aria-hidden="true">Figure 25:
+        Onset-reset-patterns</figcaption>
+        </figure>
+        <p>For example, in Figure 25 we show some onset-reset patterns
+        for signals and the signal for Element-4, which has an onset but
+        no apparent reset within the observation window, would grow
+        without limit in Figure 23 assuming there was no reset.</p>
         <p>This gives us the first condition for convergence of <span
         class="math inline">\(\Delta\)</span> :</p>
         <div
@@ -4711,12 +4729,12 @@ Introduction</span></p>
         completion — and convergence becomes desirable, as it indicates
         tasks are being completed in a timely manner and that your todo
         list is not growing without limit.</p>
-        <h4 data-number="6.2.2" id="convergence-of-incidence-rate"><span
-        class="header-section-number">6.2.2</span> Convergence of
+        <h4 data-number="6.3.2" id="convergence-of-incidence-rate"><span
+        class="header-section-number">6.3.2</span> Convergence of
         Incidence Rate</h4>
         <p>We now define the long-run incidence rate, denoted <span
         class="math inline">\(I\)</span>, in exact analogy to how we
-        defined the average mass contribution per signal <span
+        defined the mass contribution per signal <span
         class="math inline">\(\bar{M}\)</span>. Recall that <span
         class="math inline">\(\iota(t)\)</span> is the incidence rate
         observed over the interval <span class="math inline">\([0,
@@ -4732,7 +4750,7 @@ Introduction</span></p>
         class="math inline">\([0, T]\)</span>— that is, the number of
         distinct element-boundary signals that are active at some point
         during the interval. The incidence rate measures how many such
-        signals are activated, on average, per unit time.</p>
+        signals are activated, per unit time.</p>
         <p>This limit <span class="math inline">\(I\)</span>, when it
         exists, represents the asymptotic rate at which signals appear
         in the system. It plays a symmetric role to <span
@@ -4761,7 +4779,9 @@ Introduction</span></p>
         <p>The result is a sequence of signal counts, which we can
         arrange as a <span class="math inline">\(1 \times T\)</span> row
         vector:</p>
-        <div style="text-align: center; margin:2em">
+        <figure id="fig:incidence-count" class="subfigures figure">
+        <img src="../assets/placeholder.png" id="fig:incidence-count"
+        style="display: none;" alt="a" />
         <table>
         <thead>
         <tr>
@@ -4838,11 +4858,9 @@ Introduction</span></p>
         </tr>
         </tbody>
         </table>
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 23: Cumulative count of distinct signals observed over the interval $[0, T]$.</code></pre>
-        </div>
-        </div>
+        <figcaption><p>Figure 26: Signal incidence counts over the
+        observation window.. </p></figcaption>
+        </figure>
         <p>where <span class="math inline">\(n_j\)</span> is the total
         number of distinct signals that have appeared at or before time
         <span class="math inline">\(j\)</span>. Each <span
@@ -4859,14 +4877,13 @@ Introduction</span></p>
         class="math inline">\(N(0,T)\)</span> grows faster than
         linearly, the incidence rate will diverge—and if it grows
         sublinearly, the rate will decay toward zero.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/avg_incidence_rate.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 24: Average signal incidence rate </code></pre>
-        </div>
-        </div>
-        <p>Figure 24 shows the incidence rate <span
+        <figure id="fig:signal-incidence-rate">
+        <img src="../assets/pandoc/avg_incidence_rate.png"
+        alt="Figure 27: Signal incidence rate" />
+        <figcaption aria-hidden="true">Figure 27: Signal incidence
+        rate</figcaption>
+        </figure>
+        <p>Figure 27 shows the incidence rate <span
         class="math inline">\(\iota(T) = N(0,T)/T\)</span> over time. In
         this example, the rate initially decreases and then stabilizes,
         since the number of distinct signals <span
@@ -4905,25 +4922,23 @@ Introduction</span></p>
         signal onsets does not exceed the long-run rate of resets, when
         observed over a sufficiently long time interval. </i></p>
         </div>
-        <h4 data-number="6.2.3" id="recap"><span
-        class="header-section-number">6.2.3</span> Recap</h4>
+        <h4 data-number="6.3.3" id="recap"><span
+        class="header-section-number">6.3.3</span> Recap</h4>
         <p>We began by defining convergence in terms of the existence of
-        a long-run limit for average presence density.</p>
+        a long-run limit for presence density.</p>
         <p>We then showed how the existence of this global limit depends
-        on the existence of two other measurable limits: the average
-        incidence rate of signals and their average mass
-        contribution.</p>
+        on the existence of two other measurable limits: the incidence
+        rate of signals and their mass contribution.</p>
         <p>Next, we traced each of these limits back to the local
         behavior of individual signals—specifically, the presence or
         absence of well-behaved signal onsets and resets.</p>
         <p>With this connection in place, we now have a principled way
         to reason about the global convergence or divergence of a system
-        by analyzing the patterns of local signal behavior over time. In
-        the next section, we’ll see how to apply this principle in
-        practice.</p>
-        <h4 data-number="6.2.4"
+        by analyzing the patterns of local signal behavior over
+        time.</p>
+        <h4 data-number="6.3.4"
         id="formal-proof-of-convergence-and-littles-law"><span
-        class="header-section-number">6.2.4</span> Formal Proof of
+        class="header-section-number">6.3.4</span> Formal Proof of
         Convergence and Little’s Law</h4>
         <p>In this document, we have presented an accurate—though
         somewhat simplified— account of the criteria required to ensure
@@ -4952,70 +4967,73 @@ Introduction</span></p>
         pathological cases, the criteria we have outlined—bounded signal
         mass and balanced onset/reset rates—will typically suffice to
         determine whether a system is convergent or divergent.</p>
-        <h4 data-number="6.2.5"
+        <h4 data-number="6.3.5"
         id="convergence-coherence-and-littles-law"><span
-        class="header-section-number">6.2.5</span> Convergence,
+        class="header-section-number">6.3.5</span> Convergence,
         Coherence, and Little’s Law</h4>
         <p>One important point to note is that “Little’s Law” is not a
         single law, but rather a family of related laws that apply at
         different time scales, in different forms, and with different
         interpretations. The presence invariant is the most general
-        version of this law.</p>
+        version of this law, as it holds at all time scales.</p>
         <p>In this document, we stated it as a relationship between
-        average presence density, signal incidence rate, and average
-        mass contribution per signal over any finite observation window.
-        This relationship holds at all time scales, <em>including</em>
-        those sufficiently long windows where the limits <span
+        presence density, signal incidence rate, and mass contribution
+        per signal over any finite observation window. This relationship
+        holds at all scales, <em>including</em> those sufficiently long
+        windows where the parameters approach their limits: <span
         class="math inline">\(\Delta\)</span>, <span
         class="math inline">\(I\)</span>, and <span
-        class="math inline">\(\bar{M}\)</span> exist.</p>
+        class="math inline">\(\bar{M}\)</span>.</p>
         <p>It is natural to ask: what is special, if anything, about
         those limiting values?</p>
         <p>Without going too deeply into technical arguments here, we
-        note that the limits are indeed special. When a system is
+        note that the limits are indeed meaningful. When a system is
         observed over a non-convergent interval, the quantities in the
         presence invariant are dominated by <em>partial</em> mass
-        contributions from signals that have not yet completed. Figure 5
-        shows an example of this behavior.</p>
+        contributions from signals. Figure 5 shows an example of this
+        behavior.</p>
         <p>The system may <em>appear</em> convergent when the window is
         long enough for <em>complete</em> signals to dominate the
-        averages. For example, if we extended the window in Figure 5 to
-        include the full duration of each signal, the system would
-        appear convergent over that interval.</p>
-        <p>The important point here is that in such situations, the
-        presence invariant is not just a relationship about mass
-        <em>contributions</em>, but also implicitly a relationship about
+        presence density. For example, if we extended the window in
+        Figure 5 to include the full duration of each signal, the system
+        would appear convergent over that interval.</p>
+        <p>The key point here is that in such situations, the presence
+        invariant is not just a relationship among mass
+        <em>contributions</em>, but also implicitly a relationship among
         the <em>masses</em> of the signals involved. This distinction
         has direct operational implications.</p>
         <p>For instance, if the signals in Figure 5 represent customer
         service times, then over a convergent interval, mass
-        contributions reflect what the customer actually experiences.
-        But over shorter, non-convergent intervals, those same
-        contributions primarily reflect what a system operator observes
-        on a day-to-day basis.</p>
-        <p>In Figure 5, for example, if we extend the observation window
-        far enough to include the full duration of all signals shown,
-        the system will appear convergent over that interval. When we
-        measure presence density, signal masses, and incidence rates
-        over this longer window, we are implicitly aligning the
-        customer’s perspective of the system with the operator’s
-        perspective.</p>
+        contributions equal signal masses and reflect what the customer
+        actually experiences. But over shorter, non-convergent
+        intervals, those same contributions primarily reflect partial
+        masses—what a system operator might observe on a day-to-day
+        basis.</p>
+        <p>In Figure 5, if we extend the observation window far enough
+        to include the full duration of all signals shown, the system
+        will appear convergent over that interval. When we measure
+        presence density, signal masses, and incidence rates over this
+        longer window, we are implicitly aligning the customer’s
+        perspective with the operator’s.</p>
         <p>In this way, convergence brings these two perspectives—the
-        customer’s and the operator’s—into alignment. More generally, it
-        aligns time-based averages with signal-based averages. When
-        these quantities agree, we enter a state of epistemic coherence:
-        multiple observers, using different vantage points, arrive at
-        consistent measurements of system behavior.</p>
-        <p>This alignment occurs only when the system is operating at or
-        near equilibrium.</p>
-        <p>We will return to this important idea in other posts,
-        particularly in the context of flow measurement in systems that
-        operate far from equilibrium. But for now, it is enough to
-        recognize that identifying whether a system is operating in a
-        convergent or divergent mode is fundamental to making meaningful
-        decisions when reasoning about a system of presences.</p>
-        <h4 data-number="6.2.6" id="a-note-on-determinism"><span
-        class="header-section-number">6.2.6</span> A Note on
+        customer’s and the operator’s—into alignment. More generally,
+        over a long enough observation window, the presence invariant
+        expresses a state in which presence density in the time domain
+        corresponds to signal masses in the element-boundary domain.</p>
+        <p>When these quantities agree, we enter a state of
+        <em>epistemic coherence</em>: multiple observers, using
+        different vantage points, arrive at consistent measurements of
+        system behavior.</p>
+        <p>This coherent state occurs only when the system is operating
+        at or near equilibrium.</p>
+        <p>We will return to this idea in future posts, particularly in
+        the context of flow measurement in systems that operate far from
+        equilibrium. But for now, it is enough to recognize that
+        identifying whether a system is operating in a convergent or
+        divergent mode is fundamental to making meaningful decisions
+        when reasoning about a system of presences.</p>
+        <h4 data-number="6.3.6" id="a-note-on-determinism"><span
+        class="header-section-number">6.3.6</span> A Note on
         Determinism</h4>
         <p>A final point we emphasize in this section is that the form
         of Little’s Law derived here is entirely deterministic. It does
@@ -5032,9 +5050,9 @@ Introduction</span></p>
         signals evolve and interact over time—regardless of whether the
         underlying signals are random or not.</p>
         <p>Even when the signals have randomness, the <em>observed</em>
-        evolution of presence density is deterministic<a href="#fn13"
-        class="footnote-ref" id="fnref13"
-        role="doc-noteref"><sup>13</sup></a> and governed by the law of
+        evolution of presence density is deterministic<a href="#fn16"
+        class="footnote-ref" id="fnref16"
+        role="doc-noteref"><sup>16</sup></a> and governed by the law of
         conservation of presence mass—that is, the presence invariant.
         This determinism extends to any functional quantity that depends
         on presence density. As we will see, a large and operationally
@@ -5143,7 +5161,7 @@ Introduction</span></p>
         As noted earlier, this expresses that each entry in the
         accumulation matrix can<br />
         be factored into two components: the incidence rate <span
-        class="math inline">\(\iota\)</span> and the average mass<br />
+        class="math inline">\(\iota\)</span> and the mass<br />
         <span class="math inline">\(\bar{m}\)</span> per incident
         signal. There are useful insights to be gained by<br />
         examining this multiplicative structure in log space.</p>
@@ -5160,7 +5178,7 @@ Introduction</span></p>
         behavior.</p>
         <p>Each component now contributes linearly to the overall
         presence density (in log space), and changes in incidence rate
-        or average mass can be interpreted as<br />
+        or mass can be interpreted as<br />
         vector displacements along orthogonal axes in this space.</p>
         <p>This gives us a mapping of the presence invariant in the
         complex plane.</p>
@@ -5172,7 +5190,7 @@ Introduction</span></p>
         \]</span></p>
         <p>Here, the real part of <span class="math inline">\(z\)</span>
         encodes the logarithm of the incidence rate, and the imaginary
-        part encodes the logarithm of the average mass.</p>
+        part encodes the logarithm of the mass.</p>
         <p>This mapping allows us to compactly represent the two degrees
         of freedom in presence density as a vector in a two-dimensional
         plane, with the magnitude of the vector encoding the intensity
@@ -5781,15 +5799,15 @@ Introduction</span></p>
         <path d="M0,0 L0,6 L6,3 z" fill="#000"/> </marker> </defs>
         </svg></p>
         <div style="font-size: 0.9em; color: #555; margin-top: 1em;">
-        <pre><code>Table: Interpretation of θ as directional flow in log-space between incidence rate and average mass, with fully rendered vector arrows.</code></pre>
+        <pre><code>Table: Interpretation of θ as directional flow in log-space between incidence rate and signal mass, with fully rendered vector arrows.</code></pre>
         </div>
         </div>
         <h2 data-number="8" id="attractors"><span
         class="header-section-number">8</span> Attractors</h2>
         <p>Since there are only two degrees of freedom theses system
         trajectories will always lie on a two dimensional manifold <a
-        href="#fn14" class="footnote-ref" id="fnref14"
-        role="doc-noteref"><sup>14</sup></a> in a 3 dimensional
+        href="#fn17" class="footnote-ref" id="fnref17"
+        role="doc-noteref"><sup>17</sup></a> in a 3 dimensional
         space.</p>
         <blockquote>
         <p>Remarkably, the state of <em>every</em> possible system of
@@ -5882,7 +5900,19 @@ Introduction</span></p>
         familiar metric typically called the cycle time.<a
         href="#fnref7" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn8"><p>It is equally valid to define <span
+        <li id="fn8"><p>The sampling granularity is typically coarser
+        than time resolution of the underlying signals. For example, the
+        signals themselves may be timestamped at millisecond
+        granularity, while the presence matrix may be constructed by
+        sampling at hourly, daily, or weekly intervals. Many different
+        presence matrices can be constructed from the same underlying
+        set of signals. Depending on the observation window and sampling
+        granularity, we may arrive at very different matrices. A
+        presence matrix is therefore an observer-relative analytical
+        construct, derived from a system of presences—not a direct
+        representation of the underlying signals.<a href="#fnref8"
+        class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+        <li id="fn9"><p>It is equally valid to define <span
         class="math inline">\(N\)</span> as the number of distinct
         <em>presences</em> in the observation window. For example for
         the signal <span class="math inline">\(P2\)</span> in Figure 5,
@@ -5898,52 +5928,74 @@ Introduction</span></p>
         ultimately a modeling decision that depends on what you are
         trying to measure. By default we will assume that <span
         class="math inline">\(N\)</span> is measured at the signal
-        granularity.<a href="#fnref8" class="footnote-back"
+        granularity.<a href="#fnref9" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn9"><p>When we work with a presence matrix, there is
-        also the additional assumption that we will aggregate
-        observation windows at the sampling granularity. That is, we
-        will make inferences about intervals that are composed of
-        consecutive columns. This is usually not a limitation, since the
-        sampling granularity should be chosen with this requirement in
-        mind, and can usually be so chosen.<a href="#fnref9"
+        <li id="fn10"><p>Assuming <span class="math inline">\(N\)</span>
+        and <span class="math inline">\(T\)</span> can be mapped to row
+        and column counts of the presence matrix is a simplification. It
+        relies on the assumption that each sampling interval is equal
+        sized, and also that <span class="math inline">\(N\)</span>
+        represents signal counts. It is entirely possible to apply the
+        machinery and techniques here to irregular observation windows,
+        as well as for other measures for N on the signal dimension.
+        These generalizations merely lead more complicated mappings to
+        compute <span class="math inline">\(N\)</span> and <span
+        class="math inline">\(T\)</span> from the presence matrix
+        structure, and need to be specified as part of the modeling
+        process. To avoid complicating matters, we will use this simple
+        mapping, which covers a large number of practical use cases, as
+        the default.<a href="#fnref10" class="footnote-back"
+        role="doc-backlink">↩︎</a></p></li>
+        <li id="fn11"><p>Recall that we required signals to be
+        measurable functions. This implies presence masses are measures
+        over time intervals. Given intervals <span
+        class="math inline">\(A\)</span> and <span
+        class="math inline">\(B\)</span>, a measure <span
+        class="math inline">\(\mu\)</span> satisfies the property of
+        finite additivity <span class="math display">\[\mu(A \cup B) =
+        \mu(A) + \mu(B) - \mu(A \cap B),\]</span> <span
+        class="math inline">\(A[i,j]\)</span> is a measure over the
+        union of two time intervals, so the<br />
+        recurrence follows from this property of finite additivity where
+        <span class="math display">\[A = [i, j{-}1] \text{ and } B =
+        [i{+}1, j].\]</span> When <span class="math inline">\(A\)</span>
+        and <span class="math inline">\(B\)</span> intersect, the
+        subtraction removes the presence mass of overlap <span
+        class="math inline">\([i{+}1, j{-}1]\)</span> from the sum to
+        avoid double-counting it.<a href="#fnref11"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn10"><p>Recall that we required signals to be
-        measurable functions. Mathematically, this implies presence
-        masses are measures over time intervals. Measures satisfy the
-        property of finite additivity. If we<br />
-        interpret <span class="math inline">\(A[i,j]\)</span> as the
-        measure of the union of two intervals, then the<br />
-        recurrence follows from the property of finite additivity
-        identity <span class="math display">\[\mu(A \cup B) = \mu(A) +
-        \mu(B) - \mu(A \cap B),\]</span> where <span
-        class="math display">\[A = [i, j{-}1] \text{ and } B = [i{+}1,
-        j].\]</span> The subtraction removes the overlap <span
-        class="math inline">\([i{+}1, j{-}1],\)</span> ensuring the
-        correct cumulative mass is assigned to <span
-        class="math inline">\([i, j]\)</span>.<a href="#fnref10"
-        class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn11"><p>Specifically, the Riemann sum approximation of
+        <li id="fn12"><p>We’ll note at this point, that the determinism
+        is <em>retrospective</em>. Since it is based on
+        <em>observed</em> presence, this recurrence in no way implies we
+        can predict how the presences will evolve in the future. We will
+        have more to say about this in the next section.<a
+        href="#fnref12" class="footnote-back"
+        role="doc-backlink">↩︎</a></p></li>
+        <li id="fn13"><p>Though we should hasten to add that this is
+        just a loose analogy—we do not imply any conceptual
+        equivalence.<a href="#fnref13" class="footnote-back"
+        role="doc-backlink">↩︎</a></p></li>
+        <li id="fn14"><p>Specifically, the Riemann sum approximation of
         the integral <span class="math display">\[
         A(1, j) = \sum_{k=1}^j A(k,k)
         \approx \int_0^j \left( \sum_{(e,b)} P_{(e,b)}(t) \right) dt
         \]</span> where each <span
         class="math inline">\(P_{(e,b)}(t)\)</span> represents the
         presence density function of an underlying element-boundary
-        signal.<a href="#fnref11" class="footnote-back"
+        signal.<a href="#fnref14" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn12"><p>While it’s tempting to assume that the limit of
+        <li id="fn15"><p>While it’s tempting to assume that the limit of
         a product is simply the product of the limits, this doesn’t
-        automatically hold here. The long-run average of presence
-        density, <span class="math inline">\(\Delta\)</span>, is defined
-        as a time-based average, while the average signal mass
-        contribution, <span class="math inline">\(\bar{M}\)</span>, is
-        defined over the number of signals. Since these limits are taken
-        over different denominators, additional technical conditions are
-        required to ensure that their product equals the limit of the
-        product.<a href="#fnref12" class="footnote-back"
+        automatically hold here. The long-run value of presence density,
+        <span class="math inline">\(\Delta\)</span>, is defined as a
+        time-based density, while the signal mass contribution, <span
+        class="math inline">\(\bar{M}\)</span>, is defined over the
+        number of signals. Since these limits are taken over different
+        denominators, additional technical conditions are required to
+        ensure that their product equals the limit of the product.<a
+        href="#fnref15" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn13"><p>It is worth emphasizing the word
+        <li id="fn16"><p>It is worth emphasizing the word
         <em>observed</em> in this statement. Even though the evolution
         is deterministic, this does not mean the future behavior of the
         system is predictable based on past behavior. That depends
@@ -5952,9 +6004,9 @@ Introduction</span></p>
         sufficiently complete history of the system, we can
         deterministically reconstruct the current state of presence
         density from any starting point. This explanatory power is
-        useful in its own right, as we will soon see.<a href="#fnref13"
+        useful in its own right, as we will soon see.<a href="#fnref16"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn14"><p>All solutions to an equation of the form <span
+        <li id="fn17"><p>All solutions to an equation of the form <span
         class="math inline">\(x=y \times z,\)</span> which is the form
         of the presence invariant, lie on a 2D surface, called a
         manifold in 3 dimensions: think of the manifold a rubber sheet
@@ -5963,7 +6015,7 @@ Introduction</span></p>
         this equation will lie on the surface of this rubber sheet. This
         is a powerful geometric constraint that we can exploit to reason
         about the possible behavior of a system of presences over
-        time.<a href="#fnref14" class="footnote-back"
+        time.<a href="#fnref17" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
         </ol>
         </section>
