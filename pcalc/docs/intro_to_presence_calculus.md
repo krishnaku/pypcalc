@@ -21,7 +21,7 @@ The Presence Calculus is a quantitative model for reasoning about signal
 dynamics in a domain.
 
 Its purpose is to support principled modeling and rigorous decision-making using
-operational data and signals in business-critical contexts. It aims to ensure
+operational data and signals in business-critical contexts, and aims to ensure
 that such decisions rest on a mathematically precise, logically coherent, and
 epistemically grounded foundation.
 
@@ -50,7 +50,7 @@ potential applications well beyond the software domain in which it originated.
 We introduce the simple but powerful concept of a *presence*.
 
 This lets us reason about the history and evolution of a set of _signals_ that
-measure time-varying properties of _elements_ that are present in a defined
+measure time-varying, path-dependent properties of _elements_ that are present in a defined
 _boundary_ in a domain using techniques from measure theory, topology and
 complex analysis.
 
@@ -123,10 +123,10 @@ the concepts and even implement and extend them yourself if you are so inclined,
 but just a starting point if you want to really dig deeper.
 
 That next level of detail is in the API docs for [The Presence Calculus  
-Toolkit](https://py.pcalc.org).
+Toolkit](http://docs.pcalc.org/api/pcalc.html).
 
 The toolkit is an open source reference implementation of the core concepts in
-the presence calculus. It is currently situated as a middleware
+the presence calculus. It is currently positioned as a middleware
 layer suitable for interfacing real world operational systems and complex system
 simulation, to the analytical machinery of the presence calculus.
 
@@ -188,6 +188,18 @@ The presence calculus gives formal shape to this kind of inference about
 _things_,
 _places_ and _time_—and shows how we can build upon it to *reason* about
 presence and *measure* its effects in an environment.
+
+It should be understood as a modeling and measurement substrate with
+mathematical roots in real analysis, rather than in statistics or probability.
+
+In and of itself, the presence calculus offers a set of precisely defined
+modeling and computational primitives—structures about which we can make
+provable claims.
+
+The harder work lies in using these primitives to construct meaningful models
+of the real world. While this document focuses primarily on the foundations, we
+include a few motivating examples to suggest how the calculus can be applied
+in practice.
 
 #### A software example
 
@@ -2542,10 +2554,10 @@ converge to the same limiting value $I$ over the interval. These are the well
 known equilibrium conditions we call the "conservation of flow" under the
 classic treatments of Little's Law.
 
->When the parameters of the presence invariant over an interval
-are at or close to their limit values, the system is in a state of *epistemic
+> When the parameters of the presence invariant over an interval
+> are at or close to their limit values, the system is in a state of *epistemic
 coherence*: multiple observers, using different vantage points, arrive at a
-consistent _interpretation_ of parameters in the presence invariant.
+> consistent _interpretation_ of parameters in the presence invariant.
 
 This coherent state occurs only when the system is operating at or near
 equilibrium.
