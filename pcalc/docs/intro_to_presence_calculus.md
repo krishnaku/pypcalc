@@ -2488,39 +2488,64 @@ It is natural to ask: what is special, if anything, about those limiting values?
 Without going too deeply into technical arguments here, we note that the limits
 are indeed meaningful. When a system is observed over a non-convergent interval,
 the quantities in the presence invariant are dominated by _partial_ mass
-contributions from signals. [@fig:presence-invariant-continuous] shows an
+contributions from signals. The first interval [@fig:presence-invariant-continuous-2] shows an
 example of this behavior.
 
+
+![Convergent and non-convergent intervals](../assets/pandoc/convergent-divergent-intervals.png){#fig:presence-invariant-continuous-2}
+
 The system may _appear_ convergent when the window is long enough for _complete_
-signals to dominate the presence density. For example, if we extended the window in
-[@fig:presence-invariant-continuous] to include the full duration of each signal,
-the system would appear convergent over that interval.
+signals to dominate the presence density. For example, the interval $T'$ in
+[@fig:presence-invariant-continuous-2] includes full support for nearly all the
+signals, and in this case the system would appear convergent over that interval.
 
-The key point here is that in such situations, the presence invariant is not
-just a relationship among mass _contributions_, but also implicitly a
-relationship among the _masses_ of the signals involved. This distinction has
-direct operational implications.
+The main difference between the two intervals
+in [@fig:presence-invariant-continuous-2] is that in the latter, the mass
+contributions from the signals include nearly the entire presence mass of each
+each signal.
 
-For instance, if the signals in [@fig:presence-invariant-continuous] represent
+> In other words, if the observation window is long enough that most signal
+> contributions equal the masses of the signals in the window, the system will
+> appear convergent over the interval and $\bar{m}$ as measured for that interval 
+> will be close to its limit value $\bar{M}$ for the system as whole. 
+
+The key point here is that in such
+situations, the presence invariant is not just a relationship among mass
+_contributions_, but _also_ implicitly a relationship among the _masses_ of the
+signals involved. This distinction has direct operational implications.
+
+For instance, if the signals in [@fig:presence-invariant-continuous-2] represent
 customer service times, then over a convergent interval, mass contributions
 equal signal masses and reflect what the customer actually experiences. But over
 shorter, non-convergent intervals, those same contributions primarily reflect
-partial masses—what a system operator might observe on a day-to-day basis.
+partial masses—what a _system operator_ might observe on a day-to-day basis.
 
-In [@fig:presence-invariant-continuous], if we extend the observation window
-far enough to include the full duration of all signals shown, the system will
-appear convergent over that interval. When we measure presence density, signal
-masses, and incidence rates over this longer window, we are implicitly aligning
-the customer’s perspective with the operator’s.
+In [@fig:presence-invariant-continuous-2], the second interval represents the
+state where the mass contribution per signal is near its limit value $\bar{M}$.
+When we measure presence density, signal masses, and incidence rates over this
+longer window, we are implicitly aligning the customer’s perspective with the
+operator’s.
 
 In this way, convergence brings these two perspectives—the customer’s and the
-operator’s—into alignment. More generally, over a long enough observation
-window, the presence invariant expresses a state in which presence density in
-the time domain corresponds to signal masses in the element-boundary domain.
+operator’s—into alignment. More generally, if a system is convergent over a long
+enough observation window, the invariant over those intervals expresses a
+relationship between presence density in the time domain and mass per signal (
+which also equals mass contribution per signal) in the element-boundary domain.
 
-When these quantities agree, we enter a state of *epistemic coherence*:
-multiple observers, using different vantage points, arrive at consistent
-measurements of system behavior.
+We will also note that in these cases, there is a parallel argument that can be
+made about the incidence rate $I$  and signal onset rates and reset rates. When the
+observation window is long enough that it includes complete signal masses, this
+implies will also have fewer signals where onsets are not matched with resets.
+
+So over those intervals the incidence rate, onset rates and reset rates will all
+converge to the same limiting value $I$ over the interval. These are the well
+known equilibrium conditions we call the "conservation of flow" under the
+classic treatments of Little's Law.
+
+>When the parameters of the presence invariant over an interval
+are at or close to their limit values, the system is in a state of *epistemic
+coherence*: multiple observers, using different vantage points, arrive at a
+consistent _interpretation_ of parameters in the presence invariant.
 
 This coherent state occurs only when the system is operating at or near
 equilibrium.

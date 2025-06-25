@@ -4990,40 +4990,76 @@ Introduction</span></p>
         note that the limits are indeed meaningful. When a system is
         observed over a non-convergent interval, the quantities in the
         presence invariant are dominated by <em>partial</em> mass
-        contributions from signals. Figure 5 shows an example of this
-        behavior.</p>
+        contributions from signals. The first interval Figure 28 shows
+        an example of this behavior.</p>
+        <figure id="fig:presence-invariant-continuous-2">
+        <img src="../assets/pandoc/convergent-divergent-intervals.png"
+        alt="Figure 28: Convergent and non-convergent intervals" />
+        <figcaption aria-hidden="true">Figure 28: Convergent and
+        non-convergent intervals</figcaption>
+        </figure>
         <p>The system may <em>appear</em> convergent when the window is
         long enough for <em>complete</em> signals to dominate the
-        presence density. For example, if we extended the window in
-        Figure 5 to include the full duration of each signal, the system
+        presence density. For example, the interval <span
+        class="math inline">\(T&#39;\)</span> in Figure 28 includes full
+        support for nearly all the signals, and in this case the system
         would appear convergent over that interval.</p>
+        <p>The main difference between the two intervals in Figure 28 is
+        that in the latter, the mass contributions from the signals
+        include nearly the entire presence mass of each each signal.</p>
+        <blockquote>
+        <p>In other words, if the observation window is long enough that
+        most signal contributions equal the masses of the signals in the
+        window, the system will appear convergent over the interval and
+        <span class="math inline">\(\bar{m}\)</span> as measured for
+        that interval will be close to its limit value <span
+        class="math inline">\(\bar{M}\)</span> for the system as
+        whole.</p>
+        </blockquote>
         <p>The key point here is that in such situations, the presence
         invariant is not just a relationship among mass
-        <em>contributions</em>, but also implicitly a relationship among
-        the <em>masses</em> of the signals involved. This distinction
-        has direct operational implications.</p>
-        <p>For instance, if the signals in Figure 5 represent customer
+        <em>contributions</em>, but <em>also</em> implicitly a
+        relationship among the <em>masses</em> of the signals involved.
+        This distinction has direct operational implications.</p>
+        <p>For instance, if the signals in Figure 28 represent customer
         service times, then over a convergent interval, mass
         contributions equal signal masses and reflect what the customer
         actually experiences. But over shorter, non-convergent
         intervals, those same contributions primarily reflect partial
-        masses—what a system operator might observe on a day-to-day
-        basis.</p>
-        <p>In Figure 5, if we extend the observation window far enough
-        to include the full duration of all signals shown, the system
-        will appear convergent over that interval. When we measure
-        presence density, signal masses, and incidence rates over this
-        longer window, we are implicitly aligning the customer’s
-        perspective with the operator’s.</p>
+        masses—what a <em>system operator</em> might observe on a
+        day-to-day basis.</p>
+        <p>In Figure 28, the second interval represents the state where
+        the mass contribution per signal is near its limit value <span
+        class="math inline">\(\bar{M}\)</span>. When we measure presence
+        density, signal masses, and incidence rates over this longer
+        window, we are implicitly aligning the customer’s perspective
+        with the operator’s.</p>
         <p>In this way, convergence brings these two perspectives—the
-        customer’s and the operator’s—into alignment. More generally,
-        over a long enough observation window, the presence invariant
-        expresses a state in which presence density in the time domain
-        corresponds to signal masses in the element-boundary domain.</p>
-        <p>When these quantities agree, we enter a state of
-        <em>epistemic coherence</em>: multiple observers, using
-        different vantage points, arrive at consistent measurements of
-        system behavior.</p>
+        customer’s and the operator’s—into alignment. More generally, if
+        a system is convergent over a long enough observation window,
+        the invariant over those intervals expresses a relationship
+        between presence density in the time domain and mass per signal
+        ( which also equals mass contribution per signal) in the
+        element-boundary domain.</p>
+        <p>We will also note that in these cases, there is a parallel
+        argument that can be made about the incidence rate <span
+        class="math inline">\(I\)</span> and signal onset rates and
+        reset rates. When the observation window is long enough that it
+        includes complete signal masses, this implies will also have
+        fewer signals where onsets are not matched with resets.</p>
+        <p>So over those intervals the incidence rate, onset rates and
+        reset rates will all converge to the same limiting value <span
+        class="math inline">\(I\)</span> over the interval. These are
+        the well known equilibrium conditions we call the “conservation
+        of flow” under the classic treatments of Little’s Law.</p>
+        <blockquote>
+        <p>When the parameters of the presence invariant over an
+        interval are at or close to their limit values, the system is in
+        a state of <em>epistemic coherence</em>: multiple observers,
+        using different vantage points, arrive at a consistent
+        <em>interpretation</em> of parameters in the presence
+        invariant.</p>
+        </blockquote>
         <p>This coherent state occurs only when the system is operating
         at or near equilibrium.</p>
         <p>We will return to this idea in future posts, particularly in
