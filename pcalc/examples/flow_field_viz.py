@@ -140,12 +140,6 @@ def compute_polar_representation(iota, avg_mass):
 
     return magnitude, theta
 
-import pandas as pd
-
-import pandas as pd
-
-import pandas as pd
-
 def show_html_table(magnitude, theta, digits=2, filename="polar_matrix.html"):
     cols = magnitude.shape[1]
 
