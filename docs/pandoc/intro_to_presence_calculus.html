@@ -374,11 +374,10 @@ Introduction</span></p>
       <li><a href="#describing-flow" id="toc-describing-flow"><span
       class="toc-section-number">7</span> Describing Flow</a>
       <ul>
-      <li><a
-      href="#a-phase-space-representation-of-the-presence-invariant"
-      id="toc-a-phase-space-representation-of-the-presence-invariant"><span
-      class="toc-section-number">7.1</span> A phase space representation
-      of the presence invariant</a></li>
+      <li><a href="#the-presence-invariant-in-phase-space"
+      id="toc-the-presence-invariant-in-phase-space"><span
+      class="toc-section-number">7.1</span> The presence invariant in
+      phase space</a></li>
       <li><a href="#flow-fields" id="toc-flow-fields"><span
       class="toc-section-number">7.2</span> Flow fields</a></li>
       <li><a href="#interpreting-flow-fields"
@@ -5203,118 +5202,99 @@ Introduction</span></p>
         can steer system behavior in a desired direction—toward
         convergence or divergence of presence density.</p>
         <h3 data-number="7.1"
-        id="a-phase-space-representation-of-the-presence-invariant"><span
-        class="header-section-number">7.1</span> A phase space
-        representation of the presence invariant</h3>
+        id="the-presence-invariant-in-phase-space"><span
+        class="header-section-number">7.1</span> The presence invariant
+        in phase space</h3>
         <p>In the previous section, we showed that the accumulation of
-        presence density across timescales operates via deterministic
-        rules - the presence accumulation recurrence. This was specified
-        entirely in terms of the changes in presence density across time
-        and time-scales.</p>
-        <p>Let’s now assemble some machinery that gives us a sense of
-        the <em>direction</em> in which the system as a whole is moving.
-        For this, it is useful to construct an alternate view of the
-        entries in this matrix using our favorite<br />
-        tool: the presence invariant.</p>
-        <p>We’ll start by noting that the presence invariant holds for
-        every entry in the accumulation matrix. Therefore, we can
-        write:</p>
+        presence density across time and timescales follows a
+        deterministic rule—the <em>presence accumulation
+        recurrence</em>. That rule described how presence density
+        evolves, but only in terms of <em>magnitude</em> and
+        <em>scale</em>.</p>
+        <p>We now introduce machinery that allows us to understand the
+        <em>direction</em> in which the system is evolving. To do this,
+        we recast the entries in the accumulation matrix using our
+        central tool: the <em>presence invariant</em>.</p>
+        <p>Since the presence invariant holds at each cell of the
+        accumulation matrix, we can write:</p>
         <p><span class="math display">\[
-        \frac{A(i,j)}{T} = \frac{N}{T} \times \frac{A(i,j)}{N} \quad
-        \text{where } T = j - i
+        \delta_{i,j} = \iota_{i,j} \cdot \bar{m}_{i,j}
         \]</span></p>
-        <p>Which is just the presence invariant <span
+        <p>This is just the familiar identity <span
         class="math inline">\(\delta = \iota \cdot \bar{m}\)</span>
-        written out for every entry in the matrix A.</p>
-        <p>As noted earlier, this expresses that each entry in the
-        accumulation matrix can be factored into two components: the
-        incidence rate <span class="math inline">\(\iota\)</span> and
-        the mass <span class="math inline">\(\bar{m}\)</span> per
-        incident signal.</p>
-        <p>Now, let’s revisit the relationship <span
-        class="math display">\[\delta = \iota \cdot \bar{m}.\]</span>
-        <em>Changes</em> in presence density across time and timescales
-        are driven by <em>changes</em> in the product of the incidence
-        rate and signal mass contribution.</p>
-        <p>Changes in products are somewhat unwieldy to analyze
-        intuitively, so there are useful insights to be gained by
-        examining this multiplicative structure in log space.</p>
-        <p>So, lets take the logarithm of both sides of the presence
-        invariant, giving us</p>
+        applied at each interval <span
+        class="math inline">\((i,j)\)</span> in the matrix.</p>
+        <blockquote>
+        <p>Changes in presence density are thus driven by changes in the
+        product of incidence rate and signal mass contribution.</p>
+        </blockquote>
+        <p>Because products are more difficult to reason about directly
+        than sums, we analyze the system in <em>logarithmic space</em>,
+        where the invariant becomes additive:</p>
         <p><span class="math display">\[
         \log \delta = \log \iota + \log \bar{m}
         \]</span></p>
-        <p>This expresses the invariant as an additive relation in log
-        space, which<br />
-        provides a natural coordinate system for analyzing system
-        behavior.</p>
-        <p>Each component now contributes linearly to the overall
-        presence density (in log space), and changes in incidence rate
-        or mass can be interpreted as<br />
-        vector displacements along orthogonal axes in this space.</p>
-        <p>We can now represent these two components as a number in the
-        complex plane. Let’s define a mapping:</p>
+        <p>This additive form reveals how changes in rate and mass
+        contribute linearly (in log space) to changes in presence
+        density.</p>
+        <p>We now introduce a compact coordinate system for visualizing
+        these dynamics by embedding the two terms into the complex
+        plane:</p>
         <p><span class="math display">\[
         z = \log \iota + i \log \bar{m}
         \]</span></p>
-        <p>Here, the real part of <span class="math inline">\(z\)</span>
-        encodes the logarithm of the incidence rate, and the imaginary
-        part encodes the logarithm of the mass.</p>
-        <p>This mapping allows us to compactly represent the two degrees
-        of freedom in presence density as a vector with the magnitude of
-        the vector encoding the intensity of the presence: increasing or
-        decreasing, and the direction of the vector encoding what is
-        driving the increase or decrease: incidence rate or presence
-        mass.</p>
-        <p>This vector representation gives us a compact and precise
-        definition of the magnitude and direction of the <em>flow</em>
-        of presence density in the system at any point in time. Lets
-        formalize these notions.</p>
-        <p>Following standard techniques in complex analysis, we now
-        introduce two derived quantities: the norm and the phase angle
-        for the complex number that represents a presence density of
-        system of presences over a finite interval of time in
-        log-space.</p>
+        <p>Here, <span class="math inline">\(\Re(z) = \log
+        \iota\)</span> and <span class="math inline">\(\Im(z) = \log
+        \bar{m}\)</span>. This maps each interval to a point in <span
+        class="math inline">\(\mathbb{C}\)</span> representing the
+        <em>logarithmic decomposition</em> of the observed presence
+        density.</p>
+        <p>This representation has powerful interpretive value:</p>
+        <ul>
+        <li>The <em>magnitude</em> of <span
+        class="math inline">\(z\)</span> reflects the <em>intensity</em>
+        of presence accumulation.</li>
+        <li>The <em>phase angle</em> (or phase) of <span
+        class="math inline">\(z\)</span> reflects whether changes in
+        <span class="math inline">\(\delta\)</span> are primarily driven
+        by <span class="math inline">\(\iota\)</span> (rate) or <span
+        class="math inline">\(\bar{m}\)</span> (mass).</li>
+        </ul>
+        <p>Let’s define these explicitly:</p>
         <ul>
         <li><p>The <strong>norm</strong> of <span
-        class="math inline">\(z\)</span> represents the overall
-        intensity of presence accumulation in log space:</p>
+        class="math inline">\(z\)</span>:</p>
         <p><span class="math display">\[
         \|z\| = \sqrt{(\log \iota)^2 + (\log \bar{m})^2}
         \]</span></p>
         <p>This gives a scale-invariant measure of the strength of
-        presence density combining the effects of incidence and mass
-        into a single magnitude.</p>
-        <ul>
+        presence density, combining incidence and mass into a single
+        quantity.</p></li>
         <li><p>The <strong>phase angle</strong> of <span
-        class="math inline">\(z\)</span> represents the balance between
-        rate and mass<br />
-        contributions:</p>
+        class="math inline">\(z\)</span>:</p>
         <p><span class="math display">\[
-        \theta = \arg(z) = \tan^{-1} \left( \frac{\log \bar{m}}{\log
-        \iota} \right)
+        \theta = \arg(z) = \mathrm{atan2}(\log \bar{m}, \log \iota)
         \]</span></p>
-        <p>This tells us whether the system’s current trajectory is more
-        rate-dominant -ie due to lots of small signals with small mass
-        (small <span class="math inline">\(\theta\)</span>) or
-        mass-dominant (larger <span
-        class="math inline">\(\theta\)</span>) or fewer signals with
-        large mass. <span class="math inline">\(\theta\)</span> provides
-        a directional sense of what’s driving the observed evolution of
-        presence density.</p></li>
+        <p>This describes the balance between rate and mass:</p>
+        <ul>
+        <li>Positive <span class="math inline">\(\theta\)</span>:
+        mass-dominant behavior (fewer, more massive signals).</li>
+        <li>Negative <span class="math inline">\(\theta\)</span>:
+        rate-dominant behavior (many small signals),</li>
         </ul></li>
         </ul>
-        <p>Put together <span class="math inline">\(\|z\|\)</span> and
-        <span class="math inline">\(\theta\)</span> allow us to
-        represent the present density over any interval in polar
-        co-ordinates in log-space as <span class="math display">\[
-        z = \|z\| \cdot e^{i.\theta}
+        <p>Together, the polar representation</p>
+        <p><span class="math display">\[
+        z = \|z\| \cdot e^{i\theta}
         \]</span></p>
-        <p>Together, <span class="math inline">\(\|z\|\)</span> and
-        <span class="math inline">\(\theta\)</span> allow us to
-        decompose each matrix entry’s behavior into <em>how fast</em> it
-        is growing (norm) and <em>in what direction</em> the
-        contributing factors lie (phase).</p>
+        <p>allows us to interpret each interval’s presence dynamics in
+        terms of both <em>intensity</em> and <em>direction</em>.</p>
+        <blockquote>
+        <p>We now have a formal notion of <em>flow</em> for presence in
+        log-space—one that combines incidence and mass into a single
+        complex number that represents intensity and direction of
+        presence accumulations.</p>
+        </blockquote>
         <p>Figure 29 shows this mapping of the presence accumulation
         matrix into polar co-ordinates in the complex plane.</p>
         <figure id="fig:complex-plane-table" class="subfigures figure">
@@ -5681,11 +5661,9 @@ Introduction</span></p>
         <figcaption aria-hidden="true">Figure 30: Flow field
         visualization</figcaption>
         </figure>
-        <p>Lets dig into how this flow field is constructed and what it
-        means.</p>
-        <p>Let’s go back and start with Figure 29. The grid represents
-        rows and columns of the accumulation matrix and represents
-        timescales.</p>
+        <p>To understand its construction, let’s go back and start with
+        Figure 29. The grid represents rows and columns of the
+        accumulation matrix and represents timescales.</p>
         <ul>
         <li>Each cell is represented by the log-space vector of the
         presence density over an observation window in polar
@@ -5722,151 +5700,208 @@ Introduction</span></p>
         direction</em> of these vectors as we sweep left to right in
         time along a row and from bottom to top in time scales across
         the rows.</p>
+        <blockquote>
         <p>That is, the flow field encodes the <em>dynamics</em> of the
         system across time and time scales.</p>
-        <p>Lets see how this encoding works.</p>
-        <figure id="fig:" class="subfigures figure">
-        <img src="../assets/placeholder.png" id="fig:"
-        style="display: none;" alt="a" />
-        <table style="border-collapse: collapse; margin: auto; font-family: sans-serif;">
+        </blockquote>
+        <p>The phase angle <span class="math inline">\(\theta\)</span>,
+        provides a concise, single-value representation of the system’s
+        directional flow. Its values range from <span
+        class="math inline">\(-\pi\)</span> to <span
+        class="math inline">\(\pi\)</span> radians, spanning all four
+        quadrants of the complex log-space. In this log-space, a
+        positive value signifies the original quantity is greater than
+        1, a negative value indicates it’s less than 1, and a zero value
+        means it’s exactly 1.</p>
+        <p>The table in Figure 31 interprets that range, showing how the
+        combination of incidence rate and mass per signal contributes to
+        the system’s overall dynamics, indicating whether growth or
+        decline is primarily driven by rate, mass, or a balanced
+        interplay between them.</p>
+        <figure id="fig:flow-interpretation" class="subfigures figure">
+        <p><img src="../assets/placeholder.png" id="fig:"
+        style="display: none;" alt="a" /></p>
+        <div style="text-align: center; margin: 2em">
+        <table style="border-collapse: collapse; margin: auto; font-family: sans-serif; font-size: 0.75em;">
         <thead>
         <tr>
-        <th style="padding: 0.5em 1em;">
-        θ (radians)
+        <th style="padding: 0.2em 0.3em;">
+        θ (rad)
         </th>
-        <th style="padding: 0.5em 1em;">
-        Direction
+        <th style="padding: 0.2em 0.3em;">
+        Dir.
         </th>
-        <th style="padding: 0.5em 1em;">
+        <th style="padding: 0.2em 0.3em;">
+        Dynamics
+        </th>
+        <th style="padding: 0.2em 0.3em;">
+        Conditions
+        </th>
+        <th style="padding: 0.2em 0.3em;">
         Interpretation
         </th>
         </tr>
         </thead>
         <tbody>
         <tr>
-        <td>
-        π−ϵ
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\approx \pi/2\)</span>
         </td>
-        <td>
-        <svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">
-        <line x1="20" y1="14" x2="4" y2="10" stroke="black" stroke-width="2"
-                        marker-end="url(#arrow)"/>
+        <td style="padding: 0.2em 0.3em;">
+        <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible">
+        <line x1="12" y1="20" x2="12" y2="4" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
         </svg>
         </td>
-        <td>
-        Signal mass dominates completely; incidence rate is negligible
+        <td style="padding: 0.2em 0.3em;">
+        <strong>Mass-Driven Growth</strong>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\log \iota \approx 0\)</span>, <span
+        class="math inline">\(\log \bar{m} &gt; 0\)</span>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\iota \approx 1\)</span>, <span
+        class="math inline">\(\bar{m} &gt; 1\)</span>. Density increases
+        from growing mass per signal; incidence stable.
         </td>
         </tr>
         <tr>
-        <td>
-        3π/4
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\in (0, \pi/2)\)</span>
         </td>
-        <td>
-        <svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">
-        <line x1="20" y1="20" x2="4" y2="4" stroke="black" stroke-width="2"
-                        marker-end="url(#arrow)"/>
+        <td style="padding: 0.2em 0.3em;">
+        <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible">
+        <line x1="4" y1="20" x2="20" y2="4" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
         </svg>
         </td>
-        <td>
-        Mass dominates strongly; rate contributes weakly
+        <td style="padding: 0.2em 0.3em;">
+        <strong>General Growth/Expansion</strong>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\log \iota &gt; 0\)</span>, <span
+        class="math inline">\(\log \bar{m} &gt; 0\)</span>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\iota &gt; 1\)</span>, <span
+        class="math inline">\(\bar{m} &gt; 1\)</span>. Both signal
+        incidence rate and mass per signal are increasing. (<span
+        class="math inline">\(\theta = \pi/4\)</span> for balanced
+        growth).
         </td>
         </tr>
         <tr>
-        <td>
-        π/2
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\approx 0\)</span>
         </td>
-        <td>
-        <svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">
-        <line x1="12" y1="20" x2="12" y2="4" stroke="black" stroke-width="2"
-                        marker-end="url(#arrow)"/>
+        <td style="padding: 0.2em 0.3em;">
+        <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible">
+        <line x1="4" y1="12" x2="20" y2="12" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
         </svg>
         </td>
-        <td>
-        Mass increase only; rate is steady
+        <td style="padding: 0.2em 0.3em;">
+        <strong>Rate-Driven Growth (Mass Stable)</strong>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\log \iota &gt; 0\)</span>, <span
+        class="math inline">\(\log \bar{m} \approx 0\)</span>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\iota &gt; 1\)</span>, <span
+        class="math inline">\(\bar{m} \approx 1\)</span>. Density
+        increases from growing signal incidence; mass per signal stable.
         </td>
         </tr>
         <tr>
-        <td>
-        π/4
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\in (-\pi/2, 0)\)</span>
         </td>
-        <td>
-        <svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">
-        <line x1="4" y1="20" x2="20" y2="4" stroke="black" stroke-width="2"
-                        marker-end="url(#arrow)"/>
+        <td style="padding: 0.2em 0.3em;">
+        <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible">
+        <line x1="4" y1="4" x2="20" y2="20" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
         </svg>
         </td>
-        <td>
-        Both mass and rate contribute; mass dominates slightly
+        <td style="padding: 0.2em 0.3em;">
+        <strong>Mass Dilution</strong>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\log \iota &gt; 0\)</span>, <span
+        class="math inline">\(\log \bar{m} &lt; 0\)</span>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\iota &gt; 1\)</span>, <span
+        class="math inline">\(\bar{m} &lt; 1\)</span>. Many signals
+        entering, but each contributes less mass. (<span
+        class="math inline">\(\theta = -\pi/4\)</span> for proportional
+        change).
         </td>
         </tr>
         <tr>
-        <td>
-        0
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\approx -\pi/2\)</span>
         </td>
-        <td>
-        <svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">
-        <line x1="4" y1="12" x2="20" y2="12" stroke="black" stroke-width="2"
-                        marker-end="url(#arrow)"/>
+        <td style="padding: 0.2em 0.3em;">
+        <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible">
+        <line x1="12" y1="4" x2="12" y2="20" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
         </svg>
         </td>
-        <td>
-        Balanced contribution: mass and rate scale proportionally
+        <td style="padding: 0.2em 0.3em;">
+        <strong>Mass-Driven Decline</strong>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\log \iota \approx 0\)</span>, <span
+        class="math inline">\(\log \bar{m} &lt; 0\)</span>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\iota \approx 1\)</span>, <span
+        class="math inline">\(\bar{m} &lt; 1\)</span>. Density declines
+        due to decreasing mass per signal; incidence stable.
         </td>
         </tr>
         <tr>
-        <td>
-        −π/4
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\in (-\pi, -\pi/2)\)</span>
         </td>
-        <td>
-        <svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">
-        <line x1="4" y1="4" x2="20" y2="20" stroke="black" stroke-width="2"
-                        marker-end="url(#arrow)"/>
+        <td style="padding: 0.2em 0.3em;">
+        <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible">
+        <line x1="20" y1="4" x2="4" y2="20" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
         </svg>
         </td>
-        <td>
-        Both mass and rate contribute; rate dominates slightly
+        <td style="padding: 0.2em 0.3em;">
+        <strong>General Decline/Contraction</strong>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\log \iota &lt; 0\)</span>, <span
+        class="math inline">\(\log \bar{m} &lt; 0\)</span>
+        </td>
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\iota &lt; 1\)</span>, <span
+        class="math inline">\(\bar{m} &lt; 1\)</span>. Both signal
+        incidence rate and mass per signal are decreasing. (<span
+        class="math inline">\(\theta = -3\pi/4\)</span> for balanced
+        proportional decline).
         </td>
         </tr>
         <tr>
-        <td>
-        −π/2
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\approx \pm \pi\)</span>
         </td>
-        <td>
-        <svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">
-        <line x1="12" y1="4" x2="12" y2="20" stroke="black" stroke-width="2"
-                        marker-end="url(#arrow)"/>
+        <td style="padding: 0.2em 0.3em;">
+        <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible">
+        <line x1="20" y1="12" x2="4" y2="12" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
         </svg>
         </td>
-        <td>
-        Rate increase only; mass is steady
+        <td style="padding: 0.2em 0.3em;">
+        <strong>Rate-Driven Decline (Mass Stable)</strong>
         </td>
-        </tr>
-        <tr>
-        <td>
-        −3π/4
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\log \iota &lt; 0\)</span>, <span
+        class="math inline">\(\log \bar{m} \approx 0\)</span>
         </td>
-        <td>
-        <svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">
-        <line x1="20" y1="4" x2="4" y2="20" stroke="black" stroke-width="2"
-                        marker-end="url(#arrow)"/>
-        </svg>
-        </td>
-        <td>
-        Rate dominates strongly; mass contributes weakly or not at all
-        </td>
-        </tr>
-        <tr>
-        <td>
-        −π+ϵ
-        </td>
-        <td>
-        <svg width="24" height="24" viewBox="0 0 24 24" overflow="visible">
-        <line x1="20" y1="10" x2="4" y2="14" stroke="black" stroke-width="2"
-                        marker-end="url(#arrow)"/>
-        </svg>
-        </td>
-        <td>
-        Incidence rate dominates completely; signal mass is negligible
+        <td style="padding: 0.2em 0.3em;">
+        <span class="math inline">\(\iota &lt; 1\)</span>, <span
+        class="math inline">\(\bar{m} \approx 1\)</span>. Density
+        declines primarily due to decreasing signal incidence; mass per
+        signal stable.
         </td>
         </tr>
         </tbody>
@@ -5876,9 +5911,10 @@ Introduction</span></p>
         <marker id="arrow" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
         <path d="M0,0 L0,6 L6,3 z" fill="#000"/> </marker> </defs>
         </svg>
+        </div>
         <figcaption><p>Figure 31: Interpretation of θ as directional
-        flow in log-space between incidence rate and signal mass, with
-        fully rendered vector arrows.. </p></figcaption>
+        flow in log-space between incidence rate and signal mass..
+        </p></figcaption>
         </figure>
         <h2 data-number="8" id="attractors"><span
         class="header-section-number">8</span> Attractors</h2>
