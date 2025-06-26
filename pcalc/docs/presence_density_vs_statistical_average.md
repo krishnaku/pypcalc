@@ -281,6 +281,43 @@ $$
 
 unless the function \( f \) is known to be constant. Point values have no duration, and so **do not support additive composition across intervals** without additional modeling assumptions (e.g., constant interpolation).
 
+# Why Presence Mass Is Fundamental: Invariants, Balance, and Sample Paths
+
+One of the deepest motivations for building presence calculus on **presence mass** rather than point samples is that it allows us to state and prove invariant properties that rely on **flow, accumulation, and conservation over time**.
+
+## The Role of Presence Mass in the Invariant
+
+The **presence invariant** compares how much each signal contributes across locations or queues. It requires:
+
+- That we can compute **mass contributions** per interval
+- That we can compare mass totals across partitions
+- That we can reason about **balance** over time and space
+
+None of this is possible with raw point samples. Pointwise values have no duration and no composability. Without mass, there is no flow — and without flow, there can be no conservation law.
+
+> Presence calculus is fundamentally built on the assumption that **signals have mass over time**.
+
+## Analogy: Sample Paths vs Ergodicity
+
+This distinction echoes a foundational divide in queueing theory:
+
+- **Stidham’s sample path proof** of Little’s Law works because it uses cumulative **flow paths** over time — essentially integrating over real arrival and departure histories.
+- **Little’s original probabilistic proof** relies on **ergodic assumptions** — that time averages and ensemble averages converge — without necessarily invoking flow structure directly.
+
+In presence calculus:
+
+- **Sample-path-style reasoning** becomes possible because we treat presence as a measure.
+- If we used only point samples, we would be limited to **frequency-based reasoning**, requiring stronger probabilistic assumptions and losing the ability to assert flow-based invariants.
+
+## Summary
+
+> The presence invariant — and presence calculus as a whole — is only meaningful because presence is defined as an **accumulated, finitely additive measure** over time.  
+> This gives us access to the machinery of flow, balance, and convergence, and explains why the invariant cannot even be stated in a purely sample-based framework.
+
+This is not just a technical preference — it’s the reason presence calculus offers a richer and more composable foundation for reasoning about flow systems than purely sample-based models.
+
+
+
 ### Summary
 
 > Presence matrix values are meaningful because they are **measures**, not samples.  
