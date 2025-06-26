@@ -371,16 +371,20 @@ Introduction</span></p>
       class="toc-section-number">6.3</span> Detecting
       Convergence</a></li>
       </ul></li>
-      <li><a href="#navigation-defining-place-and-direction"
-      id="toc-navigation-defining-place-and-direction"><span
-      class="toc-section-number">7</span> Navigation: defining place and
-      direction</a>
+      <li><a href="#describing-flow" id="toc-describing-flow"><span
+      class="toc-section-number">7</span> Describing Flow</a>
       <ul>
       <li><a
       href="#a-phase-space-representation-of-the-presence-invariant"
       id="toc-a-phase-space-representation-of-the-presence-invariant"><span
       class="toc-section-number">7.1</span> A phase space representation
       of the presence invariant</a></li>
+      <li><a href="#flow-fields" id="toc-flow-fields"><span
+      class="toc-section-number">7.2</span> Flow fields</a></li>
+      <li><a href="#interpreting-flow-fields"
+      id="toc-interpreting-flow-fields"><span
+      class="toc-section-number">7.3</span> Interpreting flow
+      fields</a></li>
       </ul></li>
       <li><a href="#attractors" id="toc-attractors"><span
       class="toc-section-number">8</span> Attractors</a></li>
@@ -399,44 +403,67 @@ Introduction</span></p>
         about signal dynamics in a domain.</p>
         <p>Its purpose is to support principled modeling and rigorous
         decision-making using operational data and signals in
-        business-critical contexts, and aims to ensure that such
-        decisions rest on a mathematically precise, logically coherent,
-        and epistemically grounded foundation.</p>
-        <p>The presence calculus emerged from a search for better tools
+        business-critical contexts—ensuring that such decisions rest on
+        a mathematically precise, logically coherent, and epistemically
+        grounded foundation.</p>
+        <p>The Presence Calculus emerged from a search for better tools
         to reason about operations management in software product
         development and engineering—domains where prevailing approaches
-        to measurement fall short in all three dimensions.</p>
+        to measurement fall short on all three fronts.</p>
         <p>At a minimum, its foundational constructs bring mathematical
         precision to widely used—but poorly defined—concepts such as
-        flow, stability, equilibrium, and coherence for measurable
-        signals in a domain.</p>
-        <p>More importantly, it offers a set of uniform abstractions and
-        computational tools that connect low-level activity signals to
-        business-relevant signals such as delay, cost, revenue, and user
-        experience.</p>
-        <p>For software development, this simplifies the construction of
+        <em>flow</em>, <em>stability</em>, <em>equilibrium</em>, and
+        <em>coherence</em> for measurable signals in a domain.</p>
+        <p>More importantly, it offers a uniform set of abstractions and
+        computational tools that connect path-dependent activity signals
+        to business-relevant measures such as delay, cost, revenue, and
+        user experience.</p>
+        <p>For software development, this enables the construction of
         bespoke, context-specific measurement models for operational
-        improvement, a powerful alternative to one-size-fits all metrics
-        frameworks and visibility tools that are the only option
-        available today.</p>
-        <p>As we’ll see, however, the core ideas of the calculus are
-        more general, with potential applications well beyond the
-        software domain in which it originated.</p>
+        improvement—a powerful alternative to one-size-fits-all metrics
+        frameworks and visibility tools, which remain the dominant
+        option today.</p>
+        <blockquote>
+        <p>The Presence Calculus should be understood as a modeling and
+        measurement substrate rooted in real analysis—not statistics or
+        probability.</p>
+        </blockquote>
+        <p>It is <em>complementary</em> to statistical analysis, and
+        particularly well suited to domains where state, history, and
+        path dependence complicate statistical or probabilistic
+        inference.</p>
+        <p>On its own, the Presence Calculus provides a precisely
+        defined set of modeling and computational primitives for
+        analyzing the history and evolution of time-varying signal
+        systems—structures about which we can make provable claims.</p>
+        <p>The harder work lies in using these primitives to construct
+        meaningful models to reason about real-world domains. This is
+        still an evolving area, and we are only beginning to scratch the
+        surface of what is possible.</p>
+        <p>Our goal in this document to present the foundational ideas
+        of the presence calculus as a coherent whole. We will use
+        examples to motivate key concepts but the focus is here is not
+        on domain modeling or specific applications but on presenting
+        the core theory, tools and techniques of the calculus and how
+        they fit together.</p>
+        <p>As we’ll see, however, the core concepts are broadly
+        applicable—well beyond the software domain in which the Presence
+        Calculus originated.</p>
         <h3 data-number="1.1" id="the-pitch"><span
         class="header-section-number">1.1</span> The pitch</h3>
         <p>We introduce the simple but powerful concept of a
         <em>presence</em>.</p>
         <p>This lets us reason about the history and evolution of a set
         of <em>signals</em> that measure time-varying, path-dependent
-        properties of <em>elements</em> that are present in a defined
-        <em>boundary</em> in a domain using techniques from measure
+        properties of <em>elements</em> that are present in defined
+        <em>boundaries</em> in a domain using techniques from measure
         theory, topology and complex analysis.</p>
         <p>Classical statistics and probability theory often struggle
         here.</p>
         <p><em>History</em>—the sequence and structure of changes in the
         domain over time— is usually fenced off under assumptions like
         ergodicity, stationarity, and independence.</p>
-        <p>Our thesis is that to move beyond simple descriptive
+        <p>Our thesis is that to complement simple descriptive
         statistics and statistical or probabilistic inference, and
         reason effectively about global and long run behavior of many
         real world systems, we need analytical techniques that treat
@@ -462,16 +489,16 @@ Introduction</span></p>
         in the calculus informally, with lots of evocative examples and
         simplifications to<br />
         illustrate concepts.</p>
-        <p>In order to maintain precision, mathematical definitions are
-        used in key sections. We augment these with examples to build
-        intuition throughout. However, given the nature of the material
-        we have opted to stay on the side of rigor rather than dilute
-        the concepts, even in this “gentle” introduction.</p>
+        <p>In order to maintain precision, we dont shy away from
+        mathematics where it is needed. We augment these with examples
+        to build intuition throughout. However, given the nature of the
+        material we have opted to stay on the side of rigor rather than
+        dilute the concepts, even in this “gentle” introduction.</p>
         <p>If you are inclined to skim over anything with mathematical
-        notation in it, working through the examples should be
-        sufficient to grasp the key ideas and claims. However, for those
-        who are comfortable with it, the mathematics should be easy to
-        understand and verify.</p>
+        notation in it, working through the examples alongside the math
+        should be sufficient to grasp the key ideas and claims. However,
+        for those who are comfortable with it, the mathematics should be
+        easy to understand and verify.</p>
         <p>The presence calculus is constructive - specifically
         everything in the calculus has a computational aspect, and this
         document is designed to lay the framework for describing how to
@@ -503,9 +530,9 @@ Introduction</span></p>
         Calculus<br />
         Toolkit</a>.</p>
         <p>The toolkit is an open source reference implementation of the
-        core concepts in the presence calculus. It is currently
-        positioned as a middleware layer suitable for interfacing real
-        world operational systems and complex system simulation, to the
+        core concepts in the presence calculus. It is currently situated
+        as a middleware layer suitable for interfacing real world
+        operational systems and complex system simulation, to the
         analytical machinery of the presence calculus.</p>
         <p>In the API documentation, we go into the concepts at a level
         of rigor that you’ll need to compute with the presence calculus
@@ -562,18 +589,6 @@ Introduction</span></p>
         <em>time</em>—and shows how we can build upon it to
         <em>reason</em> about presence and <em>measure</em> its effects
         in an environment.</p>
-        <p>It should be understood as a modeling and measurement
-        substrate with mathematical roots in real analysis, rather than
-        in statistics or probability.</p>
-        <p>In and of itself, the presence calculus offers a set of
-        precisely defined modeling and computational
-        primitives—structures about which we can make provable
-        claims.</p>
-        <p>The harder work lies in using these primitives to construct
-        meaningful models of the real world. While this document focuses
-        primarily on the foundations, we include a few motivating
-        examples to suggest how the calculus can be applied in
-        practice.</p>
         <h4 data-number="1.3.2" id="a-software-example"><span
         class="header-section-number">1.3.2</span> A software
         example</h4>
@@ -624,10 +639,10 @@ Introduction</span></p>
         event-centered to a presence-centered perspective changes not
         just what we observe, but what we measure, and thus can reason
         about.</p>
-        <p>The calculus focuses on the time <em>in between</em>
-        snapshots of history: when a task was present, where it was
-        present, for how long, and whether its presence shifted across
-        people, tools, or systems.</p>
+        <p>In this particular case, the calculus focuses on the time
+        <em>in between</em> snapshots of history: when a task was
+        present, where it was present, for how long, and whether its
+        presence shifted across people, tools, or systems.</p>
         <p>The connective tissue is no longer the task itself, or the
         process steps it<br />
         followed, or who was working on it, but a continuous, observable
@@ -638,8 +653,8 @@ Introduction</span></p>
         <p>With the presence calculus, these threads and their
         interactions across time and space can now be measured directly,
         dissected, composed, and analyzed as first-class
-        constructs—built on a remarkably simple primitive—the
-        presence.</p>
+        constructs—built on a remarkably simple yet general
+        primitive—the presence.</p>
         <h4 data-number="1.3.3" id="the-heart-of-the-matter"><span
         class="header-section-number">1.3.3</span> The heart of the
         matter</h4>
@@ -987,18 +1002,21 @@ Introduction</span></p>
         <h2 data-number="3" id="systems-of-presences"><span
         class="header-section-number">3</span> Systems of Presences</h2>
         <p>In this section, we move from individual presence density
-        functions to systems of signals—each representing the presence
-        behavior of many elements across many boundaries within a
-        domain.</p>
-        <p>A key aspect of the Presence Calculus is that it represents
-        fine-grained signals corresponding to individual elements. We
-        study how the presence masses of these signals interact over
-        time to produce observable <em>cumulative</em> effects.</p>
-        <p>A signal describes the continuous behavior of a specific
-        domain element within a boundary over time. The calculus
-        emphasizes that each of these signals traces a distinct path
-        through time, and seeks to derive insights from their
-        <em>interactions</em> over a shared interval.</p>
+        functions to systems of signals—each capturing the presence
+        behavior of multiple elements across multiple boundaries within
+        a domain.</p>
+        <p>A core aspect of the Presence Calculus is its treatment of
+        fine-grained signals: each domain element is associated with its
+        own presence density function, reflecting its path-dependent
+        trajectory through one or more boundaries in the system.</p>
+        <p>We study how the presence masses of these signals interact
+        over time to produce <em>cumulative</em> effects—observable
+        outcomes that carry semantic meaning in the domain.</p>
+        <p>Each signal represents the <em>continuous</em> presence
+        behavior of a specific element within a boundary over time. The
+        calculus emphasizes that each signal traces a distinct
+        trajectory, and seeks to explain how their interactions over
+        shared intervals shape system-level behavior.</p>
         <figure id="fig:pdf-examples">
         <img src="../assets/pandoc/pdf_examples.png"
         alt="Figure 3: A System of Presences" />
@@ -1205,6 +1223,12 @@ Introduction</span></p>
         defined, much of the machinery of the presence calculus can be
         applied without regard to the semantics of the specific
         element-boundaries involved.</p>
+        <p>Just as important as modeling time, is the explicit modeling
+        of timescales. In software development the effects of presence
+        often manifest across boundaries and across timescales.</p>
+        <p>We will see how the machinery of the presence calculus
+        enables us to reason precisely and <em>deterministically</em>
+        about presence at different timescales.</p>
         <p>Semantics are, of course, crucial in <em>interpreting</em>
         the inferences one draws<br />
         using the machinery of the calculus.</p>
@@ -4953,15 +4977,14 @@ Introduction</span></p>
         id="formal-proof-of-convergence-and-littles-law"><span
         class="header-section-number">6.3.4</span> Formal Proof of
         Convergence and Little’s Law</h4>
-        <p>In this document, we have presented an accurate—though
-        somewhat simplified— account of the criteria required to ensure
-        that a system of presences is convergent. Specifically, based on
-        the definitions above, we assert that for a given system of
-        presences, if the limits <span class="math inline">\(I\)</span>
-        and <span class="math inline">\(\bar{M}\)</span> exist and are
-        finite, then the limit <span
-        class="math inline">\(\Delta\)</span> also exists and is finite.
-        Furthermore, we claim that</p>
+        <p>In this document, we have presented a somewhat simplified—
+        account of the criteria required to ensure that a system of
+        presences is convergent. Specifically, based on the definitions
+        above, we assert that for a given system of presences, if the
+        limits <span class="math inline">\(I\)</span> and <span
+        class="math inline">\(\bar{M}\)</span> exist and are finite,
+        then the limit <span class="math inline">\(\Delta\)</span> also
+        exists and is finite. Furthermore, we claim that</p>
         <p><span class="math display">\[
         \Delta = I \times \bar{M}
         \]</span></p>
@@ -4974,8 +4997,10 @@ Introduction</span></p>
         equals the product of the limits—is beyond the scope of this
         document.</p>
         <p>For our purposes, it is safe to state that this relationship,
-        and the conditions under which it holds, <em>constitute</em> the
-        general form of Little’s Law for a system of presences.</p>
+        and the conditions under which it holds, <em>constitute</em> a
+        general form of Little’s Law for a system of presences <a
+        href="#fn16" class="footnote-ref" id="fnref16"
+        role="doc-noteref"><sup>16</sup></a>.</p>
         <p>With the exception of certain carefully constructed
         pathological cases, the criteria we have outlined—bounded signal
         mass and balanced onset/reset rates—will typically suffice to
@@ -5015,8 +5040,8 @@ Introduction</span></p>
         long enough for <em>complete</em> signals to dominate the
         presence density. For example, the interval <span
         class="math inline">\(T&#39;\)</span> in Figure 28 includes full
-        support for nearly all the signals, and in this case the system
-        would appear convergent over that interval.</p>
+        support for <em>nearly</em> all the signals, and in this case
+        the system would appear convergent over that interval.</p>
         <p>The main difference between the two intervals in Figure 28 is
         that in the latter, the mass contributions from the signals
         include nearly the entire presence mass of each each signal.</p>
@@ -5064,7 +5089,8 @@ Introduction</span></p>
         reset rates will all converge to the same limiting value <span
         class="math inline">\(I\)</span> over the interval. These are
         the well known equilibrium conditions we call the “conservation
-        of flow” under the classic treatments of Little’s Law.</p>
+        of flow” under the classic treatments of Little’s Law, but now
+        generalized to arbitrary systems of presences.</p>
         <blockquote>
         <p>When the parameters of the presence invariant over an
         interval are at or close to their limit values, the system is in
@@ -5099,9 +5125,9 @@ Introduction</span></p>
         signals evolve and interact over time—regardless of whether the
         underlying signals are random or not.</p>
         <p>Even when the signals have randomness, the <em>observed</em>
-        evolution of presence density is deterministic<a href="#fn16"
-        class="footnote-ref" id="fnref16"
-        role="doc-noteref"><sup>16</sup></a> and governed by the law of
+        evolution of presence density is deterministic<a href="#fn17"
+        class="footnote-ref" id="fnref17"
+        role="doc-noteref"><sup>17</sup></a> and governed by the law of
         conservation of presence mass—that is, the presence invariant.
         This determinism extends to any functional quantity that depends
         on presence density. As we will see, a large and operationally
@@ -5133,34 +5159,30 @@ Introduction</span></p>
         laws based on the principle of conserved signal mass. Mapping
         these laws back to the language of the domain appears to be a
         fruitful path toward uncovering the mechanisms by which systems
-        in that domain behave.</p>
-        <h2 data-number="7"
-        id="navigation-defining-place-and-direction"><span
-        class="header-section-number">7</span> Navigation: defining
-        place and direction</h2>
+        in that domain evolve.</p>
+        <h2 data-number="7" id="describing-flow"><span
+        class="header-section-number">7</span> Describing Flow</h2>
         <p>Convergence, as discussed in the last section, is a
-        fundamental concept in the<br />
-        presence calculus. We now have the tools to detect convergence
-        or divergence in the long-run behavior of a system of
-        presences—specifically, the evolution of<br />
+        fundamental concept in the presence calculus. We now have the
+        tools to detect convergence or divergence in the long-run
+        behavior of a system of presences—specifically, the evolution of
         presence density and its underlying drivers: signal mass
-        contributions and<br />
-        signal incidence rates.</p>
+        contributions and signal incidence rates.</p>
         <p>As noted earlier, <em>whenever we can model the meaningful
         behaviors of a system as interactions between element-boundary
-        signals within a system of presences</em>,<br />
-        this provides a constructive analytical framework for studying
-        system<br />
-        dynamics. This framework applies to a wide range of operational
-        problems across many domains.</p>
+        signals within a system of presences</em>, the presence calculus
+        gives a constructive analytical framework for studying signal
+        dynamics of the system.</p>
+        <p>This framework applies to a wide range of operational
+        problems across many domains, and should be viewed as an
+        alternate analytical lens to statistical analysis of operational
+        data.</p>
         <p>We also observed that much of the structure in the presence
         calculus is<br />
         deterministic. That is, given the observed behavior of a system
-        of presences,<br />
-        we can deterministically explain the evolution of presence
-        density in terms of<br />
-        its drivers, signal mass and incidence rate—across time and
-        across different timescales.</p>
+        of presences, we can deterministically explain the evolution of
+        presence density in terms of its drivers, signal mass and
+        incidence rate—across time and across different timescales.</p>
         <p>In this section, we elaborate on this deterministic structure
         and introduce<br />
         new tools that help us analyze how local behaviors evolve into
@@ -5168,16 +5190,15 @@ Introduction</span></p>
         of presence.</p>
         <p>First we will develop fundamental tools that help us
         establish a uniform sense of place and direction of the system
-        evolution, tha scales from the local to global timescales. While
-        convergence and divergence establish this for longer timescales,
-        these concepts are somewhat unwieldy and inapplicable when the
-        system is operating far from equilibrium, and we need some
-        better tools to navigate in this complementary region.</p>
+        evolution, that scales from the local to global timescales.</p>
+        <p>While convergence and divergence establish this at the macro
+        scale, these concepts are somewhat unwieldy and inapplicable
+        when the system is operating far from equilibrium, and we need
+        some better tools to navigate in this complementary region.</p>
         <p>We will show how to detect emerging patterns in this
-        evolution that reveal the<br />
-        <em>direction</em> in which the system is moving—and just as
-        importantly, how to<br />
-        detect when that direction is <em>changing</em>.</p>
+        evolution that reveal the <em>direction</em> in which the system
+        is moving—and just as importantly, how to detect when that
+        direction is <em>changing</em>.</p>
         <p>These are essential capabilities for building mechanisms that
         can steer system behavior in a desired direction—toward
         convergence or divergence of presence density.</p>
@@ -5185,18 +5206,19 @@ Introduction</span></p>
         id="a-phase-space-representation-of-the-presence-invariant"><span
         class="header-section-number">7.1</span> A phase space
         representation of the presence invariant</h3>
-        <p>So now that we know presence accumulates over timescales
-        according to a<br />
-        deterministic rule, let’s assemble some machinery that gives us
-        a sense of the<br />
-        <em>direction</em> in which the system as a whole is moving. For
-        this, it is useful to<br />
-        construct an alternate view of the entries in this matrix using
-        our favorite<br />
+        <p>In the previous section, we showed that the accumulation of
+        presence density across timescales operates via deterministic
+        rules - the presence accumulation recurrence. This was specified
+        entirely in terms of the changes in presence density across time
+        and time-scales.</p>
+        <p>Let’s now assemble some machinery that gives us a sense of
+        the <em>direction</em> in which the system as a whole is moving.
+        For this, it is useful to construct an alternate view of the
+        entries in this matrix using our favorite<br />
         tool: the presence invariant.</p>
         <p>We’ll start by noting that the presence invariant holds for
-        every entry in the<br />
-        accumulation matrix. Therefore, we can write:</p>
+        every entry in the accumulation matrix. Therefore, we can
+        write:</p>
         <p><span class="math display">\[
         \frac{A(i,j)}{T} = \frac{N}{T} \times \frac{A(i,j)}{N} \quad
         \text{where } T = j - i
@@ -5204,20 +5226,21 @@ Introduction</span></p>
         <p>Which is just the presence invariant <span
         class="math inline">\(\delta = \iota \cdot \bar{m}\)</span>
         written out for every entry in the matrix A.</p>
+        <p>As noted earlier, this expresses that each entry in the
+        accumulation matrix can be factored into two components: the
+        incidence rate <span class="math inline">\(\iota\)</span> and
+        the mass <span class="math inline">\(\bar{m}\)</span> per
+        incident signal.</p>
         <p>Now, let’s revisit the relationship <span
-        class="math inline">\(\delta = \iota \cdot
-        \bar{m}\)</span>.<br />
-        As noted earlier, this expresses that each entry in the
-        accumulation matrix can<br />
-        be factored into two components: the incidence rate <span
-        class="math inline">\(\iota\)</span> and the mass<br />
-        <span class="math inline">\(\bar{m}\)</span> per incident
-        signal. There are useful insights to be gained by<br />
+        class="math display">\[\delta = \iota \cdot \bar{m}.\]</span>
+        <em>Changes</em> in presence density across time and timescales
+        are driven by <em>changes</em> in the product of the incidence
+        rate and signal mass contribution.</p>
+        <p>Changes in products are somewhat unwieldy to analyze
+        intuitively, so there are useful insights to be gained by
         examining this multiplicative structure in log space.</p>
-        <p>Taking the logarithm of both sides of the presence
-        invariant<br />
-        <span class="math inline">\(\delta = \iota \cdot
-        \bar{m}\)</span>, we obtain:</p>
+        <p>So, lets take the logarithm of both sides of the presence
+        invariant, giving us</p>
         <p><span class="math display">\[
         \log \delta = \log \iota + \log \bar{m}
         \]</span></p>
@@ -5229,11 +5252,8 @@ Introduction</span></p>
         presence density (in log space), and changes in incidence rate
         or mass can be interpreted as<br />
         vector displacements along orthogonal axes in this space.</p>
-        <p>This gives us a mapping of the presence invariant in the
-        complex plane.</p>
-        <p>We now introduce a geometric interpretation of this relation
-        in the complex<br />
-        plane. Let’s define a mapping:</p>
+        <p>We can now represent these two components as a number in the
+        complex plane. Let’s define a mapping:</p>
         <p><span class="math display">\[
         z = \log \iota + i \log \bar{m}
         \]</span></p>
@@ -5241,17 +5261,15 @@ Introduction</span></p>
         encodes the logarithm of the incidence rate, and the imaginary
         part encodes the logarithm of the mass.</p>
         <p>This mapping allows us to compactly represent the two degrees
-        of freedom in presence density as a vector in a two-dimensional
-        plane, with the magnitude of the vector encoding the intensity
-        of the presence: increasing or decreasing, and the direction of
-        the vector encoding what is driving the increase or decrease:
-        incidence rate or presence mass.</p>
+        of freedom in presence density as a vector with the magnitude of
+        the vector encoding the intensity of the presence: increasing or
+        decreasing, and the direction of the vector encoding what is
+        driving the increase or decrease: incidence rate or presence
+        mass.</p>
         <p>This vector representation gives us a compact and precise
         definition of the magnitude and direction of the <em>flow</em>
-        of presence density in the system at any point in time. This is
-        what we will use as the <em>definition</em> of flow in a system
-        of presences.</p>
-        <p>Lets formalize these notions.</p>
+        of presence density in the system at any point in time. Lets
+        formalize these notions.</p>
         <p>Following standard techniques in complex analysis, we now
         introduce two derived quantities: the norm and the phase angle
         for the complex number that represents a presence density of
@@ -5260,15 +5278,13 @@ Introduction</span></p>
         <ul>
         <li><p>The <strong>norm</strong> of <span
         class="math inline">\(z\)</span> represents the overall
-        intensity of presence accumulation<br />
-        in log space:</p>
+        intensity of presence accumulation in log space:</p>
         <p><span class="math display">\[
         \|z\| = \sqrt{(\log \iota)^2 + (\log \bar{m})^2}
         \]</span></p>
         <p>This gives a scale-invariant measure of the strength of
-        presence density<br />
-        combining the effects of incidence and mass into a single
-        magnitude.</p>
+        presence density combining the effects of incidence and mass
+        into a single magnitude.</p>
         <ul>
         <li><p>The <strong>phase angle</strong> of <span
         class="math inline">\(z\)</span> represents the balance between
@@ -5299,9 +5315,11 @@ Introduction</span></p>
         decompose each matrix entry’s behavior into <em>how fast</em> it
         is growing (norm) and <em>in what direction</em> the
         contributing factors lie (phase).</p>
-        <p>Figure 25 shows this mapping of the presence accumulation
+        <p>Figure 29 shows this mapping of the presence accumulation
         matrix into polar co-ordinates in the complex plane.</p>
-        <div style="text-align: center; margin: 2em">
+        <figure id="fig:complex-plane-table" class="subfigures figure">
+        <img src="../assets/placeholder.png"
+        id="fig:complex-plane-table" style="display: none;" alt="a" />
         <table style="border-collapse: collapse; margin: auto; font-family: serif; font-size: 0.95em;">
         <thead>
         <tr>
@@ -5648,58 +5666,68 @@ Introduction</span></p>
         </tr>
         </tbody>
         </table>
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 25: Representation of the presence accumulation matrix in polar co-ordinates on the complex plane. </code></pre>
-        </div>
-        </div>
-        <p>Figure 25 is not particularly insightful, so let’s visualize
-        this as a field of vectors as in Figure 26. We will call this
+        <figcaption><p>Figure 29: Representation of the presence
+        accumulation matrix in polar co-ordinates on the complex plane..
+        </p></figcaption>
+        </figure>
+        <h3 data-number="7.2" id="flow-fields"><span
+        class="header-section-number">7.2</span> Flow fields</h3>
+        <p>Figure 29 is not particularly insightful, so let’s visualize
+        this as a field of vectors as in Figure 30. We will call this
         the flow field for the system.</p>
-        <div style="text-align: center; margin:2em">
-        <img src="../assets/pandoc/flow_field.png" width="600px" />
-        <div
-        style="font-size: 0.9em; color: #555; margin-top: 1em; margin-bottom: 1em;">
-        <pre><code>Figure 26: Figure 25 visualized as a flow field </code></pre>
-        </div>
-        </div>
+        <figure id="fig:flow-field">
+        <img src="../assets/pandoc/flow_field.png"
+        alt="Figure 30: Flow field visualization" />
+        <figcaption aria-hidden="true">Figure 30: Flow field
+        visualization</figcaption>
+        </figure>
         <p>Lets dig into how this flow field is constructed and what it
         means.</p>
-        <p>Starting with Figure 25, the grid represents rows and columns
-        of the accumulation matrix.</p>
+        <p>Let’s go back and start with Figure 29. The grid represents
+        rows and columns of the accumulation matrix and represents
+        timescales.</p>
         <ul>
         <li>Each cell is represented by the log-space vector of the
-        presence density over that interval in polar coordinates.</li>
+        presence density over an observation window in polar
+        coordinates.</li>
         <li>The length of the vector encodes magnitude <span
         class="math inline">\(\|z\|\)</span> and the orientation of the
         vector encodes <span class="math inline">\(\theta\)</span> in
         radians.</li>
         </ul>
-        <p>Since the matrix in Figure 25 is upper triangular, there is
+        <p>Since the matrix in Figure 29 is upper triangular, there is
         no significant information encoded in the bottom half of the
-        matrix.</p>
-        <p>So as a convention, when we visualize it we will drop the
-        bottom half of the matrix and only show the entries in the upper
-        diagonal.</p>
+        matrix. So as a convention, when we visualize it we will drop
+        the bottom half of the matrix and only show the entries in the
+        upper diagonal.</p>
         <p>Now imagine this matrix rotated by 90 degrees so that entries
         on the diagonal are on the bottom row, the entries on the next
         diagonal are laid out above it, and so on until the we get to
         the top left entry in the matrix. The result in the pyramid
-        shape of the flow field diagram in figure 26.</p>
-        <p>Each vector in the flow field is drawn with a proportional
-        magnitude and theta.</p>
-        <p>Figure 26 compresses a tremendous amount information about
+        shape of the flow field diagram in Figure 30.</p>
+        <p>We can also think of this as a compact visualization of the
+        pyramid in Figure 14 represented in polar-coordinates. Each
+        vector in the flow field is drawn with a proportional magnitude
+        and theta.</p>
+        <p>Figure 30 compresses a tremendous amount information about
         the dynamics of a system into a very compact representation that
         is easy to scan and interpret visually as well as
         analytically.</p>
-        <p>In this view, we are not interested in absolute magnitudes or
-        angles for the most part. Rather we focus on the relative change
-        in magnitude and direction of these vectors as we sweep left to
-        right in time along a row and from bottom to top in time scales
-        across the rows. That is, the flow field encodes the
-        <em>dynamics</em> of the system across time and time scales.</p>
+        <h3 data-number="7.3" id="interpreting-flow-fields"><span
+        class="header-section-number">7.3</span> Interpreting flow
+        fields</h3>
+        <p>When interpreting flow fields, we are not interested in
+        absolute magnitudes or angles for the most part.</p>
+        <p>Rather we focus on the <em>relative change in magnitude and
+        direction</em> of these vectors as we sweep left to right in
+        time along a row and from bottom to top in time scales across
+        the rows.</p>
+        <p>That is, the flow field encodes the <em>dynamics</em> of the
+        system across time and time scales.</p>
         <p>Lets see how this encoding works.</p>
-        <div style="text-align: center; margin:2em">
+        <figure id="fig:" class="subfigures figure">
+        <img src="../assets/placeholder.png" id="fig:"
+        style="display: none;" alt="a" />
         <table style="border-collapse: collapse; margin: auto; font-family: sans-serif;">
         <thead>
         <tr>
@@ -5843,20 +5871,21 @@ Introduction</span></p>
         </tr>
         </tbody>
         </table>
-        <p><svg height="0" width="0"> <defs>
+        <svg height="0" width="0">
+        <defs>
         <marker id="arrow" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
         <path d="M0,0 L0,6 L6,3 z" fill="#000"/> </marker> </defs>
-        </svg></p>
-        <div style="font-size: 0.9em; color: #555; margin-top: 1em;">
-        <pre><code>Table: Interpretation of θ as directional flow in log-space between incidence rate and signal mass, with fully rendered vector arrows.</code></pre>
-        </div>
-        </div>
+        </svg>
+        <figcaption><p>Figure 31: Interpretation of θ as directional
+        flow in log-space between incidence rate and signal mass, with
+        fully rendered vector arrows.. </p></figcaption>
+        </figure>
         <h2 data-number="8" id="attractors"><span
         class="header-section-number">8</span> Attractors</h2>
         <p>Since there are only two degrees of freedom theses system
         trajectories will always lie on a two dimensional manifold <a
-        href="#fn17" class="footnote-ref" id="fnref17"
-        role="doc-noteref"><sup>17</sup></a> in a 3 dimensional
+        href="#fn18" class="footnote-ref" id="fnref18"
+        role="doc-noteref"><sup>18</sup></a> in a 3 dimensional
         space.</p>
         <blockquote>
         <p>Remarkably, the state of <em>every</em> possible system of
@@ -6044,7 +6073,19 @@ Introduction</span></p>
         ensure that their product equals the limit of the product.<a
         href="#fnref15" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn16"><p>It is worth emphasizing the word
+        <li id="fn16"><p>This general form of Little’s Law is usually
+        presented in the form <span class="math inline">\(H = \lambda
+        \cdot G.\)</span> In our notation <span class="math inline">\(H
+        = \Delta\)</span>, <span class="math inline">\(\lambda =
+        I\)</span> and <span class="math inline">\(\bar{M} = G\)</span>
+        We have chosen to develop a new consistent notation to describe
+        these terms as limiting values of measure-theoretic parameters
+        <span class="math inline">\(\delta, \iota, \text{ and }
+        \bar{m}\)</span> of the presence invariant, but the underlying
+        terms can be shown to be equivalent to each other.<a
+        href="#fnref16" class="footnote-back"
+        role="doc-backlink">↩︎</a></p></li>
+        <li id="fn17"><p>It is worth emphasizing the word
         <em>observed</em> in this statement. Even though the evolution
         is deterministic, this does not mean the future behavior of the
         system is predictable based on past behavior. That depends
@@ -6053,9 +6094,9 @@ Introduction</span></p>
         sufficiently complete history of the system, we can
         deterministically reconstruct the current state of presence
         density from any starting point. This explanatory power is
-        useful in its own right, as we will soon see.<a href="#fnref16"
+        useful in its own right, as we will soon see.<a href="#fnref17"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn17"><p>All solutions to an equation of the form <span
+        <li id="fn18"><p>All solutions to an equation of the form <span
         class="math inline">\(x=y \times z,\)</span> which is the form
         of the presence invariant, lie on a 2D surface, called a
         manifold in 3 dimensions: think of the manifold a rubber sheet
@@ -6064,7 +6105,7 @@ Introduction</span></p>
         this equation will lie on the surface of this rubber sheet. This
         is a powerful geometric constraint that we can exploit to reason
         about the possible behavior of a system of presences over
-        time.<a href="#fnref17" class="footnote-back"
+        time.<a href="#fnref18" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
         </ol>
         </section>
