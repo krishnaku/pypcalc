@@ -2780,9 +2780,9 @@ $$
 allows us to interpret each interval’s presence dynamics in terms of both
 *intensity* and *direction*. 
 
->We now have a formal notion of *flow* for presence in log-space—one that
-combines incidence and mass into a single complex number that represents
-intensity and direction of presence accumulations.
+> We now have a formal notion of *flow* for presence in log-space—one that
+> combines incidence and mass into a single complex number that represents
+> intensity and direction of presence accumulations.
 
 [@fig:complex-plane-table] shows this mapping of the presence accumulation matrix into polar
 co-ordinates in the complex plane.
@@ -2958,6 +2958,35 @@ driven by rate, mass, or a balanced interplay between them.
 Interpretation of θ as directional flow in log-space between incidence rate and signal mass.
 :::
 
+Let’s review the flow field in [@fig:flow-field] with these interpretations in
+mind. While this example is somewhat simplified, many of the key features of a
+flow field are already observable.
+
+Here are some important observations from the flow field in [@fig:flow-field]:
+
+- Each row of vectors represents the characteristics of flow across observation
+  windows of increasing length.
+- Vectors with similar length and direction within a row indicate convergence
+  toward a common flow pattern.
+- The bottom row (shortest intervals) shows the greatest variation in vector
+  direction, reflecting more volatile behavior at finer time scales.
+- In this bottom row, the leftmost and rightmost vectors transition from
+  incidence-driven to mass-driven growth and then back again. This pattern
+  typically arises when onset and reset behaviors vary significantly across
+  signals over those intervals—as is the case here, where all signals had
+  presences during that span.
+- Vector alignment begins to emerge by the second row (intervals of length 1),
+  which is expected in a small dataset. More generally, the lowest *level* at
+  which such alignment in magnitude and direction becomes visible is an
+  important system property.
+
+We should also note that while flow fields are useful to a get a quick high
+level signature of flow dynamics in a system of presences, they also shine when
+we reason closely about the local and global changes in the field, and trace
+these back to the specific drivers of the change. 
+
+We will present many more examples and use cases of such reasoning with flow
+fields over specific systems in future posts.
 
 ## Attractors
 

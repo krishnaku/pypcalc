@@ -5916,6 +5916,40 @@ Introduction</span></p>
         flow in log-space between incidence rate and signal mass..
         </p></figcaption>
         </figure>
+        <p>Let’s review the flow field in Figure 30 with these
+        interpretations in mind. While this example is somewhat
+        simplified, many of the key features of a flow field are already
+        observable.</p>
+        <p>Here are some important observations from the flow field in
+        Figure 30:</p>
+        <ul>
+        <li>Each row of vectors represents the characteristics of flow
+        across observation windows of increasing length.</li>
+        <li>Vectors with similar length and direction within a row
+        indicate convergence toward a common flow pattern.</li>
+        <li>The bottom row (shortest intervals) shows the greatest
+        variation in vector direction, reflecting more volatile behavior
+        at finer time scales.</li>
+        <li>In this bottom row, the leftmost and rightmost vectors
+        transition from incidence-driven to mass-driven growth and then
+        back again. This pattern typically arises when onset and reset
+        behaviors vary significantly across signals over those
+        intervals—as is the case here, where all signals had presences
+        during that span.</li>
+        <li>Vector alignment begins to emerge by the second row
+        (intervals of length 1), which is expected in a small dataset.
+        More generally, the lowest <em>level</em> at which such
+        alignment in magnitude and direction becomes visible is an
+        important system property.</li>
+        </ul>
+        <p>We should also note that while flow fields are useful to a
+        get a quick high level signature of flow dynamics in a system of
+        presences, they also shine when we reason closely about the
+        local and global changes in the field, and trace these back to
+        the specific drivers of the change.</p>
+        <p>We will present many more examples and use cases of such
+        reasoning with flow fields over specific systems in future
+        posts.</p>
         <h2 data-number="8" id="attractors"><span
         class="header-section-number">8</span> Attractors</h2>
         <p>Since there are only two degrees of freedom theses system
