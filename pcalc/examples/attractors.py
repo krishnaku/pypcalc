@@ -8,7 +8,7 @@ from matplotlib.patches import FancyArrowPatch
 from matplotlib import cm
 from collections import Counter
 
-def plot_accumulation_trajectories(accum_matrix):
+def plot_accumulation_trajectories(accum_matrix,filename='trajectories.png'):
     """
     Plot presence‐density trajectories along each diagonal of an upper‐triangular matrix.
     - Includes every diagonal d=0…n-1 as valid sample paths (even single‐point).
@@ -82,6 +82,7 @@ def plot_accumulation_trajectories(accum_matrix):
     ax.set_title("Signal Trajectories by Interval Length")
     ax.grid(True, linestyle="--", alpha=0.3)
     plt.tight_layout()
+    plt.savefig(filename, dpi=300, bbox_inches='tight')
     plt.show()
 
 

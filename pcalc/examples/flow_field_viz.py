@@ -210,4 +210,4 @@ if __name__ == '__main__':
 
     plot_flow_field(magnitude,theta)
 
-    # plot_accumulation_trajectories(delta)
+    plot_accumulation_trajectories(delta)

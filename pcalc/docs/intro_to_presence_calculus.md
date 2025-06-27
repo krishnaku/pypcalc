@@ -2655,7 +2655,7 @@ conservation laws based on the principle of conserved signal mass. Mapping these
 laws back to the language of the domain appears to be a fruitful path toward
 uncovering the mechanisms by which systems in that domain evolve.
 
-## Describing Flow 
+## Visualizing Signal Dynamics
 
 Convergence, as discussed in the last section, is a fundamental concept in the
 presence calculus. We now have the tools to detect convergence or divergence in
@@ -2988,25 +2988,130 @@ these back to the specific drivers of the change.
 We will present many more examples and use cases of such reasoning with flow
 fields over specific systems in future posts.
 
-## Attractors
+### Attractors
 
-Since there are only two degrees of freedom theses system trajectories will
-always lie on a two dimensional manifold [^F8] in a 3 dimensional space.
+In the last section, we showed how we could mathematically define the concept of
+_flow_ in a system of presences via a mapping of the right-hand product in the
+presence invariant to a complex number and then visualizing the entries in the
+accumulation matrix as a vector field using the polar coordinates of the
+corresponding complex numbers.
 
-[^F8]: All solutions to an equation of the form $x=y \times z,$ which is the
-form of the presence invariant, lie on a 2D surface, called a manifold in 3
-dimensions: think of the manifold a rubber sheet suspended in a 3 dimensional
-space. All the values of $x, y, \text{ and } z$  that satisfy this equation will
-lie on the surface of this rubber sheet. This is a powerful geometric constraint
-that we can exploit to reason about the possible behavior of a system of
-presences over time.
+There is much more that can be done with this complex plane mapping besides
+visualization, but these applications are beyond the scope of this gentle
+introduction.
 
-> Remarkably, the state of _every_ possible system of presences, no matter
-> how general, always has a trajectory in time that lies on this *same*
-> manifold.
-> This is a powerful constraint and insight that we can use to study the
-> behavior
-> of a system of presences over time.
+While the flow field representation focused on the evolution of incidence rate
+and presence mass, an equally important set of visualizations directly examines
+the presence density matrix. Recall that this matrix represents the presence
+density for each entry in the accumulation matrix. There are many
+straightforward and direct visualizations of the matrix using heatmaps and
+contour plots, which we will describe later elsewhere, but in this document, we
+want to describe a less obvious visualization that is very useful for studying  
+the dynamics of the system when it operates far from equilibrium.
+
+In dynamical systems theory, a standard object of study is the path trajectory
+of a system through some parameter space. For a system of presences, the key
+input parameters that drive the system’s dynamics are the incidence rate and
+mass contribution per signal and their changes over time.
+
+Since the product of these values determines presence density over an interval,
+a sample path in the accumulation matrix is a good candidate to study the
+evolution of the system in this parameter space. [@fig:presence-density-matrix]
+shows this matrix for our running example.
+
+::: {.figure #fig:presence-density-matrix}
+![](../assets/placeholder.png){#fig: style="display: none;"}
+<table style="border-collapse: collapse; margin: auto; font-family: serif; font-size: 0.95em;">
+  <thead>
+    <tr>
+      <th>i\\j</th>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><b>1</b></td><td style="background-color: #eef;">1.40</td><td style="background-color: #eef;">3.65</td><td style="background-color: #eef;">5.50</td><td style="background-color: #eef;">5.38</td><td style="background-color: #eef;">5.48</td><td style="background-color: #eef;">5.82</td><td style="background-color: #eef;">6.07</td><td style="background-color: #eef;">6.14</td><td style="background-color: #eef;">6.07</td><td style="background-color: #eef;">5.63</td></tr>
+    <tr><td><b>2</b></td><td></td><td style="background-color: #eef;">5.90</td><td style="background-color: #eef;">7.55</td><td style="background-color: #eef;">6.70</td><td style="background-color: #eef;">6.50</td><td style="background-color: #eef;">6.70</td><td style="background-color: #eef;">6.85</td><td style="background-color: #eef;">6.81</td><td style="background-color: #eef;">6.65</td><td style="background-color: #eef;">6.10</td></tr>
+    <tr><td><b>3</b></td><td></td><td></td><td style="background-color: #eef;">9.20</td><td style="background-color: #eef;">7.10</td><td style="background-color: #eef;">6.70</td><td style="background-color: #eef;">6.90</td><td style="background-color: #eef;">7.04</td><td style="background-color: #eef;">6.97</td><td style="background-color: #eef;">6.76</td><td style="background-color: #eef;">6.13</td></tr>
+    <tr><td><b>4</b></td><td></td><td></td><td></td><td style="background-color: #eef;">5.00</td><td style="background-color: #eef;">5.45</td><td style="background-color: #eef;">6.13</td><td style="background-color: #eef;">6.50</td><td style="background-color: #eef;">6.52</td><td style="background-color: #eef;">6.35</td><td style="background-color: #eef;">5.69</td></tr>
+    <tr><td><b>5</b></td><td></td><td></td><td></td><td></td><td style="background-color: #eef;">5.90</td><td style="background-color: #eef;">6.70</td><td style="background-color: #eef;">7.00</td><td style="background-color: #eef;">6.90</td><td style="background-color: #eef;">6.62</td><td style="background-color: #eef;">5.80</td></tr>
+    <tr><td><b>6</b></td><td></td><td></td><td></td><td></td><td></td><td style="background-color: #eef;">7.50</td><td style="background-color: #eef;">7.55</td><td style="background-color: #eef;">7.23</td><td style="background-color: #eef;">6.80</td><td style="background-color: #eef;">5.78</td></tr>
+    <tr><td><b>7</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color: #eef;">7.60</td><td style="background-color: #eef;">7.10</td><td style="background-color: #eef;">6.57</td><td style="background-color: #eef;">5.35</td></tr>
+    <tr><td><b>8</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color: #eef;">6.60</td><td style="background-color: #eef;">6.05</td><td style="background-color: #eef;">4.60</td></tr>
+    <tr><td><b>9</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color: #eef;">5.50</td><td style="background-color: #eef;">3.60</td></tr>
+    <tr><td><b>10</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background-color: #eef;">1.70</td></tr>
+  </tbody>
+</table>
+
+Presence Density Matrix for our running example
+:::
+
+This matrix encodes presence density along sample paths at different observation
+time scales and each one can be plotted as a trajectory.
+
+In visualizing these trajectories, we are focusing on the _values_ of the
+presence density that the system inhabits—how close they are to each other, how
+often the system returns to the same values, etc.
+
+These are useful in identifying values to which the system converges when the
+behavior is not fully convergent or divergent, and help identify attractors of
+the system as well as the movement of the system between them.
+
+We can construct this visualization as follows:
+
+- A sample path at a given timescale is a non-overlapping sequence of half-open
+  time intervals that lies on one of the diagonals of the presence density
+  matrix.
+- At some time scales the non-overlapping requirement means we can have many
+  sample paths. For example, along the second diagonal we have two sample
+  paths: $[1,3), [3,5)$ and $[2,4), [4,6)$.
+- Each of these paths represents a trajectory of the evolution of the system
+  when continuously observed over windows of that length. Multiple paths along
+  the same diagonal are shown in different colors.
+- We visualize these paths by laying out their values on a line and showing
+  curved arrows between successive values.
+- The size of a point representing a value is proportional to the number of
+  times that value gets visited by some trajectory.
+- The resulting set of trajectories is laid out along the vertical axis, with
+  paths along the same diagonal on the same horizontal line.
+
+The resulting diagram is shown in [@fig:attractors].
+
+![Sample path trajectories](../assets/pandoc/trajectories.png){#fig:attractors}
+
+While this example is again fairly simple, here are some common characteristics
+we can see:
+
+- *Concentration of Trajectories at Lower Scales*: The lower diagonals (small
+  interval lengths) exhibit rich trajectory structures, indicating high
+  variability and recurrence across short timescales.
+
+- *Convergence with Increasing Interval Length*:
+    - As interval length increases, fewer trajectories appear, and values
+      cluster more tightly.
+    - Some points are revisited by multiple trajectories, suggesting possible
+      attractor behavior.
+
+- *Dominant Density Bands*:
+    - Several horizontal bands (e.g. around δ ≈ 6–7) persist across multiple
+      levels, possibly indicating stable attractors.
+    - Narrowing spread at higher diagonals supports convergence interpretation.
+
+- *Visual Asymmetry in Curves*:
+    - Arc shapes suggest non-symmetric evolution: some paths curve back or
+      repeat similar values.
+
+- *Unlinked Points at Higher Levels*:
+    - Some single-point trajectories appear on upper diagonals with no visible
+      arc.
+    - This is expected as fewer non-overlapping intervals exist at those scales.
+
+Overall, the diagram is complementary to the information shown in the flow
+field: how presence densities evolve and concentrate across temporal scales,
+revealing both volatility at finer scales and convergence toward attractor bands
+at coarser scales.
+
+
 
 
 
