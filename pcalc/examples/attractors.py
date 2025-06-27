@@ -23,7 +23,7 @@ def plot_accumulation_trajectories(accum_matrix):
         diag_vals = [
             accum_matrix[i, i + d]
             for i in range(n - d)
-            if not np.isnan(accum_matrix[i, i + d])
+            if np.isfinite(accum_matrix[i, i + d])
         ]
         if len(diag_vals) == 0:
             continue
@@ -43,7 +43,7 @@ def plot_accumulation_trajectories(accum_matrix):
                 idx = start
                 while idx + d < n:
                     val = accum_matrix[idx, idx + d]
-                    if not np.isnan(val):
+                    if np.isfinite(val):
                         traj.append(val)
                     idx += d
                 if len(traj) >= 1:
@@ -73,7 +73,9 @@ def plot_accumulation_trajectories(accum_matrix):
                         lw=1.5,
                         alpha=0.8
                     )
-                    ax.add_patch(arrow)
+                    with np.errstate(over='ignore', invalid='ignore'):
+                        ax.add_patch(arrow)
+
 
     ax.set_xlabel("Presence Density (δ)")
     ax.set_ylabel("Interval Length (Diagonal Index)")

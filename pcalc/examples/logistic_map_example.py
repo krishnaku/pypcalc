@@ -14,7 +14,7 @@ def logistic_map(r, x0, n):
     return x
 
 # Parameters for intermittent regime
-r = 3.4
+r = 4.5
 x0 = 0.5
 n = 20
 
