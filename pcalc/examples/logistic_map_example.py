@@ -4,7 +4,7 @@
 import numpy as np
 import pandas as pd
 from flow_field_viz import compute_presence_invariant, compute_polar_representation, plot_flow_field
-
+from attractors import plot_accumulation_trajectories
 # Logistic map definition
 def logistic_map(r, x0, n):
     x = np.zeros(n)
@@ -14,7 +14,7 @@ def logistic_map(r, x0, n):
     return x
 
 # Parameters for intermittent regime
-r = 4.0
+r = 3.4
 x0 = 0.5
 n = 20
 
@@ -31,3 +31,4 @@ delta, iota, avg_mass = compute_presence_invariant(presence_matrix)
 magnitude, theta = compute_polar_representation(iota, avg_mass)
 
 plot_flow_field(magnitude,theta)
+plot_accumulation_trajectories(delta)

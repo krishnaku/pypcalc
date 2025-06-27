@@ -1,70 +1,89 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2025 Krishna Kumar
 # SPDX-License-Identifier: MIT
+
 import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import matplotlib.cm as cm
 import numpy as np
+from matplotlib.patches import FancyArrowPatch
+from matplotlib import cm
+from collections import Counter
 
-# Reconstructing the full triangular matrix of presence density values
-# Each entry is (density, incidence)
-presence_data = [
-    [(1.34, 1), (0.98, 2), (1.70, 3), (1.99, 4), (2.27, 5), (2.55, 4), (2.43, 3), (2.60, 2), (2.74, 2), (2.80, 1)],
-    [None, (1.29, 1), (1.67, 2), (1.90, 3), (2.18, 4), (2.47, 3), (2.36, 2), (2.54, 2), (2.68, 2), (2.74, 1)],
-    [None, None, (1.57, 1), (1.61, 2), (1.90, 3), (2.24, 2), (2.19, 2), (2.38, 2), (2.53, 2), (2.60, 1)],
-    [None, None, None, (1.21, 1), (1.35, 2), (1.81, 3), (1.87, 2), (2.11, 2), (2.29, 2), (2.36, 1)],
-    [None, None, None, None, (1.28, 1), (1.55, 2), (1.68, 2), (1.93, 2), (2.12, 2), (2.20, 1)],
-    [None, None, None, None, None, (1.43, 1), (1.50, 2), (1.72, 2), (1.92, 2), (1.99, 1)],
-    [None, None, None, None, None, None, (1.53, 1), (1.44, 2), (1.62, 2), (1.68, 1)],
-    [None, None, None, None, None, None, None, (1.35, 1), (1.45, 2), (1.53, 1)],
-    [None, None, None, None, None, None, None, None, (1.23, 1), (1.28, 1)],
-    [None, None, None, None, None, None, None, None, None, (0.71, 1)]
-]
+def plot_accumulation_trajectories(accum_matrix):
+    """
+    Plot presence‐density trajectories along each diagonal of an upper‐triangular matrix.
+    - Includes every diagonal d=0…n-1 as valid sample paths (even single‐point).
+    - For d>0, splits into non‐overlapping trajectories by stepping in strides of d.
+    - Assigns each trajectory its own color (colors reset per diagonal).
+    """
+    n = accum_matrix.shape[0]
+    fig, ax = plt.subplots(figsize=(10, 7))
 
-n = len(presence_data)
+    for d in range(n):
+        # 1) Gather all values on diagonal d for incidence
+        diag_vals = [
+            accum_matrix[i, i + d]
+            for i in range(n - d)
+            if not np.isnan(accum_matrix[i, i + d])
+        ]
+        if len(diag_vals) == 0:
+            continue
 
-# Prepare color map for different diagonals
-colors = cm.get_cmap('tab10', n)
+        # 2) Incidence count per distinct density
+        freq = Counter(diag_vals)
 
-fig, ax = plt.subplots(figsize=(10, 7))
+        # 3) Build trajectory list
+        traj_list = []
+        if d == 0:
+            # main diagonal is one trajectory
+            traj_list = [diag_vals]
+        else:
+            # non‐overlapping sliding windows of width d
+            for start in range(d):
+                traj = []
+                idx = start
+                while idx + d < n:
+                    val = accum_matrix[idx, idx + d]
+                    if not np.isnan(val):
+                        traj.append(val)
+                    idx += d
+                if len(traj) >= 1:
+                    traj_list.append(traj)
 
-# Plot each diagonal as a trajectory on its own horizontal line
-for diag in range(n):
-    trajectories = []
-    for start in range(n - diag):
-        i, j = start, start + diag
-        if presence_data[i][j] is not None:
-            trajectories.append((presence_data[i][j][0], presence_data[i][j][1]))  # (density, incidence)
+        # 4) Plot each trajectory with its own color
+        cmap = cm.get_cmap('tab10', len(traj_list))
+        for t_idx, traj in enumerate(traj_list):
+            color = cmap(t_idx)
+            y = np.full(len(traj), d)
+            x = traj
+            sizes = [freq[v] * 20 for v in traj]
 
-    if len(trajectories) < 2:
-        continue
+            # plot the points
+            ax.scatter(x, y, s=sizes, color=color, marker='o', zorder=3)
 
-    color = colors(diag)
-    ys = np.full(len(trajectories), diag)
-    xs = [pt[0] for pt in trajectories]
-    sizes = [pt[1]*20 for pt in trajectories]
+            # if more than one point, connect with arrows
+            if len(x) > 1:
+                for k in range(len(x) - 1):
+                    arrow = FancyArrowPatch(
+                        (x[k],   d),
+                        (x[k+1], d),
+                        connectionstyle="arc3,rad=0.25",
+                        arrowstyle='-|>',
+                        color=color,
+                        mutation_scale=10,
+                        lw=1.5,
+                        alpha=0.8
+                    )
+                    ax.add_patch(arrow)
 
-    # Plot points
-    ax.scatter(xs, ys, s=sizes, marker='o', color=color, zorder=3)
+    ax.set_xlabel("Presence Density (δ)")
+    ax.set_ylabel("Interval Length (Diagonal Index)")
+    ax.set_title("Signal Trajectories by Interval Length")
+    ax.grid(True, linestyle="--", alpha=0.3)
+    plt.tight_layout()
+    plt.show()
 
-    # Draw curved paths (quadratic Bézier approximations)
-    for k in range(len(xs) - 1):
-        x0, y0 = xs[k], ys[k]
-        x1, y1 = xs[k+1], ys[k+1]
-        xm, ym = (x0 + x1)/2, y0 + 0.2 + 0.05 * diag  # slight vertical curve
 
-        path = patches.FancyArrowPatch((x0, y0), (x1, y1),
-                                       connectionstyle=f"arc3,rad=0.25",
-                                       arrowstyle='-|>',
-                                       color=color,
-                                       mutation_scale=10,
-                                       lw=1)
-        ax.add_patch(path)
 
-ax.set_xlabel("Presence Density")
-ax.set_ylabel("Interval Length (Diagonal Index)")
-ax.set_title("Signal Trajectories by Interval Length")
-ax.grid(True, linestyle="--", alpha=0.3)
-plt.tight_layout()
-plt.show()
+
+
 

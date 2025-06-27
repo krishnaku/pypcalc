@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
 from matplotlib.colors import ListedColormap, BoundaryNorm
+from attractors import plot_accumulation_trajectories
 
 def plot_flow_field(magnitude, theta, filename='flow_field.png'):
     rows, cols = magnitude.shape
@@ -208,3 +209,5 @@ if __name__ == '__main__':
     show_html_table(magnitude, theta)
 
     plot_flow_field(magnitude,theta)
+
+    plot_accumulation_trajectories(delta)
