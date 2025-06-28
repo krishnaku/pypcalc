@@ -12,6 +12,9 @@ toc-depth: 2
 figPrefix: "Figure"
 ---
 
+<div style="text-align: center; font-size: 80%; margin-top: 3em;">
+  © 2025 Krishna Kumar. All rights reserved.
+</div>
 
 ## What is The Presence Calculus?
 
@@ -159,9 +162,10 @@ the concepts from first principles and develop new applications.
 
 Finally, for those who want to dive deeper into the formal mathematical  
 underpinnings of the calculus, there are links in the references and footnotes
-of this document. These go into more detail than a practitioner will need to
-read or understand, but is useful for the mathematically trained to validate the
-rationale for _why_ the presence calculus works.
+of this document. These are terse, technical documents that go into more detail
+than a practitioner will need to read or understand, but should be
+straightforward for a reader with a basic background in real analysis to
+clearly grasp the mathematical rationale behind the calculus. 
 
 Let's jump in...
 
@@ -432,7 +436,11 @@ that can be *accumulated* across time and across presences.
 This lets us reason mathematically about presences with confidence—and since
 most of this reasoning will be performed by algorithms, we need technical
 constraints that ensure those calculations are both mathematically valid and
-semantically sound.
+semantically sound. 
+
+For a mathematically precise definition of these concepts please see our theory
+track
+document [Presence: A measure-theoretic-definition](./presence_calculus_foundations.html).
 
 ### More examples
 
@@ -3131,8 +3139,8 @@ key contribution of the presence calculus in this regard.
 We will have much more say about using the tools of the presence calculus to
 create such feedback loops and steer systems in future posts.
 
-
-
+::: footer © 2025 Krishna Kumar. All rights reserved.
+:::
 
 
 
