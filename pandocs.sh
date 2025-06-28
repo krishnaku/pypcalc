@@ -12,7 +12,7 @@ mkdir -p "$OUTPUT_DIR"
 for file in "$SOURCE_DIR"/*.md; do
   if [ -f "$file" ]; then
     filename=$(basename "$file" .md)
-    pandoc --filter pandoc-crossref --number-sections   --toc --citeproc --wrap=auto "$file" -s -o "$OUTPUT_DIR/${filename}.html" --template="${SOURCE_DIR}/pandoc_template.html" $MATH_ENGINE
+    pandoc --filter pandoc-crossref --number-sections   --toc --citeproc --wrap=auto --bibliography="$(dirname "$file")/references.bib" --csl="$(dirname "$file")/ieee.csl" "$file" -s -o "$OUTPUT_DIR/${filename}.html" --template="${SOURCE_DIR}/pandoc_template.html" $MATH_ENGINE
     echo "✓ Converted $file → $OUTPUT_DIR/${filename}.html"
   fi
 done

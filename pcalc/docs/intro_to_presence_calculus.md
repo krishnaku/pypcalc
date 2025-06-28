@@ -10,6 +10,7 @@ link-citations: true
 toc-title: "Contents"
 toc-depth: 2
 figPrefix: "Figure"
+reference-section-title: "References"
 ---
 
 <div style="text-align: center; font-size: 80%; margin-top: 3em;">
@@ -1068,7 +1069,7 @@ into and between* equilibrium states.
 All this is the focus of section 6, where we will formally make the connections
 between the presence invariant and equilibrium states in systems of presence
 with the help of a very general form of Little's Law originally proven by
-Stidham.
+Brumelle [@brumelle71], and Heyman and Stidham [@heyman80].
 
 ### Signal Dynamics
 
@@ -2648,27 +2649,40 @@ deterministically reconstruct the current state of presence density from any
 starting point. This explanatory power is useful in its own right, as we will
 soon see.
 
+
+### The Presence Invariant and Rate Conservation Laws
+
 This is our main point of departure in the presence calculus: we treat
 equilibrium not as a precondition for Little’s Law, but as a special case of a
-more general principle. We place the finite version of Little’s Law - in the
-general form of the presence invariant at the center of our analysis, because it
-continues to hold and yield meaningful insight even when the system is far from
-equilibrium—precisely the operating modes traditional queuing theory and other
-classical approaches de-emphasize, but where most real-world systems actually
-live.
+more general principle. 
 
-In fact, there is an even more general principle at work. Miyazawa was among the
-first to note the existence of a broader class of *rate conservation laws* that
-exhibit structural similarities to Little's Law across diverse domains. Sigman
-later demonstrated that the generalized form of Little’s Law can be viewed as an
-equivalent formulation of such rate conservation principles.
+We place the _finite_ version of Little’s Law—in the
+general form of the presence invariant—at the center of our analysis, because it
+continues to hold and yield meaningful insight even when the system is far from
+equilibrium. These are precisely the operating modes that traditional queueing
+theory and other classical approaches de-emphasize—but where most real-world
+systems actually live.
+
+In fact, a broader principle is at work. Miyazawa [@miyazawa94] was among the
+first to identify a general class of *rate conservation laws* that allow
+relationships like the generalized Little’s Law to be derived in wider settings.
+Sigman [@sigman91] showed that the generalized form of Little’s Law can be seen
+as an instance of such rate conservation principles.
+
+The document [The Presence Invariant and Rate Conservation Laws](./presence_invariant_and_rate_conservation_laws.html)
+in our theory track explores this connection in detail.
 
 From this perspective, the presence calculus offers constructive tools to
-_discover_ and formulate such laws within a domain. The interactions of
-element-boundary signals in any system of presences naturally give rise to rate
-conservation laws based on the principle of conserved signal mass. Mapping these
-laws back to the language of the domain appears to be a fruitful path toward
-uncovering the mechanisms by which systems in that domain evolve.
+_discover_ and formalize conservation laws within a given domain.
+
+> Every system of presences may be considered to generate a rate conservation law
+> when presence is interpreted according to the semantics of the domain.
+
+The interactions of element-boundary signals in any system of presences naturally
+give rise to rate conservation laws based on the principle of conserved signal mass.
+Mapping these back into the language of the domain appears to be a fruitful path
+for uncovering the mechanisms by which systems in that domain evolve.
+
 
 ## Visualizing Signal Dynamics
 
@@ -3146,10 +3160,9 @@ key contribution of the presence calculus in this regard.
 We will have much more say about using the tools of the presence calculus to
 create such feedback loops and steer systems in future posts.
 
-::: footer © 2025 Krishna Kumar. All rights reserved.
-:::
 
 
+---
 
 
 

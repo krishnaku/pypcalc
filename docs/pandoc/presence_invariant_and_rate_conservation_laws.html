@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>The Presence Invariant and Rate Conservation Laws</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Georgia, serif;
+      font-size: 19px;
+      line-height: 1.75;
+      background: #fff;
+      color: #111;
+
+      /* flex centering */
+      display: flex;
+      justify-content: center;
+    }
+
+    #page {
+      max-width: 880px;
+      width: 100%;
+      padding: 2.5rem 1.5rem;
+      box-sizing: border-box;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: Georgia, serif;
+      font-weight: bold;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    p {
+      margin: 1.25rem 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 2rem auto;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 1rem;
+      overflow-x: auto;
+      border-radius: 6px;
+    }
+
+    code {
+      font-family: SFMono-Regular, Consolas, monospace;
+      background: #f5f5f5;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+
+    blockquote {
+      margin: 2rem 0;
+      padding-left: 1rem;
+      border-left: 4px solid #ddd;
+      color: #666;
+      font-style: italic;
+    }
+
+    .subtitle, .author, .date {
+      color: #666;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    nav#TOC {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid #eee;
+      background: #fafafa;
+    }
+
+    figure {
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    figure img {
+      width: 600px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 2rem auto;
+    }
+
+
+    figcaption {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 0.75rem;
+    }
+
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+  <div id="page">
+            <header id="title-block-header">
+      <h1 class="title">The Presence Invariant and Rate Conservation
+Laws</h1>
+      <p class="subtitle"><span style="font-size:1.2em;">A
+measure-theoretic generalization</span></p>
+      <p class="author"><p>Dr. Krishna Kumar <em>The Polaris Advisor
+Program</em></p></p>
+      
+          </header>
+            <nav id="TOC" role="doc-toc">
+      <h2 id="toc-title">Contents</h2>
+      <ul>
+      <li><a href="#introduction" id="toc-introduction"><span
+      class="toc-section-number">1</span> Introduction</a></li>
+      <li><a href="#miyazawas-rate-conservation-law-rcl"
+      id="toc-miyazawas-rate-conservation-law-rcl"><span
+      class="toc-section-number">2</span> Miyazawa’s Rate Conservation
+      Law (RCL)</a></li>
+      <li><a
+      href="#the-presence-invariant-a-measure-theoretic-framework"
+      id="toc-the-presence-invariant-a-measure-theoretic-framework"><span
+      class="toc-section-number">3</span> The Presence Invariant: A
+      Measure-Theoretic Framework</a>
+      <ul>
+      <li><a href="#total-presence-mass"
+      id="toc-total-presence-mass"><span
+      class="toc-section-number">3.1</span> Total Presence Mass</a></li>
+      <li><a href="#marginal-densities"
+      id="toc-marginal-densities"><span
+      class="toc-section-number">3.2</span> Marginal Densities</a></li>
+      <li><a href="#the-generalized-presence-invariant"
+      id="toc-the-generalized-presence-invariant"><span
+      class="toc-section-number">3.3</span> The Generalized Presence
+      Invariant</a></li>
+      </ul></li>
+      <li><a
+      href="#the-link-presence-invariant-as-a-generalization-of-rcl"
+      id="toc-the-link-presence-invariant-as-a-generalization-of-rcl"><span
+      class="toc-section-number">4</span> The Link: Presence Invariant
+      as a Generalization of RCL</a>
+      <ul>
+      <li><a href="#bridging-measure-theory-and-stochastic-processes"
+      id="toc-bridging-measure-theory-and-stochastic-processes"><span
+      class="toc-section-number">4.1</span> Bridging Measure Theory and
+      Stochastic Processes</a></li>
+      <li><a href="#fubinis-theorem-as-a-foundation"
+      id="toc-fubinis-theorem-as-a-foundation"><span
+      class="toc-section-number">4.2</span> Fubini’s Theorem as a
+      Foundation</a></li>
+      </ul></li>
+      <li><a href="#summary" id="toc-summary"><span
+      class="toc-section-number">5</span> Summary</a></li>
+      <li><a href="#bibliography"
+      id="toc-bibliography">References</a></li>
+      </ul>
+    </nav>
+        <div
+        style="text-align: center; font-size: 80%; margin-top: 3em;">
+        <p>© 2025 Krishna Kumar. All rights reserved.</p>
+        </div>
+        <h1 data-number="1" id="introduction"><span
+        class="header-section-number">1</span> Introduction</h1>
+        <p>The <em>Presence Invariant</em> fundamentally expresses the
+        conservation of presence mass across distinct, interacting
+        domains: time and signals. This measure-theoretic framing
+        closely parallels the structure of <em>Rate Conservation Laws
+        (RCL)</em> in stochastic processes, particularly as formulated
+        by Masakiyo Miyazawa <span class="citation"
+        data-cites="miyazawa94"><a href="#ref-miyazawa94"
+        role="doc-biblioref">[1]</a></span>.</p>
+        <p>This document explores this connection, showing that the
+        Presence Invariant provides a <em>generalized, deterministic
+        conservation law</em> for any measurable presence distribution
+        over joint domains. We demonstrate that Miyazawa’s RCL emerges
+        as a specific instance of the Presence Invariant under the
+        additional assumptions of stochastic stationarity and the
+        interpretation of quantities as expectations.</p>
+        <p>The power of the generalized Presence Invariant, however, is
+        that it requires no such assumptions—as long as presence is
+        defined over a product measure space, the invariant holds by
+        construction.</p>
+        <p>This perspective echoes Little’s observation <span
+        class="citation" data-cites="little2011"><a
+        href="#ref-little2011" role="doc-biblioref">[2]</a></span> that
+        Sigman <span class="citation" data-cites="sigman91"><a
+        href="#ref-sigman91" role="doc-biblioref">[3]</a></span> has
+        shown the sample path proofs of the general form of Little’s
+        Law, <span class="math inline">\(H = \lambda G\)</span>, are
+        equivalent to the rate conservation laws of Miyazawa.</p>
+        <p>Our formulation of the Presence Invariant makes this
+        correspondence explicit by deriving the conservation law
+        directly from measure-theoretic assumptions, without requiring
+        stochastic stationarity or expectation-based
+        interpretations.</p>
+        <p>It generalizes both Little’s Law and Miyazawa’s Rate
+        Conservation Law. Rather than indexing presence by items or
+        arrival processes, we define it over an arbitrary product
+        measure space and use Fubini’s Theorem to show that all
+        quantities and relationships in both laws arise as consequences
+        of marginalizing an integrable density over this space.</p>
+        <p>This removes the need for stationarity, stochasticity, or
+        item-based indexing. The invariant holds by construction
+        whenever presence is represented as an integrable density over a
+        product of measurable domains.</p>
+        <h1 data-number="2"
+        id="miyazawas-rate-conservation-law-rcl"><span
+        class="header-section-number">2</span> Miyazawa’s Rate
+        Conservation Law (RCL)</h1>
+        <p>In the context of stationary queueing systems and marked
+        point processes, Miyazawa’s Rate Conservation Law (RCL)
+        establishes a fundamental balance principle. It asserts
+        that:</p>
+        <blockquote>
+        <p>The *rate at which a measurable event (e.g., arrivals,
+        transitions, completions)<strong> occurs at a boundary is equal
+        to the </strong>rate at which it leaves**, under stationary
+        expectations.</p>
+        </blockquote>
+        <p>Formally, for a counting process ( N(t) ), the rate is often
+        defined as ( r( t) = _{} [N(t + ) - N(t)] ). In a stable system,
+        this incoming rate is matched by an outgoing rate: ( [] = []
+        ).</p>
+        <p>Miyazawa’s framework, often leveraging <strong>Palm
+        calculus</strong>, provides a rigorous foundation for invariants
+        such as Little’s Law, typically expressed in the form: <span
+        class="math display">\[\mathbb{E}[H] = \lambda \cdot
+        \mathbb{E}[G],\]</span> where:</p>
+        <ul>
+        <li>( H ): the (expected) number of entities in the system</li>
+        <li>( ): the (expected) arrival rate</li>
+        <li>( G ): the (expected) time spent in the system</li>
+        </ul>
+        <p>A key aspect of this formulation is its reliance on
+        <strong>expected values</strong> and <em> </em>stochastic
+        assumptions<strong>, particularly </strong>stationarity**, which
+        implies that the statistical properties of the process do not
+        change over time.</p>
+        <h1 data-number="3"
+        id="the-presence-invariant-a-measure-theoretic-framework"><span
+        class="header-section-number">3</span> The Presence Invariant: A
+        Measure-Theoretic Framework</h1>
+        <p>The Presence Calculus adopts a measure-theoretic approach to
+        define and quantify presence, independent of stochastic
+        assumptions. We model presence as a quantity distributed over a
+        <strong>product space</strong> formed from two orthogonal
+        measurable domains:</p>
+        <ul>
+        <li>A <strong>time domain</strong> <span
+        class="math inline">\(T\)</span>, equipped with a sigma-algebra
+        <span class="math inline">\(\mathcal{F}_T\)</span> and a measure
+        <span class="math inline">\(\mu_T\)</span> (e.g., the Lebesgue
+        measure <span class="math inline">\(\lambda\)</span> for
+        continuous time, or a counting measure for discrete time
+        points).</li>
+        <li>A <strong>signal domain</strong> <span
+        class="math inline">\(S\)</span>, equipped with a sigma-algebra
+        <span class="math inline">\(\mathcal{F}_S\)</span> and a measure
+        <span class="math inline">\(\mu_S\)</span> (typically a counting
+        measure or a weighted variant over a discrete set of
+        signals).</li>
+        </ul>
+        <p>This leads to the <strong>product measurable space </strong>
+        <span class="math inline">\((T \times S, \mathcal{F}_T \otimes
+        \mathcal{F}_S)\)</span> and the <strong>product measure
+        </strong> <span class="math inline">\(\mu = \mu_T \otimes
+        \mu_S\)</span>.</p>
+        <p>Let <span class="math inline">\(f: T \times S \to
+        \mathbb{R}_{\geq 0}\)</span> be a measurable function
+        representing the <strong>presence density</strong> over this
+        joint domain. The function <span
+        class="math inline">\(f\)</span> is assumed to be integrable
+        under the product measure <span
+        class="math inline">\(\mu\)</span>.</p>
+        <h2 data-number="3.1" id="total-presence-mass"><span
+        class="header-section-number">3.1</span> Total Presence
+        Mass</h2>
+        <p>The <strong>total presence mass</strong> (<span
+        class="math inline">\(A\)</span>) accumulated across the full
+        product space ( e.g., over a finite observation window) is
+        defined as the joint integral of the presence density: <span
+        class="math display">\[A = \iint_{T \times S} f(t, s)\,
+        d\mu_T(t)\, d\mu_S(s).\]</span></p>
+        <h2 data-number="3.2" id="marginal-densities"><span
+        class="header-section-number">3.2</span> Marginal Densities</h2>
+        <p>We define marginal densities by integrating out one of the
+        variables:</p>
+        <ul>
+        <li><strong>Presence per unit time</strong> (<span
+        class="math inline">\(D_T(t)\)</span>): This represents the
+        total presence density across all signals at a specific point in
+        time. <span class="math display">\[
+        D_T(t) = \int_S f(t, s)\, d\mu_S(s).
+        \]</span></li>
+        <li><strong>Presence per signal</strong> (<span
+        class="math inline">\(D_S(s)\)</span>): This represents the
+        total accumulated presence for a specific signal across the
+        entire observed time interval. <span class="math display">\[
+        D_S(s) = \int_T f(t, s)\, d\mu_T(t).
+        \]</span> These marginal densities avoid reliance on stochastic
+        assumptions like ergodicity or stationarity, providing a
+        deterministic and structurally invariant description of observed
+        presence.</li>
+        </ul>
+        <h2 data-number="3.3"
+        id="the-generalized-presence-invariant"><span
+        class="header-section-number">3.3</span> The Generalized
+        Presence Invariant</h2>
+        <p>By defining average presence densities over their respective
+        domains: <span class="math display">\[\bar{D}_T =
+        \frac{A}{\mu_T(T)}, \quad \bar{D}_S =
+        \frac{A}{\mu_S(S)},\]</span> where <span
+        class="math inline">\(\mu_T(T)\)</span> and <span
+        class="math inline">\(\mu_S(S)\)</span> are the finite measures
+        (extents) of the time and signal domains, respectively.</p>
+        <p>The <strong>generalized presence invariant</strong> then
+        states the proportional relationship between these average
+        densities: <span
+        class="math display">\[\frac{\bar{D}_S}{\bar{D}_T} =
+        \frac{\mu_T(T)}{\mu_S(S)}.\]</span> This fundamental
+        relationship reflects the conservation of total presence mass,
+        ensuring that marginal densities are scaled by the ratio of the
+        measures of their support domains.</p>
+        <h1 data-number="4"
+        id="the-link-presence-invariant-as-a-generalization-of-rcl"><span
+        class="header-section-number">4</span> The Link: Presence
+        Invariant as a Generalization of RCL</h1>
+        <p>The connection between the measure-theoretic Presence
+        Invariant and Miyazawa’s stochastic RCL is established by
+        recognizing how the components of the Presence Invariant map to,
+        and generalize, the terms in <span
+        class="math inline">\(\mathbb{E}[H] = \lambda \cdot
+        \mathbb{E}[G]\)</span>.</p>
+        <p>Let’s define the <strong>co-presence rate</strong> as the
+        ratio of the “size” of the signal domain to the “size” of the
+        time domain within an observation window: <span
+        class="math display">\[\text{Co-Presence Rate} =
+        \frac{\mu_S(S)}{\mu_T(T)}.\]</span> In many practical scenarios,
+        where <span class="math inline">\(\mu_S\)</span> is a counting
+        measure over <span class="math inline">\(N\)</span> active
+        signals and <span class="math inline">\(\mu_T\)</span>
+        represents a time duration <span
+        class="math inline">\(T\)</span>, this becomes the familiar
+        <span class="math inline">\(\frac{N}{T}\)</span> ratio. This
+        ratio quantifies the “density of signals per unit time” induced
+        by the co-presence.</p>
+        <p>Rearranging the generalized presence invariant, we get: <span
+        class="math display">\[\bar{D}_T = \frac{\mu_S(S)}{\mu_T(T)}
+        \cdot \bar{D}_S.\]</span> This form explicitly highlights the
+        structural analogy:</p>
+        <ul>
+        <li><strong><span class="math inline">\(\bar{D}_T\)</span>
+        (Average Presence per Unit Time):</strong> This term represents
+        the overall density of presence in the system, averaged over
+        time. It is directly analogous to <span
+        class="math inline">\(\mathbb{E}[H]\)</span> (the expected
+        number of entities in the system) in Little’s Law, representing
+        the “amount of stuff” present at any given moment.</li>
+        <li><strong><span
+        class="math inline">\(\frac{\mu_S(S)}{\mu_T(T)}\)</span>
+        (Co-Presence Rate):</strong> This term is the generalized “rate”
+        at which signals are co-present per unit of time. It is
+        analogous to <span class="math inline">\(\lambda\)</span> (the
+        arrival rate) in Little’s Law, capturing the “rate of flow” into
+        or through the system.</li>
+        <li><strong><span class="math inline">\(\bar{D}_S\)</span>
+        (Average Presence per Signal):</strong> This term represents the
+        average total presence accumulated by each signal. It is
+        analogous to <span class="math inline">\(\mathbb{E}[G]\)</span>
+        (the expected time spent in the system or service time per
+        entity) in Little’s Law, representing the “average work” or
+        “average duration” associated with each signal.</li>
+        </ul>
+        <p>Thus, the Presence Invariant, expressed as <span
+        class="math inline">\(\bar{D}_T =
+        \left(\frac{\mu_S(S)}{\mu_T(T)}\right) \cdot \bar{D}_S\)</span>,
+        structurally mirrors Miyazawa’s <span
+        class="math inline">\(\mathbb{E}[H] = \lambda \cdot
+        \mathbb{E}[G]\)</span>.</p>
+        <h2 data-number="4.1"
+        id="bridging-measure-theory-and-stochastic-processes"><span
+        class="header-section-number">4.1</span> Bridging Measure Theory
+        and Stochastic Processes</h2>
+        <p>The fundamental link here is that <strong>measure theory
+        provides the bedrock for probability theory and, consequently,
+        stochastic process theory.</strong></p>
+        <ul>
+        <li><strong>Probability as a Measure:</strong> A probability
+        space is a specific type of measure space where the measure
+        (probability) of the entire sample space is 1.</li>
+        <li><strong>Expectations as Integrals:</strong> The expectation
+        of a random variable in stochastic process theory is defined as
+        an integral with respect to a probability measure. For instance,
+        <span class="math inline">\(\mathbb{E}[X] = \int X
+        dP\)</span>.</li>
+        <li><strong>Stochastic Processes on Measure Spaces:</strong>
+        Stochastic processes often involve analyzing integrals (and thus
+        expectations) over time or state spaces, which are themselves
+        constructed on measure-theoretic foundations. Palm calculus,
+        used by Miyazawa, relies heavily on advanced measure-theoretic
+        concepts.</li>
+        </ul>
+        <p>The Presence Calculus leverages general Lebesgue measures (or
+        other <span class="math inline">\(\sigma\)</span> -finite
+        measures) over arbitrary time and signal domains. This means its
+        invariants hold for any measurable function <span
+        class="math inline">\(f(t,s)\)</span>, regardless of whether
+        <span class="math inline">\(f\)</span> arises from a stochastic
+        process or exhibits stationary behavior.</p>
+        <p><strong>Miyazawa’s RCL becomes a special case of the Presence
+        Invariant when:</strong></p>
+        <ol type="1">
+        <li><strong>Quantities are interpreted as Expectations:</strong>
+        The averages <span class="math inline">\(\bar{D}_T\)</span> and
+        <span class="math inline">\(\bar{D}_S\)</span> are taken as
+        expected values, typically over long-run averages or ensemble
+        averages, i.e., <span class="math inline">\(\bar{D}_T \to
+        \mathbb{E}[H]\)</span>, <span
+        class="math inline">\(\frac{\mu_S(S)}{\mu_T(T)} \to
+        \lambda\)</span>, and <span class="math inline">\(\bar{D}_S \to
+        \mathbb{E}[G]\)</span>.</li>
+        <li><strong>Stationarity Assumptions are Met:</strong> The
+        underlying stochastic process generating the “presence” is
+        stationary, ensuring that the long-run averages or expectations
+        are well-defined and constant over time. This is a critical
+        condition for many forms of Little’s Law and RCL.</li>
+        </ol>
+        <h2 data-number="4.2" id="fubinis-theorem-as-a-foundation"><span
+        class="header-section-number">4.2</span> Fubini’s Theorem as a
+        Foundation</h2>
+        <p><strong>Fubini’s Theorem</strong> is central to the
+        consistency of this framework. It ensures that the total
+        presence mass can be computed by integrating over time first and
+        then over signals, or vice versa, without altering the result:
+        <span class="math display">\[
+        \iint_{T \times S} f(t, s)\, d\mu_T(t)\, d\mu_S(s)
+        = \int_T \left( \int_S f(t, s)\, d\mu_S(s) \right) d\mu_T(t)
+        = \int_S \left( \int_T f(t, s)\, d\mu_T(t) \right) d\mu_S(s).
+        \]</span> This integral symmetry precisely supports the
+        structure of the invariant, allowing for coherent
+        “marginalization” of presence mass and confirming the internal
+        consistency of flow conservation principles in both measure
+        theory and, by extension, RCL theory.</p>
+        <h1 data-number="5" id="summary"><span
+        class="header-section-number">5</span> Summary</h1>
+        <p>The*Presence Invariant** is a powerful*generalized,
+        measure-theoretic conservation law** that applies to any
+        measurable distribution of presence across time and signal
+        domains.</p>
+        <ul>
+        <li>It states that <strong>presence mass is conserved, and
+        marginal densities are scaled by the ratio of the measures of
+        their support domains</strong>.</li>
+        <li>This framework provides a <strong>deterministic
+        (retrospective)</strong> view of system behavior, as it directly
+        describes the observed accumulation and distribution of presence
+        mass over defined intervals, without requiring probabilistic
+        assumptions or stationarity.</li>
+        <li><strong>Miyazawa’s Rate Conservation Law (RCL)</strong>,
+        fundamental to stochastic queueing theory, can be understood as
+        a *special case** of the Presence Invariant. When the presence
+        densities are interpreted as expected values and the system
+        operates under conditions of stochastic stationarity, the
+        Presence Invariant reduces to the familiar expectation-based
+        form of Little’s Law and other RCLs.</li>
+        </ul>
+        <p>Thus, the Presence Calculus offers a broader and more
+        fundamental lens for analyzing flow and conservation, applicable
+        even in complex, non-stationary systems where traditional
+        stochastic models face significant limitations.</p>
+        <h1 class="unnumbered" id="bibliography">References</h1>
+        <div id="refs" class="references csl-bib-body"
+        data-entry-spacing="0" role="list">
+        <div id="ref-miyazawa94" class="csl-entry" role="listitem">
+        <div class="csl-left-margin">[1] </div><div
+        class="csl-right-inline">M. Miyazawa, <span>“Rate conservation
+        laws: A survey,”</span> <em>Queueing Systems</em>, vol. 15, no.
+        1–4, pp. 1–58, 1994.</div>
+        </div>
+        <div id="ref-little2011" class="csl-entry" role="listitem">
+        <div class="csl-left-margin">[2] </div><div
+        class="csl-right-inline">J. Little, <span>“Little’s law as
+        viewed on its 50th anniversary,”</span> <em>Operations
+        Research</em>, vol. 59, no. 3, pp. 536–549, 2011.</div>
+        </div>
+        <div id="ref-sigman91" class="csl-entry" role="listitem">
+        <div class="csl-left-margin">[3] </div><div
+        class="csl-right-inline">K. Sigman, <span>“A note on a sample
+        path rate conservation law and it’s relationship to <span
+        class="math inline">\(H=\lambda G\)</span>,”</span> <em>Advanced
+        App. Probability</em>, vol. 23, no. 1–4, pp. 662–665,
+        1991.</div>
+        </div>
+        </div>
+      </div>
+</body>
+</html>
