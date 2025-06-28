@@ -388,6 +388,10 @@ Introduction</span></p>
       fields</a></li>
       <li><a href="#attractors" id="toc-attractors"><span
       class="toc-section-number">7.4</span> Attractors</a></li>
+      <li><a href="#feedback-loops-and-steering"
+      id="toc-feedback-loops-and-steering"><span
+      class="toc-section-number">7.5</span> Feedback loops and
+      steering</a></li>
       </ul></li>
       </ul>
     </nav>
@@ -5926,10 +5930,16 @@ Introduction</span></p>
         <p>Here are some important observations from the flow field in
         Figure 30:</p>
         <ul>
-        <li>Each row of vectors represents the characteristics of flow
-        across observation windows of increasing length.</li>
+        <li>Each row of vectors represents the dominant characteristic
+        of flow across observation windows of the same length, i.e, at
+        the same timescale.</li>
         <li>Vectors with similar length and direction within a row
-        indicate convergence toward a common flow pattern.</li>
+        indicate convergence toward a common flow pattern at that
+        timescale.</li>
+        <li>Changes in direction or magnitude of vectors along a row
+        indicate non-convergence at that timescale.</li>
+        <li>We can see that this system starts to converge at relative
+        small intervals.</li>
         <li>The bottom row (shortest intervals) shows the greatest
         variation in vector direction, reflecting more volatile behavior
         at finer time scales.</li>
@@ -5945,14 +5955,6 @@ Introduction</span></p>
         alignment in magnitude and direction becomes visible is an
         important system property.</li>
         </ul>
-        <p>We should also note that while flow fields are useful to a
-        get a quick high level signature of flow dynamics in a system of
-        presences, they also shine when we reason closely about the
-        local and global changes in the field, and trace these back to
-        the specific drivers of the change.</p>
-        <p>We will present many more examples and use cases of such
-        reasoning with flow fields over specific systems in future
-        posts.</p>
         <h3 data-number="7.4" id="attractors"><span
         class="header-section-number">7.4</span> Attractors</h3>
         <p>In the last section, we showed how we could mathematically
@@ -6419,6 +6421,34 @@ Introduction</span></p>
         concentrate across temporal scales, revealing both volatility at
         finer scales and convergence toward attractor bands at coarser
         scales.</p>
+        <h3 data-number="7.5" id="feedback-loops-and-steering"><span
+        class="header-section-number">7.5</span> Feedback loops and
+        steering</h3>
+        <p>We should also note that while flow fields and trajectory
+        maps are useful to a get a quick high level signature of flow
+        dynamics in a system of presences as above, they shine when we
+        use them reason closely about the local and global changes in
+        the field, and trace these back to the specific drivers of the
+        change - incidence rate, mass contributions, or both.</p>
+        <p>The flow field representation, in particular, lets us
+        reliably attribute a <em>proximate cause</em> to a local change
+        in presence density, and this is the key to being able to build
+        feedback loops into the system to steer it in a desired
+        direction.</p>
+        <p>However, to act on this insight effectively, we need to drop
+        back down into the domain and what presence density, incidence
+        rate, and mass contribution mean for a <em>specific</em> system
+        of presences. It also requires careful choices about timescale
+        at which we sample presence density, the timescales at which we
+        sense changes, and timescales at which we intervene in the
+        system to change direction.</p>
+        <p>What is important to note here, is that underlying machinery
+        to <em>detect and respond to change</em> is signal and timescale
+        agnostic and this is the key contribution of the presence
+        calculus in this regard.</p>
+        <p>We will have much more say about using the tools of the
+        presence calculus to create such feedback loops and steer
+        systems in future posts.</p>
         <section id="footnotes"
         class="footnotes footnotes-end-of-document" role="doc-endnotes">
         <hr />

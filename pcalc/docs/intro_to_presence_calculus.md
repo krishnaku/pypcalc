@@ -2964,10 +2964,12 @@ flow field are already observable.
 
 Here are some important observations from the flow field in [@fig:flow-field]:
 
-- Each row of vectors represents the characteristics of flow across observation
-  windows of increasing length.
+- Each row of vectors represents the dominant characteristic of flow across observation
+  windows of the same length, i.e, at the same timescale. 
 - Vectors with similar length and direction within a row indicate convergence
-  toward a common flow pattern.
+  toward a common flow pattern at that timescale.
+- Changes in direction or magnitude of vectors along a row indicate non-convergence at that timescale.
+- We can see that this system starts to converge at relative small intervals. 
 - The bottom row (shortest intervals) shows the greatest variation in vector
   direction, reflecting more volatile behavior at finer time scales.
 - In this bottom row, the leftmost and rightmost vectors transition from
@@ -2979,14 +2981,6 @@ Here are some important observations from the flow field in [@fig:flow-field]:
   which is expected in a small dataset. More generally, the lowest *level* at
   which such alignment in magnitude and direction becomes visible is an
   important system property.
-
-We should also note that while flow fields are useful to a get a quick high
-level signature of flow dynamics in a system of presences, they also shine when
-we reason closely about the local and global changes in the field, and trace
-these back to the specific drivers of the change. 
-
-We will present many more examples and use cases of such reasoning with flow
-fields over specific systems in future posts.
 
 ### Attractors
 
@@ -3111,6 +3105,31 @@ field: how presence densities evolve and concentrate across temporal scales,
 revealing both volatility at finer scales and convergence toward attractor bands
 at coarser scales.
 
+### Feedback loops and steering
+
+We should also note that while flow fields and trajectory maps are useful to a get a
+quick high level signature of flow dynamics in a system of presences as above,
+they shine when we use them reason closely about the local and global changes in the
+field, and trace these back to the specific drivers of the change - incidence
+rate, mass contributions, or both.
+
+The flow field representation, in particular, lets us reliably attribute a
+_proximate cause_ to a local change in presence density, and this is the key to
+being able to build feedback loops into the system to steer it in a desired
+direction.
+
+However, to act on this insight effectively, we need to drop back down into the
+domain and what presence density, incidence rate, and mass contribution mean for
+a _specific_ system of presences. It also requires careful choices about
+timescale at which we sample presence density, the timescales at which we sense
+changes, and timescales at which we intervene in the system to change direction.
+
+What is important to note here, is that underlying machinery to
+_detect and respond to change_ is signal and timescale agnostic and this is the
+key contribution of the presence calculus in this regard.
+
+We will have much more say about using the tools of the presence calculus to
+create such feedback loops and steer systems in future posts.
 
 
 
