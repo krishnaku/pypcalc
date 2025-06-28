@@ -10,7 +10,7 @@ link-citations: true
 toc-title: "Contents"
 toc-depth: 2
 figPrefix: "Figure"
-reference-section-title: "References"
+
 ---
 
 <div style="text-align: center; font-size: 80%; margin-top: 3em;">
@@ -3163,6 +3163,7 @@ create such feedback loops and steer systems in future posts.
 
 
 ---
+## References
 
 
 
