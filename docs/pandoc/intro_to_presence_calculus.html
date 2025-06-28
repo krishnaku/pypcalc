@@ -424,7 +424,7 @@ Introduction</span></p>
         <em>flow</em>, <em>stability</em>, <em>equilibrium</em>, and
         <em>coherence</em> for measurable signals in a domain.</p>
         <p>More importantly, it offers a uniform set of abstractions and
-        computational tools that connect path-dependent activity signals
+        computational tools that connect path-dependent domain signals
         to business-relevant measures such as delay, cost, revenue, and
         user experience.</p>
         <p>For software development, this enables the construction of
@@ -1340,11 +1340,13 @@ Introduction</span></p>
         <p>That this identity holds for <em>any</em> co-present subset
         over <em>any</em> finite observation window makes it a powerful
         constraint. It connects local behaviors of individual signals to
-        a global, observable quantity.</p>
-        <p>As we’ll see, this constraint—linking contributions from
-        parts of the system to measurable properties of the whole— are
-        central to how the calculus enables reasoning about the dynamics
-        of a system of presences.</p>
+        a global, observable quantity <a href="#fn7"
+        class="footnote-ref" id="fnref7"
+        role="doc-noteref"><sup>7</sup></a>.</p>
+        <p>As we’ll see, this constraint—linking local contributions to
+        global measurable structure—is central to how the calculus
+        enables reasoning about the dynamics of a system of
+        presences.</p>
         <h3 data-number="4.1" id="an-example-1"><span
         class="header-section-number">4.1</span> An example</h3>
         <p>To build intuition for these abstract terms, let’s look at a
@@ -1408,8 +1410,8 @@ Introduction</span></p>
         development, the mass contribution of that task over an
         observation interval is the portion of its duration that
         intersects the interval. This is also called the <em>residence
-        time</em> <a href="#fn7" class="footnote-ref" id="fnref7"
-        role="doc-noteref"><sup>7</sup></a> for the task in the
+        time</em> <a href="#fn8" class="footnote-ref" id="fnref8"
+        role="doc-noteref"><sup>8</sup></a> for the task in the
         observation window.</p>
         <figure id="fig:presence-invariant-binary">
         <img src="../assets/pandoc/presence_invariant_binary.png"
@@ -1548,8 +1550,8 @@ Introduction</span></p>
         <p>The length of each sampling interval is called the
         <em>sampling granularity</em>. This defines the smallest time
         resolution at which the <em>matrix</em> represents presence <a
-        href="#fn8" class="footnote-ref" id="fnref8"
-        role="doc-noteref"><sup>8</sup></a>.</p>
+        href="#fn9" class="footnote-ref" id="fnref9"
+        role="doc-noteref"><sup>9</sup></a>.</p>
         <p>The union of these intervals is called the <em>observation
         window</em> of the matrix.</p>
         <blockquote>
@@ -1614,8 +1616,8 @@ Introduction</span></p>
         windows during the integration step that computes the presence
         mass.</p>
         <p>In other words, this has no real impact on the behavior of
-        the invariant <a href="#fn9" class="footnote-ref" id="fnref9"
-        role="doc-noteref"><sup>9</sup></a> <em>provided we cover the
+        the invariant <a href="#fn10" class="footnote-ref" id="fnref10"
+        role="doc-noteref"><sup>10</sup></a> <em>provided we cover the
         timeline with our observations.</em></p>
         <p>The presence matrix encodes deep structural properties of a
         system of presences. Many of key concepts we want to highlight
@@ -1855,8 +1857,8 @@ Introduction</span></p>
         submatrix with non-zero values.</li>
         <li><span class="math inline">\(T\)</span> is the number of
         columns in the submatrix, measured in units of the sampling
-        granularity <a href="#fn10" class="footnote-ref" id="fnref10"
-        role="doc-noteref"><sup>10</sup></a>.</li>
+        granularity <a href="#fn11" class="footnote-ref" id="fnref11"
+        role="doc-noteref"><sup>11</sup></a>.</li>
         </ul>
         <blockquote>
         <p>Because <span class="math inline">\(A\)</span>, <span
@@ -3342,8 +3344,8 @@ Introduction</span></p>
         </ul>
         <p>This equation reflects the finite additivity of cumulative
         presence mass over rectangular regions in the presence matrix <a
-        href="#fn11" class="footnote-ref" id="fnref11"
-        role="doc-noteref"><sup>11</sup></a>.</p>
+        href="#fn12" class="footnote-ref" id="fnref12"
+        role="doc-noteref"><sup>12</sup></a>.</p>
         <p>So, the entire matrix—and thus, the system’s accumulation
         dynamics—is governed by a simple, local rule. Given the values
         on the diagonal, the rest of the matrix is completely
@@ -3360,9 +3362,9 @@ Introduction</span></p>
         chaotic processes. As long as the signals they generate are
         <em>measurable</em> they satisfy the finite additivity property
         and when we sample their <em>observed</em> presence masses, this
-        local recurrence always applies <a href="#fn12"
-        class="footnote-ref" id="fnref12"
-        role="doc-noteref"><sup>12</sup></a>.</p>
+        local recurrence always applies <a href="#fn13"
+        class="footnote-ref" id="fnref13"
+        role="doc-noteref"><sup>13</sup></a>.</p>
         <p>Combined with the presence invariant—which also holds at
         every level of this accumulation—this gives us a powerful
         framework for dissecting the dynamics of a system of
@@ -3372,9 +3374,9 @@ Introduction</span></p>
         Dynamics</h2>
         <p>Presence calculus concepts—such as presence mass, incidence
         rate, and density— are not unlike abstract physical notions like
-        force, mass, and acceleration <a href="#fn13"
-        class="footnote-ref" id="fnref13"
-        role="doc-noteref"><sup>13</sup></a>. In principle, these are
+        force, mass, and acceleration <a href="#fn14"
+        class="footnote-ref" id="fnref14"
+        role="doc-noteref"><sup>14</sup></a>. In principle, these are
         measurable quantities constrained by nature to behave in
         prescribed ways at a micro scale.</p>
         <p>Once we understand the rules governing their micro-scale
@@ -3766,9 +3768,9 @@ Introduction</span></p>
         under the sample path</figcaption>
         </figure>
         <blockquote>
-        <p>Each entry on the top row is an integral <a href="#fn14"
-        class="footnote-ref" id="fnref14"
-        role="doc-noteref"><sup>14</sup></a> and equals the <em>area
+        <p>Each entry on the top row is an integral <a href="#fn15"
+        class="footnote-ref" id="fnref15"
+        role="doc-noteref"><sup>15</sup></a> and equals the <em>area
         under a prefix of the sample path</em> represented by the
         diagonal.</p>
         </blockquote>
@@ -4295,8 +4297,8 @@ Introduction</span></p>
         both do, we should expect that their product —<br />
         and hence <span class="math inline">\(\Delta\)</span> —
         converges as well,and it does, with some technical conditions in
-        place<a href="#fn15" class="footnote-ref" id="fnref15"
-        role="doc-noteref"><sup>15</sup></a>.</p>
+        place<a href="#fn16" class="footnote-ref" id="fnref16"
+        role="doc-noteref"><sup>16</sup></a>.</p>
         <p>So, let’s write down precise definitions for the limits of
         <span class="math inline">\(\iota(t)\)</span> and<br />
         <span class="math inline">\(\bar{m}(t)\)</span> and examine how
@@ -5013,8 +5015,8 @@ Introduction</span></p>
         <p>For our purposes, it is safe to state that this relationship,
         and the conditions under which it holds, <em>constitute</em> a
         general form of Little’s Law for a system of presences <a
-        href="#fn16" class="footnote-ref" id="fnref16"
-        role="doc-noteref"><sup>16</sup></a>.</p>
+        href="#fn17" class="footnote-ref" id="fnref17"
+        role="doc-noteref"><sup>17</sup></a>.</p>
         <p>With the exception of certain carefully constructed
         pathological cases, the criteria we have outlined—bounded signal
         mass and balanced onset/reset rates—will typically suffice to
@@ -5139,9 +5141,9 @@ Introduction</span></p>
         signals evolve and interact over time—regardless of whether the
         underlying signals are random or not.</p>
         <p>Even when the signals have randomness, the <em>observed</em>
-        evolution of presence density is deterministic<a href="#fn17"
-        class="footnote-ref" id="fnref17"
-        role="doc-noteref"><sup>17</sup></a> and governed by the law of
+        evolution of presence density is deterministic<a href="#fn18"
+        class="footnote-ref" id="fnref18"
+        role="doc-noteref"><sup>18</sup></a> and governed by the law of
         conservation of presence mass—that is, the presence invariant.
         This determinism extends to any functional quantity that depends
         on presence density. As we will see, a large and operationally
@@ -6535,15 +6537,25 @@ Introduction</span></p>
         useful when interpreting the dynamics of the system.<a
         href="#fnref6" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn7"><p>We note that the residence time represents only
+        <li id="fn7"><p>As discussed in <a
+        href="./generalized_presence_invariant.html"><em>The Presence
+        Invariant – a Measure-Theoretic Generalization</em></a>, the
+        presence invariant admits a formal generalization: whenever two
+        orthogonal measure spaces are involved, and accumulated presence
+        mass resides in their product space, a similar invariant
+        emerges. This reveals that the presence invariant is not a
+        superficial constraint, but a deep structural property rooted in
+        the measurability of systems of presence.<a href="#fnref7"
+        class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+        <li id="fn8"><p>We note that the residence time represents only
         the portion of the duration of the task in some arbitrary
         observation window. This is a different quantity from the
         overall duration of the task from start to finish (or from
         signal onset to reset in our terminology). This is the more
         familiar metric typically called the cycle time.<a
-        href="#fnref7" class="footnote-back"
+        href="#fnref8" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn8"><p>The sampling granularity is typically coarser
+        <li id="fn9"><p>The sampling granularity is typically coarser
         than time resolution of the underlying signals. For example, the
         signals themselves may be timestamped at millisecond
         granularity, while the presence matrix may be constructed by
@@ -6553,9 +6565,9 @@ Introduction</span></p>
         granularity, we may arrive at very different matrices. A
         presence matrix is therefore an observer-relative analytical
         construct, derived from a system of presences—not a direct
-        representation of the underlying signals.<a href="#fnref8"
+        representation of the underlying signals.<a href="#fnref9"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn9"><p>It is equally valid to define <span
+        <li id="fn10"><p>It is equally valid to define <span
         class="math inline">\(N\)</span> as the number of distinct
         <em>presences</em> in the observation window. For example for
         the signal <span class="math inline">\(P2\)</span> in Figure 5,
@@ -6571,9 +6583,9 @@ Introduction</span></p>
         ultimately a modeling decision that depends on what you are
         trying to measure. By default we will assume that <span
         class="math inline">\(N\)</span> is measured at the signal
-        granularity.<a href="#fnref9" class="footnote-back"
+        granularity.<a href="#fnref10" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn10"><p>Assuming <span class="math inline">\(N\)</span>
+        <li id="fn11"><p>Assuming <span class="math inline">\(N\)</span>
         and <span class="math inline">\(T\)</span> can be mapped to row
         and column counts of the presence matrix is a simplification. It
         relies on the assumption that each sampling interval is equal
@@ -6587,9 +6599,9 @@ Introduction</span></p>
         structure, and need to be specified as part of the modeling
         process. To avoid complicating matters, we will use this simple
         mapping, which covers a large number of practical use cases, as
-        the default.<a href="#fnref10" class="footnote-back"
+        the default.<a href="#fnref11" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn11"><p>Recall that we required signals to be
+        <li id="fn12"><p>Recall that we required signals to be
         measurable functions. This implies presence masses are measures
         over time intervals. Given intervals <span
         class="math inline">\(A\)</span> and <span
@@ -6605,29 +6617,29 @@ Introduction</span></p>
         and <span class="math inline">\(B\)</span> intersect, the
         subtraction removes the presence mass of overlap <span
         class="math inline">\([i{+}1, j{-}1]\)</span> from the sum to
-        avoid double-counting it.<a href="#fnref11"
+        avoid double-counting it.<a href="#fnref12"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn12"><p>We’ll note at this point, that the determinism
+        <li id="fn13"><p>We’ll note at this point, that the determinism
         is <em>retrospective</em>. Since it is based on
         <em>observed</em> presence, this recurrence in no way implies we
         can predict how the presences will evolve in the future. We will
         have more to say about this in the next section.<a
-        href="#fnref12" class="footnote-back"
+        href="#fnref13" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn13"><p>Though we should hasten to add that this is
+        <li id="fn14"><p>Though we should hasten to add that this is
         just a loose analogy—we do not imply any conceptual
-        equivalence.<a href="#fnref13" class="footnote-back"
+        equivalence.<a href="#fnref14" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn14"><p>Specifically, the Riemann sum approximation of
+        <li id="fn15"><p>Specifically, the Riemann sum approximation of
         the integral <span class="math display">\[
         A(1, j) = \sum_{k=1}^j A(k,k)
         \approx \int_0^j \left( \sum_{(e,b)} P_{(e,b)}(t) \right) dt
         \]</span> where each <span
         class="math inline">\(P_{(e,b)}(t)\)</span> represents the
         presence density function of an underlying element-boundary
-        signal.<a href="#fnref14" class="footnote-back"
+        signal.<a href="#fnref15" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn15"><p>While it’s tempting to assume that the limit of
+        <li id="fn16"><p>While it’s tempting to assume that the limit of
         a product is simply the product of the limits, this doesn’t
         automatically hold here. The long-run value of presence density,
         <span class="math inline">\(\Delta\)</span>, is defined as a
@@ -6636,9 +6648,9 @@ Introduction</span></p>
         number of signals. Since these limits are taken over different
         denominators, additional technical conditions are required to
         ensure that their product equals the limit of the product.<a
-        href="#fnref15" class="footnote-back"
+        href="#fnref16" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn16"><p>This general form of Little’s Law is usually
+        <li id="fn17"><p>This general form of Little’s Law is usually
         presented in the form <span class="math inline">\(H = \lambda
         \cdot G.\)</span> In our notation <span class="math inline">\(H
         = \Delta\)</span>, <span class="math inline">\(\lambda =
@@ -6648,9 +6660,9 @@ Introduction</span></p>
         <span class="math inline">\(\delta, \iota, \text{ and }
         \bar{m}\)</span> of the presence invariant, but the underlying
         terms can be shown to be equivalent to each other.<a
-        href="#fnref16" class="footnote-back"
+        href="#fnref17" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn17"><p>It is worth emphasizing the word
+        <li id="fn18"><p>It is worth emphasizing the word
         <em>observed</em> in this statement. Even though the evolution
         is deterministic, this does not mean the future behavior of the
         system is predictable based on past behavior. That depends
@@ -6659,7 +6671,7 @@ Introduction</span></p>
         sufficiently complete history of the system, we can
         deterministically reconstruct the current state of presence
         density from any starting point. This explanatory power is
-        useful in its own right, as we will soon see.<a href="#fnref17"
+        useful in its own right, as we will soon see.<a href="#fnref18"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
         </ol>
         </section>

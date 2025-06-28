@@ -37,7 +37,7 @@ used—but poorly defined—concepts such as *flow*, *stability*, *equilibrium*,
 *coherence* for measurable signals in a domain.
 
 More importantly, it offers a uniform set of abstractions and computational
-tools that connect path-dependent activity signals to business-relevant
+tools that connect path-dependent domain signals to business-relevant
 measures such as delay, cost, revenue, and user experience.
 
 For software development, this enables the construction of bespoke,
@@ -917,12 +917,19 @@ time interval.
 
 That this identity holds for *any* co-present subset over *any* finite
 observation window makes it a powerful constraint. It connects local behaviors
-of individual signals to a global, observable quantity.
+of individual signals to a global, observable quantity [^F-general-invariant].
 
-As we’ll see, this constraint—linking contributions from parts of the system to
-measurable properties of the whole— are central to how the calculus enables
-reasoning about the dynamics of a system of presences.
+[^F-general-invariant]: As discussed in [*The Presence Invariant – a Measure-Theoretic
+Generalization*](./generalized_presence_invariant.html), the presence invariant
+admits a formal generalization: whenever two orthogonal measure spaces are
+involved, and accumulated presence mass resides in their product space, a
+similar invariant emerges. This reveals that the presence invariant is not a
+superficial constraint, but a deep structural property rooted in the
+measurability of systems of presence.
 
+As we’ll see, this constraint—linking local contributions to global measurable
+structure—is central to how the calculus enables reasoning about the dynamics of
+a system of presences.
 
 ### An example
 
