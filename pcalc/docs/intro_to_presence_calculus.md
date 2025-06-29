@@ -163,12 +163,12 @@ the concepts from first principles and develop new applications.
 
 Finally, for those who want to dive deeper into the formal mathematical  
 underpinnings of the calculus, we have [The Theory Track](../theory_track.html)
-We link to specific documents in this track for in-depth mathematical treatments
-of the concepts we discuss here. These are terse, technical documents that go
-into more detail than the average practitioner will need to read or understand,
-but should be straightforward for a reader with a basic background in real
-analysis to clearly grasp the mathematical definitions and claims behind the
-calculus.
+These are terse, technical documents that go into more detail than the average
+practitioner will need to read or understand, but should be straightforward for
+a reader with a background in real analysis to clearly grasp the
+mathematical definitions and claims behind the calculus. In the footnotes and
+references, we link to specific documents in this track for deeper mathematical
+treatments of the concepts we discuss here.
 
 Let's jump in...
 
