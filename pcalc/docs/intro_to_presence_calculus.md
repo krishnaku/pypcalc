@@ -168,61 +168,67 @@ mathematical definitions and claims behind the calculus. In the footnotes and
 references, we link to specific documents in this track for deeper mathematical
 treatments of the concepts we discuss here.
 
-### Personal note
+### A personal note
 
 This work represents the culmination of nearly ten years of research, product
 development, and field work in operations management in software product
 development in [The Polaris Advisor Program](https://exathink.com).
 
-The foundations were laid while I was developing [Polaris](https://www.exathink.com/why-us), a
+The foundations were laid between 2017 and 2022 while I was developing [Polaris](https://www.exathink.com/why-us), a
 proprietary measurement platform for software product development that
 powers our program. But—as is the nature of evolving software platforms—ideas,
 theories, and practice all blended together over the years into a somewhat
 incoherent jumble, making it hard to distinguish what was fundamental from what
 was anecdotal practice.
 
-Most of these developments arose from deep frustrations with the inadequacy of
-existing measurement techniques to realistically model the systems we _actually_ work in.
-
+I was also deeply frustrated with the inadequacy of existing measurement
+techniques to realistically model the systems we _actually_ work in.
 Personally, as someone who has been a software developer for nearly 30 years,
 building measurements systems in software over the last decade has highlighted,
-in vivid detail, the shortcomings of our ability to measure _anything_
+in vivid detail, the shortcomings in our ability to measure _anything_
 meaningful and actionable about software development work.
 
-The presence calculus is a foundational step in addressing this problem.
+The presence calculus is a foundational step in addressing this problem, but it
+is only a starting point. It makes no grand claims beyond what is stated
+mathematically here. Much work still remains to explore its applications, and
+its practical limits will become clear as we test its applicability in various
+contexts.
 
-> In my view, it represents a fundamental departure in how we approach measurement in software,
-> distinguishing it both from the purely empirical and statistical techniques that are in the
-> mainstream today and also from ideas imported from other domains like
+> That said, in my view, the calculus represents a fundamental departure in how
+> we approach measurement in software,
+> distinguishing it both from the purely empirical and statistical techniques
+> that are in the mainstream today and also from ideas imported from other domains like
 > manufacturing—another significant branch.
 
-The calculus allows us to model and measure software development
-as it is—messy, irregular, deeply time- and history-dependent work involving
+It allows us to model and measure software development as it is—messy,
+irregular, highly variable, deeply time- and history-dependent work involving
 humans, machines, and codified knowledge, forming complex, interconnected
-systems—where being able to observe what _is_ in richer detail is a prerequisite
-to reasoning about the system.
+systems—where being able to move beyond proxies and observe what _is_ in rich
+detail is a prerequisite to reasoning quantitatively about the system.
 
-The calculus formally identifies the mathematical foundations behind how we can
-better _measure_ properties of such real-world systems without compromise and
-adapt the ideas that are fundamental to this messy world to build measurement
-models that reflect the reality of software development as it _is_.
+It formally identifies the mathematical foundations behind how we can do
+this—how to better _measure_ properties of such real-world systems without
+compromise, adapt the ideas that are fundamental to this messy world, and build
+measurement models that reflect the reality of software development. 
 
-In doing this, we draw upon and re-contextualize many existing ideas in the field.
-For example, Little's Law plays a foundational role in the presence calculus.
-But this is because, mathematically, Little's Law encodes some deep and general
-structural properties of _arbitrary time-varying signals_ in _any_ domain.
+In developing the presence calculus, I drew upon and re-contextualized many
+existing ideas in the field. For example, Little's Law plays a foundational role
+in the presence calculus. But this is because, mathematically, Little's Law
+encodes some deep and general structural properties of _arbitrary time-varying
+signals_ in _any_ domain.
 
-The version we see commonly in software development contexts is a rather trivial
-_special case_ of the underlying mathematical concepts. It is mostly irrelevant
-in real-world software systems. This is because the mainstream understanding of
-Little's Law in software is based on nearly 50-year-old ideas developed in the
-context of studying queueing systems and their application to manufacturing. It
-does not reflect the modern mathematical understanding of what this law means.
+The version we use commonly in the software industry is a rather trivial
+_special case_ of the underlying mathematical concepts. This version is based on
+nearly 50-year-old ideas developed in the context of studying queueing systems
+and their application to manufacturing. It does not reflect the modern
+mathematical developments in the theories underpinning the law. In fact, those
+developments are materially important to apply it correctly in the
+software development context.
 
-The presence calculus starts from this up-to-date mathematical view but positions
-it within a more general, measure-theoretic mathematical framework.
+The presence calculus starts from this up-to-date view but goes beyond this to
+position this law within a more general, measure-theoretic mathematical framework.
 
-When we start from the presence calculus, we can derive a _provably correct_
+When we start from the presence calculus framing, we can derive a _provably correct_
 version of Little's Law from first principles _for any measurement context_
 involving time-varying signals. It is no longer simply a formula copied from
 Lean manufacturing.
@@ -234,11 +240,17 @@ This has fundamental implications on our ability to reason about these
 measurements—well beyond what is possible with statistical or probabilistic
 techniques alone.
 
-Statistical and probabilistic techniques, in particular, need much more careful
-treatment when modeling non-stationary, time varying behavior of complex
-systems. Care that is very often missing in the mainstream applications of these
-techniques in the industry, for example, in the field of developer experience
-and in mainstream developer productivity measurement products.
+Those statistical and probabilistic techniques, too, require much more careful
+treatment when modeling the non-stationary, time-varying behaviors that are the
+default in real-world software systems. However, that care is very often
+missing in the mainstream applications of these techniques in industry—for
+example, in the field of developer experience and in mainstream developer
+productivity measurement products, where statistical measures are applied to
+time-varying signals with nary a concern about such technicalities.
+
+The presence calculus offers a much more careful and rigorous foundation for
+bridging this gap—quite different from standard statistical approaches to
+dealing with time-varying data.
 
 In this way, I believe the presence calculus has deep and fundamental
 applications for the software domain and beyond. 
@@ -248,8 +260,8 @@ good news is that there are relatively straightforward points of departure
 between how we would model problems using the calculus and how we would
 typically model them using conventional techniques. 
 
-By comparing and contrasting these approaches, we can better understand how this
-framework differs—and whether it brings any new benefits in a given context. 
+By comparing and contrasting these approaches, we can better understand where it
+brings new benefits.
 
 #### Summary
 
@@ -258,22 +270,21 @@ ideas developed and remixed from existing practices and techniques in the
 industry and that we have used in The Polaris Advisor Program over the years.
 
 I am now embarking on a new phase: rebuilding a mix of open-source and
-proprietary tooling grounded in the principles laid out here, to replace our
-existing Polaris platform from the ground up. 
+proprietary tooling grounded in the principles laid out here.
 
 If the concepts in this document and
 [the project](https://github.com/krishnaku/pypcalc)
 are of interest, I welcome collaborators who can help pressure test and apply
 these ideas—and explore and understand what their limits are.
 
-This document, along with others on this site, is intended to provide a broad
+This document, along with others on this site, are intended to provide a broad
 and deep foundation to support anyone who finds this prospect intriguing or
 exciting.
 
-My objective here is to develop a mathematically provable substrate for many
+My objective here is to develop a robust substrate for many
 common modeling and measurement problems in software, so that more people can
 extend and apply these ideas in real-world environments with greater precision,
-and with confidence in the validity of their measurement systems.
+and with confidence in the mathematical validity of their measurement systems.
 
 I welcome constructive feedback and thoughtful skepticism—especially from
 those who can help surface areas where the approach needs refinement or may even
@@ -393,10 +404,7 @@ With the presence calculus, these threads and their interactions across time and
 space can now be measured directly, dissected, composed, and analyzed as
 first-class constructs—built on a remarkably simple yet general primitive—the presence.
 
-### The heart of the matter
-
-In the context of reasoning about software tasks for example, the calculus
-exploits the difference between the two independent statements—“The task started
+In the above example, the calculus exploits the difference between the two independent statements—“The task started
 development on Monday” and “The task completed development on Friday”—and a
 single, unified assertion: “The task was present in development from Monday
 through Friday.”
@@ -1088,7 +1096,13 @@ systems—regardless of the specific materials or forces involved—the conserva
 of presence mass constrains how observable mass is distributed over time in a
 system of presences.
 
-Thus, the conservation of mass plays a role in the presence calculus similar to
+The version of the invariant described here is a special case of an 
+even more general measure theoretic construction that we derive in the document
+[The Presence Invariant](./generalized_presence_invariant.html). We show there
+that the presence invariant is not just a mathematical trick, but a deep property
+of product measure spaces. 
+
+Thus, the conservation of presence mass plays a role in the presence calculus similar to
 that of other conservation laws in physics: it constrains the behavior of three
 key observable, measurable parameters of any system of presences.
 
@@ -1204,7 +1218,7 @@ between the presence invariant and equilibrium states in systems of presence
 with the help of a very general form of Little's Law originally proven by
 Brumelle [@brumelle71], and Heyman and Stidham [@heyman80].
 
-### Signal Dynamics
+### Signal dynamics
 
 Now that we’ve defined how to observe a system of presences over a single finite
 interval, we turn to what happens when we observe the system continuously over
@@ -1252,7 +1266,7 @@ It is a key building block in the machinery for computing these trajectories.
 
 ## The presence matrix
 
-A *presence matrix* is the data structure that records the presence mass values
+A *presence matrix* is a data structure that records the presence mass values
 resulting from the sampling process described
 in [@fig:system-presences-discrete].
 
