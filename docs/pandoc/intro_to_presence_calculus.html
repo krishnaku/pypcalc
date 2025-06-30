@@ -410,8 +410,10 @@ Introduction</span></p>
       id="toc-interpreting-flow-fields"><span
       class="toc-section-number">7.3</span> Interpreting flow
       fields</a></li>
-      <li><a href="#attractors" id="toc-attractors"><span
-      class="toc-section-number">7.4</span> Attractors</a></li>
+      <li><a href="#sample-path-trajectories-and-attractors"
+      id="toc-sample-path-trajectories-and-attractors"><span
+      class="toc-section-number">7.4</span> Sample path trajectories and
+      attractors</a></li>
       <li><a href="#feedback-loops-and-steering"
       id="toc-feedback-loops-and-steering"><span
       class="toc-section-number">7.5</span> Feedback loops and
@@ -1492,16 +1494,17 @@ Introduction</span></p>
         presence density functions (signals) measured over finite
         observation windows.</p>
         <p>It is important to note that we are referring to <em>Little’s
-        Law over a finite observation window</em>, rather than the much
-        more familiar, steady-state equilibrium form of Little’s
-        Law.</p>
+        Law over a finite observation window</em>, rather than the more
+        familiar steady-state, equilibrium form of Little’s Law <a
+        href="#fn9" class="footnote-ref" id="fnref9"
+        role="doc-noteref"><sup>9</sup></a>.</p>
         <p>Unlike the equilibrium form of the law, this version holds
         <em>unconditionally</em>. The key is that the quantities
-        involved are <em>observer-relative</em>: the time tasks spend
+        involved are <em>observer-relative</em>: the time signals spend
         <em>within a finite observation window</em>, and the
-        <em>activation rate</em> of tasks <em>over the window</em>,
-        rather than the task-relative durations or long-run
-        arrival/departure rates assumed in the equilibrium form.</p>
+        <em>incidence rate</em> of signals <em>over the window</em>,
+        rather than the signal-relative durations or long-run
+        onset/reset rates assumed in the equilibrium form.</p>
         <p>Indeed, the difference between these two forms of the
         identity will serve as the basis for how we <em>define</em>
         whether a system of presences is in equilibrium or not. The idea
@@ -1520,10 +1523,10 @@ Introduction</span></p>
         equilibrium states in systems of presence with the help of a
         very general form of Little’s Law originally proven by Brumelle
         <span class="citation" data-cites="brumelle71"><a
-        href="#ref-brumelle71" role="doc-biblioref">[1]</a></span>, and
+        href="#ref-brumelle71" role="doc-biblioref">[2]</a></span>, and
         Heyman and Stidham <span class="citation"
         data-cites="heyman80"><a href="#ref-heyman80"
-        role="doc-biblioref">[2]</a></span>.</p>
+        role="doc-biblioref">[3]</a></span>.</p>
         <h3 data-number="4.4" id="signal-dynamics"><span
         class="header-section-number">4.4</span> Signal Dynamics</h3>
         <p>Now that we’ve defined how to observe a system of presences
@@ -1582,8 +1585,8 @@ Introduction</span></p>
         <p>The length of each sampling interval is called the
         <em>sampling granularity</em>. This defines the smallest time
         resolution at which the <em>matrix</em> represents presence <a
-        href="#fn9" class="footnote-ref" id="fnref9"
-        role="doc-noteref"><sup>9</sup></a>.</p>
+        href="#fn10" class="footnote-ref" id="fnref10"
+        role="doc-noteref"><sup>10</sup></a>.</p>
         <p>The union of these intervals is called the <em>observation
         window</em> of the matrix.</p>
         <blockquote>
@@ -1648,8 +1651,8 @@ Introduction</span></p>
         windows during the integration step that computes the presence
         mass.</p>
         <p>In other words, this has no real impact on the behavior of
-        the invariant <a href="#fn10" class="footnote-ref" id="fnref10"
-        role="doc-noteref"><sup>10</sup></a> <em>provided we cover the
+        the invariant <a href="#fn11" class="footnote-ref" id="fnref11"
+        role="doc-noteref"><sup>11</sup></a> <em>provided we cover the
         timeline with our observations.</em></p>
         <p>The presence matrix encodes deep structural properties of a
         system of presences. Many of key concepts we want to highlight
@@ -1889,8 +1892,8 @@ Introduction</span></p>
         submatrix with non-zero values.</li>
         <li><span class="math inline">\(T\)</span> is the number of
         columns in the submatrix, measured in units of the sampling
-        granularity <a href="#fn11" class="footnote-ref" id="fnref11"
-        role="doc-noteref"><sup>11</sup></a>.</li>
+        granularity <a href="#fn12" class="footnote-ref" id="fnref12"
+        role="doc-noteref"><sup>12</sup></a>.</li>
         </ul>
         <blockquote>
         <p>Because <span class="math inline">\(A\)</span>, <span
@@ -3376,8 +3379,8 @@ Introduction</span></p>
         </ul>
         <p>This equation reflects the finite additivity of cumulative
         presence mass over rectangular regions in the presence matrix <a
-        href="#fn12" class="footnote-ref" id="fnref12"
-        role="doc-noteref"><sup>12</sup></a>.</p>
+        href="#fn13" class="footnote-ref" id="fnref13"
+        role="doc-noteref"><sup>13</sup></a>.</p>
         <p>So, the entire matrix—and thus, the system’s accumulation
         dynamics—is governed by a simple, local rule. Given the values
         on the diagonal, the rest of the matrix is completely
@@ -3394,9 +3397,9 @@ Introduction</span></p>
         chaotic processes. As long as the signals they generate are
         <em>measurable</em> they satisfy the finite additivity property
         and when we sample their <em>observed</em> presence masses, this
-        local recurrence always applies <a href="#fn13"
-        class="footnote-ref" id="fnref13"
-        role="doc-noteref"><sup>13</sup></a>.</p>
+        local recurrence always applies <a href="#fn14"
+        class="footnote-ref" id="fnref14"
+        role="doc-noteref"><sup>14</sup></a>.</p>
         <p>Combined with the presence invariant—which also holds at
         every level of this accumulation—this gives us a powerful
         framework for dissecting the dynamics of a system of
@@ -3406,9 +3409,9 @@ Introduction</span></p>
         Dynamics</h2>
         <p>Presence calculus concepts—such as presence mass, incidence
         rate, and density— are not unlike abstract physical notions like
-        force, mass, and acceleration <a href="#fn14"
-        class="footnote-ref" id="fnref14"
-        role="doc-noteref"><sup>14</sup></a>. In principle, these are
+        force, mass, and acceleration <a href="#fn15"
+        class="footnote-ref" id="fnref15"
+        role="doc-noteref"><sup>15</sup></a>. In principle, these are
         measurable quantities constrained by nature to behave in
         prescribed ways at a micro scale.</p>
         <p>Once we understand the rules governing their micro-scale
@@ -3763,7 +3766,9 @@ Introduction</span></p>
         the diagonal traces the discrete-time evolution of the system’s
         directly observed activity—one sample at a time.</p>
         <p>We will call the sequence of values on the diagonal a
-        <em>sample path</em> for the system of presences.</p>
+        <em>sample path</em> for the system of presences <a href="#fn16"
+        class="footnote-ref" id="fnref16"
+        role="doc-noteref"><sup>16</sup></a>.</p>
         <figure id="fig:diagonal-values">
         <img src="../assets/pandoc/diagonal_values.png"
         alt="Figure 16: Computing the accumulated values on the sample path" />
@@ -3771,7 +3776,7 @@ Introduction</span></p>
         accumulated values on the sample path</figcaption>
         </figure>
         <p>By contrast, each entry on the top row represents the
-        accumulated presence mass along a <em>prefix</em> of the sample
+        accumulated presence mass along a <em>prefix</em> of a sample
         path. In other words, the top row represents the accumulated
         presence over the observed <em>history</em> of the system.</p>
         <figure id="fig:top-row-values">
@@ -3800,9 +3805,9 @@ Introduction</span></p>
         under the sample path</figcaption>
         </figure>
         <blockquote>
-        <p>Each entry on the top row is an integral <a href="#fn15"
-        class="footnote-ref" id="fnref15"
-        role="doc-noteref"><sup>15</sup></a> and equals the <em>area
+        <p>Each entry on the top row is an integral <a href="#fn17"
+        class="footnote-ref" id="fnref17"
+        role="doc-noteref"><sup>17</sup></a> and equals the <em>area
         under a prefix of the sample path</em> represented by the
         diagonal.</p>
         </blockquote>
@@ -4329,8 +4334,8 @@ Introduction</span></p>
         both do, we should expect that their product —<br />
         and hence <span class="math inline">\(\Delta\)</span> —
         converges as well,and it does, with some technical conditions in
-        place<a href="#fn16" class="footnote-ref" id="fnref16"
-        role="doc-noteref"><sup>16</sup></a>.</p>
+        place<a href="#fn18" class="footnote-ref" id="fnref18"
+        role="doc-noteref"><sup>18</sup></a>.</p>
         <p>So, let’s write down precise definitions for the limits of
         <span class="math inline">\(\iota(t)\)</span> and<br />
         <span class="math inline">\(\bar{m}(t)\)</span> and examine how
@@ -5039,20 +5044,33 @@ Introduction</span></p>
         <p>Technically, this relationship does not follow automatically
         from the arguments we have presented so far. In fact, the
         statement above is a restatement of a generalized form of
-        Little’s Law originally proven by Brumelle, and later by Heyman
-        and Stidham. The full proof—along with the additional technical
-        conditions required to ensure that the limit of the product
-        equals the product of the limits—is beyond the scope of this
-        document.</p>
+        Little’s Law originally proven by Brumelle <span
+        class="citation" data-cites="brumelle71"><a
+        href="#ref-brumelle71" role="doc-biblioref">[2]</a></span>, and
+        later by using sample path techniques by Heyman and Stidham
+        <span class="citation" data-cites="heyman80"><a
+        href="#ref-heyman80" role="doc-biblioref">[3]</a></span>. The
+        full proof—along with the additional technical conditions
+        required to ensure that the limit of the product equals the
+        product of the limits—is a discussed in a separate document on
+        our theory track.</p>
         <p>For our purposes, it is safe to state that this relationship,
         and the conditions under which it holds, <em>constitute</em> a
-        general form of Little’s Law for a system of presences <a
-        href="#fn17" class="footnote-ref" id="fnref17"
-        role="doc-noteref"><sup>17</sup></a>.</p>
-        <p>With the exception of certain carefully constructed
-        pathological cases, the criteria we have outlined—bounded signal
-        mass and balanced onset/reset rates—will typically suffice to
-        determine whether a system is convergent or divergent.</p>
+        general form of Little’s Law for a system of presences.</p>
+        <p>This general form of Little’s Law is usually presented in the
+        form <span class="math inline">\(H = \lambda \cdot G.\)</span>
+        In our notation <span class="math inline">\(H = \Delta\)</span>,
+        <span class="math inline">\(\lambda = I\)</span> and <span
+        class="math inline">\(\bar{M} = G\)</span> We have chosen to
+        develop a new consistent notation to describe these terms as
+        limiting values of measure-theoretic parameters <span
+        class="math inline">\(\delta, \iota, \text{ and }
+        \bar{m}\)</span> of the presence invariant, but the underlying
+        terms can be shown to be equivalent to each other.</p>
+        <p>For a more detailed explanation of the correspondence between
+        the two, please see the document <a
+        href="./generalized_littles_law.html">Convergence of systems of
+        presence</a> on our Theory Track.</p>
         <h4 data-number="6.3.5"
         id="convergence-coherence-and-littles-law"><span
         class="header-section-number">6.3.5</span> Convergence,
@@ -5173,9 +5191,9 @@ Introduction</span></p>
         signals evolve and interact over time—regardless of whether the
         underlying signals are random or not.</p>
         <p>Even when the signals have randomness, the <em>observed</em>
-        evolution of presence density is deterministic<a href="#fn18"
-        class="footnote-ref" id="fnref18"
-        role="doc-noteref"><sup>18</sup></a> and governed by the law of
+        evolution of presence density is deterministic<a href="#fn19"
+        class="footnote-ref" id="fnref19"
+        role="doc-noteref"><sup>19</sup></a> and governed by the law of
         conservation of presence mass—that is, the presence invariant.
         This determinism extends to any functional quantity that depends
         on presence density. As we will see, a large and operationally
@@ -5199,12 +5217,12 @@ Introduction</span></p>
         real-world systems actually live.</p>
         <p>In fact, a broader principle is at work. Miyazawa <span
         class="citation" data-cites="miyazawa94"><a
-        href="#ref-miyazawa94" role="doc-biblioref">[3]</a></span> was
+        href="#ref-miyazawa94" role="doc-biblioref">[5]</a></span> was
         among the first to identify a general class of <em>rate
         conservation laws</em> that allow relationships like the
         generalized Little’s Law to be derived in wider settings. Sigman
         <span class="citation" data-cites="sigman91"><a
-        href="#ref-sigman91" role="doc-biblioref">[4]</a></span> showed
+        href="#ref-sigman91" role="doc-biblioref">[6]</a></span> showed
         that the generalized form of Little’s Law can be seen as an
         instance of such rate conservation principles.</p>
         <p>The document <a
@@ -6015,8 +6033,10 @@ Introduction</span></p>
         alignment in magnitude and direction becomes visible is an
         important system property.</li>
         </ul>
-        <h3 data-number="7.4" id="attractors"><span
-        class="header-section-number">7.4</span> Attractors</h3>
+        <h3 data-number="7.4"
+        id="sample-path-trajectories-and-attractors"><span
+        class="header-section-number">7.4</span> Sample path
+        trajectories and attractors</h3>
         <p>In the last section, we showed how we could mathematically
         define the concept of <em>flow</em> in a system of presences via
         a mapping of the right-hand product in the presence invariant to
@@ -6513,28 +6533,41 @@ Introduction</span></p>
         <h2 class="unnumbered" id="references">References</h2>
         <div id="refs" class="references csl-bib-body"
         data-entry-spacing="0" role="list">
-        <div id="ref-brumelle71" class="csl-entry" role="listitem">
+        <div id="ref-little2011" class="csl-entry" role="listitem">
         <div class="csl-left-margin">[1] </div><div
+        class="csl-right-inline">J. Little, <span>“Little’s law as
+        viewed on its 50th anniversary,”</span> <em>Operations
+        Research</em>, vol. 59, no. 3, pp. 536–549, 2011.</div>
+        </div>
+        <div id="ref-brumelle71" class="csl-entry" role="listitem">
+        <div class="csl-left-margin">[2] </div><div
         class="csl-right-inline">S. Bruemelle, <span>“On the relation
         between customer and time averages in queues.”</span>
         <em>Journal of Applied Probability</em>, vol. 8, no. 1–4, pp.
         508–520, 1971.</div>
         </div>
         <div id="ref-heyman80" class="csl-entry" role="listitem">
-        <div class="csl-left-margin">[2] </div><div
-        class="csl-right-inline">S. Heyman D., <span>“The relation
-        between customer and time averages in queues,”</span>
+        <div class="csl-left-margin">[3] </div><div
+        class="csl-right-inline">D. Heyman and S. Stidham, <span>“The
+        relation between customer and time averages in queues,”</span>
         <em>Operations Research</em>, vol. 28, no. 4, pp. 983–994,
         1980.</div>
         </div>
+        <div id="ref-stidham72" class="csl-entry" role="listitem">
+        <div class="csl-left-margin">[4] </div><div
+        class="csl-right-inline">S. Stidham, <span>“A last word on <span
+        class="math inline">\(L=\lambda W\)</span>,”</span>
+        <em>Operations Research</em>, vol. 22, no. 1–4, pp. 417–421,
+        1972.</div>
+        </div>
         <div id="ref-miyazawa94" class="csl-entry" role="listitem">
-        <div class="csl-left-margin">[3] </div><div
+        <div class="csl-left-margin">[5] </div><div
         class="csl-right-inline">M. Miyazawa, <span>“Rate conservation
         laws: A survey,”</span> <em>Queueing Systems</em>, vol. 15, no.
         1–4, pp. 1–58, 1994.</div>
         </div>
         <div id="ref-sigman91" class="csl-entry" role="listitem">
-        <div class="csl-left-margin">[4] </div><div
+        <div class="csl-left-margin">[6] </div><div
         class="csl-right-inline">K. Sigman, <span>“A note on a sample
         path rate conservation law and it’s relationship to <span
         class="math inline">\(H=\lambda G\)</span>,”</span> <em>Advanced
@@ -6636,7 +6669,24 @@ Introduction</span></p>
         familiar metric typically called the cycle time.<a
         href="#fnref8" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn9"><p>The sampling granularity is typically coarser
+        <li id="fn9"><p>We introduce Little’s Law here as a special case
+        of the presence invariant. This is a deliberate decision: we aim
+        to contextualize classical treatments of Little’s Law through
+        the lens of what we consider the more foundational,
+        measure-theoretic constructs of the presence calculus.</p>
+        <p>In fact, the ideas in presence calculus may be considered
+        <em>generalizations</em> of the concepts developed to prove
+        Little’s Law. For an excellent overview of those techniques, see
+        <span class="citation" data-cites="little2011"><a
+        href="#ref-little2011" role="doc-biblioref">[1]</a></span>. Many
+        of the concepts surveyed there will reappear in this
+        document—transformed, but recognizable—under the
+        measure-theoretic definitions of the presence calculus.</p>
+        <p>If you are not familiar with Little’s Law and wish to
+        understand it better, Dr. Little’s survey paper remains the best
+        starting point.<a href="#fnref9" class="footnote-back"
+        role="doc-backlink">↩︎</a></p></li>
+        <li id="fn10"><p>The sampling granularity is typically coarser
         than time resolution of the underlying signals. For example, the
         signals themselves may be timestamped at millisecond
         granularity, while the presence matrix may be constructed by
@@ -6646,9 +6696,9 @@ Introduction</span></p>
         granularity, we may arrive at very different matrices. A
         presence matrix is therefore an observer-relative analytical
         construct, derived from a system of presences—not a direct
-        representation of the underlying signals.<a href="#fnref9"
+        representation of the underlying signals.<a href="#fnref10"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn10"><p>It is equally valid to define <span
+        <li id="fn11"><p>It is equally valid to define <span
         class="math inline">\(N\)</span> as the number of distinct
         <em>presences</em> in the observation window. For example for
         the signal <span class="math inline">\(P2\)</span> in Figure 5,
@@ -6664,9 +6714,9 @@ Introduction</span></p>
         ultimately a modeling decision that depends on what you are
         trying to measure. By default we will assume that <span
         class="math inline">\(N\)</span> is measured at the signal
-        granularity.<a href="#fnref10" class="footnote-back"
+        granularity.<a href="#fnref11" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn11"><p>Assuming <span class="math inline">\(N\)</span>
+        <li id="fn12"><p>Assuming <span class="math inline">\(N\)</span>
         and <span class="math inline">\(T\)</span> can be mapped to row
         and column counts of the presence matrix is a simplification. It
         relies on the assumption that each sampling interval is equal
@@ -6680,9 +6730,9 @@ Introduction</span></p>
         structure, and need to be specified as part of the modeling
         process. To avoid complicating matters, we will use this simple
         mapping, which covers a large number of practical use cases, as
-        the default.<a href="#fnref11" class="footnote-back"
+        the default.<a href="#fnref12" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn12"><p>Recall that we required signals to be
+        <li id="fn13"><p>Recall that we required signals to be
         measurable functions. This implies presence masses are measures
         over time intervals. Given intervals <span
         class="math inline">\(A\)</span> and <span
@@ -6698,29 +6748,35 @@ Introduction</span></p>
         and <span class="math inline">\(B\)</span> intersect, the
         subtraction removes the presence mass of overlap <span
         class="math inline">\([i{+}1, j{-}1]\)</span> from the sum to
-        avoid double-counting it.<a href="#fnref12"
+        avoid double-counting it.<a href="#fnref13"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-        <li id="fn13"><p>We’ll note at this point, that the determinism
+        <li id="fn14"><p>We’ll note at this point, that the determinism
         is <em>retrospective</em>. Since it is based on
         <em>observed</em> presence, this recurrence in no way implies we
         can predict how the presences will evolve in the future. We will
         have more to say about this in the next section.<a
-        href="#fnref13" class="footnote-back"
+        href="#fnref14" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn14"><p>Though we should hasten to add that this is
+        <li id="fn15"><p>Though we should hasten to add that this is
         just a loose analogy—we do not imply any conceptual
-        equivalence.<a href="#fnref14" class="footnote-back"
+        equivalence.<a href="#fnref15" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn15"><p>Specifically, the Riemann sum approximation of
+        <li id="fn16"><p>This concept is equivalent to the concept of a
+        sample path developed by Stidham in <span class="citation"
+        data-cites="stidham72"><a href="#ref-stidham72"
+        role="doc-biblioref">[4]</a></span> to provide the first
+        deterministic proof of Little’s Law.<a href="#fnref16"
+        class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+        <li id="fn17"><p>Specifically, the Riemann sum approximation of
         the integral <span class="math display">\[
         A(1, j) = \sum_{k=1}^j A(k,k)
         \approx \int_0^j \left( \sum_{(e,b)} P_{(e,b)}(t) \right) dt
         \]</span> where each <span
         class="math inline">\(P_{(e,b)}(t)\)</span> represents the
         presence density function of an underlying element-boundary
-        signal.<a href="#fnref15" class="footnote-back"
+        signal.<a href="#fnref17" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn16"><p>While it’s tempting to assume that the limit of
+        <li id="fn18"><p>While it’s tempting to assume that the limit of
         a product is simply the product of the limits, this doesn’t
         automatically hold here. The long-run value of presence density,
         <span class="math inline">\(\Delta\)</span>, is defined as a
@@ -6729,21 +6785,9 @@ Introduction</span></p>
         number of signals. Since these limits are taken over different
         denominators, additional technical conditions are required to
         ensure that their product equals the limit of the product.<a
-        href="#fnref16" class="footnote-back"
+        href="#fnref18" class="footnote-back"
         role="doc-backlink">↩︎</a></p></li>
-        <li id="fn17"><p>This general form of Little’s Law is usually
-        presented in the form <span class="math inline">\(H = \lambda
-        \cdot G.\)</span> In our notation <span class="math inline">\(H
-        = \Delta\)</span>, <span class="math inline">\(\lambda =
-        I\)</span> and <span class="math inline">\(\bar{M} = G\)</span>
-        We have chosen to develop a new consistent notation to describe
-        these terms as limiting values of measure-theoretic parameters
-        <span class="math inline">\(\delta, \iota, \text{ and }
-        \bar{m}\)</span> of the presence invariant, but the underlying
-        terms can be shown to be equivalent to each other.<a
-        href="#fnref17" class="footnote-back"
-        role="doc-backlink">↩︎</a></p></li>
-        <li id="fn18"><p>It is worth emphasizing the word
+        <li id="fn19"><p>It is worth emphasizing the word
         <em>observed</em> in this statement. Even though the evolution
         is deterministic, this does not mean the future behavior of the
         system is predictable based on past behavior. That depends
@@ -6752,7 +6796,7 @@ Introduction</span></p>
         sufficiently complete history of the system, we can
         deterministically reconstruct the current state of presence
         density from any starting point. This explanatory power is
-        useful in its own right, as we will soon see.<a href="#fnref18"
+        useful in its own right, as we will soon see.<a href="#fnref19"
         class="footnote-back" role="doc-backlink">↩︎</a></p></li>
         </ol>
         </section>

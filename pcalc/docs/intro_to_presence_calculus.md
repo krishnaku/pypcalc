@@ -1045,14 +1045,28 @@ Law*—extending it to arbitrary systems of presence density functions (signals)
 measured over finite observation windows.
 
 It is important to note that we are referring to *Little's Law over a finite
-observation window*, rather than the much more familiar, steady-state
-equilibrium form of Little's Law.
+observation window*, rather than the more familiar steady-state, equilibrium
+form of Little's Law [^F-littles-law].
+
+[^F-littles-law]:    We introduce Little's Law here as a special case of the
+    presence invariant. This is a deliberate decision: we aim to contextualize
+    classical treatments of Little's Law through the lens of what we consider the
+    more foundational, measure-theoretic constructs of the presence calculus.
+
+    In fact, the ideas in presence calculus may be considered *generalizations* of the concepts developed
+    to prove Little's Law. For an excellent overview of those techniques, see
+    [@little2011]. Many of the concepts surveyed there will reappear in this
+    document—transformed, but recognizable—under the measure-theoretic definitions of the
+    presence calculus.
+  
+    If you are not familiar with Little's Law and wish to understand it better, 
+    Dr. Little's survey paper remains the best starting point.
 
 Unlike the equilibrium form of the law, this version
 holds *unconditionally*. The key is that the quantities involved are
-*observer-relative*: the time tasks spend *within a finite observation window*,
-and the *activation rate* of tasks *over the window*, rather than the
-task-relative durations or long-run arrival/departure rates assumed in the
+*observer-relative*: the time signals spend *within a finite observation window*,
+and the *incidence rate* of signals *over the window*, rather than the
+signal-relative durations or long-run onset/reset rates assumed in the
 equilibrium form.
 
 Indeed, the difference between these two forms of the
@@ -1919,12 +1933,16 @@ discrete-time evolution of the system's directly observed activity—one sample
 at a time.
 
 We will call the sequence of values on the diagonal a _sample path_ for the
-system of presences.
+system of presences [^-F-sample-path].
+
+[^-F-sample-path]: This concept is equivalent to the concept of a sample path developed by 
+Stidham in [@stidham72] to provide the first deterministic proof of Little's Law. 
+
 
 ![Computing the accumulated values on the sample path](../assets/pandoc/diagonal_values.png){#fig:diagonal-values}
 
 By contrast, each entry on the top row represents the accumulated presence mass
-along a _prefix_ of the sample path. In other words, the top row
+along a _prefix_ of a sample path. In other words, the top row
 represents the accumulated presence over the observed _history_ of the system.
 
 ![The top row: accumuleted presences over system history](../assets/pandoc/top_row_values.png){#fig:top-row-values}
@@ -2511,26 +2529,26 @@ $$
 
 Technically, this relationship does not follow automatically from the arguments
 we have presented so far. In fact, the statement above is a restatement of a
-generalized form of Little’s Law originally proven by Brumelle, and later by
-Heyman and Stidham. The full proof—along with the additional technical
+generalized form of Little’s Law originally proven by Brumelle [@brumelle71], and later by
+using sample path techniques by Heyman and Stidham [@heyman80]. The full proof—along with the additional technical
 conditions required to ensure that the limit of the product equals the product
-of the limits—is beyond the scope of this document.
+of the limits—is a discussed in a separate document on our theory track. 
 
 For our purposes, it is safe to state that this relationship, and the
 conditions under which it holds, *constitute* a general form of Little’s Law
-for a system of presences [^F-general-form].
+for a system of presences.
 
-[^F-general-form]: This general form of Little's Law is usually presented in the
+This general form of Little's Law is usually presented in the
 form $H = \lambda \cdot G.$ In our notation $H = \Delta$, $\lambda = I$
 and $\bar{M} = G$ We have chosen to develop a new consistent notation to
 describe these terms as limiting values of measure-theoretic
 parameters $\delta, \iota, \text{ and } \bar{m}$  of the presence invariant,
 but the underlying terms can be shown to be equivalent to each other.
 
-With the exception of certain carefully constructed pathological cases, the
-criteria we have outlined—bounded signal mass and balanced onset/reset
-rates—will typically suffice to determine whether a system is convergent or
-divergent.
+For a more detailed explanation of the correspondence between the two, please see
+the document [Convergence of systems of presence](./generalized_littles_law.html)
+on our Theory Track. 
+
 
 #### Convergence, Coherence, and Little’s Law
 
@@ -3013,7 +3031,7 @@ Here are some important observations from the flow field in [@fig:flow-field]:
   which such alignment in magnitude and direction becomes visible is an
   important system property.
 
-### Attractors
+### Sample path trajectories and attractors
 
 In the last section, we showed how we could mathematically define the concept of
 _flow_ in a system of presences via a mapping of the right-hand product in the
