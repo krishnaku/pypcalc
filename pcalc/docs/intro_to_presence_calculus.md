@@ -200,7 +200,7 @@ contexts.
 > that are in the mainstream today and also from ideas imported from other domains like
 > manufacturing—another significant branch.
 
-It allows us to model and measure software development as it is—messy,
+It allows us to model and measure software development as it is— bespoke, messy,
 irregular, highly variable, deeply time- and history-dependent work involving
 humans, machines, and codified knowledge, forming complex, interconnected
 systems—where being able to move beyond proxies and observe what _is_ in rich
@@ -595,6 +595,55 @@ gives us a way to represent *work as presence*.
 Such presences can represent estimates, forecasts, or confidence-weighted  
 projections—and as we'll see, they can be reasoned about and computed with just
 like any other kind of presence.
+
+#### "Batch size" in software
+
+Let’s consider another, more familiar example. There are well-understood benefits
+to delivering software more frequently, in smaller batches, and modern software engineering
+practices encourage teams to adopt this delivery model instead of relying on infrequent, large
+batch deliverables.
+
+For companies with legacy processes built around large batch delivery, and looking to measure
+progress on the journey toward smaller batches, the state-of-the-art metrics used to guide the
+transition are *deployment frequency* and *lead time for changes* — two of the four key
+DORA metrics considered gold standards in the industry [@forsgren2018].
+
+However, both deployment frequency and lead time for changes are *proxies* for batch size.
+And like all proxies, they are imperfect measurements of the true quantity of interest, often
+providing little insight into the *causal drivers* that shape the proxies themselves.
+
+With the presence calculus, we have a different way to model this problem.  
+We can define a system of presence density functions, where:
+
+- *Elements* are code branches,
+- *Boundaries* are stages along the path to production, and
+- The *presence density function* of each branch is the number of unmerged lines of code on the branch as a function of time.
+
+Under this model, *batch size* becomes the total number of unmerged lines of code across the system at any given point in time — a quantity that is directly measurable using the machinery of presence calculus.
+
+With modern tooling, it is entirely feasible to instrument such a model in a real-world
+delivery system and keep it updated in real time.
+
+This kind of real-time, direct model has several important advantages over measuring the proxy metrics deployment frequency
+and lead time for changes after the fact.
+
+Here are some benefits of this approach [^F-forward-reference]:
+
+[^F-forward-reference]: The details here depend on ideas we will develop later in the document. The key
+point is that the presence calculus gives us tools to accurately represent the time-varying
+behavior of the actual system property we care about, rather than relying on statistical proxies.
+This also gives us stronger protection against Goodhart’s Law [@muller2018].
+
+- It directly represents and measures the variable of interest, batch size -  rather than proxies - in real time.
+- Deployment frequency and lead time for changes become *derived values*, computable directly from the system using the calculus. Still useful for metrics and reporting but not the focus of improvement.
+- It gives us access to the *input drivers* of batch size, enabling interventions at the cause rather than the statistical output.
+- It allows us to *trace batch-size behavior* to both individual components (branches, repositories, developers, etc.) and to *emergent effects* from interactions over time.
+- It gives us both *leading and lagging indicators*, and allows us to reason about the *dynamics that connect them*, all within a mathematically coherent, real-time model.
+
+These are all substantial improvements over the status quo measurement techniques in DevOps and it all
+falls out of the representation and computation machinery of the presence calculus we describe in this document.
+This also means the presence calculus gives an precise mathematical model that lets us directly
+_observe_ the relationship between batch size and the two DORA metrics in any given delivery context in real time. 
 
 #### The effects of interruptions
 
