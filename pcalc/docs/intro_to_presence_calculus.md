@@ -2252,6 +2252,16 @@ represent dominant behavioral modes — quasi-equilibrium states that the system
 can enter and sustain for extended periods. Such behavior is called  
 *metastable* or *multi-modal*.
 
+It is also possible for the presence system to exhibit multiple recurring modes,
+but never remain in any one of them for any meaningful length of time. This is
+characteristic of a *chaotic* operating regime. At the macro level, the presence
+density may appear to trace out a pattern across a limited set of values—known
+as *attractors*—but the micro-scale trajectory is deterministic yet highly
+sensitive to initial conditions, making long-term behavior effectively
+unpredictable. In such cases, the attractor is not a fixed point but a complex
+structure that the system continuously explores. Such systems are convergent yet
+unpredictable and impossible to steer.
+
 Divergence, by contrast, implies the absence of such limiting behavior. The  
 presence density in divergent systems continues to grow without bound,  
 indicating that the dominant behavior of the system is an unbounded accumulation
@@ -2324,22 +2334,18 @@ By contrast, if presence represents a company’s *customer base* or *market
 share*, we *want* the long-run presence density to look like the chart on  
 the right: up and to the right — that is, *divergent*.
 
-Metastable modes are common and often highly desirable in software  
-development, where teams must shift between modes of operation in  
-response to external demands or changing market conditions. Indeed, the  
-ability to transition between such modes effectively is often a hallmark of a
-high-functioning, adaptive organization — *provided* it is done intentionally
-and with awareness.
-
-All too often, however, organizations drift from metastable to chaotic  
-behavior, losing the capacity to stabilize in any mode. This often results  
-from a lack of visibility into — or the inability to reason about — their  
-operational state.
+Metastable modes are common in presence signals generated in complex  
+systems, for example market facing software delivery teams, where teams must
+shift between modes of operation in response to external demands or changing
+market conditions. Indeed, the ability to transition between such modes
+effectively is often a hallmark of a high-functioning, adaptive software
+organization — *provided* it is done intentionally and with awareness.
 
 One of the major practical applications of the presence calculus is to  
 bring new analytical tools to *observe*, *categorize*, and *steer* the  
-behavior of such systems — aligning them with the desired modes of  
-operation in a given domain, *before* critical tipping points are reached.
+behavior of such systems — aligning low level presence signals with the desired
+modes of operation in a given domain, *before* critical tipping points are
+reached.
 
 ### Detecting convergence
 
@@ -3359,6 +3365,54 @@ key contribution of the presence calculus in this regard.
 
 We will have much more say about using the tools of the presence calculus to
 create such feedback loops and steer systems in future posts.
+
+## Taking Stock
+
+The last few chapters have introduced many concepts that build on the primitive
+idea of presence and systems of presence. Before moving forward, let’s step
+back and consider these ideas as a whole to build some intuition for what the
+presence calculus *is* and what it tells us.
+
+First and foremost, the presence calculus is not a modeling framework, a
+measurement system, or a methodology. It is a mathematical and analytical
+*substrate*—a foundation on which such frameworks or methodologies can be
+constructed.
+
+It is not a replacement for existing measurement tools or systems. Rather, it is
+a tool that can operate *alongside* existing techniques such as statistics and
+probability. Its particular strength lies in analyzing a class of problems that
+are not easily addressed using those conventional techniques.
+
+The presence calculus is well suited to reasoning about system properties that
+satisfy the following mathematical criteria, stated here in plain English:
+
+- The measured value is a non-negative real number that varies over time—i.e.,
+  we are measuring the *presence* of a property in the system.
+- The "signal" in the property is tied to the _accumulation_ of its value—
+  both the magnitude and the duration for which it is held are meaningful.
+- The value at any given time can be expressed as the sum of non-negative values
+  from a countable set of time-varying functions (signals) over a fixed domain.
+- Each contributing function is measurable over finite intervals, meaning its
+  Lebesgue integral exists and is finite over any bounded interval.
+
+For practical applications, we also require:
+
+- Each signal’s contribution can be *directly* instrumented and measured over
+  the domain.
+
+The presence calculus is therefore well suited for reasoning about system
+properties that are cumulative, time-varying, and composed of multiple
+independent signals that contribute to the total accumulation.
+
+While this may sound restrictive, a surprisingly large class of operational and
+business-critical properties—especially those related to delays, costs, risks,
+and rewards—fall squarely within this domain. This makes the presence calculus a
+powerful tool for analyzing such properties in a robust and principled way.
+
+Because these properties often underpin sound decision-making in business
+contexts, the presence calculus has the potential to significantly improve the
+quality of those decisions. This is where its real power lies.
+
 
 
 
