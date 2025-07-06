@@ -52,8 +52,8 @@ It treats time as a first-class concept, making it well suited for analyzing
 _continuous_, _time-dependent_ behaviors of systems.
 
 It *complements* classical statistical and probabilistic analysis, and is
-particularly well suited to domains where state, history, and path dependence
-complicate inference techniques.
+particularly well suited to domains like software development where state,
+history, and path dependence complicate  traditional inference techniques.
 
 On its own, the Presence Calculus provides a precisely defined set of modeling
 and computational primitives (shown in [@fig:key-concepts]) for analyzing the history and evolution of
