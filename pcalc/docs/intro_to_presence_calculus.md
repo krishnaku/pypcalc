@@ -3392,7 +3392,7 @@ presence are a powerful unifying concept.
 Today, operational improvement in software largely remains in a pre-scientific
 phase. It relies on a fragmented mix of metrics, developed using gut instinct
 and folk theories, and awkwardly transplanted models from unrelated domains,
-many designed under assumptions that don't hold in the software context.
+many designed under assumptions that provably don't hold in the software context.
 
 The result is a patchwork of measurement systems—DORA metrics, Flow Metrics,
 project metrics, customer experience measures—each operating independently and
@@ -3400,10 +3400,11 @@ largely without an underlying theory that is provably correct in the software
 domain. Yet each can be reframed as a *system of presences* and analyzed
 uniformly with the tools developed here. 
 
-We will thus have the first set of mathematically provable measurement systems
-that start with software product development concepts and operating principles.
-Our first set of application articles will explore what this looks like in
-practice.
+We will finally have measurement systems that start with software
+product development concepts and operating principles, and yet have
+mathematically provable relationships between key measurements. This is what
+the presence calculus brings to the table. Our first set of
+application articles will explore what this looks like in practice.
 
 The next step is to construct *structural causal models* that link these systems
 to understand their local interactions *in a specific company context*. The
