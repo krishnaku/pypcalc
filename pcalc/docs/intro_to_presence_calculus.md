@@ -3417,7 +3417,7 @@ This gives us the ability to build such causal models iteratively through
 experimentation on the system. A value stream is a promising example of such a
 system of systems where an approach like this appears tractable.
 
-This idea is very similar to statistical causal modeling, but with a crucial
+>This idea is very similar to statistical causal modeling, but with a crucial
 difference: we're not inferring causal relationships through statistical
 correlations between proxy variables on large heterogeneous datasets. Instead,
 we're *proving causal relationships between local interactions on directly
