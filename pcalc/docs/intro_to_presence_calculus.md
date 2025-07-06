@@ -104,7 +104,7 @@ mathematically precise primitive called _presence_.
 
 While the calculus was developed with mathematical rigor, an equally important
 goal was not to let mathematics get in the way of understanding the simple but
-very powerful ideas the calculus embodies.
+very powerful ideas the calculus embodies. 
 
 In this document, we'll motivate and introduce the intuitions and key ideas in
 the calculus with lots of evocative examples and mathematical simplifications
@@ -171,6 +171,9 @@ a reader with a background in real analysis to clearly grasp the
 mathematical definitions and claims behind the calculus. In the footnotes and
 references, we link to specific documents in this track for deeper mathematical
 treatments of the concepts we discuss here.
+
+This document, and all related documentation can be found at the 
+[Presence Calculus Documentation Site](../index.html)
 
 With all that as preamble, let's jump in...
 
