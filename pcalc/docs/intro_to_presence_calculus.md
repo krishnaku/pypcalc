@@ -3,7 +3,7 @@ title: "<strong>The Presence Calculus</strong>"
 subtitle: "<span style='font-size:1.2em;'>A Gentle Introduction</span>"
 author: |
   Dr. Krishna Kumar  
-  <em>The Polaris Advisor Program</em>
+  <a href="https://exathink.com"><em>The Polaris Advisor Program</em></a>
 number-sections: true
 figures-numbered: true
 link-citations: true
@@ -19,7 +19,7 @@ figPrefix: "Figure"
 
 ## What is The Presence Calculus?
 
-![The Presence Calculus - Key Concepts](../assets/pcalc/presence_calculus.png){#fig:key-concepts}
+![The Presence Calculus - Key Concepts](../assets/pandoc/pcalc_machinery.png){#fig:key-concepts}
 
 The Presence Calculus is a quantitative model for reasoning about signal
 dynamics in a domain.
@@ -33,9 +33,9 @@ The Presence Calculus emerged from a search for better tools to reason about
 operations management in software product development and engineering—domains
 where prevailing approaches to measurement fall short on all three fronts.
 
-At a minimum, its foundational constructs bring mathematical precision to widely
-used—but poorly defined—concepts such as *flow*, *stability*, *equilibrium*, and
-*coherence* for measurable signals in a domain.
+At a minimum, its foundational constructs bring mathematical precision and
+clarity to widely used—but poorly defined—concepts such as *flow*, *stability*,
+*equilibrium*, and *coherence* for measurable signals in a domain.
 
 More importantly, it offers a uniform set of abstractions and computational
 tools that connect path-dependent domain signals to business-relevant
@@ -56,7 +56,7 @@ particularly well suited to domains where state, history, and path dependence
 complicate inference techniques.
 
 On its own, the Presence Calculus provides a precisely defined set of modeling
-and computational primitives for analyzing the history and evolution of
+and computational primitives (shown in [@fig:key-concepts]) for analyzing the history and evolution of
 time-varying signal systems—structures about which we can make mathematically
 provable claims.
 
@@ -135,10 +135,10 @@ that you will get as much value from if you simply skim this document.
 If that deeper dive is not your cup of tea, we'll continue with ongoing informal
 exposition on our
 blog [The Polaris Flow Dispatch](https://www.polaris-flow-dispatch.com), where
-we will focus mostly on informal exposition, motivations, and applications of the ideas.
+we will focus mostly on motivations, and applications of the ideas.
 
 If you are interested in working with the calculus, we recommend reading and
-understanding all the main ideas here before jumping deeper into the rest of the
+understanding all the main ideas in this document before jumping deeper into the rest of the
 documentation at [this site](https://docs.pcalc.org), which get a fair
 bit more dense and technical.
 
@@ -152,9 +152,13 @@ That next level of detail is in the API docs for [The Presence Calculus
 Toolkit](http://docs.pcalc.org/api/pcalc.html).
 
 The toolkit is an open source reference implementation of the core concepts in
-the presence calculus. It is currently situated as a middleware
+the presence calculus. It is currently situated [^-alpha-disclaimer] as a middleware
 layer suitable for interfacing real world operational systems and complex system
 simulation, to the analytical machinery of the presence calculus.
+
+[^-alpha-disclaimer]: As of writing, the toolkit is still in an alpha state, and is
+under active development and evolution. It is not ready for production use, but can be used
+as reference to understand how the concepts we define are implemented in code. 
 
 In the API documentation, we go into the concepts at a level of rigor that
 you'll need to compute and build applications based on the presence calculus. 
@@ -167,129 +171,6 @@ a reader with a background in real analysis to clearly grasp the
 mathematical definitions and claims behind the calculus. In the footnotes and
 references, we link to specific documents in this track for deeper mathematical
 treatments of the concepts we discuss here.
-
-### A personal note
-
-This work represents the culmination of nearly ten years of research, product
-development, and field work in operations management in software product
-development in [The Polaris Advisor Program](https://exathink.com).
-
-The foundations were laid between 2017 and 2022 while I was developing [Polaris](https://www.exathink.com/why-us), a
-proprietary measurement platform for software product development that
-powers our program. But—as is the nature of evolving software platforms—ideas,
-theories, and practice all blended together over the years into a somewhat
-incoherent jumble, making it hard to distinguish what was fundamental from what
-was anecdotal practice.
-
-I was also deeply frustrated with the inadequacy of existing measurement
-techniques to realistically model the systems we _actually_ work in.
-Personally, as someone who has been a software developer for nearly 30 years,
-building measurements systems in software over the last decade has highlighted,
-in vivid detail, the shortcomings in our ability to measure _anything_
-meaningful and actionable about software development work.
-
-The presence calculus is a foundational step in addressing this problem, but it
-is only a starting point. It makes no grand claims beyond what is stated
-mathematically here. Much work still remains to explore its applications, and
-its practical limits will become clear as we test its applicability in various
-contexts.
-
-> That said, in my view, the calculus represents a fundamental departure in how
-> we approach measurement in software,
-> distinguishing it both from the purely empirical and statistical techniques
-> that are in the mainstream today and also from ideas imported from other domains like
-> manufacturing—another significant branch.
-
-It allows us to model and measure software development as it is— bespoke, messy,
-irregular, highly variable, deeply time- and history-dependent work involving
-humans, machines, and codified knowledge, forming complex, interconnected
-systems—where being able to move beyond proxies and observe what _is_ in rich
-detail is a prerequisite to reasoning quantitatively about the system.
-
-It formally identifies the mathematical foundations behind how we can do
-this—how to better _measure_ properties of such real-world systems without
-compromise, adapt the ideas that are fundamental to this messy world, and build
-measurement models that reflect the reality of software development. 
-
-In developing the presence calculus, I drew upon and re-contextualized many
-existing ideas in the field. For example, Little's Law plays a foundational role
-in the presence calculus. But this is because, mathematically, Little's Law
-encodes some deep and general structural properties of _arbitrary time-varying
-signals_ in _any_ domain.
-
-The version we use commonly in the software industry is a rather trivial
-_special case_ of the underlying mathematical concepts. This version is based on
-nearly 50-year-old ideas developed in the context of studying queueing systems
-and their application to manufacturing. It does not reflect the modern
-mathematical developments in the theories underpinning the law. In fact, those
-developments are materially important to apply it correctly in the
-software development context.
-
-The presence calculus starts from this up-to-date view but goes beyond this to
-position this law within a more general, measure-theoretic mathematical framework.
-
-When we start from the presence calculus framing, we can derive a _provably correct_
-version of Little's Law from first principles _for any measurement context_
-involving time-varying signals. It is no longer simply a formula copied from
-Lean manufacturing.
-
-> It may be surprising to many that such a derivation is even possible—much less in
-> a mathematically provable way. It certainly was, to me!
-
-This has fundamental implications on our ability to reason about these
-measurements—well beyond what is possible with statistical or probabilistic
-techniques alone.
-
-Those statistical and probabilistic techniques, too, require much more careful
-treatment when modeling the non-stationary, time-varying behaviors that are the
-default in real-world software systems. However, that care is very often
-missing in the mainstream applications of these techniques in industry—for
-example, in the field of developer experience and in mainstream developer
-productivity measurement products, where statistical measures are applied to
-time-varying signals with nary a concern about such technicalities.
-
-The presence calculus offers a much more careful and rigorous foundation for
-bridging this gap—quite different from standard statistical approaches to
-dealing with time-varying data.
-
-In this way, I believe the presence calculus has deep and fundamental
-applications for the software domain and beyond. 
-
-Even though the concepts require a bit of effort to understand and apply, the
-good news is that there are relatively straightforward points of departure
-between how we would model problems using the calculus and how we would
-typically model them using conventional techniques. 
-
-By comparing and contrasting these approaches, we can better understand where it
-brings new benefits.
-
-#### Summary
-
-The presence calculus formalizes and generalizes the theory behind many of the
-ideas developed and remixed from existing practices and techniques in the
-industry and that we have used in The Polaris Advisor Program over the years.
-
-I am now embarking on a new phase: rebuilding a mix of open-source and
-proprietary tooling grounded in the principles laid out here.
-
-If the concepts in this document and
-[the project](https://github.com/krishnaku/pypcalc)
-are of interest, I welcome collaborators who can help pressure test and apply
-these ideas—and explore and understand what their limits are.
-
-This document, along with others on this site, are intended to provide a broad
-and deep foundation to support anyone who finds this prospect intriguing or
-exciting.
-
-My objective here is to develop a robust substrate for many
-common modeling and measurement problems in software, so that more people can
-extend and apply these ideas in real-world environments with greater precision,
-and with confidence in the mathematical validity of their measurement systems.
-
-I welcome constructive feedback and thoughtful skepticism—especially from
-those who can help surface areas where the approach needs refinement or may even
-be the wrong fit. That kind of scrutiny is essential if we want these ideas to
-be broadly useful.
 
 With all that as preamble, let's jump in...
 
@@ -421,7 +302,7 @@ topology of time and the algebra of time intervals to reason about the
 interactions and configurations of presences in a rigorous and
 structured, and more importantly, computable way.
 
-## What is a presence?
+## What is a presence? {#presence}
 
 Let's start by building intuition for the concept. Consider the
 statement: “The task $X$ was in Development from Monday to Friday.”
@@ -460,7 +341,7 @@ Let's consider a different set of statements:
 > 3 developers on Thursday, and 1 developer on Friday.”
 
 These are no longer about just presence, but about the *effects* of presence.  
-They describe the **load** that task $X$ placed on the Development boundary  
+They describe the *load* that task $X$ placed on the Development boundary  
 over time.
 
 The units of this presence are developer-days - potentially in a completely
@@ -499,7 +380,7 @@ think of them as a way to add up presence masses, in a way that the ideas we use
 for binary presences will generalize when we apply them to arbitrary functions.
 
 > Presence mass is composite that measures some real valued quantity and the
-> amount of time it was present. Think of it as measuring an **area** in a two-dimensional space with
+> amount of time it was present. Think of it as measuring an *area* in a two-dimensional space with
 > time as one of the dimensions. 
 
 Binary presences are much easier to understand intuitively, but the real power
@@ -760,7 +641,7 @@ Formally, a general presence is defined by:
 - a boundary $b$,
 - and a time interval $[t_0, t_1]$.
 
-Its **mass** is the integral of $f$ over the interval:
+Its *mass* is the integral of $f$ over the interval:
 
 $$ \text{mass}(e, b, [t_0, t_1]) = \int_{t_0}^{t_1} f(e, b, t)\, dt $$
 
@@ -775,7 +656,7 @@ continuous signals. Modeling all signals uniformly as presences with temporal
 mass is the first step toward analyzing interactions and dynamics _across_
 heterogeneous signals within a domain.
 
-## Systems of presence
+## Systems of presence {#systems-of-presence}
 
 In this section, we move from individual presence density functions to systems
 of signals—each capturing the presence behavior of multiple elements across
@@ -1000,7 +881,7 @@ collection of presence assertions derived from an underlying set of
 path dependent element-boundary signals.
 
 
-## Co-presence and the presence invariant
+## Co-presence and the presence invariant {#presence-invariant}
 
 [@fig:presence-invariant-continuous] illustrates an example of a system of
 presences, where we focus on the
@@ -1313,7 +1194,7 @@ In the next section, we’ll introduce the *presence matrix*—a compact
 representation of the sampled signals shown in [@fig:system-presences-discrete].
 It is a key building block in the machinery for computing these trajectories.
 
-## The presence matrix
+## The presence matrix {#presence-matrix}
 
 A *presence matrix* is a data structure that records the presence mass values
 resulting from the sampling process described
@@ -1514,7 +1395,7 @@ Next, we introduce a structure that allows us to compute and analyze these
 parameters *across multiple observation windows*—the final piece we need to
 compute signal dynamics for the system.
 
-### The presence accumulation matrix
+## The presence accumulation matrix {#presence-accumulation-matrix}
 
 Signal dynamics requires us to reason about both the micro and macro behaviors
 of a system of presences. To do this efficiently we will derive a data structure
@@ -2012,7 +1893,7 @@ Combined with the presence invariant—which also holds at every level of this
 accumulation—this gives us a powerful framework for dissecting the dynamics of
 a system of presences.
 
-## Computing signal dynamics
+## Computing signal dynamics {#signal-dynamics}
 
 Presence calculus concepts—such as presence mass, incidence rate, and density—
 are not unlike abstract physical notions like force, mass, and acceleration
@@ -2062,7 +1943,7 @@ mass in a system to be in equilibrium.
 > on which to base predictive reasoning.
 
 
-### Sample paths
+### Sample paths {#sample-paths}
 
 Consider the highlighted portions of the accumulation matrix $A$
 in [@fig:diagonal-top-row].
@@ -2152,7 +2033,7 @@ $$
 where each $P_{(e,b)}(t)$ represents the presence density function of an
 underlying element-boundary signal.
 
-### Convergence and divergence of presence density
+### Convergence and divergence of presence density {#convergence}
 
 If we divide each of the entries in the accumulation matrix by the length of the
 time interval it covers, we get the presence density for each interval. For the
@@ -2558,8 +2439,8 @@ in [@fig:mass-contribution-per-signal] assuming there was no reset.
 This gives us the first condition for convergence of $\Delta$ :
 
 <div style="border: 1px solid #ccc; border-radius: 6px; padding: 1em; background-color: #f9f9f9; margin: 2em 0;">
-**Boundedness of
-Signal Mass**
+*Boundedness of
+Signal Mass*
 
 *In a convergent system of presences, every signal onset is eventually followed
 by a corresponding reset, when observed over a sufficiently long time interval.*
@@ -2934,7 +2815,7 @@ These are essential capabilities for building mechanisms that can steer system
 behavior in a desired direction—toward convergence or divergence of presence
 density.
 
-### The presence invariant in phase space
+### The presence invariant in phase space {#phase-space}
 
 In the previous section, we showed that the accumulation of presence density
 across time and timescales follows a deterministic rule—the *presence accumulation
@@ -2986,7 +2867,7 @@ This representation has powerful interpretive value:
 
 Let’s define these explicitly:
 
-- The **norm** of $z$:
+- The *norm* of $z$:
 
   $$
   \|z\| = \sqrt{(\log \iota)^2 + (\log \bar{m})^2}
@@ -2995,7 +2876,7 @@ Let’s define these explicitly:
   This gives a scale-invariant measure of the strength of presence density,
   combining incidence and mass into a single quantity.
 
-- The **phase angle** of $z$:
+- The *phase angle* of $z$:
 
   $$
   \theta = \arg(z) = \mathrm{atan2}(\log \bar{m}, \log \iota)
@@ -3020,7 +2901,7 @@ allows us to interpret each interval’s presence dynamics in terms of both
 > intensity and direction of presence accumulations.
 
 [@fig:complex-plane-table] shows this mapping of the presence accumulation matrix into polar
-co-ordinates in the complex plane.
+co-ordinates in the complex plane. We will call this the _presence accumulation dual._
 
 ::: {.figure #fig:complex-plane-table}
 ![](../assets/placeholder.png){#fig:complex-plane-table style="display: none;"}
@@ -3042,11 +2923,11 @@ co-ordinates in the complex plane.
 
 </tbody>
 </table>
-Representation of the presence accumulation matrix in polar co-ordinates on the complex plane.
+The presence accumulation dual: the presence accumulation matrix in polar co-ordinates on the complex plane.
 :::
 
 
-### Flow fields
+### Flow fields {#flow-fields}
 
 [@fig:complex-plane-table] is not particularly insightful, so let's visualize this as a field of
 vectors as in [@fig:flow-field]. We will call this the flow field for the system.
@@ -3120,7 +3001,7 @@ driven by rate, mass, or a balanced interplay between them.
     <td style="padding: 0.2em 0.3em;">
       <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible"><line x1="12" y1="20" x2="12" y2="4" stroke="black" stroke-width="2" marker-end="url(#arrow)"/></svg>
     </td>
-    <td style="padding: 0.2em 0.3em;">**Mass-Driven Growth**</td>
+    <td style="padding: 0.2em 0.3em;">*Mass-Driven Growth*</td>
     <td style="padding: 0.2em 0.3em;">$\log \iota \approx 0$, $\log \bar{m} > 0$</td>
     <td style="padding: 0.2em 0.3em;">$\iota \approx 1$, $\bar{m} > 1$. Density increases from growing mass per signal; incidence stable.</td>
   </tr>
@@ -3129,7 +3010,7 @@ driven by rate, mass, or a balanced interplay between them.
     <td style="padding: 0.2em 0.3em;">
       <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible"><line x1="4" y1="20" x2="20" y2="4" stroke="black" stroke-width="2" marker-end="url(#arrow)"/></svg>
     </td>
-    <td style="padding: 0.2em 0.3em;">**General Growth/Expansion**</td>
+    <td style="padding: 0.2em 0.3em;">*General Growth/Expansion*</td>
     <td style="padding: 0.2em 0.3em;">$\log \iota > 0$, $\log \bar{m} > 0$</td>
     <td style="padding: 0.2em 0.3em;">$\iota > 1$, $\bar{m} > 1$. Both signal incidence rate and mass per signal are increasing. ($\theta = \pi/4$ for balanced growth).</td>
   </tr>
@@ -3138,7 +3019,7 @@ driven by rate, mass, or a balanced interplay between them.
     <td style="padding: 0.2em 0.3em;">
       <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible"><line x1="4" y1="12" x2="20" y2="12" stroke="black" stroke-width="2" marker-end="url(#arrow)"/></svg>
     </td>
-    <td style="padding: 0.2em 0.3em;">**Rate-Driven Growth (Mass Stable)**</td>
+    <td style="padding: 0.2em 0.3em;">*Rate-Driven Growth (Mass Stable)*</td>
     <td style="padding: 0.2em 0.3em;">$\log \iota > 0$, $\log \bar{m} \approx 0$</td>
     <td style="padding: 0.2em 0.3em;">$\iota > 1$, $\bar{m} \approx 1$. Density increases from growing signal incidence; mass per signal stable.</td>
   </tr>
@@ -3147,7 +3028,7 @@ driven by rate, mass, or a balanced interplay between them.
     <td style="padding: 0.2em 0.3em;">
       <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible"><line x1="4" y1="4" x2="20" y2="20" stroke="black" stroke-width="2" marker-end="url(#arrow)"/></svg>
     </td>
-    <td style="padding: 0.2em 0.3em;">**Mass Dilution**</td>
+    <td style="padding: 0.2em 0.3em;">*Mass Dilution*</td>
     <td style="padding: 0.2em 0.3em;">$\log \iota > 0$, $\log \bar{m} < 0$</td>
     <td style="padding: 0.2em 0.3em;">$\iota > 1$, $\bar{m} < 1$. Many signals entering, but each contributes less mass. ($\theta = -\pi/4$ for proportional change).</td>
   </tr>
@@ -3156,7 +3037,7 @@ driven by rate, mass, or a balanced interplay between them.
     <td style="padding: 0.2em 0.3em;">
       <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible"><line x1="12" y1="4" x2="12" y2="20" stroke="black" stroke-width="2" marker-end="url(#arrow)"/></svg>
     </td>
-    <td style="padding: 0.2em 0.3em;">**Mass-Driven Decline**</td>
+    <td style="padding: 0.2em 0.3em;">*Mass-Driven Decline*</td>
     <td style="padding: 0.2em 0.3em;">$\log \iota \approx 0$, $\log \bar{m} < 0$</td>
     <td style="padding: 0.2em 0.3em;">$\iota \approx 1$, $\bar{m} < 1$. Density declines due to decreasing mass per signal; incidence stable.</td>
   </tr>
@@ -3166,7 +3047,7 @@ driven by rate, mass, or a balanced interplay between them.
       <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible"><line x1="20" y1="4" x2="4" y2="20" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
       </svg>
     </td>
-    <td style="padding: 0.2em 0.3em;">**General Decline/Contraction**</td>
+    <td style="padding: 0.2em 0.3em;">*General Decline/Contraction*</td>
     <td style="padding: 0.2em 0.3em;">$\log \iota < 0$, $\log \bar{m} < 0$</td>
     <td style="padding: 0.2em 0.3em;">$\iota < 1$, $\bar{m} < 1$. Both signal incidence rate and mass per signal are decreasing. ($\theta = -3\pi/4$ for balanced proportional decline).</td>
   </tr>
@@ -3175,7 +3056,7 @@ driven by rate, mass, or a balanced interplay between them.
     <td style="padding: 0.2em 0.3em;">
       <svg width="18" height="18" viewBox="0 0 24 24" overflow="visible"><line x1="20" y1="12" x2="4" y2="12" stroke="black" stroke-width="2" marker-end="url(#arrow)"/></svg>
     </td>
-    <td style="padding: 0.2em 0.3em;">**Rate-Driven Decline (Mass Stable)**</td>
+    <td style="padding: 0.2em 0.3em;">*Rate-Driven Decline (Mass Stable)*</td>
     <td style="padding: 0.2em 0.3em;">$\log \iota < 0$, $\log \bar{m} \approx 0$</td>
     <td style="padding: 0.2em 0.3em;">$\iota < 1$, $\bar{m} \approx 1$. Density declines primarily due to decreasing signal incidence; mass per signal stable.</td>
   </tr>
@@ -3217,7 +3098,7 @@ Here are some important observations from the flow field in [@fig:flow-field]:
   which such alignment in magnitude and direction becomes visible is an
   important system property.
 
-### Sample path trajectories and attractors
+### Sample path trajectories and attractors {#attractors}
 
 In the last section, we showed how we could mathematically define the concept of
 _flow_ in a system of presences via a mapping of the right-hand product in the
@@ -3366,31 +3247,33 @@ key contribution of the presence calculus in this regard.
 We will have much more say about using the tools of the presence calculus to
 create such feedback loops and steer systems in future posts.
 
-## Taking Stock
+## Taking stock
 
 The last few chapters have introduced many concepts that build on the primitive
-idea of presence and systems of presence. Before moving forward, let’s step
-back and consider these ideas as a whole to build some intuition for what the
-presence calculus *is* and what it tells us.
+idea of presence and systems of presence. Let’s pause and take stock of these
+ideas to build some intuition for what the presence calculus *is* and what it
+tells us.
+
+### Why should I care? 
 
 First and foremost, the presence calculus is not a modeling framework, a
 measurement system, or a methodology. It is a mathematical and analytical
 *substrate*—a foundation on which such frameworks or methodologies can be
 constructed.
 
-It is not a replacement for existing measurement tools or systems. Rather, it is
-a tool that can operate *alongside* existing techniques such as statistics and
-probability. Its particular strength lies in analyzing a class of problems that
-are not easily addressed using those conventional techniques.
+It is not a replacement for existing mathematical tools. Rather, it is
+a tool that can operate *alongside* techniques such as statistical and
+probabilistic analyses. Its particular strength lies in analyzing a class of problems that
+are not easily addressed using those techniques.
 
 The presence calculus is well suited to reasoning about system properties that
 satisfy the following mathematical criteria, stated here in plain English:
 
-- The measured value is a non-negative real number that varies over time—i.e.,
+- The measured value is a _non-negative_ real number that varies continuously over time—i.e.,
   we are measuring the *presence* of a property in the system.
 - The "signal" in the property is tied to the _accumulation_ of its value—
   both the magnitude and the duration for which it is held are meaningful.
-- The value at any given time can be expressed as the sum of non-negative values
+- The value at any given time can be expressed as the _sum_ of _non-negative_ values
   from a countable set of time-varying functions (signals) over a fixed domain.
 - Each contributing function is measurable over finite intervals, meaning its
   Lebesgue integral exists and is finite over any bounded interval.
@@ -3400,21 +3283,212 @@ For practical applications, we also require:
 - Each signal’s contribution can be *directly* instrumented and measured over
   the domain.
 
-The presence calculus is therefore well suited for reasoning about system
-properties that are cumulative, time-varying, and composed of multiple
-independent signals that contribute to the total accumulation.
-
 While this may sound restrictive, a surprisingly large class of operational and
 business-critical properties—especially those related to delays, costs, risks,
 and rewards—fall squarely within this domain. This makes the presence calculus a
-powerful tool for analyzing such properties in a robust and principled way.
+powerful tool for reasoning about such properties in a robust and principled way.
 
 Because these properties often underpin sound decision-making in business
 contexts, the presence calculus has the potential to significantly improve the
-quality of those decisions. This is where its real power lies.
+quality of those decisions.
 
+### Where can I apply this and how?
 
+Intuitively, when a system property has a "time-value," the presence calculus
+offers tools to frame decisions in terms of managing that property's
+accumulation over time. We categorize signals into those we want to accumulate
+(e.g., revenue, profits, satisfied customers) and those we want to constrain
+(e.g., costs, risks, debts, delays).
 
+For each of these signals, the calculus provides better tools to accurately
+measure and reason about how the property accumulates over time and across
+time-scales within a defined system of presences.
+
+![The presence calculus machinery](../assets/pandoc/pcalc_machinery.png){#fig:pcalc-machinery}
+
+The machinery of the presence calculus is shown in [@fig:pcalc-machinery]
+
+- The *presence invariant* states that for any finite interval, the presence
+  density in the system equals the product of the incidence rate and the mass
+  contribution per signal.
+- Since presence density measures the rate of accumulation over time, these two
+  parameters—incidence rate and mass contribution—fully determine how presence
+  evolves in the system. They become your two control knobs for presence density.
+- The *presence matrix* captures a discrete set of presence samples using a
+  fixed sampling granularity. This defines the smallest time interval over which
+  presence mass is recorded. This normalization allows presence accumulation to
+  be compared on a consistent time scale.
+- The *presence accumulation matrix* then aggregates these samples across time
+  and time-scales. Because presence is finitely additive, the matrix supports
+  arbitrary aggregation without losing the semantics of accumulated mass.
+- This lets us reason about sample paths at multiple scales, detect convergence
+  behaviors, and identify attractors within the system.
+- Mapping the invariant to the complex plane gives us a visual representation of
+  presence flow across time-scales. It becomes a steering vector that shows
+  *where* you want to move the system using the control knobs of incidence rate
+  and signal mass. This is a _deterministic_ steering mechanism _even when the
+  underlying system is non-linear, stochastic or chaotic_!
+
+All of this are significantly more powerful tools than analyzing isolated point
+samples using standard statistical or probabilistic techniques. The key
+advantage is that it allows us to _manage_ a system of presences even when the
+underlying signals lack a stable statistical or probability distribution and the
+system is far from equilibrium
+[^-non-stationary].
+
+[^-non-stationary]: This is a key differentiation between the presence calculus
+and standard statistical and probabilistic techniques. The latter struggle with
+non-stationary systems—i.e., systems where the underlying distributions of values
+continuously change over time.
+
+So for this very broad category of signals, the presence calculus is a much more
+powerful mathematical substrate on which to build decision support systems.
+
+### Towards systems of systems
+
+When we manage a single such system property, a single presence system is often
+sufficient to represent the relevant variables. But real-world decision systems
+typically involve _many_ such systems of presence.
+
+Much more work remains to be done in understanding how to combine individual
+presence systems into larger systems composed of multiple, interacting presences.
+A general theory of how such systems interact is likely to be of great value,
+but also more challenging to develop.
+
+Still, as we’ve seen in concrete applications, there is already substantial
+value in modeling such systems of systems within specific domains and contexts—
+where domain assumptions allow us to prove properties that may not hold in the
+general case.
+
+Domain-specific measurement _frameworks_ built on presence systems as primitives—
+rather than abstract, domain-independent theories of presence systems—appear to be
+a far more fruitful and tractable direction.
+
+This is where we will begin: focusing on real-world applications while testing
+the boundaries of this formalism.
+
+## A personal note
+
+This work represents the culmination of nearly ten years of research, product
+development, and field work in operations management in software product
+development in [The Polaris Advisor Program](https://exathink.com).
+
+The foundations were laid between 2017 and 2022 while I was developing [Polaris](https://www.exathink.com/why-us), a
+proprietary measurement platform for software product development that
+powers our program. But—as is the nature of evolving software platforms—ideas,
+theories, and practice all blended together over the years into a somewhat
+incoherent jumble, making it hard to distinguish what was fundamental from what
+was anecdotal practice.
+
+I was also deeply frustrated with the inadequacy of existing measurement
+techniques to realistically model the systems we _actually_ work in.
+Personally, as someone who has been a software developer for nearly 30 years,
+building measurements systems in software over the last decade has highlighted,
+in vivid detail, the shortcomings in our ability to measure _anything_
+meaningful and actionable about software development work.
+
+The presence calculus is a foundational step in addressing this problem, but it
+is only a starting point. It makes no grand claims beyond what is stated
+mathematically here. Much work still remains to explore its applications, and
+its practical limits will become clear as we test its applicability in various
+contexts.
+
+> That said, in my view, the calculus represents a fundamental departure in how
+> we approach measurement in software,
+> distinguishing it both from the purely empirical and statistical techniques
+> that are in the mainstream today and also from ideas imported from other domains like
+> manufacturing—another significant branch.
+
+It allows us to model and measure software development as it is— bespoke, messy,
+irregular, highly variable, deeply time- and history-dependent work involving
+humans, machines, and codified knowledge, forming complex, interconnected
+systems—where being able to move beyond proxies and observe what _is_ in rich
+detail is a prerequisite to reasoning quantitatively about the system.
+
+It formally identifies the mathematical foundations behind how we can do
+this—how to better _measure_ properties of such real-world systems without
+compromise, adapt the ideas that are fundamental to this messy world, and build
+measurement models that reflect the reality of software development. 
+
+In developing the presence calculus, I drew upon and re-contextualized many
+existing ideas in the field. For example, Little's Law plays a foundational role
+in the presence calculus. But this is because, mathematically, Little's Law
+encodes some deep and general structural properties of _arbitrary time-varying
+signals_ in _any_ domain.
+
+The version we use commonly in the software industry is a rather trivial
+_special case_ of the underlying mathematical concepts. This version is based on
+nearly 50-year-old ideas developed in the context of studying queueing systems
+and their application to manufacturing. It does not reflect the modern
+mathematical developments in the theories underpinning the law. In fact, those
+developments are materially important to apply it correctly in the
+software development context.
+
+The presence calculus starts from this up-to-date view but goes beyond this to
+position this law within a more general, measure-theoretic mathematical framework.
+
+When we start from the presence calculus framing, we can derive a _provably correct_
+version of Little's Law from first principles _for any measurement context_
+involving time-varying signals. It is no longer simply a formula copied from
+Lean manufacturing.
+
+> It may be surprising to many that such a derivation is even possible—much less in
+> a mathematically provable way. It certainly was, to me!
+
+This has fundamental implications on our ability to reason about these
+measurements—well beyond what is possible with statistical or probabilistic
+techniques alone.
+
+Those statistical and probabilistic techniques, too, require much more careful
+treatment when modeling the non-stationary, time-varying behaviors that are the
+default in real-world software systems. However, that care is very often
+missing in the mainstream applications of these techniques in industry—for
+example, in the field of developer experience and in mainstream developer
+productivity measurement products, where statistical measures are applied to
+time-varying signals with nary a concern about such technicalities.
+
+The presence calculus offers a much more careful and rigorous foundation for
+bridging this gap—quite different from standard statistical approaches to
+dealing with time-varying data.
+
+In this way, I believe the presence calculus has deep and fundamental
+applications for the software domain and beyond. 
+
+Even though the concepts require a bit of effort to understand and apply, the
+good news is that there are relatively straightforward points of departure
+between how we would model problems using the calculus and how we would
+typically model them using conventional techniques. 
+
+By comparing and contrasting these approaches, we can better understand where it
+brings new benefits.
+
+### The road ahead
+
+The presence calculus formalizes and generalizes the theory behind many of the
+ideas developed and remixed from existing practices and techniques in the
+industry and that we have used in The Polaris Advisor Program over the years.
+
+I am now embarking on a new phase: rebuilding a mix of open-source and
+proprietary tooling grounded in the principles laid out here.
+
+If the concepts in this document and
+[the project](https://github.com/krishnaku/pypcalc)
+are of interest, I welcome collaborators who can help pressure test and apply
+these ideas—and explore and understand what their limits are.
+
+This document, along with others on this site, are intended to provide a broad
+and deep foundation to support anyone who finds this prospect intriguing or
+exciting.
+
+My objective here is to develop a robust substrate for many
+common modeling and measurement problems in software, so that more people can
+extend and apply these ideas in real-world environments with greater precision,
+and with confidence in the mathematical validity of their measurement systems.
+
+I welcome constructive feedback and thoughtful skepticism—especially from
+those who can help surface areas where the approach needs refinement or may even
+be the wrong fit. That kind of scrutiny is essential if we want these ideas to
+be broadly useful.
 
 ---
 ## References
