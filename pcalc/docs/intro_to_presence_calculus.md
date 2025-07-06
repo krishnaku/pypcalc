@@ -935,14 +935,19 @@ Let $N$ be the number of *active signals*: distinct signals with a presence in
 the observation window[^F6].
 
 [^F6]: It is equally valid to define $N$ as the number of distinct _presences_
-in the observation window. For example for the signal $P2$
-in [@fig:presence-invariant-continuous], this
-corresponds to asking if $N=5$ (if we count the disjoint presences individually)
-or $N=3$ (if we count the signals). These give different values for $\bar{m}$
-and $\iota$ but their product _still equals_ $\delta$, as long as a single
-consistent definition of N is used. This is ultimately a modeling decision that
-depends on what you are trying to measure. By default we will assume that $N$ is
-measured at the signal granularity.
+  in the observation window. For example for the signal $P2$
+  in [@fig:presence-invariant-continuous], this
+  corresponds to asking if $N=5$ (if we count the disjoint presences individually)
+  or $N=3$ (if we count the signals). These give different values for $\bar{m}$
+  and $\iota$ but their product _still equals_ $\delta$, as long as a single
+  consistent definition of N is used. 
+  
+    As we show in [The Generalized Presence Invariant](./generalized_presence_invariant.html)
+  $N$ can be a dicrete counting measure on the signal domain. 
+  
+    This is ultimately a modeling decision that
+  depends on what you are trying to measure. By default we will assume that $N$ is
+  measured at the signal granularity.  
 
 Now let's consider the quantity
 $$
@@ -2010,7 +2015,10 @@ We will call the sequence of values on the diagonal a _sample path_ for the
 system of presences [^-F-sample-path].
 
 [^-F-sample-path]: This concept is equivalent to the concept of a sample path developed by 
-Stidham in [@stidham72] to provide the first deterministic proof of Little's Law. 
+Stidham in [@stidham72] to provide the first deterministic proof of Little's Law. This concept
+has been extensively studied in the context queueing systems with [@eltaha1999] being the 
+comprehensive reference for applications of sample path techniques. 
+
 
 
 ![Computing the accumulated values on the sample path](../assets/pandoc/diagonal_values.png){#fig:diagonal-values}
