@@ -3401,8 +3401,8 @@ domain. Yet each can be reframed as a *system of presences* and analyzed
 uniformly with the tools developed here. 
 
 We will finally have measurement systems that start with software
-product development concepts and operating principles, and yet have
-mathematically provable relationships between key measurements. This is what
+product development concepts and operating principles, _and yet have
+mathematically provable relationships between key measurements_. This is what
 the presence calculus brings to the table. Our first set of
 application articles will explore what this looks like in practice.
 
