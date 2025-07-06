@@ -3563,7 +3563,7 @@ be broadly useful.
 
 If you prefer audio to text, here is a summary of this document that was
 produced using Google's NotebookLM. There are a couple of glitches here and there, and
-maybe a couple points where I would quibble with the interpretation, but by and large this
+maybe a couple of points where I would quibble with the interpretation, but by and large this
 is a remarkably astute summary of the key things I would want someone to take away from
 this document.
 
