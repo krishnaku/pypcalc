@@ -175,6 +175,14 @@ treatments of the concepts we discuss here.
 This document, and all related documentation can be found at the 
 [Presence Calculus Documentation Site](../index.html)
 
+>If you are not into reading long technical documents and would like 
+to listen to a podcast that explains the key ideas, you can find a remarkably
+good summary that was produced by Google's NotebookLM at the [end of this document](#notebook-lm). 
+
+Listen to it (if you have 30 minutes) and then come back and read this document 
+if it sounds interesting!
+
+
 With all that as preamble, let's jump in...
 
 ## Why presence?
@@ -3492,6 +3500,24 @@ I welcome constructive feedback and thoughtful skepticism—especially from
 those who can help surface areas where the approach needs refinement or may even
 be the wrong fit. That kind of scrutiny is essential if we want these ideas to
 be broadly useful.
+
+## The AI Summary {#notebook-lm}
+
+If you prefer audio to text, here is a summary of this document that was
+produced using Google's NotebookLM. There are a couple of glitches here and there, and
+maybe a couple points where I would quibble with the interpretation, but by and large this
+is a remarkably accurate summary of the key things I would want someone to take away from
+this document.
+
+The AI was fed this document as well as all the mathematical source material on the 
+Theory track and I have to say it has done a great job of turning this into a coherent conversation
+on a rather obscure topic!
+
+
+<audio controls>
+  <source src="../assets/pandoc/presence_calculus_overview.wav" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 
 ---
 ## References
