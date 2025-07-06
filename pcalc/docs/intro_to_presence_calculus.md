@@ -3359,57 +3359,81 @@ powerful mathematical substrate on which to build decision support systems.
 
 ### Towards Systems of Systems
 
-When managing a single operational property such as a cost, source of risk or
-reward, a single presence system is often sufficient to model the relevant
-variables. Many useful operational questions can be answered with such models, but these
-are local optimizations. 
+When managing a single operational property—like cost, risk, delay, or a
+market-facing reward such as revenue—a *single presence system* is often
+sufficient to model the relevant variables. Many useful operational questions
+can be answered with such models, though these are typically local
+optimizations.
 
-But real-world decision-making environments typically involve *many* such
-systems—each representing distinct tradeoffs between aspects of work,
-interaction, or constraint.
+Real-world decision-making environments, however, involve *many such systems*,
+each representing distinct tradeoffs between aspects of work, interaction, or
+constraint.
 
-A general theory for how such systems of presence interact would be valuable,
-but quite challenging to develop. Much work remains in
-understanding how to combine individual presence systems into larger,
-interacting systems of systems and it seems naive to hope that we can do so
-for arbitrary complex systems. 
+A general theory for how these systems of presence interact would be valuable
+but quite challenging to develop. Much work remains in understanding how to
+combine individual presence systems into larger, interacting *systems of
+systems*, and it seems naive to hope this can be done for arbitrarily complex
+systems.
 
-The mathematics of the presence calculus are suitable for local modeling local interactions, 
-and when tackling measurement in a larger complex system, I believe that their power lies
-in modeling the interactions within and between smaller subsystems and assemblages. This is still 
-an active an largely unexplored application area for the calculus. 
+The mathematics of the presence calculus are well-suited for modeling local
+interactions. When tackling measurement in a larger complex system, I believe
+their power lies in modeling the interactions *within and between smaller
+subsystems and assemblages*. This remains an active and largely unexplored
+application area for the calculus.
 
 Still, as we've seen in concrete applications, modeling within specific domains
-already offers substantial value. Domain assumptions often allow us to prove
+already offers substantial value. *Domain assumptions* often allow us to prove
 properties that might not hold in the general case.
 
-For instance, in the domain where the presence calculus was first developed—
-operations management in software product development—systems of presence are a
-powerful unifying concept.
+For instance, in the domain where the presence calculus was first
+developed—operations management in software product development—systems of
+presence are a powerful unifying concept.
 
-Today, operational improvement in software remains largely in a pre-scientific
-phase: it relies on a fragmented mix of metrics, folk theories, and awkwardly
-transplanted models from unrelated domains. Many of these were designed with
-assumptions that do not hold in the software context.
+Today, operational improvement in software largely remains in a pre-scientific
+phase. It relies on a fragmented mix of metrics, developed using gut instinct
+and folk theories, and awkwardly transplanted models from unrelated domains,
+many designed under assumptions that don't hold in the software context.
 
-The result is a patchwork of measurement systems—DORA metrics, the SPACE
-framework, Flow Metrics, project tracking indicators, customer experience
-measures—each operating independently. Yet each can be reframed as a *system of
-presences*, and analyzed uniformly with the tools developed here.
+The result is a patchwork of measurement systems—DORA metrics, Flow Metrics,
+project metrics, customer experience measures—each operating independently and
+largely without an underlying theory that is provably correct in the software
+domain. Yet each can be reframed as a *system of presences* and analyzed
+uniformly with the tools developed here. 
 
-The next step is to construct *causal models* that link these systems into
-coherent wholes. A value stream is a promising example of such a system of
-systems. In our first set of application articles, we’ll explore what this looks
-like in practice.
+We will thus have the first set of mathematically provable measurement systems
+that start with software product development concepts and operating principles.
+Our first set of application articles will explore what this looks like in
+practice.
+
+The next step is to construct *structural causal models* that link these systems
+to understand their local interactions *in a specific company context*. The
+presence calculus gives us tools to steer presence density in individual systems
+of presence and explain observed behavior in a linked system. This means we can
+make a local change to one system and explain the changes in a linked system.
+The interactions are local, but now they span directly linked systems.
+
+This gives us the ability to build such causal models iteratively through
+experimentation on the system. A value stream is a promising example of such a
+system of systems where an approach like this appears tractable.
+
+This idea is very similar to statistical causal modeling, but with a crucial
+difference: we're not inferring causal relationships through statistical
+correlations between proxy variables on large heterogeneous datasets. Instead,
+we're *proving causal relationships between local interactions on directly
+observed presence in a specific complex system*.
 
 In my view, the most productive path forward lies not in seeking a fully general
 theory of interacting presence systems, but in building *domain-specific
-measurement frameworks* grounded in presence systems as primitives. This
-approach is both more tractable and more likely to yield practical insights.
+measurement frameworks* grounded in presence systems as primitives that can be
+effectively tuned through experimentation for a *specific* complex system, like
+a single value stream in a company. This approach is both more tractable and
+more likely to yield practical insights.
 
-That is where we will begin—focusing on real-world applications while testing
-the boundaries of this formalism.
-
+That's where we'll begin—focusing on specific, bounded, real-world applications.
+Perhaps a larger theory will emerge from this, perhaps not, but in either case,
+we expect to see tremendous value created from taking a careful, measured
+mathematically rigorous approach to understanding the capabilities and limits of
+this formalism.
 
 ## A personal note
 
