@@ -434,8 +434,8 @@ Program</em></a></p></p>
       how?</a></li>
       <li><a href="#towards-systems-of-systems"
       id="toc-towards-systems-of-systems"><span
-      class="toc-section-number">10.3</span> Towards systems of
-      systems</a></li>
+      class="toc-section-number">10.3</span> Towards Systems of
+      Systems</a></li>
       </ul></li>
       <li><a href="#a-personal-note" id="toc-a-personal-note"><span
       class="toc-section-number">11</span> A personal note</a>
@@ -6770,27 +6770,59 @@ Program</em></a></p></p>
         calculus is a much more powerful mathematical substrate on which
         to build decision support systems.</p>
         <h3 data-number="10.3" id="towards-systems-of-systems"><span
-        class="header-section-number">10.3</span> Towards systems of
-        systems</h3>
-        <p>When we manage a single such system property, a single
-        presence system is often sufficient to represent the relevant
-        variables. But real-world decision systems typically involve
-        <em>many</em> such systems of presence.</p>
-        <p>Much more work remains to be done in understanding how to
-        combine individual presence systems into larger systems composed
-        of multiple, interacting presences. A general theory of how such
-        systems interact is likely to be of great value, but also more
-        challenging to develop.</p>
-        <p>Still, as we’ve seen in concrete applications, there is
-        already substantial value in modeling such systems of systems
-        within specific domains and contexts— where domain assumptions
-        allow us to prove properties that may not hold in the general
-        case.</p>
-        <p>Domain-specific measurement <em>frameworks</em> built on
-        presence systems as primitives— rather than abstract,
-        domain-independent theories of presence systems—appear to be a
-        far more fruitful and tractable direction.</p>
-        <p>This is where we will begin: focusing on real-world
+        class="header-section-number">10.3</span> Towards Systems of
+        Systems</h3>
+        <p>When managing a single operational property such as a cost,
+        source of risk or reward, a single presence system is often
+        sufficient to model the relevant variables. Many useful
+        operational questions can be answered with such models, but
+        these are local optimizations.</p>
+        <p>But real-world decision-making environments typically involve
+        <em>many</em> such systems—each representing distinct tradeoffs
+        between aspects of work, interaction, or constraint.</p>
+        <p>A general theory for how such systems of presence interact
+        would be valuable, but quite challenging to develop. Much work
+        remains in understanding how to combine individual presence
+        systems into larger, interacting systems of systems and it seems
+        naive to hope that we can do so for arbitrary complex
+        systems.</p>
+        <p>The mathematics of the presence calculus are suitable for
+        local modeling local interactions, and when tackling measurement
+        in a larger complex system, I believe that their power lies in
+        modeling the interactions within and between smaller subsystems
+        and assemblages. This is still an active an largely unexplored
+        application area for the calculus.</p>
+        <p>Still, as we’ve seen in concrete applications, modeling
+        within specific domains already offers substantial value. Domain
+        assumptions often allow us to prove properties that might not
+        hold in the general case.</p>
+        <p>For instance, in the domain where the presence calculus was
+        first developed— operations management in software product
+        development—systems of presence are a powerful unifying
+        concept.</p>
+        <p>Today, operational improvement in software remains largely in
+        a pre-scientific phase: it relies on a fragmented mix of
+        metrics, folk theories, and awkwardly transplanted models from
+        unrelated domains. Many of these were designed with assumptions
+        that do not hold in the software context.</p>
+        <p>The result is a patchwork of measurement systems—DORA
+        metrics, the SPACE framework, Flow Metrics, project tracking
+        indicators, customer experience measures—each operating
+        independently. Yet each can be reframed as a <em>system of
+        presences</em>, and analyzed uniformly with the tools developed
+        here.</p>
+        <p>The next step is to construct <em>causal models</em> that
+        link these systems into coherent wholes. A value stream is a
+        promising example of such a system of systems. In our first set
+        of application articles, we’ll explore what this looks like in
+        practice.</p>
+        <p>In my view, the most productive path forward lies not in
+        seeking a fully general theory of interacting presence systems,
+        but in building <em>domain-specific measurement frameworks</em>
+        grounded in presence systems as primitives. This approach is
+        both more tractable and more likely to yield practical
+        insights.</p>
+        <p>That is where we will begin—focusing on real-world
         applications while testing the boundaries of this formalism.</p>
         <h2 data-number="11" id="a-personal-note"><span
         class="header-section-number">11</span> A personal note</h2>
