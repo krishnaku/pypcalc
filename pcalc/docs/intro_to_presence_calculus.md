@@ -132,10 +132,18 @@ to understand how they fit together in the order they are presented here.
 So even though it is a gentle introduction, it is not the kind of introduction
 that you will get as much value from if you simply skim this document.
 
+>If you are not into reading long technical documents and would like 
+to listen to a podcast that explains the key ideas, you can find a remarkably
+astute summary that was produced by Google's NotebookLM at the [end of this document](#notebook-lm). 
+
+Listen to it (if you have 30 minutes) and then come back and read this document 
+if it sounds interesting!
+
 If that deeper dive is not your cup of tea, we'll continue with ongoing informal
 exposition on our
 blog [The Polaris Flow Dispatch](https://www.polaris-flow-dispatch.com), where
-we will focus mostly on motivations, and applications of the ideas.
+we will focus mostly on motivations, short pieces talking about specific areas, 
+and applications of the concepts.
 
 If you are interested in working with the calculus, we recommend reading and
 understanding all the main ideas in this document before jumping deeper into the rest of the
@@ -175,12 +183,6 @@ treatments of the concepts we discuss here.
 This document, and all related documentation can be found at the 
 [Presence Calculus Documentation Site](../index.html)
 
->If you are not into reading long technical documents and would like 
-to listen to a podcast that explains the key ideas, you can find a remarkably
-good summary that was produced by Google's NotebookLM at the [end of this document](#notebook-lm). 
-
-Listen to it (if you have 30 minutes) and then come back and read this document 
-if it sounds interesting!
 
 
 With all that as preamble, let's jump in...
@@ -3506,7 +3508,7 @@ be broadly useful.
 If you prefer audio to text, here is a summary of this document that was
 produced using Google's NotebookLM. There are a couple of glitches here and there, and
 maybe a couple points where I would quibble with the interpretation, but by and large this
-is a remarkably accurate summary of the key things I would want someone to take away from
+is a remarkably astute summary of the key things I would want someone to take away from
 this document.
 
 The AI was fed this document as well as all the mathematical source material on the 
