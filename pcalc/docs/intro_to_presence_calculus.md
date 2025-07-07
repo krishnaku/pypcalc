@@ -3288,7 +3288,14 @@ probabilistic analyses. Its particular strength lies in analyzing a class of pro
 are not easily addressed using those techniques.
 
 The presence calculus is well suited to reasoning about system properties that
-satisfy the following mathematical criteria, stated here in plain English:
+satisfy the following mathematical criteria, stated here in plain English [^-not-exclusive]:
+
+[^-not-exclusive]: This is not to imply that all these criteria are strictly required to apply the 
+presence calculus. There are lots of theoretical reasons to believe that the ideas here generalize well beyond this, 
+but starting with these criteria gives us a well defined set of problems for which we can _provably guarantee_ that the
+machinery here will provide useful insights. Understanding what happens as we relax one or more of these requirements is 
+an ongoing research activity - both in practical application contexts and in developing the mathematical theory further. 
+
 
 - The measured value is a _non-negative_ real number that varies continuously over time—i.e.,
   we are measuring the *presence* of a property in the system.
