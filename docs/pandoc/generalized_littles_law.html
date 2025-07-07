@@ -186,16 +186,33 @@
     div.csl-indent {
       margin-left: 2em;
     }
-    html, body {
+    html {
+      box-sizing: border-box;
+      font-size: 100%;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    body {
       margin: 0;
       padding: 0;
       font-family: Georgia, serif;
-      font-size: 19px;
+      font-size: 1.1rem;
       line-height: 1.75;
       background: #fff;
       color: #111;
 
-      /* flex centering */
+      /* Remove Pandoc's injected width restrictions */
+      max-width: none !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .wrapper {
       display: flex;
       justify-content: center;
     }
@@ -203,8 +220,7 @@
     #page {
       max-width: 880px;
       width: 100%;
-      padding: 2.5rem 1.5rem;
-      box-sizing: border-box;
+      padding: 2rem 1rem;
     }
 
     h1, h2, h3, h4 {
@@ -250,8 +266,9 @@
 
     .subtitle, .author, .date {
       color: #666;
-      font-size: 1rem;
+      font-size: 0.9rem;
       margin-top: 0.5rem;
+      text-align: center;
     }
 
     nav#TOC {
@@ -259,6 +276,7 @@
       padding: 1rem;
       border: 1px solid #eee;
       background: #fafafa;
+      overflow-x: auto;
     }
 
     figure {
@@ -267,13 +285,11 @@
     }
 
     figure img {
-      width: 600px;
-      max-width: 100%;
+      width: 100%;
       height: auto;
       display: block;
       margin: 2rem auto;
     }
-
 
     figcaption {
       font-size: 0.9em;
@@ -281,374 +297,406 @@
       margin-top: 0.75rem;
     }
 
+    header#title-block-header {
+      text-align: center;
+    }
+
+    @media screen and (min-width: 1024px) {
+      body {
+        font-size: 1.15rem;
+      }
+
+      #page {
+        padding: 3rem 2rem;
+      }
+    }
   </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
   type="text/javascript"></script>
 </head>
 <body>
-  <div id="page">
-            <header id="title-block-header">
-      <h1 class="title"><strong>Convergence of systems of
+  <div class="wrapper">
+    <div id="page">
+                  <header id="title-block-header">
+        <h1 class="title"><strong>Convergence of systems of
 presence</strong></h1>
-      <p class="subtitle"><span style="font-size:1.2em;">A consequence
+        <p class="subtitle"><span style="font-size:1.2em;">A consequence
 of Little’s Law</span></p>
-      <p class="author"><p>Dr. Krishna Kumar<br />
+        <p class="author"><p>Dr. Krishna Kumar<br />
 <em>The Polaris Advisor Program</em></p></p>
-      
-          </header>
-            <nav id="TOC" role="doc-toc">
-      <h2 id="toc-title">Contents</h2>
-      <ul>
-      <li><a href="#introduction" id="toc-introduction"><span
-      class="toc-section-number">1</span> Introduction</a></li>
-      <li><a href="#generalized-littles-law"
-      id="toc-generalized-littles-law"><span
-      class="toc-section-number">2</span> Generalized Little’s
-      Law</a></li>
-      <li><a href="#mapping-to-the-presence-calculus"
-      id="toc-mapping-to-the-presence-calculus"><span
-      class="toc-section-number">3</span> Mapping to the Presence
-      Calculus</a>
-      <ul>
-      <li><a href="#signals-and-functions"
-      id="toc-signals-and-functions"><span
-      class="toc-section-number">3.1</span> Signals and
-      Functions</a></li>
-      <li><a href="#integrability" id="toc-integrability"><span
-      class="toc-section-number">3.2</span> Integrability</a></li>
-      <li><a href="#instantaneous-density"
-      id="toc-instantaneous-density"><span
-      class="toc-section-number">3.3</span> Instantaneous
-      Density</a></li>
-      <li><a href="#average-presence-per-signal"
-      id="toc-average-presence-per-signal"><span
-      class="toc-section-number">3.4</span> Average Presence per
-      Signal</a></li>
-      <li><a href="#signal-incidence-rate"
-      id="toc-signal-incidence-rate"><span
-      class="toc-section-number">3.5</span> Signal Incidence
-      Rate</a></li>
-      <li><a href="#unified-statement" id="toc-unified-statement"><span
-      class="toc-section-number">3.6</span> Unified Statement</a></li>
-      <li><a href="#technical-condition-l_i-t_i-to-0"
-      id="toc-technical-condition-l_i-t_i-to-0"><span
-      class="toc-section-number">3.7</span> Technical Condition: <span
-      class="math inline">\(l_i / t_i \to 0\)</span></a></li>
-      </ul></li>
-      <li><a href="#summary" id="toc-summary"><span
-      class="toc-section-number">4</span> Summary</a></li>
-      <li><a href="#references" id="toc-references">References</a></li>
-      </ul>
-    </nav>
-        <h1 data-number="1" id="introduction"><span
-        class="header-section-number">1</span> Introduction</h1>
-        <p>In this technical note, we formalize the relationship between
-        convergence in the presence calculus and the generalized form of
-        Little’s Law, as originally proven by Brumelle (1971) and
-        refined through sample path techniques by Heyman and Stidham
-        (1980).</p>
-        <p>This addresses a key gap in our informal exposition: while we
-        introduced the convergence conditions, and appealed to the
-        general form of Little’s Law for proof, we did not make the
-        connections explicit.</p>
-        <p>Here, we explicitly bridge that gap by mapping the concepts
-        in the presence calculus to those in the general form of
-        Little’s Law and make clear the relationships between the
-        two.</p>
-        <p>In the rest of this document, when we say Little’s Law it
-        should be assumed that we are referring to the general version
-        discussed here.</p>
-        <h1 data-number="2" id="generalized-littles-law"><span
-        class="header-section-number">2</span> Generalized Little’s
-        Law</h1>
-        <p>The generalized form of Little’s Law is concerned with a
-        countable collection of time-varying functions that represent
-        the activity or occupancy of individual items in a system over
-        time. Let each item <span class="math inline">\(i\)</span> have
-        an associated function <span
-        class="math inline">\(f_i(t)\)</span> defined for <span
-        class="math inline">\(t \geq 0\)</span>, such that:</p>
-        <p><span class="math display">\[
-        \int_0^\infty |f_i(t)| \, dt &lt; \infty
-        \]</span></p>
-        <p>and for some finite <span class="math inline">\(l_i &gt;
-        0\)</span>,</p>
-        <p><span class="math display">\[
-        f_i(t) = 0 \quad \text{for} \quad t \notin [t_i, t_i + l_i]
-        \]</span></p>
-        <p>In other words, each <span
-        class="math inline">\(f_i(t)\)</span> is a function of compact
-        support with a finite integral. These functions describe the
-        temporal footprint or participation profile of item <span
-        class="math inline">\(i\)</span>, capturing its influence on the
-        system while it is “active”— for example, time spent in a queue,
-        time holding a resource, or time contributing to some measurable
-        system state.</p>
-        <p>This formulation originated as a generalization of classical
-        queueing models: rather than simply recording the arrival and
-        departure times of items, it allows us to associate an arbitrary
-        time-varying function with each item’s time in the system. This
-        enables a more flexible description of occupancy-like behavior,
-        including partial participation, weighted influence, or
-        overlapping resource use.</p>
-        <p>It is not hard to see that the notion of <em>presence</em> in
-        the presence calculus is a close generalization of this same
-        idea. The key difference lies in emphasis: while the classical
-        formulation aims to derive steady-state relationships like <span
-        class="math inline">\(H = \lambda \cdot G\)</span>, the presence
-        calculus takes <em>presence mass</em>—the values of these
-        integrals over finite time windows—as a foundational primitive
-        of the framework.</p>
-        <p>From this base, we derive not only long-run behavior but also
-        a rich vocabulary for describing the dynamics of systems in
-        non-equilibrium states. Convergence is just one property of
-        interest; divergence and metastability are equally important in
-        understanding the real-world behavior of complex systems.</p>
-        <p>Nevertheless, when the system <em>does</em> converge, the
-        identity <span class="math inline">\(\Delta = I \cdot
-        \bar{M}\)</span> stated in our earlier exposition is not an
-        empirical observation—it is a direct consequence of the
-        generalized Little’s Law presented here.</p>
-        <p>To prove this we need to show that our definitions in the
-        presence calculus are isomorphic to those in this theorem</p>
-        <p>Lets start with the definitions of the key quantities in
-        Little’s Law.</p>
+        
+              </header>
+                  <nav id="TOC" role="doc-toc">
+        <h2 id="toc-title">Contents</h2>
         <ul>
-        <li><span class="math inline">\(G_i\)</span>, the integral of
-        each function:</li>
-        </ul>
-        <p><span class="math display">\[
-        G_i = \int_0^\infty f_i(t) \, dt, \quad i \geq 1
-        \]</span></p>
+        <li><a href="#introduction" id="toc-introduction"><span
+        class="toc-section-number">1</span> Introduction</a></li>
+        <li><a href="#generalized-littles-law"
+        id="toc-generalized-littles-law"><span
+        class="toc-section-number">2</span> Generalized Little’s
+        Law</a></li>
+        <li><a href="#mapping-to-the-presence-calculus"
+        id="toc-mapping-to-the-presence-calculus"><span
+        class="toc-section-number">3</span> Mapping to the Presence
+        Calculus</a>
         <ul>
-        <li><span class="math inline">\(H(t)\)</span>, the cumulative
-        instantaneous value of each function:</li>
+        <li><a href="#signals-and-functions"
+        id="toc-signals-and-functions"><span
+        class="toc-section-number">3.1</span> Signals and
+        Functions</a></li>
+        <li><a href="#integrability" id="toc-integrability"><span
+        class="toc-section-number">3.2</span> Integrability</a></li>
+        <li><a href="#instantaneous-density"
+        id="toc-instantaneous-density"><span
+        class="toc-section-number">3.3</span> Instantaneous
+        Density</a></li>
+        <li><a href="#average-presence-per-signal"
+        id="toc-average-presence-per-signal"><span
+        class="toc-section-number">3.4</span> Average Presence per
+        Signal</a></li>
+        <li><a href="#signal-incidence-rate"
+        id="toc-signal-incidence-rate"><span
+        class="toc-section-number">3.5</span> Signal Incidence
+        Rate</a></li>
+        <li><a href="#unified-statement"
+        id="toc-unified-statement"><span
+        class="toc-section-number">3.6</span> Unified Statement</a></li>
+        <li><a href="#technical-condition-l_i-t_i-to-0"
+        id="toc-technical-condition-l_i-t_i-to-0"><span
+        class="toc-section-number">3.7</span> Technical Condition: <span
+        class="math inline">\(l_i / t_i \to 0\)</span></a></li>
+        </ul></li>
+        <li><a href="#summary" id="toc-summary"><span
+        class="toc-section-number">4</span> Summary</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
         </ul>
-        <p><span class="math display">\[
-        H(t) = \sum_{i=1}^\infty f_i(t), \quad t \geq 0
-        \]</span></p>
-        <p>From these, define the limiting quantities:</p>
-        <p><span class="math display">\[
-        G = \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^n G_i, \quad H =
-        \lim_{T \to \infty} \frac{1}{T} \int_0^T H(t) \, dt, \quad
-        \lambda = \lim_{n \to \infty} \frac{n}{t_n}
-        \]</span></p>
-        <p><strong>Theorem:</strong></p>
-        <p>If <span class="math inline">\(\lambda\)</span> and <span
-        class="math inline">\(G\)</span> exist and are finite, and if
-        <span class="math inline">\(l_i / t_i \to 0\)</span> as <span
-        class="math inline">\(i \to \infty\)</span>, then <span
-        class="math inline">\(H\)</span> exists and:</p>
-        <p><span class="math display">\[
-        H = \lambda \cdot G
-        \]</span></p>
-        <p>This is the general form of Little’s Law <span
-        class="citation" data-cites="brumelle71"><a
-        href="#ref-brumelle71" role="doc-biblioref">[1]</a></span>,
-        <span class="citation" data-cites="heyman80"><a
-        href="#ref-heyman80" role="doc-biblioref">[2]</a></span>, <span
-        class="citation" data-cites="little2011"><a
-        href="#ref-little2011" role="doc-biblioref">[3]</a></span>.
-        Please see Dr. Little’s survey article <span class="citation"
-        data-cites="little2011"><a href="#ref-little2011"
-        role="doc-biblioref">[3]</a></span> for an extensive discussion
-        of this law, and its history.</p>
-        <h1 data-number="3" id="mapping-to-the-presence-calculus"><span
-        class="header-section-number">3</span> Mapping to the Presence
-        Calculus</h1>
-        <p>We now map each element of the theorem above to its
-        counterpart in the presence calculus.</p>
-        <h2 data-number="3.1" id="signals-and-functions"><span
-        class="header-section-number">3.1</span> Signals and
-        Functions</h2>
-        <p>In the presence calculus, the system is composed of a
-        (possibly infinite) set of signals indexed by <span
-        class="math inline">\((e, b)\)</span> — each representing the
-        interaction of an element <span class="math inline">\(e\)</span>
-        with a boundary <span class="math inline">\(b\)</span>. Each
-        such signal is associated with a <strong>presence
-        function</strong> <span
-        class="math inline">\(P_{(e,b)}(t)\)</span>, which records its
-        temporal contribution at time <span
-        class="math inline">\(t\)</span>.</p>
-        <p>This maps directly to the <span
-        class="math inline">\(f_i(t)\)</span> functions in the classical
-        theorem: each <span class="math inline">\(f_i(t)\)</span>
-        corresponds to a presence function <span
-        class="math inline">\(P_{(e,b)}(t)\)</span>.</p>
-        <h2 data-number="3.2" id="integrability"><span
-        class="header-section-number">3.2</span> Integrability</h2>
-        <p>The condition <span class="math inline">\(\int_0^\infty
-        |f_i(t)| \, dt &lt; \infty\)</span> ensures that each item
-        contributes a <strong>finite total presence</strong> over its
-        lifespan. In the presence calculus, we refer to this as
-        <em>bounded signal mass</em>. This is a <strong>technical
-        requirement only for convergence</strong>. The presence calculus
-        allows signals with unbounded mass in general; we only enforce
-        integrability when analyzing asymptotic behavior like long-run
-        presence density.</p>
-        <p>Thus, in the presence calculus:</p>
-        <ul>
-        <li>Presence functions are always measurable.</li>
-        <li>Boundedness of the integral <span class="math inline">\(\int
-        P_{(e,b)}(t) \, dt\)</span> is <strong>only required</strong>
-        when we want <span class="math inline">\(\bar{M}\)</span> (mean
-        presence per signal) to exist and be finite.</li>
-        </ul>
-        <h2 data-number="3.3" id="instantaneous-density"><span
-        class="header-section-number">3.3</span> Instantaneous
-        Density</h2>
-        <p>The function <span class="math inline">\(H(t)\)</span> in the
-        theorem aggregates the instantaneous contributions of all <span
-        class="math inline">\(f_i(t)\)</span>. In the presence calculus,
-        the analog is:</p>
-        <p><span class="math display">\[
-        \delta(t) = \sum_{(e,b)} P_{(e,b)}(t)
-        \]</span></p>
-        <p>We define long-run presence density as:</p>
-        <p><span class="math display">\[
-        \Delta = \lim_{T \to \infty} \frac{1}{T} \int_0^T \delta(t) \,
-        dt
-        \]</span></p>
-        <p>So:</p>
-        <p><span class="math display">\[
-        \Delta = H
-        \]</span></p>
-        <h2 data-number="3.4" id="average-presence-per-signal"><span
-        class="header-section-number">3.4</span> Average Presence per
-        Signal</h2>
-        <p>Define:</p>
-        <p><span class="math display">\[
-        \bar{M} = \lim_{T \to \infty} \frac{1}{N(0,T)} \sum_{(e,b)}
-        \int_0^T P_{(e,b)}(t) \, dt
-        \]</span></p>
-        <p>This matches the limiting average of <span
-        class="math inline">\(G_i\)</span>:</p>
-        <p><span class="math display">\[
-        G = \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^n G_i
-        \]</span></p>
-        <p>So:</p>
-        <p><span class="math display">\[
-        \bar{M} = G
-        \]</span></p>
-        <h2 data-number="3.5" id="signal-incidence-rate"><span
-        class="header-section-number">3.5</span> Signal Incidence
-        Rate</h2>
-        <p>The classical limit <span class="math inline">\(\lambda =
-        \lim_{n \to \infty} n / t_n\)</span> expresses the asymptotic
-        rate at which functions <span class="math inline">\(f_i\)</span>
-        arrive in time. In the presence calculus, the equivalent is:</p>
-        <p><span class="math display">\[
-        I = \lim_{T \to \infty} \frac{N(0, T)}{T}
-        \]</span></p>
-        <p>This is the <strong>incidence rate</strong> of signals — the
-        average number of signal onsets per unit time.</p>
-        <p>Thus:</p>
-        <p><span class="math display">\[
-        I = \lambda
-        \]</span></p>
-        <h2 data-number="3.6" id="unified-statement"><span
-        class="header-section-number">3.6</span> Unified Statement</h2>
-        <p>Substituting these mappings:</p>
-        <p><span class="math display">\[
-        \Delta = I \cdot \bar{M}
-        \]</span></p>
-        <p>This is the <strong>presence calculus</strong> analog of the
-        generalized Little’s Law.</p>
-        <h2 data-number="3.7"
-        id="technical-condition-l_i-t_i-to-0"><span
-        class="header-section-number">3.7</span> Technical Condition:
-        <span class="math inline">\(l_i / t_i \to 0\)</span></h2>
-        <p>The theorem requires that <span class="math inline">\(l_i /
-        t_i \to 0\)</span> as <span class="math inline">\(i \to
-        \infty\)</span>. This means that the duration of each function
-        <span class="math inline">\(f_i\)</span> must become small
-        relative to its arrival time.</p>
-        <p>In presence calculus terms, this ensures that <strong>signals
-        do not overlap indefinitely with later-arriving
-        signals</strong>, which could distort the time-based
-        averages.</p>
-        <p>Equivalently, it ensures that:</p>
-        <ul>
-        <li>The support of <span
-        class="math inline">\(P_{(e,b)}(t)\)</span> becomes
-        <strong>localized</strong> in time.</li>
-        <li>Signals arriving later do not have arbitrarily long
-        durations.</li>
-        </ul>
-        <p><strong>Importance:</strong> This condition is required only
-        to <strong>guarantee</strong> that the product of limits equals
-        the limit of the product. If one only wants to reason about the
-        existence of <span class="math inline">\(\Delta\)</span>, <span
-        class="math inline">\(I\)</span>, or <span
-        class="math inline">\(\bar{M}\)</span> independently, this
-        condition is not necessary.</p>
-        <h1 data-number="4" id="summary"><span
-        class="header-section-number">4</span> Summary</h1>
-        <p>We restate a general convergence law for systems of
-        presence:</p>
-        <p>Theorem (Presence Calculus version of Little’s Law):*<br />
-        Suppose the following limits exist and are finite:</p>
-        <ul>
-        <li><p>Long-run incidence rate:<br />
-        <span class="math display">\[
-          I = \lim_{T \to \infty} \frac{N(0,T)}{T}
-          \]</span></p></li>
-        <li><p>Average presence per signal:<br />
-        <span class="math display">\[
-          \bar{M} = \lim_{T \to \infty} \frac{1}{N(0,T)} \sum_{(e,b)}
-        \int_0^T P_{(e,b)}(t) \, dt
-          \]</span></p></li>
-        </ul>
-        <p>and assume the technical condition that presence durations
-        become vanishingly small relative to arrival time:</p>
-        <p><span class="math display">\[
-        \text{duration}_{(e,b)} / \text{onset}_{(e,b)} \to 0
-        \]</span></p>
-        <p>Then the long-run presence density exists:</p>
-        <p><span class="math display">\[
-        \Delta = \lim_{T \to \infty} \frac{1}{T} \int_0^T \delta(t) \,
-        dt
-        \]</span></p>
-        <p>and:</p>
-        <p><span class="math display">\[
-        \Delta = I \cdot \bar{M}
-        \]</span></p>
-        <p>This makes precise the claim used in our introductory
-        material and affirms that the convergence of long-run presence
-        density is a direct generalization of Little’s Law. More
-        importantly, it highlights when such a relationship does
-        <em>not</em> hold — namely, when the relevant limits do not
-        exist, or the technical conditions fail.</p>
-        <p>While the presence calculus derives much of its analytical
-        machinery from the tools used to prove Little’s Law, it focuses
-        on very complementary applications enabled by generalizing some
-        of the underlying proof techniques.</p>
-        <h1 class="unnumbered" id="references">References</h1>
-        <div id="refs" class="references csl-bib-body"
-        data-entry-spacing="0" role="list">
-        <div id="ref-brumelle71" class="csl-entry" role="listitem">
-        <div class="csl-left-margin">[1] </div><div
-        class="csl-right-inline">S. Bruemelle, <span>“On the relation
-        between customer and time averages in queues.”</span>
-        <em>Journal of Applied Probability</em>, vol. 8, no. 1–4, pp.
-        508–520, 1971.</div>
-        </div>
-        <div id="ref-heyman80" class="csl-entry" role="listitem">
-        <div class="csl-left-margin">[2] </div><div
-        class="csl-right-inline">D. Heyman and S. Stidham, <span>“The
-        relation between customer and time averages in queues,”</span>
-        <em>Operations Research</em>, vol. 28, no. 4, pp. 983–994,
-        1980.</div>
-        </div>
-        <div id="ref-little2011" class="csl-entry" role="listitem">
-        <div class="csl-left-margin">[3] </div><div
-        class="csl-right-inline">J. Little, <span>“Little’s law as
-        viewed on its 50th anniversary,”</span> <em>Operations
-        Research</em>, vol. 59, no. 3, pp. 536–549, 2011.</div>
-        </div>
-        </div>
-      </div>
+      </nav>
+            <h1 data-number="1" id="introduction"><span
+            class="header-section-number">1</span> Introduction</h1>
+            <p>In this technical note, we formalize the relationship
+            between convergence in the presence calculus and the
+            generalized form of Little’s Law, as originally proven by
+            Brumelle (1971) and refined through sample path techniques
+            by Heyman and Stidham (1980).</p>
+            <p>This addresses a key gap in our informal exposition:
+            while we introduced the convergence conditions, and appealed
+            to the general form of Little’s Law for proof, we did not
+            make the connections explicit.</p>
+            <p>Here, we explicitly bridge that gap by mapping the
+            concepts in the presence calculus to those in the general
+            form of Little’s Law and make clear the relationships
+            between the two.</p>
+            <p>In the rest of this document, when we say Little’s Law it
+            should be assumed that we are referring to the general
+            version discussed here.</p>
+            <h1 data-number="2" id="generalized-littles-law"><span
+            class="header-section-number">2</span> Generalized Little’s
+            Law</h1>
+            <p>The generalized form of Little’s Law is concerned with a
+            countable collection of time-varying functions that
+            represent the activity or occupancy of individual items in a
+            system over time. Let each item <span
+            class="math inline">\(i\)</span> have an associated function
+            <span class="math inline">\(f_i(t)\)</span> defined for
+            <span class="math inline">\(t \geq 0\)</span>, such
+            that:</p>
+            <p><span class="math display">\[
+            \int_0^\infty |f_i(t)| \, dt &lt; \infty
+            \]</span></p>
+            <p>and for some finite <span class="math inline">\(l_i &gt;
+            0\)</span>,</p>
+            <p><span class="math display">\[
+            f_i(t) = 0 \quad \text{for} \quad t \notin [t_i, t_i + l_i]
+            \]</span></p>
+            <p>In other words, each <span
+            class="math inline">\(f_i(t)\)</span> is a function of
+            compact support with a finite integral. These functions
+            describe the temporal footprint or participation profile of
+            item <span class="math inline">\(i\)</span>, capturing its
+            influence on the system while it is “active”— for example,
+            time spent in a queue, time holding a resource, or time
+            contributing to some measurable system state.</p>
+            <p>This formulation originated as a generalization of
+            classical queueing models: rather than simply recording the
+            arrival and departure times of items, it allows us to
+            associate an arbitrary time-varying function with each
+            item’s time in the system. This enables a more flexible
+            description of occupancy-like behavior, including partial
+            participation, weighted influence, or overlapping resource
+            use.</p>
+            <p>It is not hard to see that the notion of
+            <em>presence</em> in the presence calculus is a close
+            generalization of this same idea. The key difference lies in
+            emphasis: while the classical formulation aims to derive
+            steady-state relationships like <span
+            class="math inline">\(H = \lambda \cdot G\)</span>, the
+            presence calculus takes <em>presence mass</em>—the values of
+            these integrals over finite time windows—as a foundational
+            primitive of the framework.</p>
+            <p>From this base, we derive not only long-run behavior but
+            also a rich vocabulary for describing the dynamics of
+            systems in non-equilibrium states. Convergence is just one
+            property of interest; divergence and metastability are
+            equally important in understanding the real-world behavior
+            of complex systems.</p>
+            <p>Nevertheless, when the system <em>does</em> converge, the
+            identity <span class="math inline">\(\Delta = I \cdot
+            \bar{M}\)</span> stated in our earlier exposition is not an
+            empirical observation—it is a direct consequence of the
+            generalized Little’s Law presented here.</p>
+            <p>To prove this we need to show that our definitions in the
+            presence calculus are isomorphic to those in this
+            theorem</p>
+            <p>Lets start with the definitions of the key quantities in
+            Little’s Law.</p>
+            <ul>
+            <li><span class="math inline">\(G_i\)</span>, the integral
+            of each function:</li>
+            </ul>
+            <p><span class="math display">\[
+            G_i = \int_0^\infty f_i(t) \, dt, \quad i \geq 1
+            \]</span></p>
+            <ul>
+            <li><span class="math inline">\(H(t)\)</span>, the
+            cumulative instantaneous value of each function:</li>
+            </ul>
+            <p><span class="math display">\[
+            H(t) = \sum_{i=1}^\infty f_i(t), \quad t \geq 0
+            \]</span></p>
+            <p>From these, define the limiting quantities:</p>
+            <p><span class="math display">\[
+            G = \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^n G_i, \quad
+            H = \lim_{T \to \infty} \frac{1}{T} \int_0^T H(t) \, dt,
+            \quad \lambda = \lim_{n \to \infty} \frac{n}{t_n}
+            \]</span></p>
+            <p><strong>Theorem:</strong></p>
+            <p>If <span class="math inline">\(\lambda\)</span> and <span
+            class="math inline">\(G\)</span> exist and are finite, and
+            if <span class="math inline">\(l_i / t_i \to 0\)</span> as
+            <span class="math inline">\(i \to \infty\)</span>, then
+            <span class="math inline">\(H\)</span> exists and:</p>
+            <p><span class="math display">\[
+            H = \lambda \cdot G
+            \]</span></p>
+            <p>This is the general form of Little’s Law <span
+            class="citation" data-cites="brumelle71"><a
+            href="#ref-brumelle71" role="doc-biblioref">[1]</a></span>,
+            <span class="citation" data-cites="heyman80"><a
+            href="#ref-heyman80" role="doc-biblioref">[2]</a></span>,
+            <span class="citation" data-cites="little2011"><a
+            href="#ref-little2011" role="doc-biblioref">[3]</a></span>.
+            Please see Dr. Little’s survey article <span
+            class="citation" data-cites="little2011"><a
+            href="#ref-little2011" role="doc-biblioref">[3]</a></span>
+            for an extensive discussion of this law, and its
+            history.</p>
+            <h1 data-number="3"
+            id="mapping-to-the-presence-calculus"><span
+            class="header-section-number">3</span> Mapping to the
+            Presence Calculus</h1>
+            <p>We now map each element of the theorem above to its
+            counterpart in the presence calculus.</p>
+            <h2 data-number="3.1" id="signals-and-functions"><span
+            class="header-section-number">3.1</span> Signals and
+            Functions</h2>
+            <p>In the presence calculus, the system is composed of a
+            (possibly infinite) set of signals indexed by <span
+            class="math inline">\((e, b)\)</span> — each representing
+            the interaction of an element <span
+            class="math inline">\(e\)</span> with a boundary <span
+            class="math inline">\(b\)</span>. Each such signal is
+            associated with a <strong>presence function</strong> <span
+            class="math inline">\(P_{(e,b)}(t)\)</span>, which records
+            its temporal contribution at time <span
+            class="math inline">\(t\)</span>.</p>
+            <p>This maps directly to the <span
+            class="math inline">\(f_i(t)\)</span> functions in the
+            classical theorem: each <span
+            class="math inline">\(f_i(t)\)</span> corresponds to a
+            presence function <span
+            class="math inline">\(P_{(e,b)}(t)\)</span>.</p>
+            <h2 data-number="3.2" id="integrability"><span
+            class="header-section-number">3.2</span> Integrability</h2>
+            <p>The condition <span class="math inline">\(\int_0^\infty
+            |f_i(t)| \, dt &lt; \infty\)</span> ensures that each item
+            contributes a <strong>finite total presence</strong> over
+            its lifespan. In the presence calculus, we refer to this as
+            <em>bounded signal mass</em>. This is a <strong>technical
+            requirement only for convergence</strong>. The presence
+            calculus allows signals with unbounded mass in general; we
+            only enforce integrability when analyzing asymptotic
+            behavior like long-run presence density.</p>
+            <p>Thus, in the presence calculus:</p>
+            <ul>
+            <li>Presence functions are always measurable.</li>
+            <li>Boundedness of the integral <span
+            class="math inline">\(\int P_{(e,b)}(t) \, dt\)</span> is
+            <strong>only required</strong> when we want <span
+            class="math inline">\(\bar{M}\)</span> (mean presence per
+            signal) to exist and be finite.</li>
+            </ul>
+            <h2 data-number="3.3" id="instantaneous-density"><span
+            class="header-section-number">3.3</span> Instantaneous
+            Density</h2>
+            <p>The function <span class="math inline">\(H(t)\)</span> in
+            the theorem aggregates the instantaneous contributions of
+            all <span class="math inline">\(f_i(t)\)</span>. In the
+            presence calculus, the analog is:</p>
+            <p><span class="math display">\[
+            \delta(t) = \sum_{(e,b)} P_{(e,b)}(t)
+            \]</span></p>
+            <p>We define long-run presence density as:</p>
+            <p><span class="math display">\[
+            \Delta = \lim_{T \to \infty} \frac{1}{T} \int_0^T \delta(t)
+            \, dt
+            \]</span></p>
+            <p>So:</p>
+            <p><span class="math display">\[
+            \Delta = H
+            \]</span></p>
+            <h2 data-number="3.4" id="average-presence-per-signal"><span
+            class="header-section-number">3.4</span> Average Presence
+            per Signal</h2>
+            <p>Define:</p>
+            <p><span class="math display">\[
+            \bar{M} = \lim_{T \to \infty} \frac{1}{N(0,T)} \sum_{(e,b)}
+            \int_0^T P_{(e,b)}(t) \, dt
+            \]</span></p>
+            <p>This matches the limiting average of <span
+            class="math inline">\(G_i\)</span>:</p>
+            <p><span class="math display">\[
+            G = \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^n G_i
+            \]</span></p>
+            <p>So:</p>
+            <p><span class="math display">\[
+            \bar{M} = G
+            \]</span></p>
+            <h2 data-number="3.5" id="signal-incidence-rate"><span
+            class="header-section-number">3.5</span> Signal Incidence
+            Rate</h2>
+            <p>The classical limit <span class="math inline">\(\lambda =
+            \lim_{n \to \infty} n / t_n\)</span> expresses the
+            asymptotic rate at which functions <span
+            class="math inline">\(f_i\)</span> arrive in time. In the
+            presence calculus, the equivalent is:</p>
+            <p><span class="math display">\[
+            I = \lim_{T \to \infty} \frac{N(0, T)}{T}
+            \]</span></p>
+            <p>This is the <strong>incidence rate</strong> of signals —
+            the average number of signal onsets per unit time.</p>
+            <p>Thus:</p>
+            <p><span class="math display">\[
+            I = \lambda
+            \]</span></p>
+            <h2 data-number="3.6" id="unified-statement"><span
+            class="header-section-number">3.6</span> Unified
+            Statement</h2>
+            <p>Substituting these mappings:</p>
+            <p><span class="math display">\[
+            \Delta = I \cdot \bar{M}
+            \]</span></p>
+            <p>This is the <strong>presence calculus</strong> analog of
+            the generalized Little’s Law.</p>
+            <h2 data-number="3.7"
+            id="technical-condition-l_i-t_i-to-0"><span
+            class="header-section-number">3.7</span> Technical
+            Condition: <span class="math inline">\(l_i / t_i \to
+            0\)</span></h2>
+            <p>The theorem requires that <span class="math inline">\(l_i
+            / t_i \to 0\)</span> as <span class="math inline">\(i \to
+            \infty\)</span>. This means that the duration of each
+            function <span class="math inline">\(f_i\)</span> must
+            become small relative to its arrival time.</p>
+            <p>In presence calculus terms, this ensures that
+            <strong>signals do not overlap indefinitely with
+            later-arriving signals</strong>, which could distort the
+            time-based averages.</p>
+            <p>Equivalently, it ensures that:</p>
+            <ul>
+            <li>The support of <span
+            class="math inline">\(P_{(e,b)}(t)\)</span> becomes
+            <strong>localized</strong> in time.</li>
+            <li>Signals arriving later do not have arbitrarily long
+            durations.</li>
+            </ul>
+            <p><strong>Importance:</strong> This condition is required
+            only to <strong>guarantee</strong> that the product of
+            limits equals the limit of the product. If one only wants to
+            reason about the existence of <span
+            class="math inline">\(\Delta\)</span>, <span
+            class="math inline">\(I\)</span>, or <span
+            class="math inline">\(\bar{M}\)</span> independently, this
+            condition is not necessary.</p>
+            <h1 data-number="4" id="summary"><span
+            class="header-section-number">4</span> Summary</h1>
+            <p>We restate a general convergence law for systems of
+            presence:</p>
+            <p>Theorem (Presence Calculus version of Little’s
+            Law):*<br />
+            Suppose the following limits exist and are finite:</p>
+            <ul>
+            <li><p>Long-run incidence rate:<br />
+            <span class="math display">\[
+              I = \lim_{T \to \infty} \frac{N(0,T)}{T}
+              \]</span></p></li>
+            <li><p>Average presence per signal:<br />
+            <span class="math display">\[
+              \bar{M} = \lim_{T \to \infty} \frac{1}{N(0,T)}
+            \sum_{(e,b)} \int_0^T P_{(e,b)}(t) \, dt
+              \]</span></p></li>
+            </ul>
+            <p>and assume the technical condition that presence
+            durations become vanishingly small relative to arrival
+            time:</p>
+            <p><span class="math display">\[
+            \text{duration}_{(e,b)} / \text{onset}_{(e,b)} \to 0
+            \]</span></p>
+            <p>Then the long-run presence density exists:</p>
+            <p><span class="math display">\[
+            \Delta = \lim_{T \to \infty} \frac{1}{T} \int_0^T \delta(t)
+            \, dt
+            \]</span></p>
+            <p>and:</p>
+            <p><span class="math display">\[
+            \Delta = I \cdot \bar{M}
+            \]</span></p>
+            <p>This makes precise the claim used in our introductory
+            material and affirms that the convergence of long-run
+            presence density is a direct generalization of Little’s Law.
+            More importantly, it highlights when such a relationship
+            does <em>not</em> hold — namely, when the relevant limits do
+            not exist, or the technical conditions fail.</p>
+            <p>While the presence calculus derives much of its
+            analytical machinery from the tools used to prove Little’s
+            Law, it focuses on very complementary applications enabled
+            by generalizing some of the underlying proof techniques.</p>
+            <h1 class="unnumbered" id="references">References</h1>
+            <div id="refs" class="references csl-bib-body"
+            data-entry-spacing="0" role="list">
+            <div id="ref-brumelle71" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[1] </div><div
+            class="csl-right-inline">S. Bruemelle, <span>“On the
+            relation between customer and time averages in
+            queues.”</span> <em>Journal of Applied Probability</em>,
+            vol. 8, no. 1–4, pp. 508–520, 1971.</div>
+            </div>
+            <div id="ref-heyman80" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[2] </div><div
+            class="csl-right-inline">D. Heyman and S. Stidham,
+            <span>“The relation between customer and time averages in
+            queues,”</span> <em>Operations Research</em>, vol. 28, no.
+            4, pp. 983–994, 1980.</div>
+            </div>
+            <div id="ref-little2011" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[3] </div><div
+            class="csl-right-inline">J. Little, <span>“Little’s law as
+            viewed on its 50th anniversary,”</span> <em>Operations
+            Research</em>, vol. 59, no. 3, pp. 536–549, 2011.</div>
+            </div>
+            </div>
+          </div>
+  </div>
 </body>
 </html>

@@ -166,16 +166,33 @@
       vertical-align: middle;
     }
 
-    html, body {
+    html {
+      box-sizing: border-box;
+      font-size: 100%;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    body {
       margin: 0;
       padding: 0;
       font-family: Georgia, serif;
-      font-size: 19px;
+      font-size: 1.1rem;
       line-height: 1.75;
       background: #fff;
       color: #111;
 
-      /* flex centering */
+      /* Remove Pandoc's injected width restrictions */
+      max-width: none !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .wrapper {
       display: flex;
       justify-content: center;
     }
@@ -183,8 +200,7 @@
     #page {
       max-width: 880px;
       width: 100%;
-      padding: 2.5rem 1.5rem;
-      box-sizing: border-box;
+      padding: 2rem 1rem;
     }
 
     h1, h2, h3, h4 {
@@ -230,8 +246,9 @@
 
     .subtitle, .author, .date {
       color: #666;
-      font-size: 1rem;
+      font-size: 0.9rem;
       margin-top: 0.5rem;
+      text-align: center;
     }
 
     nav#TOC {
@@ -239,6 +256,7 @@
       padding: 1rem;
       border: 1px solid #eee;
       background: #fafafa;
+      overflow-x: auto;
     }
 
     figure {
@@ -247,13 +265,11 @@
     }
 
     figure img {
-      width: 600px;
-      max-width: 100%;
+      width: 100%;
       height: auto;
       display: block;
       margin: 2rem auto;
     }
-
 
     figcaption {
       font-size: 0.9em;
@@ -261,42 +277,58 @@
       margin-top: 0.75rem;
     }
 
+    header#title-block-header {
+      text-align: center;
+    }
+
+    @media screen and (min-width: 1024px) {
+      body {
+        font-size: 1.15rem;
+      }
+
+      #page {
+        padding: 3rem 2rem;
+      }
+    }
   </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
   type="text/javascript"></script>
 </head>
 <body>
-  <div id="page">
-            <header id="title-block-header">
-      <h1 class="title"><strong>The Presence Calculus</strong></h1>
-      <p class="subtitle"><span style="font-size:1.2em;">A Gentle
+  <div class="wrapper">
+    <div id="page">
+                  <header id="title-block-header">
+        <h1 class="title"><strong>The Presence Calculus</strong></h1>
+        <p class="subtitle"><span style="font-size:1.2em;">A Gentle
 Introduction </span><br/>(Audio Summary)</p>
-      <p class="author"><p>Dr. Krishna Kumar<br />
+        <p class="author"><p>Dr. Krishna Kumar<br />
 <a href="https://exathink.com"><em>The Polaris Advisor
 Program</em></a></p></p>
-      
-          </header>
-            <p>If you prefer audio to text, here is a summary of <a
-            href="./intro_to_presence_calculus.html">The Presence
-            Calculus - A Gentle Introduction</a> that was produced using
-            Google’s NotebookLM.</p>
-            <p>There are a couple of glitches here and there, and maybe
-            a couple of points where I would quibble with the
-            interpretation, but by and large this is a remarkably astute
-            summary of the key things I would want someone to take away
-            from this document.</p>
-            <div style="text-align: center;">
-            <p><audio controls>
-            <source src="../assets/pandoc/presence_calculus_overview.wav" type="audio/mpeg">
-            Your browser does not support the audio element.
-            </audio></p>
-            </div>
-            <p>The AI was fed this document as well as all the
-            mathematical source material on the <a
-            href="../theory_track.html">Theory Track</a> and I have to
-            say it has done a great job of turning this into a coherent
-            conversation on a rather obscure topic!</p>
-      </div>
+        
+              </header>
+                  <p>If you prefer audio to text, here is a summary of
+                  <a href="./intro_to_presence_calculus.html">The
+                  Presence Calculus - A Gentle Introduction</a> that was
+                  produced using Google’s NotebookLM.</p>
+                  <p>There are a couple of glitches here and there, and
+                  maybe a couple of points where I would quibble with
+                  the interpretation, but by and large this is a
+                  remarkably astute summary of the key things I would
+                  want someone to take away from this document.</p>
+                  <div style="text-align: center;">
+                  <p><audio controls>
+                  <source src="../assets/pandoc/presence_calculus_overview.wav" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                  </audio></p>
+                  </div>
+                  <p>The AI was fed this document as well as all the
+                  mathematical source material on the <a
+                  href="../theory_track.html">Theory Track</a> and I
+                  have to say it has done a great job of turning this
+                  into a coherent conversation on a rather obscure
+                  topic!</p>
+          </div>
+  </div>
 </body>
 </html>

@@ -166,16 +166,33 @@
       vertical-align: middle;
     }
 
-    html, body {
+    html {
+      box-sizing: border-box;
+      font-size: 100%;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    body {
       margin: 0;
       padding: 0;
       font-family: Georgia, serif;
-      font-size: 19px;
+      font-size: 1.1rem;
       line-height: 1.75;
       background: #fff;
       color: #111;
 
-      /* flex centering */
+      /* Remove Pandoc's injected width restrictions */
+      max-width: none !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .wrapper {
       display: flex;
       justify-content: center;
     }
@@ -183,8 +200,7 @@
     #page {
       max-width: 880px;
       width: 100%;
-      padding: 2.5rem 1.5rem;
-      box-sizing: border-box;
+      padding: 2rem 1rem;
     }
 
     h1, h2, h3, h4 {
@@ -230,8 +246,9 @@
 
     .subtitle, .author, .date {
       color: #666;
-      font-size: 1rem;
+      font-size: 0.9rem;
       margin-top: 0.5rem;
+      text-align: center;
     }
 
     nav#TOC {
@@ -239,6 +256,7 @@
       padding: 1rem;
       border: 1px solid #eee;
       background: #fafafa;
+      overflow-x: auto;
     }
 
     figure {
@@ -247,13 +265,11 @@
     }
 
     figure img {
-      width: 600px;
-      max-width: 100%;
+      width: 100%;
       height: auto;
       display: block;
       margin: 2rem auto;
     }
-
 
     figcaption {
       font-size: 0.9em;
@@ -261,218 +277,241 @@
       margin-top: 0.75rem;
     }
 
+    header#title-block-header {
+      text-align: center;
+    }
+
+    @media screen and (min-width: 1024px) {
+      body {
+        font-size: 1.15rem;
+      }
+
+      #page {
+        padding: 3rem 2rem;
+      }
+    }
   </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
   type="text/javascript"></script>
 </head>
 <body>
-  <div id="page">
-            <header id="title-block-header">
-      <h1 class="title"><strong>The Presence Invariant</strong></h1>
-      <p class="subtitle"><span style="font-size:1.2em;">A
+  <div class="wrapper">
+    <div id="page">
+                  <header id="title-block-header">
+        <h1 class="title"><strong>The Presence Invariant</strong></h1>
+        <p class="subtitle"><span style="font-size:1.2em;">A
 measure-theoretic generalization</span></p>
-      <p class="author"><p>Dr. Krishna Kumar<br />
+        <p class="author"><p>Dr. Krishna Kumar<br />
 <em>The Polaris Advisor Program</em></p></p>
-      
-          </header>
-            <nav id="TOC" role="doc-toc">
-      <h2 id="toc-title">Contents</h2>
-      <ul>
-      <li><a href="#setup-two-orthogonal-measure-spaces"
-      id="toc-setup-two-orthogonal-measure-spaces"><span
-      class="toc-section-number">1</span> Setup: Two Orthogonal Measure
-      Spaces</a></li>
-      <li><a href="#total-presence-mass"
-      id="toc-total-presence-mass"><span
-      class="toc-section-number">2</span> Total Presence Mass</a></li>
-      <li><a href="#marginal-densities"
-      id="toc-marginal-densities"><span
-      class="toc-section-number">3</span> Marginal Densities</a></li>
-      <li><a href="#presence-invariant"
-      id="toc-presence-invariant"><span
-      class="toc-section-number">4</span> Presence Invariant</a></li>
-      <li><a href="#interpretation-of-nt"
-      id="toc-interpretation-of-nt"><span
-      class="toc-section-number">5</span> Interpretation of ( N/T
-      )</a></li>
-      <li><a href="#fubinis-theorem" id="toc-fubinis-theorem"><span
-      class="toc-section-number">6</span> Fubini’s Theorem</a></li>
-      <li><a href="#summary" id="toc-summary"><span
-      class="toc-section-number">7</span> Summary</a></li>
-      </ul>
-    </nav>
-        <div
-        style="text-align: center; font-size: 80%; margin-top: 3em;">
-        <p>© 2025 Krishna Kumar. All rights reserved.</p>
-        </div>
-        <h2 data-number="1"
-        id="setup-two-orthogonal-measure-spaces"><span
-        class="header-section-number">1</span> Setup: Two Orthogonal
-        Measure Spaces</h2>
-        <p>When generalizing from a single presence density function to
-        a system of presences, it is useful to think of presence as a
-        quantity distributed over a <em>product space</em> formed from
-        two orthogonal domains:</p>
+        
+              </header>
+                  <nav id="TOC" role="doc-toc">
+        <h2 id="toc-title">Contents</h2>
         <ul>
-        <li>A <strong>time domain</strong> <span
-        class="math inline">\(T\)</span>, with a sigma-algebra <span
-        class="math inline">\(\mathcal{F}_T\)</span> and a measure <span
-        class="math inline">\(\mu_T\)</span>. This may be the Lebesgue
-        measure <span class="math inline">\(\lambda\)</span>, a
-        probability measure, or another <span
-        class="math inline">\(\sigma\)</span>-finite measure.</li>
-        <li>A <strong>signal domain</strong> <span
-        class="math inline">\(S\)</span>, with a sigma-algebra <span
-        class="math inline">\(\mathcal{F}_S\)</span> and a measure <span
-        class="math inline">\(\mu_S\)</span>, typically counting measure
-        or a weighted variant over a discrete set.</li>
+        <li><a href="#setup-two-orthogonal-measure-spaces"
+        id="toc-setup-two-orthogonal-measure-spaces"><span
+        class="toc-section-number">1</span> Setup: Two Orthogonal
+        Measure Spaces</a></li>
+        <li><a href="#total-presence-mass"
+        id="toc-total-presence-mass"><span
+        class="toc-section-number">2</span> Total Presence Mass</a></li>
+        <li><a href="#marginal-densities"
+        id="toc-marginal-densities"><span
+        class="toc-section-number">3</span> Marginal Densities</a></li>
+        <li><a href="#presence-invariant"
+        id="toc-presence-invariant"><span
+        class="toc-section-number">4</span> Presence Invariant</a></li>
+        <li><a href="#interpretation-of-nt"
+        id="toc-interpretation-of-nt"><span
+        class="toc-section-number">5</span> Interpretation of ( N/T
+        )</a></li>
+        <li><a href="#fubinis-theorem" id="toc-fubinis-theorem"><span
+        class="toc-section-number">6</span> Fubini’s Theorem</a></li>
+        <li><a href="#summary" id="toc-summary"><span
+        class="toc-section-number">7</span> Summary</a></li>
         </ul>
-        <p>We define the <strong>product measurable space</strong>:
-        <span class="math display">\[
-        (T \times S, \mathcal{F}_T \otimes \mathcal{F}_S)
-        \]</span> and the <strong>product measure</strong>: <span
-        class="math display">\[
-        \mu = \mu_T \otimes \mu_S.
-        \]</span></p>
-        <p>Let <span class="math inline">\(f: T \times S \to
-        \mathbb{R}_{\geq 0}\)</span> be a measurable function
-        representing <strong>presence density</strong> over this joint
-        domain.</p>
-        <h2 data-number="2" id="total-presence-mass"><span
-        class="header-section-number">2</span> Total Presence Mass</h2>
-        <p>The <strong>total presence mass</strong> accumulated across
-        the full product space is defined as: <span
-        class="math display">\[
-        A = \\\iint_{T \times S} f(t, s)\\, d\mu_T(t)\\, d\mu_S(s).
-        \]</span></p>
-        <p>This integral assumes that <span
-        class="math inline">\(f\)</span> is integrable under the product
-        measure <span class="math inline">\(\mu\)</span>, i.e.: <span
-        class="math display">\[
-        \\\iint |f(t, s)| \\, d\mu_T(t)\\, d\mu_S(s) &lt; \\\infty.
-        \]</span></p>
-        <h2 data-number="3" id="marginal-densities"><span
-        class="header-section-number">3</span> Marginal Densities</h2>
-        <p>We define marginal densities over each domain:</p>
-        <ul>
-        <li><p><strong>Presence per unit time</strong>: <span
-        class="math display">\[
-        D_T(t) = \\\int_S f(t, s)\\, d\mu_S(s).
-        \]</span></p></li>
-        <li><p><strong>Presence per signal</strong>: <span
-        class="math display">\[
-        D_S(s) = \\\int_T f(t, s)\\, d\mu_T(t).
-        \]</span></p></li>
-        </ul>
-        <p>Intuitively, marginalization distributes total presence mass
-        along the time or signal dimension by integrating out the other
-        variable.</p>
-        <p>From a statistical lens, we are accustomed to thinking of
-        these quantities as averages. Time averages, however, often rely
-        on assumptions like ergodicity or stationarity of some
-        underlying distribution over which the averages are
-        computed.</p>
-        <p>The measure-theoretic definition via marginal densities
-        avoids these assumptions and provides a structurally invariant
-        description of presence across domains. Rather than thinking of
-        both quantities as averages, it is more general to treat them as
-        densities.</p>
-        <p><strong>Note:</strong> The averages <span
-        class="math inline">\(\bar{D}_T\)</span> and <span
-        class="math inline">\(\bar{D}_S\)</span> are only well-defined
-        when <span class="math inline">\(\mu_T(T)\)</span> and <span
-        class="math inline">\(\mu_S(S)\)</span> are finite. This ensures
-        that the total presence mass can be meaningfully distributed
-        over each domain.</p>
-        <p>In the common case where the signal domain is finite or
-        countable (e.g., a discrete set of labeled signals) and the time
-        domain is also quantized (e.g., measured in ticks or time
-        buckets as in the presence matrix), <span
-        class="math inline">\(\bar{D}_S\)</span> corresponds to the
-        <em>average presence per signal</em>, while <span
-        class="math inline">\(\bar{D}_T\)</span> captures the
-        <em>average presence per unit time</em>.</p>
-        <p>These quantities let us view the system from either a
-        signal-centric or time-centric perspective, without changing the
-        total mass. In either case, the mass is obtained by integrating
-        over a presence density function.</p>
-        <h2 data-number="4" id="presence-invariant"><span
-        class="header-section-number">4</span> Presence Invariant</h2>
-        <p>Define the average presence densities: <span
-        class="math display">\[
-        \\\bar{D}_T = \\\frac{A}{\mu_T(T)}, \quad \\\bar{D}_S =
-        \\\frac{A}{\mu_S(S)}.
-        \]</span></p>
-        <p>Then the <strong>generalized presence invariant</strong>
-        becomes: <span class="math display">\[
-        \\\frac{\\\bar{D}_S}{\\\bar{D}_T} = \\\frac{\mu_T(T)}{\mu_S(S)}.
-        \]</span></p>
-        <p>This expresses that the average presence densities in the
-        time and signal domains are <strong>proportionally
-        related</strong>, and that the constant of proportionality is
-        the <strong>ratio of the domain measures</strong>.</p>
-        <h2 data-number="5" id="interpretation-of-nt"><span
-        class="header-section-number">5</span> Interpretation of ( N/T
-        )</h2>
-        <p>In many practical settings, particularly when working with
-        discrete signal domains, the signal measure <span
-        class="math inline">\(\mu_S\)</span> is a counting measure. In
-        such cases, if <span class="math inline">\(N =
-        \mu_S(S_T)\)</span> and <span class="math inline">\(T =
-        \mu_T(T)\)</span>, then the ratio: <span class="math display">\[
-        \\\frac{N}{T} = \\\frac{\mu_S(S_T)}{\mu_T(T)}
-        \]</span> represents the <strong>ratio of the “sizes” of the
-        sets</strong> over which presence mass is being distributed.
-        That is:</p>
-        <blockquote>
-        <p><strong>Presence mass exists jointly over time and signal.
-        When we marginalize that mass, we can average it over the extent
-        of time or the extent of signals. The ratio ( N/T ) tells us how
-        these marginal densities relate — it quantifies the structural
-        “rate” or “density of signals per unit time” induced by the
-        co-presence.</strong></p>
-        </blockquote>
-        <p>This view aligns with the intuition of the Radon–Nikodym
-        derivative, where presence densities reflect the relative rate
-        of one measure with respect to another across their domain of
-        interaction.</p>
-        <h2 data-number="6" id="fubinis-theorem"><span
-        class="header-section-number">6</span> Fubini’s Theorem</h2>
-        <p>If <span class="math inline">\(f: T \times S \to
-        \mathbb{R}\)</span> is integrable over the product measure <span
-        class="math inline">\(\mu_T \otimes \mu_S\)</span>, then: <span
-        class="math display">\[
-        \\\iint_{T \times S} f(t, s) \\, d\mu_T(t)\\, d\mu_S(s)
-        = \\\int_T \left( \\\int_S f(t, s) \\, d\mu_S(s) \right)
-        d\mu_T(t)
-        = \\\int_S \left( \\\int_T f(t, s) \\, d\mu_T(t) \right)
-        d\mu_S(s).
-        \]</span></p>
-        <p>This justifies that presence mass can be <strong>marginalized
-        in either order</strong>, and confirms the internal consistency
-        of the invariant.</p>
-        <h2 data-number="7" id="summary"><span
-        class="header-section-number">7</span> Summary</h2>
-        <ul>
-        <li><span class="math inline">\(\mu_T(T)\)</span>: the extent of
-        the presence interval in time</li>
-        <li><span class="math inline">\(\mu_S(S)\)</span>: the extent of
-        co-present signals or presences</li>
-        <li><span class="math inline">\(A\)</span>: the joint mass over
-        time and signal</li>
-        <li><span class="math inline">\(\bar{D}_T\)</span>, <span
-        class="math inline">\(\bar{D}_S\)</span>: average densities over
-        their respective domains</li>
-        </ul>
-        <p>The invariant tells us:</p>
-        <blockquote>
-        <p><strong>Presence mass is conserved, and marginal densities
-        are scaled by the ratio of the measures of their support
-        domains.</strong> This allows us to move coherently between
-        signal-normalized and time-normalized views of system
-        behavior.</p>
-        </blockquote>
-      </div>
+      </nav>
+            <div
+            style="text-align: center; font-size: 80%; margin-top: 3em;">
+            <p>© 2025 Krishna Kumar. All rights reserved.</p>
+            </div>
+            <h2 data-number="1"
+            id="setup-two-orthogonal-measure-spaces"><span
+            class="header-section-number">1</span> Setup: Two Orthogonal
+            Measure Spaces</h2>
+            <p>When generalizing from a single presence density function
+            to a system of presences, it is useful to think of presence
+            as a quantity distributed over a <em>product space</em>
+            formed from two orthogonal domains:</p>
+            <ul>
+            <li>A <strong>time domain</strong> <span
+            class="math inline">\(T\)</span>, with a sigma-algebra <span
+            class="math inline">\(\mathcal{F}_T\)</span> and a measure
+            <span class="math inline">\(\mu_T\)</span>. This may be the
+            Lebesgue measure <span
+            class="math inline">\(\lambda\)</span>, a probability
+            measure, or another <span
+            class="math inline">\(\sigma\)</span>-finite measure.</li>
+            <li>A <strong>signal domain</strong> <span
+            class="math inline">\(S\)</span>, with a sigma-algebra <span
+            class="math inline">\(\mathcal{F}_S\)</span> and a measure
+            <span class="math inline">\(\mu_S\)</span>, typically
+            counting measure or a weighted variant over a discrete
+            set.</li>
+            </ul>
+            <p>We define the <strong>product measurable space</strong>:
+            <span class="math display">\[
+            (T \times S, \mathcal{F}_T \otimes \mathcal{F}_S)
+            \]</span> and the <strong>product measure</strong>: <span
+            class="math display">\[
+            \mu = \mu_T \otimes \mu_S.
+            \]</span></p>
+            <p>Let <span class="math inline">\(f: T \times S \to
+            \mathbb{R}_{\geq 0}\)</span> be a measurable function
+            representing <strong>presence density</strong> over this
+            joint domain.</p>
+            <h2 data-number="2" id="total-presence-mass"><span
+            class="header-section-number">2</span> Total Presence
+            Mass</h2>
+            <p>The <strong>total presence mass</strong> accumulated
+            across the full product space is defined as: <span
+            class="math display">\[
+            A = \\\iint_{T \times S} f(t, s)\\, d\mu_T(t)\\, d\mu_S(s).
+            \]</span></p>
+            <p>This integral assumes that <span
+            class="math inline">\(f\)</span> is integrable under the
+            product measure <span class="math inline">\(\mu\)</span>,
+            i.e.: <span class="math display">\[
+            \\\iint |f(t, s)| \\, d\mu_T(t)\\, d\mu_S(s) &lt; \\\infty.
+            \]</span></p>
+            <h2 data-number="3" id="marginal-densities"><span
+            class="header-section-number">3</span> Marginal
+            Densities</h2>
+            <p>We define marginal densities over each domain:</p>
+            <ul>
+            <li><p><strong>Presence per unit time</strong>: <span
+            class="math display">\[
+            D_T(t) = \\\int_S f(t, s)\\, d\mu_S(s).
+            \]</span></p></li>
+            <li><p><strong>Presence per signal</strong>: <span
+            class="math display">\[
+            D_S(s) = \\\int_T f(t, s)\\, d\mu_T(t).
+            \]</span></p></li>
+            </ul>
+            <p>Intuitively, marginalization distributes total presence
+            mass along the time or signal dimension by integrating out
+            the other variable.</p>
+            <p>From a statistical lens, we are accustomed to thinking of
+            these quantities as averages. Time averages, however, often
+            rely on assumptions like ergodicity or stationarity of some
+            underlying distribution over which the averages are
+            computed.</p>
+            <p>The measure-theoretic definition via marginal densities
+            avoids these assumptions and provides a structurally
+            invariant description of presence across domains. Rather
+            than thinking of both quantities as averages, it is more
+            general to treat them as densities.</p>
+            <p><strong>Note:</strong> The averages <span
+            class="math inline">\(\bar{D}_T\)</span> and <span
+            class="math inline">\(\bar{D}_S\)</span> are only
+            well-defined when <span
+            class="math inline">\(\mu_T(T)\)</span> and <span
+            class="math inline">\(\mu_S(S)\)</span> are finite. This
+            ensures that the total presence mass can be meaningfully
+            distributed over each domain.</p>
+            <p>In the common case where the signal domain is finite or
+            countable (e.g., a discrete set of labeled signals) and the
+            time domain is also quantized (e.g., measured in ticks or
+            time buckets as in the presence matrix), <span
+            class="math inline">\(\bar{D}_S\)</span> corresponds to the
+            <em>average presence per signal</em>, while <span
+            class="math inline">\(\bar{D}_T\)</span> captures the
+            <em>average presence per unit time</em>.</p>
+            <p>These quantities let us view the system from either a
+            signal-centric or time-centric perspective, without changing
+            the total mass. In either case, the mass is obtained by
+            integrating over a presence density function.</p>
+            <h2 data-number="4" id="presence-invariant"><span
+            class="header-section-number">4</span> Presence
+            Invariant</h2>
+            <p>Define the average presence densities: <span
+            class="math display">\[
+            \\\bar{D}_T = \\\frac{A}{\mu_T(T)}, \quad \\\bar{D}_S =
+            \\\frac{A}{\mu_S(S)}.
+            \]</span></p>
+            <p>Then the <strong>generalized presence invariant</strong>
+            becomes: <span class="math display">\[
+            \\\frac{\\\bar{D}_S}{\\\bar{D}_T} =
+            \\\frac{\mu_T(T)}{\mu_S(S)}.
+            \]</span></p>
+            <p>This expresses that the average presence densities in the
+            time and signal domains are <strong>proportionally
+            related</strong>, and that the constant of proportionality
+            is the <strong>ratio of the domain measures</strong>.</p>
+            <h2 data-number="5" id="interpretation-of-nt"><span
+            class="header-section-number">5</span> Interpretation of (
+            N/T )</h2>
+            <p>In many practical settings, particularly when working
+            with discrete signal domains, the signal measure <span
+            class="math inline">\(\mu_S\)</span> is a counting measure.
+            In such cases, if <span class="math inline">\(N =
+            \mu_S(S_T)\)</span> and <span class="math inline">\(T =
+            \mu_T(T)\)</span>, then the ratio: <span
+            class="math display">\[
+            \\\frac{N}{T} = \\\frac{\mu_S(S_T)}{\mu_T(T)}
+            \]</span> represents the <strong>ratio of the “sizes” of the
+            sets</strong> over which presence mass is being distributed.
+            That is:</p>
+            <blockquote>
+            <p><strong>Presence mass exists jointly over time and
+            signal. When we marginalize that mass, we can average it
+            over the extent of time or the extent of signals. The ratio
+            ( N/T ) tells us how these marginal densities relate — it
+            quantifies the structural “rate” or “density of signals per
+            unit time” induced by the co-presence.</strong></p>
+            </blockquote>
+            <p>This view aligns with the intuition of the Radon–Nikodym
+            derivative, where presence densities reflect the relative
+            rate of one measure with respect to another across their
+            domain of interaction.</p>
+            <h2 data-number="6" id="fubinis-theorem"><span
+            class="header-section-number">6</span> Fubini’s Theorem</h2>
+            <p>If <span class="math inline">\(f: T \times S \to
+            \mathbb{R}\)</span> is integrable over the product measure
+            <span class="math inline">\(\mu_T \otimes \mu_S\)</span>,
+            then: <span class="math display">\[
+            \\\iint_{T \times S} f(t, s) \\, d\mu_T(t)\\, d\mu_S(s)
+            = \\\int_T \left( \\\int_S f(t, s) \\, d\mu_S(s) \right)
+            d\mu_T(t)
+            = \\\int_S \left( \\\int_T f(t, s) \\, d\mu_T(t) \right)
+            d\mu_S(s).
+            \]</span></p>
+            <p>This justifies that presence mass can be
+            <strong>marginalized in either order</strong>, and confirms
+            the internal consistency of the invariant.</p>
+            <h2 data-number="7" id="summary"><span
+            class="header-section-number">7</span> Summary</h2>
+            <ul>
+            <li><span class="math inline">\(\mu_T(T)\)</span>: the
+            extent of the presence interval in time</li>
+            <li><span class="math inline">\(\mu_S(S)\)</span>: the
+            extent of co-present signals or presences</li>
+            <li><span class="math inline">\(A\)</span>: the joint mass
+            over time and signal</li>
+            <li><span class="math inline">\(\bar{D}_T\)</span>, <span
+            class="math inline">\(\bar{D}_S\)</span>: average densities
+            over their respective domains</li>
+            </ul>
+            <p>The invariant tells us:</p>
+            <blockquote>
+            <p><strong>Presence mass is conserved, and marginal
+            densities are scaled by the ratio of the measures of their
+            support domains.</strong> This allows us to move coherently
+            between signal-normalized and time-normalized views of
+            system behavior.</p>
+            </blockquote>
+          </div>
+  </div>
 </body>
 </html>
