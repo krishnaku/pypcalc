@@ -3338,12 +3338,12 @@ time. The *accumulated* stock price over an interval, does not convey
 much meaningful information for decision making.
 
 > By contrast, if we consider the *time-value of a deployed pool of capital*, we
-can use presence calculus quite effectively to analyze the *efficiency*
-of a capital allocation strategy [^-financial].
+> can use presence calculus quite effectively to analyze the *efficiency*
+> of a capital allocation strategy [^-financial].
 
-[^-financial]: There is even a version of *Little's Law*
-that can be derived in this setting! We’ll discuss these and other applications
-in upcoming posts.
+[^-financial]: This has concrete applications to product portfolio analysis.
+There is even a version of *Little's Law* that can be derived in this setting!
+We’ll discuss these and other applications in upcoming posts.
 
 When applied to a suitable class of signals, the calculus provides better tools to accurately
 measure and reason about how the property accumulates over time and across
