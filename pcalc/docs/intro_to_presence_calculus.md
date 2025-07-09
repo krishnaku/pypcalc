@@ -3326,7 +3326,22 @@ Intuitively, when a system property has a "time-value," the presence calculus
 offers tools to frame decisions in terms of managing that property's
 accumulation over time. We categorize signals into those we want to accumulate
 (e.g., revenue, profits, satisfied customers) and those we want to constrain
-(e.g., costs, risks, debts, delays).
+(e.g., costs, risks, debts, delays) [^-bad-example].
+
+[^-bad-example]: For an example of a signal where presence calculus would _not_ be useful,
+    consider the price of a stock over time. Although this is a time-varying
+    function, there is little use in analyzing it the using presence calculus. The
+    signal here lies in the *instantaneous value* of the function at a
+    given point in time, and in the *difference* between values at two points in
+    time. The *accumulated* stock price over an interval, does not convey
+    much meaningful information for decision making.
+
+    By contrast, if we consider the *time value of a deployed pool of capital*, we
+    can use presence calculus quite effectively to analyze the *efficiency*
+    of a capital allocation strategy. There is even a version of *Little's Law*
+    that can be derived in this setting! We’ll discuss these and other applications
+    in upcoming posts.
+
 
 For each of these signals, the calculus provides better tools to accurately
 measure and reason about how the property accumulates over time and across
@@ -3432,10 +3447,10 @@ This gives us the ability to build such causal models iteratively through
 experimentation on the system. A value stream is a promising example of such a
 system of systems where an approach like this appears tractable.
 
->This idea is very similar to statistical causal modeling, but with a crucial
-difference: we're not inferring causal relationships through statistical
-correlations between proxy variables on large heterogeneous datasets. Instead,
-we're *proving causal relationships between local interactions on directly
+> This idea is very similar to statistical causal modeling, but with a crucial
+> difference: we're not inferring causal relationships through statistical
+> correlations between proxy variables on large heterogeneous datasets. Instead,
+> we're *proving causal relationships between local interactions on directly
 observed presence in a specific complex system*.
 
 In my view, the most productive path forward lies not in seeking a fully general
