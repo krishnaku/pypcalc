@@ -359,13 +359,13 @@ of Little’s Law</span></p>
         id="toc-signal-incidence-rate"><span
         class="toc-section-number">3.5</span> Signal Incidence
         Rate</a></li>
-        <li><a href="#unified-statement"
-        id="toc-unified-statement"><span
-        class="toc-section-number">3.6</span> Unified Statement</a></li>
         <li><a href="#technical-condition-l_i-t_i-to-0"
         id="toc-technical-condition-l_i-t_i-to-0"><span
-        class="toc-section-number">3.7</span> Technical Condition: <span
+        class="toc-section-number">3.6</span> Technical Condition: <span
         class="math inline">\(l_i / t_i \to 0\)</span></a></li>
+        <li><a href="#unified-statement"
+        id="toc-unified-statement"><span
+        class="toc-section-number">3.7</span> Unified Statement</a></li>
         </ul></li>
         <li><a href="#summary" id="toc-summary"><span
         class="toc-section-number">4</span> Summary</a></li>
@@ -590,18 +590,9 @@ of Little’s Law</span></p>
             <p><span class="math display">\[
             I = \lambda
             \]</span></p>
-            <h2 data-number="3.6" id="unified-statement"><span
-            class="header-section-number">3.6</span> Unified
-            Statement</h2>
-            <p>Substituting these mappings:</p>
-            <p><span class="math display">\[
-            \Delta = I \cdot \bar{M}
-            \]</span></p>
-            <p>This is the <strong>presence calculus</strong> analog of
-            the generalized Little’s Law.</p>
-            <h2 data-number="3.7"
+            <h2 data-number="3.6"
             id="technical-condition-l_i-t_i-to-0"><span
-            class="header-section-number">3.7</span> Technical
+            class="header-section-number">3.6</span> Technical
             Condition: <span class="math inline">\(l_i / t_i \to
             0\)</span></h2>
             <p>The theorem requires that <span class="math inline">\(l_i
@@ -618,17 +609,29 @@ of Little’s Law</span></p>
             <li>The support of <span
             class="math inline">\(P_{(e,b)}(t)\)</span> becomes
             <strong>localized</strong> in time.</li>
-            <li>Signals arriving later do not have arbitrarily long
+            <li>Signals arriving earlier do not have arbitrarily long
             durations.</li>
             </ul>
-            <p><strong>Importance:</strong> This condition is required
-            only to <strong>guarantee</strong> that the product of
-            limits equals the limit of the product. If one only wants to
-            reason about the existence of <span
-            class="math inline">\(\Delta\)</span>, <span
-            class="math inline">\(I\)</span>, or <span
-            class="math inline">\(\bar{M}\)</span> independently, this
-            condition is not necessary.</p>
+            <p><span class="math display">\[
+            \lim_{i \to \infty} \frac{l_i}{t_i} = 0
+            \quad\Rightarrow\quad
+            \text{bounded overlap and finite cumulative presence mass.}
+            \]</span></p>
+            <p><strong>Importance:</strong> This condition ensures that
+            the support of each signal becomes negligible in the long
+            run, preventing cumulative mass from diverging. Intuitively
+            it formalizes the intuition that over sufficienctly long
+            intervals the onset and reset rates of signals converge.
+            Without this, presence can accumulate indefinitely.</p>
+            <h2 data-number="3.7" id="unified-statement"><span
+            class="header-section-number">3.7</span> Unified
+            Statement</h2>
+            <p>Substituting these mappings:</p>
+            <p><span class="math display">\[
+            \Delta = I \cdot \bar{M}
+            \]</span></p>
+            <p>This is the <strong>presence calculus</strong> analog of
+            the generalized Little’s Law.</p>
             <h1 data-number="4" id="summary"><span
             class="header-section-number">4</span> Summary</h1>
             <p>We restate a general convergence law for systems of

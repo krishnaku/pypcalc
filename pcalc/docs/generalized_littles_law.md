@@ -205,6 +205,32 @@ $$
 I = \lambda
 $$
 
+## Technical Condition: $l_i / t_i \to 0$
+
+The theorem requires that $l_i / t_i \to 0$ as $i \to \infty$. This means that
+the duration of each function $f_i$ must become small relative to its arrival
+time.
+
+In presence calculus terms, this ensures that **signals do not overlap
+indefinitely with later-arriving signals**, which could distort the time-based
+averages.
+
+Equivalently, it ensures that:
+
+- The support of $P_{(e,b)}(t)$ becomes **localized** in time.
+- Signals arriving earlier do not have arbitrarily long durations.
+
+$$
+\lim_{i \to \infty} \frac{l_i}{t_i} = 0
+\quad\Rightarrow\quad
+\text{bounded overlap and finite cumulative presence mass.}
+$$
+
+**Importance:** This condition ensures that the support of each signal becomes
+negligible in the long run, preventing cumulative mass from diverging.  Intuitively
+it formalizes the intuition that over sufficienctly long intervals the onset
+and reset rates of signals converge. Without this, presence can accumulate indefinitely.
+
 
 
 ## Unified Statement
@@ -223,26 +249,6 @@ is exact under the mapping $H \mapsto \Delta$, $\lambda \mapsto I$,
 and $G \mapsto \bar{M}$.
 
 
-
-## Technical Condition: $l_i / t_i \to 0$
-
-The theorem requires that $l_i / t_i \to 0$ as $i \to \infty$. This means that
-the duration of each function $f_i$ must become small relative to its arrival
-time.
-
-In presence calculus terms, this ensures that **signals do not overlap
-indefinitely with later-arriving signals**, which could distort the time-based
-averages.
-
-Equivalently, it ensures that:
-
-- The support of $P_{(e,b)}(t)$ becomes **localized** in time.
-- Signals arriving later do not have arbitrarily long durations.
-
-**Importance:** This condition is required only to **guarantee** that the
-product of limits equals the limit of the product. If one only wants to reason
-about the existence of $\Delta$, $I$, or $\bar{M}$ independently, this condition
-is not necessary.
 
 
 # Summary
