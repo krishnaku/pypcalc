@@ -166,6 +166,15 @@ $endif$
         padding: 3rem 2rem;
       }
     }
+
+    @media screen and (max-width: 768px) {
+      #presence-link {
+        position: static;
+        margin: 1rem auto;
+        text-align: center;
+        display: block;
+      }
+    }
   </style>
 $for(css)$
   <link rel="stylesheet" href="$css$" />
