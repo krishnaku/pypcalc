@@ -13,9 +13,6 @@ figPrefix: "Figure"
 
 ---
 
-<div style="text-align: center; font-size: 80%; margin-top: 3em;">
-  © 2025 Krishna Kumar. All rights reserved.
-</div>
 
 ## What is The Presence Calculus?
 

@@ -301,6 +301,28 @@
       text-align: center;
     }
 
+    #presence-link {
+      position: fixed;
+      top: 0.5rem;
+      right: 1rem;
+      font-size: 0.9rem;
+      background: #f9f9f9;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      z-index: 1000;
+    }
+
+    #presence-link a {
+      text-decoration: none;
+      color: #444;
+    }
+
+    #presence-link a:hover {
+      text-decoration: underline;
+    }
+
+
     @media screen and (min-width: 1024px) {
       body {
         font-size: 1.15rem;
@@ -316,6 +338,12 @@
   type="text/javascript"></script>
 </head>
 <body>
+<div id="presence-link">
+  <a href="https://docs.pcalc.org" target="_blank">The Presence Calculus Project</a>
+  <div style="text-align: center; font-size: 80%;">
+    © 2025 Krishna Kumar. All rights reserved.
+  </div>
+</div>
   <div class="wrapper">
     <div id="page">
                   <header id="title-block-header">
