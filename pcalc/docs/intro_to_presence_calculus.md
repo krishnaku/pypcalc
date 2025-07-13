@@ -124,15 +124,20 @@ a tool that can operate *alongside* techniques such as statistical and
 probabilistic analyses. Its particular strength lies in analyzing a class of problems that
 are not easily addressed using those techniques.
 
+Intuitively, when a system property has a "time-value," the presence calculus
+offers tools to frame decisions in terms of managing that property's
+accumulation over time. We categorize signals into those we want to accumulate
+(e.g., revenue, profits, satisfied customers) and those we want to constrain
+(e.g., costs, risks, debts, delays).
+
 The presence calculus is well suited to reasoning about system properties that
-satisfy the following criteria, stated here in plain English [^-not-exclusive]:
+satisfy the following criteria. [^-not-exclusive]:
 
 [^-not-exclusive]: This is not to imply that all these criteria are strictly required to apply the 
 presence calculus. There are lots of theoretical reasons to believe that the ideas here generalize well beyond this, 
 but starting with these criteria gives us a well defined set of problems for which we can _provably guarantee_ that the
 machinery here will provide useful insights. Understanding what happens as we relax one or more of these requirements is 
 an ongoing research activity - both in practical application contexts and in developing the mathematical theory further. 
-
 
 - The measured value is a _non-negative_ real number that varies continuously over time—i.e.,
   we are measuring the *presence* of a property in the system.
@@ -159,16 +164,14 @@ Because these properties often underpin sound decision-making in business
 contexts, the presence calculus has the potential to significantly improve the
 quality of those decisions.
 
-Intuitively, when a system property has a "time-value," the presence calculus
-offers tools to frame decisions in terms of managing that property's
-accumulation over time. We categorize signals into those we want to accumulate
-(e.g., revenue, profits, satisfied customers) and those we want to constrain
-(e.g., costs, risks, debts, delays).
+When applied to a suitable class of signals, the calculus provides better tools
+to accurately measure and reason about how the property accumulates over time
+and across time-scales _without requiring either statistical or probabilistic
+techniques_.
 
-When applied to a suitable class of signals, the calculus provides better tools to accurately
-measure and reason about how the property accumulates over time and across
-time-scales _without requiring either statistical or probabilistic techniques_.
-
+As we will see, this lets us create some really novel tools for operational analysis
+of messy real-world systems like the ones we often encounter in software product
+development and engineering.
 
 ### Learning about the presence calculus
 
@@ -180,7 +183,7 @@ While the calculus was developed with mathematical rigor, an equally important
 goal was not to let mathematics get in the way of understanding the simple but
 very powerful ideas the calculus embodies. 
 
-In order to maintain precision, we dont shy away from mathematics where it is
+However, in order to maintain precision, we dont shy away from mathematics where it is
 needed. We augment these with examples to build intuition throughout. However,
 given the nature of the material we have opted to stay on the side of rigor
 rather than dilute the concepts, even in this "gentle" introduction.
