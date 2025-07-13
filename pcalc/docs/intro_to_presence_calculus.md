@@ -43,14 +43,29 @@ context-specific measurement models for operational improvement—a powerful
 alternative to one-size-fits-all metrics frameworks and visibility tools, which
 remain the dominant option today.
 
-The Presence Calculus is a novel modeling and measurement substrate with
+The Presence Calculus is a novel  modeling and measurement substrate with
 *measure theory*, a branch of _real analysis_, as its mathematical foundation.
 It treats time as a first-class concept, making it well suited for analyzing
 _continuous_, _time-dependent_ behaviors of systems.
 
 It *complements* classical statistical and probabilistic analysis, and is
 particularly well suited to domains like software development where state,
-history, and path dependence complicate  traditional inference techniques.
+history, and path dependence complicate traditional inference techniques [^-novel].
+
+[^-novel]: Mathematically, the presence calculus is closely related to, and directly inspired by,
+    _sample path analysis_—a technique originally developed by Dr. Shaler Stidham to provide the
+    first deterministic proof of Little's Law [@stidham72]. Together with colleagues, he developed
+    it into a powerful tool for establishing general properties of stochastic processes without
+    relying on probabilistic assumptions—a major breakthrough. Its theory and applications to
+    queueing systems are detailed in [@eltaha1999].
+
+    Although these techniques were always applicable beyond queueing theory, development remained
+    largely within adjacent domains.
+
+    Presence calculus makes this separation explicit. It begins with measure theory and develops
+    sample path tools for _observable_ signals. This situates it firmly within operational analysis—
+    as both a practical modeling and measurement substrate—where sample path reasoning arises naturally.
+    Crucially, it is a deterministic paradigm, equally applicable to stochastic and non-stochastic systems.
 
 On its own, the Presence Calculus provides a precisely defined set of modeling
 and computational primitives (shown in [@fig:key-concepts]) for analyzing the history and evolution of
@@ -58,7 +73,7 @@ time-varying signal systems—structures about which we can make mathematically
 provable claims.
 
 We can then use these primitives to construct richer, more expressive
-mathematical models to reason about time varying behavior in real-world domains.
+measurement models to reason about time varying behavior in real-world domains.
 
 Our goal in this document to present the foundational ideas of the presence
 calculus as a coherent whole. We will use examples to motivate key concepts but
@@ -95,17 +110,75 @@ The Presence Calculus is a novel, _constructive_ approach to this problem—an
 analytical framework for modeling _observed behavior_ in systems ranging from
 simple, linear, and ordered to non-linear, stochastic, adaptive, and complex,
 all based on a small, uniform set of underlying concepts rooted in a
-mathematically precise primitive called _presence_.
+[mathematically precise](./presence_calculus_foundations.html) primitive called _presence_.
+
+### Why should I care? 
+
+First and foremost, the presence calculus is not a modeling framework, a
+measurement system, or a methodology. It is a mathematical and analytical
+*substrate*—a foundation on which such frameworks or methodologies can be
+constructed.
+
+It is not a replacement for existing mathematical tools. Rather, it is
+a tool that can operate *alongside* techniques such as statistical and
+probabilistic analyses. Its particular strength lies in analyzing a class of problems that
+are not easily addressed using those techniques.
+
+The presence calculus is well suited to reasoning about system properties that
+satisfy the following criteria, stated here in plain English [^-not-exclusive]:
+
+[^-not-exclusive]: This is not to imply that all these criteria are strictly required to apply the 
+presence calculus. There are lots of theoretical reasons to believe that the ideas here generalize well beyond this, 
+but starting with these criteria gives us a well defined set of problems for which we can _provably guarantee_ that the
+machinery here will provide useful insights. Understanding what happens as we relax one or more of these requirements is 
+an ongoing research activity - both in practical application contexts and in developing the mathematical theory further. 
+
+
+- The measured value is a _non-negative_ real number that varies continuously over time—i.e.,
+  we are measuring the *presence* of a property in the system.
+- The "signal" in the property is tied to the _accumulation_ of its value—
+  both the magnitude and the duration for which it is held are meaningful.
+- The value at any given time can be expressed as the _sum_ of _non-negative_ values
+  from a countable set of time-varying functions (signals) over a fixed domain.
+- Each contributing function is measurable over finite intervals, meaning its
+  Lebesgue integral exists and is finite over any bounded interval.
+
+For practical applications, we also require:
+
+- Each signal’s contribution can be *directly* instrumented and measured over
+  the domain.
+
+While this may sound restrictive, a surprisingly large class of operational and
+business-critical properties—especially those related to delays, costs, risks,
+and rewards—fall squarely within this domain. Modern technology makes a large
+volume of such signals directly instrumentable. This makes the presence calculus
+a powerful tool for reasoning about such economically significant properties in
+a robust and principled way.
+
+Because these properties often underpin sound decision-making in business
+contexts, the presence calculus has the potential to significantly improve the
+quality of those decisions.
+
+Intuitively, when a system property has a "time-value," the presence calculus
+offers tools to frame decisions in terms of managing that property's
+accumulation over time. We categorize signals into those we want to accumulate
+(e.g., revenue, profits, satisfied customers) and those we want to constrain
+(e.g., costs, risks, debts, delays).
+
+When applied to a suitable class of signals, the calculus provides better tools to accurately
+measure and reason about how the property accumulates over time and across
+time-scales _without requiring either statistical or probabilistic techniques_.
+
 
 ### Learning about the presence calculus
-
-While the calculus was developed with mathematical rigor, an equally important
-goal was not to let mathematics get in the way of understanding the simple but
-very powerful ideas the calculus embodies. 
 
 In this document, we'll motivate and introduce the intuitions and key ideas in
 the calculus with lots of evocative examples and mathematical simplifications
 to illustrate core concepts.
+
+While the calculus was developed with mathematical rigor, an equally important
+goal was not to let mathematics get in the way of understanding the simple but
+very powerful ideas the calculus embodies. 
 
 In order to maintain precision, we dont shy away from mathematics where it is
 needed. We augment these with examples to build intuition throughout. However,
@@ -417,8 +490,7 @@ over any given
 time *interval* $[t_0, t1)$ is the _integral of the function_ over the interval,
 which is also the area under the signal over that interval[^F3].
 
-[^F3]: The way we've defined signals and mass is directly  
-analogous to how mass is defined for matter occupying space in physics.
+[^F3]: The way we've defined signals and mass is directly analogous to how mass is defined for matter occupying space in physics.
 
     A binary signal can be thought of as defining a one-dimensional interval over time. 
     For a fixed element and boundary, this gives us an area under the curve in two dimensions: time vs. amount of signal.
@@ -3272,79 +3344,7 @@ idea of presence and systems of presence. Let’s pause and take stock of these
 ideas to build some intuition for what the presence calculus *is* and what it
 tells us.
 
-### Why should I care? 
-
-First and foremost, the presence calculus is not a modeling framework, a
-measurement system, or a methodology. It is a mathematical and analytical
-*substrate*—a foundation on which such frameworks or methodologies can be
-constructed.
-
-It is not a replacement for existing mathematical tools. Rather, it is
-a tool that can operate *alongside* techniques such as statistical and
-probabilistic analyses. Its particular strength lies in analyzing a class of problems that
-are not easily addressed using those techniques.
-
-The presence calculus is well suited to reasoning about system properties that
-satisfy the following mathematical criteria, stated here in plain English [^-not-exclusive]:
-
-[^-not-exclusive]: This is not to imply that all these criteria are strictly required to apply the 
-presence calculus. There are lots of theoretical reasons to believe that the ideas here generalize well beyond this, 
-but starting with these criteria gives us a well defined set of problems for which we can _provably guarantee_ that the
-machinery here will provide useful insights. Understanding what happens as we relax one or more of these requirements is 
-an ongoing research activity - both in practical application contexts and in developing the mathematical theory further. 
-
-
-- The measured value is a _non-negative_ real number that varies continuously over time—i.e.,
-  we are measuring the *presence* of a property in the system.
-- The "signal" in the property is tied to the _accumulation_ of its value—
-  both the magnitude and the duration for which it is held are meaningful.
-- The value at any given time can be expressed as the _sum_ of _non-negative_ values
-  from a countable set of time-varying functions (signals) over a fixed domain.
-- Each contributing function is measurable over finite intervals, meaning its
-  Lebesgue integral exists and is finite over any bounded interval.
-
-For practical applications, we also require:
-
-- Each signal’s contribution can be *directly* instrumented and measured over
-  the domain.
-
-While this may sound restrictive, a surprisingly large class of operational and
-business-critical properties—especially those related to delays, costs, risks,
-and rewards—fall squarely within this domain. This makes the presence calculus a
-powerful tool for reasoning about such properties in a robust and principled way.
-
-Because these properties often underpin sound decision-making in business
-contexts, the presence calculus has the potential to significantly improve the
-quality of those decisions.
-
-### Where can I apply this and how?
-
-Intuitively, when a system property has a "time-value," the presence calculus
-offers tools to frame decisions in terms of managing that property's
-accumulation over time. We categorize signals into those we want to accumulate
-(e.g., revenue, profits, satisfied customers) and those we want to constrain
-(e.g., costs, risks, debts, delays).
-
-For an example of a signal where presence calculus would _not_ be useful,
-consider the price of a stock over time. Although this is a time-varying
-function, there is little use in analyzing it the using presence calculus. 
-
-The signal here lies in the *instantaneous value* of the function at a
-given point in time, and in the *difference* between values at two points in
-time. The *accumulated* stock price over an interval, does not convey
-much meaningful information for decision making.
-
-> By contrast, if we consider the *time-value of a deployed pool of capital*, we
-> can use presence calculus quite effectively to analyze the *efficiency*
-> of a capital allocation strategy [^-financial].
-
-[^-financial]: This has concrete applications to product portfolio analysis.
-There is even a version of *Little's Law* that can be derived in this setting!
-We’ll discuss these and other applications in upcoming posts.
-
-When applied to a suitable class of signals, the calculus provides better tools to accurately
-measure and reason about how the property accumulates over time and across
-time-scales within a defined system of presences.
+### A summary 
 
 ![The presence calculus machinery](../assets/pandoc/pcalc_machinery.png){#fig:pcalc-machinery}
 
@@ -3363,8 +3363,10 @@ The machinery of the presence calculus is shown in [@fig:pcalc-machinery]
 - The *presence accumulation matrix* then aggregates these samples across time
   and time-scales. Because presence is finitely additive, the matrix supports
   arbitrary aggregation without losing the semantics of accumulated mass.
-- This lets us reason about sample paths at multiple scales, detect convergence
-  behaviors, and identify attractors within the system.
+- The presence accumulation matrix is the gateway to operational analysis of
+  sample paths in the system.This lets us reason about sample paths at multiple
+  scales, detect convergence behaviors, and identify attractors within the
+  system.
 - Mapping the invariant to the complex plane gives us a visual representation of
   presence flow across time-scales. It becomes a steering vector that shows
   *where* you want to move the system using the control knobs of incidence rate
