@@ -126,7 +126,7 @@ are not easily addressed using those techniques.
 
 Intuitively, when a system property has a "time-value," the presence calculus
 offers tools to frame decisions in terms of managing that property's
-accumulation over time. We categorize signals into those we want to accumulate
+accumulation over time and timescales. We categorize signals into those we want to accumulate
 (e.g., revenue, profits, satisfied customers) and those we want to constrain
 (e.g., costs, risks, debts, delays).
 
