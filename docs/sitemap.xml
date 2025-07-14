@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://docs.pcalc.org/</loc>
+  </url>
+  <url>
+    <loc>https://docs.pcalc.org/theory_track.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.pcalc.org/api/index.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.pcalc.org/pandoc/intro_to_presence_calculus.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.pcalc.org/pandoc/gentle_intro_audio_summary.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.pcalc.org/pandoc/presence_calculus_foundations.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.pcalc.org/pandoc/generalized_presence_invariant.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.pcalc.org/pandoc/presence_invariant_and_rate_conservation_laws.html</loc>
+  </url>
+  <url>
+    <loc>https://docs.pcalc.org/pandoc/generalized_littles_law.html</loc>
+  </url>
+</urlset>
