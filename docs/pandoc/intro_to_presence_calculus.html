@@ -631,13 +631,13 @@ Program</em></a></p></p>
             <p>Intuitively, when a system property has a “time-value,”
             the presence calculus offers tools to frame decisions in
             terms of managing that property’s accumulation over time and
-            timescales. We categorize signals into those we want to
+            timescales. We can categorize signals into those we want to
             accumulate (e.g., revenue, profits, satisfied customers) and
             those we want to constrain (e.g., costs, risks, debts,
             delays).</p>
             <p>The presence calculus is well suited to reasoning about
-            system properties that satisfy the following criteria. <a
-            href="#fn2" class="footnote-ref" id="fnref2"
+            such properties. Specifically we focus on the following
+            criteria. <a href="#fn2" class="footnote-ref" id="fnref2"
             role="doc-noteref"><sup>2</sup></a>:</p>
             <ul>
             <li>The measured value is a <em>non-negative</em> real
@@ -646,29 +646,32 @@ Program</em></a></p></p>
             system.</li>
             <li>The “signal” in the property is tied to the
             <em>accumulation</em> of its value— both the magnitude and
-            the duration for which it is held are meaningful.</li>
+            the duration for which it is observed are meaningful.</li>
             <li>The value at any given time can be expressed as the
             <em>sum</em> of <em>non-negative</em> values from a
             countable set of time-varying functions (signals) over a
             fixed domain.</li>
             <li>Each contributing function is measurable over finite
             intervals, meaning its Lebesgue integral exists and is
-            finite over any bounded interval.</li>
+            finite over any <em>finite</em> interval.</li>
             </ul>
             <p>For practical applications, we also require:</p>
             <ul>
-            <li>Each signal’s contribution can be <em>directly</em>
-            instrumented and measured over the domain.</li>
+            <li>Each signal’s contribution can be <em>directly</em> <a
+            href="#fn3" class="footnote-ref" id="fnref3"
+            role="doc-noteref"><sup>3</sup></a> instrumented and
+            measured over the domain.</li>
             </ul>
             <p>While this may sound restrictive, a surprisingly large
             class of operational and business-critical
-            properties—especially those related to delays, costs, risks,
+            questions—especially those related to delays, costs, risks,
             and rewards—fall squarely within this domain. Modern
-            technology makes a large volume of such signals directly
-            instrumentable. This makes the presence calculus a powerful
-            tool for reasoning about such economically significant
-            properties in a robust and principled way.</p>
-            <p>Because these properties often underpin sound
+            technology makes is possible to directly instrument a large
+            number of such signals . The presence calculus opens up many
+            more avenues for reasoning about such economically
+            significant questions in a robust and principled way, and
+            often in real-time.</p>
+            <p>Because these questions often underpin sound
             decision-making in business contexts, the presence calculus
             has the potential to significantly improve the quality of
             those decisions.</p>
@@ -751,8 +754,8 @@ Program</em></a></p></p>
             Toolkit</a>.</p>
             <p>The toolkit is an open source reference implementation of
             the core concepts in the presence calculus. It is currently
-            situated <a href="#fn3" class="footnote-ref" id="fnref3"
-            role="doc-noteref"><sup>3</sup></a> as a middleware layer
+            situated <a href="#fn4" class="footnote-ref" id="fnref4"
+            role="doc-noteref"><sup>4</sup></a> as a middleware layer
             suitable for interfacing real world operational systems and
             complex system simulation, to the analytical machinery of
             the presence calculus.</p>
@@ -1003,8 +1006,8 @@ Program</em></a></p></p>
             \int_{t_0}^{t_1} \mathsf{load}(e, b, t)\, dt \]</span></p>
             <p>where <span class="math inline">\(\mathsf{load}\)</span>
             is called a <em>presence density function</em> <a
-            href="#fn4" class="footnote-ref" id="fnref4"
-            role="doc-noteref"><sup>4</sup></a>.</p>
+            href="#fn5" class="footnote-ref" id="fnref5"
+            role="doc-noteref"><sup>5</sup></a>.</p>
             <blockquote>
             <p>Presence mass is composite that measures some real valued
             quantity and the amount of time it was present. Think of it
@@ -1040,9 +1043,9 @@ Program</em></a></p></p>
             function, over any given time <em>interval</em> <span
             class="math inline">\([t_0, t1)\)</span> is the <em>integral
             of the function</em> over the interval, which is also the
-            area under the signal over that interval<a href="#fn5"
-            class="footnote-ref" id="fnref5"
-            role="doc-noteref"><sup>5</sup></a>.</p>
+            area under the signal over that interval<a href="#fn6"
+            class="footnote-ref" id="fnref6"
+            role="doc-noteref"><sup>6</sup></a>.</p>
             <p>The only requirement for a function to be a presence
             density function (signal) is that it is <em>measurable</em>,
             and that you can interpret <em>presence mass</em>—defined as
@@ -1149,9 +1152,9 @@ Program</em></a></p></p>
             important advantages over measuring the proxy metrics
             deployment frequency and lead time for changes after the
             fact.</p>
-            <p>Here are some benefits of this approach <a href="#fn6"
-            class="footnote-ref" id="fnref6"
-            role="doc-noteref"><sup>6</sup></a>:</p>
+            <p>Here are some benefits of this approach <a href="#fn7"
+            class="footnote-ref" id="fnref7"
+            role="doc-noteref"><sup>7</sup></a>:</p>
             <ul>
             <li>It directly represents and measures the variable of
             interest, batch size - rather than proxies - in real
@@ -1243,9 +1246,9 @@ Program</em></a></p></p>
             developer productivity</h4>
             <p>Imagine a developer filling out a simple daily check-in:
             “How productive did you feel today?”—scored from 1 to 5, or
-            sketched out as a rough curve over the day<a href="#fn7"
-            class="footnote-ref" id="fnref7"
-            role="doc-noteref"><sup>7</sup></a>.</p>
+            sketched out as a rough curve over the day<a href="#fn8"
+            class="footnote-ref" id="fnref8"
+            role="doc-noteref"><sup>8</sup></a>.</p>
             <p>Over a week, this forms a presence density function—not
             of the developer in a place, but of their <em>sense</em> of
             productivity over time.</p>
@@ -1635,8 +1638,8 @@ Program</em></a></p></p>
             t_0\)</span>.</p>
             <p>Let <span class="math inline">\(N\)</span> be the number
             of <em>active signals</em>: distinct signals with a presence
-            in the observation window<a href="#fn8" class="footnote-ref"
-            id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
+            in the observation window<a href="#fn9" class="footnote-ref"
+            id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
             <p>Now let’s consider the quantity <span
             class="math display">\[
             \delta = \frac{A}{T}
@@ -1645,9 +1648,9 @@ Program</em></a></p></p>
             over time, the quantity <span
             class="math inline">\(\frac{A}{T}\)</span> represents the
             <em>presence density</em> over the observation interval
-            <span class="math inline">\(T\)</span> <a href="#fn9"
-            class="footnote-ref" id="fnref9"
-            role="doc-noteref"><sup>9</sup></a>.</p>
+            <span class="math inline">\(T\)</span> <a href="#fn10"
+            class="footnote-ref" id="fnref10"
+            role="doc-noteref"><sup>10</sup></a>.</p>
             <p>We can now decompose this as:</p>
             <p><span class="math display">\[ \delta = \frac{A}{T} =
             \frac{A}{N} \times \frac{N}{T} \]</span></p>
@@ -1682,8 +1685,8 @@ Program</em></a></p></p>
             subset over <em>any</em> finite observation window makes it
             a powerful constraint. It connects local behaviors of
             individual signals to a global, observable quantity <a
-            href="#fn10" class="footnote-ref" id="fnref10"
-            role="doc-noteref"><sup>10</sup></a>.</p>
+            href="#fn11" class="footnote-ref" id="fnref11"
+            role="doc-noteref"><sup>11</sup></a>.</p>
             <p>As we’ll see, this constraint—linking local contributions
             to global measurable structure—is central to how the
             calculus enables reasoning about the dynamics of a system of
@@ -1762,8 +1765,8 @@ Program</em></a></p></p>
             present in development, the mass contribution of that task
             over an observation interval is the portion of its duration
             that intersects the interval. This is also called the
-            <em>residence time</em> <a href="#fn11" class="footnote-ref"
-            id="fnref11" role="doc-noteref"><sup>11</sup></a> for the
+            <em>residence time</em> <a href="#fn12" class="footnote-ref"
+            id="fnref12" role="doc-noteref"><sup>12</sup></a> for the
             task in the observation window.</p>
             <figure id="fig:presence-invariant-binary">
             <img src="../assets/pandoc/presence_invariant_binary.png"
@@ -1821,8 +1824,8 @@ Program</em></a></p></p>
             <p>It is important to note that we are referring to
             <em>Little’s Law over a finite observation window</em>,
             rather than the more familiar steady-state, equilibrium form
-            of Little’s Law <a href="#fn12" class="footnote-ref"
-            id="fnref12" role="doc-noteref"><sup>12</sup></a>.</p>
+            of Little’s Law <a href="#fn13" class="footnote-ref"
+            id="fnref13" role="doc-noteref"><sup>13</sup></a>.</p>
             <p>Unlike the equilibrium form of the law, this version
             holds <em>unconditionally</em>. The key is that the
             quantities involved are <em>observer-relative</em>: the time
@@ -1916,8 +1919,8 @@ Program</em></a></p></p>
             <p>The length of each sampling interval is called the
             <em>sampling granularity</em>. This defines the smallest
             time resolution at which the <em>matrix</em> represents
-            presence <a href="#fn13" class="footnote-ref" id="fnref13"
-            role="doc-noteref"><sup>13</sup></a>.</p>
+            presence <a href="#fn14" class="footnote-ref" id="fnref14"
+            role="doc-noteref"><sup>14</sup></a>.</p>
             <p>The union of these intervals is called the
             <em>observation window</em> of the matrix.</p>
             <blockquote>
@@ -1985,8 +1988,8 @@ Program</em></a></p></p>
             distributed across different observation windows during the
             integration step that computes the presence mass.</p>
             <p>In other words, this has no real impact on the behavior
-            of the invariant <a href="#fn14" class="footnote-ref"
-            id="fnref14" role="doc-noteref"><sup>14</sup></a>
+            of the invariant <a href="#fn15" class="footnote-ref"
+            id="fnref15" role="doc-noteref"><sup>15</sup></a>
             <em>provided we cover the timeline with our
             observations.</em></p>
             <p>The presence matrix encodes deep structural properties of
@@ -2229,8 +2232,8 @@ Program</em></a></p></p>
             the submatrix with non-zero values.</li>
             <li><span class="math inline">\(T\)</span> is the number of
             columns in the submatrix, measured in units of the sampling
-            granularity <a href="#fn15" class="footnote-ref"
-            id="fnref15" role="doc-noteref"><sup>15</sup></a>.</li>
+            granularity <a href="#fn16" class="footnote-ref"
+            id="fnref16" role="doc-noteref"><sup>16</sup></a>.</li>
             </ul>
             <blockquote>
             <p>Because <span class="math inline">\(A\)</span>, <span
@@ -3722,8 +3725,8 @@ Program</em></a></p></p>
             </ul>
             <p>This equation reflects the finite additivity of
             cumulative presence mass over rectangular regions in the
-            presence matrix <a href="#fn16" class="footnote-ref"
-            id="fnref16" role="doc-noteref"><sup>16</sup></a>.</p>
+            presence matrix <a href="#fn17" class="footnote-ref"
+            id="fnref17" role="doc-noteref"><sup>17</sup></a>.</p>
             <p>So, the entire matrix—and thus, the system’s accumulation
             dynamics—is governed by a simple, local rule. Given the
             values on the diagonal, the rest of the matrix is completely
@@ -3741,8 +3744,8 @@ Program</em></a></p></p>
             signals they generate are <em>measurable</em> they satisfy
             the finite additivity property and when we sample their
             <em>observed</em> presence masses, this local recurrence
-            always applies <a href="#fn17" class="footnote-ref"
-            id="fnref17" role="doc-noteref"><sup>17</sup></a>.</p>
+            always applies <a href="#fn18" class="footnote-ref"
+            id="fnref18" role="doc-noteref"><sup>18</sup></a>.</p>
             <p>Combined with the presence invariant—which also holds at
             every level of this accumulation—this gives us a powerful
             framework for dissecting the dynamics of a system of
@@ -3753,8 +3756,8 @@ Program</em></a></p></p>
             <p>Presence calculus concepts—such as presence mass,
             incidence rate, and density— are not unlike abstract
             physical notions like force, mass, and acceleration <a
-            href="#fn18" class="footnote-ref" id="fnref18"
-            role="doc-noteref"><sup>18</sup></a>. In principle, these
+            href="#fn19" class="footnote-ref" id="fnref19"
+            role="doc-noteref"><sup>19</sup></a>. In principle, these
             are measurable quantities constrained by nature to behave in
             prescribed ways at a micro scale.</p>
             <p>Once we understand the rules governing their micro-scale
@@ -4111,8 +4114,8 @@ Program</em></a></p></p>
             system’s directly observed signals—one sample at a time.</p>
             <p>We will call the sequence of values on the diagonal a
             <em>sample path</em> for the system of presences <a
-            href="#fn19" class="footnote-ref" id="fnref19"
-            role="doc-noteref"><sup>19</sup></a>.</p>
+            href="#fn20" class="footnote-ref" id="fnref20"
+            role="doc-noteref"><sup>20</sup></a>.</p>
             <figure id="fig:diagonal-values">
             <img src="../assets/pandoc/diagonal_values.png"
             alt="Figure 16: Computing the accumulated values on the sample path" />
@@ -4152,9 +4155,9 @@ Program</em></a></p></p>
             area under the sample path</figcaption>
             </figure>
             <blockquote>
-            <p>Each entry on the top row is an integral <a href="#fn20"
-            class="footnote-ref" id="fnref20"
-            role="doc-noteref"><sup>20</sup></a> and equals the <em>area
+            <p>Each entry on the top row is an integral <a href="#fn21"
+            class="footnote-ref" id="fnref21"
+            role="doc-noteref"><sup>21</sup></a> and equals the <em>area
             under a prefix of the sample path</em> represented by the
             diagonal.</p>
             </blockquote>
@@ -4692,8 +4695,8 @@ Program</em></a></p></p>
             —<br />
             and hence <span class="math inline">\(\Delta\)</span> —
             converges as well,and it does, with some technical
-            conditions in place<a href="#fn21" class="footnote-ref"
-            id="fnref21" role="doc-noteref"><sup>21</sup></a>.</p>
+            conditions in place<a href="#fn22" class="footnote-ref"
+            id="fnref22" role="doc-noteref"><sup>22</sup></a>.</p>
             <p>So, let’s write down precise definitions for the limits
             of <span class="math inline">\(\iota(t)\)</span> and<br />
             <span class="math inline">\(\bar{m}(t)\)</span> and examine
@@ -5576,8 +5579,8 @@ Program</em></a></p></p>
             or not.</p>
             <p>Even when the signals have randomness, the
             <em>observed</em> evolution of presence density is
-            deterministic<a href="#fn22" class="footnote-ref"
-            id="fnref22" role="doc-noteref"><sup>22</sup></a> and
+            deterministic<a href="#fn23" class="footnote-ref"
+            id="fnref23" role="doc-noteref"><sup>23</sup></a> and
             governed by the law of conservation of presence mass—that
             is, the presence invariant. This determinism extends to any
             functional quantity that depends on presence density. As we
@@ -6990,8 +6993,8 @@ Program</em></a></p></p>
             allows us to <em>manage</em> a system of presences even when
             the underlying signals lack a stable statistical or
             probability distribution and the system is far from
-            equilibrium <a href="#fn23" class="footnote-ref"
-            id="fnref23" role="doc-noteref"><sup>23</sup></a>.</p>
+            equilibrium <a href="#fn24" class="footnote-ref"
+            id="fnref24" role="doc-noteref"><sup>24</sup></a>.</p>
             <p>So for this very broad category of signals, the presence
             calculus is a much more powerful mathematical substrate on
             which to build decision support systems.</p>
@@ -7295,17 +7298,18 @@ Program</em></a></p></p>
             role="doc-endnotes">
             <hr />
             <ol>
-            <li id="fn1"><p>Mathematically, the presence calculus is
-            closely related to, and directly inspired by, <em>sample
+            <li id="fn1"><p>Mathematically, the presence calculus
+            connects results from <em>measure theory</em> and <em>sample
             path analysis</em>—a technique originally developed by
-            Dr. Shaler Stidham to provide the first deterministic proof
-            of Little’s Law <span class="citation"
-            data-cites="stidham72"><a href="#ref-stidham72"
-            role="doc-biblioref">[1]</a></span>. Together with
-            colleagues, he developed it into a powerful tool for
-            establishing general properties of stochastic processes
-            without relying on probabilistic assumptions—a major
-            breakthrough. Its theory and applications to queueing
+            Dr. Shaler Stidham to analyze stochastic processes and used
+            to provide the first deterministic proof of Little’s Law
+            <span class="citation" data-cites="stidham72"><a
+            href="#ref-stidham72"
+            role="doc-biblioref">[1]</a></span>.</p>
+            <p>Together with colleagues, he developed it into a powerful
+            tool for establishing general properties of stochastic
+            processes without relying on probabilistic assumptions—a
+            major breakthrough. Its theory and applications to queueing
             systems are detailed in <span class="citation"
             data-cites="eltaha1999"><a href="#ref-eltaha1999"
             role="doc-biblioref">[2]</a></span>.</p>
@@ -7317,10 +7321,11 @@ Program</em></a></p></p>
             for <em>observable</em> signals. This situates it firmly
             within operational analysis— as both a practical modeling
             and measurement substrate—where sample path reasoning arises
-            naturally. Crucially, it is a deterministic paradigm,
-            equally applicable to stochastic and non-stochastic
-            systems.<a href="#fnref1" class="footnote-back"
-            role="doc-backlink">↩︎</a></p></li>
+            naturally.</p>
+            <p>Crucially, like sample path analysis, it is a
+            <em>deterministic</em> paradigm, that is applicable to both
+            stochastic and non-stochastic systems.<a href="#fnref1"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
             <li id="fn2"><p>This is not to imply that all these criteria
             are strictly required to apply the presence calculus. There
             are lots of theoretical reasons to believe that the ideas
@@ -7333,20 +7338,43 @@ Program</em></a></p></p>
             and in developing the mathematical theory further.<a
             href="#fnref2" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn3"><p>As of writing, the toolkit is still in an
+            <li id="fn3"><p>Direct observation of the quantity under
+            analysis is a <em>core</em> tenet of the presence calculus.
+            When a quantity is not directly observable, or hard to
+            instrument, the most common practice is to rely on
+            statistical correlations and proxy variables (often pulled
+            out of thin air) to measure the quantity indirectly.</p>
+            <p>The presence calculus gives us better techniques to
+            derive provable mathematical relationships between a
+            hard-to-observe quantity and an easier-to-observe one and
+            using these it becomes possible to construct a rigorous
+            model of the quantity from directly observable signals.</p>
+            <p>The presence calculus thus expands the domain of
+            “directly observable” signals, reducing the reliance on
+            proxies and statistcal correlations in many practical
+            measurement scenarios.</p>
+            <p>While often considered “difficult,” this approach is
+            usually tractable—even when the path isn’t immediately
+            obvious. This is where modeling skills and a solid
+            mathematical foundation for identifying such indirect
+            relationships prove essential.</p>
+            <p>The presence calculus provides tools that make this
+            easier to execute.<a href="#fnref3" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn4"><p>As of writing, the toolkit is still in an
             alpha state, and is under active development and evolution.
             It is not ready for production use, but can be used as
             reference to understand how the concepts we define are
-            implemented in code.<a href="#fnref3" class="footnote-back"
+            implemented in code.<a href="#fnref4" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn4"><p>If integration signs in a “gentle”
+            <li id="fn5"><p>If integration signs in a “gentle”
             introduction feels like a bait-and-switch, rest assured, for
             the purposes of this document you just need to think of them
             as a way to add up presence masses, in a way that the ideas
             we use for binary presences will generalize when we apply
-            them to arbitrary functions.<a href="#fnref4"
+            them to arbitrary functions.<a href="#fnref5"
             class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            <li id="fn5"><p>The way we’ve defined signals and mass is
+            <li id="fn6"><p>The way we’ve defined signals and mass is
             directly analogous to how mass is defined for matter
             occupying space in physics.</p>
             <p>A binary signal can be thought of as defining a
@@ -7365,9 +7393,9 @@ Program</em></a></p></p>
             same time periods, we begin to model complex,
             higher-dimensional effects of presence—exactly the kind of
             generality we’ll need when we move beyond simple binary
-            presences.<a href="#fnref5" class="footnote-back"
+            presences.<a href="#fnref6" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn6"><p>The details here depend on ideas we will
+            <li id="fn7"><p>The details here depend on ideas we will
             develop later in the document. The key point is that the
             presence calculus gives us tools to accurately represent the
             time-varying behavior of the actual system property we care
@@ -7375,18 +7403,18 @@ Program</em></a></p></p>
             gives us stronger protection against Goodhart’s Law <span
             class="citation" data-cites="muller2018"><a
             href="#ref-muller2018"
-            role="doc-biblioref">[4]</a></span>.<a href="#fnref6"
+            role="doc-biblioref">[4]</a></span>.<a href="#fnref7"
             class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            <li id="fn7"><p>The use of a rough curve here is an example
+            <li id="fn8"><p>The use of a rough curve here is an example
             of how presences can encode continuous inputs more
             effectively than discrete techniques, thanks to their
             explicit model of time. Forcing a developer to rank their
             productivity on a Likert scale often loses valuable
             nuance—whereas a fine-grained presence captures temporal
             variation with ease, making it available for downstream
-            analysis.<a href="#fnref7" class="footnote-back"
+            analysis.<a href="#fnref8" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn8"><p>It is equally valid to define <span
+            <li id="fn9"><p>It is equally valid to define <span
             class="math inline">\(N\)</span> as the number of distinct
             <em>presences</em> in the observation window. For example
             for the signal <span class="math inline">\(P2\)</span> in
@@ -7408,15 +7436,15 @@ Program</em></a></p></p>
             <p>This is ultimately a modeling decision that depends on
             what you are trying to measure. By default we will assume
             that <span class="math inline">\(N\)</span> is measured at
-            the signal granularity.<a href="#fnref8"
+            the signal granularity.<a href="#fnref9"
             class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            <li id="fn9"><p><span class="math inline">\(\delta\)</span>
+            <li id="fn10"><p><span class="math inline">\(\delta\)</span>
             may also be considered the rate at which presence density
             <em>accumulates</em> over the interval. This latter view
             will be useful when interpreting the dynamics of the
-            system.<a href="#fnref9" class="footnote-back"
+            system.<a href="#fnref10" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn10"><p>As discussed in <a
+            <li id="fn11"><p>As discussed in <a
             href="./generalized_presence_invariant.html"><em>The
             Presence Invariant – a Measure-Theoretic
             Generalization</em></a>, the presence invariant admits a
@@ -7425,17 +7453,17 @@ Program</em></a></p></p>
             in their product space, a similar invariant emerges. This
             reveals that the presence invariant is not a superficial
             constraint, but a deep structural property rooted in the
-            measurability of systems of presence.<a href="#fnref10"
+            measurability of systems of presence.<a href="#fnref11"
             class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            <li id="fn11"><p>We note that the residence time represents
+            <li id="fn12"><p>We note that the residence time represents
             only the portion of the duration of the task in some
             arbitrary observation window. This is a different quantity
             from the overall duration of the task from start to finish
             (or from signal onset to reset in our terminology). This is
             the more familiar metric typically called the cycle time.<a
-            href="#fnref11" class="footnote-back"
+            href="#fnref12" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn12"><p>We introduce Little’s Law here as a special
+            <li id="fn13"><p>We introduce Little’s Law here as a special
             case of the presence invariant. This is a deliberate
             decision: we aim to contextualize classical treatments of
             Little’s Law through the lens of what we consider the more
@@ -7451,9 +7479,9 @@ Program</em></a></p></p>
             measure-theoretic definitions of the presence calculus.</p>
             <p>If you are not familiar with Little’s Law and wish to
             understand it better, Dr. Little’s survey paper remains the
-            best starting point.<a href="#fnref12" class="footnote-back"
+            best starting point.<a href="#fnref13" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn13"><p>The sampling granularity is typically
+            <li id="fn14"><p>The sampling granularity is typically
             coarser than time resolution of the underlying signals. For
             example, the signals themselves may be timestamped at
             millisecond granularity, while the presence matrix may be
@@ -7464,9 +7492,9 @@ Program</em></a></p></p>
             granularity, we may arrive at very different matrices. A
             presence matrix is therefore an observer-relative analytical
             construct, derived from a system of presences—not a direct
-            representation of the underlying signals.<a href="#fnref13"
+            representation of the underlying signals.<a href="#fnref14"
             class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            <li id="fn14"><p>It is equally valid to define <span
+            <li id="fn15"><p>It is equally valid to define <span
             class="math inline">\(N\)</span> as the number of distinct
             <em>presences</em> in the observation window. For example
             for the signal <span class="math inline">\(P2\)</span> in
@@ -7488,9 +7516,9 @@ Program</em></a></p></p>
             <p>This is ultimately a modeling decision that depends on
             what you are trying to measure. By default we will assume
             that <span class="math inline">\(N\)</span> is measured at
-            the signal granularity.<a href="#fnref14"
+            the signal granularity.<a href="#fnref15"
             class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            <li id="fn15"><p>Assuming <span
+            <li id="fn16"><p>Assuming <span
             class="math inline">\(N\)</span> and <span
             class="math inline">\(T\)</span> can be mapped to row and
             column counts of the presence matrix is a simplification. It
@@ -7506,9 +7534,9 @@ Program</em></a></p></p>
             structure, and need to be specified as part of the modeling
             process. To avoid complicating matters, we will use this
             simple mapping, which covers a large number of practical use
-            cases, as the default.<a href="#fnref15"
+            cases, as the default.<a href="#fnref16"
             class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            <li id="fn16"><p>Recall that we required signals to be
+            <li id="fn17"><p>Recall that we required signals to be
             measurable functions. This implies presence masses are
             measures over time intervals. Given intervals <span
             class="math inline">\(A\)</span> and <span
@@ -7525,20 +7553,19 @@ Program</em></a></p></p>
             class="math inline">\(B\)</span> intersect, the subtraction
             removes the presence mass of overlap <span
             class="math inline">\([i{+}1, j{-}1]\)</span> from the sum
-            to avoid double-counting it.<a href="#fnref16"
+            to avoid double-counting it.<a href="#fnref17"
             class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            <li id="fn17"><p>We’ll note at this point, that the
+            <li id="fn18"><p>We’ll note at this point, that the
             determinism is <em>retrospective</em>. Since it is based on
             <em>observed</em> presence, this recurrence in no way
             implies we can predict how the presences will evolve in the
-            future. We will have more to say about this in the next
-            section.<a href="#fnref17" class="footnote-back"
+            future.<a href="#fnref18" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn18"><p>Though we should hasten to add that this is
+            <li id="fn19"><p>Though we should hasten to add that this is
             just a loose analogy—we do not imply any conceptual
-            equivalence.<a href="#fnref18" class="footnote-back"
+            equivalence.<a href="#fnref19" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn19"><p>This concept is equivalent to the concept
+            <li id="fn20"><p>This concept is equivalent to the concept
             of a sample path developed by Stidham in <span
             class="citation" data-cites="stidham72"><a
             href="#ref-stidham72" role="doc-biblioref">[1]</a></span> to
@@ -7548,18 +7575,18 @@ Program</em></a></p></p>
             data-cites="eltaha1999"><a href="#ref-eltaha1999"
             role="doc-biblioref">[2]</a></span> being the comprehensive
             reference for applications of sample path techniques.<a
-            href="#fnref19" class="footnote-back"
+            href="#fnref20" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn20"><p>Specifically, the Riemann sum approximation
+            <li id="fn21"><p>Specifically, the Riemann sum approximation
             of the integral <span class="math display">\[
             A(1, j) = \sum_{k=1}^j A(k,k)
             \approx \int_0^j \left( \sum_{(e,b)} P_{(e,b)}(t) \right) dt
             \]</span> where each <span
             class="math inline">\(P_{(e,b)}(t)\)</span> represents the
             presence density function of an underlying element-boundary
-            signal.<a href="#fnref20" class="footnote-back"
+            signal.<a href="#fnref21" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn21"><p>While it’s tempting to assume that the
+            <li id="fn22"><p>While it’s tempting to assume that the
             limit of a product is simply the product of the limits, this
             doesn’t automatically hold here. The long-run value of
             presence density, <span
@@ -7569,9 +7596,9 @@ Program</em></a></p></p>
             over the number of signals. Since these limits are taken
             over different denominators, additional technical conditions
             are required to ensure that their product equals the limit
-            of the product.<a href="#fnref21" class="footnote-back"
+            of the product.<a href="#fnref22" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn22"><p>It is worth emphasizing the word
+            <li id="fn23"><p>It is worth emphasizing the word
             <em>observed</em> in this statement. Even though the
             evolution is deterministic, this does not mean the future
             behavior of the system is predictable based on past
@@ -7581,13 +7608,13 @@ Program</em></a></p></p>
             system, we can deterministically reconstruct the current
             state of presence density from any starting point. This
             explanatory power is useful in its own right, as we will
-            soon see.<a href="#fnref22" class="footnote-back"
+            soon see.<a href="#fnref23" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn23"><p>This is a key differentiation between the
+            <li id="fn24"><p>This is a key differentiation between the
             presence calculus and standard statistical and probabilistic
             techniques. The latter struggle with non-stationary
             systems—i.e., systems where the underlying distributions of
-            values continuously change over time.<a href="#fnref23"
+            values continuously change over time.<a href="#fnref24"
             class="footnote-back" role="doc-backlink">↩︎</a></p></li>
             </ol>
             </section>

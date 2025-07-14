@@ -52,9 +52,11 @@ It *complements* classical statistical and probabilistic analysis, and is
 particularly well suited to domains like software development where state,
 history, and path dependence complicate traditional inference techniques [^-novel].
 
-[^-novel]: Mathematically, the presence calculus is closely related to, and directly inspired by,
-    _sample path analysis_—a technique originally developed by Dr. Shaler Stidham to provide the
-    first deterministic proof of Little's Law [@stidham72]. Together with colleagues, he developed
+[^-novel]: Mathematically, the presence calculus connects results from _measure theory_ and 
+    _sample path analysis_—a technique originally developed by Dr. Shaler Stidham to analyze stochastic processes
+    and used to provide the first deterministic proof of Little's Law [@stidham72]. 
+
+    Together with colleagues, he developed
     it into a powerful tool for establishing general properties of stochastic processes without
     relying on probabilistic assumptions—a major breakthrough. Its theory and applications to
     queueing systems are detailed in [@eltaha1999].
@@ -65,7 +67,9 @@ history, and path dependence complicate traditional inference techniques [^-nove
     Presence calculus makes this separation explicit. It begins with measure theory and develops
     sample path tools for _observable_ signals. This situates it firmly within operational analysis—
     as both a practical modeling and measurement substrate—where sample path reasoning arises naturally.
-    Crucially, it is a deterministic paradigm, equally applicable to stochastic and non-stochastic systems.
+    
+    Crucially, like sample path analysis, it is a _deterministic_ paradigm, that is applicable to both 
+    stochastic and non-stochastic systems.
 
 On its own, the Presence Calculus provides a precisely defined set of modeling
 and computational primitives (shown in [@fig:key-concepts]) for analyzing the history and evolution of
@@ -126,12 +130,12 @@ are not easily addressed using those techniques.
 
 Intuitively, when a system property has a "time-value," the presence calculus
 offers tools to frame decisions in terms of managing that property's
-accumulation over time and timescales. We categorize signals into those we want to accumulate
+accumulation over time and timescales. We can categorize signals into those we want to accumulate
 (e.g., revenue, profits, satisfied customers) and those we want to constrain
 (e.g., costs, risks, debts, delays).
 
-The presence calculus is well suited to reasoning about system properties that
-satisfy the following criteria. [^-not-exclusive]:
+The presence calculus is well suited to reasoning about such properties. Specifically
+we focus on the following criteria. [^-not-exclusive]:
 
 [^-not-exclusive]: This is not to imply that all these criteria are strictly required to apply the 
 presence calculus. There are lots of theoretical reasons to believe that the ideas here generalize well beyond this, 
@@ -142,25 +146,42 @@ an ongoing research activity - both in practical application contexts and in dev
 - The measured value is a _non-negative_ real number that varies continuously over time—i.e.,
   we are measuring the *presence* of a property in the system.
 - The "signal" in the property is tied to the _accumulation_ of its value—
-  both the magnitude and the duration for which it is held are meaningful.
+  both the magnitude and the duration for which it is observed are meaningful.
 - The value at any given time can be expressed as the _sum_ of _non-negative_ values
   from a countable set of time-varying functions (signals) over a fixed domain.
 - Each contributing function is measurable over finite intervals, meaning its
-  Lebesgue integral exists and is finite over any bounded interval.
+  Lebesgue integral exists and is finite over any _finite_ interval.
 
 For practical applications, we also require:
 
-- Each signal’s contribution can be *directly* instrumented and measured over
+- Each signal’s contribution can be *directly* [^-direct] instrumented and measured over
   the domain.
 
-While this may sound restrictive, a surprisingly large class of operational and
-business-critical properties—especially those related to delays, costs, risks,
-and rewards—fall squarely within this domain. Modern technology makes a large
-volume of such signals directly instrumentable. This makes the presence calculus
-a powerful tool for reasoning about such economically significant properties in
-a robust and principled way.
+[^-direct]: Direct observation of the quantity under analysis is a _core_ tenet of the
+    presence calculus. When a quantity is not directly observable, or hard to instrument, the most common practice
+    is to rely on statistical correlations and proxy variables (often pulled out of thin air) to measure the quantity indirectly. 
 
-Because these properties often underpin sound decision-making in business
+    The presence calculus gives us better techniques to derive provable mathematical relationships between a hard-to-observe quantity
+    and an easier-to-observe one and using these it becomes possible to construct a rigorous model of the quantity
+    from directly observable signals.
+
+    The presence calculus thus expands the domain of "directly observable" signals, reducing
+    the reliance on proxies and statistcal correlations in many practical measurement scenarios.
+
+    While often considered "difficult,"  this approach is usually tractable—even when
+    the path isn't immediately obvious. This is where modeling skills and a solid mathematical foundation
+    for identifying such indirect relationships prove essential.
+
+    The presence calculus provides tools that make this easier to execute.
+
+While this may sound restrictive, a surprisingly large class of operational and
+business-critical questions—especially those related to delays, costs, risks,
+and rewards—fall squarely within this domain. Modern technology makes is possible to
+directly instrument a large number of such signals . The presence calculus opens up
+many more avenues for reasoning about such economically significant questions in
+a robust and principled way, and often in real-time.
+
+Because these questions often underpin sound decision-making in business
 contexts, the presence calculus has the potential to significantly improve the
 quality of those decisions.
 
@@ -1976,8 +1997,7 @@ applies [^F-determinism-caveat].
 
 [^F-determinism-caveat]: We'll note at this point, that the determinism is
 _retrospective_. Since it is based on _observed_ presence, this recurrence in no way implies we can 
-predict how the presences will evolve in the future. We will have more to say about
-this in the next section. 
+predict how the presences will evolve in the future. 
 
 Combined with the presence invariant—which also holds at every level of this
 accumulation—this gives us a powerful framework for dissecting the dynamics of
