@@ -64,7 +64,7 @@ history, and path dependence complicate traditional inference techniques [^-nove
     largely within adjacent domains.
 
     Presence calculus makes this separation explicit. It begins with measure theory and develops
-    sample path tools for _observable_ signals. This situates it firmly within operational analysis—
+    sample path tools for _observable_ signals. This situates it firmly within operational analysis [@kim2013,@denning1977]
     as both a practical modeling and measurement substrate—where sample path reasoning arises naturally.
     
     Crucially, like sample path analysis, it is a _deterministic_ paradigm, that is applicable to both 
