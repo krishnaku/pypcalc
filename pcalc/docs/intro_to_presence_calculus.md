@@ -25,7 +25,7 @@ decisions rest on a mathematically precise foundation.
 
 ![The Presence Calculus - Key Concepts](../assets/pandoc/pcalc_machinery.png){#fig:key-concepts}
 
-The Presence Calculus emerged from a search for better tools to reason about
+The presence calculus emerged from a search for better tools to reason about
 operations management in software product development and engineering—domains
 where operational measurement techniques lack a formal mathematical foundation and 
 rely on ad hoc applications of principles imported from other domains. 
@@ -45,7 +45,7 @@ remain the dominant option today.
 
 ### What is it?
 
-The Presence Calculus is a novel  modeling and measurement substrate with
+The presence calculus is a novel  modeling and measurement substrate with
 *measure theory*, a branch of _real analysis_, as its mathematical foundation.
 It treats time as a first-class concept, making it well suited for analyzing
 _continuous_, _time-dependent_ behaviors of systems.
@@ -63,17 +63,17 @@ history, and path dependence complicate traditional inference techniques [^-nove
     relying on probabilistic assumptions—a major breakthrough. Its theory and applications to
     queueing systems are detailed in [@eltaha1999].
 
-    Although these techniques were always applicable beyond queueing theory, development remained
-    largely within adjacent domains.
+    Although these techniques were always applicable beyond stochastic process theory, development remained
+    largely within queueing theory adjacent domains.
 
     Presence calculus makes this separation explicit. It begins with measure theory and develops
-    sample path tools for _observable_ signals. This situates it firmly within operational analysis [@kim2013,@denning1977]
-    as both a practical modeling and measurement substrate—where sample path reasoning arises naturally.
+    sample path tools for _observable_ signals in a general domain. It relies on established results from both areas to justify the correctness of its claims. This situates it firmly within operational analysis [@kim2013,@denning1977]
+    as both a practical modeling and measurement substrate where sample path reasoning arises naturally. 
     
-    Crucially, like sample path analysis, it is a _deterministic_ paradigm, that is applicable to both 
+    Crucially, like sample path analysis, it is a _deterministic_ paradigm, but one that is applicable to both 
     stochastic and non-stochastic systems.
 
-On its own, the Presence Calculus provides a precisely defined set of modeling
+On its own, the calculus provides a precisely defined set of modeling
 and computational primitives (shown in [@fig:key-concepts]) for analyzing the history and evolution of
 time-varying signal systems—structures about which we can make mathematically
 provable claims.
@@ -231,7 +231,7 @@ particularly difficult to grasp, but they will make more sense if you take time
 to understand how they fit together in the order they are presented here.
 
 So even though it is a gentle introduction, it is not the kind of introduction
-that you will get as much value from if you simply skim this document.
+that you will get as much value from if you simply skim this document superficially.
 
 > If you are not into reading long technical documents and would like
 > to listen to a podcast that explains the key ideas, you can find a remarkably
