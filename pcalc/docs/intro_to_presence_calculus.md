@@ -127,19 +127,19 @@ are not easily addressed using those techniques.
 
 ### Why should I care?
 
-Intuitively, the presence calculus is useful when system property has "
+Intuitively, the presence calculus is useful when  a system signal has "
 time-value" - i.e., its significance lies in how the underlying value of the
 property _accumulates over time_, not just its instantaneous value or its
-statistical measures.  
+statistical properties.  
 
-We can categorize signals into those we want to _accumulate_ (e.g., revenue,
+We can categorize such signals into those we want to _accumulate_ (e.g., revenue,
 profits, satisfied customers)
 and those we want to _constrain_ (e.g., costs, risks, debts, delays).
-The presence calculus offers tools to frame decisions about such properties in
-terms of _actively managing_ that property's accumulation over time and timescales.
+The presence calculus offers tools to frame decisions about such signals in
+terms of _actively managing_ a property's accumulation over time and timescales.
 
 Specifically
-we focus on the following criteria. [^-not-exclusive]:
+we focus on systems properties and signals satisfying the following criteria. [^-not-exclusive]:
 
 [^-not-exclusive]: This is not to imply that all these criteria are strictly required to apply the 
 presence calculus. There are lots of theoretical reasons to believe that the ideas here generalize well beyond this, 
@@ -147,12 +147,12 @@ but starting with these criteria gives us a well defined set of problems for whi
 machinery here will provide useful insights. Understanding what happens as we relax one or more of these requirements is 
 an ongoing research activity - both in practical application contexts and in developing the mathematical theory further. 
 
-- The measured value is a _non-negative_ real number that varies continuously over time—i.e.,
+- The measured value of the signal is a _non-negative_ real number that varies continuously over time—i.e.,
   we are measuring the *presence* of a property in the system.
-- The "signal" in the property is tied to the _accumulation_ of its value—
+- The "signal" in the system property lies in the _accumulation_ of its value—
   both the magnitude and the duration for which it is observed are meaningful.
 - The value at any given time can be expressed as the _sum_ of _non-negative_ values
-  from a countable set of time-varying functions (signals) over a fixed domain.
+  from a countable set of time-varying functions (also signals) over a fixed domain.
 - Each contributing function is measurable over finite intervals, meaning its
   Lebesgue integral exists and is finite over any _finite_ interval.
 
@@ -166,7 +166,7 @@ For practical applications, we also require:
     is to rely on statistical correlations and proxy variables (often pulled out of thin air) to measure the quantity indirectly. 
 
     The presence calculus gives us better techniques to derive provable mathematical relationships between a hard-to-observe quantity
-    and an easier-to-observe one and using these it becomes possible to construct a rigorous model of the quantity
+    and an easier-to-observe one and using these it becomes possible to construct a rigorous wat to measure the quantity
     from directly observable signals.
 
     The presence calculus thus expands the domain of "directly observable" signals, reducing
