@@ -23,12 +23,11 @@ dynamics in a domain.
 
 Its purpose is to support principled modeling and rigorous decision-making using
 operational data and signals in business-critical contexts—ensuring that such
-decisions rest on a mathematically precise, logically coherent, and epistemically
-grounded foundation.
+decisions rest on a mathematically precise foundation.
 
 The Presence Calculus emerged from a search for better tools to reason about
 operations management in software product development and engineering—domains
-where prevailing approaches to measurement fall short on all three fronts.
+where prevailing approaches to measurement fall short.
 
 At a minimum, its foundational constructs bring mathematical precision and
 clarity to widely used—but poorly defined—concepts such as *flow*, *stability*,
@@ -116,9 +115,7 @@ simple, linear, and ordered to non-linear, stochastic, adaptive, and complex,
 all based on a small, uniform set of underlying concepts rooted in a
 [mathematically precise](./presence_calculus_foundations.html) primitive called _presence_.
 
-### Why should I care? 
-
-First and foremost, the presence calculus is not a modeling framework, a
+The presence calculus is not a modeling framework, a
 measurement system, or a methodology. It is a mathematical and analytical
 *substrate*—a foundation on which such frameworks or methodologies can be
 constructed.
@@ -128,13 +125,20 @@ a tool that can operate *alongside* techniques such as statistical and
 probabilistic analyses. Its particular strength lies in analyzing a class of problems that
 are not easily addressed using those techniques.
 
-Intuitively, when a system property has a "time-value," the presence calculus
-offers tools to frame decisions in terms of managing that property's
-accumulation over time and timescales. We can categorize signals into those we want to accumulate
-(e.g., revenue, profits, satisfied customers) and those we want to constrain
-(e.g., costs, risks, debts, delays).
+### Why should I care?
 
-The presence calculus is well suited to reasoning about such properties. Specifically
+Intuitively, the presence calculus is useful when system property has "
+time-value" - i.e., its significance lies in how the underlying value of the
+property _accumulates over time_, not just its instantaneous value or its
+statistical measures.  
+
+We can categorize signals into those we want to _accumulate_ (e.g., revenue,
+profits, satisfied customers)
+and those we want to _constrain_ (e.g., costs, risks, debts, delays).
+The presence calculus offers tools to frame decisions about such properties in
+terms of _actively managing_ that property's accumulation over time and timescales.
+
+Specifically
 we focus on the following criteria. [^-not-exclusive]:
 
 [^-not-exclusive]: This is not to imply that all these criteria are strictly required to apply the 
@@ -175,20 +179,20 @@ For practical applications, we also require:
     The presence calculus provides tools that make this easier to execute.
 
 While this may sound restrictive, a surprisingly large class of operational and
-business-critical questions—especially those related to delays, costs, risks,
-and rewards—fall squarely within this domain. Modern technology makes is possible to
-directly instrument a large number of such signals . The presence calculus opens up
-many more avenues for reasoning about such economically significant questions in
-a robust and principled way, and often in real-time.
+business-critical questions—especially those directly related economic
+outcomes—fall squarely within this domain. Because these questions often
+underpin sound decision-making in business contexts, the presence calculus has
+the potential to significantly improve the quality of those decisions.
 
-Because these questions often underpin sound decision-making in business
-contexts, the presence calculus has the potential to significantly improve the
-quality of those decisions.
+Modern technology makes is possible to directly instrument many such signals.
+The presence calculus thus opens up many more avenues for building operational
+systems to ask and answer such economically significant questions in a robust
+and principled way, and often in real-time.
 
-When applied to a suitable class of signals, the calculus provides better tools
-to accurately measure and reason about how the property accumulates over time
-and across time-scales _without requiring either statistical or probabilistic
-techniques_.
+For the questions that fall in this sweet spot, the calculus provides better tools
+to accurately measure and reason about signal dynamics - how economically significant properties of a system
+accumulates time-value across time-scales. These are questions that are hard to answer with purely statistical or
+probabilistic techniques. 
 
 As we will see, this lets us create some really novel tools for operational analysis
 of messy real-world systems like the ones we often encounter in software product
@@ -1941,7 +1945,7 @@ To explain this, we reproduce the presence accumulation matrix from Figure 12 be
 </div>
 
 
-As noted earlier, the diagonal of the matrix represents a sample path through
+As we will see in the next section, the diagonal of the matrix represents a sample path through
 the system’s history, and the top row records cumulative presence mass over the
 entire observed history. The diagonal shows accumulation at the finest
 (micro) timescale; the top row reflects accumulation at the coarsest (macro)

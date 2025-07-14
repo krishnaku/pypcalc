@@ -532,13 +532,11 @@ Program</em></a></p></p>
             <p>Its purpose is to support principled modeling and
             rigorous decision-making using operational data and signals
             in business-critical contexts—ensuring that such decisions
-            rest on a mathematically precise, logically coherent, and
-            epistemically grounded foundation.</p>
+            rest on a mathematically precise foundation.</p>
             <p>The Presence Calculus emerged from a search for better
             tools to reason about operations management in software
             product development and engineering—domains where prevailing
-            approaches to measurement fall short on all three
-            fronts.</p>
+            approaches to measurement fall short.</p>
             <p>At a minimum, its foundational constructs bring
             mathematical precision and clarity to widely used—but poorly
             defined—concepts such as <em>flow</em>, <em>stability</em>,
@@ -614,30 +612,33 @@ Program</em></a></p></p>
             underlying concepts rooted in a <a
             href="./presence_calculus_foundations.html">mathematically
             precise</a> primitive called <em>presence</em>.</p>
-            <h3 data-number="1.2" id="why-should-i-care"><span
-            class="header-section-number">1.2</span> Why should I
-            care?</h3>
-            <p>First and foremost, the presence calculus is not a
-            modeling framework, a measurement system, or a methodology.
-            It is a mathematical and analytical <em>substrate</em>—a
-            foundation on which such frameworks or methodologies can be
-            constructed.</p>
+            <p>The presence calculus is not a modeling framework, a
+            measurement system, or a methodology. It is a mathematical
+            and analytical <em>substrate</em>—a foundation on which such
+            frameworks or methodologies can be constructed.</p>
             <p>It is not a replacement for existing mathematical tools.
             Rather, it is a tool that can operate <em>alongside</em>
             techniques such as statistical and probabilistic analyses.
             Its particular strength lies in analyzing a class of
             problems that are not easily addressed using those
             techniques.</p>
-            <p>Intuitively, when a system property has a “time-value,”
-            the presence calculus offers tools to frame decisions in
-            terms of managing that property’s accumulation over time and
-            timescales. We can categorize signals into those we want to
-            accumulate (e.g., revenue, profits, satisfied customers) and
-            those we want to constrain (e.g., costs, risks, debts,
-            delays).</p>
-            <p>The presence calculus is well suited to reasoning about
-            such properties. Specifically we focus on the following
-            criteria. <a href="#fn2" class="footnote-ref" id="fnref2"
+            <h3 data-number="1.2" id="why-should-i-care"><span
+            class="header-section-number">1.2</span> Why should I
+            care?</h3>
+            <p>Intuitively, the presence calculus is useful when system
+            property has ” time-value” - i.e., its significance lies in
+            how the underlying value of the property <em>accumulates
+            over time</em>, not just its instantaneous value or its
+            statistical measures.</p>
+            <p>We can categorize signals into those we want to
+            <em>accumulate</em> (e.g., revenue, profits, satisfied
+            customers) and those we want to <em>constrain</em> (e.g.,
+            costs, risks, debts, delays). The presence calculus offers
+            tools to frame decisions about such properties in terms of
+            <em>actively managing</em> that property’s accumulation over
+            time and timescales.</p>
+            <p>Specifically we focus on the following criteria. <a
+            href="#fn2" class="footnote-ref" id="fnref2"
             role="doc-noteref"><sup>2</sup></a>:</p>
             <ul>
             <li>The measured value is a <em>non-negative</em> real
@@ -664,22 +665,22 @@ Program</em></a></p></p>
             </ul>
             <p>While this may sound restrictive, a surprisingly large
             class of operational and business-critical
-            questions—especially those related to delays, costs, risks,
-            and rewards—fall squarely within this domain. Modern
-            technology makes is possible to directly instrument a large
-            number of such signals . The presence calculus opens up many
-            more avenues for reasoning about such economically
-            significant questions in a robust and principled way, and
-            often in real-time.</p>
-            <p>Because these questions often underpin sound
-            decision-making in business contexts, the presence calculus
-            has the potential to significantly improve the quality of
-            those decisions.</p>
-            <p>When applied to a suitable class of signals, the calculus
-            provides better tools to accurately measure and reason about
-            how the property accumulates over time and across
-            time-scales <em>without requiring either statistical or
-            probabilistic techniques</em>.</p>
+            questions—especially those directly related economic
+            outcomes—fall squarely within this domain. Because these
+            questions often underpin sound decision-making in business
+            contexts, the presence calculus has the potential to
+            significantly improve the quality of those decisions.</p>
+            <p>Modern technology makes is possible to directly
+            instrument many such signals. The presence calculus thus
+            opens up many more avenues for building operational systems
+            to ask and answer such economically significant questions in
+            a robust and principled way, and often in real-time.</p>
+            <p>For the questions that fall in this sweet spot, the
+            calculus provides better tools to accurately measure and
+            reason about signal dynamics - how economically significant
+            properties of a system accumulates time-value across
+            time-scales. These are questions that are hard to answer
+            with purely statistical or probabilistic techniques.</p>
             <p>As we will see, this lets us create some really novel
             tools for operational analysis of messy real-world systems
             like the ones we often encounter in software product
@@ -3690,14 +3691,14 @@ Program</em></a></p></p>
             </tbody>
             </table>
             </div>
-            <p>As noted earlier, the diagonal of the matrix represents a
-            sample path through the system’s history, and the top row
-            records cumulative presence mass over the entire observed
-            history. The diagonal shows accumulation at the finest
-            (micro) timescale; the top row reflects accumulation at the
-            coarsest (macro) timescale. Each diagonal represents
-            accumulation across intervals of increasingly coarse
-            granularity.</p>
+            <p>As we will see in the next section, the diagonal of the
+            matrix represents a sample path through the system’s
+            history, and the top row records cumulative presence mass
+            over the entire observed history. The diagonal shows
+            accumulation at the finest (micro) timescale; the top row
+            reflects accumulation at the coarsest (macro) timescale.
+            Each diagonal represents accumulation across intervals of
+            increasingly coarse granularity.</p>
             <p>In essence, the accumulation matrix is a compact encoding
             of how presence mass builds up across timescales.</p>
             <p>But there’s more: the matrix entries obey a <em>local
