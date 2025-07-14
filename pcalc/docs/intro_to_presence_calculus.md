@@ -133,13 +133,11 @@ property _accumulates over time_, not just its instantaneous values or their
 statistical properties.    
 
 We can categorize such signals into those we want to _accumulate_ (e.g., revenue,
-profits, satisfied customers)
-and those we want to _constrain_ (e.g., costs, risks, debts, delays).
+profits, satisfied customers) and those we want to _constrain_ (e.g., costs, risks, debts, delays).
 The presence calculus offers tools to frame decisions about such signals in
-terms of _actively managing_ a property's accumulation over time and timescales.
+terms of _directly observing_ and _actively managing_ a property's accumulation over time and timescales.
 
-Specifically
-we focus on systems properties and signals satisfying the following criteria. [^-not-exclusive]:
+Specifically we focus on systems properties and signals satisfying the following criteria. [^-not-exclusive]:
 
 [^-not-exclusive]: This is not to imply that all these criteria are strictly required to apply the 
 presence calculus. There are lots of theoretical reasons to believe that the ideas here generalize well beyond this, 
@@ -166,7 +164,7 @@ For practical applications, we also require:
     is to rely on statistical correlations and proxy variables (often pulled out of thin air) to measure the quantity indirectly. 
 
     The presence calculus gives us better techniques to derive provable mathematical relationships between a hard-to-observe quantity
-    and an easier-to-observe one and using these it becomes possible to construct a rigorous wat to measure the quantity
+    and an easier-to-observe one and using these it becomes possible to construct a rigorous model to measure the quantity
     from directly observable signals.
 
     The presence calculus thus expands the domain of "directly observable" signals, reducing
