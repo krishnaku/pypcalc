@@ -3418,7 +3418,7 @@ continuously change over time.
 So for this very broad category of signals, the presence calculus is a much more
 powerful mathematical substrate on which to build decision support systems.
 
-### Towards Systems of Systems
+### Towards systems of systems
 
 When managing a single operational property—like cost, risk, delay, or a
 market-facing reward such as revenue—a *single presence system* is often
