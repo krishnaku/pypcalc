@@ -179,7 +179,7 @@ For practical applications, we also require:
     The presence calculus provides tools that make this easier to execute.
 
 While this may sound restrictive, a surprisingly large class of operational and
-business-critical questions—especially those directly related economic
+business-critical questions—especially those directly related to economic
 outcomes—fall squarely within this domain. Because these questions often
 underpin sound decision-making in business contexts, the presence calculus has
 the potential to significantly improve the quality of those decisions.
