@@ -16,8 +16,6 @@ figPrefix: "Figure"
 
 ## What is The Presence Calculus?
 
-![The Presence Calculus - Key Concepts](../assets/pandoc/pcalc_machinery.png){#fig:key-concepts}
-
 The Presence Calculus is a quantitative model for reasoning about signal
 dynamics in a domain.
 
@@ -25,9 +23,12 @@ Its purpose is to support principled modeling and rigorous decision-making using
 operational data and signals in business-critical contexts—ensuring that such
 decisions rest on a mathematically precise foundation.
 
+![The Presence Calculus - Key Concepts](../assets/pandoc/pcalc_machinery.png){#fig:key-concepts}
+
 The Presence Calculus emerged from a search for better tools to reason about
 operations management in software product development and engineering—domains
-where prevailing approaches to measurement fall short.
+where operational measurement techniques lack a formal mathematical foundation and 
+rely on ad hoc applications of principles imported from other domains. 
 
 At a minimum, its foundational constructs bring mathematical precision and
 clarity to widely used—but poorly defined—concepts such as *flow*, *stability*,
@@ -41,6 +42,8 @@ For software development, this enables the construction of bespoke,
 context-specific measurement models for operational improvement—a powerful
 alternative to one-size-fits-all metrics frameworks and visibility tools, which
 remain the dominant option today.
+
+### What is it?
 
 The Presence Calculus is a novel  modeling and measurement substrate with
 *measure theory*, a branch of _real analysis_, as its mathematical foundation.
@@ -77,6 +80,16 @@ provable claims.
 
 We can then use these primitives to construct richer, more expressive
 measurement models to reason about time varying behavior in real-world domains.
+
+The presence calculus is not a modeling framework, a
+measurement system, or a methodology. It is a mathematical and analytical
+*substrate*—a foundation on which such frameworks or methodologies can be
+constructed.
+
+It is not a replacement for existing mathematical tools. Rather, it is
+a tool that can operate *alongside* techniques such as statistical and
+probabilistic analyses. Its particular strength lies in analyzing a class of problems that
+are not easily addressed using those techniques.
 
 Our goal in this document to present the foundational ideas of the presence
 calculus as a coherent whole. We will use examples to motivate key concepts but
@@ -115,15 +128,7 @@ simple, linear, and ordered to non-linear, stochastic, adaptive, and complex,
 all based on a small, uniform set of underlying concepts rooted in a
 [mathematically precise](./presence_calculus_foundations.html) primitive called _presence_.
 
-The presence calculus is not a modeling framework, a
-measurement system, or a methodology. It is a mathematical and analytical
-*substrate*—a foundation on which such frameworks or methodologies can be
-constructed.
 
-It is not a replacement for existing mathematical tools. Rather, it is
-a tool that can operate *alongside* techniques such as statistical and
-probabilistic analyses. Its particular strength lies in analyzing a class of problems that
-are not easily addressed using those techniques.
 
 ### Why should I care?
 
