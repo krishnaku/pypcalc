@@ -128,9 +128,9 @@ are not easily addressed using those techniques.
 ### Why should I care?
 
 Intuitively, the presence calculus is useful when  a system signal has "
-time-value" - i.e., its significance lies in how the underlying value of the
-property _accumulates over time_, not just its instantaneous value or its
-statistical properties.  
+time-value" - i.e., its significance lies in how the underlying value of a
+property _accumulates over time_, not just its instantaneous values or their
+statistical properties.    
 
 We can categorize such signals into those we want to _accumulate_ (e.g., revenue,
 profits, satisfied customers)
@@ -176,7 +176,7 @@ For practical applications, we also require:
     the path isn't immediately obvious. This is where modeling skills and a solid mathematical foundation
     for identifying such indirect relationships prove essential.
 
-    The presence calculus provides tools that make this easier to execute.
+    The presence calculus provides tools that make this easier to operationalize in real-world settings.
 
 While this may sound restrictive, a surprisingly large class of operational and
 business-critical questions—especially those directly related to economic
