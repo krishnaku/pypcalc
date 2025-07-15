@@ -186,86 +186,81 @@ complex systems and the dynamics of knowledge work.
 
 Let's now examine the evolution of this law through its various generalizations.
 
-## Dr. Little proves the law
+## Version 1: Dr. Little proves the law
 
 In 1961, Dr. John Little, at the MIT Sloan School, gave the first mathematical
-proof of this empirical relationship. His proof method used the most popular
-tool for solving these problems: queueing theory, developed decades earlier to
-model congestion in telephone exchanges.
+proof of this empirical relationship. His proof method used the most widely
+accepted framework for analyzing these problems: queueing theory, developed
+decades earlier to model congestion in telephone exchanges.
 
 The precise result he proved was the following:
 
-> In a queuing process, let 1/λ be the mean time between the arrivals of two
-> consecutive units, L be the mean number of units in the system, and W be the
-> mean time spent by a unit in the system. It is shown that, if the three
-> means are finite and the corresponding stochastic processes strictly
-> stationary, and, if the arrival process is metrically transitive with nonzero
-> mean, then L = λW.
+> In a queuing process, let λ be the long-run average arrival rate (i.e., the
+> limit of the number of arrivals per unit time), L be the time-average number
+> of items in the system, and W be the average time an item spends in the
+> system. It is shown that, if the three means are finite, and the associated
+> stochastic processes are strictly stationary, and if the arrival process is
+> metrically transitive with nonzero mean, then L = λW.
 
-Queueing theory typically uses probabilistic models of arrivals and departures,
-and most results depend on specific assumptions about how stochastic processes
-behave.
+Queueing theory is built on a foundation of probabilistic models of arrival and
+service processes that describe how items enter, wait in, and depart from the
+system. Most theoretical results depend on specific assumptions about how these
+stochastic processes behave. These assumptions not only model randomness, but
+also make it possible to prove results that apply across broad classes of
+systems.
 
-What made his proof so remarkable was how broadly it applied. He showed that it
-held under a broad set of conditions. Specifically, he showed that it held
-regardless of the shapes of the probability distributions. That was an
-unexpectedly general result for queueing theory.
+In Little’s original proof, several assumptions play a central role:
 
-It pointed to something deeper—something structural about input-output systems.
-No matter how arrivals and completions fluctuated, or whether they were regular,
-random, or correlated, the strict equality of Little’s Law still held.
+- The long-run averages L, W, and λ exist and are finite.
+- The arrival and service processes, as well as the number in the system, are
+  strictly stationary—meaning their joint distributions are invariant under
+  time shift.
+- The arrival process is metrically transitive (i.e., ergodic), which ensures
+  that over the long run, time averages converge to expected values and that the
+  observed system behavior over time is representative of its statistical
+  ensemble.
 
-This eliminates variability as a reason to doubt whether the law applies in a
-given context. While variability still affects the behavior of the
-systems—how large the values of these averages are and how much they
-fluctuate—it does not invalidate the relationship.
+These assumptions allowed Little to define L, W, and λ as *expected values*
+with respect to a stationary stochastic process and to prove that the equality
+L = λW holds under the additional condition that these expectations exist and
+are finite.
 
-In fact, his proof showed that what happens inside the system doesn’t matter to
-the relationship at all! Little's Law, it turns out, describes the dynamic
-behavior of arrival and departure processes when they interact. It says that no
-matter what these processes are, the dynamic behavior of the queue, expressed
-via the relationship between these averages, is constrained by the equation.
+What made his result so remarkable was how broadly it applied. Specifically, he
+showed that it held regardless of the shapes of the probability distributions.
+That was an unexpectedly general result for queueing theory, where many results
+depend on strong assumptions about inter-arrival or service time distributions.
 
-Little's proof required additional conditions on these averages—specifically,
-that they were well-defined and finite. These are relatively mild conditions.
-But his proof also required that the underlying processes were stationary: that
-is, the average behavior of the system did not drift over time, and the arrival
-process was ergodic (this is the metrically transitive part)—a much more
-stringent requirement, ensuring that long-run averages in the law were
-meaningful and representative. These are significant caveats. They imply that,
-as proven initially, Little's Law applies only to systems operating in a
-well-behaved and stable equilibrium.
+In fact, his proof showed that many internal details of the system—such as
+queue discipline, scheduling order, or service time variability—do not affect
+the validity of the relationship. Little’s Law, it turns out, is not a result
+about the mechanisms of queuing per se, but about the aggregate behavior of
+arrival and departure processes over time. No matter what these processes look
+like internally, the relationship among their averages is constrained by the
+equation.
 
-However, since Dr. Little's original paper, newer proofs of the law have shown
-that his argument relies on stronger assumptions than necessary. Specifically,
-they show that the requirements of stationarity and ergodicity in Little’s
-proof are not fundamental to the law itself—they are consequences of the
-particular proof technique he used. As such, they are sufficient conditions for
-the law to hold, but not necessary.
-
-## There’s value in understanding why
-
-Little’s Law is fundamentally a statement about time averages—quantities that
+Little’s Law is fundamentally a statement about _time averages_—quantities that
 can be directly observed in real-world systems over time. Dr. Little, however,
-used probabilistic techniques to prove a relationship between the expected
-values of random variables, which are called ensemble averages. Unlike time
-averages, ensemble averages are computed across the entire probability
-distribution of a variable and do not depend on how the system evolves over
-time.
+used probabilistic techniques to prove a relationship between the *expected
+values* of random variables, known as ensemble averages. Unlike time averages,
+ensemble averages are computed across the entire probability distribution of a
+process and are defined independently of how the system evolves over time.
 
-Little’s proof established the equality between these ensemble averages. To
-apply this result to real-world systems, one must assume that the ensemble
-averages and the time averages of the corresponding processes converge to the
-same value. This convergence is guaranteed when the underlying stochastic
-processes are stationary and ergodic—hence the need for those assumptions in
-Little's original proof.
+Little’s proof established the equality between _expected values_ - i.e.,
+ensemble averages. To apply this result to real-world systems, he needed to
+assume that the ensemble averages and the time averages of the corresponding
+processes converge to the same value. This convergence is guaranteed when the
+underlying stochastic processes are strictly stationary and ergodic—hence the need for
+those assumptions in Little’s original proof.
 
 But this doesn’t mean that stationarity and ergodicity are required for the law
-itself. It is entirely possible to prove Little’s Law directly for time
-averages, bypassing probability theory altogether.
+itself to hold. It suggests that it is entirely possible to prove Little’s Law
+_directly_ for time averages, bypassing probability and queueing theory
+altogether. In other words, the conditions that Dr. Little assumed are
+sufficient, and an artifact of his proof technique, but not necessary for the
+relationship between the quantities in the equation to hold.
 
-This is precisely what Dr. Shaler Stidham of Cornell did in 1972, in a paper
-titled “Little’s Law, the last word.”
+ This is precisely what Dr. Shaler Stidham of Cornell did in 1972, in a paper titled
+_“Little’s Law, the last word.”_
 
 ## Stidham’s Proof of Little’s Law
 
