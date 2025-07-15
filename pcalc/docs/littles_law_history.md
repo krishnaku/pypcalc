@@ -106,12 +106,13 @@ So the belief that “Little’s Law does not apply in software” is not entire
 unfounded—but nevertheless, it is demonstrably false. For those familiar with
 Little’s Law only through its association with Lean manufacturing concepts and
 its applications in software, or from cursory readings on sources like
-Wikipedia, this post offers an introduction to the state-of-the-art
-understanding of the law as it stands today.
+Wikipedia, or even standard queueing theory texts, this post offers an
+introduction to the state-of-the-art understanding of the law as it stands
+today.
 
 Applying Little’s Law correctly in more general settings requires understanding
 the techniques used to prove its broader forms. These techniques not only
-justify its wider applicability, but also show how to apply it more precisely
+justify its wider applicability, but also show how to apply it usefully
 in domains like software product development and engineering.
 
 In this post, we introduce the history of the law and the proof techniques that
@@ -123,35 +124,67 @@ applicability, yet subtle and often misapplied outside its original context.
 
 This post lays the foundation to change that.
 
-
 ## The significance of Little's Law
+
+Before we jump into the details, it’s worth pausing to understand why this law
+even matters.
 
 The world of empirical research is awash in correlations—observed associations
 where two quantities move in concert. These correlations are often a starting
-point for causal reasoning, prompting us to search for the underlying
-mechanisms that might explain the apparent linkage.
+point for causal reasoning, prompting us to search for the underlying mechanisms
+that might explain the apparent linkage.
 
-But the empirical observations underlying Little’s Law are much stronger than
-statistical correlations. They assert a strict equality between key variables.
+But even though Little's Law arose from empirical observations, the law itself
+establishes something much stronger than a statistical relationship, even though
+the quantities involved may appear to be statistical properties on the surface.
+Unlike a correlation, the law expresses a strict equation between three
+observable quantities.
+
 When variables are related by an equation, the space of plausible explanations
-for change narrows dramatically.
+for change narrows dramatically. For example, if the average number of customers
+in a system increases, there are only three possibilities: the arrival rate
+increased, the average time each item spent in the system increased, or both
+did. No other explanation is consistent with equality. Any other claim must show
+how it affects one or both of those variables.
 
-For example, if the average number of customers in a system increases, there are
-only three possibilities: the arrival rate increased, the average time each item
-spent in the system increased, or both did. No other explanation is consistent
-with equality. Any other explanation needs to show how it impacts one or both of these variables.
-Thus there is provable proximate cause and effect relationship between changes
-in either arrival rate of average time in the system and the change in average  number in the system. 
+In every generalization of Little's Law we will examine, it shows that under
+certain conditions there is a provable, tightly constrained causal relationship
+between changes in arrival rate, time in system, and the average number of items
+in the system. What changes with each generalizations are the conditions - they
+become less and less restrictive, and make the law more general and easier to
+apply correctly in more contexts.
 
-Knowing that a relationship like Little’s Law holds gives us an exceptionally
-robust framework for causal reasoning about _observable_ system behavior. It
-doesn't tell us what will happen in the future, but it _constrains_ what can
-happen in the future: regardless of how the system behaves, these three quantities will remain
-bound by the relationship between their averages.
+Knowing the conditions under which an equation like Little’s Law holds gives us
+an exceptionally robust framework for causal reasoning about _observable_ system
+behavior. It doesn't tell us what will happen in the future, but it _constrains_
+what can happen: regardless of how the system evolves, these three quantities
+must remain bound by their relationship.
 
-We will have a powerful, general-purpose reasoning tool if we can rigorously
-prove the conditions under which this. That is why this result, and the man who proved it, are rightly
-honored with the name: Little’s Law.
+Few such relationships exist outside domains governed by strict conservation
+laws, and in a deep sense, the proofs of Little's Law give us a template for
+*discovering* such conservation laws in a new domain. Little’s Law is thus a
+rare find—an intuitive, rigorously provable mathematical relationship among key
+system properties that applies across linear, non-linear, stochastic,
+deterministic, complex, and even some chaotic systems under some very weak
+assumptions.
+
+In their majestic textbook [@hopp2000], Hopp & Spearman liken Little’s Law to
+_F = m·a_
+for factory physics—a foundational constraint that helped move manufacturing
+from art toward science. We take the view that, with the generalizations
+developed since its early use in those domains, Little’s Law deserves the same
+status on a much broader scale.
+
+In software product development and engineering, it has the potential to serve
+as one of the foundational laws of operations—helping move the field 
+from a collection of intuitive practices unmoored from provable theory to a science grounded
+in data, constraint, and measurement.
+
+Doing so requires us to go beyond the interpretations of Little’s Law found in Lean
+manufacturing and embrace a more general framing—one that reflects the nature of
+complex systems and the dynamics of knowledge work.
+
+Let's now examine the evolution of this law through its various generalizations.
 
 ## Dr. Little proves the law
 
