@@ -260,82 +260,125 @@ sufficient, and an artifact of his proof technique, but not necessary for the
 relationship between the quantities in the equation to hold.
 
  This is precisely what Dr. Shaler Stidham of Cornell did in 1972, in a paper titled
-_“Little’s Law, the last word.”_
+_“Little’s Law, the last word”_ [@stidham72].
 
 ## Stidham’s Proof of Little’s Law
 
-Stidham demonstrated that Little's Law was even more general than previously
-believed. His proof was purely deterministic and did not rely on any
-probabilistic or queueing theory techniques. It was based on standard techniques
-from continuous analysis, using time averages on sample paths for queue length,
-calculated over finite intervals. It eliminated the requirements for
-stationarity, ergodicity, and related assumptions.
+Stidham's version of Little's Law assumes the following definitions:
 
-The specific statement he proved was the following:
+- Customers arrive at an input-output system at time instants $t_n$,  
+  $n = 1, 2, \ldots$
+- The time in system for the $n$th customer is $W_n$
+- The number of customers in the system at time $t$ is $L(t)$ for $t \geq 0$
 
-> Consider a system observed over a sufficiently long interval [0, T).  
-> If the time-average arrival rate and the average time each item spends in the  
-> system over this window each converge to finite limits—call them λ and W,  
-> respectively—then the time-average number of items in the system also  
-> converges to a finite limit L, and the relationship L = λW holds.
+Now consider this system observed over a sufficiently long time interval  
+$[0, T)$. The theorem can be stated informally[^-stidham-math] as follows:
 
-In contrast to Dr. Little’s original formulation, which relates the expected
-values of probability distributions, this version establishes a relationship
-between the limits of time averages observed along a sufficiently long sample
-path.
+> If the time-average arrival rate _over this window_ and the average time
+> each  
+> item spends in the system _over this sequence of items_ each _converge_ to  
+> finite limits—call them λ and W, respectively—then the time-average number
+> of  
+> items in the system also converges to a finite limit L, and the relationship  
+> L = λW holds.
 
-This is a significant generalization, but it also needs to be read carefully to
-understand precisely what Little’s Law is asserting—and the specific conditions
-under which it holds.
+[^-stidham-math]:  
+In [@stidham72], the result is stated formally as follows:  
+Let $N(t)$ be the number of items in the system at time $t$, and  
+$$L = \lim_{T \to \infty} \frac{1}{T} \int_0^T N(t)\,dt$$  
+Let $W_i$ be the time in system for item $i$, and  
+$$W = \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^n W_i$$  
+Let $Λ(t)$ be the cumulative number of arrivals up to time $t$, and  
+$$λ = \lim_{t \to \infty} \frac{Λ(t)}{t}$$  
+**Theorem**: If $λ$ and $W$ exist and are finite, then $L$ exists and $L = λW$.
 
-Stidham’s proof did not require even queueing theory assumptions like a defined
-arrival or departure process. So, technically, he showed that Little's Law is
-much more than a result that applies only to queueing systems. He showed that
-Little's Law is a remarkably general statement about the population dynamics of
-any system where entities arrive at and depart from the system over time.
+The first thing to note is that this version is framed as a theorem about an  
+input-output system with observable arrivals and departures—not specifically a  
+queueing system. This marks a significant generalization beyond Dr. Little’s  
+original setting. There are no mentions of arrival and service processes, no  
+probabilistic assumptions about those processes.
 
-The only requirements for the law to hold were that the three averages in the
-equation were well-defined and converged to a finite limit when measured over
-sufficiently long observation windows.
+> Little's Law has been completely separated from queueing theory and stochastic
+> processes.
 
-His proof reinforces the idea that Little’s Law applies only to systems in
-equilibrium—albeit under much weaker conditions than those in Dr. Little’s
-original proof. As we’ll see in the next post in the series, this generalization
-of equilibrium conditions is what allows Little’s Law to bridge from stable
-manufacturing environments to dynamic, evolving, and complex systems like
-software development.
+What remains are the same three averages in the original law, with a
+requirement  
+that their long-run limits exist and are finite. Unlike Dr. Little’s result,  
+Stidham’s theorem is proved using _actual quantities_ observed along a single  
+sample path:
 
-In the next post, we will examine Stidham's specific result more carefully,
-using his ideas to show that when measured appropriately, Little's Law can
-always be empirically validated in software development. This will refute the
-notion that it cannot be applied to software development—but it will do much
-more than that.
+- The time average of the number of items in the system,
+- The average time in system per item,
+- The arrival rate relating the two.
 
-Stidham’s proof technique for Little's Law, called sample path analysis, is a
-powerful method with many more applications, including one that led to a very
-general version of Little's Law where W can be replaced with arbitrary functions
-subject to weak regularity constraints. This version, known as the Generalized
-Little's Law, has important implications for modeling the economics of flow and
-will be essential in understanding how to measure the relationship between the
-flow of work and the flow of value—something we have been exploring in some
-detail in this series.
+The significance of Stidham’s theorem lies in this shift.
 
-At this point, Little's Law is considered to be much more than a result in
-queueing theory. It has earned something close to the ontological status of a
-natural equilibrium law that reveals a fundamental duality between population
-size and individual item lifetimes in dynamic systems.
+It applies to _any_ individual sample path for which these averages converge.
+There is no need to assume stationarity, ergodicity, or any specific
+distributional behavior.
 
-This is a powerful property that can be exploited in many different ways once
-you establish it, and this has been the real reason why Little's Law has been so
-useful in every domain where it has been successfully applied.
+The concept of a sample path and the underlying proof technique called sample
+path analysis is both a vestige of the stochastic-process origins of Little’s
+Law.  Yet it is also a bridge back to that theory [^-bridge-back]. 
 
-Before we jump into the technical details of how Little's Law can be applied in
-software development, our next post asks: what does knowing Little's Law holds
-in a domain help us do? Why should we even care whether Little's Law is true or
-not, in any given domain context?
+In classical stochastic process theory, a process can evolve in different ways
+depending on the outcomes of some underlying random variables. For example,
+consider repeatedly tossing a coin: each possible sequence of heads and tails is
+a different sample path of the "coin toss" process. When we observe a particular
+sequence of tosses over time, we’re observing one such sample path.
 
-This sets up the stakes for the kind of reasoning tools we give up when we
-blithely assume that “Little’s Law does not apply to software development.”
+[^-bridge-back]:  
+Stidham’s proof technique, known as sample path analysis, has had wide  
+utility beyond the proof of Little’s Law. In the study of stochastic  
+processes, this approach has allowed researchers to establish general  
+properties of systems without requiring stationarity or ergodicity from  
+the outset. These developments are extensively documented in  
+[@eltaha1999], and their implications extend deeply into real-world  
+operational settings.
+
+    As we will see next, this leads directly to more general formulations of  
+    Little’s Law—ones where "time in the system" can be replaced by an  
+    arbitrary function of time in the system, subject to weak regularity  
+    constraints. These generalizations have important implications for  
+    understanding the economics of flow and will be essential in connecting  
+    the flow of work to the flow of value—an idea we will return to later in  
+    this series.
+
+Stidham’s key insight was that, from the perspective of Little’s Law, it
+doesn’t matter whether the process being observed is stochastic or not. A sample path  
+can simply be the trajectory of a system unfolding in real time, regardless of  
+whether that behavior arises from chance, rules, feedback loops, or external  
+influences. What matters is whether the _averages_ defined in Little’s Law  
+converge along that path.
+
+This redefinition has powerful implications. It shifts the question from _what  
+kind of system is this?_ to _how does this system behave over time?_ The most  
+important distinction now becomes whether the system is _convergent_—whether
+its time averages approach finite limits—or _divergent_, meaning no such limits  
+exist. This distinction applies across the board: linear systems, non-linear  
+systems, adaptive systems, and even chaotic ones can exhibit either convergent  
+or divergent behavior.
+
+Sample path analysis, in this light, becomes a diagnostic tool for analyzing
+the long-run observed behavior of input-output systems. It allows us to categorize
+a system not by its internal structure or stochastic assumptions, but by whether  
+its macroscopic behavior satisfies certain constraints. And importantly, it  
+gives us a concrete way to _measure_ and _verify_ this condition from observed  
+data. It is also a powerful complement to statistical and probabilistic
+techniques which struggle under these conditions.
+
+Stidham’s result shows that Little’s Law remains valid so long as we can  
+_observe_ an input-output system for a long enough time to determine whether the  
+long-run averages converge on that observed path. It provides a deterministic  
+technique to analyze systems that may themselves be stochastic. That’s a much  
+more operational and computationally tractable condition than verifying
+ensemble expectations under probabilistic models.
+
+It opens the door to a new form of systems analysis—one grounded in observable  
+limits and real-world measurements of long-run convergence or divergence. It  
+makes Little’s Law applicable to deterministic or stochastic systems that are  
+non-stationary, non-ergodic, and potentially highly sensitive to initial  
+conditions—exactly the kind of behavior we expect in complex adaptive systems.
 
 ---
 
@@ -382,3 +425,5 @@ In 2011, Dr. Little published a survey of all the developments related to
 Little's Law on its 50th anniversary. Most of this series started from a close
 reading of that paper. I highly recommend it if you’re interested in a more
 technical, yet accessible, presentation of the material in this post.
+
+## References
