@@ -19,7 +19,7 @@ empirical regularity observed in retail stores, call centers, and other service
 operations. It's a commonplace observation that stores get more crowded when
 more customers come in and stay longer.
 
-This intuitive understanding led to a mathematical relationship capturing this
+This leads to a mathematical relationship capturing this
 phenomenon, one that was also observed empirically.
 
 $$L = λW$$
@@ -48,8 +48,7 @@ We can see that this equation relates three distinct _kinds_ of averages:
 
 Notably, the denominator in the first average is a continuous quantity (time), the
 denominator in the second average is a discrete quantity (items), and the
-third
-quantity is a rate relating the denominators of the other two quantities.
+third quantity is a rate relating the denominators of the other two quantities.
 
 The law was widely assumed to be true in operational settings and used without
 proof because it was intuitive, could be empirically confirmed, and its symmetry
@@ -61,7 +60,7 @@ setting.
 
 Dr. John C. Little [@little1961] gave the first mathematical proof in 1961 using
 techniques from queueing theory and probabilistic analysis. His proof involved
-assumptions like steady state conditions and stationary probability distributions, 
+assumptions including steady state conditions and stationary probability distributions, 
 that were largely true in the operational settings under which the
 law was being applied, and thus the equation—and the assumptions under which Dr.
 Little proved it—became known as Little's Law.
@@ -95,11 +94,13 @@ Little’s Law has nothing useful to say about the kind of highly variable,
 non-uniform processes common in software development.
 
 It doesn’t help that most applications of Little’s Law in software development
-explicitly rely on the manufacturing formulation, focusing on _making_ variable
-work more uniform so it can "flow". Even in these applications, the law often
-fails to hold when measured empirically in operational settings mostly because
-of _how_ it has been applied. So it has remained a bit of a
-theoretical curiosity in software.
+explicitly rely on the formulation imported from Lean manufacturing, focusing on
+_making_ variable work more uniform so it can "flow". Even in these
+applications, the law often fails to hold when measured empirically in
+operational settings mostly because of _how_ it has been applied. So it has
+remained more of a theoretical curiosity in software - pointing to a desired
+ideal state, rather than something consistently observable and applicable to 
+real-world development processes. 
 
 So the belief that “Little’s Law does not apply in software” is not entirely
 unfounded—but nevertheless, it is demonstrably false. For those familiar with
@@ -115,7 +116,7 @@ in domains like software product development and engineering.
 
 In this post, we introduce the history of the law and the proof techniques that
 led to its increasingly general formulations. Understanding _why_ the law
-generalizes is key to understanding _how_ to apply it.
+generalizes is key to understanding _how_ to apply it in more general settings.
 
 Little’s Law remains a highly intuitive result, remarkably general in its
 applicability, yet subtle and often misapplied outside its original context.
