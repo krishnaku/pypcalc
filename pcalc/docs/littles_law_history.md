@@ -414,12 +414,16 @@ along a single _sample path_ [^-sample-path]
 ![Sample path and area under the sample path](../assets/pandoc/stidhams_sample_path_area.png){#fig:sample-path-area}
 
 [@fig:sample-path-area] shows an example of a sample path for an input-output
-system, where $L(t)$ is the number of items in the system at time $t$. Over a
+system, where $N(t)$ is the number of items in the system at time $t$. Over a
 window of length $T$, the time average of the number of items in the system is
 given by the area under the sample path divided by $T$. 
 
-That is, if the limit $$\lim_{T \to \infty} \frac{1}{T} \int_0^T L(t)\,dt = L$$ exists, then
-this ratio converges to the finite value $L$.
+That is, if $$A(T) = \int_0^T N(t)\,dt $$ is the area under the sample path
+and $$ L(T) = \frac{A(T)}{T} $$
+is the average number of items in the systems up to time $T$
+
+Then, if the limit $$\lim_{T \to \infty} L(T) = L$$ exists, then
+the long run time average of the number of items in the system converges to  $L$.
 
 [^-sample-path]: In classical stochastic process theory, a process can evolve in different ways
     depending on the outcomes of some underlying random variables. For example,
@@ -462,12 +466,15 @@ Little's Law allow us to consider the question of convergence or divergence of
 an input-output system without having to consider the internal state of the
 system.
 
-![Patterns of sample path behavior](../assets/pandoc/sample_path_patterns.png){#fig:convergent-divergent}
+![Patterns of sample path average behavior](../assets/pandoc/sample_path_patterns.png){#fig:convergent-divergent}
 
-[@fig:convergent-divergent] shows several possible patterns of sample path
-behavior that may be exhibited by an input-output system, depending on its
-history and internal state. As we can see, a system can exhibit a wide variety
+[@fig:convergent-divergent] shows several possible patterns of convergence or divergence 
+of long run averages on the sample path of an input-output system, depending on its
+history and internal state [^-note-average]. As we see, a system can exhibit a wide variety
 of behaviors—even when it is convergent.
+
+[^-note-average]: It is crucial to note that _we are not displaying the sample path here_
+but the _cumulative time-average of the sample path_, ie we are showing $L(T) = \frac{1}{T} \int_0^T N(t)\,dt$ not $N(t)$. 
 
 Purely divergent behavior implies unbounded growth in the area under the sample
 path, but these four patterns are by no means exhaustive. The goal of sample
