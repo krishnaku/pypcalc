@@ -57,9 +57,11 @@ proportional to the average _number_ of _items_ present in the system over the
 window. The constant of proportionality is the _rate_ at which items enter (or
 leave) the system over the window.
 
-[^-discreteness]: As we will see later, even discreteness of items is not essential
-for the law to hold in the most general setting. However, we will keep this framing for
-now as this is the most familiar variant for Little's Law. 
+[^-discreteness]: As we will see later, even discreteness of items is not
+essential for the law to hold in the most general setting. The law has
+generalizations to continuous input-output systems [@eltaha1999]. However, we will keep this
+discrete item framing for now as this is the most familiar variant for Little's Law and makes 
+many key ideas simpler to explain. 
 
 The law was widely assumed to be true in operational settings and used without
 proof because it was intuitive, could be empirically confirmed, and its symmetry
@@ -345,8 +347,7 @@ In [@stidham72], the result is stated formally as follows:
 ### The generalization 
 
 The first thing to note is that this version is framed as a theorem about an
-input-output system with observable arrivals and departures. But it is not a
-queueing system in the sense of Dr. Little's framing. There are no mentions of
+_input-output system_ with observable arrivals and departures - not a __queueing system__ There are no mentions of
 arrival and service _processes_ or their probability distributions, and no assumptions
 about the stationarity or ergodicity those processes.
 
@@ -357,18 +358,6 @@ Little’s original theorem.
 
 > Little's Law has been completely separated from queueing theory and stochastic  
 > processes.
-
-For stochastic processes this was useful because it could now be applied to
-analyze non-ergodic and non-stationary stochastic processes [^-sample-path-theory]. And of course, it opened up
-the same possibilities for deterministic processes as well.
-
-[^-sample-path-theory]:  
-Separating the law from stochastic assumptions only means that it 
-    can be combined with the rich theory of such such processes in even 
-    more general contexts. 
-
-    Stidham’s proof technique, known as sample path analysis, has had wide utility beyond the proof of Little’s Law. In the study of stochastic processes, this approach has allowed researchers to establish general properties of systems without requiring stationarity or ergodicity from the outset. These developments are extensively documented in [@eltaha1999], and their implications extend deeply into real-world operational settings.
-    
 
 Unlike Dr. Little’s result, Stidham’s theorem is proved using _observed long run averages_ :
 
@@ -386,14 +375,24 @@ along a single _sample path_ [^-sample-path]
     When we observe a particular sequence of tosses over time, we’re observing one such sample path.
     We can think of a deterministic process as one that has exactly one sample path - which is the only one we can possibly observe. 
 
-The significance of Stidham’s theorem lies in this shift to proving the law
-holds for individual sample paths for which these averages converge. Stidham’s
-key insight was that, from the perspective of Little’s Law, it doesn’t matter
-whether the process being observed is stochastic or not. A sample path
-_can simply be the trajectory of a system unfolding in real time_, regardless of
+For stochastic processes this was useful because it could now be applied to
+analyze non-ergodic and non-stationary stochastic processes [^-stochastic]. And of course, it opened up
+the same possibilities for deterministic processes as well.
+
+[^-stochastic]:  
+Separating the law from stochastic assumptions only means that it 
+    can be combined with the rich theory of stochastic processes in even 
+    more general contexts. 
+
+    Stidham’s proof technique, known as sample path analysis, has had wide utility beyond the proof of Little’s Law. In the study of stochastic processes, this approach has allowed researchers to establish general properties of systems without requiring stationarity or ergodicity from the outset. These developments are extensively documented in [@eltaha1999], and their implications extend deeply into real-world operational settings.
+
+The significance of Stidham’s theorem lies its focus on sample path convergence
+of the averages. Stidham’s key insight was that, from the perspective of
+Little’s Law, it doesn’t matter whether the process being observed is stochastic
+or not. A sample path _can simply be the trajectory of a system unfolding in real time_, regardless of
 whether that behavior arises from chance, deterministic rules, feedback loops,
-or external influences. What matters is whether the long run _averages_ defined in Little’s Law converge
-along a sufficiently long sample path. 
+or external influences. What matters is whether the long run _averages_ defined
+in Little’s Law converge along a sufficiently long sample path.
 
 This redefinition has powerful implications. It shifts the question from "_what
 kind of system is this?_" to "_how does this system behave when we observe it
@@ -402,9 +401,12 @@ system is _convergent_—whether the required limits exist—or
 _divergent_, meaning one or more limits do not exist. 
 
 This distinction applies across the board: linear systems, non-linear systems,
-adaptive systems, and even chaotic ones can exhibit either convergent or
+complex adaptive systems, and even chaotic ones can exhibit either convergent or
 divergent behavior and can transition from one type of behavior to the other
-depending upon their internal state.
+depending upon their internal state. Sample path analysis and the constraints of
+Little's Law allow us to consider the question of convergence or divergence of
+an input-output system without having to consider the internal state of the
+system.
 
 By showing that Little's Law remains valid whenever the required limits exist,
 it turns the question of _whether_ Little's Law applies to a certain kind of
@@ -415,17 +417,18 @@ observation over sufficient long sample paths_. All these and more tractable and
 practically useful propositions than requiring ergodicity or stationarity as Dr.
 Little's version did.
 
-Little's Law, in this light, becomes a tool for studying the
-long-run observed behavior of input-output systems. It allows us to characterize a
-system not by its internal structure or stochastic assumptions, but by whether
-its macroscopic (and as we will see soon, microscopic) behavior satisfies
-certain constraints when observed over time. And importantly, it gives us a concrete way to _measure_
-and _verify_ this condition from observed data.
+Little's Law, in this version, becomes a tool for studying the long-run observed
+behavior of input-output systems. It allows us to characterize a system not by
+its internal structure or stochastic assumptions, but by whether its
+macroscopic (and as we will see soon, microscopic) behavior satisfies certain
+constraints when observed over time. And importantly, it gives us a concrete
+operational definition that lets us  _measure_ and _verify_ this condition from
+observed data.
 
 It makes Little’s Law applicable to deterministic or stochastic systems that are
 non-stationary, non-ergodic, and potentially highly sensitive to initial
-conditions—exactly the kind of behavior we expect with complex adaptive systems
-like software development.
+conditions—exactly the kind of behavior we expect to encounter with complex adaptive systems
+in domains like software development.
 
 ### What we lose
 
