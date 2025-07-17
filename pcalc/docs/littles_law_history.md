@@ -112,12 +112,39 @@ techniques from queueing theory and probabilistic analysis. His proof involved
 assumptions including steady state conditions and stationary probability distributions, 
 that were largely true in the operational settings under which the
 law was being applied, and thus the equation—and the assumptions under which Dr.
-Little proved it—became known as Little's Law.
+Little proved it—became known as Little's Law
 
 It found applications in manufacturing, computer systems performance analysis,
 service operations management, and countless other operational settings. It is
 considered a foundational law akin to Newton’s law _F = m·a_ in these domains
-[@hopp2000].
+[@hopp2000] [^-throughput-form].
+
+[^-throughput-form]: The operating conditions under which Little's Law is
+    typically applied in manufacturing settings are considerably stricter and lead
+    to the throughput-centered form described in [@hopp2000]:
+    $$
+    \text{Throughput} = \frac{\text{WIP}}{\text{Cycle Time}}.
+    $$
+
+    This version of Little's Law holds only under more stringent assumptions, but
+    these are often realistic in repetitive manufacturing environments, making it
+    reasonable to treat this form as the default:
+    
+    - Items have uniform cycle times.
+    - The arrival rate is below the maximum capacity of the service process.
+    - The system is observed in steady state—startup and shutdown transients are
+    excluded.
+    
+    Under these assumptions, the steady-state throughput equals the arrival rate,
+    and this version becomes a simple rearrangement of the standard form of Little's
+    Law.
+    
+    However, while this throughput form is often taken as the default in Lean
+    software development [@vacanti2015], the original assumptions rarely hold in
+    most software delivery contexts. Therefore, we will focus primarily on the arrival-rate version of Little's Law
+    in this post. The throughput form remains valid under steady-state conditions,
+    but the definition of "steady state" in a software context is far more nuanced
+    and requires careful qualification.
 
 Since Dr. Little's original proof, the result has been significantly generalized
 by researchers [@stidham72], [@brumelle71], [@heyman80], [@sigman91],
