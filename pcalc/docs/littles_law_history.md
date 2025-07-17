@@ -46,33 +46,41 @@ We can see that this equation relates three distinct _kinds_ of averages:
   accumulates while present in the system,
 - λ is a rate — a number of items per unit of time.
 
+Notably, the denominator in the first average is a continuous quantity (time),
+while the denominator in the second average is a discrete quantity (items), and
+the third quantity is a rate relating the denominators of the other two
+quantities. 
 
 The law expresses the intuition that the total time accumulated in a system by a
-set of discrete items, when averaged _per item_, is proportional to the average
-number of _items_ present in the system _per unit time_. The constant of
-proportionality is the arrival rate of items into the system.
+set of discrete items over a time window, when averaged _per item_, is
+proportional to the average _number_ of _items_ present in the system over the
+window. The constant of proportionality is the _rate_ at which items enter (or
+leave) the system over the window.
 
 The law was widely assumed to be true in operational settings and used without
 proof because it was intuitive, could be empirically confirmed, and its symmetry
-was appealing. 
+was appealing.
 
-As we will see however, this is anything but obvious to prove mathematically
-in a general setting, and answering this question rigorously has led to some deep
-results that have proven very valuable in solving economically critical problems in a variety
-of domains. 
+As we will see, the law is anything but obvious to prove mathematically in a
+general setting. Answering this question rigorously has led to some deep results
+that have proven very valuable in solving economically critical problems in a
+variety of domains.
 
-Notably, the denominator in the first average is a continuous quantity (time),
-the denominator in the second average is a discrete quantity (items), and the
-third quantity is a rate relating the denominators of the other two quantities.
+Much of the technical complexity in proving Little’s
+Law arises from the challenge of relating a time average—measured over a
+continuous interval—to a sample average over discrete items. These fundamentally
+different types of averages are not directly comparable and require some
+carefully constructed mathematical machinery to reconcile.
 
-As we will see, much of the technical complexity in proving Little's Law arises
-from the challenge of relating a time average to a discrete (statistical)
-average—quantities that are not naturally comparable and require careful
-reasoning to unify within a single mathematical framework.
+Examining the journey of its proofs and the generalizations they uncover,
+reveals a foundational collection of physical and economic laws
+governing the conservation of time-value in input-output systems.
 
-Examining the journey of its proofs and the generalizations they uncovered,
-Little's Law can be seen to be a very general and foundational _economic law_ - a
-law of conservation of time-value.
+Our goal in this post is to demystify the technicalities and argue that much of  
+this law's power remains untapped. We contend that, especially in software  
+product development and engineering, a deeper understanding of these concepts  
+is essential to transforming operations management from a collection of  
+anecdotes and informal practices into a mathematically grounded science.
 
 ### Proofs and generalizations of Little's Law
 
