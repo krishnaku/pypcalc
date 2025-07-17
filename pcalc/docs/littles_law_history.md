@@ -509,7 +509,51 @@ non-stationary, non-ergodic, and potentially highly sensitive to initial
 conditions—exactly the kind of behavior we expect to encounter with complex adaptive systems
 in domains like software development.
 
-### What we lose
+### Is Little's Law really that fundamental? 
+
+Both Little's and Stidham’s proofs of Little’s Law show that the law holds in
+the long-run or steady-state behavior of an input-output system. It is generally
+understood that Little’s Law is an *equilibrium law*—one that applies when the
+system is not in a transient state.
+
+As we’ve seen in the previous two sections, the difference between the
+stochastic and deterministic versions lies in how they define equilibrium. The
+stochastic version typically assumes that the system attains and remains in a
+single equilibrium state over time. In contrast, the deterministic (sample path)
+version allows for the possibility of *multiple* equilibrium states. A system
+may enter, remain in, and transition between several such states over its
+long-run behavior—and Little’s Law will hold within each of them.
+
+This flexibility makes the sample path formulation much more useful for studying
+real-world input-output systems, where it is common to encounter distinct and
+shifting equilibrium regimes.
+
+But this raises a deeper question about the *universality* of Little’s Law. If
+the equation holds only under certain conditions—and may not hold at all in some
+cases—can it still be regarded as foundational, in the way Newton’s laws are?
+Newton’s laws are considered fundamental because they apply everywhere and at
+all times. Can we say the same of Little’s Law—or even call it a “conservation
+law”—if it depends on restrictive assumptions?
+
+The answer is yes—but to support this claim, we must carefully reconsider how
+the averages in Little’s Law are defined. By subtly reformulating these
+averages, we arrive at a different kind of generalization: one that holds over
+*any finite time window*, regardless of whether the system is in steady state.
+
+So why don’t we simply start with this finite-time version? The reason is that
+the averages it produces are only approximations—sometimes poor ones—of the
+steady-state values when the system is far from equilibrium. However, when the
+system *is* at equilibrium, these finite-window averages converge exactly to the
+long-run averages. In that sense, the finite version of the law also provides a
+way to measure how far a system is from equilibrium.
+
+While expressing the law in terms of these finite-window approximations may feel
+less natural or intuitive, it reveals the deeper conservation principle we
+introduced at the beginning of this post. And in understanding this finite form,
+we come to see the truly foundational nature of Little’s Law.
+
+## Little's Law for Finite Windows
+
 
 When we 
 
