@@ -341,7 +341,7 @@ _observed over a sufficiently long time interval_ $[0, T)$.:
 - The time in system for the $n$th customer is $W_n$
 - The number of customers in the system at time $t$ is $L(t)$ for $t \geq 0$
 
-Now  The theorem can be stated informally[^-stidham-math] as follows:
+The theorem can now be stated informally[^-stidham-math] as follows:
 
 > If the time-average arrival rate _over this window_ and the average time  
 > each item spends in the system _over this sequence of items_ each _converge_  
