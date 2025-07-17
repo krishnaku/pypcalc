@@ -52,10 +52,14 @@ the third quantity is a rate relating the denominators of the other two
 quantities. 
 
 The law expresses the intuition that the total time accumulated in a system by a
-set of discrete items over a time window, when averaged _per item_, is
+set of discrete [^-discreteness] items over a time window, when averaged _per item_, is
 proportional to the average _number_ of _items_ present in the system over the
 window. The constant of proportionality is the _rate_ at which items enter (or
 leave) the system over the window.
+
+[^-discreteness]: As we will see later, even discreteness of items is not essential
+for the law to hold in the most general setting. However, we will keep this framing for
+now as this is the most familiar variant for Little's Law. 
 
 The law was widely assumed to be true in operational settings and used without
 proof because it was intuitive, could be empirically confirmed, and its symmetry
@@ -76,11 +80,11 @@ Examining the journey of its proofs and the generalizations they uncover,
 reveals a foundational collection of physical and economic laws
 governing the conservation of time-value in input-output systems.
 
-Our goal in this post is to demystify the technicalities and argue that much of  
-this law's power remains untapped. We contend that, especially in software  
-product development and engineering, a deeper understanding of these concepts  
-is essential to transforming operations management from a collection of  
-anecdotes and informal practices into a mathematically grounded science.
+Our goal in this post is to demystify the technicalities and argue that much of
+this law's power remains untapped. We contend that, especially in software
+product development and engineering, a deeper understanding of these concepts is
+essential to transforming operations management from a collection of anecdotes
+and informal practices into a mathematically grounded science.
 
 ### Proofs and generalizations of Little's Law
 
@@ -144,40 +148,38 @@ in domains like software product development and engineering.
 In this post, we introduce the history of the law and the proof techniques that
 led to its increasingly general formulations. Understanding _why_ the law
 generalizes is key to understanding _how_ to apply it in more general settings.
-
 Little’s Law remains a highly intuitive result, remarkably general in its
-applicability, yet subtle and often misapplied outside its original context.
-
-This post lays the foundation to change that.
+applicability, yet subtle and often misunderstood and misapplied outside its original context.
 
 ### The significance of Little's Law
 
 Before we jump into the details, it’s worth pausing to understand why this law
 even matters.
 
-The world of empirical research is awash in correlations—observed associations
-where two quantities move in concert. These correlations are often a starting
-point for causal reasoning, prompting us to search for the underlying mechanisms
+Empirical observations often surface correlations—observed associations where
+two quantities move in concert. Such correlations are frequently a starting
+point for causal reasoning, prompting us to search for underlying mechanisms
 that might explain the apparent linkage.
 
-But even though Little's Law arose from empirical observations, the law itself
-establishes something much stronger than a statistical relationship, even though
-the quantities involved may appear to be statistical properties on the surface.
-Unlike a correlation, the law expresses a strict equation between three
-observable quantities.
+But even though Little's Law arose from empirical observations, it
+establishes something much stronger than a correlation. The law expresses a
+strict equation between three observable quantities, even though the quantities
+involved may appear to be statistical measures on the surface.
 
-When variables are related by an equation, the space of plausible explanations
-for change narrows dramatically. For example, if the average number of customers
-in a system increases, there are only three possibilities: the arrival rate
+An equation is a constraint, and a much stronger foundation for causal reasoning than
+a correlation. When we observe change, the space of plausible explanations 
+narrows dramatically. For example, if the average number of customers in
+a system increases, there are only three possibilities: the arrival rate
 increased, the average time each item spent in the system increased, or both
-did. No other explanation is consistent with equality. Any other claim must show
+did. No other explanation is consistent with equality. Any other explanation must show
 how it affects one or both of those variables.
 
-In every generalization of Little's Law we will examine, it shows that under
-certain conditions there is a provable, tightly constrained causal relationship
-between the same key averages. What changes with each generalizations are the conditions - they
-become less and less restrictive, and make the law more general and easier to
-apply correctly in more contexts.
+In every generalization of Little's Law we will examine, there is a provable,
+tightly constrained causal relationship between the same key averages. What
+changes with each generalizations are the conditions under which they apply -
+they relax various restrictions and make the law applicable in different
+contexts, and yield different interpretations of what the averages _represent_
+in that context.
 
 Knowing the conditions under which an equation like Little’s Law holds gives us
 an exceptionally robust framework for causal reasoning about _observable_ system
@@ -187,30 +189,36 @@ must remain bound by their relationship.
 
 Few such relationships exist outside domains governed by strict conservation
 laws, and in a deep sense, the proofs of Little's Law give us a template for
-*discovering* such conservation laws in a new domain. 
-
-Little’s Law is thus a rare find—an intuitive, rigorously provable mathematical
-relationship among key system properties that applies across linear, non-linear,
-stochastic, deterministic, complex, and even some chaotic systems under some
-very weak assumptions.
+*discovering* such conservation laws in a new domain. Little’s Law is thus a
+rare find—an intuitive, rigorously provable mathematical relationship among key
+system properties that applies across linear, non-linear, stochastic,
+deterministic, complex, and even some chaotic systems under some very weak
+assumptions.
 
 In their majestic textbook [@hopp2000], Hopp & Spearman liken Little’s Law to
 _F = m·a_
 for factory physics—a foundational constraint that helped move manufacturing
-from art toward science. 
-
-We take the view that, with the generalizations
-developed since its early use in those domains, Little’s Law deserves the same
+from art toward science. We take the view that, with the generalizations
+developed since its early use in those domains, Little’s Law deserves this
 status on a much grander scale.
 
-In software product development and engineering, it has the potential to serve
+In software product development and engineering, it has the same potential to serve
 as one of the foundational laws of operations—helping move the field from a
-collection of intuitive practices to a physical and economic science, grounded
-in provable theory, data, constraint, and measurement.
+collection of intuitive practices and empirical
+conjectures [^-empirical-research] to a physical and economic science, grounded
+in provable theory, data, constraints, and measurement.
 
-Doing so requires us to go beyond the interpretations of Little’s Law found in Lean
-manufacturing and embrace a more general framing—one that reflects the nature of
-complex systems and the dynamics of knowledge work.
+[^-empirical-research]: This is not to say that intuition and empiricism don't
+have a vital role to play in science—they are the foundation. However, the arc
+of mature natural sciences is to build analytical and mathematical rigor atop
+this foundation, producing testable, generalizable, and rigorous theories. In
+software operations management, this arc is nascent at best. The concepts in
+this post represent one necessary step toward a more principled and scientific
+status quo.
+
+Doing so requires us to go beyond the interpretations of Little’s Law found in
+Lean manufacturing and embrace a more general framing—one that reflects the
+nature of complex systems and the dynamics of knowledge work.
 
 Let's now examine the evolution of this law through its various generalizations.
 
