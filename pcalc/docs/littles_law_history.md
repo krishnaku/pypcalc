@@ -34,9 +34,9 @@ spends in the store, and L is the average number of customers in the store.
 >
 > - λ is called the _arrival rate_ — the number of items arriving per unit time,
 > - W is called the _average time in system_ — the average number of time units
-    > for which an item is present in the system,
+> for which an item is present in the system,
 > - L is called the _average number in the system_ — the average number of items
-    > present in the system per unit of time.
+> present in the system per unit of time.
 
 We can see that this equation relates three distinct _kinds_ of averages:
 
@@ -46,15 +46,33 @@ We can see that this equation relates three distinct _kinds_ of averages:
   accumulates while present in the system,
 - λ is a rate — a number of items per unit of time.
 
-Notably, the denominator in the first average is a continuous quantity (time), the
-denominator in the second average is a discrete quantity (items), and the
-third quantity is a rate relating the denominators of the other two quantities.
+
+The law expresses the intuition that the total time accumulated in a system by a
+set of discrete items, when averaged _per item_, is proportional to the average
+number of _items_ present in the system _per unit time_. The constant of
+proportionality is the arrival rate of items into the system.
 
 The law was widely assumed to be true in operational settings and used without
 proof because it was intuitive, could be empirically confirmed, and its symmetry
-was appealing. But no one knew _why_ this relationship between these averages
-should hold. As we will see, this is anything but obvious to prove in a general
-setting.
+was appealing. 
+
+As we will see however, this is anything but obvious to prove mathematically
+in a general setting, and answering this question rigorously has led to some deep
+results that have proven very valuable in solving economically critical problems in a variety
+of domains. 
+
+Notably, the denominator in the first average is a continuous quantity (time),
+the denominator in the second average is a discrete quantity (items), and the
+third quantity is a rate relating the denominators of the other two quantities.
+
+As we will see, much of the technical complexity in proving Little's Law arises
+from the challenge of relating a time average to a discrete (statistical)
+average—quantities that are not naturally comparable and require careful
+reasoning to unify within a single mathematical framework.
+
+Examining the journey of its proofs and the generalizations they uncovered,
+Little's Law can be seen to be a very general and foundational _economic law_ - a
+law of conservation of time-value.
 
 ### Proofs and generalizations of Little's Law
 
@@ -88,14 +106,14 @@ development and engineering.
 However, due to the strong association of the original formulation with
 assumptions about stochastic processes—and the extensive applications in
 repetitive manufacturing and service contexts—it is often assumed that Little’s
-Law is not applicable to complex adaptive systems. It is not uncommon to hear
+Law is not applicable outside these domains.  It is not uncommon to hear
 the opinion that, because software product development is knowledge work,
 Little’s Law has nothing useful to say about the kind of highly variable,
 non-uniform processes common in software development.
 
 It doesn’t help that most applications of Little’s Law in software development
 explicitly rely on the formulation imported from Lean manufacturing, focusing on
-_making_ variable work more uniform so it can "flow". Even in these
+_making_ variable work more uniform and predictable. Even in these
 applications, the law often fails to hold when measured empirically in
 operational settings mostly because of _how_ it has been applied. So it has
 remained more of a theoretical curiosity in software - pointing to a desired
@@ -149,8 +167,7 @@ how it affects one or both of those variables.
 
 In every generalization of Little's Law we will examine, it shows that under
 certain conditions there is a provable, tightly constrained causal relationship
-between changes in arrival rate, time in system, and the average number of items
-in the system. What changes with each generalizations are the conditions - they
+between the same key averages. What changes with each generalizations are the conditions - they
 become less and less restrictive, and make the law more general and easier to
 apply correctly in more contexts.
 
@@ -162,23 +179,26 @@ must remain bound by their relationship.
 
 Few such relationships exist outside domains governed by strict conservation
 laws, and in a deep sense, the proofs of Little's Law give us a template for
-*discovering* such conservation laws in a new domain. Little’s Law is thus a
-rare find—an intuitive, rigorously provable mathematical relationship among key
-system properties that applies across linear, non-linear, stochastic,
-deterministic, complex, and even some chaotic systems under some very weak
-assumptions.
+*discovering* such conservation laws in a new domain. 
+
+Little’s Law is thus a rare find—an intuitive, rigorously provable mathematical
+relationship among key system properties that applies across linear, non-linear,
+stochastic, deterministic, complex, and even some chaotic systems under some
+very weak assumptions.
 
 In their majestic textbook [@hopp2000], Hopp & Spearman liken Little’s Law to
 _F = m·a_
 for factory physics—a foundational constraint that helped move manufacturing
-from art toward science. We take the view that, with the generalizations
+from art toward science. 
+
+We take the view that, with the generalizations
 developed since its early use in those domains, Little’s Law deserves the same
-status on a much broader scale.
+status on a much grander scale.
 
 In software product development and engineering, it has the potential to serve
-as one of the foundational laws of operations—helping move the field 
-from a collection of intuitive practices unmoored from provable theory to a science grounded
-in data, constraint, and measurement.
+as one of the foundational laws of operations—helping move the field from a
+collection of intuitive practices to a physical and economic science, grounded
+in provable theory, data, constraint, and measurement.
 
 Doing so requires us to go beyond the interpretations of Little’s Law found in Lean
 manufacturing and embrace a more general framing—one that reflects the nature of
