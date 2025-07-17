@@ -38,7 +38,24 @@ spends in the store, and L is the average number of customers in the store.
 > - L is called the _average number in the system_ — the average number of items
 > present in the system per unit of time.
 
-We can see that this equation relates three distinct _kinds_ of averages:
+![A queuing system](../assets/pandoc/queueing_system.png){#fig:queueing-system}
+
+[^-queueing-notes]: The "system" in this case includes both the arrival and
+    service processes. Little’s Law applies to items that have arrived for service
+    but have not yet completed it. In queueing theory, it is common to distinguish
+    between items that are *in service* and those *waiting for service*. By
+    convention, Little’s Law includes both groups in the definition of "in the
+    system." 
+
+    The quantities $L$ and $W$ therefore represent the average number of
+    items in the system and the average time per item across the _union_ of these two
+    sets. In the diagram, we show the arrival and service processes separately to
+    reflect standard queueing theory notation and to emphasize that these are the
+    processes for which Little’s Law assumes conditions like stationarity and
+    ergodicity.
+
+[@fig:queueing-system] shows a canonical queueing system [^-queueing-notes]. We
+can see that Little's Law relates three distinct _kinds_ of averages:
 
 - _L_ is a _time average_ — the number of items present in the system per unit
   of time,
@@ -51,7 +68,7 @@ while the denominator in the second average is a discrete quantity (items), and
 the third quantity is a rate relating the denominators of the other two
 quantities. 
 
-The law expresses the intuition that the total time accumulated in a system by a
+The law expresses the intuition that _the total time accumulated in a system_ by a
 set of discrete [^-discreteness] items over a time window, when averaged _per item_, is
 proportional to the average _number_ of _items_ present in the system over the
 window. The constant of proportionality is the _rate_ at which items enter (or
@@ -367,6 +384,16 @@ Unlike Dr. Little’s result, Stidham’s theorem is proved using _observed long
 
 along a single _sample path_ [^-sample-path]
 
+![Sample path and area under the sample path](../assets/pandoc/stidhams_sample_path_area.png){#fig:sample-path-area}
+
+[@fig:sample-path-area] shows an example of a sample path for an input-output
+system, where $L(t)$ is the number of items in the system at time $t$. Over a
+window of length $T$, the time average of the number of items in the system is
+given by the area under the sample path divided by $T$. 
+
+That is, if the limit $$\lim_{T \to \infty} \frac{1}{T} \int_0^T L(t)\,dt = L$$ exists, then
+this ratio converges to the finite value $L$.
+
 [^-sample-path]: In classical stochastic process theory, a process can evolve in different ways
     depending on the outcomes of some underlying random variables. For example,
     consider repeatedly tossing a coin: each possible sequence of heads and tails is
@@ -375,7 +402,7 @@ along a single _sample path_ [^-sample-path]
     When we observe a particular sequence of tosses over time, we’re observing one such sample path.
     We can think of a deterministic process as one that has exactly one sample path - which is the only one we can possibly observe. 
 
-For stochastic processes this was useful because it could now be applied to
+For stochastic processes this is very useful because Little's Law can now be applied to
 analyze non-ergodic and non-stationary stochastic processes [^-stochastic]. And of course, it opened up
 the same possibilities for deterministic processes as well.
 
@@ -408,16 +435,34 @@ Little's Law allow us to consider the question of convergence or divergence of
 an input-output system without having to consider the internal state of the
 system.
 
-By showing that Little's Law remains valid whenever the required limits exist,
-it turns the question of _whether_ Little's Law applies to a certain kind of
-input-output system (it almost invariably does) to the question of _when_ it
-does. The latter is now a matter of establishing whether certain limits exist,
-and this may be done using domain specific reasoning, or _simply by empirical
-observation over sufficient long sample paths_. All these and more tractable and
-practically useful propositions than requiring ergodicity or stationarity as Dr.
-Little's version did.
+![Patterns of sample path behavior](../assets/pandoc/sample_path_patterns.png){#fig:convergent-divergent}
 
-Little's Law, in this version, becomes a tool for studying the long-run observed
+[@fig:convergent-divergent] shows several possible patterns of sample path
+behavior that may be exhibited by an input-output system, depending on its
+history and internal state. As we can see, a system can exhibit a wide variety
+of behaviors—even when it is convergent.
+
+Purely divergent behavior implies unbounded growth in the area under the sample
+path, but these four patterns are by no means exhaustive. The goal of sample
+path analysis is not to divide systems into rigid categories—linear vs.
+nonlinear, simple vs. complex—but to recognize that *any* deterministic or
+stochastic system may exhibit *any* of these behaviors under the right conditions. What matters is not
+classification, but having the tools to detect and understand mode shifts in
+system behavior when they occur.
+
+Little’s Law holds in *any* of the convergent modes. This reframes the key
+question: rather than asking *whether* Little’s Law applies to a particular
+input-output system (it almost always does), we ask *when* it applies, and
+*under what limits*. That is, at a given point in a system’s evolution, do the
+limits that define the relevant averages exist?
+
+This becomes a practical matter—often resolved through domain-specific
+reasoning, or simply through empirical observation over a sufficiently long
+sample path. These approaches are far more tractable and broadly useful in
+practice than requiring formal conditions like ergodicity or stationarity, as in
+Dr. Little’s original version of the law.
+
+With sample path analysis, Little's Law  becomes a tool for studying the long-run observed
 behavior of input-output systems. It allows us to characterize a system not by
 its internal structure or stochastic assumptions, but by whether its
 macroscopic (and as we will see soon, microscopic) behavior satisfies certain
