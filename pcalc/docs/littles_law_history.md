@@ -38,24 +38,7 @@ spends in the store, and L is the average number of customers in the store.
 > - L is called the _average number in the system_ — the average number of items
 > present in the system per unit of time.
 
-![A queuing system](../assets/pandoc/queueing_system.png){#fig:queueing-system}
-
-[^-queueing-notes]: The "system" in this case includes both the arrival and
-    service processes. Little’s Law applies to items that have arrived for service
-    but have not yet completed it. In queueing theory, it is common to distinguish
-    between items that are *in service* and those *waiting for service*. By
-    convention, Little’s Law includes both groups in the definition of "in the
-    system." 
-
-    The quantities $L$ and $W$ therefore represent the average number of
-    items in the system and the average time per item across the _union_ of these two
-    sets. In the diagram, we show the arrival and service processes separately to
-    reflect standard queueing theory notation and to emphasize that these are the
-    processes for which Little’s Law assumes conditions like stationarity and
-    ergodicity.
-
-[@fig:queueing-system] shows a canonical queueing system [^-queueing-notes]. We
-can see that Little's Law relates three distinct _kinds_ of averages:
+We can see that Little's Law relates three distinct _kinds_ of averages:
 
 - _L_ is a _time average_ — the number of items present in the system per unit
   of time,
@@ -68,11 +51,11 @@ while the denominator in the second average is a discrete quantity (items), and
 the third quantity is a rate relating the denominators of the other two
 quantities. 
 
-The law expresses the intuition that _the total time accumulated in a system_ by a
-set of discrete [^-discreteness] items over a time window, when averaged _per item_, is
-proportional to the average _number_ of _items_ present in the system over the
-window. The constant of proportionality is the _rate_ at which items enter (or
-leave) the system over the window.
+> The law expresses the intuition that the **total time** accumulated in a system by a
+> set of discrete[^-discreteness] items over a time window, when averaged **per item**, is
+> proportional to the average _number_ of **items** present in the system **per unit time**. 
+> The constant of proportionality is the **rate** at which items enter (or
+> leave) the system over the window.
 
 [^-discreteness]: As we will see later, even discreteness of items is not
 essential for the law to hold in the most general setting. The law has
@@ -104,6 +87,30 @@ this law's power remains untapped. We contend that, especially in software
 product development and engineering, a deeper understanding of these concepts is
 essential to transforming operations management from a collection of anecdotes
 and informal practices into a mathematically grounded science.
+
+In all the mathematical machinery and technicalities of the next few sections,
+it will be easy to lose track of the fact that Little's Law is at its core an intuitive result that
+expresses the simple intuition constraining how time accumulated in a system is
+distributed across items and across time itself.
+
+Indeed, as Shaler Stidham notes in his preface to his proof of Little's
+Law [@stidham72]:  "... there are many who feel that L = λW is such an '
+obvious' relation that a rigorous proof is superfluous: at most a heuristic
+argument is required."
+
+He goes on to say, "..heuristic arguments can be deceptive. In any case, they
+are not particularly instructive when they ascribe the validity of the result to
+properties that out, upon rigorous examination, to be superfluous, while failing
+to document the influence of properties that turn out to be essential. "
+
+When it comes to the number of ways in which Little's Law is commonly
+misunderstood or mis-characterized, this observation is indeed very astute, and
+even half a decade after its writing, this largely remains true. In this post we
+will examine sides of this argument, the formal mathematical one and the
+heuristic one. We will begin with the heuristic one to build intuition and focus
+on the mathematical ones to understand how to operationalize the law with rigor. 
+
+Both views turn out to essential to truly appreciating the subtleties of Little's Law.
 
 ### Proofs and generalizations of Little's Law
 
@@ -154,12 +161,13 @@ by researchers [@stidham72], [@brumelle71], [@heyman80], [@sigman91],
 > independent of queueing and probability theory, and applicable to both
 > stochastic and deterministic processes.
 
-These later generalizations make Little’s Law—and the techniques used to prove
-its general forms—very relevant to the analysis of non-linear systems far
-removed from the original application areas that Dr. Little’s formulation
-targeted. In particular, it is highly relevant to the analysis of complex
-adaptive systems such as those commonly encountered in software product
-development and engineering.
+These later generalizations, particularly the deterministic proof provided by
+Shaler Stidham, make Little’s Law—and the techniques used to prove its general
+forms—very relevant to the analysis of non-linear systems far removed from the
+original application areas that Dr. Little’s formulation targeted. In
+particular, it is highly relevant to the analysis of complex adaptive systems
+such as those commonly encountered in software product development and
+engineering.
 
 However, due to the strong association of the original formulation with
 assumptions about stochastic processes—and the extensive applications in
@@ -170,30 +178,30 @@ Little’s Law has nothing useful to say about the kind of highly variable,
 non-uniform processes common in software development.
 
 It doesn’t help that most applications of Little’s Law in software development
-explicitly rely on the formulation imported from Lean manufacturing, focusing on
+explicitly rely on the formulation imported from Lean manufacturing, and focuses on
 _making_ variable work more uniform and predictable. Even in these
 applications, the law often fails to hold when measured empirically in
 operational settings mostly because of _how_ it has been applied. So it has
-remained more of a theoretical curiosity in software - pointing to a desired
+remained something of a theoretical curiosity in software - pointing to a desired
 ideal state, rather than something consistently observable and applicable to 
 real-world development processes. 
 
-So the belief that “Little’s Law does not apply in software” is not entirely
-unfounded—but nevertheless, it is demonstrably false. For those familiar with
-Little’s Law only through its association with Lean manufacturing concepts and
-its applications in software, or from cursory readings on sources like
-Wikipedia, or even standard queueing theory texts, this post offers an
-introduction to the state-of-the-art understanding of the law as it stands
-today.
+So the belief that “Little’s Law does not apply in software” is widespread, and
+not entirely unfounded—but nevertheless, it is demonstrably false. For those
+familiar with Little’s Law only through its association with Lean manufacturing
+concepts and its applications in software, or from cursory readings on sources
+like Wikipedia, or even standard queueing theory texts, this post offers an
+update on the state-of-the-art understanding of the law as it stands today.
 
-Applying Little’s Law correctly in more general settings requires understanding
-the techniques used to prove its broader forms. These techniques not only
-justify its wider applicability, but also show how to apply it usefully
+Applying Little’s Law correctly in more general settings and at scale requires
+understanding the techniques used to prove its broader forms. These techniques
+not only justify its wider applicability, but also show how to apply it usefully
 in domains like software product development and engineering.
 
 In this post, we introduce the history of the law and the proof techniques that
 led to its increasingly general formulations. Understanding _why_ the law
 generalizes is key to understanding _how_ to apply it in more general settings.
+
 Little’s Law remains a highly intuitive result, remarkably general in its
 applicability, yet subtle and often misunderstood and misapplied outside its original context.
 
@@ -268,12 +276,62 @@ nature of complex systems and the dynamics of knowledge work.
 
 Let's now examine the evolution of this law through its various generalizations.
 
+## Little's Law for finite time windows
+
+In the introduction to this post, we described the intuition behind
+$L = \lambda W$:
+
+> The law expresses the intuition that the **total time** accumulated in a
+> system by a
+> set of discrete[^-discreteness] items over a time window, when averaged **per
+item**, is
+> proportional to the average _number_ of **items** present in the system **per
+unit time**.
+> The constant of proportionality is the **rate** at which items enter (or
+> leave) the system over the window.
+
+
+Since all measurements we make in an operational setting are over a finite time
+window, let examine this scenario more carefully - we will end up with a variant
+of the $L=\lambdaW$
+relationship that is closely related to, but not identical to it.
+
+This variant is, in fact, extremely relevant and practically useful. Somewhat
+counter-intuitively, it is also the _most general_ expression of the physics
+underlying Little's Law, because it holds unconditionally at all times, and at
+any time scale, for any input-output system. Even better, this version is very
+easy and intuitive to prove.
+
+In my opinion this is the version of the law that deserves to be recognized as a
+fundamental physical law for input-output systems - not the one that bears Dr.
+Little's name for historical reasons. 
+
+
+
 ## 1961: Dr. Little proves the law
 
 Dr. John Little, at the MIT Sloan School, gave the first mathematical
 proof [@little1961] of this empirical relationship in 1961. His proof method
 was based on the dominant paradigm for analyzing such problems at the time: queueing
 theory, developed decades earlier to model congestion in telephone exchanges.
+
+![A queuing system](../assets/pandoc/queueing_system.png){#fig:queueing-system}
+
+[^-queueing-notes]: The "system" in this case includes both the arrival and
+    service processes. Little’s Law applies to items that have arrived for service
+    but have not yet completed it. In queueing theory, it is common to distinguish
+    between items that are *in service* and those *waiting for service*. By
+    convention, Little’s Law includes both groups in the definition of "in the
+    system." 
+
+    The quantities $L$ and $W$ therefore represent the average number of
+    items in the system and the average time per item across the _union_ of these two
+    sets. In the diagram, we show the arrival and service processes separately to
+    reflect standard queueing theory notation and to emphasize that these are the
+    processes for which Little’s Law assumes conditions like stationarity and
+    ergodicity.
+
+[@fig:queueing-system] shows a canonical queueing system [^-queueing-notes]. 
 
 Queueing theory is built on a foundation of probabilistic models of arrival and
 service processes that describe how items enter, wait in, and depart from the
@@ -290,7 +348,6 @@ The precise result he proved was the following:
 > system. It is shown that, if the three means are finite, and the associated
 > stochastic processes are strictly stationary, and if the arrival process is
 > metrically transitive with nonzero mean, then L = λW.
-
 
 
 ### The assumptions in Dr. Little's proof
@@ -509,55 +566,8 @@ non-stationary, non-ergodic, and potentially highly sensitive to initial
 conditions—exactly the kind of behavior we expect to encounter with complex adaptive systems
 in domains like software development.
 
-### Is Little's Law really that fundamental? 
-
-Both Little's and Stidham’s proofs of Little’s Law show that the law holds in
-the long-run or steady-state behavior of an input-output system. It is generally
-understood that Little’s Law is an *equilibrium law*—one that applies when the
-system is not in a transient state.
-
-As we’ve seen in the previous two sections, the difference between the
-stochastic and deterministic versions lies in how they define equilibrium. The
-stochastic version typically assumes that the system attains and remains in a
-single equilibrium state over time. In contrast, the deterministic (sample path)
-version allows for the possibility of *multiple* equilibrium states. A system
-may enter, remain in, and transition between several such states over its
-long-run behavior—and Little’s Law will hold within each of them.
-
-This flexibility makes the sample path formulation much more useful for studying
-real-world input-output systems, where it is common to encounter distinct and
-shifting equilibrium regimes.
-
-But this raises a deeper question about the *universality* of Little’s Law. If
-the equation holds only under certain conditions—and may not hold at all in some
-cases—can it still be regarded as foundational, in the way Newton’s laws are?
-Newton’s laws are considered fundamental because they apply everywhere and at
-all times. Can we say the same of Little’s Law—or even call it a “conservation
-law”—if it depends on restrictive assumptions?
-
-The answer is yes—but to support this claim, we must carefully reconsider how
-the averages in Little’s Law are defined. By subtly reformulating these
-averages, we arrive at a different kind of generalization: one that holds over
-*any finite time window*, regardless of whether the system is in steady state.
-
-So why don’t we simply start with this finite-time version? The reason is that
-the averages it produces are only approximations—sometimes poor ones—of the
-steady-state values when the system is far from equilibrium. However, when the
-system *is* at equilibrium, these finite-window averages converge exactly to the
-long-run averages. In that sense, the finite version of the law also provides a
-way to measure how far a system is from equilibrium.
-
-While expressing the law in terms of these finite-window approximations may feel
-less natural or intuitive, it reveals the deeper conservation principle we
-introduced at the beginning of this post. And in understanding this finite form,
-we come to see the truly foundational nature of Little’s Law.
-
-## Little's Law for Finite Windows
 
 
-When we 
-
----
 
 ## Post Script 1
 
