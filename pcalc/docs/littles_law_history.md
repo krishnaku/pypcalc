@@ -364,20 +364,27 @@ relationship between:
 - $\Lambda$: the cumulative arrival rate,
 - $w$: the average residence time within the window.
 
-Note: this version uses quantities _that are relative to the observation window_,
-not to the system as a whole. That is, $L$ is an exact time average over the
-window, but $\Lambda$ and $w$ differ from $\lambda$ and $W$ in Little’s Law.
+Note: this version uses quantities _that are relative to the observation
+window_, not to the system as a whole. That is, $L, \Lambda, \text{and} and w$
+will yield different values for each observation window. But while $L$ is an
+exact time average what we might observe for the system as a whole,  $\Lambda$
+and $w$ differ from $\lambda$ and $W$ in Little’s Law.
 
 From [@fig:little-finite], we can see that:
 
-- $\Lambda \ge \lambda$, since we count any item present during the window.
+- $\Lambda \ge \lambda$, since we count any item present during the window not just the ones that arrived during the window.
 - $w \le W$, since we count only the portion of each item's time that falls
-  within the window.
+  within the window, not the entire time accumulated by the item in the system. 
 
 So $\Lambda$ is generally an _overestimate_ of $\lambda$, and $w$ is an
 _underestimate_ of $W$. Yet their product, $\Lambda w$, equals the _exact_
-time-average number of items present in the system over the window, $L$. In this
-sense, the estimation errors _cancel each other out_ over any finite window!
+time-average number of items present in the system, $L$! 
+
+In this sense, $L = \lambda W$ expresses a deep relationship that constrains how these
+three quantities can vary over time. Even over a finite window—and even assuming
+the quantities on the right are only estimates—the estimation errors _cancel
+each other out_ in such a way that the identity $L = \Lambda w$ still holds
+exactly!
 
 These estimation errors are due to _end-effects_: parts of each item's
 trajectory that lie outside the observation window. While we can observe exactly
