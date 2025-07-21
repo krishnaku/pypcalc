@@ -27,7 +27,7 @@ $$L = λW$$
 where λ is the rate at which customers arrive, W is the average time a customer
 spends in the store, and L is the average number of customers in the store.
 
-> In a general setting, we imagine _items_ arriving and departing from a system,
+> In a general setting, we imagine _items_ arriving and departing from an **input-output** system,
 > as observed over some time window, expressed in some unit of time (hours,
 > days,
 > etc).
@@ -186,7 +186,7 @@ remained something of a theoretical curiosity in software - pointing to a desire
 ideal state, rather than something consistently observable and applicable to 
 real-world development processes. 
 
-So the belief that “Little’s Law does not apply in software” is widespread, and
+The belief that “Little’s Law does not apply in software” is widespread, and
 not entirely unfounded—but nevertheless, it is demonstrably false. For those
 familiar with Little’s Law only through its association with Lean manufacturing
 concepts and its applications in software, or from cursory readings on sources
@@ -369,7 +369,9 @@ From [@fig:little-finite], we can see that:
   within the window.
 
 So $\Lambda$ is generally an _overestimate_ of $\lambda$, and $w$ is an
-_underestimate_ of $W$.
+_underestimate_ of $W$. Yet their product, $\Lambda w$, equals the _exact_
+time-average number of items present in the system over the window, $L$. In this
+sense, the estimation errors _cancel each other out_ over any finite window!
 
 These estimation errors are due to _end-effects_: parts of each item's
 trajectory that lie outside the observation window. While we can observe exactly
@@ -386,7 +388,16 @@ L = \Lambda w \longrightarrow L = \lambda W
 $$
 
 When such convergence occurs, we say the system is in _equilibrium_ over the
-window.
+window [^-equilibrium].
+
+[^-equilibrium]: The idea that "equilibrium" is observer- and time-relative
+rather than an ontological or time-invariant state of the system is crucial to
+applying Little's Law appropriately. The same system, when viewed by different
+observers or across different timescales, may or may not appear to be at
+equilibrium. A “global” equilibrium can be understood as a condition of
+epistemic coherence across all observers. When Little’s Law holds exactly
+as $L = \lambda W$, the observation window $T$ is such that all observers agree
+on the _interpretation_, as well as the _values_ of $L$, $\lambda$, and $W$.
 
 But what if we can’t find a sufficiently long window where convergence occurs?
 That would indicate a structural imbalance: either $\Lambda$ or $w$ diverges
