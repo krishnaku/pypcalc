@@ -428,10 +428,10 @@ This convergence can be shown empirically for specific systems or proven
 formally for entire classes. We’ll explore two of the most well-known results in
 the next sections.
 
-## 1961: Dr. Little proves the law
+## 1961: Little's proof for queueing systems
 
-Dr. John Little, at the MIT Sloan School, gave the first mathematical
-proof [@little1961] of this empirical relationship in 1961. His proof method
+Dr. John Little, at the MIT Sloan School, gave the first general mathematical
+proof [@little1961] of $L = \lambda W$  in 1961. His proof method
 was based on the dominant paradigm for analyzing such problems at the time: queueing
 theory, developed decades earlier to model congestion in telephone exchanges.
 
@@ -494,23 +494,28 @@ showed that it held regardless of the shapes of the probability distributions.
 That was an unexpectedly general result for queueing theory, where many results
 depend on strong assumptions about inter-arrival or service time distributions.
 
-In fact, his proof showed that many internal details of the system—such as
-queue discipline, scheduling order, or service time variability—do not affect
-the validity of the relationship. Little’s Law, it turns out, is not a result
-about the mechanisms of queuing per se, but about the aggregate behavior of
-arrival and departure processes over time. No matter what these processes look
-like internally, the relationship among their averages is constrained by the
-equation. 
+In fact, his proof showed that many internal details of the system—such as queue
+discipline, scheduling order, or service time variability—do not affect the
+validity of the relationship. Little’s Law, it turns out, is not a result about
+the mechanisms of queuing per se, but about the aggregate behavior of arrival
+and departure processes over time. No matter what these processes look like
+internally, the relationship among their averages is constrained by the
+equation.
 
 So it points to the fact that there is something deeper at play here than
-randomness. Understanding his proof strategy sheds light on where the line lies. 
+randomness. Given our intuitive understanding of the finite version of the law,
+this should not be too surprising, but understanding his proof strategy sheds
+light on where the line lies.
 
-Little’s Law is fundamentally a statement about _time averages_—quantities that
-can be directly observed in real-world systems over time. Dr. Little, however,
-used probabilistic techniques to prove a relationship between the *expected
-values* of random variables. Unlike time averages, expected values, also called
+As we've emphasized, Little’s Law is fundamentally a statement about _time
+averages_—quantities that can be directly observed in real-world systems over
+time. Dr. Little, however, used probabilistic techniques to prove a relationship
+between the *expected values* of random variables. Unlike time averages,
+expected values, also called
 _ensemble averages_ are computed across the entire probability distribution of a
-process and are defined independently of how the system evolves over time.
+process and are defined independently of how the system evolves over time. In a
+sense, this is how the "system behaviors across sufficiently long observation
+windows" are captured in a probabilistic or stochastic process formulation.
 
 Given his probabilistic framing, Little’s proof started by establishing
 the equality as a relationship between ensemble averages. To apply this result
@@ -532,10 +537,15 @@ _“Little’s Law, the last word”_ [@stidham72].
 
 ## 1972: Stidham’s Proof
 
-Stidham gave the first purely deterministic proof of Little's Law free from any
-probabilistic assumptions. This was important because it showed that, the
+Stidham gave the first purely deterministic proof of Little's Law, free from any
+probabilistic assumptions. This was important because it showed that the
 conditions under which Little's Law holds could be stated independently of
-whether the underlying process was deterministic or stochastic. 
+whether the underlying process is deterministic or stochastic. 
+
+Stidham's proof can be understood as a *direct* proof of the convergence conditions needed for
+the finite-window identity $L = \Lambda w$ to yield the equilibrium
+relationship $L = \lambda W$, without requiring any of the stochastic process
+assumptions used in Dr. Little's original proof.
 
 Stidham's framing considers the following input-output system
 _observed over a sufficiently long time interval_ $[0, T)$.:
@@ -631,9 +641,11 @@ in Little’s Law converge along a sufficiently long sample path.
 
 This redefinition has powerful implications. It shifts the question from "_what
 kind of system is this?_" to "_how does this system behave when we observe it
-over the long run?_" The most important distinction now becomes whether the
-system is _convergent_—whether the required limits exist—or
-_divergent_, meaning one or more limits do not exist. 
+over the long run?_" 
+
+> The most important distinction now becomes whether the
+> system is **convergent** —whether the required limits exist—or
+**divergent**, meaning one or more limits do not exist. 
 
 This distinction applies across the board: linear systems, non-linear systems,
 complex adaptive systems, and even chaotic ones can exhibit either convergent or
@@ -648,7 +660,7 @@ system.
 [@fig:convergent-divergent] shows several possible patterns of convergence or divergence 
 of long run averages on the sample path of an input-output system, depending on its
 history and internal state [^-note-average]. As we see, a system can exhibit a wide variety
-of behaviors—even when it is convergent.
+of "equilibrium" behaviors—even when it is convergent.
 
 [^-note-average]: It is crucial to note that _we are not displaying the sample path here_
 but the _cumulative time-average of the sample path_, ie we are showing $L(T) = \frac{1}{T} \int_0^T N(t)\,dt$ not $N(t)$. 
@@ -663,9 +675,8 @@ system behavior when they occur.
 
 Little’s Law holds in *any* of the convergent modes. This reframes the key
 question: rather than asking *whether* Little’s Law applies to a particular
-input-output system (it almost always does), we ask *when* it applies, and
-*under what limits*. That is, at a given point in a system’s evolution, do the
-limits that define the relevant averages exist?
+input-output system (it almost always does), we ask *when* it applies, *how
+long* it applies, and *under what limits*. 
 
 This becomes a practical matter—often resolved through domain-specific
 reasoning, or simply through empirical observation over a sufficiently long
