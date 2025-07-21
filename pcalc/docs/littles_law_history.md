@@ -414,7 +414,7 @@ on the _interpretation_, as well as the _values_ of $L$, $\lambda$, and $W$.
 
 But what if we can’t find a sufficiently long window where convergence occurs?
 That would indicate a structural imbalance: either $\Lambda$ or $w$ diverges
-as $T$ increases. The system is not tending toward equilibrium.
+as $T$ increases. The system does not tend toward any equilibrium state.
 
 > The key takeaway: for operations management, the relationship $L = \Lambda w$
 > for finite windows is **at least as important**—and often **more important**
