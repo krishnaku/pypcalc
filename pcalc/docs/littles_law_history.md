@@ -292,21 +292,105 @@ unit time**.
 
 
 Since all measurements we make in an operational setting are over a finite time
-window, let examine this scenario more carefully - we will end up with a variant
-of the $L=\lambdaW$
+window, let examine this scenario more carefully - we will end up with a _variant_
+of the $L=\lambda W$
 relationship that is closely related to, but not identical to it.
 
 This variant is, in fact, extremely relevant and practically useful. Somewhat
 counter-intuitively, it is also the _most general_ expression of the physics
-underlying Little's Law, because it holds unconditionally at all times, and at
-any time scale, for any input-output system. Even better, this version is very
-easy and intuitive to prove.
+underlying Little's Law, because it holds unconditionally at _all_ times, and at
+_any_ time scale, for _any_ input-output system. Even better, this version is very
+easy and intuitive to prove: in fact, it is a tautology. 
 
-In my opinion this is the version of the law that deserves to be recognized as a
-fundamental physical law for input-output systems - not the one that bears Dr.
-Little's name for historical reasons. 
+In fact, this relationship is a fundamental
+physical law for input-output systems, but it is expressed in terms 
+of somewhat different quantities than the one in Little's Law: residence time
+and cumulative arrival rate. 
 
+### Residence time and cumulative arrival rate
 
+Let's consider an input-output system observed over some fixed finite window $T$ as
+in [@fig:little-finite].
+
+![An input-output system over a finite observation window](../assets/pandoc/littles_law_finite.png){#fig:little-finite}
+
+The bars in diagram represent the time accumulated in the system by each item.
+The finite window overlaps some items completely or partially. Let $N$ represent
+the number of such items.
+
+Also, for each such item, let $A_i$ denote the time accumulated
+by that item _within the observation window_. This is called the _residence time_ of the
+item in the window, and is at most equal to the the total time accumulated by the item in the system.
+
+Now let $$ A = \sum_{i=0}^{N} A_i$$ be the total time accumulated by the items in the observation window. 
+
+> We note that for each instant of time that an item accumulates in the window, it is also _present_ in the window for that
+> instant of time. 
+
+So we can write $L$, the time average of the number of items present in the system over the observation window
+as $$L = A/T $$
+
+Also, the average residence time per item is $$w = A/N$$ It is easy to see
+that $L$ and $w$ are related by the factor $N/T$ i.e $$ L = A/T = N/T \times A/N = N/T \times w$$. 
+
+We can _interpret_ $N$ as the _cumulative_ arrivals to the system over the
+observation window and _define_ $$ \Lambda = N/T$$
+as the _cumulative arrival rate_ to the system over the observation window. This
+is because each of the $N$ items either arrived during the window, or was
+already present in the system at the start of the window.
+
+So now, we have established a fundamental and important relationship between a
+time average of the number of items, an arrival rate and the sample average of
+time accumulation per item for any _finite_ observation window. 
+
+Under this construction, $L$ is the _exact_ value of the time average of the
+number of items in the system. But the right hand side quantities are _not_ the
+same as the ones in Little's Law where they are defined in terms of the time
+accumulated in the _system_ by the items and the _arrival rate_ to the _system_.
+
+For the fixed window  $T$ in [@fig:little-finite]  we can see that
+the $\Lambda \ge \lambda$ since the cumulative arrivals in the window is at
+least as great as the number of arrivals in the window. Similarly, $w \le W$
+since the time accumulated by any item in the window is at most as great the
+total time in the system. Thus we can think of $\lambda$ and $w$ as _estimates_
+of the long run values for $\lambda$ and $W$, with the former being an
+over-estimate and the latter being an underestimate, in general.
+
+The estimation errors are caused by the "end-effects", the part of the history
+of the system that lies outside the observation window - the fact that we cannot
+attribute an arrival rate or time accumulation rate to things were not able to
+observe, whereas we are able to correctly observe the number of items that were present in
+the window for any finite window.
+
+So the intuition here is that if we pick a sufficiently long window, say where $T \gg  W$ then these estimation errors due to the end-effects, become
+negligible because, or all of the *observed* time accumulation happens within the observation window as opposed to outside it. 
+
+When such a sufficiently long observation window $T$ exists, the system is said to be at _equilibrium_ when _over the window_ and the
+finite window relationship $L = \Lambda W$ converges to the relationship $L = \lambda W$. 
+
+But what if we cannot find such a suitably long window? Then this must be due to
+some structural imbalances in the system - either $\Lambda$ or $w$ continues to
+grow without limit no matter how long you observe the system.
+
+> But the key takeaway here is that for operations management the relationship $L = \Lambda w$ that applies to finite windows, is **at least as important**,
+> if not **more** important than the equilibrium relationship $L= \lambda W$. 
+
+Operationally, _when the observation windows are typically smaller than the time accumulated by items in the system_, measuring residence time and cumulative arrival rate
+for such input-output systems is extremely valuable: a situation that is very relevant to applying the Little's Law in software product development and engineering. 
+
+For example, systems of work, customer feedback cycles etc., sales cycles etc.
+typically have larger durations than typical operational reporting windows, and
+thus these systems typically _appear_ far from equilibrium when observed over such
+windows. Here,  measuring the observer relative quantities $\Lambda$
+and $w$ _in addition to _ and their relationship to the system relative
+quantities $\lambda$ and $W$ is crucial.
+
+The finite window relationship is also a crucial building block in _proving_ Little's Law.  The general strategy behind all the mathematical proofs of Little's Law is showing that for a sufficiently long observation window the average residence time $w$ converges to 
+the long run average time in system $W$ and that the cumulative arrival rate $\lambda$ converges to the long run arrival rate $\lambda$
+$$\lim_{T \to \infty} w = W \quad \text{and} \quad \lim_{T \to \infty} \Lambda = \lambda$$ This can range from showing empirically 
+that the limits do converge for a _specific_ class of systems to deriving general convergence conditions and mathematical proofs for entire classes of systems. 
+
+We will discuss two of the most famous general results in this regard in the next two sections. 
 
 ## 1961: Dr. Little proves the law
 
@@ -468,7 +552,7 @@ Unlike Dr. Little’s result, Stidham’s theorem is proved using _observed long
 
 along a single _sample path_ [^-sample-path]
 
-![Sample path and area under the sample path](../assets/pandoc/stidhams_sample_path_area.png){#fig:sample-path-area}
+![Sample path and area under the sample path](../assets/pandoc/stidhams-sample-path-area.png){#fig:sample-path-area}
 
 [@fig:sample-path-area] shows an example of a sample path for an input-output
 system, where $N(t)$ is the number of items in the system at time $t$. Over a
