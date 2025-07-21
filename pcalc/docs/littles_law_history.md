@@ -19,12 +19,11 @@ empirical regularity observed in retail stores, call centers, and other service
 operations. It's a commonplace observation that stores get more crowded when
 more customers come in and stay longer.
 
-This leads to a mathematical relationship capturing this
-phenomenon, one that was also observed empirically.
+We can express this phenomenon as a mathematical relationship: one that was also observed empirically.
 
 $$L = λW$$
 
-where λ is the rate at which customers arrive, W is the average time a customer
+Here, λ is the rate at which customers arrive, W is the average time a customer
 spends in the store, and L is the average number of customers in the store.
 
 > In a general setting, we imagine _items_ arriving and departing from an **input-output** system,
@@ -32,24 +31,23 @@ spends in the store, and L is the average number of customers in the store.
 > days,
 > etc).
 >
-> - λ is called the _arrival rate_ — the number of items arriving per unit time,
-> - W is called the _average time in system_ — the average number of time units
+> - λ is called the _arrival rate_ — the rate at which items arrive over the time window,
+> - W is called the _average time in system_ — the average amount of time 
 > for which an item is present in the system,
 > - L is called the _average number in the system_ — the average number of items
-> present in the system per unit of time.
+> present in the system over the time window.
 
 We can see that Little's Law relates three distinct _kinds_ of averages:
 
-- _L_ is a _time average_ — the number of items present in the system per unit
-  of time,
-- _W_ is an _item average_ — the average number of time units an item
-  accumulates while present in the system,
-- λ is a rate — a number of items per unit of time.
+- _L_ is a _time average_ — the number of items present in the system over some continuous time interval
+- _W_ is an _item average_ — the average amount of an item
+  accumulates while present in the system
+- λ is a rate — a rate of arrivals over some time window. 
 
 Notably, the denominator in the first average is a continuous quantity (time),
 while the denominator in the second average is a discrete quantity (items), and
 the third quantity is a rate relating the denominators of the other two
-quantities. 
+quantities.
 
 > The law expresses the intuition that the **total time** accumulated in a system by a
 > set of discrete[^-discreteness] items over a time window, when averaged **per item**, is
@@ -72,11 +70,12 @@ general setting. Answering this question rigorously has led to some deep results
 that have proven very valuable in solving economically critical problems in a
 variety of domains.
 
-Much of the technical complexity in proving Little’s
-Law arises from the challenge of relating a time average—measured over a
-continuous interval—to a sample average over discrete items. These fundamentally
-different types of averages are not directly comparable and require some
-carefully constructed mathematical machinery to reconcile.
+Much of the technical complexity in proving Little’s Law arises from the
+challenge of relating a time average—measured over a continuous interval—to a
+sample average over discrete items. These fundamentally different types of
+averages are not directly comparable and require carefully constructed
+mathematical machinery to reconcile—especially to ensure that all measurements
+are made within the same consistent frame of reference.
 
 Examining the journey of its proofs and the generalizations they uncover,
 reveals a foundational collection of physical and economic laws
@@ -94,19 +93,24 @@ expresses the simple intuition constraining how time accumulated in a system is
 distributed across items and across time itself.
 
 Indeed, as Shaler Stidham notes in his preface to his proof of Little's
-Law [@stidham72]:  "... there are many who feel that L = λW is such an '
-obvious' relation that a rigorous proof is superfluous: at most a heuristic
-argument is required."
+Law [@stidham72]: "... _there are many who feel that L = λW is such an 'obvious' relation that a
+rigorous proof is superfluous: at most a heuristic argument is required_."
 
-He goes on to say, "..heuristic arguments can be deceptive. In any case, they
-are not particularly instructive when they ascribe the validity of the result to
-properties that out, upon rigorous examination, to be superfluous, while failing
-to document the influence of properties that turn out to be essential. "
+He goes on to say, "..._heuristic arguments can be deceptive. In any case, they are not particularly
+instructive when they ascribe the validity of the result to properties that turn
+out, upon rigorous examination, to be superfluous, while failing to document the
+influence of properties that turn out to be essential._" [^-misconceptions]
 
-When it comes to the number of ways in which Little's Law is commonly
-misunderstood or mis-characterized, this observation is indeed very astute, and
-even half a decade after its writing, this largely remains true. In this post we
-will examine sides of this argument, the formal mathematical one and the
+[^-misconceptions]: Stidham's point is especially important because Dr. Little's
+original proof of the law relied on probabilistic and stochastic process
+assumptions that have proven to be entirely superfluous to understanding why
+Little's Law works. Yet, because the standard formulation of the law still uses
+these assumptions, it is widely believed that "Little's Law" only applies to
+queueing systems and stochastic processes. While it certainly applies to those
+systems, its scope is much, much more general—a point that Stidham makes in a
+rather understated way.
+
+In this post we will examine sides of this argument, the formal mathematical one and the
 heuristic one. We will begin with the heuristic one to build intuition and focus
 on the mathematical ones to understand how to operationalize the law with rigor. 
 
@@ -186,13 +190,6 @@ remained something of a theoretical curiosity in software - pointing to a desire
 ideal state, rather than something consistently observable and applicable to 
 real-world development processes. 
 
-The belief that “Little’s Law does not apply in software” is widespread, and
-not entirely unfounded—but nevertheless, it is demonstrably false. For those
-familiar with Little’s Law only through its association with Lean manufacturing
-concepts and its applications in software, or from cursory readings on sources
-like Wikipedia, or even standard queueing theory texts, this post offers an
-update on the state-of-the-art understanding of the law as it stands today.
-
 Applying Little’s Law correctly in more general settings and at scale requires
 understanding the techniques used to prove its broader forms. These techniques
 not only justify its wider applicability, but also show how to apply it usefully
@@ -203,7 +200,16 @@ led to its increasingly general formulations. Understanding _why_ the law
 generalizes is key to understanding _how_ to apply it in more general settings.
 
 Little’s Law remains a highly intuitive result, remarkably general in its
-applicability, yet subtle and often misunderstood and misapplied outside its original context.
+applicability, yet subtle and often misunderstood and misapplied outside its
+original context. The belief that “Little’s Law does not apply in software” is
+widespread, even if not entirely unfounded. Nevertheless, it is demonstrably
+false.
+
+For those familiar with Little’s Law only through its association with Lean manufacturing
+concepts and its applications in software, or from cursory readings on sources
+like Wikipedia, or even standard queueing theory texts, this post offers an
+update on the state-of-the-art understanding of the law as it stands today.
+
 
 ### The significance of Little's Law
 
@@ -270,9 +276,9 @@ software operations management, this arc is nascent at best. The concepts in
 this post represent one necessary step toward a more principled and scientific
 status quo.
 
-Doing so requires us to go beyond the interpretations of Little’s Law found in
-Lean manufacturing and embrace a more general framing—one that reflects the
-nature of complex systems and the dynamics of knowledge work.
+Doing so requires us to really understand the full scope of applicability of the
+law and embrace a more general framing—one that reflects the nature of complex
+systems and the dynamics of knowledge work.
 
 Let's now examine the evolution of this law through its various generalizations.
 
