@@ -40,7 +40,7 @@ spends in the store, and L is the average number of customers in the store.
 We can see that Little's Law relates three distinct _kinds_ of averages:
 
 - _L_ is a _time average_ — the number of items present in the system over some continuous time interval
-- _W_ is an _item average_ — the average amount of an item
+- _W_ is an _item average_ — the average time of an item
   accumulates while present in the system
 - λ is a rate — a rate of arrivals over some time window. 
 
@@ -49,11 +49,11 @@ while the denominator in the second average is a discrete quantity (items), and
 the third quantity is a rate relating the denominators of the other two
 quantities.
 
-> The law expresses the intuition that the **total time** accumulated in a system by a
-> set of discrete[^-discreteness] items over a time window, when averaged **per item**, is
-> proportional to the average _number_ of **items** present in the system **per unit time**. 
-> The constant of proportionality is the **rate** at which items enter (or
-> leave) the system over the window.
+The law expresses the intuition that the **total time** accumulated in a system by a
+set of discrete[^-discreteness] items over a time window, when averaged **per item**, is
+proportional to the average _number_ of **items** present in the system **per unit time**. 
+The constant of proportionality is the **rate** at which items enter (or
+leave) the system over the window.
 
 [^-discreteness]: As we will see later, even discreteness of items is not
 essential for the law to hold in the most general setting. The law has
@@ -110,9 +110,10 @@ queueing systems and stochastic processes. While it certainly applies to those
 systems, its scope is much, much more general—a point that Stidham makes in a
 rather understated way.
 
-In this post we will examine sides of this argument, the formal mathematical one and the
-heuristic one. We will begin with the heuristic one to build intuition and focus
-on the mathematical ones to understand how to operationalize the law with rigor. 
+In this post, we will examine both sides of this argument—the formal
+mathematical one and the heuristic one. While we began by building intuition,
+the core of this article will focus on the mathematical rigor necessary to
+operationalize the law..
 
 Both views turn out to essential to truly appreciating the subtleties of Little's Law.
 
@@ -216,7 +217,7 @@ update on the state-of-the-art understanding of the law as it stands today.
 Before we jump into the details, it’s worth pausing to understand why this law
 even matters.
 
-Empirical observations often surface correlations—observed associations where
+Empirical observations often reveal correlations—observed associations where
 two quantities move in concert. Such correlations are frequently a starting
 point for causal reasoning, prompting us to search for underlying mechanisms
 that might explain the apparent linkage.
@@ -741,14 +742,14 @@ $$ L(t) = \sum_k f_k(t) $$ and we can interpret $L(t)$ as the _total cost rate_ 
 items present in the system at time $t$. 
 
 Similarly we can sum up the cost for each item across the (continuous) interval of time it is present in the system
-$$ W_k = \int_{a_k}^{d_k} f_k(t) $$
+$$ W_k = \int_{a_k}^{d_k} f_k(t) dt$$
 
 So under this interpretation $L=\lambda W$ simply says that long-run average cost per unit time (rate at which cost accumulates) equals the arrival rate of items
 times the long run average cost per item. A very literal interpretation of cost would be a unit of delay - $L$ would represent the rate 
 which delays accumulate in the system - showing the tight coupling between the number of items in the system and the rate at which delays accumulate
 in the system. 
 
-### Generalizing the cost function 
+### Generalizing to time-value
 
 When interpreting $L=\lambda W$ economically, we assigned a constant cost of 1
 per time to each item. However, what is more interesting is that we can derive
@@ -756,20 +757,29 @@ an even more general relationship similar to $L=\lambda W$ if we replace each $f
 time [^-technical-condition]. 
 
 Let's assume $f_k(t)$ is an arbitrary function
-denoting the rate at which item $k$ incurs cost at time $t$. In the most general
+denoting the rate at which item $k$ accumulates cost at time $t$. In the most general
 framing, an _item_ here can be an arbitrary function defined on a stochastic
-point process [^-point-process].
+point process [^-point-process] and "cost" can be interpreted as one possible type of value [^-value] making
+$f_k(t)$ a representation of _time-value_. 
+
+[^-value]: In general "value" can denote things you _want_ to accumulate as opposed to 
+things you want to _constrain_. The cost centric interpretation aligns more naturally with 
+systems where we want the accumulation to converge. This is by far the most common application
+of Little's Law. But this is by no means baked into the definitions. A more general value interpretation
+admits both convergence and divergences as desirable outcome depending upon the interpretation
+of value, and much of the machinery of Little's Law can still be applied to this interpretation fruitfully. 
+
 
 [^-technical-condition]: There are some conditions on the functions that need to be satisfied these are: 
 
-    - The absolute value of the functions $f_i$ must be Lebesgue integrable and must be finite over a sufficiently long window: $\int_0^{\infty}\lvert f_i(t) dt < \infty$
+    - The absolute value of the functions $f_i$ must be Lebesgue integrable and must be finite over a sufficiently long window: $\int_0^{\infty}\lvert f_i(t) \rvert dt < \infty$
     - The value of each function is zero outside some closed finite interval of time: for some $l_i >0, f_i(t) = 0 \text{ for } t \notin [t_i, t_i+l_i]$
 
 
 [^-point-process]: Think of a stochastic point process as a sequence of random time-stamped events. 
 
-Define $$ H(t) = \sum_0^{\infty} f_k(t), t \ge 0,$$ as the cost accumulation rate  and 
-$$G_k = \int_0^{\infty} f_k(t)dt, k \ge 1$$ as the cost contribution per item. 
+Define $$ H(t) = \sum_{k=1}^{\infty} f_k(t), t \ge 0,$$ as the cost (value) accumulation rate  and 
+$$G_k = \int_0^{\infty} f_k(t)dt, k \ge 1$$ as the cost (value) contribution per item. 
 
 You can see the formulas are identical to the ones we used for interpreting $L=\lambda W$ economically, except that we are
 now allow general functions rather than the unit cost function. 
@@ -786,7 +796,7 @@ $$H = \lim_{n \to \infty} \frac{1}{T} \int_0^T H(t)dt$$ as the limit to which th
 ![The long run averages $H$ and $G$](../assets/pandoc/h_lambda_g_second.png){#fig:general-2}
 
 As in the case of $L=\lambda W$ let 
-$$ \lambda = \lim_{t \to \infty} \frac{\Lambda}{t} $$ where $\Lambda$ is the cumulative arrival rate up to time $t$.
+$$ \lambda = \lim_{t \to \infty} \frac{\Lambda(t)}{t} $$ where $\Lambda(t)$ is the cumulative number of arrivals up to time $t$.
 
 Given these definitions and one additional technical condition [^-tech-condition-2], we have [@heyman80]:
 
@@ -806,20 +816,21 @@ commonly occur in many signals in the software domain, but all this means is tha
 The general form of Little's Law seems a lot more complicated to even state than
 the very intuitive definitions we started out with, but it is important to
 understand that they are all generalizations of the same underlying rate
-conservation principle: the total accumulation of a time varying measure in a
-system when averaged over time is proportional over the long run to the average
-of the contributions from each item, wiuth the rate at which contributions
-arrive at the system in the long run being the proportionality factor.
+conservation principle: the total accumulation of a time varying measure over a
+set of discrete items in a system when averaged over time is proportional over
+the long run to the average of the contributions from each item, with the rate
+at which contributions arrive at the system in the long run being the
+proportionality factor.
 
 The thing to note about the general form of the law is that has morphed from a
-statement about how time accumulates to how time-value accumulates. This is a
+statement about how quantity accumulates over time to how time-value accumulates. This is a
 fundamental step change in the scope of what the law can be applied to.
 
 But the power of the general form of the law lies in the fact we can build much
 more sophisticated models of the _interactions_ between time varying properties
-of processes, and exploit the fact that they satisfy this fundamental constraint
-to _discover_ rate conservation relationships and prove cause and effect
-relationships between key parameters that do not rely of statistic correlations
+of items, and exploit the fact that they satisfy this fundamental constraint
+to _discover_ rate conservation relationships and prove localized _cause and effect_
+relationships between key parameters. And do so without relying on statistical correlations
 to make their case.
 
 The combination of these two aspects of the general form of the law mean that it
@@ -829,18 +840,18 @@ somewhat convoluted path by which this law was discovered and proved means that
 the learning curve needed to even start applying this law is fairly daunting.
 
 This was one of the key motivations behind the development of The Presence
-Calculus. The presence calculus is largely derived from the techniques and
-results described in this post, but reassembles the underlying machinery to make
-it easier to apply in settings beyond stochastic process theory, with simpler
-computationally oriented primitives whose correctness can be proven using the
-results in this post.
+Calculus. The presence calculus is largely derived from the mathematical
+techniques and proven results described in this post, but reassembles the
+underlying machinery to make it easier to apply in settings beyond stochastic
+process theory, with simpler computationally oriented primitives whose
+correctness can be proven using the results in this post.
 
 Because much of the machinery needed to make the concepts in the general form of
 the law easier to apply, are developed in The Presence Calculus, we will not
 spend much more time explaining them here, but point you
 to [The Gentle Introduction](./intro_to_presence_calculus.html) where you will
 see many of the ideas discussed here re-appear, but reframed to make it easier
-to build measurement models and tools that can compute over the functional
+to build measurement models and tools that can compute over the mathematical 
 machinery described in this section.
 
 ## Little's Law: A Recap

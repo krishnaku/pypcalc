@@ -427,10 +427,10 @@ Program</em></a></p></p>
         id="toc-an-economic-interpretation-of-llambda-w"><span
         class="toc-section-number">5.1</span> An economic interpretation
         of <span class="math inline">\(L=\lambda W\)</span></a></li>
-        <li><a href="#generalizing-the-cost-function"
-        id="toc-generalizing-the-cost-function"><span
-        class="toc-section-number">5.2</span> Generalizing the cost
-        function</a></li>
+        <li><a href="#generalizing-to-time-value"
+        id="toc-generalizing-to-time-value"><span
+        class="toc-section-number">5.2</span> Generalizing to
+        time-value</a></li>
         <li><a href="#why-this-is-important"
         id="toc-why-this-is-important"><span
         class="toc-section-number">5.3</span> Why this is
@@ -493,8 +493,7 @@ Program</em></a></p></p>
             items present in the system over some continuous time
             interval</li>
             <li><em>W</em> is an <em>item average</em> — the average
-            amount of an item accumulates while present in the
-            system</li>
+            time of an item accumulates while present in the system</li>
             <li>λ is a rate — a rate of arrivals over some time
             window.</li>
             </ul>
@@ -503,7 +502,6 @@ Program</em></a></p></p>
             second average is a discrete quantity (items), and the third
             quantity is a rate relating the denominators of the other
             two quantities.</p>
-            <blockquote>
             <p>The law expresses the intuition that the <strong>total
             time</strong> accumulated in a system by a set of discrete<a
             href="#fn1" class="footnote-ref" id="fnref1"
@@ -514,7 +512,6 @@ Program</em></a></p></p>
             unit time</strong>. The constant of proportionality is the
             <strong>rate</strong> at which items enter (or leave) the
             system over the window.</p>
-            </blockquote>
             <p>The law was widely assumed to be true in operational
             settings and used without proof because it was intuitive,
             could be empirically confirmed, and its symmetry was
@@ -564,11 +561,11 @@ Program</em></a></p></p>
             properties that turn out to be essential.</em>” <a
             href="#fn2" class="footnote-ref" id="fnref2"
             role="doc-noteref"><sup>2</sup></a></p>
-            <p>In this post we will examine sides of this argument, the
-            formal mathematical one and the heuristic one. We will begin
-            with the heuristic one to build intuition and focus on the
-            mathematical ones to understand how to operationalize the
-            law with rigor.</p>
+            <p>In this post, we will examine both sides of this
+            argument—the formal mathematical one and the heuristic one.
+            While we began by building intuition, the core of this
+            article will focus on the mathematical rigor necessary to
+            operationalize the law..</p>
             <p>Both views turn out to essential to truly appreciating
             the subtleties of Little’s Law.</p>
             <h3 data-number="1.1"
@@ -673,12 +670,11 @@ Program</em></a></p></p>
             Little’s Law</h3>
             <p>Before we jump into the details, it’s worth pausing to
             understand why this law even matters.</p>
-            <p>Empirical observations often surface
-            correlations—observed associations where two quantities move
-            in concert. Such correlations are frequently a starting
-            point for causal reasoning, prompting us to search for
-            underlying mechanisms that might explain the apparent
-            linkage.</p>
+            <p>Empirical observations often reveal correlations—observed
+            associations where two quantities move in concert. Such
+            correlations are frequently a starting point for causal
+            reasoning, prompting us to search for underlying mechanisms
+            that might explain the apparent linkage.</p>
             <p>But even though Little’s Law arose from empirical
             observations, it establishes something much stronger than a
             correlation. The law expresses a strict equation between
@@ -1304,7 +1300,7 @@ Program</em></a></p></p>
             <p>Similarly we can sum up the cost for each item across the
             (continuous) interval of time it is present in the system
             <span class="math display">\[ W_k = \int_{a_k}^{d_k} f_k(t)
-            \]</span></p>
+            dt\]</span></p>
             <p>So under this interpretation <span
             class="math inline">\(L=\lambda W\)</span> simply says that
             long-run average cost per unit time (rate at which cost
@@ -1315,10 +1311,9 @@ Program</em></a></p></p>
             which delays accumulate in the system - showing the tight
             coupling between the number of items in the system and the
             rate at which delays accumulate in the system.</p>
-            <h3 data-number="5.2"
-            id="generalizing-the-cost-function"><span
-            class="header-section-number">5.2</span> Generalizing the
-            cost function</h3>
+            <h3 data-number="5.2" id="generalizing-to-time-value"><span
+            class="header-section-number">5.2</span> Generalizing to
+            time-value</h3>
             <p>When interpreting <span class="math inline">\(L=\lambda
             W\)</span> economically, we assigned a constant cost of 1
             per time to each item. However, what is more interesting is
@@ -1330,17 +1325,22 @@ Program</em></a></p></p>
             role="doc-noteref"><sup>12</sup></a>.</p>
             <p>Let’s assume <span class="math inline">\(f_k(t)\)</span>
             is an arbitrary function denoting the rate at which item
-            <span class="math inline">\(k\)</span> incurs cost at time
-            <span class="math inline">\(t\)</span>. In the most general
-            framing, an <em>item</em> here can be an arbitrary function
-            defined on a stochastic point process <a href="#fn13"
-            class="footnote-ref" id="fnref13"
-            role="doc-noteref"><sup>13</sup></a>.</p>
+            <span class="math inline">\(k\)</span> accumulates cost at
+            time <span class="math inline">\(t\)</span>. In the most
+            general framing, an <em>item</em> here can be an arbitrary
+            function defined on a stochastic point process <a
+            href="#fn13" class="footnote-ref" id="fnref13"
+            role="doc-noteref"><sup>13</sup></a> and “cost” can be
+            interpreted as one possible type of value <a href="#fn14"
+            class="footnote-ref" id="fnref14"
+            role="doc-noteref"><sup>14</sup></a> making <span
+            class="math inline">\(f_k(t)\)</span> a representation of
+            <em>time-value</em>.</p>
             <p>Define <span class="math display">\[ H(t) =
-            \sum_0^{\infty} f_k(t), t \ge 0,\]</span> as the cost
-            accumulation rate and <span class="math display">\[G_k =
-            \int_0^{\infty} f_k(t)dt, k \ge 1\]</span> as the cost
-            contribution per item.</p>
+            \sum_{k=1}^{\infty} f_k(t), t \ge 0,\]</span> as the cost
+            (value) accumulation rate and <span
+            class="math display">\[G_k = \int_0^{\infty} f_k(t)dt, k \ge
+            1\]</span> as the cost (value) contribution per item.</p>
             <p>You can see the formulas are identical to the ones we
             used for interpreting <span class="math inline">\(L=\lambda
             W\)</span> economically, except that we are now allow
@@ -1371,13 +1371,13 @@ Program</em></a></p></p>
             </figure>
             <p>As in the case of <span class="math inline">\(L=\lambda
             W\)</span> let <span class="math display">\[ \lambda =
-            \lim_{t \to \infty} \frac{\Lambda}{t} \]</span> where <span
-            class="math inline">\(\Lambda\)</span> is the cumulative
-            arrival rate up to time <span
+            \lim_{t \to \infty} \frac{\Lambda(t)}{t} \]</span> where
+            <span class="math inline">\(\Lambda(t)\)</span> is the
+            cumulative number of arrivals up to time <span
             class="math inline">\(t\)</span>.</p>
             <p>Given these definitions and one additional technical
-            condition <a href="#fn14" class="footnote-ref" id="fnref14"
-            role="doc-noteref"><sup>14</sup></a>, we have <span
+            condition <a href="#fn15" class="footnote-ref" id="fnref15"
+            role="doc-noteref"><sup>15</sup></a>, we have <span
             class="citation" data-cites="heyman80"><a
             href="#ref-heyman80"
             role="doc-biblioref">[7]</a></span>:</p>
@@ -1397,23 +1397,26 @@ Program</em></a></p></p>
             definitions we started out with, but it is important to
             understand that they are all generalizations of the same
             underlying rate conservation principle: the total
-            accumulation of a time varying measure in a system when
-            averaged over time is proportional over the long run to the
-            average of the contributions from each item, wiuth the rate
-            at which contributions arrive at the system in the long run
-            being the proportionality factor.</p>
+            accumulation of a time varying measure over a set of
+            discrete items in a system when averaged over time is
+            proportional over the long run to the average of the
+            contributions from each item, with the rate at which
+            contributions arrive at the system in the long run being the
+            proportionality factor.</p>
             <p>The thing to note about the general form of the law is
-            that has morphed from a statement about how time accumulates
-            to how time-value accumulates. This is a fundamental step
-            change in the scope of what the law can be applied to.</p>
+            that has morphed from a statement about how quantity
+            accumulates over time to how time-value accumulates. This is
+            a fundamental step change in the scope of what the law can
+            be applied to.</p>
             <p>But the power of the general form of the law lies in the
             fact we can build much more sophisticated models of the
             <em>interactions</em> between time varying properties of
-            processes, and exploit the fact that they satisfy this
+            items, and exploit the fact that they satisfy this
             fundamental constraint to <em>discover</em> rate
-            conservation relationships and prove cause and effect
-            relationships between key parameters that do not rely of
-            statistic correlations to make their case.</p>
+            conservation relationships and prove localized <em>cause and
+            effect</em> relationships between key parameters. And do so
+            without relying on statistical correlations to make their
+            case.</p>
             <p>The combination of these two aspects of the general form
             of the law mean that it is full of untapped potential in the
             applications space. But the fact remains that the machinery
@@ -1423,12 +1426,12 @@ Program</em></a></p></p>
             start applying this law is fairly daunting.</p>
             <p>This was one of the key motivations behind the
             development of The Presence Calculus. The presence calculus
-            is largely derived from the techniques and results described
-            in this post, but reassembles the underlying machinery to
-            make it easier to apply in settings beyond stochastic
-            process theory, with simpler computationally oriented
-            primitives whose correctness can be proven using the results
-            in this post.</p>
+            is largely derived from the mathematical techniques and
+            proven results described in this post, but reassembles the
+            underlying machinery to make it easier to apply in settings
+            beyond stochastic process theory, with simpler
+            computationally oriented primitives whose correctness can be
+            proven using the results in this post.</p>
             <p>Because much of the machinery needed to make the concepts
             in the general form of the law easier to apply, are
             developed in The Presence Calculus, we will not spend much
@@ -1437,7 +1440,7 @@ Program</em></a></p></p>
             Introduction</a> where you will see many of the ideas
             discussed here re-appear, but reframed to make it easier to
             build measurement models and tools that can compute over the
-            functional machinery described in this section.</p>
+            mathematical machinery described in this section.</p>
             <h2 data-number="6" id="littles-law-a-recap"><span
             class="header-section-number">6</span> Little’s Law: A
             Recap</h2>
@@ -1893,7 +1896,7 @@ Program</em></a></p></p>
             class="math inline">\(f_i\)</span> must be Lebesgue
             integrable and must be finite over a sufficiently long
             window: <span class="math inline">\(\int_0^{\infty}\lvert
-            f_i(t) dt &lt; \infty\)</span></li>
+            f_i(t) \rvert dt &lt; \infty\)</span></li>
             <li>The value of each function is zero outside some closed
             finite interval of time: for some <span
             class="math inline">\(l_i &gt;0, f_i(t) = 0 \text{ for } t
@@ -1904,7 +1907,19 @@ Program</em></a></p></p>
             <li id="fn13"><p>Think of a stochastic point process as a
             sequence of random time-stamped events.<a href="#fnref13"
             class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            <li id="fn14"><p>Recall we assumed that The value of each
+            <li id="fn14"><p>In general “value” can denote things you
+            <em>want</em> to accumulate as opposed to things you want to
+            <em>constrain</em>. The cost centric interpretation aligns
+            more naturally with systems where we want the accumulation
+            to converge. This is by far the most common application of
+            Little’s Law. But this is by no means baked into the
+            definitions. A more general value interpretation admits both
+            convergence and divergences as desirable outcome depending
+            upon the interpretation of value, and much of the machinery
+            of Little’s Law can still be applied to this interpretation
+            fruitfully.<a href="#fnref14" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn15"><p>Recall we assumed that The value of each
             function is zero outside some closed finite interval of
             time: for some <span class="math inline">\(l_i &gt;0, f_i(t)
             = 0 \text{ for } t \notin [t_i, t_i+l_i]\)</span> The
@@ -1919,7 +1934,7 @@ Program</em></a></p></p>
             in the long run. Such skewed distributions do commonly occur
             in many signals in the software domain, but all this means
             is that this will cause divergent behavior in the long
-            run.<a href="#fnref14" class="footnote-back"
+            run.<a href="#fnref15" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
             </ol>
             </section>
