@@ -144,15 +144,9 @@ profits, satisfied customers) and those we want to _constrain_ (e.g., costs, ris
 The presence calculus offers tools to frame decisions about such signals in
 terms of _directly observing_ and _actively managing_ a property's accumulation over time and timescales.
 
-Specifically we focus on systems properties and signals satisfying the following criteria. [^-not-exclusive]:
+Specifically we focus on systems properties and signals satisfying the following criteria. 
 
-[^-not-exclusive]: This is not to imply that all these criteria are strictly required to apply the 
-presence calculus. There are lots of theoretical reasons to believe that the ideas here generalize well beyond this, 
-but starting with these criteria gives us a well-defined set of problems for which we can _provably guarantee_ that the
-machinery here will provide useful insights. Understanding what happens as we relax one or more of these requirements is 
-an ongoing research activity - both in practical application contexts and in developing the mathematical theory further. 
-
-- The measured value of the signal is a real number that varies continuously over time—thatis,
+- The measured value of the signal is a real number that varies continuously over time—that is,
   we are measuring the *presence contribution* of a property in the system.
 - The "signal" in the system property lies in the _accumulation_ of its value—
   both the magnitude and the duration for which it is observed are meaningful.
@@ -207,7 +201,14 @@ development and engineering.
 
 In this document, we'll motivate and introduce the intuitions and key ideas in
 the calculus with lots of evocative examples and mathematical simplifications
-to illustrate core concepts.
+to illustrate core concepts [^-littles-law].
+
+[^-littles-law]: Much of the mathematical theory behind the Presence Calculus is derived from the
+concepts and techniques that were used to proved Little's Law. You might be familiar
+with Little's Law from its applications in Lean software development. If so, one possible
+path to understanding the material here is to start with the post [A Deep Dive into Little's Law](./littles_law_history.html)
+But this is not required. The material here is designed to stand alone and refer back to 
+its origins in context. 
 
 While the calculus was developed with mathematical rigor, an equally important
 goal was not to let mathematics get in the way of understanding the simple but

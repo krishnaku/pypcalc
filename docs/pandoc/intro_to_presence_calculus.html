@@ -644,12 +644,10 @@ Program</em></a></p></p>
             <em>directly observing</em> and <em>actively managing</em> a
             property’s accumulation over time and timescales.</p>
             <p>Specifically we focus on systems properties and signals
-            satisfying the following criteria. <a href="#fn2"
-            class="footnote-ref" id="fnref2"
-            role="doc-noteref"><sup>2</sup></a>:</p>
+            satisfying the following criteria.</p>
             <ul>
             <li>The measured value of the signal is a real number that
-            varies continuously over time—thatis, we are measuring the
+            varies continuously over time—that is, we are measuring the
             <em>presence contribution</em> of a property in the
             system.</li>
             <li>The “signal” in the system property lies in the
@@ -666,8 +664,8 @@ Program</em></a></p></p>
             <p>For practical applications, we also require:</p>
             <ul>
             <li>Each signal’s contribution can be <em>directly</em> <a
-            href="#fn3" class="footnote-ref" id="fnref3"
-            role="doc-noteref"><sup>3</sup></a> instrumented and
+            href="#fn2" class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a> instrumented and
             measured over the domain.</li>
             </ul>
             <p>While this may sound restrictive, a surprisingly large
@@ -699,7 +697,8 @@ Program</em></a></p></p>
             <p>In this document, we’ll motivate and introduce the
             intuitions and key ideas in the calculus with lots of
             evocative examples and mathematical simplifications to
-            illustrate core concepts.</p>
+            illustrate core concepts <a href="#fn3" class="footnote-ref"
+            id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
             <p>While the calculus was developed with mathematical rigor,
             an equally important goal was not to let mathematics get in
             the way of understanding the simple but very powerful ideas
@@ -7358,19 +7357,7 @@ Program</em></a></p></p>
             post <a href="./littles_law_history.html">A Deep Dive into
             Little’s Law</a>.<a href="#fnref1" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
-            <li id="fn2"><p>This is not to imply that all these criteria
-            are strictly required to apply the presence calculus. There
-            are lots of theoretical reasons to believe that the ideas
-            here generalize well beyond this, but starting with these
-            criteria gives us a well-defined set of problems for which
-            we can <em>provably guarantee</em> that the machinery here
-            will provide useful insights. Understanding what happens as
-            we relax one or more of these requirements is an ongoing
-            research activity - both in practical application contexts
-            and in developing the mathematical theory further.<a
-            href="#fnref2" class="footnote-back"
-            role="doc-backlink">↩︎</a></p></li>
-            <li id="fn3"><p>Direct observation of the quantity under
+            <li id="fn2"><p>Direct observation of the quantity under
             analysis is a <em>core</em> tenet of the presence calculus.
             When a quantity is not directly observable, or hard to
             instrument, the most common practice is to rely on
@@ -7393,7 +7380,18 @@ Program</em></a></p></p>
             relationships prove essential.</p>
             <p>The presence calculus provides tools that make this
             easier to operationalize in real-world settings.<a
-            href="#fnref3" class="footnote-back"
+            href="#fnref2" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn3"><p>Much of the mathematical theory behind the
+            Presence Calculus is derived from the concepts and
+            techniques that were used to proved Little’s Law. You might
+            be familiar with Little’s Law from its applications in Lean
+            software development. If so, one possible path to
+            understanding the material here is to start with the post <a
+            href="./littles_law_history.html">A Deep Dive into Little’s
+            Law</a> But this is not required. The material here is
+            designed to stand alone and refer back to its origins in
+            context.<a href="#fnref3" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
             <li id="fn4"><p>As of writing, the toolkit is still in an
             alpha state, and is under active development and evolution.
