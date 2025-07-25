@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>A deep dive into Little’s Law</title>
+  <title>A Deep Dive into Little’s Law</title>
   <style>
     html {
       color: #1a1a1a;
@@ -356,10 +356,10 @@
   <div class="wrapper">
     <div id="page">
                   <header id="title-block-header">
-        <h1 class="title"><strong>A deep dive into Little’s
+        <h1 class="title"><strong>A Deep Dive into Little’s
 Law</strong></h1>
         <p class="subtitle"><span style="font-size:1.2em;">A roadmap to
-The Presence Calculus</span></p>
+<br/> The Presence Calculus</span></p>
         <p class="author"><p>Dr. Krishna Kumar<br />
 <a href="https://exathink.com"><em>The Polaris Advisor
 Program</em></a></p></p>
@@ -423,9 +423,17 @@ Program</em></a></p></p>
         class="math inline">\(H = \lambda G\)</span>, the general form
         of Little’s Law (1980)</a>
         <ul>
+        <li><a href="#an-economic-interpretation-of-llambda-w"
+        id="toc-an-economic-interpretation-of-llambda-w"><span
+        class="toc-section-number">5.1</span> An economic interpretation
+        of <span class="math inline">\(L=\lambda W\)</span></a></li>
+        <li><a href="#generalizing-the-cost-function"
+        id="toc-generalizing-the-cost-function"><span
+        class="toc-section-number">5.2</span> Generalizing the cost
+        function</a></li>
         <li><a href="#why-this-is-important"
         id="toc-why-this-is-important"><span
-        class="toc-section-number">5.1</span> Why this is
+        class="toc-section-number">5.3</span> Why this is
         important</a></li>
         </ul></li>
         <li><a href="#littles-law-a-recap"
@@ -435,12 +443,11 @@ Program</em></a></p></p>
         <li><a href="#littles-law-and-the-presence-calculus"
         id="toc-littles-law-and-the-presence-calculus"><span
         class="toc-section-number">7</span> Little’s Law and The
-        Presence Calculus:</a></li>
+        Presence Calculus</a></li>
         <li><a href="#post-scripts" id="toc-post-scripts"><span
         class="toc-section-number">8</span> Post Scripts</a>
         <ul>
-        <li><a href="#the-throughput-formula"
-        id="toc-the-throughput-formula"><span
+        <li><a href="#throughput" id="toc-throughput"><span
         class="toc-section-number">8.1</span> The Throughput
         Formula</a></li>
         <li><a href="#further-reading." id="toc-further-reading."><span
@@ -1259,17 +1266,35 @@ Program</em></a></p></p>
             class="header-section-number">5</span> <span
             class="math inline">\(H = \lambda G\)</span>, the general
             form of Little’s Law (1980)</h2>
+            <p>In this section we will look at an even more general and
+            important version of Little’s Law: one that allows us to
+            model the economic consequences of operational decisions.
+            Lets start by interpreting <span
+            class="math inline">\(L=\lambda W\)</span> from an economic
+            lens.</p>
+            <h3 data-number="5.1"
+            id="an-economic-interpretation-of-llambda-w"><span
+            class="header-section-number">5.1</span> An economic
+            interpretation of <span class="math inline">\(L=\lambda
+            W\)</span></h3>
             <p><span class="math inline">\(L = \lambda W\)</span> has a
             relatively direct economic interpretation. Suppose that each
             item in the system incurs a cost of 1 monetary unit of some
             sort for each unit of time it is present in the system.</p>
-            <p>In Figure 1, suppose <span class="math inline">\([A_k,
-            D_k)\)</span> represents the interval of time over which the
+            <p>In Figure 5, suppose <span class="math inline">\([a_k,
+            d_k)\)</span> represents the interval of time over which the
             <span class="math inline">\(k^{th}\)</span> item is present
-            in the system, we can define its cost function <span
-            class="math inline">\(f_k\)</span> simply as</p>
-            <p><span class="math display">\[ f_k(t) = 1 \text{ for } A_k
-            \le t \lt D_k\]</span>.</p>
+            in the system.</p>
+            <figure id="fig:little-finite-2">
+            <img src="../assets/pandoc/unit_cost_model.png"
+            alt="Figure 5: Unit cost function" />
+            <figcaption aria-hidden="true">Figure 5: Unit cost
+            function</figcaption>
+            </figure>
+            <p>We can define its cost function <span
+            class="math inline">\(f_k\)</span> simply as <span
+            class="math display">\[ f_k(t) = 1 \text{ for } a_k \le t
+            \lt d_k\]</span>.</p>
             <p>Under this interpretation the instantaneous cost of the
             items at any point in time t is <span
             class="math display">\[ L(t) = \sum_k f_k(t) \]</span> and
@@ -1278,7 +1303,7 @@ Program</em></a></p></p>
             system at time <span class="math inline">\(t\)</span>.</p>
             <p>Similarly we can sum up the cost for each item across the
             (continuous) interval of time it is present in the system
-            <span class="math display">\[ W_k = \int_{A_k}^{D_k} f_k(t)
+            <span class="math display">\[ W_k = \int_{a_k}^{d_k} f_k(t)
             \]</span></p>
             <p>So under this interpretation <span
             class="math inline">\(L=\lambda W\)</span> simply says that
@@ -1290,16 +1315,23 @@ Program</em></a></p></p>
             which delays accumulate in the system - showing the tight
             coupling between the number of items in the system and the
             rate at which delays accumulate in the system.</p>
-            <p>In the above we assigned a constant unit cost of 1 to
-            each item. However, what is more interesting is that this
-            general relationship holds even if we replace each <span
-            class="math inline">\(f_k(t)\)</span> with a <em>general
-            function</em> of time <a href="#fn12" class="footnote-ref"
-            id="fnref12" role="doc-noteref"><sup>12</sup></a>. Let’s
-            assume <span class="math inline">\(f_k(t)\)</span> is an
-            arbitrary function denoting the rate at which item <span
-            class="math inline">\(k\)</span> incurs cost at time <span
-            class="math inline">\(t\)</span>. In the most general
+            <h3 data-number="5.2"
+            id="generalizing-the-cost-function"><span
+            class="header-section-number">5.2</span> Generalizing the
+            cost function</h3>
+            <p>When interpreting <span class="math inline">\(L=\lambda
+            W\)</span> economically, we assigned a constant cost of 1
+            per time to each item. However, what is more interesting is
+            that we can derive an even more general relationship similar
+            to <span class="math inline">\(L=\lambda W\)</span> if we
+            replace each <span class="math inline">\(f_k(t)\)</span>
+            with a <em>general function</em> of time <a href="#fn12"
+            class="footnote-ref" id="fnref12"
+            role="doc-noteref"><sup>12</sup></a>.</p>
+            <p>Let’s assume <span class="math inline">\(f_k(t)\)</span>
+            is an arbitrary function denoting the rate at which item
+            <span class="math inline">\(k\)</span> incurs cost at time
+            <span class="math inline">\(t\)</span>. In the most general
             framing, an <em>item</em> here can be an arbitrary function
             defined on a stochastic point process <a href="#fn13"
             class="footnote-ref" id="fnref13"
@@ -1308,11 +1340,16 @@ Program</em></a></p></p>
             \sum_0^{\infty} f_k(t), t \ge 0,\]</span> as the cost
             accumulation rate and <span class="math display">\[G_k =
             \int_0^{\infty} f_k(t)dt, k \ge 1\]</span> as the cost
-            contribution per item. Figure 5 shows these quantities.</p>
+            contribution per item.</p>
+            <p>You can see the formulas are identical to the ones we
+            used for interpreting <span class="math inline">\(L=\lambda
+            W\)</span> economically, except that we are now allow
+            general functions rather than the unit cost function.</p>
+            <p>Figure 6 shows these quantities.</p>
             <figure id="fig:general-1">
             <img src="../assets/pandoc/h_lambda_g_first.png"
-            alt="Figure 5: Cost functions, accumulation and contribution rate" />
-            <figcaption aria-hidden="true">Figure 5: Cost functions,
+            alt="Figure 6: Cost functions, accumulation and contribution rate" />
+            <figcaption aria-hidden="true">Figure 6: Cost functions,
             accumulation and contribution rate</figcaption>
             </figure>
             <p>Similar to <span class="math inline">\(L=\lambda
@@ -1324,12 +1361,13 @@ Program</em></a></p></p>
             class="math display">\[H = \lim_{n \to \infty} \frac{1}{T}
             \int_0^T H(t)dt\]</span> as the limit to which the long run
             average of H(t) converges. These quantities are shown in
-            Figure 6.</p>
+            Figure 7.</p>
             <figure id="fig:general-2">
             <img src="../assets/pandoc/h_lambda_g_second.png"
-            alt="Figure 6: Long run averages" />
-            <figcaption aria-hidden="true">Figure 6: Long run
-            averages</figcaption>
+            alt="Figure 7: The long run averages H and G" />
+            <figcaption aria-hidden="true">Figure 7: The long run
+            averages <span class="math inline">\(H\)</span> and <span
+            class="math inline">\(G\)</span></figcaption>
             </figure>
             <p>As in the case of <span class="math inline">\(L=\lambda
             W\)</span> let <span class="math display">\[ \lambda =
@@ -1351,8 +1389,8 @@ Program</em></a></p></p>
             <span class="math inline">\(H\)</span> exists and <span
             class="math inline">\(H = \lambda G\)</span></p>
             </blockquote>
-            <h3 data-number="5.1" id="why-this-is-important"><span
-            class="header-section-number">5.1</span> Why this is
+            <h3 data-number="5.3" id="why-this-is-important"><span
+            class="header-section-number">5.3</span> Why this is
             important</h3>
             <p>The general form of Little’s Law seems a lot more
             complicated to even state than the very intuitive
@@ -1367,9 +1405,9 @@ Program</em></a></p></p>
             <p>The thing to note about the general form of the law is
             that has morphed from a statement about how time accumulates
             to how time-value accumulates. This is a fundamental step
-            change in the scope of what the law can be applied to. But
-            the power of the general form of the law lies in the fact we
-            can build much more sophisticated models of the
+            change in the scope of what the law can be applied to.</p>
+            <p>But the power of the general form of the law lies in the
+            fact we can build much more sophisticated models of the
             <em>interactions</em> between time varying properties of
             processes, and exploit the fact that they satisfy this
             fundamental constraint to <em>discover</em> rate
@@ -1404,132 +1442,143 @@ Program</em></a></p></p>
             class="header-section-number">6</span> Little’s Law: A
             Recap</h2>
             <p>In the previous sections, we described a series of
-            increasingly general results all of which were called
-            “Little’s Law.” These results were obtained over a nearly 30
-            year span of empirical and theoretical research motivated by
-            the attempt to mathematically prove an empirically observed
-            relationship.</p>
-            <p>Little’s Law has proven important in many domains because
-            it is intuitive and also brings a toolkit for us to reason
-            with mathematical rigor about very commonly occurring
-            operational scenarios. The applications of the law have
-            often gone side by side with theoretical developments.</p>
-            <p>In the manufacturing and services sector, for example,
-            these ideas were in use even before formal mathematical
-            proofs arrived. These powerful applications have typecast
-            Little’s Law to a certain extent, and there is the sense
-            that the law applies only under some very narrowly
-            constrained circumstances.</p>
-            <p>In software product development and engineering in
-            particular, the identification of Little’s Law with its
-            applications in manufacturing domain is widespread. One of
-            the main goals of this post was to show that this is a
-            myopic perspective, that misses the entire point of what
-            Little’s Law is really about.</p>
-            <p>Both the Little and Stidham proofs were aimed at
+            increasingly general results, all of which have been called
+            “Little’s Law.” These results emerged from nearly 30 years
+            of empirical and theoretical work, initially motivated by
+            the attempt to mathematically formalize an observed
+            empirical regularity.</p>
+            <p>Little’s Law has proven important across many domains
+            because it is both intuitive and analytically powerful. It
+            offers a rigorous mathematical framework for reasoning about
+            common operational scenarios. In practice, its applications
+            have often preceded and guided theoretical developments.</p>
+            <p>In manufacturing and service domains, for instance,
+            Little’s Law was in widespread practical use even before
+            formal proofs were established. These successes, however,
+            have also constrained perception: the law is frequently
+            assumed to apply only under narrowly defined, steady-state
+            conditions.</p>
+            <p>This is especially true in software product development,
+            where Little’s Law is often seen through the lens of its
+            manufacturing roots. One of the goals of this post has been
+            to challenge that view—to show that this is a narrow reading
+            that misses the deeper structure and broader significance of
+            what Little’s Law expresses.</p>
+            <p>Both the Little and Stidham proofs were concerned with
             establishing the relationship between <span
             class="math inline">\(L\)</span>, <span
             class="math inline">\(\lambda\)</span>, and <span
-            class="math inline">\(W\)</span> and identifying the
-            conditions under which it holds in general input-output
-            systems with discrete, observable arrivals and departures.
-            Stidham’s proof can be considered definitive, as it provides
-            a general, constructive definition that can be applied to
-            both deterministic and stochastic systems.</p>
-            <p>However, the techniques used in both proofs reveal that
-            <span class="math inline">\(L = \lambda W\)</span> expresses
-            something deeper than a property of queueing systems: it
-            captures a fundamental relationship between the accumulation
-            of quantity and the accumulation of time in any input-output
-            process.</p>
+            class="math inline">\(W\)</span>, and with identifying the
+            conditions under which this relationship holds in general
+            input-output systems with discrete, observable arrivals and
+            departures. Stidham’s version is particularly important: it
+            offers a general, constructive proof applicable to both
+            deterministic and stochastic systems.</p>
+            <p>Moreover, sample path analysis—the mathematical
+            foundation underlying both the proof of <span
+            class="math inline">\(L = \lambda W\)</span> and its
+            generalizations—is especially well suited to studying the
+            behavior of non-linear or complex systems that do not
+            exhibit statistical regularity over time. It enables direct
+            observation and reasoning about system dynamics without
+            requiring assumptions of stationarity or equilibrium.</p>
+            <p>The techniques used in all the proofs reveal that <span
+            class="math inline">\(L = \lambda W\)</span> expresses
+            something deeper than a queueing identity—it encodes a
+            fundamental relation between the accumulation of items and
+            the accumulation of time in any input-output process.</p>
             <blockquote>
             <p>In short, <span class="math inline">\(L = \Lambda
-            w\)</span> holds universally and unconditionally, at all
+            w\)</span> holds universally and unconditionally across all
             time intervals and time scales, whereas <span
             class="math inline">\(L = \lambda W\)</span> holds only in
             the limit, provided the sample path converges.</p>
             </blockquote>
             <p>We may think of <span class="math inline">\(L = \Lambda
             w\)</span> as the <em>operator’s perspective</em> on the
-            system: it measures accumulation of quantity and time over a
-            local, shifting observation window. By contrast, <span
-            class="math inline">\(L = \lambda W\)</span> reflects the
-            <em>customer’s perspective</em>: it summarizes the typical
-            time spent in the system by each item and compares it to
-            time averages of system-wide presence over longer, more
-            stable windows. The two formulations involve different
-            quantities, but when convergence holds, their values
-            align—bringing the operator’s measurement of time averages
-            into agreement with the customer’s measurement of item
-            averages.</p>
+            system: it measures the total number of items observed over
+            a time interval and the total time those items spent in the
+            system. In contrast, <span class="math inline">\(L = \lambda
+            W\)</span> reflects the <em>customer’s perspective</em>: it
+            summarizes the typical time an item spends in the system and
+            compares this to long-run averages computed over time.
+            Although they involve different measurements, when
+            convergence holds, the values align—bringing the operator’s
+            time-based measurements into agreement with the customer’s
+            item-based experience.</p>
             <p>This distinction is especially relevant in domains like
-            software development, where customer-facing time metrics
-            (like lead time) are often much longer than the default
-            reporting windows for operational metrics such as WIP and
-            throughput. In such cases, mistaking <span
+            software development, where customer-facing metrics such as
+            lead time often span weeks or months, while operational
+            metrics like WIP and throughput are reported in short
+            intervals such as days or weeks. Treating <span
             class="math inline">\(L = \lambda W\)</span> as a
-            universally valid identity can lead to misleading and
-            incoherent management signals.</p>
+            universally valid identity under such conditions can lead to
+            misleading or incoherent management signals.</p>
             <p>In this sense, the finite-window identity <span
             class="math inline">\(L = \Lambda w\)</span> should be
             regarded as the true <em>law</em>, since it holds
             unconditionally across all time windows and time scales. The
-            probabilistic and asymptotic versions are special cases that
-            hold only under additional convergence conditions. They are
-            important in their own right, but the two sets of
-            measurements are not interchangeable.</p>
-            <p>This marks a fundamental shift in perspective, but as we
-            have seen with the general form of Little’s Law extends the
-            principle of time accumulation in input-output systems to
-            the more general concept of accumulation of
-            <em>time-value</em> as well.</p>
-            <p>This next generalization reveals not only the breadth and
-            power of Little’s Law, but also illustrates how mathematical
-            proofs can uncover deeper structural truths—well beyond the
-            specific claims they were originally intended to
-            establish.</p>
+            probabilistic and asymptotic forms of the law are special
+            cases—important in their own right—but subject to additional
+            assumptions such as convergence, and their parameters are
+            not always interchangeable with those of the finite-window
+            form.</p>
+            <p>This shift in perspective also sets the stage for the
+            generalization <span class="math inline">\(H = \lambda
+            G\)</span>, which extends Little’s Law from the conservation
+            of time-quantity to the conservation of <em>time-value</em>.
+            With this more general form, we can directly model the
+            economic consequences of system design and operational
+            decisions.</p>
+            <p>These generalizations highlight both the breadth and
+            depth of Little’s Law. They show how mathematical
+            reasoning—initially aimed at formalizing a simple
+            identity—can reveal deeper structural truths that apply far
+            beyond the specific queues where the law was first
+            observed.</p>
             <h2 data-number="7"
             id="littles-law-and-the-presence-calculus"><span
             class="header-section-number">7</span> Little’s Law and The
-            Presence Calculus:</h2>
-            <p>I originally started reviewing this research having tried
-            and failed to provide my own informal proofs of the
-            supposedly “intuitive law”. Digging into the history of the
-            attempts to prove this law made it clear that there was much
-            more to it than the simple formulas that are commonly used
-            as the shorthand for Little’s Law.</p>
-            <p>In fact, a key mptivation was to find a satisfying
-            explanation as to why this formula hardly ever seemed to
-            hold when we measured it operationally. The conventional
-            explanation is that its because the “system is not stable,”
-            but what does that actually mean? It turns out even this
-            question is not straightforward to answer and this is why
-            Little’s Law is such an interesting result.</p>
+            Presence Calculus</h2>
+            <p>I originally began reviewing this research after
+            attempting—and failing—to provide my own informal proof of
+            the supposedly “intuitive law.” As I dug into the history of
+            attempts to prove it, it became clear that there was far
+            more to Little’s Law than the simple <a
+            href="#throughput">throughput formulas</a> commonly used as
+            shorthand.</p>
+            <p>In fact, one of my key motivations was to understand why
+            the standard throughput formula so rarely seemed to hold
+            when applied operationally in software development. The
+            conventional explanation is that it fails because “the
+            system is not stable,” but what does that actually mean?
+            Even that question turns out to be less straightforward than
+            it seems—and this is precisely what makes Little’s Law such
+            a compelling and subtle result.</p>
             <p>The <span class="math inline">\(H = \lambda G\)</span>
-            form of the law was a revelation when I first encountered
-            it, because it seemed so full of potential applications that
-            I was surprised that it was not better known and applied in
-            more contexts. But it is clear that mathematical machinery
-            required to even state this result, makes it seem much more
-            forbidding and inaccessible than it actually is. Further
-            much of the literature on applications is case in the
-            language of queueing theory and stochastic processes, which
-            makes it even less obvious to adapt.</p>
-            <p>The Presence Calculus is the result of trying to tease
-            apart all these various threads and disciplines described in
-            this post - quueing theory, sample path analysis,
-            probabilistic analysis, functional analysis, convergence,
-            divergence etc. and re-build it step by step into a more
-            domain neutral model that is easier to apply and compute
-            with.</p>
-            <p>The <a href="./intro_to_presence_calculus.hmtl">Gentle
-            Introduction</a> has a complete overview of the concepts and
-            computational machinery that I built to apply the concepts
-            in this post to real-world problems in software product
+            generalization was a revelation when I first encountered it.
+            It seemed full of potential applications, and I was
+            surprised it wasn’t more widely known or used in practice.
+            But it’s clear that the mathematical machinery required to
+            even state this result makes it seem more forbidding than it
+            really is. Moreover, most of the literature presents it in
+            the language of queueing theory and stochastic processes,
+            which makes it even harder to adapt outside those
+            domains.</p>
+            <p>The Presence Calculus emerged from my attempt to untangle
+            these various threads—queueing theory, sample path analysis,
+            probabilistic reasoning, functional analysis, convergence,
+            divergence—and reconstruct a more domain-neutral model, one
+            that is easier to compute with and apply across different
+            settings.</p>
+            <p>The <a href="./intro_to_presence_calculus.html">Gentle
+            Introduction</a> offers a complete overview of the concepts
+            and computational tools I’ve built to apply the ideas from
+            this post to real-world problems in software product
             development and engineering.</p>
             <h2 data-number="8" id="post-scripts"><span
             class="header-section-number">8</span> Post Scripts</h2>
-            <h3 data-number="8.1" id="the-throughput-formula"><span
+            <h3 data-number="8.1" id="throughput"><span
             class="header-section-number">8.1</span> The Throughput
             Formula</h3>
             <p>It’s worth pausing to explain why the version of Little’s
