@@ -1,6 +1,6 @@
 ---
-title: "<strong>Little's Law</strong>"
-subtitle: "<span style='font-size:1.2em;'>A History</span>"
+title: "<strong>A deep dive into Little's Law</strong>"
+subtitle: "<span style='font-size:1.2em;'>A roadmap to The Presence Calculus</span>"
 author: |
   Dr. Krishna Kumar  
   <a href="https://exathink.com"><em>The Polaris Advisor Program</em></a>
@@ -12,7 +12,7 @@ toc-depth: 2
 figPrefix: "Figure"
 ---
 
-## $L=\lambda W$: Little's Law
+## Little's Law
 
 Little’s Law began its life in the mundane world of operations management—as an
 empirical regularity observed in retail stores, call centers, and other service
@@ -715,61 +715,7 @@ non-stationary, non-ergodic, and potentially highly sensitive to initial
 conditions—exactly the kind of behavior we expect to encounter with complex adaptive systems
 in domains like software development.
 
-## $L = \lambda W$: A Recap
 
-In the previous sections, we focused on a framing of Little's Law that was
-entirely motivated by the attempt to mathematically prove an empirically observed
-relationship.
-
-Both the Little and Stidham proofs were aimed at establishing the relationship
-between $L$, $\lambda$, and $W$, and identifying the conditions under which it
-holds in general input-output systems with discrete, observable arrivals and
-departures. Stidham's proof can be considered definitive, as it provides a
-general, constructive definition that can be applied to both deterministic and
-stochastic systems.
-
-However, the techniques used in both proofs reveal that $L = \lambda W$ expresses
-something deeper than a property of queueing systems: it captures a fundamental
-relationship between the accumulation of quantity and the accumulation of time
-in any input-output process.
-
-> In short, $L = \Lambda w$ holds universally and unconditionally, at all time
-> intervals and time scales, whereas $L = \lambda W$ holds only in the limit, provided
-> the sample path converges.
-
-We may think of $L = \Lambda w$ as the *operator's perspective* on the system:
-it measures accumulation of quantity and time over a local, shifting observation
-window. By contrast, $L = \lambda W$ reflects the *customer’s perspective*: it
-summarizes the typical time spent in the system by each item and compares it to
-time averages of system-wide presence over longer, more stable windows. The two
-formulations involve different quantities, but when convergence holds, their values
-align—bringing the operator’s measurement of time averages into agreement with the
-customer’s measurement of item averages.
-
-This distinction is especially relevant in domains like software development, 
-where customer-facing time metrics (like lead time) are often much longer than 
-the default reporting windows for operational metrics such as WIP and throughput. 
-In such cases, mistaking $L = \lambda W$ as a universally valid identity can 
-lead to misleading and incoherent management signals.
-
-In this sense, the finite-window identity $L = \Lambda w$ should be regarded as 
-the true *law*, since it holds unconditionally across all time windows and time 
-scales. The probabilistic and asymptotic versions are special cases that hold 
-only under additional convergence conditions. They are important in their own
-right, but the two sets of measurements are not interchangeable.
-
-This marks a fundamental shift in perspective—one that we adopt in the [Presence 
-Calculus](./intro_to_presence_calculus.html), a formalism that unifies the core ideas behind these proofs under a 
-common measure-theoretic foundation.
-
-But first, we’ll examine one more critical generalization of the law. 
-This next step extends the principle of time accumulation in input-output systems 
-to the more general concept of *time-value*, and this is what we adopt as the 
-fundamental primitive in the Presence Calculus.
-
-This next generalization reveals not only the breadth and power of Little’s Law, 
-but also illustrates how mathematical proofs can uncover deeper structural 
-truths—well beyond the specific claims they were originally intended to establish.
 
 ## $H = \lambda G$, the general form of Little's Law (1980)
 
@@ -860,7 +806,103 @@ see many of the ideas discussed here re-appear, but reframed to make it easier t
 functional machinery described in this section.
 
 
-## Post Script 1
+## Little's Law: A Recap
+
+In the previous sections, we described a series of increasingly general results all of which 
+were called "Little's Law." These results were obtained over a nearly 30 year span
+of empirical and theoretical research motivated by the attempt to mathematically prove an empirically observed
+relationship. 
+
+Little's Law has proven important in many domains because it is intuitive and also 
+brings a toolkit for us to reason with mathematical rigor about very commonly 
+occurring operational scenarios. The applications of the law have often gone
+side by side with theoretical developments. 
+
+In the manufacturing and services sector, for example, these ideas were in use
+even before formal mathematical proofs arrived. These powerful 
+applications have typecast Little's Law to a certain extent, and there is the sense that
+the law applies only under some very narrowly constrained circumstances. 
+
+In software product development and engineering in particular, the identification of 
+Little's Law with its applications in manufacturing domain is widespread. One of the main goals
+of this post was to show that this is a myopic perspective, that misses the entire point of what
+Little's Law is really about. 
+
+Both the Little and Stidham proofs were aimed at establishing the relationship
+between $L$, $\lambda$, and $W$ and identifying the conditions under which it
+holds in general input-output systems with discrete, observable arrivals and
+departures. Stidham's proof can be considered definitive, as it provides a
+general, constructive definition that can be applied to both deterministic and
+stochastic systems.
+
+However, the techniques used in both proofs reveal that $L = \lambda W$ expresses
+something deeper than a property of queueing systems: it captures a fundamental
+relationship between the accumulation of quantity and the accumulation of time
+in any input-output process.
+
+> In short, $L = \Lambda w$ holds universally and unconditionally, at all time
+> intervals and time scales, whereas $L = \lambda W$ holds only in the limit, provided
+> the sample path converges.
+
+We may think of $L = \Lambda w$ as the *operator's perspective* on the system:
+it measures accumulation of quantity and time over a local, shifting observation
+window. By contrast, $L = \lambda W$ reflects the *customer’s perspective*: it
+summarizes the typical time spent in the system by each item and compares it to
+time averages of system-wide presence over longer, more stable windows. The two
+formulations involve different quantities, but when convergence holds, their values
+align—bringing the operator’s measurement of time averages into agreement with the
+customer’s measurement of item averages.
+
+This distinction is especially relevant in domains like software development, 
+where customer-facing time metrics (like lead time) are often much longer than 
+the default reporting windows for operational metrics such as WIP and throughput. 
+In such cases, mistaking $L = \lambda W$ as a universally valid identity can 
+lead to misleading and incoherent management signals.
+
+In this sense, the finite-window identity $L = \Lambda w$ should be regarded as 
+the true *law*, since it holds unconditionally across all time windows and time 
+scales. The probabilistic and asymptotic versions are special cases that hold 
+only under additional convergence conditions. They are important in their own
+right, but the two sets of measurements are not interchangeable.
+
+This marks a fundamental shift in perspective, but as we have seen with the
+general form of Little's Law extends the principle of time accumulation in
+input-output systems to the more general concept of accumulation of
+*time-value* as well. 
+
+This next generalization reveals not only the breadth and power of Little’s Law, 
+but also illustrates how mathematical proofs can uncover deeper structural 
+truths—well beyond the specific claims they were originally intended to establish.
+
+## Little's Law and The Presence Calculus:
+
+I originally started reviewing this research having tried and failed to provide my 
+own informal proofs of the supposedly "intuitive law". Digging into the history of the attempts
+to prove this law made it clear that there was much more to it than the simple formulas 
+that are commonly used as the shorthand for Little's Law. 
+
+In fact, a key mptivation was to find a satisfying explanation as to why this
+formula hardly ever seemed to hold when we measured it operationally. The conventional 
+explanation is that its because the "system is not stable," but what does that actually mean?
+It turns out even this question is not straightforward to answer and this is why Little's Law is such 
+an interesting result. 
+
+The $H = \lambda G$ form of the law was a revelation when I first encountered it, because it 
+seemed so full of potential applications that I was surprised that it was not better known and applied in 
+more contexts. But it is clear that mathematical machinery required to even state this result, makes it 
+seem much more forbidding and inaccessible than it actually is. Further much of the literature on applications
+is case in the language of queueing theory and stochastic processes, which makes it even less obvious to adapt. 
+
+The Presence Calculus is the result of trying to tease apart all these various threads and disciplines described 
+in this post - quueing theory, sample path analysis, probabilistic analysis, functional analysis, convergence, divergence etc. 
+and re-build it step by step into a more domain neutral  model that is easier to apply and compute with. 
+
+The [Gentle Introduction](./intro_to_presence_calculus.hmtl) has a complete overview of the concepts and computational machinery 
+that I built to apply the concepts in this post to real-world problems in software product development and engineering.
+
+## Post Scripts
+
+### The Throughput Formula
 
 It’s worth pausing to explain why the version of Little’s Law commonly used in
 software today looks quite different from the one we’ve discussed so far.
@@ -881,27 +923,27 @@ This is the form popularized by Lean, and it’s natural in manufacturing, where
 factory managers focus on optimizing WIP and cycle time to meet a fixed
 throughput goal derived from stable production orders.
 
-But in software development, this metaphor often fails. Software teams usually
-don’t control arrivals. Instead, they’re reactive to demand, making arrival rate
-the critical metric. In these environments, the arrival-rate form of Little’s
-Law becomes far more relevant.
+By default, most software development processes operate away from equilibrium when 
+viewed over typical operational observation windows. Here the finite window version, 
+and in particular the arrival rate form are much more important. 
 
-In our treatment of Little's Law going forward, we’ll mostly abandon the
-throughput-centric view from Lean manufacturing. Instead, we’ll adopt the
-arrival-rate form and use equilibrium conditions to treat throughput as a
-consequence of managing arrivals properly.
+Most current approaches to measuring flow metrics in software still use the 
+throughput model and this is one of the things we will focus on further in a follow
+up post on applications of The Presence Calculus. 
 
-As discussed in the next post, this is also critical to build a proper causal
-model for flow. As in general queueing systems, understanding flow in software
-requires treating arrivals as the cause and throughput as the effect.
 
----
+### Further reading. 
 
-## Post Script 2
-
-In 2011, Dr. Little published a survey of all the developments related to
-Little's Law on its 50th anniversary. Most of this series started from a close
+In 2011, Dr. Little [@little2011] published a survey of all the developments related to
+Little's Law on its 50th anniversary. This post started from a close
 reading of that paper. I highly recommend it if you’re interested in a more
-technical, yet accessible, presentation of the material in this post.
+background, and a technical yet accessible, presentation of the material in this post, from
+one of the seminal figures responsible for this field. 
+
+The other, almost indispensible reference if you want to really understand the mathematics 
+behind the material here is the book on Sample Path Analysis by El Taha and Stidham [@eltaha1999]. 
+Ths is not an easy read, and the machinery of the Presence Calculus was built so that you can 
+take advantage of results derived there without having to read and understand all the underlying mathematics. 
+
 
 ## References

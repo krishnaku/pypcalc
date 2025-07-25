@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>A deep dive into Little’s Law</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+    html {
+      box-sizing: border-box;
+      font-size: 100%;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+      line-height: 1.75;
+      background: #fff;
+      color: #111;
+
+      /* Remove Pandoc's injected width restrictions */
+      max-width: none !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .wrapper {
+      display: flex;
+      justify-content: center;
+    }
+
+    #page {
+      max-width: 880px;
+      width: 100%;
+      padding: 2rem 1rem;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: Georgia, serif;
+      font-weight: bold;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    p {
+      margin: 1.25rem 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 2rem auto;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 1rem;
+      overflow-x: auto;
+      border-radius: 6px;
+    }
+
+    code {
+      font-family: SFMono-Regular, Consolas, monospace;
+      background: #f5f5f5;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+
+    blockquote {
+      margin: 2rem 0;
+      padding-left: 1rem;
+      border-left: 4px solid #ddd;
+      color: #666;
+      font-style: italic;
+    }
+
+    .subtitle, .author, .date {
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    nav#TOC {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid #eee;
+      background: #fafafa;
+      overflow-x: auto;
+    }
+
+    figure {
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 2rem auto;
+    }
+
+    figcaption {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 0.75rem;
+    }
+
+    header#title-block-header {
+      text-align: center;
+    }
+
+    #presence-link {
+      position: fixed;
+      top: 0.5rem;
+      right: 1rem;
+      font-size: 0.9rem;
+      background: #f9f9f9;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      z-index: 1000;
+    }
+
+    #presence-link a {
+      text-decoration: none;
+      color: #444;
+    }
+
+    #presence-link a:hover {
+      text-decoration: underline;
+    }
+
+
+    @media screen and (min-width: 1024px) {
+      body {
+        font-size: 1.15rem;
+      }
+
+      #page {
+        padding: 3rem 2rem;
+      }
+    }
+
+    @media screen and (max-width: 768px), (max-device-width: 768px) {
+      #presence-link {
+        position: static;
+        margin: 1rem auto;
+        text-align: center;
+        display: block;
+      }
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<div id="presence-link">
+  <a href="https://docs.pcalc.org" target="_blank">The Presence Calculus Project</a>
+  <div style="text-align: center; font-size: 80%;">
+    © 2025 Krishna Kumar. All rights reserved.
+  </div>
+</div>
+  <div class="wrapper">
+    <div id="page">
+                  <header id="title-block-header">
+        <h1 class="title"><strong>A deep dive into Little’s
+Law</strong></h1>
+        <p class="subtitle"><span style="font-size:1.2em;">A roadmap to
+The Presence Calculus</span></p>
+        <p class="author"><p>Dr. Krishna Kumar<br />
+<a href="https://exathink.com"><em>The Polaris Advisor
+Program</em></a></p></p>
+        
+              </header>
+                  <nav id="TOC" role="doc-toc">
+        <h2 id="toc-title">Contents</h2>
+        <ul>
+        <li><a href="#littles-law" id="toc-littles-law"><span
+        class="toc-section-number">1</span> Little’s Law</a>
+        <ul>
+        <li><a href="#proofs-and-generalizations-of-littles-law"
+        id="toc-proofs-and-generalizations-of-littles-law"><span
+        class="toc-section-number">1.1</span> Proofs and generalizations
+        of Little’s Law</a></li>
+        <li><a href="#the-significance-of-littles-law"
+        id="toc-the-significance-of-littles-law"><span
+        class="toc-section-number">1.2</span> The significance of
+        Little’s Law</a></li>
+        </ul></li>
+        <li><a href="#l-lambda-w-littles-law-for-finite-time-windows"
+        id="toc-l-lambda-w-littles-law-for-finite-time-windows"><span
+        class="toc-section-number">2</span> <span
+        class="math inline">\(L = \Lambda w\)</span>: Little’s Law for
+        finite time windows</a>
+        <ul>
+        <li><a href="#residence-time-and-cumulative-arrival-rate"
+        id="toc-residence-time-and-cumulative-arrival-rate"><span
+        class="toc-section-number">2.1</span> Residence time and
+        cumulative arrival rate</a></li>
+        </ul></li>
+        <li><a href="#l-lambda-w-dr.-littles-proof-1961"
+        id="toc-l-lambda-w-dr.-littles-proof-1961"><span
+        class="toc-section-number">3</span> <span
+        class="math inline">\(L = \lambda W\)</span>: Dr. Little’s proof
+        (1961)</a>
+        <ul>
+        <li><a href="#the-assumptions-in-dr.-littles-proof"
+        id="toc-the-assumptions-in-dr.-littles-proof"><span
+        class="toc-section-number">3.1</span> The assumptions in
+        Dr. Little’s proof</a></li>
+        <li><a href="#why-it-is-remarkable"
+        id="toc-why-it-is-remarkable"><span
+        class="toc-section-number">3.2</span> Why it is
+        remarkable</a></li>
+        </ul></li>
+        <li><a href="#l-lambda-w-dr.-stidhams-proof-1972"
+        id="toc-l-lambda-w-dr.-stidhams-proof-1972"><span
+        class="toc-section-number">4</span> <span
+        class="math inline">\(L = \lambda W\)</span>: Dr. Stidham’s
+        Proof (1972)</a>
+        <ul>
+        <li><a href="#sample-path-analysis"
+        id="toc-sample-path-analysis"><span
+        class="toc-section-number">4.1</span> Sample path
+        analysis</a></li>
+        </ul></li>
+        <li><a href="#h-lambda-g-the-general-form-of-littles-law-1980"
+        id="toc-h-lambda-g-the-general-form-of-littles-law-1980"><span
+        class="toc-section-number">5</span> <span
+        class="math inline">\(H = \lambda G\)</span>, the general form
+        of Little’s Law (1980)</a>
+        <ul>
+        <li><a href="#why-this-is-important"
+        id="toc-why-this-is-important"><span
+        class="toc-section-number">5.1</span> Why this is
+        important</a></li>
+        </ul></li>
+        <li><a href="#littles-law-a-recap"
+        id="toc-littles-law-a-recap"><span
+        class="toc-section-number">6</span> Little’s Law: A
+        Recap</a></li>
+        <li><a href="#littles-law-and-the-presence-calculus"
+        id="toc-littles-law-and-the-presence-calculus"><span
+        class="toc-section-number">7</span> Little’s Law and The
+        Presence Calculus:</a></li>
+        <li><a href="#post-scripts" id="toc-post-scripts"><span
+        class="toc-section-number">8</span> Post Scripts</a>
+        <ul>
+        <li><a href="#the-throughput-formula"
+        id="toc-the-throughput-formula"><span
+        class="toc-section-number">8.1</span> The Throughput
+        Formula</a></li>
+        <li><a href="#further-reading." id="toc-further-reading."><span
+        class="toc-section-number">8.2</span> Further reading.</a></li>
+        </ul></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+      </nav>
+            <h2 data-number="1" id="littles-law"><span
+            class="header-section-number">1</span> Little’s Law</h2>
+            <p>Little’s Law began its life in the mundane world of
+            operations management—as an empirical regularity observed in
+            retail stores, call centers, and other service operations.
+            It’s a commonplace observation that stores get more crowded
+            when more customers come in and stay longer.</p>
+            <p>We can express this phenomenon as a mathematical
+            relationship: one that was also observed empirically.</p>
+            <p><span class="math display">\[L = λW\]</span></p>
+            <p>Here, λ is the rate at which customers arrive, W is the
+            average time a customer spends in the store, and L is the
+            average number of customers in the store.</p>
+            <blockquote>
+            <p>In a general setting, we imagine <em>items</em> arriving
+            and departing from an <strong>input-output</strong> system,
+            as observed over some time window, expressed in some unit of
+            time (hours, days, etc).</p>
+            <ul>
+            <li>λ is called the <em>arrival rate</em> — the rate at
+            which items arrive over the time window,</li>
+            <li>W is called the <em>average time in system</em> — the
+            average amount of time for which an item is present in the
+            system,</li>
+            <li>L is called the <em>average number in the system</em> —
+            the average number of items present in the system over the
+            time window.</li>
+            </ul>
+            </blockquote>
+            <p>We can see that Little’s Law relates three distinct
+            <em>kinds</em> of averages:</p>
+            <ul>
+            <li><em>L</em> is a <em>time average</em> — the number of
+            items present in the system over some continuous time
+            interval</li>
+            <li><em>W</em> is an <em>item average</em> — the average
+            amount of an item accumulates while present in the
+            system</li>
+            <li>λ is a rate — a rate of arrivals over some time
+            window.</li>
+            </ul>
+            <p>Notably, the denominator in the first average is a
+            continuous quantity (time), while the denominator in the
+            second average is a discrete quantity (items), and the third
+            quantity is a rate relating the denominators of the other
+            two quantities.</p>
+            <blockquote>
+            <p>The law expresses the intuition that the <strong>total
+            time</strong> accumulated in a system by a set of discrete<a
+            href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a> items over a time
+            window, when averaged <strong>per item</strong>, is
+            proportional to the average <em>number</em> of
+            <strong>items</strong> present in the system <strong>per
+            unit time</strong>. The constant of proportionality is the
+            <strong>rate</strong> at which items enter (or leave) the
+            system over the window.</p>
+            </blockquote>
+            <p>The law was widely assumed to be true in operational
+            settings and used without proof because it was intuitive,
+            could be empirically confirmed, and its symmetry was
+            appealing.</p>
+            <p>As we will see, the law is anything but obvious to prove
+            mathematically in a general setting. Answering this question
+            rigorously has led to some deep results that have proven
+            very valuable in solving economically critical problems in a
+            variety of domains.</p>
+            <p>Much of the technical complexity in proving Little’s Law
+            arises from the challenge of relating a time
+            average—measured over a continuous interval—to a sample
+            average over discrete items. These fundamentally different
+            types of averages are not directly comparable and require
+            carefully constructed mathematical machinery to
+            reconcile—especially to ensure that all measurements are
+            made within the same consistent frame of reference.</p>
+            <p>Examining the journey of its proofs and the
+            generalizations they uncover, reveals a foundational
+            collection of physical and economic laws governing the
+            conservation of time-value in input-output systems.</p>
+            <p>Our goal in this post is to demystify the technicalities
+            and argue that much of this law’s power remains untapped. We
+            contend that, especially in software product development and
+            engineering, a deeper understanding of these concepts is
+            essential to transforming operations management from a
+            collection of anecdotes and informal practices into a
+            mathematically grounded science.</p>
+            <p>In all the mathematical machinery and technicalities of
+            the next few sections, it will be easy to lose track of the
+            fact that Little’s Law is at its core an intuitive result
+            that expresses the simple intuition constraining how time
+            accumulated in a system is distributed across items and
+            across time itself.</p>
+            <p>Indeed, as Shaler Stidham notes in his preface to his
+            proof of Little’s Law <span class="citation"
+            data-cites="stidham72"><a href="#ref-stidham72"
+            role="doc-biblioref">[2]</a></span>: “… <em>there are many
+            who feel that L = λW is such an ‘obvious’ relation that a
+            rigorous proof is superfluous: at most a heuristic argument
+            is required</em>.”</p>
+            <p>He goes on to say, “…<em>heuristic arguments can be
+            deceptive. In any case, they are not particularly
+            instructive when they ascribe the validity of the result to
+            properties that turn out, upon rigorous examination, to be
+            superfluous, while failing to document the influence of
+            properties that turn out to be essential.</em>” <a
+            href="#fn2" class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a></p>
+            <p>In this post we will examine sides of this argument, the
+            formal mathematical one and the heuristic one. We will begin
+            with the heuristic one to build intuition and focus on the
+            mathematical ones to understand how to operationalize the
+            law with rigor.</p>
+            <p>Both views turn out to essential to truly appreciating
+            the subtleties of Little’s Law.</p>
+            <h3 data-number="1.1"
+            id="proofs-and-generalizations-of-littles-law"><span
+            class="header-section-number">1.1</span> Proofs and
+            generalizations of Little’s Law</h3>
+            <p>Dr. John C. Little <span class="citation"
+            data-cites="little1961"><a href="#ref-little1961"
+            role="doc-biblioref">[3]</a></span> gave the first
+            mathematical proof in 1961 using techniques from queueing
+            theory and probabilistic analysis. His proof involved
+            assumptions including steady state conditions and stationary
+            probability distributions, that were largely true in the
+            operational settings under which the law was being applied,
+            and thus the equation—and the assumptions under which Dr.
+            Little proved it—became known as Little’s Law</p>
+            <p>It found applications in manufacturing, computer systems
+            performance analysis, service operations management, and
+            countless other operational settings. It is considered a
+            foundational law akin to Newton’s law <em>F = m·a</em> in
+            these domains <span class="citation"
+            data-cites="hopp2000"><a href="#ref-hopp2000"
+            role="doc-biblioref">[4]</a></span> <a href="#fn3"
+            class="footnote-ref" id="fnref3"
+            role="doc-noteref"><sup>3</sup></a>.</p>
+            <p>Since Dr. Little’s original proof, the result has been
+            significantly generalized by researchers <span
+            class="citation" data-cites="stidham72"><a
+            href="#ref-stidham72" role="doc-biblioref">[2]</a></span>,
+            <span class="citation" data-cites="brumelle71"><a
+            href="#ref-brumelle71" role="doc-biblioref">[6]</a></span>,
+            <span class="citation" data-cites="heyman80"><a
+            href="#ref-heyman80" role="doc-biblioref">[7]</a></span>,
+            <span class="citation" data-cites="sigman91"><a
+            href="#ref-sigman91" role="doc-biblioref">[8]</a></span>,
+            <span class="citation" data-cites="miyazawa94"><a
+            href="#ref-miyazawa94" role="doc-biblioref">[9]</a></span>,
+            <span class="citation" data-cites="eltaha1999"><a
+            href="#ref-eltaha1999"
+            role="doc-biblioref">[1]</a></span>.</p>
+            <blockquote>
+            <p>It is now known to be a purely <em>deterministic</em>
+            result independent of queueing and probability theory, and
+            applicable to both stochastic and deterministic
+            processes.</p>
+            </blockquote>
+            <p>These later generalizations, particularly the
+            deterministic proof provided by Shaler Stidham, make
+            Little’s Law—and the techniques used to prove its general
+            forms—very relevant to the analysis of non-linear systems
+            far removed from the original application areas that
+            Dr. Little’s formulation targeted. In particular, it is
+            highly relevant to the analysis of complex adaptive systems
+            such as those commonly encountered in software product
+            development and engineering.</p>
+            <p>However, due to the strong association of the original
+            formulation with assumptions about stochastic processes—and
+            the extensive applications in repetitive manufacturing and
+            service contexts—it is often assumed that Little’s Law is
+            not applicable outside these domains. It is not uncommon to
+            hear the opinion that, because software product development
+            is knowledge work, Little’s Law has nothing useful to say
+            about the kind of highly variable, non-uniform processes
+            common in software development.</p>
+            <p>It doesn’t help that most applications of Little’s Law in
+            software development explicitly rely on the formulation
+            imported from Lean manufacturing, and focuses on
+            <em>making</em> variable work more uniform and predictable.
+            Even in these applications, the law often fails to hold when
+            measured empirically in operational settings mostly because
+            of <em>how</em> it has been applied. So it has remained
+            something of a theoretical curiosity in software - pointing
+            to a desired ideal state, rather than something consistently
+            observable and applicable to real-world development
+            processes.</p>
+            <p>Applying Little’s Law correctly in more general settings
+            and at scale requires understanding the techniques used to
+            prove its broader forms. These techniques not only justify
+            its wider applicability, but also show how to apply it
+            usefully in domains like software product development and
+            engineering.</p>
+            <p>In this post, we introduce the history of the law and the
+            proof techniques that led to its increasingly general
+            formulations. Understanding <em>why</em> the law generalizes
+            is key to understanding <em>how</em> to apply it in more
+            general settings.</p>
+            <p>Little’s Law remains a highly intuitive result,
+            remarkably general in its applicability, yet subtle and
+            often misunderstood and misapplied outside its original
+            context. The belief that “Little’s Law does not apply in
+            software” is widespread, even if not entirely unfounded.
+            Nevertheless, it is demonstrably false.</p>
+            <p>For those familiar with Little’s Law only through its
+            association with Lean manufacturing concepts and its
+            applications in software, or from cursory readings on
+            sources like Wikipedia, or even standard queueing theory
+            texts, this post offers an update on the state-of-the-art
+            understanding of the law as it stands today.</p>
+            <h3 data-number="1.2"
+            id="the-significance-of-littles-law"><span
+            class="header-section-number">1.2</span> The significance of
+            Little’s Law</h3>
+            <p>Before we jump into the details, it’s worth pausing to
+            understand why this law even matters.</p>
+            <p>Empirical observations often surface
+            correlations—observed associations where two quantities move
+            in concert. Such correlations are frequently a starting
+            point for causal reasoning, prompting us to search for
+            underlying mechanisms that might explain the apparent
+            linkage.</p>
+            <p>But even though Little’s Law arose from empirical
+            observations, it establishes something much stronger than a
+            correlation. The law expresses a strict equation between
+            three observable quantities, even though the quantities
+            involved may appear to be statistical measures on the
+            surface.</p>
+            <p>An equation is a constraint, and a much stronger
+            foundation for causal reasoning than a correlation. When we
+            observe change, the space of plausible explanations narrows
+            dramatically. For example, if the average number of
+            customers in a system increases, there are only three
+            possibilities: the arrival rate increased, the average time
+            each item spent in the system increased, or both did. No
+            other explanation is consistent with equality. Any other
+            explanation must show how it affects one or both of those
+            variables.</p>
+            <p>In every generalization of Little’s Law we will examine,
+            there is a provable, tightly constrained causal relationship
+            between the same key averages. What changes with each
+            generalizations are the conditions under which they apply -
+            they relax various restrictions and make the law applicable
+            in different contexts, and yield different interpretations
+            of what the averages <em>represent</em> in that context.</p>
+            <p>Knowing the conditions under which an equation like
+            Little’s Law holds gives us an exceptionally robust
+            framework for causal reasoning about <em>observable</em>
+            system behavior. It doesn’t tell us what will happen in the
+            future, but it <em>constrains</em> what can happen:
+            regardless of how the system evolves, these three quantities
+            must remain bound by their relationship.</p>
+            <p>Few such relationships exist outside domains governed by
+            strict conservation laws, and in a deep sense, the proofs of
+            Little’s Law give us a template for <em>discovering</em>
+            such conservation laws in a new domain. Little’s Law is thus
+            a rare find—an intuitive, rigorously provable mathematical
+            relationship among key system properties that applies across
+            linear, non-linear, stochastic, deterministic, complex, and
+            even some chaotic systems under some very weak
+            assumptions.</p>
+            <p>In their majestic textbook <span class="citation"
+            data-cites="hopp2000"><a href="#ref-hopp2000"
+            role="doc-biblioref">[4]</a></span>, Hopp &amp; Spearman
+            liken Little’s Law to <em>F = m·a</em> for factory physics—a
+            foundational constraint that helped move manufacturing from
+            art toward science. We take the view that, with the
+            generalizations developed since its early use in those
+            domains, Little’s Law deserves this status on a much grander
+            scale.</p>
+            <p>In software product development and engineering, it has
+            the same potential to serve as one of the foundational laws
+            of operations—helping move the field from a collection of
+            intuitive practices and empirical conjectures <a href="#fn4"
+            class="footnote-ref" id="fnref4"
+            role="doc-noteref"><sup>4</sup></a> to a physical and
+            economic science, grounded in provable theory, data,
+            constraints, and measurement.</p>
+            <p>Doing so requires us to really understand the full scope
+            of applicability of the law and embrace a more general
+            framing—one that reflects the nature of complex systems and
+            the dynamics of knowledge work.</p>
+            <p>Let’s now examine the evolution of this law through its
+            various generalizations.</p>
+            <h2 data-number="2"
+            id="l-lambda-w-littles-law-for-finite-time-windows"><span
+            class="header-section-number">2</span> <span
+            class="math inline">\(L = \Lambda w\)</span>: Little’s Law
+            for finite time windows</h2>
+            <p>In the introduction to this post, we described the
+            intuition behind <span class="math inline">\(L = \lambda
+            W\)</span>:</p>
+            <blockquote>
+            <p>The law expresses the intuition that the <strong>total
+            time</strong> accumulated in a system by a set of discrete<a
+            href="#fn5" class="footnote-ref" id="fnref5"
+            role="doc-noteref"><sup>5</sup></a> items over a time
+            window, when averaged <strong>per item</strong>, is
+            proportional to the average <em>number</em> of
+            <strong>items</strong> present in the system <strong>per
+            unit time</strong>. The constant of proportionality is the
+            <strong>rate</strong> at which items enter (or leave) the
+            system over the window.</p>
+            </blockquote>
+            <p>Since all operational measurements are necessarily taken
+            over finite windows, let us examine this case more
+            carefully. We will end up with a <em>variant</em> of the
+            <span class="math inline">\(L = \lambda W\)</span>
+            relationship that is closely related to, but not identical
+            to it.</p>
+            <p>This variant is not only extremely relevant in
+            practice—it is, perhaps counterintuitively, the <em>most
+            general</em> expression of the physical basis of Little’s
+            Law. It holds unconditionally, at <em>all</em> timescales,
+            and for <em>any</em> input-output system. Even better, it is
+            easy to prove: it is a tautology.</p>
+            <p>This relationship is a fundamental physical law for
+            input-output systems, but it is expressed in terms of
+            slightly different quantities than the classical version of
+            Little’s Law: residence time and cumulative arrival
+            rate.</p>
+            <h3 data-number="2.1"
+            id="residence-time-and-cumulative-arrival-rate"><span
+            class="header-section-number">2.1</span> Residence time and
+            cumulative arrival rate</h3>
+            <p>Consider an input-output system observed over some fixed
+            finite window <span class="math inline">\(T\)</span>, as in
+            Figure 1.</p>
+            <figure id="fig:little-finite">
+            <img src="../assets/pandoc/littles_law_finite.png"
+            alt="Figure 1: An input-output system over a finite observation window" />
+            <figcaption aria-hidden="true">Figure 1: An input-output
+            system over a finite observation window</figcaption>
+            </figure>
+            <p>The bars in the diagram represent the time accumulated in
+            the system by each item. The finite window overlaps some
+            items completely, others partially. Let <span
+            class="math inline">\(N\)</span> denote the number of such
+            items.</p>
+            <p>Let <span class="math inline">\(A_i\)</span> be the time
+            accumulated by item <span class="math inline">\(i\)</span>
+            <em>within the observation window</em>. This is called the
+            <em>residence time</em> of the item <em>in the window</em>.
+            It is at most equal to the total time the item spends <em>in
+            the system</em>.</p>
+            <p>Now define the total accumulated time by all items in the
+            window as</p>
+            <p><span class="math display">\[
+            A = \sum_{i=1}^{N} A_i
+            \]</span></p>
+            <blockquote>
+            <p>Note that at each instant that an item accumulates time
+            in the window, it is also <em>present</em> in the window at
+            that time.</p>
+            </blockquote>
+            <p>So the time average number of items present in the system
+            over the observation window is</p>
+            <p><span class="math display">\[
+            L = A/T
+            \]</span></p>
+            <p>And the average residence time per item is</p>
+            <p><span class="math display">\[
+            w = A/N
+            \]</span></p>
+            <p>We immediately obtain</p>
+            <p><span class="math display">\[
+            L = A/T = (N/T) \cdot (A/N) = \Lambda \cdot w
+            \]</span></p>
+            <p>Here we have <em>defined</em> the cumulative arrival rate
+            over the window as</p>
+            <p><span class="math display">\[
+            \Lambda = N/T
+            \]</span></p>
+            <p>This works because each of the <span
+            class="math inline">\(N\)</span> items either arrived during
+            the window or was already in the system at the window’s
+            start. So we’ve established a fundamental relationship
+            between:</p>
+            <ul>
+            <li><span class="math inline">\(L\)</span>: the time average
+            number present,</li>
+            <li><span class="math inline">\(\Lambda\)</span>: the
+            cumulative arrival rate,</li>
+            <li><span class="math inline">\(w\)</span>: the average
+            residence time within the window.</li>
+            </ul>
+            <p>Note: this version uses quantities <em>that are relative
+            to the observation window</em>, not to the system as a
+            whole. That is, <span class="math inline">\(L, \Lambda,
+            \text{and} and w\)</span> will yield different values for
+            each observation window. But while <span
+            class="math inline">\(L\)</span> is an exact time average
+            what we might observe for the system as a whole, <span
+            class="math inline">\(\Lambda\)</span> and <span
+            class="math inline">\(w\)</span> differ from <span
+            class="math inline">\(\lambda\)</span> and <span
+            class="math inline">\(W\)</span> in Little’s Law.</p>
+            <p>From Figure 1, we can see that:</p>
+            <ul>
+            <li><span class="math inline">\(\Lambda \ge
+            \lambda\)</span>, since we count any item present during the
+            window not just the ones that arrived during the
+            window.</li>
+            <li><span class="math inline">\(w \le W\)</span>, since we
+            count only the portion of each item’s time that falls within
+            the window, not the entire time accumulated by the item in
+            the system.</li>
+            </ul>
+            <p>So <span class="math inline">\(\Lambda\)</span> is
+            generally an <em>overestimate</em> of <span
+            class="math inline">\(\lambda\)</span>, and <span
+            class="math inline">\(w\)</span> is an
+            <em>underestimate</em> of <span
+            class="math inline">\(W\)</span>. Yet their product, <span
+            class="math inline">\(\Lambda w\)</span>, equals the
+            <em>exact</em> time-average number of items present in the
+            system, <span class="math inline">\(L\)</span>!</p>
+            <p>In this sense, <span class="math inline">\(L = \lambda
+            W\)</span> expresses a deep relationship that constrains how
+            these three quantities can vary over time. Even over a
+            finite window—and even assuming the quantities on the right
+            are only estimates—the estimation errors <em>cancel each
+            other out</em> in such a way that the identity <span
+            class="math inline">\(L = \Lambda w\)</span> still holds
+            exactly!</p>
+            <p>These estimation errors are due to <em>end-effects</em>:
+            parts of each item’s trajectory that lie outside the
+            observation window. While we can observe exactly how many
+            items are present at any time in the window, we cannot
+            observe when items outside the window arrived or left, or
+            how much time they accumulated outside it.</p>
+            <p>But if we pick a sufficiently long window—say, <span
+            class="math inline">\(T \gg W\)</span>—then most of the time
+            accumulation is internal to the window, and end-effects
+            become negligible. In that case, we get:</p>
+            <p><span class="math display">\[
+            L = \Lambda w \longrightarrow L = \lambda W
+            \]</span></p>
+            <p>When such convergence occurs, we say the system is in
+            <em>equilibrium</em> over the window <a href="#fn6"
+            class="footnote-ref" id="fnref6"
+            role="doc-noteref"><sup>6</sup></a>.</p>
+            <p>But what if we can’t find a sufficiently long window
+            where convergence occurs? That would indicate a structural
+            imbalance: either <span
+            class="math inline">\(\Lambda\)</span> or <span
+            class="math inline">\(w\)</span> diverges as <span
+            class="math inline">\(T\)</span> increases. The system does
+            not tend toward any equilibrium state.</p>
+            <blockquote>
+            <p>The key takeaway: for operations management, the
+            relationship <span class="math inline">\(L = \Lambda
+            w\)</span> for finite windows is <strong>at least as
+            important</strong>—and often <strong>more important</strong>
+            —than the idealized equilibrium formula <span
+            class="math inline">\(L = \lambda W\)</span>.</p>
+            </blockquote>
+            <p>Especially when observation windows are shorter than the
+            time it takes items to traverse the system, <span
+            class="math inline">\(L = \Lambda w\)</span> is the more
+            useful formulation. This is particularly relevant for
+            software product development, engineering, and sales or
+            feedback loops—systems whose internal timescales are often
+            longer than the reporting cadence.</p>
+            <p>In such cases, the observer-relative quantities <span
+            class="math inline">\(\Lambda\)</span> and <span
+            class="math inline">\(w\)</span> help characterize the
+            system meaningfully, even when “true” <span
+            class="math inline">\(\lambda\)</span> and <span
+            class="math inline">\(W\)</span> are unknowable or
+            misleading. Kim and Whitt explore this idea in <span
+            class="citation" data-cites="kim2013"><a href="#ref-kim2013"
+            role="doc-biblioref">[10]</a></span>, but there remains a
+            huge untapped opportunity interpret <span
+            class="math inline">\(\Lambda \text{ and } w\)</span> as
+            statistical estimators of <span
+            class="math inline">\(\lambda  \text{ and } W\)</span> in
+            many areas of software product development.</p>
+            <p>Finally, this finite window identity is also foundational
+            to <em>proving</em> Little’s Law. The general strategy is to
+            show:</p>
+            <p><span class="math display">\[
+            \lim_{T \to \infty} w = W \quad \text{and} \quad \lim_{T \to
+            \infty} \Lambda = \lambda
+            \]</span></p>
+            <p>This convergence can be shown empirically for specific
+            systems or proven formally for entire classes. We’ll explore
+            two of the most critical results in the next sections.</p>
+            <h2 data-number="3"
+            id="l-lambda-w-dr.-littles-proof-1961"><span
+            class="header-section-number">3</span> <span
+            class="math inline">\(L = \lambda W\)</span>: Dr. Little’s
+            proof (1961)</h2>
+            <p>Dr. John Little <span class="citation"
+            data-cites="little1961"><a href="#ref-little1961"
+            role="doc-biblioref">[3]</a></span>, gave the first general
+            mathematical proof of <span class="math inline">\(L =
+            \lambda W\)</span> in 1961. His proof technique built upon
+            queueing theory, the dominant paradigm for analyzing such
+            problems at the time.</p>
+            <p>Figure 2 shows a canonical queueing system <a href="#fn7"
+            class="footnote-ref" id="fnref7"
+            role="doc-noteref"><sup>7</sup></a>.</p>
+            <figure id="fig:queueing-system">
+            <img src="../assets/pandoc/queueing_system.png"
+            alt="Figure 2: A queuing system" />
+            <figcaption aria-hidden="true">Figure 2: A queuing
+            system</figcaption>
+            </figure>
+            <p>Queueing theory is built on a foundation of probabilistic
+            models of arrival and service processes that describe how
+            items enter, wait in, and depart from the system. Most
+            theoretical results depend on specific assumptions about how
+            these stochastic processes behave. These assumptions not
+            only model randomness, but also make it possible to prove
+            results that apply across broad classes of queueing
+            systems.</p>
+            <p>The precise result he proved was the following:</p>
+            <blockquote>
+            <p>In a queuing process, let λ be the long-run average
+            arrival rate (i.e., the limit of the number of arrivals per
+            unit time), L be the time-average number of items in the
+            system, and W be the average time an item spends in the
+            system. It is shown that, if the three means are finite, and
+            the associated stochastic processes are strictly stationary,
+            and if the arrival process is metrically transitive with
+            nonzero mean, then L = λW.</p>
+            </blockquote>
+            <h3 data-number="3.1"
+            id="the-assumptions-in-dr.-littles-proof"><span
+            class="header-section-number">3.1</span> The assumptions in
+            Dr. Little’s proof</h3>
+            <p>In Little’s original proof, several assumptions play a
+            central role:</p>
+            <ul>
+            <li>The long-run averages L, W, and λ exist and are
+            finite.</li>
+            <li>The arrival and service processes, as well as the number
+            in the system, are strictly stationary—meaning their joint
+            distributions are invariant under time shift.</li>
+            <li>The arrival process is metrically transitive (i.e.,
+            ergodic), which ensures that over the long run, expected
+            values converge to long run time averages and that the its
+            statistical profile is representative of the observed system
+            behavior over time.</li>
+            </ul>
+            <p>These assumptions allowed Little to define L, W, and λ as
+            <em>expected values</em> with respect to a stationary
+            stochastic process and to prove that the equality L = λW
+            holds under the additional condition that these expectations
+            exist and are finite.</p>
+            <h3 data-number="3.2" id="why-it-is-remarkable"><span
+            class="header-section-number">3.2</span> Why it is
+            remarkable</h3>
+            <p>What made his result so remarkable was how broadly it
+            applied. Specifically, he showed that it held regardless of
+            the shapes of the probability distributions. That was an
+            unexpectedly general result for queueing theory, where many
+            results depend on strong assumptions about inter-arrival or
+            service time distributions.</p>
+            <p>In fact, his proof showed that many internal details of
+            the system—such as queue discipline, scheduling order, or
+            service time variability—do not affect the validity of the
+            relationship. Little’s Law, it turns out, is not a result
+            about the mechanisms of queuing per se, but about the
+            aggregate behavior of arrival and departure processes over
+            time. No matter what these processes look like internally,
+            the relationship among their averages is constrained by the
+            equation.</p>
+            <p>So it points to the fact that there is something deeper
+            at play here than randomness. Given our intuitive
+            understanding of the finite version of the law, this should
+            not be too surprising, but understanding his proof strategy
+            sheds light on where the line lies.</p>
+            <p>As we’ve emphasized, Little’s Law is fundamentally a
+            statement about <em>time averages</em>—quantities that can
+            be directly observed in real-world systems over time.
+            Dr. Little, however, used probabilistic techniques to prove
+            a relationship between the <em>expected values</em> of
+            random variables. Unlike time averages, expected values,
+            also called <em>ensemble averages</em> are computed across
+            the entire probability distribution of a process and are
+            defined independently of how the system evolves over time.
+            In a sense, this is how the “system behaviors across
+            sufficiently long observation windows” are captured in a
+            probabilistic or stochastic process formulation.</p>
+            <p>Given his probabilistic framing, Little’s proof started
+            by establishing the equality as a relationship between
+            ensemble averages. To apply this result to time-averages, he
+            needed to assume that the ensemble averages and the time
+            averages of the corresponding processes converge to the same
+            value. This convergence is guaranteed when the underlying
+            stochastic processes are strictly stationary and
+            ergodic—hence the need for those assumptions in Little’s
+            original proof.</p>
+            <p>But this doesn’t mean that stationarity and ergodicity
+            are <em>required</em> for the law itself to hold. It
+            suggests that it is entirely possible to prove Little’s Law
+            <em>directly</em> for time averages, bypassing probability
+            and queueing theory altogether. In other words, the
+            conditions that Dr. Little assumed are sufficient, and an
+            artifact of his proof technique, but not necessary for the
+            relationship between the quantities in the equation to
+            hold.</p>
+            <p>This is precisely what Dr. Shaler Stidham of Cornell
+            showed in 1972, in a paper titled <em>“Little’s Law, the
+            last word”</em> <span class="citation"
+            data-cites="stidham72"><a href="#ref-stidham72"
+            role="doc-biblioref">[2]</a></span>.</p>
+            <h2 data-number="4"
+            id="l-lambda-w-dr.-stidhams-proof-1972"><span
+            class="header-section-number">4</span> <span
+            class="math inline">\(L = \lambda W\)</span>: Dr. Stidham’s
+            Proof (1972)</h2>
+            <p>Stidham gave the first purely deterministic proof of
+            Little’s Law, free from any probabilistic assumptions. This
+            was important because it showed that the conditions under
+            which Little’s Law holds could be stated independently of
+            queuing theory and even whether the underlying process is
+            deterministic or stochastic.</p>
+            <p>Stidham’s proof can be understood as a <em>direct</em>
+            proof of the convergence conditions needed for the
+            finite-window identity <span class="math inline">\(L =
+            \Lambda w\)</span> to yield the equilibrium relationship
+            <span class="math inline">\(L = \lambda W\)</span>, without
+            requiring any of the stochastic process assumptions used in
+            Dr. Little’s original proof.</p>
+            <p>Stidham’s framing considers the following input-output
+            system <em>observed over a sufficiently long time
+            interval</em> <span class="math inline">\([0,
+            T)\)</span>.:</p>
+            <ul>
+            <li>Customers arrive at time instants <span
+            class="math inline">\(t_n\)</span>,<br />
+            <span class="math inline">\(n = 1, 2, \ldots\)</span></li>
+            <li>The time in system for the <span
+            class="math inline">\(n\)</span>th customer is <span
+            class="math inline">\(W_n\)</span></li>
+            <li>The number of customers in the system at time <span
+            class="math inline">\(t\)</span> is <span
+            class="math inline">\(L(t)\)</span> for <span
+            class="math inline">\(t \geq 0\)</span></li>
+            </ul>
+            <p>The theorem can now be stated informally<a href="#fn8"
+            class="footnote-ref" id="fnref8"
+            role="doc-noteref"><sup>8</sup></a> as follows:</p>
+            <blockquote>
+            <p>If the time-average arrival rate <em>over this
+            window</em> and the average time<br />
+            each item spends in the system <em>over this sequence of
+            items</em> each <em>converge</em><br />
+            to finite limits—call them λ and W, respectively—then the
+            time-average number<br />
+            of items in the system also converges to a finite limit L,
+            and the<br />
+            relationship L = λW holds.</p>
+            </blockquote>
+            <p>The first thing to note is that this version is framed as
+            a theorem about an <em>input-output system</em> with
+            observable arrivals and departures - not a <strong>queueing
+            system</strong> There are no mentions of arrival and service
+            <em>processes</em> or their probability distributions, and
+            no assumptions about the stationarity or ergodicity those
+            processes.</p>
+            <p>What remains are the assumptions about observable
+            arrivals and the same three averages in the original law,
+            with a requirement that their long-run limits exist and are
+            finite. This marks a significant generalization beyond Dr.
+            Little’s original theorem.</p>
+            <blockquote>
+            <p>Little’s Law has been completely separated from queueing
+            theory and stochastic<br />
+            processes.</p>
+            </blockquote>
+            <h3 data-number="4.1" id="sample-path-analysis"><span
+            class="header-section-number">4.1</span> Sample path
+            analysis</h3>
+            <p>Unlike Dr. Little’s result, Stidham’s proof relies on
+            <em>observed long run averages</em> :</p>
+            <ul>
+            <li>The time average of the number of items in the
+            system,<br />
+            </li>
+            <li>The average time in system per item,<br />
+            </li>
+            <li>The arrival rate relating the two.</li>
+            </ul>
+            <p>along a single <em>sample path</em> <a href="#fn9"
+            class="footnote-ref" id="fnref9"
+            role="doc-noteref"><sup>9</sup></a></p>
+            <figure id="fig:sample-path-area">
+            <img src="../assets/pandoc/stidhams-sample-path-area.png"
+            alt="Figure 3: Sample path and area under the sample path" />
+            <figcaption aria-hidden="true">Figure 3: Sample path and
+            area under the sample path</figcaption>
+            </figure>
+            <p>Figure 3 shows an example of a sample path for an
+            input-output system, where <span
+            class="math inline">\(N(t)\)</span> is the number of items
+            in the system at time <span
+            class="math inline">\(t\)</span>. Over a window of length
+            <span class="math inline">\(T\)</span>, the time average of
+            the number of items in the system is given by the area under
+            the sample path divided by <span
+            class="math inline">\(T\)</span>.</p>
+            <p>That is, if <span class="math display">\[A(T) = \int_0^T
+            N(t)\,dt \]</span> is the area under the sample path and
+            <span class="math display">\[ L(T) = \frac{A(T)}{T}
+            \]</span> is the average number of items in the systems up
+            to time <span class="math inline">\(T\)</span></p>
+            <p>Then, if the limit <span class="math display">\[\lim_{T
+            \to \infty} L(T) = L\]</span> exists, then the long run time
+            average of the number of items in the system converges to
+            <span class="math inline">\(L\)</span>.</p>
+            <p>For stochastic processes this is very useful because
+            Little’s Law can now be applied to analyze non-ergodic and
+            non-stationary stochastic processes <a href="#fn10"
+            class="footnote-ref" id="fnref10"
+            role="doc-noteref"><sup>10</sup></a>. And of course, it
+            opened up the same possibilities for deterministic processes
+            as well.</p>
+            <p>The significance of Stidham’s theorem lies its focus on
+            sample path convergence of the averages. Stidham’s key
+            insight was that, from the perspective of Little’s Law, it
+            doesn’t matter whether the process being observed is
+            stochastic or not. A sample path <em>can simply be the
+            trajectory of a system unfolding in real time</em>,
+            regardless of whether that behavior arises from chance,
+            deterministic rules, feedback loops, or external influences.
+            What matters is whether the long run <em>averages</em>
+            defined in Little’s Law converge along a sufficiently long
+            sample path.</p>
+            <p>This redefinition has powerful implications. It shifts
+            the question from “<em>what kind of system is this?</em>” to
+            “<em>how does a single sample path for the system behave
+            when we observe it over the long run?</em>”</p>
+            <blockquote>
+            <p>The most important distinction now becomes whether the
+            sample path is <strong>convergent</strong> —whether the
+            required limits exist—or <strong>divergent</strong>, meaning
+            one or more limits do not exist.</p>
+            </blockquote>
+            <p>This distinction applies across the board: linear
+            systems, non-linear systems, complex adaptive systems, and
+            even chaotic ones can exhibit either convergent or divergent
+            sample path behavior and can transition from one type of
+            behavior to the other depending upon their internal
+            state.</p>
+            <blockquote>
+            <p>Sample path analysis under the constraints of <span
+            class="math inline">\(L = \Lambda w\)</span> allow us to
+            consider the question of convergence or divergence of an
+            input-output system without having to know anything about
+            the structure or internal state of the system.</p>
+            </blockquote>
+            <figure id="fig:convergent-divergent">
+            <img src="../assets/pandoc/sample_path_patterns.png"
+            alt="Figure 4: Patterns of sample path average behavior" />
+            <figcaption aria-hidden="true">Figure 4: Patterns of sample
+            path average behavior</figcaption>
+            </figure>
+            <p>Figure 4 shows several possible patterns of convergence
+            or divergence of long run averages on the sample path of an
+            input-output system, depending on its history and internal
+            state <a href="#fn11" class="footnote-ref" id="fnref11"
+            role="doc-noteref"><sup>11</sup></a>. As we see, a system
+            can exhibit a wide variety of “equilibrium” behaviors—even
+            when it is convergent.</p>
+            <p>Purely divergent behavior implies unbounded growth in the
+            area under the sample path, but these four patterns are by
+            no means exhaustive. The goal of sample path analysis is not
+            to divide systems into rigid categories—linear vs.
+            nonlinear, simple vs. complex—but to recognize that, for a
+            given sample path, <em>any</em> deterministic or stochastic
+            system may exhibit <em>any</em> of these behaviors under the
+            right conditions. What matters is not how we classify
+            systems, but having the tools to detect and understand mode
+            shifts in system behavior when they occur no matter what
+            kind of system it is.</p>
+            <p>This reframes the key question: rather than asking
+            <em>whether</em> Little’s Law applies to a particular
+            input-output system (it almost always does), we ask
+            <em>when</em> it applies, <em>how it applies</em>, <em>how
+            long</em> it applies, and <em>under what limits</em>.</p>
+            <p>This becomes a practical matter—often resolved through
+            domain-specific reasoning, or simply through empirical
+            observation over a sufficiently long sample path. These
+            approaches are far more tractable and broadly useful in
+            practice than requiring formal conditions like ergodicity or
+            stationarity, as in Dr. Little’s original version of the
+            law.</p>
+            <p>With sample path analysis, Little’s Law becomes a tool
+            for studying the long-run observed behavior of input-output
+            systems. It allows us to characterize a system not by its
+            internal structure or stochastic assumptions, but by whether
+            its macroscopic behavior satisfies certain constraints when
+            observed over time. And importantly, it gives us a concrete
+            operational definition that lets us <em>measure</em> and
+            <em>verify</em> this condition from observed data.</p>
+            <p>It makes Little’s Law applicable to deterministic or
+            stochastic systems that are non-stationary, non-ergodic, and
+            potentially highly sensitive to initial conditions—exactly
+            the kind of behavior we expect to encounter with complex
+            adaptive systems in domains like software development.</p>
+            <h2 data-number="5"
+            id="h-lambda-g-the-general-form-of-littles-law-1980"><span
+            class="header-section-number">5</span> <span
+            class="math inline">\(H = \lambda G\)</span>, the general
+            form of Little’s Law (1980)</h2>
+            <p><span class="math inline">\(L = \lambda W\)</span> has a
+            relatively direct economic interpretation. Suppose that each
+            item in the system incurs a cost of 1 monetary unit of some
+            sort for each unit of time it is present in the system.</p>
+            <p>In Figure 1, suppose <span class="math inline">\([A_k,
+            D_k)\)</span> represents the interval of time over which the
+            <span class="math inline">\(k^{th}\)</span> item is present
+            in the system, we can define its cost function <span
+            class="math inline">\(f_k\)</span> simply as</p>
+            <p><span class="math display">\[ f_k(t) = 1 \text{ for } A_k
+            \le t \lt D_k\]</span>.</p>
+            <p>Under this interpretation the instantaneous cost of the
+            items at any point in time t is <span
+            class="math display">\[ L(t) = \sum_k f_k(t) \]</span> and
+            we can interpret <span class="math inline">\(L(t)\)</span>
+            as the <em>total cost rate</em> across items present in the
+            system at time <span class="math inline">\(t\)</span>.</p>
+            <p>Similarly we can sum up the cost for each item across the
+            (continuous) interval of time it is present in the system
+            <span class="math display">\[ W_k = \int_{A_k}^{D_k} f_k(t)
+            \]</span></p>
+            <p>So under this interpretation <span
+            class="math inline">\(L=\lambda W\)</span> simply says that
+            long-run average cost per unit time (rate at which cost
+            accumulates) equals the arrival rate of items times the long
+            run average cost per item. A very literal interpretation of
+            cost would be a unit of delay - <span
+            class="math inline">\(L\)</span> would represent the rate
+            which delays accumulate in the system - showing the tight
+            coupling between the number of items in the system and the
+            rate at which delays accumulate in the system.</p>
+            <p>In the above we assigned a constant unit cost of 1 to
+            each item. However, what is more interesting is that this
+            general relationship holds even if we replace each <span
+            class="math inline">\(f_k(t)\)</span> with a <em>general
+            function</em> of time <a href="#fn12" class="footnote-ref"
+            id="fnref12" role="doc-noteref"><sup>12</sup></a>. Let’s
+            assume <span class="math inline">\(f_k(t)\)</span> is an
+            arbitrary function denoting the rate at which item <span
+            class="math inline">\(k\)</span> incurs cost at time <span
+            class="math inline">\(t\)</span>. In the most general
+            framing, an <em>item</em> here can be an arbitrary function
+            defined on a stochastic point process <a href="#fn13"
+            class="footnote-ref" id="fnref13"
+            role="doc-noteref"><sup>13</sup></a>.</p>
+            <p>Define <span class="math display">\[ H(t) =
+            \sum_0^{\infty} f_k(t), t \ge 0,\]</span> as the cost
+            accumulation rate and <span class="math display">\[G_k =
+            \int_0^{\infty} f_k(t)dt, k \ge 1\]</span> as the cost
+            contribution per item. Figure 5 shows these quantities.</p>
+            <figure id="fig:general-1">
+            <img src="../assets/pandoc/h_lambda_g_first.png"
+            alt="Figure 5: Cost functions, accumulation and contribution rate" />
+            <figcaption aria-hidden="true">Figure 5: Cost functions,
+            accumulation and contribution rate</figcaption>
+            </figure>
+            <p>Similar to <span class="math inline">\(L=\lambda
+            W\)</span> we can define the long run averages of H and G
+            and their convergence to finite limits.</p>
+            <p><span class="math display">\[G = \lim_{n \to \infty}
+            \frac{1}{n} \sum_{i=1}^{n} G_i\]</span> as the limit to
+            which the long run average of G converges and <span
+            class="math display">\[H = \lim_{n \to \infty} \frac{1}{T}
+            \int_0^T H(t)dt\]</span> as the limit to which the long run
+            average of H(t) converges. These quantities are shown in
+            Figure 6.</p>
+            <figure id="fig:general-2">
+            <img src="../assets/pandoc/h_lambda_g_second.png"
+            alt="Figure 6: Long run averages" />
+            <figcaption aria-hidden="true">Figure 6: Long run
+            averages</figcaption>
+            </figure>
+            <p>As in the case of <span class="math inline">\(L=\lambda
+            W\)</span> let <span class="math display">\[ \lambda =
+            \lim_{t \to \infty} \frac{\Lambda}{t} \]</span> where <span
+            class="math inline">\(\Lambda\)</span> is the cumulative
+            arrival rate up to time <span
+            class="math inline">\(t\)</span>.</p>
+            <p>Given these definitions and one additional technical
+            condition <a href="#fn14" class="footnote-ref" id="fnref14"
+            role="doc-noteref"><sup>14</sup></a>, we have <span
+            class="citation" data-cites="heyman80"><a
+            href="#ref-heyman80"
+            role="doc-biblioref">[7]</a></span>:</p>
+            <blockquote>
+            <p>General form of Little’s Law:</p>
+            <p>If the limits <span
+            class="math inline">\(\lambda\)</span> and <span
+            class="math inline">\(G\)</span> exist and are finite then
+            <span class="math inline">\(H\)</span> exists and <span
+            class="math inline">\(H = \lambda G\)</span></p>
+            </blockquote>
+            <h3 data-number="5.1" id="why-this-is-important"><span
+            class="header-section-number">5.1</span> Why this is
+            important</h3>
+            <p>The general form of Little’s Law seems a lot more
+            complicated to even state than the very intuitive
+            definitions we started out with, but it is important to
+            understand that they are all generalizations of the same
+            underlying rate conservation principle: the total
+            accumulation of a time varying measure in a system when
+            averaged over time is proportional over the long run to the
+            average of the contributions from each item, wiuth the rate
+            at which contributions arrive at the system in the long run
+            being the proportionality factor.</p>
+            <p>The thing to note about the general form of the law is
+            that has morphed from a statement about how time accumulates
+            to how time-value accumulates. This is a fundamental step
+            change in the scope of what the law can be applied to. But
+            the power of the general form of the law lies in the fact we
+            can build much more sophisticated models of the
+            <em>interactions</em> between time varying properties of
+            processes, and exploit the fact that they satisfy this
+            fundamental constraint to <em>discover</em> rate
+            conservation relationships and prove cause and effect
+            relationships between key parameters that do not rely of
+            statistic correlations to make their case.</p>
+            <p>The combination of these two aspects of the general form
+            of the law mean that it is full of untapped potential in the
+            applications space. But the fact remains that the machinery
+            above is certainly not easy to grasp or work with, and
+            somewhat convoluted path by which this law was discovered
+            and proved means that the learning curve needed to even
+            start applying this law is fairly daunting.</p>
+            <p>This was one of the key motivations behind the
+            development of The Presence Calculus. The presence calculus
+            is largely derived from the techniques and results described
+            in this post, but reassembles the underlying machinery to
+            make it easier to apply in settings beyond stochastic
+            process theory, with simpler computationally oriented
+            primitives whose correctness can be proven using the results
+            in this post.</p>
+            <p>Because much of the machinery needed to make the concepts
+            in the general form of the law easier to apply, are
+            developed in The Presence Calculus, we will not spend much
+            more time explaining them here, but point you to <a
+            href="./intro_to_presence_calculus.html">The Gentle
+            Introduction</a> where you will see many of the ideas
+            discussed here re-appear, but reframed to make it easier to
+            build measurement models and tools that can compute over the
+            functional machinery described in this section.</p>
+            <h2 data-number="6" id="littles-law-a-recap"><span
+            class="header-section-number">6</span> Little’s Law: A
+            Recap</h2>
+            <p>In the previous sections, we described a series of
+            increasingly general results all of which were called
+            “Little’s Law.” These results were obtained over a nearly 30
+            year span of empirical and theoretical research motivated by
+            the attempt to mathematically prove an empirically observed
+            relationship.</p>
+            <p>Little’s Law has proven important in many domains because
+            it is intuitive and also brings a toolkit for us to reason
+            with mathematical rigor about very commonly occurring
+            operational scenarios. The applications of the law have
+            often gone side by side with theoretical developments.</p>
+            <p>In the manufacturing and services sector, for example,
+            these ideas were in use even before formal mathematical
+            proofs arrived. These powerful applications have typecast
+            Little’s Law to a certain extent, and there is the sense
+            that the law applies only under some very narrowly
+            constrained circumstances.</p>
+            <p>In software product development and engineering in
+            particular, the identification of Little’s Law with its
+            applications in manufacturing domain is widespread. One of
+            the main goals of this post was to show that this is a
+            myopic perspective, that misses the entire point of what
+            Little’s Law is really about.</p>
+            <p>Both the Little and Stidham proofs were aimed at
+            establishing the relationship between <span
+            class="math inline">\(L\)</span>, <span
+            class="math inline">\(\lambda\)</span>, and <span
+            class="math inline">\(W\)</span> and identifying the
+            conditions under which it holds in general input-output
+            systems with discrete, observable arrivals and departures.
+            Stidham’s proof can be considered definitive, as it provides
+            a general, constructive definition that can be applied to
+            both deterministic and stochastic systems.</p>
+            <p>However, the techniques used in both proofs reveal that
+            <span class="math inline">\(L = \lambda W\)</span> expresses
+            something deeper than a property of queueing systems: it
+            captures a fundamental relationship between the accumulation
+            of quantity and the accumulation of time in any input-output
+            process.</p>
+            <blockquote>
+            <p>In short, <span class="math inline">\(L = \Lambda
+            w\)</span> holds universally and unconditionally, at all
+            time intervals and time scales, whereas <span
+            class="math inline">\(L = \lambda W\)</span> holds only in
+            the limit, provided the sample path converges.</p>
+            </blockquote>
+            <p>We may think of <span class="math inline">\(L = \Lambda
+            w\)</span> as the <em>operator’s perspective</em> on the
+            system: it measures accumulation of quantity and time over a
+            local, shifting observation window. By contrast, <span
+            class="math inline">\(L = \lambda W\)</span> reflects the
+            <em>customer’s perspective</em>: it summarizes the typical
+            time spent in the system by each item and compares it to
+            time averages of system-wide presence over longer, more
+            stable windows. The two formulations involve different
+            quantities, but when convergence holds, their values
+            align—bringing the operator’s measurement of time averages
+            into agreement with the customer’s measurement of item
+            averages.</p>
+            <p>This distinction is especially relevant in domains like
+            software development, where customer-facing time metrics
+            (like lead time) are often much longer than the default
+            reporting windows for operational metrics such as WIP and
+            throughput. In such cases, mistaking <span
+            class="math inline">\(L = \lambda W\)</span> as a
+            universally valid identity can lead to misleading and
+            incoherent management signals.</p>
+            <p>In this sense, the finite-window identity <span
+            class="math inline">\(L = \Lambda w\)</span> should be
+            regarded as the true <em>law</em>, since it holds
+            unconditionally across all time windows and time scales. The
+            probabilistic and asymptotic versions are special cases that
+            hold only under additional convergence conditions. They are
+            important in their own right, but the two sets of
+            measurements are not interchangeable.</p>
+            <p>This marks a fundamental shift in perspective, but as we
+            have seen with the general form of Little’s Law extends the
+            principle of time accumulation in input-output systems to
+            the more general concept of accumulation of
+            <em>time-value</em> as well.</p>
+            <p>This next generalization reveals not only the breadth and
+            power of Little’s Law, but also illustrates how mathematical
+            proofs can uncover deeper structural truths—well beyond the
+            specific claims they were originally intended to
+            establish.</p>
+            <h2 data-number="7"
+            id="littles-law-and-the-presence-calculus"><span
+            class="header-section-number">7</span> Little’s Law and The
+            Presence Calculus:</h2>
+            <p>I originally started reviewing this research having tried
+            and failed to provide my own informal proofs of the
+            supposedly “intuitive law”. Digging into the history of the
+            attempts to prove this law made it clear that there was much
+            more to it than the simple formulas that are commonly used
+            as the shorthand for Little’s Law.</p>
+            <p>In fact, a key mptivation was to find a satisfying
+            explanation as to why this formula hardly ever seemed to
+            hold when we measured it operationally. The conventional
+            explanation is that its because the “system is not stable,”
+            but what does that actually mean? It turns out even this
+            question is not straightforward to answer and this is why
+            Little’s Law is such an interesting result.</p>
+            <p>The <span class="math inline">\(H = \lambda G\)</span>
+            form of the law was a revelation when I first encountered
+            it, because it seemed so full of potential applications that
+            I was surprised that it was not better known and applied in
+            more contexts. But it is clear that mathematical machinery
+            required to even state this result, makes it seem much more
+            forbidding and inaccessible than it actually is. Further
+            much of the literature on applications is case in the
+            language of queueing theory and stochastic processes, which
+            makes it even less obvious to adapt.</p>
+            <p>The Presence Calculus is the result of trying to tease
+            apart all these various threads and disciplines described in
+            this post - quueing theory, sample path analysis,
+            probabilistic analysis, functional analysis, convergence,
+            divergence etc. and re-build it step by step into a more
+            domain neutral model that is easier to apply and compute
+            with.</p>
+            <p>The <a href="./intro_to_presence_calculus.hmtl">Gentle
+            Introduction</a> has a complete overview of the concepts and
+            computational machinery that I built to apply the concepts
+            in this post to real-world problems in software product
+            development and engineering.</p>
+            <h2 data-number="8" id="post-scripts"><span
+            class="header-section-number">8</span> Post Scripts</h2>
+            <h3 data-number="8.1" id="the-throughput-formula"><span
+            class="header-section-number">8.1</span> The Throughput
+            Formula</h3>
+            <p>It’s worth pausing to explain why the version of Little’s
+            Law commonly used in software today looks quite different
+            from the one we’ve discussed so far.</p>
+            <p>Dr. Little’s original proof applied to stationary systems
+            with finite averages—conditions that most manufacturing
+            processes in steady state typically satisfy. In practice,
+            this means that under equilibrium, arrival rates can be
+            assumed equal to departure rates. This allows us to
+            write:</p>
+            <p>L = X ⋅ W</p>
+            <p>where X is the departure rate or throughput. Rearranging
+            this and renaming the terms gives us the familiar form:</p>
+            <p>Throughput = WIP / Cycle Time</p>
+            <p>This is the form popularized by Lean, and it’s natural in
+            manufacturing, where factory managers focus on optimizing
+            WIP and cycle time to meet a fixed throughput goal derived
+            from stable production orders.</p>
+            <p>By default, most software development processes operate
+            away from equilibrium when viewed over typical operational
+            observation windows. Here the finite window version, and in
+            particular the arrival rate form are much more
+            important.</p>
+            <p>Most current approaches to measuring flow metrics in
+            software still use the throughput model and this is one of
+            the things we will focus on further in a follow up post on
+            applications of The Presence Calculus.</p>
+            <h3 data-number="8.2" id="further-reading."><span
+            class="header-section-number">8.2</span> Further
+            reading.</h3>
+            <p>In 2011, Dr. Little <span class="citation"
+            data-cites="little2011"><a href="#ref-little2011"
+            role="doc-biblioref">[11]</a></span> published a survey of
+            all the developments related to Little’s Law on its 50th
+            anniversary. This post started from a close reading of that
+            paper. I highly recommend it if you’re interested in a more
+            background, and a technical yet accessible, presentation of
+            the material in this post, from one of the seminal figures
+            responsible for this field.</p>
+            <p>The other, almost indispensible reference if you want to
+            really understand the mathematics behind the material here
+            is the book on Sample Path Analysis by El Taha and Stidham
+            <span class="citation" data-cites="eltaha1999"><a
+            href="#ref-eltaha1999" role="doc-biblioref">[1]</a></span>.
+            Ths is not an easy read, and the machinery of the Presence
+            Calculus was built so that you can take advantage of results
+            derived there without having to read and understand all the
+            underlying mathematics.</p>
+            <h2 class="unnumbered" id="references">References</h2>
+            <div id="refs" class="references csl-bib-body"
+            data-entry-spacing="0" role="list">
+            <div id="ref-eltaha1999" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[1] </div><div
+            class="csl-right-inline">M. El-Taha and S. Jr. Stidham,
+            <em>Sample-path analysis of queueing systems</em>, vol. 11.
+            in International series in operations research &amp;
+            management science, vol. 11. Boston, MA: Springer Science
+            &amp; Business Media, 1999, p. 295.</div>
+            </div>
+            <div id="ref-stidham72" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[2] </div><div
+            class="csl-right-inline">S. Stidham, <span>“A last word on
+            <span class="math inline">\(L=\lambda W\)</span>,”</span>
+            <em>Operations Research</em>, vol. 22, no. 1–4, pp. 417–421,
+            1972.</div>
+            </div>
+            <div id="ref-little1961" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[3] </div><div
+            class="csl-right-inline">J. D. C. Little, <span>“A proof for
+            the queuing formula: L = λW,”</span> <em>Operations
+            Research</em>, vol. 9, no. 3, pp. 383–387, 1961, doi: <a
+            href="https://doi.org/10.1287/opre.9.3.383">10.1287/opre.9.3.383</a>.</div>
+            </div>
+            <div id="ref-hopp2000" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[4] </div><div
+            class="csl-right-inline">W. J. Hopp and M. L. Spearman,
+            <em>Factory physics: Foundations of manufacturing
+            management</em>, 2nd ed. New York: Irwin/McGraw-Hill,
+            2000.</div>
+            </div>
+            <div id="ref-vacanti2015" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[5] </div><div
+            class="csl-right-inline">D. S. Vacanti, <em>Actionable agile
+            metrics for predictability: An introduction</em>. Daniel
+            Vacanti, 2015.</div>
+            </div>
+            <div id="ref-brumelle71" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[6] </div><div
+            class="csl-right-inline">S. Bruemelle, <span>“On the
+            relation between customer and time averages in
+            queues.”</span> <em>Journal of Applied Probability</em>,
+            vol. 8, no. 1–4, pp. 508–520, 1971.</div>
+            </div>
+            <div id="ref-heyman80" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[7] </div><div
+            class="csl-right-inline">D. Heyman and S. Stidham,
+            <span>“The relation between customer and time averages in
+            queues,”</span> <em>Operations Research</em>, vol. 28, no.
+            4, pp. 983–994, 1980.</div>
+            </div>
+            <div id="ref-sigman91" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[8] </div><div
+            class="csl-right-inline">K. Sigman, <span>“A note on a
+            sample path rate conservation law and it’s relationship to
+            <span class="math inline">\(H=\lambda G\)</span>,”</span>
+            <em>Advanced App. Probability</em>, vol. 23, no. 1–4, pp.
+            662–665, 1991.</div>
+            </div>
+            <div id="ref-miyazawa94" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[9] </div><div
+            class="csl-right-inline">M. Miyazawa, <span>“Rate
+            conservation laws: A survey,”</span> <em>Queueing
+            Systems</em>, vol. 15, no. 1–4, pp. 1–58, 1994.</div>
+            </div>
+            <div id="ref-kim2013" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[10] </div><div
+            class="csl-right-inline">S.-H. Kim and W. Whitt,
+            <span>“Statistical analysis with little’s law,”</span>
+            <em>Operations Research</em>, vol. 61, no. 4, pp. 1030–1045,
+            2013, doi: <a
+            href="https://doi.org/10.1287/opre.2013.1193">10.1287/opre.2013.1193</a>.</div>
+            </div>
+            <div id="ref-little2011" class="csl-entry" role="listitem">
+            <div class="csl-left-margin">[11] </div><div
+            class="csl-right-inline">J. Little, <span>“Little’s law as
+            viewed on its 50th anniversary,”</span> <em>Operations
+            Research</em>, vol. 59, no. 3, pp. 536–549, 2011.</div>
+            </div>
+            </div>
+            <section id="footnotes"
+            class="footnotes footnotes-end-of-document"
+            role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1"><p>As we will see later, even discreteness of
+            items is not essential for the law to hold in the most
+            general setting. The law has generalizations to continuous
+            input-output systems <span class="citation"
+            data-cites="eltaha1999"><a href="#ref-eltaha1999"
+            role="doc-biblioref">[1]</a></span>. However, we will keep
+            this discrete item framing for now as this is the most
+            familiar variant for Little’s Law and makes many key ideas
+            simpler to explain.<a href="#fnref1" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn2"><p>Stidham’s point is especially important
+            because Dr. Little’s original proof of the law relied on
+            probabilistic and stochastic process assumptions that have
+            proven to be entirely superfluous to understanding why
+            Little’s Law works. Yet, because the standard formulation of
+            the law still uses these assumptions, it is widely believed
+            that “Little’s Law” only applies to queueing systems and
+            stochastic processes. While it certainly applies to those
+            systems, its scope is much, much more general—a point that
+            Stidham makes in a rather understated way.<a href="#fnref2"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn3"><p>The operating conditions under which
+            Little’s Law is typically applied in manufacturing settings
+            are considerably stricter and lead to the
+            throughput-centered form described in <span class="citation"
+            data-cites="hopp2000"><a href="#ref-hopp2000"
+            role="doc-biblioref">[4]</a></span>: <span
+            class="math display">\[
+            \text{Throughput} = \frac{\text{WIP}}{\text{Cycle Time}}.
+            \]</span></p>
+            <p>This version of Little’s Law holds only under more
+            stringent assumptions, but these are often realistic in
+            repetitive manufacturing environments, making it reasonable
+            to treat this form as the default:</p>
+            <ul>
+            <li>Items have uniform cycle times.</li>
+            <li>The arrival rate is below the maximum capacity of the
+            service process.</li>
+            <li>The system is observed in steady state—startup and
+            shutdown transients are excluded.</li>
+            </ul>
+            <p>Under these assumptions, the steady-state throughput
+            equals the arrival rate, and this version becomes a simple
+            rearrangement of the standard form of Little’s Law.</p>
+            <p>However, while this throughput form is often taken as the
+            default in Lean software development <span class="citation"
+            data-cites="vacanti2015"><a href="#ref-vacanti2015"
+            role="doc-biblioref">[5]</a></span>, the original
+            assumptions rarely hold in most software delivery contexts.
+            Therefore, we will focus primarily on the arrival-rate
+            version of Little’s Law in this post. The throughput form
+            remains valid under steady-state conditions, but the
+            definition of “steady state” in a software context is far
+            more nuanced and requires careful qualification.<a
+            href="#fnref3" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn4"><p>This is not to say that intuition and
+            empiricism don’t have a vital role to play in science—they
+            are the foundation. However, the arc of mature natural
+            sciences is to build analytical and mathematical rigor atop
+            this foundation, producing testable, generalizable, and
+            rigorous theories. In software operations management, this
+            arc is nascent at best. The concepts in this post represent
+            one necessary step toward a more principled and scientific
+            status quo.<a href="#fnref4" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn5"><p>As we will see later, even discreteness of
+            items is not essential for the law to hold in the most
+            general setting. The law has generalizations to continuous
+            input-output systems <span class="citation"
+            data-cites="eltaha1999"><a href="#ref-eltaha1999"
+            role="doc-biblioref">[1]</a></span>. However, we will keep
+            this discrete item framing for now as this is the most
+            familiar variant for Little’s Law and makes many key ideas
+            simpler to explain.<a href="#fnref5" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn6"><p>The idea that “equilibrium” is observer- and
+            time-relative rather than an ontological or time-invariant
+            state of the system is crucial to applying Little’s Law
+            appropriately. The same system, when viewed by different
+            observers or across different timescales, may or may not
+            appear to be at equilibrium. A “global” equilibrium can be
+            understood as a condition of epistemic coherence across all
+            observers. When Little’s Law holds exactly as <span
+            class="math inline">\(L = \lambda W\)</span>, the
+            observation window <span class="math inline">\(T\)</span> is
+            such that all observers agree on the
+            <em>interpretation</em>, as well as the <em>values</em> of
+            <span class="math inline">\(L\)</span>, <span
+            class="math inline">\(\lambda\)</span>, and <span
+            class="math inline">\(W\)</span>.<a href="#fnref6"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn7"><p>The “system” in this case includes both the
+            arrival and service processes. Little’s Law applies to items
+            that have arrived for service but have not yet completed it.
+            In queueing theory, it is common to distinguish between
+            items that are <em>in service</em> and those <em>waiting for
+            service</em>. By convention, Little’s Law includes both
+            groups in the definition of “in the system.”</p>
+            <p>The quantities <span class="math inline">\(L\)</span> and
+            <span class="math inline">\(W\)</span> therefore represent
+            the average number of items in the system and the average
+            time per item across the <em>union</em> of these two sets.
+            In the diagram, we show the arrival and service processes
+            separately to reflect standard queueing theory notation and
+            to emphasize that these are the processes for which Little’s
+            Law assumes conditions like stationarity and ergodicity.<a
+            href="#fnref7" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn8"><p>In <span class="citation"
+            data-cites="stidham72"><a href="#ref-stidham72"
+            role="doc-biblioref">[2]</a></span>, the result is stated
+            formally as follows:</p>
+            <p>Let <span class="math inline">\(N(t)\)</span> be the
+            number of items in the system at time <span
+            class="math inline">\(t\)</span>, and<br />
+            <span class="math display">\[L = \lim_{T \to \infty}
+            \frac{1}{T} \int_0^T N(t)\,dt\]</span><br />
+            Let <span class="math inline">\(W_i\)</span> be the time in
+            system for item <span class="math inline">\(i\)</span>,
+            and<br />
+            <span class="math display">\[W = \lim_{n \to \infty}
+            \frac{1}{n} \sum_{i=1}^n W_i\]</span><br />
+            Let <span class="math inline">\(Λ(t)\)</span> be the
+            cumulative number of arrivals up to time <span
+            class="math inline">\(t\)</span>, and<br />
+            <span class="math display">\[λ = \lim_{t \to \infty}
+            \frac{Λ(t)}{t}\]</span></p>
+            <p><strong>Theorem</strong>: If <span
+            class="math inline">\(λ\)</span> and <span
+            class="math inline">\(W\)</span> exist and are finite, then
+            <span class="math inline">\(L\)</span> exists and <span
+            class="math inline">\(L = λW\)</span>.<a href="#fnref8"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn9"><p>In classical stochastic process theory, a
+            process can evolve in different ways depending on the
+            outcomes of some underlying random variables. For example,
+            consider repeatedly tossing a coin: each possible sequence
+            of heads and tails is a different sample path of the “coin
+            toss” process.</p>
+            <p>When we observe a particular sequence of tosses over
+            time, we’re observing one such sample path. We can think of
+            a deterministic process as one that has exactly one sample
+            path - which is the only one we can possibly observe.</p>
+            <p>Sample path analysis is thus a technique that naturally
+            generalizes across stochastic and deterministic systems. If
+            we can prove a result holds for <em>any</em> sample path for
+            the system, this lets us apply the result to both kinds of
+            systems.<a href="#fnref9" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn10"><p>Separating the law from stochastic
+            assumptions only means that it can be combined with the rich
+            theory of stochastic processes in even more general
+            contexts.</p>
+            <p>Stidham’s proof technique, known as sample path analysis,
+            has had wide utility beyond the proof of Little’s Law. In
+            the study of stochastic processes, this approach has allowed
+            researchers to establish general properties of systems
+            without requiring stationarity or ergodicity from the
+            outset. These developments are extensively documented in
+            <span class="citation" data-cites="eltaha1999"><a
+            href="#ref-eltaha1999" role="doc-biblioref">[1]</a></span>,
+            and their implications extend deeply into real-world
+            operational settings.<a href="#fnref10"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn11"><p>It is crucial to note that <em>we are not
+            displaying the sample path here</em> but the <em>cumulative
+            time-average of the sample path</em>, ie we are showing
+            <span class="math inline">\(L(T) = \frac{1}{T} \int_0^T
+            N(t)\,dt\)</span> not <span
+            class="math inline">\(N(t)\)</span>.<a href="#fnref11"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn12"><p>There are some conditions on the functions
+            that need to be satisfied these are:</p>
+            <ul>
+            <li>The absolute value of the functions <span
+            class="math inline">\(f_i\)</span> must be Lebesgue
+            integrable and must be finite over a sufficiently long
+            window: <span class="math inline">\(\int_0^{\infty}\lvert
+            f_i(t) dt &lt; \infty\)</span></li>
+            <li>The value of each function is zero outside some closed
+            finite interval of time: for some <span
+            class="math inline">\(l_i &gt;0, f_i(t) = 0 \text{ for } t
+            \notin [t_i, t_i+l_i]\)</span></li>
+            </ul>
+            <a href="#fnref12" class="footnote-back"
+            role="doc-backlink">↩︎</a></li>
+            <li id="fn13"><p>Think of a stochastic point process as a
+            sequence of random time-stamped events.<a href="#fnref13"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn14"><p>Recall we assumed that The value of each
+            function is zero outside some closed finite interval of
+            time: for some <span class="math inline">\(l_i &gt;0, f_i(t)
+            = 0 \text{ for } t \notin [t_i, t_i+l_i]\)</span> The
+            additional technical condition is <span
+            class="math inline">\(\frac{l_i}{t_i} \to 0 \quad \text{as}
+            \quad i \to \infty\)</span>. Intutively, this means that as
+            the observation windows grow longer the interval of time
+            over which the function remains non-zero grows negligible
+            compared to the length of the observation window. This is
+            needed to ensure that even if each function has a finite
+            support interval, no single contributor dominates the cost
+            in the long run. Such skewed distributions do commonly occur
+            in many signals in the software domain, but all this means
+            is that this will cause divergent behavior in the long
+            run.<a href="#fnref14" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </section>
+          </div>
+  </div>
+</body>
+</html>
