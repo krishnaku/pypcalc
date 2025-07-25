@@ -648,20 +648,20 @@ Program</em></a></p></p>
             class="footnote-ref" id="fnref2"
             role="doc-noteref"><sup>2</sup></a>:</p>
             <ul>
-            <li>The measured value of the signal is a
-            <em>non-negative</em> real number that varies continuously
-            over time—i.e., we are measuring the <em>presence</em> of a
-            property in the system.</li>
+            <li>The measured value of the signal is a real number that
+            varies continuously over time—thatis, we are measuring the
+            <em>presence contribution</em> of a property in the
+            system.</li>
             <li>The “signal” in the system property lies in the
             <em>accumulation</em> of its value— both the magnitude and
             the duration for which it is observed are meaningful.</li>
             <li>The value at any given time can be expressed as the
-            <em>sum</em> of <em>non-negative</em> values from a
-            countable set of time-varying functions (also signals) over
-            a fixed domain.</li>
+            <em>sum</em> of values from a countable set of time-varying
+            functions (also signals) over a fixed domain.</li>
             <li>Each contributing function is measurable over finite
-            intervals, meaning its Lebesgue integral exists and is
-            finite over any <em>finite</em> interval.</li>
+            intervals, meaning the Lebesgue integral of its absolute
+            value exists and is finite on every <em>finite</em>
+            interval.</li>
             </ul>
             <p>For practical applications, we also require:</p>
             <ul>
@@ -7322,12 +7322,12 @@ Program</em></a></p></p>
             role="doc-endnotes">
             <hr />
             <ol>
-            <li id="fn1"><p>Mathematically, the presence calculus
-            connects results from <em>measure theory</em> and <em>sample
-            path analysis</em>—a technique originally developed by
-            Dr. Shaler Stidham to analyze stochastic processes and used
-            to provide the first deterministic proof of Little’s Law
-            <span class="citation" data-cites="stidham72"><a
+            <li id="fn1"><p>Mathematically, the presence calculus is a
+            measure-theoretic framing of <em>sample path analysis</em>—a
+            technique originally developed by Dr. Shaler Stidham to
+            analyze stochastic processes and used to provide the first
+            deterministic proof of Little’s Law and its generalized
+            form. <span class="citation" data-cites="stidham72"><a
             href="#ref-stidham72"
             role="doc-biblioref">[1]</a></span>.</p>
             <p>Together with colleagues, he developed it into a powerful
@@ -7352,14 +7352,17 @@ Program</em></a></p></p>
             reasoning arises naturally.</p>
             <p>Crucially, like sample path analysis, it is a
             <em>deterministic</em> paradigm, but one that is applicable
-            to both stochastic and non-stochastic systems.<a
-            href="#fnref1" class="footnote-back"
+            to both stochastic and non-stochastic systems.</p>
+            <p>The history of Little’s Law and its relationship to the
+            presence calculus is discussed in detail in our theory track
+            post <a href="./littles_law_history.html">A Deep Dive into
+            Little’s Law</a>.<a href="#fnref1" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
             <li id="fn2"><p>This is not to imply that all these criteria
             are strictly required to apply the presence calculus. There
             are lots of theoretical reasons to believe that the ideas
             here generalize well beyond this, but starting with these
-            criteria gives us a well defined set of problems for which
+            criteria gives us a well-defined set of problems for which
             we can <em>provably guarantee</em> that the machinery here
             will provide useful insights. Understanding what happens as
             we relax one or more of these requirements is an ongoing

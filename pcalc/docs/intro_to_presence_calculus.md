@@ -54,9 +54,9 @@ It *complements* classical statistical and probabilistic analysis, and is
 particularly well suited to domains like software development where state,
 history, and path dependence complicate traditional inference techniques [^-novel].
 
-[^-novel]: Mathematically, the presence calculus connects results from _measure theory_ and 
+[^-novel]: Mathematically, the presence calculus is a measure-theoretic framing of
     _sample path analysis_—a technique originally developed by Dr. Shaler Stidham to analyze stochastic processes
-    and used to provide the first deterministic proof of Little's Law [@stidham72]. 
+    and used to provide the first deterministic proof of Little's Law and its generalized form. [@stidham72]. 
 
     Together with colleagues, he developed
     it into a powerful tool for establishing general properties of stochastic processes without
@@ -71,7 +71,9 @@ history, and path dependence complicate traditional inference techniques [^-nove
     as both a practical modeling and measurement substrate where sample path reasoning arises naturally. 
     
     Crucially, like sample path analysis, it is a _deterministic_ paradigm, but one that is applicable to both 
-    stochastic and non-stochastic systems.
+    stochastic and non-stochastic systems.  
+
+    The history of Little's Law and its relationship to the presence calculus is discussed in detail in our theory track post [A Deep Dive into Little's Law](./littles_law_history.html).
 
 On its own, the calculus provides a precisely defined set of modeling
 and computational primitives (shown in [@fig:key-concepts]) for analyzing the history and evolution of
@@ -146,18 +148,18 @@ Specifically we focus on systems properties and signals satisfying the following
 
 [^-not-exclusive]: This is not to imply that all these criteria are strictly required to apply the 
 presence calculus. There are lots of theoretical reasons to believe that the ideas here generalize well beyond this, 
-but starting with these criteria gives us a well defined set of problems for which we can _provably guarantee_ that the
+but starting with these criteria gives us a well-defined set of problems for which we can _provably guarantee_ that the
 machinery here will provide useful insights. Understanding what happens as we relax one or more of these requirements is 
 an ongoing research activity - both in practical application contexts and in developing the mathematical theory further. 
 
-- The measured value of the signal is a _non-negative_ real number that varies continuously over time—i.e.,
-  we are measuring the *presence* of a property in the system.
+- The measured value of the signal is a real number that varies continuously over time—thatis,
+  we are measuring the *presence contribution* of a property in the system.
 - The "signal" in the system property lies in the _accumulation_ of its value—
   both the magnitude and the duration for which it is observed are meaningful.
-- The value at any given time can be expressed as the _sum_ of _non-negative_ values
+- The value at any given time can be expressed as the _sum_ of values
   from a countable set of time-varying functions (also signals) over a fixed domain.
-- Each contributing function is measurable over finite intervals, meaning its
-  Lebesgue integral exists and is finite over any _finite_ interval.
+- Each contributing function is measurable over finite intervals, meaning the
+  Lebesgue integral of its absolute value exists and is finite on every _finite_ interval.
 
 For practical applications, we also require:
 
