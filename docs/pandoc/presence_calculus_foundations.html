@@ -397,9 +397,10 @@ measure-theoretic definition</em></span></p>
             measurability</h2>
             <p>Let</p>
             <p><span class="math display">\[
-            F : (e, b, t) \to \mathbb{R}_{\geq 0}
+            F : (e, b, t) \to \mathbb{R}
             \]</span></p>
-            <p>be a function that assigns a non-negative value to each
+            <p>be a function that assigns a value in <span
+            class="math inline">\(\mathbb{R}\)</span> to each
             element–boundary–time triple. This is the general form of a
             presence density function also called signal, in the
             Presence Calculus.</p>
@@ -417,7 +418,8 @@ measure-theoretic definition</em></span></p>
             class="math inline">\([t_0, t_1) \subset
             \mathbb{R}\)</span>, the integral</p>
             <p><span class="math display">\[
-            \mu(e, b, [t_0, t_1)) = \int_{t_0}^{t_1} F(e, b, t)\, dt
+            \mu(e, b, [t_0, t_1)) = \int_{t_0}^{t_1} \lvert F(e, b, t)
+            \rvert \, dt
             \]</span></p>
             <p>is well-defined and finite.</p>
             <p>We do not require that <span

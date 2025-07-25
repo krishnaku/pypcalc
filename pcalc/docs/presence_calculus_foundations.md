@@ -34,10 +34,10 @@ that decay appropriately.
 Let
 
 $$
-F : (e, b, t) \to \mathbb{R}_{\geq 0}
+F : (e, b, t) \to \mathbb{R}
 $$
 
-be a function that assigns a non-negative value to each element--boundary--time
+be a function that assigns a value in $\mathbb{R}$ to each element--boundary--time
 triple. This is the general form of a presence density function also called
 signal, in the Presence Calculus.
 
@@ -51,7 +51,7 @@ This guarantees that for any interval $[t_0, t_1) \subset \mathbb{R}$, the
 integral
 
 $$
-\mu(e, b, [t_0, t_1)) = \int_{t_0}^{t_1} F(e, b, t)\, dt
+\mu(e, b, [t_0, t_1)) = \int_{t_0}^{t_1} \lvert F(e, b, t) \rvert \, dt
 $$
 
 is well-defined and finite.
