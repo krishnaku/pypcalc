@@ -131,8 +131,8 @@ real-world improvement programs, I’ve seen several recurring patterns:
 - *Fitness for purpose*: The DORA survey measures *perception*. Using these
   metrics to guide improvement in real systems is an entirely different
   challenge.
-- *Lack of actionability*: Dashboards may tell you where you are relative to
-  benchmarks — but not what to do next.
+- *Lack of actionability*: DORA Dashboards may tell you where you are relative to
+  industry benchmarks — but not what to do next.
 - *The naive implementation pattern*:
   - Decide to measure DORA metrics to benchmark performance.
   - Skip directly to instrumenting them in your environment.
@@ -187,7 +187,7 @@ This is what the presence calculus offers:
   and observables.
 - A systematic way to uncover *causal* — not just correlative — relationships
   between key variables.
-- A foundation for real-time feedback and intervention systems.
+- A foundation for building real-time feedback and intervention systems.
 
 And what better place to start applying this machinery than a domain where
 better measurement is so clearly needed?

@@ -212,7 +212,7 @@ like Wikipedia, or even standard queueing theory texts, this post offers an
 update on the state-of-the-art understanding of the law as it stands today.
 
 
-### The significance of Little's Law
+### The significance of Little's Law {#significance}
 
 Before we jump into the details, it’s worth pausing to understand why this law
 even matters.
@@ -283,7 +283,7 @@ systems and the dynamics of knowledge work.
 
 Let's now examine the evolution of this law through its various generalizations.
 
-## $L = \Lambda w$:  Little's Law for finite time windows
+## $L = \Lambda w$:  Little's Law for finite time windows{#finite-window}
 
 In the introduction to this post, we described the intuition
 behind $L = \lambda W$:
@@ -603,7 +603,7 @@ Little’s original theorem.
 > Little's Law has been completely separated from queueing theory and stochastic  
 > processes.
 
-### Sample path analysis
+### Sample path analysis {#sample-path-analysis}
 
 Unlike Dr. Little’s result, Stidham’s proof relies on _observed long run averages_ :
 

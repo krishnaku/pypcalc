@@ -1,6 +1,6 @@
 % Statistics and Time % Some connections % Dr. Krishna Kumar % June 26, 2025
 
-In software development and many other operational contexts, we often have to
+In many operational management contexts, we often have to
 reason about the time it takes for processes to run, tasks to complete, things
 to be delivered etc. Further these "things" we are reasoning about are not
 uniform the same "kind" of thing - say fixing a bug, or delivering a change
