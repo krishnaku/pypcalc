@@ -607,7 +607,8 @@ Little’s original theorem.
 
 Unlike Dr. Little’s result, Stidham’s proof relies on _observed long run averages_ :
 
-- The time average of the number of items in the system,  
+- The time average of the number of items in t
+- he system,  
 - The average time in system per item,  
 - The arrival rate relating the two.
 
