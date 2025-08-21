@@ -615,17 +615,17 @@ along a single _sample path_ [^-sample-path] of a stochastic process.
 
 ![Sample path and area under the sample path](../assets/pandoc/stidhams-sample-path-area.png){#fig:sample-path-area}
 
-[@fig:sample-path-area] shows an example of a sample path for an input-output
-system, where $N(t)$ is the number of items in the system at time $t$. Over a
-window of length $T$, the time average of the number of items in the system is
-given by the area under the sample path divided by $T$. 
+In [@fig:sample-path-area] $N(t)$ is a stochastic process representing the number of items in the system at time $t$. 
+The figure shows a single sample path for the input-output system, over a
+window of length $T$. $L(t),$ the time average of the number of items in the system, and the left hand side of the Little's Law
+identity, is given by the area under the sample path divided by $T$. 
 
 That is, if $$A(T) = \int_0^T N(t)\,dt $$ is the area under the sample path
-and $$ L(T) = \frac{A(T)}{T} $$
-is the average number of items in the systems up to time $T$
+then $$ L(T) = \frac{A(T)}{T} $$
+is the time average of the number of items in the systems up to time $T$
 
 Then, if the limit $$\lim_{T \to \infty} L(T) = L$$ exists, then
-the long run time average of the number of items in the system converges to  $L$.
+the _long run time average_ of the number of items in the system converges to  $L$.
 
 [^-sample-path]: In classical stochastic process theory, a process can evolve in different ways
     depending on the outcomes of some underlying random variables. For example,
