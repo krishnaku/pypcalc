@@ -600,8 +600,8 @@ averages in the original law, with a requirement that their long-run limits
 exist and are finite. This marks a significant generalization beyond Dr.
 Little’s original theorem.
 
-> Little's Law has been completely separated from queueing theory and stochastic  
-> processes.
+> Little's Law has been decoupled from queueing theory per se and lifted up into a deterministic result
+> about sample paths of stochastic processes. 
 
 ### Sample path analysis {#sample-path-analysis}
 
@@ -611,7 +611,7 @@ Unlike Dr. Little’s result, Stidham’s proof relies on _observed long run ave
 - The average time in system per item,  
 - The arrival rate relating the two.
 
-along a single _sample path_ [^-sample-path]
+along a single _sample path_ [^-sample-path] of a stochastic process. 
 
 ![Sample path and area under the sample path](../assets/pandoc/stidhams-sample-path-area.png){#fig:sample-path-area}
 
