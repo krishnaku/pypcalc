@@ -4,9 +4,9 @@ shopt -s nullglob
 
 # -------- Configuration --------
 # Map each SOURCE_DIR to a TARGET_DIR (non-recursive, mirrors only one level)
-# Example: "pcalc/docs:docs/pcalc" means:
-#   pcalc/docs/*.md              → docs/pcalc/*.html
-#   pcalc/docs/<sub>/*.md        → docs/pcalc/<sub>/*.html
+# Example: "pcalc/docs:docs/pandoc" means:
+#   pcalc/docs/*.md              → docs/pandoc/*.html
+#   pcalc/docs/<sub>/*.md        → docs/pandoc/<sub>/*.html
 PAIRS=(
   "pcalc/docs:docs/pandoc"
 )
@@ -37,13 +37,44 @@ git_file_changed() {
   return 1
 }
 
+# Return first existing file from a list of candidates
+first_existing() {
+  local cand
+  for cand in "$@"; do
+    if [[ -n "${cand}" && -f "${cand}" ]]; then
+      printf '%s\n' "$cand"
+      return 0
+    fi
+  done
+  return 1
+}
+
 # -------- Pandoc helper --------
 pandoc_for_file() {
   local file="$1"
   local out_html="$2"
+  local src_root="$3"
 
-  local dir
+  local dir repo_root=""
   dir="$(dirname "$file")"
+  if [[ "$GIT_AWARE" -eq 1 ]]; then
+    repo_root="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+  fi
+
+  # Find resources with fallback order: file dir -> src_root -> git root
+  local bib csl tpl
+  bib="$(first_existing \
+        "$dir/references.bib" \
+        "$src_root/references.bib" \
+        "${repo_root:+$repo_root/references.bib}" || true)"
+  csl="$(first_existing \
+        "$dir/ieee.csl" \
+        "$src_root/ieee.csl" \
+        "${repo_root:+$repo_root/ieee.csl}" || true)"
+  tpl="$(first_existing \
+        "$dir/pandoc_template.html" \
+        "$src_root/pandoc_template.html" \
+        "${repo_root:+$repo_root/pandoc_template.html}" || true)"
 
   # Build args safely under `set -u`
   local -a args=(
@@ -55,9 +86,9 @@ pandoc_for_file() {
     --quiet
   )
 
-  [[ -f "$dir/references.bib"       ]] && args+=( --bibliography="$dir/references.bib" )
-  [[ -f "$dir/ieee.csl"             ]] && args+=( --csl="$dir/ieee.csl" )
-  [[ -f "$dir/pandoc_template.html" ]] && args+=( --template="$dir/pandoc_template.html" )
+  [[ -n "${bib:-}" ]] && args+=( --bibliography="$bib" )
+  [[ -n "${csl:-}" ]] && args+=( --csl="$csl" )
+  [[ -n "${tpl:-}" ]] && args+=( --template="$tpl" )
 
   args+=( -s "$file" -o "$out_html" )
 
@@ -87,7 +118,7 @@ for pair in "${PAIRS[@]}"; do
     if git_file_changed "$file"; then
       filename="$(basename "$file" .md)"
       out_html="$TGT_ROOT/${filename}.html"
-      pandoc_for_file "$file" "$out_html"
+      pandoc_for_file "$file" "$out_html" "$SRC_ROOT"
       echo "✓ Converted $file → $out_html"
     fi
   done
@@ -103,10 +134,8 @@ for pair in "${PAIRS[@]}"; do
       if git_file_changed "$file"; then
         filename="$(basename "$file" .md)"
         out_html="$out_dir/${filename}.html"
-        pandoc_for_file "$file" "$out_html"
+        pandoc_for_file "$file" "$out_html" "$SRC_ROOT"
         echo "✓ Converted $file → $out_html"
-      else
-        echo "↷ Skipping unchanged $file"
       fi
     done
   done
