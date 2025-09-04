@@ -118,12 +118,13 @@ reasoning about a broad class of operational data.
 ## Processes and Sample Paths
 
 In stochastic process theory, a process is defined as a collection of random
-variables: time-varying values drawn from some probability distribution, or
-outcomes from a system with random behavior. In that setting, a sample path is a
-single realization of a process. In our case, since we are focusing on a single
-sample path, we do not care whether the process is stochastic or deterministic.
-In practice, we can think of a process as a time-varying function applied to an
-event log in order to extract a sample path for analysis.
+variables: time-varying values drawn from some probability distribution, or a
+sequence of outcomes from a system with random behavior. In that setting, a
+sample path is a single realization of a process. In our case, since we are
+focusing on a single sample path, we do not care whether the process is
+stochastic or deterministic. In practice, we can think of a process as a
+time-varying function applied to an event log in order to extract a sample path
+for analysis.
 
 Let us consider some core examples to help solidify this intuition. The
 simplest, and in many ways the most important, process we can define over a
@@ -133,22 +134,84 @@ $$
 N(t) = \#\{\, i : t_i \leq t \,\}, \quad t \geq 0
 $$
 
-Put simply, $N(t)$ gives the total number of events observed up to time $t$. As
-shown in [@fig:counting-sample-path], each realization of $N(t)$, obtained by
+Put simply, $N(t)$ gives the total number of events observed up to time $t$. 
+
+As shown in [@fig:counting-sample-path], each realization of $N(t)$, obtained by
 applying this function to an event log, is a **sample path**: a non-decreasing,
 integer-valued, right-continuous function of time.
 
 ![A sample path for the counting process $N(t)$](../../assets/pandoc/counting_process_sample_path.png){#fig:counting-sample-path}
 
-As a very straightforward instance of applying sample path analysis, El-Taha and
+As a very basic application of sample path analysis, El-Taha and
 Stidham [@eltaha1999] show the well-known result that the long-run arrival rate
 of items to a queue is equal to the reciprocal of the long-run average
 interarrival time, provided both limits exist. 
 
 This is one of the simplest possible relationships between a long-run time
 average (the arrival rate) and a sample average (the mean interarrival time). In
-many ways, the proof of this claim provides the template for proving similar
-relationships, such as Little's Law, so it can be instructive to understand it.
+many ways, the statement and proof of this claim provide the template for
+understanding the difference between time averages and sample averages, as well
+as for establishing more general relationships such as Little's Law.
+
+### An example - Deployments and Deployment Frequency
+
+To keep things concrete, let’s take a software example. Suppose the events are
+deployments of an application to production. The result is saying that the
+deployment frequency is the inverse of the mean time between deployments. Now
+this may seem obvious, but there are several subtleties involved in defining and
+measuring these terms—subtleties that become even more important for complex
+processes.
+
+Formally, the arrival rate (deployment frequency) is defined as
+$$
+\lambda = \lim_{t \to \infty} \frac{N(t)}{t},
+$$
+where $N(t)$ is the number of events up to time $t$.
+
+The mean time between arrivals (deployments) is defined as
+$$
+\bar{w} = \lim_{k \to \infty} \frac{T_k}{k},
+$$
+where $T_k$ is the timestamp of the $k$-th event. Although $T_k/k$ looks like a
+time value divided by an index, note that $T_k$ is the sum of the first $k$
+interarrival times. Dividing this cumulative total by $k$ gives the arithmetic
+average of those interarrival durations.
+
+$\frac{N(t)}{t}$ is a different kind of quantity: it is the cumulative count of
+events normalized by elapsed time. Its value depends on the time horizon over
+which it is measured, and in general the limit as $t \to \infty$ need not exist.
+When the limit does exist, it defines the long-run arrival rate $\lambda$.
+
+The key sample path result is:
+
+$$
+\frac{N(t)}{t} \to \lambda \quad \text{as } t \to \infty
+\qquad \text{if and only if} \qquad
+\frac{T_k}{k} \to \frac{1}{\lambda} \quad \text{as } k \to \infty.
+$$
+
+In words: the time average converges to a finite value $\lambda$ if and only if
+the sample average of the inter-arrival times converges to $1/\lambda$. In our
+deployment example, this is a result that links the *deployment rate* to the
+*average time between deployments*.
+
+Like a lot of sample path results we will see, this looks somewhat obvious, and you would not
+be wrong to wonder what the big deal is. So lets explore this a bit more closely. What we are 
+saying here is that any sequence of timestamps has some internal consistency in the way time averages
+and sample average behave. We will see that Little's Law and  its generalizations are simply more elaborate
+versions of the same underlying principle. 
+
+This result has many practical, operational uses in software development. As we review these, you'll notice 
+a pattern emerge about how we will generalize these results. 
+
+
+
+
+
+
+
+
+
 
 But our focus here is not on the proofs themselves, so we will not dwell on this
 aspect further, and will jump straight to defining the kind of marked point
