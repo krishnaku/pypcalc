@@ -16,8 +16,8 @@ figPrefix: "Figure"
 
 ## What is The Presence Calculus?
 
-The Presence Calculus is a quantitative model for reasoning about signal
-dynamics in a domain.
+The Presence Calculus is a set of computational techniques for modeling and measuring 
+flow processes in a complex adaptive system.
 
 Its purpose is to support principled modeling and rigorous decision-making using
 operational data and signals in business-critical contexts—ensuring that such
@@ -32,7 +32,7 @@ rely on ad hoc applications of principles imported from other domains.
 
 At a minimum, its foundational constructs bring mathematical precision and
 clarity to widely used—but poorly defined—concepts such as *flow*, *stability*,
-*equilibrium*, and *coherence* for measurable signals in a domain.
+*equilibrium*, and *coherence* for business processes operating wihin a complex adaptive system.
 
 More importantly, it offers a uniform set of abstractions and computational
 tools that connect path-dependent domain signals to business-relevant
@@ -45,7 +45,7 @@ remain the dominant option today.
 
 ### What is it?
 
-The presence calculus is a novel  modeling and measurement substrate with
+The presence calculus is a modeling and measurement substrate with
 *measure theory*, a branch of _real analysis_, as its mathematical foundation.
 It treats time as a first-class concept, making it well suited for analyzing
 _continuous_, _time-dependent_ behaviors of systems.
@@ -75,9 +75,8 @@ history, and path dependence complicate traditional inference techniques [^-nove
 
     The history of Little's Law and its relationship to the presence calculus is discussed in detail in our theory track post [A Deep Dive into Little's Law](./littles_law_history.html).
 
-On its own, the calculus provides a precisely defined set of modeling
-and computational primitives (shown in [@fig:key-concepts]) for analyzing the history and evolution of
-time-varying signal systems—structures about which we can make mathematically
+On its own, the calculus provides a precisely defined set of computational primitives (shown in [@fig:key-concepts]) for analyzing the history and evolution of
+flow processes—structures about which we can make mathematically
 provable claims.
 
 We can then use these primitives to construct richer, more expressive
